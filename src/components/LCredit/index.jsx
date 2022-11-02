@@ -10,6 +10,7 @@ import Router from 'next/router';
 import InspectionDocument from '../InspectionDocument';
 import { toast } from 'react-toastify';
 import _get from 'lodash/get';
+import moment from 'moment';
 import {
   setPageName,
   setDynamicName,
@@ -345,6 +346,75 @@ function Index() {
       dispatch(UpdateLcAmendment(fd));
     }
   };
+  const [existingValue,setExistingValue]=useState('')
+   const getDataFormDropDown = (value) => {
+    console.log("sffsdfsdf",value)
+    console.log(value,)
+    if (fieldType == 'date') {
+      setExistingValue(moment(value).format('DD-MM-YYYY'))
+      return  ;
+    }
+    else if (fieldType == 'drop') {
+      if(value=="Yes"){
+        setExistingValue("Allowed")
+        return 
+      }
+      if(value=="No"){
+        setExistingValue("Not Allowed")
+        return 
+      }
+      if(value=="Conditional"){
+        setExistingValue("Conditional")
+        return 
+      }
+      if(value==""){
+        setExistingValue("")
+        return 
+      }
+      
+    } 
+     else {
+      setExistingValue(value)
+      return ;
+    }
+  };
+     const getValue = (value,toCheck) => {
+    console.log("asasasasa",value,toCheck)
+    console.log(value,)
+    if (toCheck == '(32D) Place Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+      
+      return moment(value).format('DD-MM-YYYY') ;
+    }
+    else if (toCheck == '(43P) Partial Shipment') {
+      if(value=="Yes"){
+       
+        return "Allowed"
+      }
+      if(value=="No"){
+      
+        return "Not Allowed"
+      }
+      if(value=="Conditional"){
+       
+        return "Conditional"
+      }
+      if(value==""){
+        
+        return ""
+      }
+      
+    } 
+     else {
+     
+      return value ;
+    }
+  }
+  useEffect(() => {
+    console.log("useeedd")
+    getDataFormDropDown(editInput
+                        ? editCurrent?.existingValue
+                        : clauseObj?.existingValue)
+  },[editCurrent?.existingValue,clauseObj?.existingValue])
 console.log(clauseObj,lcData,"sasdasdasd");
   return (
     <>
@@ -552,7 +622,7 @@ console.log(clauseObj,lcData,"sasdasdasd");
                             className={`${styles.input_field} input form-control`}
                             disabled
                             type="text"
-                            value={clauseObj?.existingValue}
+                            value={existingValue}
                           />
                         </form>
                         <label
@@ -622,7 +692,7 @@ console.log(clauseObj,lcData,"sasdasdasd");
                                 </option>
                                 <option value="Yes">Allowed</option>
                                 <option value="No">Not Allowed</option>
-                                <option value="">Conditional</option>
+                                <option value="Conditional">Conditional</option>
                               </select>
 
                               <img
@@ -787,11 +857,7 @@ console.log(clauseObj,lcData,"sasdasdasd");
                                             className={`${styles.input_field} input form-control`}
                                             disabled
                                             type="text"
-                                            value={
-                                              editInput
-                                                ? editCurrent.existingValue
-                                                : clauseObj?.existingValue
-                                            }
+                                            value={existingValue}
                                           />
                                           <label
                                             className={`${styles.label_heading} label_heading`}
@@ -862,8 +928,8 @@ console.log(clauseObj,lcData,"sasdasdasd");
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>{arr.existingValue}</td>
-                                        <td>{arr.newValue}</td>
+                                        <td>{getValue(arr.existingValue,arr.dropDownValue)}</td>
+                                        <td>{getValue(arr.newValue,arr.dropDownValue)}</td>
                                         <td>
                                           {/* <img
                                             src="/static/mode_edit.svg"

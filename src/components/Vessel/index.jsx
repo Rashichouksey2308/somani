@@ -857,7 +857,7 @@ function Index({
                                 <h3 className={`${styles.sub_heading} mt-3`}>
                                   Vessel Information
                                 </h3>
-                                {index == 0 ? (
+                                {index >= 0 ? (
                                   <button
                                     onClick={() => OnAddvesselInformation()}
                                     className={styles.add_btn}
@@ -865,6 +865,8 @@ function Index({
                                     Add
                                   </button>
                                 ) : null}
+
+                                
                                 {index > 0 ? (
                                   <button
                                     onClick={() =>

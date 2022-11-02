@@ -691,7 +691,7 @@ export default function Index(props) {
                                                     }
                                                   </span>
                                                   <img
-                                                    className={`${styles.close_image} image_arrow`}
+                                                    className={`${styles.close_image} ml-2 image_arrow`}
                                                     src="/static/close.svg"
                                                     onClick={() =>
                                                       props.removeLiftinDoc(
@@ -793,7 +793,7 @@ export default function Index(props) {
                                                 }
                                               </span>
                                               <img
-                                                className={`${styles.close_image}  image_arrow`}
+                                                className={`${styles.close_image} ml-2 image_arrow`}
                                                 src="/static/close.svg"
                                                 onClick={() =>
                                                   props.removeLiftinDoc(

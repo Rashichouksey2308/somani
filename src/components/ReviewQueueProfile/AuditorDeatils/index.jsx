@@ -89,7 +89,7 @@ function Index({ directorData }) {
                         {/* <img
                           src="/static/approved.svg"
                           alt="Approved"
-                          className="img-fluid mt-n1"
+                          className={`${styles.approved} mt-n1`}
                         /> */}
                       </div>
                       <div className={`${styles.detailsBox}  col-md-2`}>
@@ -174,7 +174,7 @@ function Index({ directorData }) {
                             <img
                               src="/static/approved.svg"
                               alt="Approved"
-                              className="img-fluid mt-n1"
+                              className={`${styles.approved} mt-n1`}
                             />
                           </div>
                           <div
@@ -403,7 +403,7 @@ function Index({ directorData }) {
                               <img
                                 src="/static/approved.svg"
                                 alt="Approved"
-                                className="img-fluid mt-n1"
+                                className={`${styles.approved} mt-n1`}
                               />
                             </div>
                             <div className={`${styles.detailsBox}  col-md-2`}>
@@ -547,7 +547,7 @@ function Index({ directorData }) {
                                   <img
                                     src="/static/approved.svg"
                                     alt="Approved"
-                                    className="img-fluid mt-n1 ml-1"
+                                    className={`${styles.approved} mt-n1 ml-1`}
                                   />
                                 </div>
                                 <div
