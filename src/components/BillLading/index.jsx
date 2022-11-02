@@ -1229,7 +1229,7 @@ export default function Index({
                         >
                           <thead>
                             <tr>
-                              <th width="40%">
+                              <th width="25%">
                                 DOCUMENT NAME{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1237,7 +1237,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="14%">
+                              <th width="20%">
                                 FORMAT{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1245,7 +1245,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="24%">
+                              <th width="25%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1253,7 +1253,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="20%">ACTION</th>
+                              <th width="30%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1647,7 +1647,7 @@ export default function Index({
                         >
                           <thead>
                             <tr>
-                              <th>
+                              <th width="25%">
                                 DOCUMENT NAME{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1655,7 +1655,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th>
+                              <th width="20%">
                                 FORMAT{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1663,7 +1663,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th>
+                              <th width="25%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1671,7 +1671,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th>ACTION</th>
+                              <th width="30%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
