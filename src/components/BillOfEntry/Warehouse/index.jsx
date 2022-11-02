@@ -191,7 +191,7 @@ console.log( warehouseDetails?.wareHouseDetails?.quantity," warehouseDetails?.wa
                       Storage Address
                     </div>
                     <span className={styles.value}>
-                      {_get(customData,"order.insurance.quotationRequest.storageDetails.storagePlotAddress","")} {" "} {_get(customData,"order.insurance.quotationRequest.storageDetails.placeOfStorage","")}
+                      {_get(customData,"order.insurance.quotationRequest.storageDetails.storagePlotAddress","")} {" "} 
                     </span>
                   </div>
                   <div
