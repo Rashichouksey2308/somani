@@ -14,9 +14,10 @@ import Image from 'next/image';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier } from 'redux/supplier/action';
+import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc, UploadSupplierDoc } from 'redux/supplier/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
+import moment from 'moment';
 
 
 
@@ -28,7 +29,7 @@ function Index() {
   useEffect(() => {
     if (id) {
       dispatch(GetSupplier(`?supplierId=${id}`))
-    } else{
+    } else {
       dispatch(ClearSupplier())
     }
   }, [id])
@@ -36,16 +37,7 @@ function Index() {
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
 
 
-  // let apiData = {
-  //   supplierProfile: formData,
-  //   keyAddress: keyAddData,
-  //   contactPerson: person,
-  //   shareHoldersDetails: detail,
-  //   directorsAndAuthorizedSignatory: listDirector,
-  //   bussinessSummary: businessArray,
-  //   commoditiesTraded: commodity,
-  //   additionalInformation: infoArray,
-  // }
+
 
   useEffect(() => {
     setFormData(supplierData?.supplierProfile ?? {
@@ -55,7 +47,7 @@ function Index() {
       countryOfIncorporation: '',
       nationalIdentificationNumber: '',
       website: '',
-      status: ""
+      status: "Active"
     })
     setKeyAddData(supplierData?.keyAddress ?? [])
     setPerson(supplierData.contactPerson ?? [])
@@ -64,6 +56,12 @@ function Index() {
     setBusinessArray(supplierData?.bussinessSummary ?? [])
     setCommidity(supplierData?.commoditiesTraded ?? [])
     setInfoArray(supplierData?.additionalInformation ?? [])
+    if (_get(supplierData, 'document[0]', '') !== '') {
+      setIncumbencyDoc(supplierData?.document[0])
+    }
+    if (_get(supplierData, 'document[1]', '') !== '') {
+      SetThirdParty(supplierData?.document[1])
+    }
 
   }, [supplierResponse])
   console.log(supplierData, keyAddData, 'supplierResponse')
@@ -82,9 +80,10 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status: ""
+    status: "Active"
   });
-  console.log(formData, "formData")
+
+  console.log(formData, 'setFormData')
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -101,7 +100,7 @@ function Index() {
     emailId: '',
     action: false
   }]);
-  console.log(person, "person")
+  console.log(person, 'person')
 
   const [detail, setDetail] = useState([{
     shareHoldersName: '',
@@ -110,7 +109,7 @@ function Index() {
     ownershipPercentage: '',
     action: false
   }]);
-  console.log(detail, "detail")
+
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
@@ -123,10 +122,21 @@ function Index() {
     commodity: '',
     action: false
   }]);
-  console.log(businessArray, business, 'business')
+
 
   const [info, setInfo] = useState("");
   const [infoArray, setInfoArray] = useState([]);
+
+  const [incumbencyDoc, setIncumbencyDoc] = useState(null)
+  const [thirdParty, SetThirdParty] = useState(null)
+  const [newDoc, setNewDoc] = useState({
+    document: null,
+    name: ''
+  })
+
+  const [docs, setdocs] = useState([])
+
+  console.log(thirdParty, incumbencyDoc, _get(supplierData, 'document[0]', ''), 'incumbencyDoc')
 
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
@@ -158,17 +168,7 @@ function Index() {
     },
   ]);
 
-  // const [apiData, setApiData] = useState({
-  //   supplierName: '',
-  //   keyAddress: [],
-  //   contactPerson: [],
-  //   shareHoldersDetails: [],
-  //   directorsAndAuthorizedSignatory: [],
-  //   directorsAndAuthorizedSignatory: [],
-  //   bussinessSummary: [],
-  //   commoditiesTraded: [],
-  //   additionalInformation: [],
-  // });
+
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -341,74 +341,6 @@ function Index() {
     setInfoArray([...temp, { comment: info }])
     setInfo('');
   };
-
-  // const addData = (item) => {
-  //   // apiData.supplierName.push(formData)
-  //   if (item === 'address') {
-  //     apiData.keyAddress.push(address);
-  //     setAddress({
-  //       contactPerson: '',
-  //       pinCode: '',
-  //       country: '',
-  //       phoneNumber: '',
-  //       alternatePhoneNumber: '',
-  //       emailId: '',
-  //     });
-  //   } else if (item === 'person') {
-  //     apiData.contactPerson.push(person);
-  //     setPerson({
-  //       name: '',
-  //       designation: '',
-  //       contact: '',
-  //       emailId: '',
-  //     });
-  //   } else if (item === 'detail') {
-  //     apiData.shareHoldersDetails.push(detail);
-
-  //     setDetail({
-  //       shareHoldersName: '',
-  //       designation: '',
-  //       contact: '',
-  //       ownershipPercentage: '',
-  //     });
-  //   } else if (item === 'signatory') {
-  //     apiData.directorsAndAuthorizedSignatory.push(signatory);
-
-  //     setSignatory({
-  //       name: '',
-  //       nationality: '',
-  //       authoriztyToSign: '',
-  //     });
-  //   } else if (item === 'business') {
-  //     apiData.bussinessSummary.push(business);
-
-  //     setSignatory({
-  //       businessSummary: '',
-  //     });
-  //   } else if (item === 'commodity') {
-  //     apiData.commoditiesTraded.push(commodity);
-
-  //     setCommidity({
-  //       hsnCode: '',
-  //       commodity: '',
-  //     });
-  //   } else if (item === 'info') {
-  //     apiData.additionalInformation.push(info);
-
-  //     setInfo({
-  //       remarks: '',
-  //     });
-  //   }
-
-  //   // apiData.shareHoldersDetails.push(detail)
-  //   // apiData.directorsAndAuthorizedSignatory.push(signatory)
-  //   // apiData.bussinessSummary.push(business)
-  //   // apiData.commoditiesTraded.push(commodity)
-  //   // apiData.additionalInformation.push(info)
-  // };
-  // {
-  //   console.log('apidata', apiData)
-  // }
 
 
   const contactPersonDetailsValidation = () => {
@@ -625,7 +557,20 @@ function Index() {
     }
     else if (!commoditiesTradedValidation()) {
       return false
-    } else {
+    } else if (!incumbencyDoc) {
+      let toastMessage = `please upload incumbency certificate`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    } else if (!thirdParty) {
+      let toastMessage = `please upload third party certificate`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    }
+    else {
       return true
     }
 
@@ -635,15 +580,9 @@ function Index() {
     if (supplierValidtaion()) {
 
       // let fd = new FormData();
-      // fd.append('supplierProfile', JSON.stringify(formData));
-      // fd.append('keyAddress', JSON.stringify(keyAddressData));
-      // fd.append('contactPerson', JSON.stringify(person));
-      // fd.append('shareHoldersDetails', JSON.stringify(detail));
-      // fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
-      // fd.append('bussinessSummary', JSON.stringify(businessArray));
-      // fd.append('commoditiesTraded', JSON.stringify(commodity));
-      // fd.append('additionalInformation', JSON.stringify(info));
-      // dispatch(UpdateSupplier( {fd:fd}));
+      // fd.append('document1', incumbencyDoc);
+      // fd.append('document2', thirdParty);
+
 
       let apiData = {
         supplierProfile: formData,
@@ -654,27 +593,31 @@ function Index() {
         bussinessSummary: businessArray,
         commoditiesTraded: commodity,
         additionalInformation: infoArray,
+        document1: incumbencyDoc,
+        document2: thirdParty
       }
 
+      let fd = new FormData();
+      fd.append('supplierProfile', JSON.stringify(formData));
+      fd.append('keyAddress', JSON.stringify(keyAddData));
+      fd.append('contactPerson', JSON.stringify(person));
+      fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
+      fd.append('bussinessSummary', JSON.stringify(businessArray));
+      fd.append('commoditiesTraded', JSON.stringify(commodity));
+      fd.append('additionalInformation', JSON.stringify(infoArray));
 
-      // apiData.supplierProfile = formData;
-      // apiData.contactPerson.push(person);
-      // apiData.keyAddress.push(address);
-      // apiData.shareHoldersDetails.push(detail);
-      // apiData.directorsAndAuthorizedSignatory.push(signatory);
-      // apiData.bussinessSummary.push(business);
-      // apiData.commoditiesTraded.push(commodity);
-      // apiData.additionalInformation.push({info});
+      fd.append('document1', incumbencyDoc);
+      fd.append('document2', thirdParty);
+
 
       if (id) {
-        dispatch(UpdateSupplier(apiData));
+        dispatch(UpdateSupplier(fd));
       } else {
-        dispatch(CreateSupplier(apiData))
+        dispatch(CreateSupplier(fd))
       }
       // console.log('apidata', apiData)
     }
   };
-
 
   const handleSendForApproval = () => {
 
@@ -691,25 +634,7 @@ function Index() {
   useEffect(() => {
     dispatch(setPageName('inception2'));
   });
-  const [keyAddData, setKeyAddData] = useState(
-    [
-      // {
-      //   GSTIN: "",
-      //   GSTIN_document: "",
-      //   addressType: "",
-      //   branch: "",
-      //   city: "",
-      //   state: "",
-      //   email: [""],
-      //   completeAddress: "",
-      //   contact: {
-      //     callingCode: "",
-      //     number: "",
-      //   },
-      //   pinCode: "",
-      // },
-    ]
-  );
+  const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
     setKeyAddData([
       ...keyAddData.slice(0, index),
@@ -717,8 +642,6 @@ function Index() {
     ]);
   };
   const addressValidtion = (data) => {
-
-
     const emailValidate = () => {
       let isOk = true
       data.email.forEach((email, index) => {
@@ -779,24 +702,9 @@ function Index() {
 
       return false;
     }
-
-
-    // if (data.email === null || data.email === '' || data.email === undefined) {
-    //   let toastMessage = 'Please add email';
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    //   }
-
-    //   return false;
-    // }
-
-
     else if (!emailValidate()) {
       return false;
     }
-
-
-
     else if (
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
@@ -856,9 +764,6 @@ function Index() {
     console.log(keyAddData, 'keyAddData');
     let tempArr = keyAddData;
     setEditData({
-
-
-
       email: tempArr[index].email,
       country: tempArr[index].country,
       address: tempArr[index].address,
@@ -925,6 +830,41 @@ function Index() {
   };
 
 
+  const uploadDocumentHandler = (e) => {
+    if (newDoc?.document) {
+      let tempArr = [...docs]
+      tempArr.push(newDoc.document)
+      setdocs(tempArr)
+
+      let fd = new FormData();
+      fd.append('supplierId', JSON.stringify(supplierData._id));
+      fd.append('document', newDoc.document);
+      dispatch(UploadSupplierDoc(fd))
+    } else {
+      let toastMessage = 'please upload a document first';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
+  }
+
+  const deleteDocumentHandler = ({ document, index }) => {
+    let tempArray = docs;
+    tempArray.splice(index, 1);
+    setdocs(tempArray);
+    setdocs(tempArray)
+
+    // let payload = {
+    //   supplierId: supplierData._id,
+    //   path: path
+    // }
+
+
+    // dispatch(DeleteSupplierDoc(payload))
+  }
+
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -963,12 +903,14 @@ function Index() {
                     <select
                       className={`${styles.dropDown} ${styles.customSelect} input`}
                       style={{ marginRight: '5px' }}
+                      name="status"
+                      onChange={onChangeHandler}
                     >
                       <>
                         {' '}
                         <option>Select an option</option>
-                        <option value={true}>Active</option>
-                        <option value={false}>Not active</option>
+                        <option value='Active'>Active</option>
+                        <option value='InActive'>Not active</option>
                       </>
                     </select>
                     <img
@@ -2085,14 +2027,8 @@ function Index() {
               </div>
             </div>
           </div>
-          {/* <div className="mt-4 ml-2 mr-2 mb-5">
-            <InspectionDocument
-              documentName="Incumbency Certificate"
-              isSupplier={true}
-            // uploadDocument1={uploadDocument1}
-            />
-          </div> */}
-          {/* <div className="mt-4 ml-2 mr-2 mb-5">
+
+          <div className="mt-4 ml-2 mr-2 mb-5">
             <div
               className={`${styles.upload_main} vessel_card border_color upload_main`}
             >
@@ -2151,9 +2087,10 @@ function Index() {
                           </tr>
                         </thead>
                         <tbody>
+
                           <tr className="table_row">
                             <td className={styles.doc_name}>
-                              {'documentName'}{' '}
+                              Incumbency Certificate
                               <strong className="text-danger ml-0">*</strong>{' '}
                             </td>
 
@@ -2165,19 +2102,19 @@ function Index() {
                               />
                             </td>
                             <td className={styles.doc_row}>
-                              {/* {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate
-                                ? moment(d).format('DD-MM-YYYY,HH:mm A')
-                              //  : ''} */}
-                            {/*</td>
+                              {incumbencyDoc && incumbencyDoc?.lastModifiedDate
+                                ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
+                                : ''}
+                            </td>
                             <td colSpan={2}>
-                              {false && lcDoc.lcDraftDoc === null ? (
+                              {incumbencyDoc === null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
                                       type="file"
                                       name="myfile"
                                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                      onChange={(e) => uploadDocument1(e)}
+                                      onChange={(e) => setIncumbencyDoc(e.target.files[0])}
                                     />
                                     <button className={`${styles.button_upload} btn`}>
                                       Upload
@@ -2188,12 +2125,10 @@ function Index() {
                                 <div
                                   className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                                 >
-                                  <span>{'lcDoc?.lcDraftDoc?.name'}</span>
+                                  <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
                                   <img
                                     onClick={(e) =>
-                                      setLcDoc({
-                                        lcDraftDoc: null,
-                                      })
+                                      setIncumbencyDoc(null)
                                     }
                                     className={`${styles.close_image} image_arrow mx-2`}
                                     src="/static/close.svg"
@@ -2203,38 +2138,57 @@ function Index() {
                               )}
                             </td>
                           </tr>
-                          {true ? (
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Third Party Certificate{' '}
-                                <strong className="text-danger ml-0">*</strong>
-                              </td>
 
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}></td>
-                              <td colSpan={2}>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    type="file"
-                                    name="myfile"
-                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocument1(e)}
-                                  />
-                                  <button className={`${styles.button_upload} btn`}>
-                                    Upload
-                                  </button>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              third Party Certificate
+                              <strong className="text-danger ml-0">*</strong>{' '}
+                            </td>
+
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              {thirdParty && thirdParty?.lastModifiedDate
+                                ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
+                                : ''}
+                            </td>
+                            <td colSpan={2}>
+                              {thirdParty === null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => SetThirdParty(e.target.files[0])}
+                                    />
+                                    <button className={`${styles.button_upload} btn`}>
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
+                                >
+                                  <span>{thirdParty?.name ? thirdParty?.name : thirdParty?.originalName}</span>
+                                  <img
+                                    onClick={(e) =>
+                                      SetThirdParty(null)
+                                    }
+                                    className={`${styles.close_image} image_arrow mx-2`}
+                                    src="/static/close.svg"
+                                    alt="Close"
+                                  />{' '}
                                 </div>
-                              </td>
-                            </tr>
-                          ) : (
-                            ' '
-                          )}
+                              )}
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -2253,7 +2207,7 @@ function Index() {
                             alt="Browse"
                             onChange={(e) => uploadDocument2(e)}
                           />
-                          {false? (
+                          {newDoc?.document ? (
                             <div className="d-flex justify-content-center align-items-center">
                               <div
                                 className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
@@ -2262,7 +2216,7 @@ function Index() {
                                 <img
                                   className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
-                                  onClick={(e) => handleCloseDoc()}
+                                  onClick={() => setNewDoc({ ...newDoc, document: null })}
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -2273,7 +2227,7 @@ function Index() {
                               <br />
                               <div className={styles.uploadBtnWrapper}>
                                 <input
-                                  onChange={(e) => uploadDocument2(e)}
+                                  onChange={(e) => setNewDoc({ ...newDoc, document: e.target.files[0] })}
                                   type="file"
                                   name="myfile"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -2292,242 +2246,8 @@ function Index() {
                               className={`${styles.value} ${styles.customSelect} input form-control`}
                               // value={manualDocModule ? newDoc.name : 'others'}
                               id="name"
-                              onChange={(e) => handleNewDocModule(e)}
+                            // onChange={(e) => handleNewDocModule(e)}
                             >
-                              {/* {module === 'Loading-Transit-Unloading' ? (
-                                <>
-                                  <option value="" disabled>
-                                    Select an option
-                                  </option>
-                                  <option value="CertificateOfOrigin">
-                                    Certificate of Origin{' '}
-                                  </option>
-                                  <option value="CertificateOfQuality">
-                                    {' '}
-                                    Certificate of Quality
-                                  </option>
-                                  <option value="CertificateOfWeight ">
-                                    {' '}
-                                    Certificate of Weight
-                                  </option>
-                                  <option value="PlotInspectionReport">
-                                    {' '}
-                                    Plot Inspection Report
-                                  </option>
-                                  <option value="BL "> BL</option>
-                                  <option value="ContainerNoList ">
-                                    {' '}
-                                    Container No. List
-                                  </option>
-                                  <option value="PackingList "> Packing list</option>
-                                  <option value="BLAcknowledgmentCopy">
-                                    {' '}
-                                    BL Acknowledgment Copy
-                                  </option>
-                                  <option value="ForwardSalesContract ">
-                                    {' '}
-                                    Forward Sales Contract
-                                  </option>
-                                  <option value="CoalImportRegistrationCertificate">
-                                    {' '}
-                                    Coal Import Registration Certificate
-                                  </option>{' '}
-                                  <option value="CIMSPaymentReceipt ">
-                                    {' '}
-                                    CIMS Payment Receipt
-                                  </option>{' '}
-                                  <option value="IGMCopy "> IGM Copy</option>{' '}
-                                </>
-                              ) : (
-                                <>
-                                  <option selected disabled>
-                                    Select an option
-                                  </option>
-
-                                  <option value="LcDraft">LC Draft </option>
-
-                                  <option value="lCAmmendmentDraft">
-                                    {' '}
-                                    LC Ammendment Draft
-                                  </option>
-                                  <option value="vesselCertificate">
-                                    {' '}
-                                    Vessel certificate
-                                  </option>
-                                  <option value="vesselCertificateContainerList">
-                                    {' '}
-                                    Vessel Certificate, Container List
-                                  </option>
-                                  <option value="policyDocumentMarine">
-                                    {' '}
-                                    Policy Document - Marine
-                                  </option>
-                                  <option value="policyDocumentStorage">
-                                    {' '}
-                                    Policy Document - Storage
-                                  </option>
-                                  <option value="policyDocumentMarine">
-                                    {' '}
-                                    Policy Document - Marine
-                                  </option>
-                                  <option value="policyDocumentStorage">
-                                    {' '}
-                                    Policy Document - Storage
-                                  </option>
-                                </>
-                              )} */}
-                              {/*{module === 'LeadOnboarding&OrderApproval' ? (
-                                <>
-                                  {' '}
-                                  <option value="" disabled>
-                                    Select an option
-                                  </option>
-                                  <option value="Certificate of Incorporation">
-                                    Certificate of Incorporation
-                                  </option>
-                                  <option value="IEC Certificate">
-                                    IEC Certificate
-                                  </option>
-                                  <option value="Business Registration Certificate">
-                                    Business Registration Certificate{' '}
-                                  </option>
-                                  <option value="PAN Card">PAN Card</option>
-                                  <option value="GST Certificate">
-                                    GST Certificate
-                                  </option>
-                                  <option value="Bank Reference Letter">
-                                    Bank Reference Letter
-                                  </option>
-                                  <option value="Financial Year">
-                                    Financial Year{' '}
-                                  </option>
-                                </>
-                              ) : module === 'Loading-Transit-Unloading' ? (
-                                <>
-                                  <option value="" disabled>
-                                    Select an option
-                                  </option>
-                                  <option value="Certificate Of Origin">
-                                    Certificate of Origin{' '}
-                                  </option>
-                                  <option value="Certificate Of Quality">
-                                    {' '}
-                                    Certificate of Quality
-                                  </option>
-                                  <option value="Certificate Of Weight">
-                                    {' '}
-                                    Certificate of Weight
-                                  </option>
-                                  <option value="Plot Inspection Report">
-                                    {' '}
-                                    Plot Inspection Report
-                                  </option>
-                                  <option value="BL"> BL</option>
-                                  <option value="Container No List ">
-                                    {' '}
-                                    Container No. List
-                                  </option>
-                                  <option value="Packing List "> Packing list</option>
-                                  <option value="BL Acknowledgment Copy">
-                                    {' '}
-                                    BL Acknowledgment Copy
-                                  </option>
-                                  <option value="Forward Sales Contract ">
-                                    {' '}
-                                    Forward Sales Contract
-                                  </option>
-                                  <option value="Coal Import Registration Certificate">
-                                    {' '}
-                                    Coal Import Registration Certificate
-                                  </option>{' '}
-                                  <option value="CIMS Payment Receipt ">
-                                    {' '}
-                                    CIMS Payment Receipt
-                                  </option>{' '}
-                                  <option value="IGM Copy "> IGM Copy</option>{' '}
-                                </>
-                              ) : module === 'Agreements&Insurance&LC&Opening' ? (
-                                <>
-                                  <option value="" disabled>
-                                    Select an option
-                                  </option>
-
-                                  <option value="Lc Draft">LC Draft </option>
-
-                                  <option value="LC Ammendment Draft">
-                                    {' '}
-                                    LC Ammendment Draft
-                                  </option>
-                                  <option value="Vessel Certificate">
-                                    {' '}
-                                    Vessel certificate
-                                  </option>
-                                  <option value="Vessel Certificate Container List">
-                                    {' '}
-                                    Vessel Certificate, Container List
-                                  </option>
-                                  <option value="Policy Document Marine">
-                                    {' '}
-                                    Policy Document - Marine
-                                  </option>
-                                  <option value="Policy Document Storage">
-                                    {' '}
-                                    Policy Document - Storage
-                                  </option>
-                                </>
-                              ) : module === 'CustomClearanceAndWarehousing' ? (
-                                <>
-                                  <option value="" disabled>
-                                    Select an option
-                                  </option>
-
-                                  <option value="BOE Provisional">
-                                    {' '}
-                                    BOE Provisional
-                                  </option>
-                                  <option value="BOE Final - in case of final assessment.">
-                                    {' '}
-                                    BOE Final - in case of final assessment.
-                                  </option>
-                                  <option value="Duty Paid Challan ">
-                                    {' '}
-                                    Duty Paid Challan
-                                  </option>
-                                  <option value="PD Bond"> PD Bond</option>
-                                  <option value="BOE Final"> BOE Final</option>
-                                  <option value="BOE Provisional ">
-                                    {' '}
-                                    BOE Provisional
-                                  </option>
-                                  <option value="BOE Final - in case of final assessment. ">
-                                    {' '}
-                                    BOE Final - in case of final assessment.
-                                  </option>
-                                  <option value="PD Bond"> PD Bond</option>
-                                  <option value="Duty Paid Challan ">
-                                    {' '}
-                                    Duty Paid Challan
-                                  </option>
-                                  <option value="Statements of Facts">
-                                    {' '}
-                                    Statements of Facts
-                                  </option>
-                                  <option value="Discharge Confirmation">
-                                    {' '}
-                                    Discharge Confirmation
-                                  </option>
-                                  <option value="BOE Final"> BOE Final</option>
-                                </>
-                              ) : (
-                                <>
-                                  <option value="" disabled>
-                                    Select an option
-                                  </option>
-
-                                  <option value="RR"> RR</option>
-                                  <option value="eWay Bill"> eWay Bill</option>
-                                </>
-                              )}
                               <option value="others">Others</option>
                             </select>
                             <Form.Label className={`${styles.label} label_heading`}>
@@ -2540,8 +2260,8 @@ function Index() {
                             />
                           </div>
                         </Form.Group>
-                        {/* <Form.Group className={styles.form_group}> */}
-                        {/* <input
+                        <Form.Group className={styles.form_group}>
+                          <input
                             onChange={(e) =>
                               setNewDoc({ ...newDoc, name: e.target.value })
                             }
@@ -2549,7 +2269,7 @@ function Index() {
                             className={`${styles.value} input form-control`}
                             type="text"
                             required
-                            disabled={manualDocModule}
+                          // disabled={manualDocModule}
                           />
                           <Form.Label className={`${styles.label} label_heading`}>
                             Please Specify Document Name
@@ -2559,29 +2279,8 @@ function Index() {
                           <button
                             onClick={(e) => uploadDocumentHandler(e)}
                             className={`${styles.upload_button} btn`}
-                            // disabled={!editInput}
+                          // disabled={!editInput}
                           >
-                            Upload
-                          </button> */}
-                        {/*<Form.Group className={`${styles.form_group}`}>
-                          <input
-                            id="otherDocName"
-                            onChange={(e) =>
-                              setNewDoc({ ...newDoc, name: e.target.value })
-                            }
-                            className={`${styles.value} input form-control`}
-                            type="text"
-                            // disabled={manualDocModule}
-                          />
-                          <Form.Label className={`${styles.label} label_heading`}>
-                            Please Specify Document Name
-                          </Form.Label>
-                        </Form.Group>
-                        <div
-                          onClick={(e) => uploadDocumentHandler(e)}
-                          className={styles.uploadBtnWrapper}
-                        >
-                          <button className={`${styles.upload_button} btn`}>
                             Upload
                           </button>
                         </div>
@@ -2624,7 +2323,7 @@ function Index() {
                             alt="Search"
                           />
                         </div> */}
-                        {/*<div
+                        <div
                           className={`d-flex align-items-center ${styles.searchBarContainer} `}
                         >
                           <img
@@ -2684,21 +2383,21 @@ function Index() {
                           </tr>
                         </thead>
                         <tbody>
-                          {false &&
-                            filteredDoc?.map((document, index) => {
+                          {docs &&
+                            docs?.map((document, index) => {
                               if (document.deleted) {
                                 return null;
                               } else {
                                 return (
                                   <tr key={index} className="uploadRowTable">
                                     <td className={`${styles.doc_name}`}>
-                                      {document.name}
+                                      {document?.name ? document?.name : document?.originalName}
                                     </td>
                                     <td>
-                                      {document.originalName
-                                        .toLowerCase()
-                                        .endsWith('.xls') ||
-                                        document.originalName
+                                      {document.name
+                                        ?.toLowerCase()
+                                        ?.endsWith('.xls') ||
+                                        document.name
                                           .toLowerCase()
                                           .endsWith('.xlsx') ? (
                                         <img
@@ -2706,10 +2405,10 @@ function Index() {
                                           className="img-fluid"
                                           alt="Pdf"
                                         />
-                                      ) : document.originalName
+                                      ) : document.name
                                         .toLowerCase()
                                         .endsWith('.doc') ||
-                                        document.originalName
+                                        document.name
                                           .toLowerCase()
                                           .endsWith('.docx') ? (
                                         <img
@@ -2725,10 +2424,10 @@ function Index() {
                                         />
                                       )}
                                     </td>
-                                    <td className={styles.doc_row}>{document.date}</td>
+                                    <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
                                     <td className={styles.doc_row}>
-                                      {document.uploadedBy?.fName}{' '}
-                                      {document.uploadedBy?.lName}
+                                      {document?.uploadedBy?.fName}{' '}
+                                      {document?.uploadedBy?.lName}
                                     </td>
                                     <td>
                                       <span
@@ -2739,13 +2438,7 @@ function Index() {
                                     <td colSpan="2">
                                       <img
                                         onClick={(e) => {
-                                          DocDlt(index);
-                                          dispatch(
-                                            DeleteDocument({
-                                              orderDocumentId: documentsFetched._id,
-                                              name: document.name,
-                                            }),
-                                          );
+                                          deleteDocumentHandler(document, index)
                                         }}
                                         src="/static/delete.svg"
                                         className={`${styles.delete_image} mr-3`}
@@ -2761,106 +2454,13 @@ function Index() {
 
                                         }}
                                       />
-                                      {!document.moving ? (
-                                        <img
-                                          src="/static/drive_file.svg"
-                                          className={`${styles.edit_image} mr-3`}
-                                          alt="Share"
-                                          onClick={() => {
-                                            handleDocModuleChange(index);
-                                          }}
-                                        />
-                                      ) : (
-                                        <div
-                                          className="d-inline-block"
-                                          style={{ marginRight: '25px' }}
-                                        >
-                                          <div className="d-flex align-items-center">
-                                            <select
-                                              value={moduleSelected}
-                                              onChange={(e) => {
-                                                dispatch(
-                                                  changeModuleDocument({
-                                                    orderDocumentId:
-                                                      documentsFetched._id,
-                                                    name: document.name,
-                                                    module: e.target.value,
-                                                  }),
-                                                );
-                                                DocDlt(index);
-                                              }}
-                                              className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
-                                              style={{
-                                                width: '150px',
-                                                paddingRight: '30px',
-                                              }}
-                                            >
-                                              <option
-                                                disabled={
-                                                  moduleSelected ===
-                                                  'LeadOnboarding&OrderApproval'
-                                                }
-                                                value="LeadOnboarding&OrderApproval"
-                                              >
-                                                Lead Onboarding &amp; Order Approval
-                                              </option>
-                                              <option
-                                                disabled={
-                                                  moduleSelected ===
-                                                  'Agreements&Insurance&LC&Opening'
-                                                }
-                                                value="Agreements&Insurance&LC&Opening"
-                                              >
-                                                Agreements, Insurance &amp; LC Opening
-                                              </option>
-                                              <option
-                                                disabled={
-                                                  moduleSelected ===
-                                                  'Loading-Transit-Unloading'
-                                                }
-                                                value="Loading-Transit-Unloading"
-                                              >
-                                                Loading-Transit-Unloading
-                                              </option>
-                                              <option
-                                                disabled={
-                                                  moduleSelected ===
-                                                  'customClearanceAndWarehousing'
-                                                }
-                                                value="customClearanceAndWarehousing"
-                                              >
-                                                Custom Clearance And Warehousing
-                                              </option>
-                                              <option
-                                                disabled={
-                                                  moduleSelected ===
-                                                  'PaymentsInvoicing&Delivery'
-                                                }
-                                                value="PaymentsInvoicing&Delivery"
-                                              >
-                                                Payments Invoicing & Delivery
-                                              </option>
-                                              <option
-                                                disabled={moduleSelected === 'Others'}
-                                                value="Others"
-                                              >
-                                                Others
-                                              </option>
-                                            </select>
-                                            <img
-                                              className={`${styles.arrow2} img-fluid`}
-                                              src="/static/inputDropDown.svg"
-                                              alt="Search"
-                                            />
-                                          </div>
-                                        </div>
-                                      )}
+
                                     </td>
                                   </tr>
                                 );
                               }
                             })}
-                          {/* {documentsFetched &&
+                          {false &&
                             documentsFetched?.documents?.map((document, index) => {
                               if (document.deleted) {
                                 return null
@@ -2906,9 +2506,11 @@ function Index() {
                                         src="/static/upload.svg"
                                         className="img-fluid mr-3"
                                         alt="Share"
-                                        onClick={()=>{
-                                          dispatch(ViewDocument({path: document.path,
-                                            orderId: documentsFetched._id}))
+                                        onClick={() => {
+                                          dispatch(ViewDocument({
+                                            path: document.path,
+                                            orderId: documentsFetched._id
+                                          }))
                                         }}
                                       />
                                       <img
@@ -2922,7 +2524,7 @@ function Index() {
                               } else {
                                 return null
                               }
-                            })} */}
+                            })}
                           {/* <tr className="table_row">
                             <td className={styles.doc_name}>Container No. List</td>
                             <td>
@@ -2958,15 +2560,15 @@ function Index() {
                               />
                             </td>
                           </tr> */}
-                        {/*</tbody>
+                        </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null} */}
-            {/*</div>
-          </div> */}
+              {/* {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}  */}
+            </div>
+          </div>
         </div>
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
       </div>
