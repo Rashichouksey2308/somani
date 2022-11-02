@@ -19,9 +19,10 @@ import { Form } from 'react-bootstrap';
 import AssignmentLetter from '../../src/components/AssignmentLetter';
 
 function Index() {
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] = useState("");
 
   const setPreviewValue = (val) => {
+    sessionStorage.setItem('agreementPreview',val)
     setPreview(val);
   };
   const [name, setName] = useState('');
@@ -171,27 +172,37 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssociateshipAgreement setPreviewValue={setPreviewValue} />
+                    <AssociateshipAgreement
+                     preview={preview}
+                    setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Assignment" role="tabpanel">
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssignmentLetter setPreviewValue={setPreviewValue} />
+                    <AssignmentLetter 
+                     preview={preview}
+                    setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPASeller" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPASeller setPreviewValue={setPreviewValue} />
+                    <TPASeller 
+                     preview={preview}
+                    setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPACMA" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPAIGI setPreviewValue={setPreviewValue} />
+                    <TPAIGI 
+                     preview={preview}
+                    setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="QPA" role="tabpanel">
                   <div className="accordion shadow-none" id="qpaAgreement">
-                    <QPA setPreviewValue={setPreviewValue} />
+                    <QPA 
+                    preview={preview}
+                    setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">

@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import GrowInput from '../GrowInput';
 import _get from 'lodash/get';
 import moment from 'moment';
+import Router from 'next/router';
 function Index(props) {
   const [data, setData] = useState({
     seller: '',
@@ -1107,24 +1108,34 @@ function Index(props) {
 
       <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
-          {tpaSeller(data)}
-          <div
-            className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
-            data-toggle="collapse"
-            data-target="#cashFlowStatement"
-            aria-expanded="true"
-            aria-controls="cashFlowStatement"
-          >
-            <div className={`${styles.approve} mr-3`}>
-              <span>Preview</span>
-            </div>
-            <div className={styles.reject}>
-              <span>Save</span>
-            </div>
-            <div className={styles.approve}>
-              <span>Submit</span>
-            </div>
-          </div>
+          {tpaSeller(data,props.preview)}
+          {props.preview !== "TPAIGI" ? (
+            <>
+              <div
+                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+              >
+                <div className={`${styles.approve} mr-3`}>
+                  <span
+                    onClick={(e) => {
+                      sessionStorage.setItem('preview', JSON.stringify(data));
+                     
+
+                      Router.push('agreement/preview');
+                      props.setPreviewValue("TPAIGI");
+                    }}
+                  >
+                    Preview
+                  </span>
+                </div>
+                <div className={styles.reject}>
+                  <span>Save</span>
+                </div>
+                <div className={styles.approve}>
+                  <span>Submit</span>
+                </div>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </>
@@ -1132,9 +1143,22 @@ function Index(props) {
 }
 
 export default Index;
-const tpaSeller = (data) => {
+const tpaSeller = (data,preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
+      {preview ? (
+          <div className={`${styles.inputsContainer2} border_black`}>
+            <Row className={`${styles.row} ${styles.last}`}>
+              <Col md={7} className={`${styles.left} border_black`}>
+                TRIPARTITE AGREEMENT No.:{' '}
+                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+              </Col>
+              <Col md={5} className={styles.right}>
+                Date: {moment(new Date()).format('DD-MM-YYYY')}
+              </Col>
+            </Row>
+          </div>
+        ) : null}
       <p className="text-center text_sales">
         {' '}
         <strong>TRIPARTITE AGREEMENT</strong>

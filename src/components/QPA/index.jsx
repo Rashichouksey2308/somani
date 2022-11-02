@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import GrowInput from '../GrowInput';
 import _get from 'lodash/get';
 import moment from 'moment';
+import Router from 'next/router';
 function Index(props) {
   const [data, setData] = useState({
     seller: '',
@@ -201,6 +202,36 @@ function Index(props) {
     }
   }, [props]);
   return (
+    <div className={`${styles.root}`}>
+      <div className={`${styles.content} card border_color shadow-none`}>
+        {qpa(data,props.preview,)}
+         {props.preview !== "Sales" ? (
+            <>
+              <div
+                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+              >
+                <div className={`${styles.approve} mr-3`}>
+                  <span
+                    onClick={(e) => {
+                      sessionStorage.setItem('preview', JSON.stringify(data));
+                     
+
+                      Router.push('agreement/preview');
+                      props.setPreviewValue("QPA");
+                    }}
+                  >
+                    Preview
+                  </span>
+                </div>
+                <div className={styles.reject}>
+                  <span>Save</span>
+                </div>
+                <div className={styles.approve}>
+                  <span>Submit</span>
+                </div>
+              </div>
+            </>
+          ) : null}
     <>
       {/* Undertaking 1 pdf download code start */}
       {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
@@ -1017,13 +1048,28 @@ function Index(props) {
         </div>
       </div>
     </>
+     </div>
+     </div>
   );
 }
 
 export default Index;
-const qpa = (data) => {
+const qpa = (data,preview,) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
+       {preview ? (
+          <div className={`${styles.inputsContainer2} border_black`}>
+            <Row className={`${styles.row} ${styles.last}`}>
+              <Col md={7} className={`${styles.left} border_black`}>
+                QPA No.:{' '}
+                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+              </Col>
+              <Col md={5} className={styles.right}>
+                Date: {moment(new Date()).format('DD-MM-YYYY')}
+              </Col>
+            </Row>
+          </div>
+        ) : null}
       <p className="text-center text_sales">
         {' '}
         <strong>Quadripartite Agreement</strong>
