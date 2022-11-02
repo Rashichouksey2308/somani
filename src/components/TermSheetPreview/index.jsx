@@ -121,14 +121,14 @@ function Index() {
   };
 
   useEffect(() => {
-    termsheet?.data?.map((sheets) => {
+    termsheet?.data?.forEach((sheets) => {
       setAdditionalComments(sheets.additionalComments);
     });
   }, [termsheet]);
   useEffect(() => {
     {
       termsheet &&
-        termsheet?.data?.map((sheet, index) => {
+        termsheet?.data?.forEach((sheet, index) => {
           setOtherTermConditions({
             buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
             chaOrstevedoringCharges: {

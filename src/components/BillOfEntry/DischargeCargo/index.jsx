@@ -34,7 +34,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       0,
     )
     console.log(data,"data1111")
-    if(data==NaN || data=="NaN" || data == undefined){
+    if (isNaN(data) || data=="NaN" || data == undefined){
      setSum('')
     }else{
      setSum(data)

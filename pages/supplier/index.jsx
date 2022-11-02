@@ -35,16 +35,16 @@ function Index() {
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
 
 
-  let apiData = {
-    supplierProfile: formData,
-    keyAddress: keyAddData,
-    contactPerson: person,
-    shareHoldersDetails: detail,
-    directorsAndAuthorizedSignatory: listDirector,
-    bussinessSummary: businessArray,
-    commoditiesTraded: commodity,
-    additionalInformation: infoArray,
-  }
+  // let apiData = {
+  //   supplierProfile: formData,
+  //   keyAddress: keyAddData,
+  //   contactPerson: person,
+  //   shareHoldersDetails: detail,
+  //   directorsAndAuthorizedSignatory: listDirector,
+  //   bussinessSummary: businessArray,
+  //   commoditiesTraded: commodity,
+  //   additionalInformation: infoArray,
+  // }
 
   useEffect(() => {
     setFormData(supplierData?.supplierProfile ?? {
@@ -2084,13 +2084,13 @@ function Index() {
               </div>
             </div>
           </div>
-          {/* <div className="mt-4 ml-2 mr-2 mb-5">
+          <div className="mt-4 ml-2 mr-2 mb-5">
             <InspectionDocument
               documentName="Incumbency Certificate"
               isSupplier={true}
             // uploadDocument1={uploadDocument1}
             />
-          </div> */}
+          </div>
         </div>
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
       </div>
