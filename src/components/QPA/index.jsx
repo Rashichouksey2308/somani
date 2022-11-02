@@ -189,8 +189,8 @@ function Index(props) {
           associateBuyer: _get(data,"company.companyName",""),
           associateBuyerAddress: _get(
             data,
-            'associateBuyer.addresses[0]',
-            {},
+            'company.detailedCompanyInfo.profile.companyDetail.registeredAddress'
+            ,""
           ),
           associateBuyerGst: data?.associateBuyer?.gstin,
           associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
@@ -1448,11 +1448,8 @@ const qpa = (data,preview) => {
             Address of Associate Buyer
           </Col>
           <Col md={7} className={styles.right}>
-            {data.associateBuyerAddress?.fullAddress},
-              {data.associateBuyerAddress?.city}{" "} 
-              {data.associateBuyerAddress?.country},{" "}
-              
-              {data.associateBuyerAddress?.pinCode}
+            {data.associateBuyerAddress},
+             
           
           </Col>
         </Row>
