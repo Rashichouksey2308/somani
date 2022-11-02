@@ -150,11 +150,13 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
   };
 
   const onSaveDischarge = () => {
+    console.log(1,"a")
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+       console.log(1,"a")
       return;
     }
 
@@ -167,6 +169,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+       console.log(2,"a")
       return;
     }
 
@@ -181,21 +184,26 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
+        console.log(3,"a")
         return;
       }
-    } else if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
+    } 
+     if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      console.log(3,"a")
       return;
-    } else if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
+    } 
+    if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else if (
+    } 
+     if (
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate <
       dischargeOfCargo.dischargeOfCargo.vesselArrivaldate
     ) {
@@ -205,7 +213,8 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else if (
+    } 
+     if (
       dischargeOfCargo.dischargeOfCargo.dischargeEndDate <
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate
     ) {
@@ -215,25 +224,28 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
+    } 
+     if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else if (dischargeOfCargo.document1 === null) {
+    } 
+     if (dischargeOfCargo.document1 === null) {
       let toastMessage = 'Statement Of Facts must be uploaded';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else if (dischargeOfCargo.document2 === null) {
+    } 
+    if (dischargeOfCargo.document2 === null) {
       let toastMessage = 'Draft Survey Report must be uploaded ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else {
+    } 
       let fd = new FormData();
       fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
       fd.append('customClearanceId', customData._id);
@@ -245,7 +257,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       let id = sessionStorage.getItem('customId');
       dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
       setComponentId(componentId + 1);
-    }
+    
   };
 
   const handleSave = () => {
@@ -819,7 +831,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                       {!shipmentTypeBulk && (
                         <td>
                           {bl?.blQuantity
-                            ? Number(bl.containerDetails.numberOfContainers)?.toLocaleString('en-In')
+                            ? Number(bl.containerDetails?.numberOfContainers)?.toLocaleString('en-In')
                             : ''}{' '}
                           {/* {customData?.order?.unitOfQuantity} */}
                         </td>
