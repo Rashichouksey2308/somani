@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
+
 function Index(props) {
   const [state, setState] = useState({
     focused: false,
@@ -18,10 +19,10 @@ function Index(props) {
   const emailInputRef = useRef(0);
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
-    console.log(value,"e.currentTarget.value")
+    console.log(value, 'e.currentTarget.value');
   };
   const findEmailAddress = (value, isEnter) => {
-    console.log("herher",value,isEnter)
+    console.log('herher', value, isEnter);
     let inputValue = '';
     const re = /[ ,;]/g;
     let validEmails = [];
@@ -42,17 +43,16 @@ function Index(props) {
         let splitData = value.split(re).filter((n) => {
           return n !== '' && n !== undefined && n !== null;
         });
-        console.log(splitData,"splitData")
+        console.log(splitData, 'splitData');
         const setArr = new Set(splitData);
         let arr = [...setArr];
 
         do {
           addEmails('' + arr.shift());
-         
         } while (arr.length);
       } else {
         if (isEnter) {
-           addEmails(value);
+          addEmails(value);
         } else {
           inputValue = value;
         }
@@ -79,11 +79,8 @@ function Index(props) {
     // }
   };
   const handleOnKeydown = (e) => {
-
-  
     // switch (e.keyCode) {
     //   case 13:
-
     //   case 9: {
     //     e.preventDefault();
     //     break;
@@ -92,7 +89,6 @@ function Index(props) {
     //     if (!e.currentTarget.value) {
     //       // removeEmail(state.emails.length - 1, false);
     //     }
-
     //     break;
     //   }
     //   case 32: {
@@ -108,17 +104,16 @@ function Index(props) {
   const handleOnKeyup = (e) => {
     console.log(e.keyCode, 'e.which');
     switch (e.keyCode) {
-      case 13: 
-               findEmailAddress(e.currentTarget.value, true)
+      case 13:
+        findEmailAddress(e.currentTarget.value, true);
       case 9: {
         findEmailAddress(e.currentTarget.value, true);
         break;
       }
       case 32: {
-        
         //  findEmailAddress(e.currentTarget.value);
-         e.preventDefault();
-        
+        e.preventDefault();
+
         break;
       }
       default:
@@ -139,11 +134,9 @@ function Index(props) {
 
   return (
     <div
-      className={`${state.className} react_multi_email input ${
-        state.noClass ? '' : `${styles.react_multi_email}`
-      } ${state.focused ? 'focused' : ''} ${
-        state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''
-      }`}
+      className={`${state.className} react_multi_email input ${state.noClass ? '' : `${styles.react_multi_email}`} ${
+        state.focused ? 'focused' : ''
+      } ${state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''}`}
       // style={style}
       onClick={() => {
         if (emailInputRef.current) {
@@ -152,11 +145,7 @@ function Index(props) {
       }}
     >
       {props.placeholder ? (
-        <span
-          className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}
-        >
-          {props.placeholder}
-        </span>
+        <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span>
       ) : null}
       {state?.emails?.length > 0 &&
         state?.emails?.map((email, index) => {

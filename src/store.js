@@ -73,11 +73,10 @@ export const createStore = (preloadedState) => {
       shareDoc: ShareDocumentReducer,
       MastersData: MastersReducer,
       mcaReport: McaReportReducer,
-      supplier : SupplierReducer,
+      supplier: SupplierReducer,
     },
     preloadedState,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(...middlewares),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
     devTools: config.env === 'development',
   });
 };

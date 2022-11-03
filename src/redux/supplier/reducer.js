@@ -93,7 +93,7 @@ function SupplierReducer(state = initialState, action) {
     case types.CLEAR_SUPPLIER:
       return {
         ...state,
-        supplierResponse: null
+        supplierResponse: null,
       };
 
       case types.SEARCH_SUPPLIER:

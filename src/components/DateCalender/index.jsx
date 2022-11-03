@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './index.module.scss';
@@ -74,9 +74,7 @@ const Index = ({
             e.preventDefault();
           }}
           portalId="root-portal"
-          className={`${styles.input_field} input form-control ${
-            small ? styles.input_small : ''
-          }`}
+          className={`${styles.input_field} input form-control ${small ? styles.input_small : ''}`}
           onChange={(startDate) => {
             setStartDate(startDate);
             saveDate(startDate, name, index);
@@ -93,8 +91,7 @@ const Index = ({
           <label className={`${styles.label_heading} label_heading`}>
             {labelName}
 
-            { !isRequired ? <strong className="text-danger">*</strong>  : ''
-}
+            {!isRequired ? <strong className="text-danger">*</strong> : ''}
           </label>
         ) : null}
       </div>

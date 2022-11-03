@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .dashboardTab {
   // border: 1px solid #D2D7E5;
   .tabHeader {
@@ -13,11 +14,13 @@
     @include respond(phone) {
       padding: 15px;
     }
+
     .tab_header {
       height: 48px;
       @include respond(lg-desktop) {
         height: 40px;
       }
+
       .title {
         font-size: 34px;
         font-weight: bold;
@@ -25,12 +28,15 @@
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -43,6 +49,7 @@
           font-size: 18px;
         }
       }
+
       img {
         width: 13px;
         height: 21px;
@@ -53,6 +60,7 @@
           height: auto;
         }
       }
+
       .lastModified {
         font-size: 14px;
         color: rgba(40, 55, 86, 0.6);
@@ -63,6 +71,7 @@
           font-size: 12px;
           line-height: 1.2;
         }
+
         span {
           color: #283756;
           font-weight: bold;
@@ -73,11 +82,13 @@
         }
       }
     }
+
     @include respond(phone) {
       font-size: 30px;
     }
   }
 }
+
 .backgroundMain {
   margin: 18px 28px 28px;
   margin-bottom: 112px;
@@ -93,12 +104,14 @@
     margin: 5px 15px 15px;
     margin-bottom: 71px;
   }
+
   .main {
     border-radius: 6px;
     margin-bottom: 26px;
     @include respond(lg-desktop) {
       margin-bottom: 20px;
     }
+
     .head_container {
       min-height: 80px;
       padding: 0 35px !important;
@@ -106,6 +119,7 @@
       @include respond(lg-desktop) {
         min-height: 60px;
       }
+
       .heading {
         font-size: 22px;
         color: #3687e8;
@@ -123,6 +137,7 @@
           font-size: 15px;
         }
       }
+
       span {
         font-size: 45px;
         color: #3687e8;
@@ -138,6 +153,7 @@
           font-size: 30px;
         }
       }
+
       .dropDown {
         border: 1px solid #0000001f;
         border-radius: 4px;
@@ -155,6 +171,7 @@
           font-size: 10px;
         }
       }
+
       .dropDown_label {
         letter-spacing: 0.53px;
         font-weight: 500;
@@ -173,6 +190,7 @@
           font-size: 10px;
         }
       }
+
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -200,6 +218,7 @@
           height: 35px;
           text-align: center;
         }
+
         .add_sign {
           font-size: 26px;
           font-weight: bold;
@@ -210,6 +229,7 @@
             line-height: 0.7;
           }
         }
+
         img {
           @include respond(lg-desktop) {
             width: 11px;
@@ -218,8 +238,10 @@
       }
     }
   }
+
   .dashboard_form {
     padding: 20px 35px 25px 40px;
+
     .sub_heading {
       text-align: left;
       font-size: 22px;
@@ -238,6 +260,7 @@
         line-height: 15px;
       }
     }
+
     .form_group {
       margin-top: 40px;
       position: relative;
@@ -247,9 +270,11 @@
       @include respond(phone) {
         margin: 15px;
       }
+
       .search_image {
         margin-left: -40px;
       }
+
       .label_heading {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -267,6 +292,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -277,6 +303,7 @@
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 15px;
           font-size: 14px;
@@ -284,6 +311,7 @@
           transform: translateY(-22px);
         }
       }
+
       .input_field {
         font-size: 20px;
         height: 60px;
@@ -298,6 +326,7 @@
         &:invalid + label {
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -306,6 +335,7 @@
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -316,13 +346,16 @@
         }
       }
     }
+
     .main {
       border-radius: 6px;
       margin-bottom: 26px;
+
       .head_container {
         height: 80px;
         padding: 25px 35px !important;
         border-bottom: 2px solid #cad6e6;
+
         .heading {
           font-size: 22px;
           color: #3687e8;
@@ -339,6 +372,7 @@
             font-size: 15px;
           }
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -354,6 +388,7 @@
             font-size: 30px;
           }
         }
+
         .dropDown {
           border: 1px solid #0000001f;
           border-radius: 4px;
@@ -372,6 +407,7 @@
             line-height: 18px;
           }
         }
+
         .dropDown_label {
           letter-spacing: 0.53px;
           font-weight: 500;
@@ -385,6 +421,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -395,6 +432,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             font-size: 14px;
             line-height: 15px;
@@ -403,6 +441,7 @@
             font-size: 10px;
           }
         }
+
         .add_btn {
           color: #3687e8;
           text-transform: capitalize;
@@ -430,6 +469,7 @@
             height: 35px;
             text-align: center;
           }
+
           .add_sign {
             font-size: 26px;
             font-weight: bold;
@@ -440,6 +480,7 @@
               line-height: 0.7;
             }
           }
+
           img {
             @include respond(lg-desktop) {
               width: 11px;
@@ -447,6 +488,7 @@
           }
         }
       }
+
       @include respond(phone) {
         font-size: 12px;
         width: 50px;
@@ -456,8 +498,10 @@
       }
     }
   }
+
   .dashboard_form {
     padding: 20px 35px 25px 40px;
+
     .sub_heading {
       text-align: left;
       font-size: 22px;
@@ -476,6 +520,7 @@
         line-height: 15px;
       }
     }
+
     .form_group {
       margin-top: 40px;
       position: relative;
@@ -485,9 +530,11 @@
       @include respond(phone) {
         margin: 15px;
       }
+
       .search_image {
         margin-left: -40px;
       }
+
       .label_heading {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -505,6 +552,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -515,6 +563,7 @@
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 15px;
           font-size: 14px;
@@ -522,6 +571,7 @@
           transform: translateY(-22px);
         }
       }
+
       .input_field {
         font-size: 20px;
         height: 60px;
@@ -536,6 +586,7 @@
         &:invalid + label {
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -544,6 +595,7 @@
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -555,13 +607,16 @@
       }
     }
   }
+
   .dashboard_form {
     padding: 20px 35px 25px 40px;
+
     .vessel_card {
       //background: #ffffff;
       border: 1px solid rgba(112, 112, 112, 0.4);
       border-radius: 6px;
       padding: 35px;
+
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -589,6 +644,7 @@
           height: 35px;
           text-align: center;
         }
+
         .add_sign {
           font-size: 26px;
           font-weight: bold;
@@ -599,6 +655,7 @@
             line-height: 0.7;
           }
         }
+
         img {
           @include respond(lg-desktop) {
             width: 11px;
@@ -606,6 +663,7 @@
         }
       }
     }
+
     .sub_heading {
       text-align: left;
       font-size: 20px;
@@ -623,6 +681,7 @@
         font-size: 14px;
       }
     }
+
     .form_group {
       margin-top: 42px;
       position: relative;
@@ -630,9 +689,11 @@
       @include respond(phone) {
         margin: 15px;
       }
+
       .search_image {
         margin-left: -40px;
       }
+
       .upload_btn {
         text-align: center;
         color: #3687e8;
@@ -663,6 +724,7 @@
           height: 32px;
         }
       }
+
       .upload_text {
         color: #8492a6;
         text-transform: uppercase;
@@ -678,6 +740,7 @@
           font-size: 12px;
         }
       }
+
       .label_heading {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -695,6 +758,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -705,6 +769,7 @@
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 15px;
           font-size: 14px;
@@ -712,6 +777,7 @@
           transform: translateY(-22px);
         }
       }
+
       .input_field {
         font-size: 20px;
         height: 60px;
@@ -726,9 +792,11 @@
         &.cursor {
           cursor: pointer;
         }
+
         &:invalid + label {
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -737,6 +805,7 @@
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -748,6 +817,7 @@
       }
     }
   }
+
   .input_field {
     font-size: 20px;
     height: 60px;
@@ -759,17 +829,21 @@
     letter-spacing: 0.19px;
     padding: 13px 30px 13px 17px;
     border: 1px solid #0000001f;
+
     &.cursor {
       cursor: pointer;
     }
+
     &:invalid + label {
       transform: translateY(0);
     }
+
     &:focus {
       & + label {
         transform: translateY(-30px);
       }
     }
+
     @include respond(md-desktop) {
       font-size: 18px;
     }
@@ -784,6 +858,7 @@
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -797,16 +872,19 @@
     margin-left: -33px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
+
 img {
   &.arrow2 {
     width: 13px !important;
@@ -814,6 +892,7 @@ img {
     height: 38px;
     position: absolute;
     pointer-events: none;
+
     input[type='date']::-webkit-inner-spin-button,
     input[type='date']::-webkit-calendar-picker-indicator {
       display: none;
@@ -821,10 +900,12 @@ img {
     }
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -837,6 +918,7 @@ img {
     font-size: 15px;
     line-height: 1.3;
   }
+
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -844,6 +926,7 @@ img {
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
@@ -852,6 +935,7 @@ img {
     }
   }
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;

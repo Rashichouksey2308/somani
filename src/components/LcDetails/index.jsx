@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
-import InspectionDocument from '../InspectionDocument';
 import DateCalender from '../DateCalender';
 
 export default function Index() {
@@ -23,11 +22,7 @@ export default function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -50,22 +45,12 @@ export default function Index() {
 
                 <span>+</span>
               </div>
-              <div
-                id="lcApplication"
-                className="collapse"
-                aria-labelledby="lcApplication"
-                data-parent="#lcApplication"
-              >
+              <div id="lcApplication" className="collapse" aria-labelledby="lcApplication" data-parent="#lcApplication">
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
-                        <DateCalender
-                          name="dateOfExpiry"
-                          labelName="Date of Issue"
-                        />
+                        <DateCalender name="dateOfExpiry" labelName="Date of Issue" />
                         <img
                           className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
@@ -73,44 +58,23 @@ export default function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                      <input className={`${styles.input_field} input form-control`} type="text" required />
+                      <label className={`${styles.label_heading} label_heading`}>
                         Documentary Credit Number
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                      <input className={`${styles.input_field} input form-control`} type="text" required />
+                      <label className={`${styles.label_heading} label_heading`}>
                         LC Value
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
-                        <DateCalender
-                          name="dateOfExpiry"
-                          labelName="LC Credit Date"
-                        />
+                        <DateCalender name="dateOfExpiry" labelName="LC Credit Date" />
                         <img
                           className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
@@ -120,17 +84,10 @@ export default function Index() {
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.dashboard_form} card-body`}
-                  style={{ borderTop: '2px solid #CAD6E6' }}
-                >
-                  <div className={`${styles.form_heading} mt-2`}>
-                    Bank Details
-                  </div>
+                <div className={`${styles.dashboard_form} card-body`} style={{ borderTop: '2px solid #CAD6E6' }}>
+                  <div className={`${styles.form_heading} mt-2`}>Bank Details</div>
                   <div className="row ">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <select
                           name="formOfDocumentaryCredit"
@@ -141,9 +98,7 @@ export default function Index() {
                           <option value="Revocable">SBI</option>
                         </select>
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           LC Issuing Bank
                           <strong className="text-danger">*</strong>
                         </label>
@@ -154,9 +109,7 @@ export default function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <select
                           name="formOfDocumentaryCredit"
@@ -167,9 +120,7 @@ export default function Index() {
                           <option value="Revocable">Mumbai</option>
                         </select>
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Branch Name
                           <strong className="text-danger">*</strong>
                         </label>
@@ -180,17 +131,9 @@ export default function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                      <input className={`${styles.input_field} input form-control`} type="text" required />
+                      <label className={`${styles.label_heading} label_heading`}>
                         IFSC Code
                         <strong className="text-danger">*</strong>
                       </label>
@@ -201,12 +144,7 @@ export default function Index() {
                 <div className={`${styles.table_container} mt-4`}>
                   <div className={styles.table_scroll_outer}>
                     <div className={styles.table_scroll_inner}>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
+                      <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                           <tr>
                             <th>
@@ -240,28 +178,16 @@ export default function Index() {
                           <tr className="table_row">
                             <td className={styles.doc_name}>
                               LC Copy
-                              <strong className="text-danger ml-0">
-                                *
-                              </strong>{' '}
+                              <strong className="text-danger ml-0">*</strong>{' '}
                             </td>
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
+                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                             </td>
-                            <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
-                            </td>
+                            <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                             <td colSpan={2}>
                               <div className={styles.uploadBtnWrapper}>
                                 <input type="file" name="myfile" />
-                                <button
-                                  className={`${styles.upload_button} btn`}
-                                >
-                                  Upload
-                                </button>
+                                <button className={`${styles.upload_button} btn`}>Upload</button>
                               </div>
                             </td>
                           </tr>
@@ -284,12 +210,7 @@ export default function Index() {
                 <h3 className={styles.heading}>Document</h3>
                 <span>+</span>
               </div>
-              <div
-                id="uploadOther"
-                className="collapse"
-                aria-labelledby="uploadOther"
-                data-parent="#uploadOther"
-              >
+              <div id="uploadOther" className="collapse" aria-labelledby="uploadOther" data-parent="#uploadOther">
                 <div className={`${styles.dashboard_form} card-body`}>
                   <Form>
                     <div className="row align-items-center pb-4">
@@ -320,21 +241,13 @@ export default function Index() {
                               id="docType"
                               onChange={(e) => handleDropdown(e)}
                             >
-                              <option>
-                                Lead Onboarding &amp; Order Approval
-                              </option>
-                              <option>
-                                Agreements, Insurance &amp; LC Opening
-                              </option>
+                              <option>Lead Onboarding &amp; Order Approval</option>
+                              <option>Agreements, Insurance &amp; LC Opening</option>
                               <option>Loading-Transit-Unloading</option>
                               <option>Custom Clearance And Warehousing</option>
                               <option value="Others">Others</option>
                             </select>
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Document Type
-                            </Form.Label>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Document Type</Form.Label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -343,9 +256,7 @@ export default function Index() {
                           </div>
                         </Form.Group>
                         <Form.Group className={styles.form_group}>
-                          <Form.Label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <Form.Label className={`${styles.label_heading} label_heading`}>
                             Please Specify Document Name
                           </Form.Label>
                           <Form.Control
@@ -356,10 +267,7 @@ export default function Index() {
                         </Form.Group>
                         <div className={styles.uploadBtnWrapper}>
                           <input type="file" name="myfile" />
-                          <button
-                            className={`${styles.upload_button} btn`}
-                            disabled={editInput}
-                          >
+                          <button className={`${styles.upload_button} btn`} disabled={editInput}>
                             Upload
                           </button>
                         </div>
@@ -375,38 +283,24 @@ export default function Index() {
                         className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
                       >
                         <div>
-                          <select
-                            className={`${styles.dropDown} input form-control`}
-                          >
-                            <option>
-                              Lead Onboarding &amp; Order Approval
-                            </option>
+                          <select className={`${styles.dropDown} input form-control`}>
+                            <option>Lead Onboarding &amp; Order Approval</option>
                             <option>Agreements, Insurance & LC Opening</option>
                             <option>Loading-Transit-Unloading</option>
                             <option>Custom Clearance And Warehousing</option>
                             <option value="Others">Others</option>
                           </select>
                         </div>
-                        <div
-                          className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                        >
+                        <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
                           <img
                             className={` ${styles.searchImage} img-fluid`}
                             src="/static/search.svg"
                             alt="Search"
                           ></img>
-                          <input
-                            className={`${styles.searchBar} input form-control`}
-                            placeholder="Search"
-                          ></input>
+                          <input className={`${styles.searchBar} input form-control`} placeholder="Search"></input>
                         </div>
                       </div>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
+                      <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                           <tr>
                             <th>
@@ -441,30 +335,20 @@ export default function Index() {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th>STATUS </th>
+                            <th>STATUS</th>
                             <th>ACTION</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr className="table_row">
-                            <td className={styles.doc_name}>
-                              Insurance Quotation
-                            </td>
+                            <td className={styles.doc_name}>Insurance Quotation</td>
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
+                              <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                             </td>
-                            <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
-                            </td>
+                            <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                             <td className={styles.doc_row}>John Doe</td>
                             <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
+                              <span className={`${styles.status} ${styles.approved}`}></span>
                               Verified
                             </td>
                             <td colSpan="2">
@@ -473,11 +357,7 @@ export default function Index() {
                                 className={`${styles.delete_image} img-fluid mr-3`}
                                 alt="Bin"
                               />
-                              <img
-                                src="/static/upload.svg"
-                                className="img-fluid mr-3"
-                                alt="Share"
-                              />
+                              <img src="/static/upload.svg" className="img-fluid mr-3" alt="Share" />
                               <img
                                 src="/static/drive_file.svg"
                                 className={`${styles.edit_image} img-fluid mr-3`}
@@ -486,24 +366,14 @@ export default function Index() {
                             </td>
                           </tr>
                           <tr className="table_row">
-                            <td className={styles.doc_name}>
-                              Container No. List
-                            </td>
+                            <td className={styles.doc_name}>Container No. List</td>
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
+                              <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                             </td>
-                            <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
-                            </td>
+                            <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                             <td className={styles.doc_row}>John Doe</td>
                             <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
+                              <span className={`${styles.status} ${styles.approved}`}></span>
                               Verified
                             </td>
                             <td colSpan="2">
@@ -512,11 +382,7 @@ export default function Index() {
                                 className={`${styles.delete_image} img-fluid mr-3`}
                                 alt="Bin"
                               />
-                              <img
-                                src="/static/upload.svg"
-                                className="img-fluid mr-3"
-                                alt="Share"
-                              />
+                              <img src="/static/upload.svg" className="img-fluid mr-3" alt="Share" />
                               <img
                                 src="/static/drive_file.svg"
                                 className={`${styles.edit_image} img-fluid mr-3`}

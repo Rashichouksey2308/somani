@@ -1,7 +1,9 @@
 @import '../styles/Core/config';
+
 .sub_card {
   // border-bottom: 2px solid #D2D7E5;
   border-radius: 6px;
+
   .header {
     width: 100%;
     display: flex;
@@ -18,6 +20,7 @@
       padding-left: 15px;
       padding-right: 15px;
     }
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -36,6 +39,7 @@
         margin: 13px 0;
       }
     }
+
     span {
       color: #3687e8;
       font-size: 2.5rem;
@@ -44,6 +48,7 @@
     }
   }
 }
+
 .filed_container {
   // min-width: 270px;
   padding: 5px 15px;
@@ -64,6 +69,7 @@
     max-width: 100%;
     flex: 0 0 100%;
   }
+
   .top {
     white-space: nowrap;
     font-size: 16px;
@@ -83,6 +89,7 @@
       font-size: 12px;
     }
   }
+
   div {
     font-size: 20px;
     line-height: 25px;
@@ -95,10 +102,12 @@
     @include respond(phone) {
       font-size: 14px;
     }
+
     .value {
       // white-space: nowrap;
       word-break: break-word;
     }
+
     .button {
       color: #3687e8;
       margin-left: 1rem;
@@ -106,6 +115,7 @@
     }
   }
 }
+
 .body {
   width: 100%;
   height: 100%;
@@ -120,6 +130,7 @@
     padding-right: 15px;
   }
 }
+
 .wrapper {
   margin-bottom: 26px;
   @include respond(lg-desktop) {

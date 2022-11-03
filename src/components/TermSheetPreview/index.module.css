@@ -28,6 +28,7 @@
   height: 21px;
   background: transparent;
 }
+
 @media (max-width: 1400px) {
   .root_container .head_container .head_container .head_header .arrow {
     width: 10px;
@@ -318,4 +319,5 @@
   -ms-flex-align: center;
   align-items: center;
 }
+
 /*# sourceMappingURL=index.module.css.map */

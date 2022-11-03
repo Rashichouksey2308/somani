@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
-import { Card } from 'react-bootstrap';
-import { UploadDocument } from '../UploadDocument';
-import Router from 'next/router';
 import Image from 'next/image';
 
 function Index() {
@@ -26,10 +23,7 @@ function Index() {
                 User Type <strong className="text-danger">*</strong>
               </div>
               {['radio'].map((type, index) => (
-                <div
-                  key={`inline-${index}`}
-                  className={`${styles.radio_group} mt-2`}
-                >
+                <div key={`inline-${index}`} className={`${styles.radio_group} mt-2`}>
                   <Form.Check
                     className={styles.radio}
                     inline
@@ -51,9 +45,7 @@ function Index() {
               ))}
             </div>
             <div className="row">
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
@@ -65,22 +57,16 @@ function Index() {
                   <strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
                   name="supplierName"
                 />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Short Name
-                </label>
+                <label className={`${styles.label_heading} label_heading`}>Short Name</label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="number"
@@ -93,18 +79,11 @@ function Index() {
                 </label>
               </div>
 
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <div className="d-flex">
                   <DateCalender labelName="Date of Incorporation" />
                   <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image
-                      width="22px"
-                      height="24px"
-                      src="/static/caldericon.svg"
-                      alt="Calender"
-                    />
+                    <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                   </div>
                 </div>
               </div>
@@ -115,16 +94,11 @@ function Index() {
                   name="email"
                   className={`${styles.input_field} border_color input form-control`}
                 />
-                <label
-                  className={`${styles.label_heading} label_heading`}
-                  id="textInput"
-                >
+                <label className={`${styles.label_heading} label_heading`} id="textInput">
                   Official Email ID<strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="password"
@@ -135,9 +109,7 @@ function Index() {
                 </label>
               </div>
 
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
@@ -148,17 +120,12 @@ function Index() {
                   User Role<strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="number"
-                    onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
+                  onWheel={(event) => event.currentTarget.blur()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   required
                   name="supplierName"
                 />
@@ -167,38 +134,25 @@ function Index() {
                   <strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                    evt.preventDefault()
-                  }
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   required
                   name="supplierName"
                 />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Alternate Phone Number
-                </label>
+                <label className={`${styles.label_heading} label_heading`}>Alternate Phone Number</label>
               </div>
-              <div
-                className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`}
-                style={{ marginTop: -1 }}
-              >
+              <div className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`} style={{ marginTop: -1 }}>
                 <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
                   <div className={`${styles.sub_heading} label_heading`}>
                     Communication Mode<strong className="text-danger">*</strong>
                   </div>
                   <Form selected="">
                     {['checkbox'].map((type) => (
-                      <div
-                        key={`inline-${type}`}
-                        className={styles.radio_group}
-                      >
+                      <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={`${styles.radio} radio`}
                           inline
@@ -230,15 +184,9 @@ function Index() {
                   </Form>
                 </div>
               </div>
-              <div
-                className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-              >
+              <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                 <div className={`${styles.phone_card}`}>
-                  <select
-                    name="callingCode"
-                    id="Code"
-                    className={`${styles.code_phone} input border-right-0`}
-                  >
+                  <select name="callingCode" id="Code" className={`${styles.code_phone} input border-right-0`}>
                     <option>+91</option>
                     <option>+1</option>
                     <option>+92</option>
@@ -248,18 +196,12 @@ function Index() {
                   <input
                     type="number"
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
+                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     id="textNumber"
                     name="phoneNumber"
                     className={`${styles.input_field}  input form-control border-left-0`}
                   />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textNumber"
-                  >
+                  <label className={`${styles.label_heading} label_heading`} id="textNumber">
                     Whatsapp Number (Optional)
                   </label>
                 </div>
@@ -279,22 +221,13 @@ function Index() {
             <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
             <span>+</span>
           </div>
-          <div
-            id="keyAddress"
-            className="collapse"
-            aria-labelledby="keyAddress"
-          >
+          <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="d-flex justify-content-between">
-                <div
-                  className={`${styles.address_card} value background1`}
-                  style={{ padding: '22px' }}
-                >
+                <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                   <div className="d-flex justify-content-between">
                     <div>
-                      <label className={styles.label}>
-                        Registered Office Address
-                      </label>
+                      <label className={styles.label}>Registered Office Address</label>
                       <div className={styles.address_values}>
                         <p>N-11, 29 Tilak Marg, New Delhi</p>
                         <p>
@@ -304,32 +237,18 @@ function Index() {
                     </div>
                     <div>
                       <div className="d-flex">
-                        <img
-                          className={`${styles.edit_image} img-fluid`}
-                          src="/static/mode_edit.svg"
-                          alt="Edit"
-                        />
+                        <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                         <div className={`${styles.delete_image} ml-3`}>
-                          <Image
-                            src="/static/delete.svg"
-                            width="40px"
-                            height="40px"
-                            alt="Bin"
-                          />
+                          <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.address_card} value background1`}
-                  style={{ padding: '22px' }}
-                >
+                <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                   <div className="d-flex justify-content-between">
                     <div>
-                      <label className={styles.label}>
-                        Registered Office Address
-                      </label>
+                      <label className={styles.label}>Registered Office Address</label>
                       <div className={styles.address_values}>
                         <p>N-11, 29 Tilak Marg, New Delhi</p>
                         <p>
@@ -339,35 +258,22 @@ function Index() {
                     </div>
                     <div>
                       <div className="d-flex">
-                        <img
-                          className={`${styles.edit_image} img-fluid`}
-                          src="/static/mode_edit.svg"
-                          alt="Edit"
-                        />
+                        <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                         <div className={`${styles.delete_image} ml-3`}>
-                          <Image
-                            src="/static/delete.svg"
-                            width="40px"
-                            height="40px"
-                            alt="Bin"
-                          />
+                          <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                className={`${styles.address_card} mt-3 pb-5 value background1`}
-              >
+              <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                 <div
                   className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Add a new address</h3>
                 </div>
-                <div
-                  className={`${styles.dashboard_form} card-body border_color`}
-                >
+                <div className={`${styles.dashboard_form} card-body border_color`}>
                   <div className="row">
                     <div className={`${styles.form_group} col-md-3 col-sm-4`}>
                       <div className="d-flex">
@@ -379,18 +285,11 @@ function Index() {
                           <option value="India">Agra</option>
                           <option value="Dubai">Dubai</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Address Type<strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.image_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
@@ -401,9 +300,7 @@ function Index() {
                         type="number"
                         name="pinCode"
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Pin Code
                         <strong className="text-danger">*</strong>
                       </label>
@@ -419,18 +316,11 @@ function Index() {
                           <option value="India">Uttar Pradesh</option>
                           <option value="Dubai">Dubai</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           State<strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.image_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
@@ -444,18 +334,11 @@ function Index() {
                           <option value="India">Agra</option>
                           <option value="Dubai">Dubai</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           City<strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.image_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
@@ -466,11 +349,7 @@ function Index() {
                         type="text"
                         name="pinCode"
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        GSTIN
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
                     </div>
                     <div className={`${styles.form_group} col-md-12`}>
                       <input
@@ -479,9 +358,7 @@ function Index() {
                         type="text"
                         name="pinCode"
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Address<strong className="text-danger">*</strong>
                       </label>
                     </div>
@@ -489,7 +366,7 @@ function Index() {
                 </div>
                 <button
                   className={`${styles.add_btn}`}
-                  //onClick={() => addData('address')}
+                  // onClick={() => addData('address')}
                 >
                   Add
                 </button>
@@ -509,22 +386,12 @@ function Index() {
             <h3 className={styles.heading}>Documents</h3>
             <span>+</span>
           </div>
-          <div
-            id="upload"
-            className="collapse"
-            aria-labelledby="upload"
-            data-parent="#upload"
-          >
+          <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
             <div className={`${styles.table_form}`}>
               <div className={styles.table_container}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} mb-0 table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -624,4 +491,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

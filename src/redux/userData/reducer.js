@@ -9,6 +9,7 @@ const initialState = {
   pageTabName: 'release',
   releaseDetails: [],
 };
+
 function UserReducer(state = initialState, action) {
   switch (action.type) {
     case types.CHANGE_THEME_SUCCESS:

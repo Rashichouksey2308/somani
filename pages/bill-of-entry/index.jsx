@@ -6,8 +6,7 @@ import Router from 'next/router';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action';
-import _get from 'lodash/get';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
 
 function Index() {
@@ -52,9 +51,7 @@ function Index() {
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
-        <div
-          className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}
-        >
+        <div className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}>
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
               {/* <img
@@ -66,14 +63,8 @@ function Index() {
             </div>
             <div className={styles.search}>
               <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
+                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
                   value={serachterm}
@@ -87,11 +78,7 @@ function Index() {
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
                     ))}
@@ -109,17 +96,11 @@ function Index() {
           {/* <button className={`${styles.addBtn}`}>Add</button> */}
         </div>
 
-        <div
-          className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
-        >
+        <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>
           <div className={`${styles.all} ${styles.boxInner} all border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/leads-icon.svg"
-                  className="img-fluid"
-                  alt="All Leads"
-                />
+                <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
               </div>
               <h3>
                 <span>ALL</span>
@@ -127,16 +108,10 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div
-            className={`${styles.approved} ${styles.boxInner} approved border_color`}
-          >
+          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/check.svg"
-                  className="img-fluid"
-                  alt="Check"
-                />
+                <img src="/static/check.svg" className="img-fluid" alt="Check" />
               </div>
               <h3>
                 <span>FINAL ASSESSMENT</span>
@@ -144,16 +119,10 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div
-            className={`${styles.review} ${styles.boxInner} review border_color`}
-          >
+          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/access-time.svg"
-                  className="img-fluid"
-                  alt="Access Time"
-                />
+                <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
               </div>
               <h3>
                 <span>PROVISIONAL</span>
@@ -161,16 +130,10 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div
-            className={`${styles.saved} ${styles.boxInner} saved border_color`}
-          >
+          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/bookmark.svg"
-                  className="img-fluid"
-                  alt="Close"
-                />
+                <img src="/static/bookmark.svg" className="img-fluid" alt="Close" />
               </div>
               <h3>
                 <span>SAVED</span>
@@ -181,13 +144,14 @@ function Index() {
         </div>
         <BillOfEntryTableMain
           tableName="Bill of Entries"
-          isVesselHeader={true}
+          isVesselHeader
           dateHeading="BOE DATE"
-          isStatus={true}
+          isStatus
           handleRoute={routeChange}
         />
       </div>
     </div>
   );
 }
+
 export default Index;

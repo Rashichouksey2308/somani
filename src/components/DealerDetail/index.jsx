@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import history from '../../history';
 
-import { Row, Col, Card, CardBody } from 'reactstrap';
+import { Card, CardBody, Col, Row } from 'reactstrap';
 import CartTitle from '../CartTitle';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tab, Tabs } from 'react-bootstrap';
 
 import Information from '../Informatin';
 import Branch from '../Branch';
@@ -16,11 +16,11 @@ import get from 'lodash/get';
 const _ = { get };
 
 function DetailPage(props) {
-  let { elements } = props;
+  const { elements } = props;
   const [key, setKey] = useState('detail');
 
   useEffect(() => {
-    let queryParams = props.query;
+    const queryParams = props.query;
     if (queryParams === '') {
       history.push(`/dealer/list`);
     } else {
@@ -42,7 +42,7 @@ function DetailPage(props) {
   };
 
   const handleToCreateForm = () => {
-    let queryParams = props.query;
+    const queryParams = props.query;
     if (queryParams !== '') {
       history.push(`/dealer/create-branch${queryParams}`);
     } else {
@@ -57,11 +57,7 @@ function DetailPage(props) {
         <Row>
           <Col sm={12}>
             <CartTitle
-              title={
-                props.dealerData !== null
-                  ? props.dealerData.dealerName.toUpperCase()
-                  : 'Dealer Name'
-              }
+              title={props.dealerData !== null ? props.dealerData.dealerName.toUpperCase() : 'Dealer Name'}
               Name={'Search'}
               customClass={'hidebtn'}
               innerTextClass={'hidetext'}
@@ -73,19 +69,8 @@ function DetailPage(props) {
           <CardBody className="px-0 px-lg-1 py-0 py-lg-1">
             <Row className="custom-tab">
               <Col sm={12}>
-                <Tabs
-                  id="tab-id"
-                  activeKey={key}
-                  onSelect={(k) => handleSelectTab(k)}
-                >
-                  <Tab
-                    eventKey="detail"
-                    title={_.get(
-                      elements,
-                      'dealerDetailElements.tabDetailElement',
-                      'Details',
-                    )}
-                  >
+                <Tabs id="tab-id" activeKey={key} onSelect={(k) => handleSelectTab(k)}>
+                  <Tab eventKey="detail" title={_.get(elements, 'dealerDetailElements.tabDetailElement', 'Details')}>
                     <Information
                       query={props.query}
                       dealerData={props.dealerData}
@@ -93,14 +78,7 @@ function DetailPage(props) {
                       elements={props.elements}
                     />
                   </Tab>
-                  <Tab
-                    eventKey="branch"
-                    title={_.get(
-                      elements,
-                      'dealerDetailElements.tabBranchElement',
-                      'Branch',
-                    )}
-                  >
+                  <Tab eventKey="branch" title={_.get(elements, 'dealerDetailElements.tabBranchElement', 'Branch')}>
                     <Branch
                       dealerBranchData={props.dealerBranchData}
                       handleToCreateForm={() => handleToCreateForm()}
@@ -116,4 +94,5 @@ function DetailPage(props) {
     </React.Fragment>
   );
 }
+
 export default DetailPage;

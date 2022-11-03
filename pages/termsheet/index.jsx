@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import TermSheetMain from '../../src/components/TermSheetMain';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+
 const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {

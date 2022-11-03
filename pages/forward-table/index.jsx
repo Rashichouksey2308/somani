@@ -4,17 +4,9 @@ import styles from './inspection.module.scss';
 import Router from 'next/router';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
-import _get from 'lodash/get';
-import {
-  GetAllForwardHedging,
-  GetForwardHedging,
-} from '../../src/redux/ForwardHedging/action';
+import { GetAllForwardHedging } from '../../src/redux/ForwardHedging/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -69,18 +61,10 @@ function Index() {
 
   const handleSort = () => {
     if (sorting == -1) {
-      dispatch(
-        GetAllForwardHedging(
-          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
-        ),
-      );
+      dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
       setSorting(1);
     } else if (sorting == 1) {
-      dispatch(
-        GetAllForwardHedging(
-          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
-        ),
-      );
+      dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -91,14 +75,8 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
               <input
                 value={serachterm}
@@ -112,11 +90,7 @@ function Index() {
               <div className={styles.searchResults}>
                 <ul>
                   {searchedLeads.data.data.map((results, index) => (
-                    <li
-                      onClick={handleFilteredData}
-                      id={results._id}
-                      key={index}
-                    >
+                    <li onClick={handleFilteredData} id={results._id} key={index}>
                       {results.companyName} <span>{results.customerId}</span>
                     </li>
                   ))}
@@ -133,16 +107,11 @@ function Index() {
         </div>
 
         <div className={`${styles.datatable} border datatable card`}>
-          <div
-            className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-          >
+          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
             <h3 className="heading_card">Forward Hedging Details</h3>
-            <div
-              className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-            >
+            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
-                Showing Page {currentPage + 1} out of{' '}
-                {Math.ceil(allForwardHedging?.totalCount / 7)}
+                Showing Page {currentPage + 1} out of {Math.ceil(allForwardHedging?.totalCount / 7)}
               </span>
               <a
                 onClick={() => {
@@ -156,40 +125,24 @@ function Index() {
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
                 {' '}
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
               <a
                 onClick={() => {
-                  if (
-                    currentPage + 1 <
-                    Math.ceil(allForwardHedging?.totalCount / 7)
-                  ) {
+                  if (currentPage + 1 < Math.ceil(allForwardHedging?.totalCount / 7)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
             </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table
-                className={`${styles.table} table`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
+              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                 <thead>
                   <tr className="table_row">
                     <th>
@@ -205,12 +158,7 @@ function Index() {
                     <th>COMMODITY</th>
                     <th>CLOSING DATE</th>
                     <th>
-                      STATUS{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />{' '}
+                      STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />{' '}
                     </th>
                     <th>ACTION</th>
                   </tr>
@@ -220,10 +168,7 @@ function Index() {
                     allForwardHedging?.data?.map((list, index) => (
                       <tr key={index} className="table_row">
                         <td>{list?.order?.orderId}</td>
-                        <td
-                          className={`${styles.buyerName}`}
-                          onClick={() => handleRoute(list)}
-                        >
+                        <td className={`${styles.buyerName}`} onClick={() => handleRoute(list)}>
                           {list?.company?.companyName}
                         </td>
                         <td>{list?.order?.commodity} </td>
@@ -267,4 +212,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

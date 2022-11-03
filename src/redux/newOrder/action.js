@@ -1,10 +1,10 @@
 import * as types from './actionType';
 import API from '../../utils/endpoints';
 import Axios from 'axios';
-import Router from 'next/router';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+
 function placeNewOrder() {
   return {
     type: types.PLACE_ORDER,
@@ -23,26 +23,26 @@ function placeNewOrderFailed() {
     type: types.PLACE_ORDER_FAILED,
   };
 }
+
 function placeorderRouted() {
   return {
     type: types.PLACED_ORDER_ROUTED,
   };
 }
 
-export const PlaceNewOrderRouted =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(placeorderRouted());
-  };
+export const PlaceNewOrderRouted = (payload) => async (dispatch, getState, api) => {
+  dispatch(placeorderRouted());
+};
 
 export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   dispatch(placeNewOrder());
 
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*',
@@ -54,7 +54,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(placeNewOrderSuccess(response.data.data));
 
-        let toastMessage = 'ORDER PLACED';
+        const toastMessage = 'ORDER PLACED';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -62,7 +62,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
         // Router.push('/order-list')
       } else {
         dispatch(placeNewOrderFailed(response.data.data));
-        let toastMessage = 'FAILED TO PLACE NEW ORDER';
+        const toastMessage = 'FAILED TO PLACE NEW ORDER';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -71,7 +71,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(placeNewOrderFailed());
-    let toastMessage = error.message;
+    const toastMessage = error.message;
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
