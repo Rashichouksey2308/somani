@@ -74,7 +74,7 @@ const index = () => {
 
             <button
               type="button"
-              className={`${styles.createBtn} btn ml-auto btn-primary`}
+              className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
               onClick={() => {
                 sessionStorage.removeItem('supplier');
                 Router.push('/supplier');
@@ -87,7 +87,7 @@ const index = () => {
 
           {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
-            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
               <h3 className="heading_card">Suppliers</h3>
               <div className="d-flex align-items-center">
                 <div className={`${styles.show_record}`}>Show Records:</div>
