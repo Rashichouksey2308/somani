@@ -319,7 +319,7 @@ function Index() {
   const onChangeHandler7Array = (e) => {
     let temp = [...infoArray];
     // temp.push(info)
-    setInfoArray([...temp, { comment: info }]);
+    setInfoArray([...temp, { remarks: info }])
     setInfo('');
   };
 
@@ -556,6 +556,7 @@ function Index() {
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
+      fd.append('shareHoldersDetails', JSON.stringify(detail));
       fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
       fd.append('bussinessSummary', JSON.stringify(businessArray));
       fd.append('commoditiesTraded', JSON.stringify(listCommodity));
@@ -1601,13 +1602,13 @@ function Index() {
                               </td>
                               <td>
                                 <input
-                                  name="authorityToSign"
-                                  checked={val?.authorityToSign}
+                                  name="authoriztyToSign"
+                                  checked={val?.authoriztyToSign}
                                   className={`${styles.checkBox}`}
                                   type="checkbox"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, !val?.authorityToSign, index);
+                                    onChangeHandler4(e.target.name, !val?.authoriztyToSign, index)
                                   }}
                                 />
                               </td>
@@ -1893,7 +1894,7 @@ function Index() {
                 </div>
                 <ol>
                 {infoArray?.length > 0 && infoArray?.map((val, index) => {
-                  return <li>{val.comment}</li>
+                  return <li>{val?.remarks}</li>
                  
                 })}
                  </ol>

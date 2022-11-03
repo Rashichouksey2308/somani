@@ -159,7 +159,7 @@ let alertObj = {
   isiecdgftpenalty: 'IEC DGFT Penalty',
 }
 
-function Index () {
+function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
@@ -173,6 +173,7 @@ function Index () {
   const { fetchingKarzaGst } = useSelector((state) => state.review)
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails)
   const [selectedTab, setSelectedTab] = useState('Profile')
+  const mcaReportAvailable = _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
   useEffect(() => {
     if (window) {
@@ -358,7 +359,7 @@ function Index () {
 
 
   const onOrderSave = () => {
-    if (!orderValidation(orderDetails, shipment,approvedCredit)) return
+    if (!orderValidation(orderDetails, shipment, approvedCredit)) return
 
     let orderToSend = { ...orderDetails }
     orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
@@ -1070,7 +1071,7 @@ function Index () {
   let appliedOrder = orderList?.orderValue
   let approvedOrderValue = approvedCredit.approvedOrderValue
 
-  function getPercentageIncrease (numA, numB) {
+  function getPercentageIncrease(numA, numB) {
     if (!numA) {
       return 0
     }
@@ -1106,7 +1107,7 @@ function Index () {
   }
 
   const handleCamApprove = async () => {
-    if (orderValidation(orderDetails, shipment,approvedCredit) && creditValidation()) {
+    if (orderValidation(orderDetails, shipment, approvedCredit) && creditValidation()) {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
@@ -1201,9 +1202,16 @@ function Index () {
     }
   }
 
-  const handleMcaReport = () => {
-    if (_get(companyData, 'mcaDocs[0].s3Path', '') !== '') {
-      dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }))
+  const handleMcaReport = (task) => {
+    if (task === 'downlaod') {
+      if (mcaReportAvailable) {
+        dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }))
+      } else {
+        let toastMessage = 'mca report not Available to download';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+      }
     } else {
       dispatch(
         McaReportFetch({
@@ -1264,7 +1272,7 @@ function Index () {
     openBankChargeChartImg,
     debtProfileColor,
   ) => {
-    function calcPc (n1, n2) {
+    function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0
       }
@@ -2221,7 +2229,7 @@ function Index () {
                             {filteredCreditRating ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ''}
                           </span>
                         </div>
-                        <br/>
+                        <br />
                         <table
                           width="100%"
                           cellPadding="10"
@@ -2401,13 +2409,12 @@ function Index () {
                           <span
                             style={{
                               background: '#FFB700',
-                              width: `${
-                                filteredCreditRating?.length > 0
+                              width: `${filteredCreditRating?.length > 0
                                   ? (filteredCreditRating[0].businessProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating) *
                                   100
                                   : '0'
-                              }%`,
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2477,13 +2484,12 @@ function Index () {
                           <span
                             style={{
                               background: '#FF4230',
-                              width: `${
-                                filteredCreditRating?.length > 0
+                              width: `${filteredCreditRating?.length > 0
                                   ? (filteredCreditRating[0].revenueProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating) *
                                   100
                                   : '0'
-                              }%`,
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2550,13 +2556,12 @@ function Index () {
                           <span
                             style={{
                               background: '#83C400',
-                              width: `${
-                                filteredCreditRating?.length > 0
+                              width: `${filteredCreditRating?.length > 0
                                   ? (filteredCreditRating[0].financialProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating) *
                                   100
                                   : '0'
-                              }%`,
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3114,7 +3119,7 @@ function Index () {
         </tr>
         <tr>
           <td valign="top">
-            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+            <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3275,7 +3280,7 @@ function Index () {
                 >
                   {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor
                     ? camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor ==
-                    camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
+                      camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
                       ? 'No'
                       : 'Yes'
                     : ''}
@@ -3683,9 +3688,9 @@ function Index () {
                             >
                               {share?.percentageShareHolding
                                 ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              }) + '%'
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }) + '%'
                                 : ''}
                             </td>
                             <td
@@ -4120,11 +4125,10 @@ function Index () {
                                 <span
                                   style={{
                                     background: `${debtProfileColor(debt.conduct)}`,
-                                    width: `${
-                                      (Number(debt.limit) / totalLimitDebt() > 1
+                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
                                         ? 1
                                         : Number(debt.limit) / totalLimitDebt()) * 100
-                                    }%`,
+                                      }%`,
                                     height: '10px',
                                     borderRadius: '2px',
                                     display: 'inline-block',
@@ -4251,15 +4255,14 @@ function Index () {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
-                              color: `${
-                                debt.conduct == 'Good'
+                              color: `${debt.conduct == 'Good'
                                   ? '#43C34D'
                                   : debt.conduct == 'Satisfactory'
                                     ? '#FF9D00'
                                     : debt.conduct == 'Average'
                                       ? 'average'
                                       : '#EA3F3F'
-                              }`,
+                                }`,
                             }}
                           >
                             {debt?.conduct}
@@ -4679,7 +4682,7 @@ function Index () {
                 </td>
                 <td align="center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -4748,7 +4751,7 @@ function Index () {
                 </td>
                 <td align="center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5131,13 +5134,13 @@ function Index () {
         </tr>
         <tr>
           <td valign="top">
-            <br/> <br/>
-            <br/> <br/>
-            <br/>
-            <br/>
-            <br/> <br/> <br/> <br/> <br/> <br/> <br/>
-            <br/>
-            <br/>
+            <br /> <br />
+            <br /> <br />
+            <br />
+            <br />
+            <br /> <br /> <br /> <br /> <br /> <br /> <br />
+            <br />
+            <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -6670,7 +6673,7 @@ function Index () {
           </td>
         </tr>
         <tr>
-          <br/>
+          <br />
           {/* <br /> <br /> <br />  <br /> <br /> <br /> */}
           <td valign="top">
             <table
@@ -6725,7 +6728,7 @@ function Index () {
                     paddingTop: '31px',
                   }}
                 >
-                  {[].forEach((l, index2) => {})}
+                  {[].forEach((l, index2) => { })}
                   {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
                     ? moment(
                       _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
@@ -7883,7 +7886,7 @@ function Index () {
   const exportPDF = async () => {
     const doc = new jsPDF('p', 'pt', 'a4')
 
-    const trendChartRevenue  = document.getElementById('trendChartRevenue')
+    const trendChartRevenue = document.getElementById('trendChartRevenue')
     const trendChartRevenueImg = trendChartRevenue?.toDataURL('image/png', 1.0)
     const trendChartPurchases = document.getElementById('trendChartPurchases')
     const trendChartPurchasesImg = trendChartPurchases?.toDataURL('image/png', 1.0)
@@ -8136,26 +8139,26 @@ function Index () {
               <div className={`${styles.tabContent} tab-content`}>
                 <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <CompanyDetails order={orderList?.company} companyDetail={companyData}/>
-                    <AuditorsDetail companyData={companyData} auditorsDetails={companyData?.profile?.auditorDetail}/>
-                    <AuditorDeatils directorData={companyData}/>
-                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern}/>
-                    <CreditRatings creditRating={companyData?.profile?.creditRating}/>
+                    <CompanyDetails order={orderList?.company} companyDetail={companyData} />
+                    <AuditorsDetail companyData={companyData} auditorsDetails={companyData?.profile?.auditorDetail} />
+                    <AuditorDeatils directorData={companyData} />
+                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
+                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData}/>
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData}/>
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData}/>
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData}/>
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
 
-                    <Peer peerData={companyData}/>
+                    <Peer peerData={companyData} />
 
-                    <OpenCharges chargesData={companyData}/>
+                    <OpenCharges chargesData={companyData} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
@@ -8654,7 +8657,7 @@ function Index () {
                       shipment={shipment}
                       port={getPortsMasterData}
                     />
-                    <CommonSave onSave={onOrderSave}/>
+                    <CommonSave onSave={onOrderSave} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
@@ -8703,11 +8706,11 @@ function Index () {
                     setGroupExposureData={setGroupExposureData}
                     setSanctionComment={setSanctionComment}
                   />
-                  <CommonSave onSave={onCreditSave}/>
+                  <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module="LeadOnboarding&OrderApproval" orderid={id}/>
+                    <UploadOther module="LeadOnboarding&OrderApproval" orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
@@ -8741,7 +8744,7 @@ function Index () {
         </div>
       </div>
       {selectedTab == 'Financials' || 'Compliance' || 'Orders' || 'Credit' || 'DocumentsTab' ? (
-        <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack}/>
+        <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
         <DownloadBar
@@ -8753,6 +8756,7 @@ function Index () {
           handleApprove={onNext}
           handleUpdate={onPreviousClick}
           handleReject={handleMcaReport}
+          mcaReportAvailable={mcaReportAvailable}
         />
       ) : null}
       {selectedTab == 'GST' ? (
@@ -8794,7 +8798,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
         type="button"
         className={`${styles.btnPrimary} btn btn-primary`}
       >
-        <img src="/static/refresh.svg" alt="refresh" className="img-fluid"/>
+        <img src="/static/refresh.svg" alt="refresh" className="img-fluid" />
         Update Info
       </button>
       <div className={`${styles.lastModified} text `}>
@@ -8876,149 +8880,149 @@ const table2 = (sat, balance, complienceFilter) => {
   return (
     <table className={`${styles.table_details} mb-0 table border_color`} cellPadding="0" cellSpacing="0" border="1">
       <thead>
-      <tr>
-        <th className=""></th>
-        <th className="">ALERT</th>
-        <th className="">SEVERITY</th>
-        <th className="">SOURCE</th>
-        <th className="">ID TYPE</th>
-        <th className="">VALUE</th>
-      </tr>
+        <tr>
+          <th className=""></th>
+          <th className="">ALERT</th>
+          <th className="">SEVERITY</th>
+          <th className="">SOURCE</th>
+          <th className="">ID TYPE</th>
+          <th className="">VALUE</th>
+        </tr>
       </thead>
       <tbody>
-      <tr>
-        <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
-          {complienceFilter == 'StatutoryCompliance'
-            ? `Statutory Compliance`
-            : complienceFilter == 'All'
-              ? 'All'
-              : `Banking Defaults`}
-        </td>
-        {/* <td></td>
+        <tr>
+          <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
+            {complienceFilter == 'StatutoryCompliance'
+              ? `Statutory Compliance`
+              : complienceFilter == 'All'
+                ? 'All'
+                : `Banking Defaults`}
+          </td>
+          {/* <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td></td> */}
-      </tr>
-      {complienceFilter == 'StatutoryCompliance'
-        ? sat.length &&
-        sat?.map((alert, index) => {
-          {
-          }
-          return (
-            <tr key={index}>
-              <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-              <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-              <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-              <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-              <td className="text-capitalize">
-                {' '}
-                {alert?.value?.length > 1 ? (
-                  <>
-                    {alert.value.map((val, index) => {
-                      return (
+        </tr>
+        {complienceFilter == 'StatutoryCompliance'
+          ? sat.length &&
+          sat?.map((alert, index) => {
+            {
+            }
+            return (
+              <tr key={index}>
+                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                <td className="text-capitalize">
+                  {' '}
+                  {alert?.value?.length > 1 ? (
+                    <>
+                      {alert.value.map((val, index) => {
+                        return (
+                          <>
+                            {val}
+                            {index !== alert.value.length - 1 ? ', ' : ''}
+                          </>
+                        )
+                      })}
+                    </>
+                  ) : (
+                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                  )}
+                </td>
+              </tr>
+            )
+          })
+          : balance.length > 0 &&
+          balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                <td className="text-capitalize">
+                  {' '}
+                  {alert?.value?.length > 1 ? (
+                    <>
+                      {alert.value.map((val, index) => {
+                        return (
+                          <>
+                            {val}
+                            {index !== alert.value.length - 1 ? ', ' : ''}
+                          </>
+                        )
+                      })}
+                    </>
+                  ) : (
+                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                  )}
+                </td>
+              </tr>
+            )
+          })}
+        {complienceFilter == 'All' ? (
+          <>
+            {sat.length &&
+              sat?.map((alert, index) => {
+                return (
+                  <tr key={index}>
+                    <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                    <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                    <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                    <td className="text-capitalize">
+                      {' '}
+                      {alert?.value?.length > 1 ? (
                         <>
-                          {val}
-                          {index !== alert.value.length - 1 ? ', ' : ''}
+                          {alert.value.map((val, index) => {
+                            return (
+                              <>
+                                {val}
+                                {index !== alert.value.length - 1 ? ', ' : ''}
+                              </>
+                            )
+                          })}
                         </>
-                      )
-                    })}
-                  </>
-                ) : (
-                  <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                )}
-              </td>
-            </tr>
-          )
-        })
-        : balance.length > 0 &&
-        balance?.map((alert, index) => {
-          return (
-            <tr key={index}>
-              <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-              <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-              <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-              <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-              <td className="text-capitalize">
-                {' '}
-                {alert?.value?.length > 1 ? (
-                  <>
-                    {alert.value.map((val, index) => {
-                      return (
+                      ) : (
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+            {balance.length > 0 &&
+              balance?.map((alert, index) => {
+                return (
+                  <tr key={index}>
+                    <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                    <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                    <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                    <td className="text-capitalize">
+                      {' '}
+                      {alert?.value?.length > 1 ? (
                         <>
-                          {val}
-                          {index !== alert.value.length - 1 ? ', ' : ''}
+                          {alert.value.map((val, index) => {
+                            return (
+                              <>
+                                {val}
+                                {index !== alert.value.length - 1 ? ', ' : ''}
+                              </>
+                            )
+                          })}
                         </>
-                      )
-                    })}
-                  </>
-                ) : (
-                  <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                )}
-              </td>
-            </tr>
-          )
-        })}
-      {complienceFilter == 'All' ? (
-        <>
-          {sat.length &&
-            sat?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert?.value?.length > 1 ? (
-                      <>
-                        {alert.value.map((val, index) => {
-                          return (
-                            <>
-                              {val}
-                              {index !== alert.value.length - 1 ? ', ' : ''}
-                            </>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                    )}
-                  </td>
-                </tr>
-              )
-            })}
-          {balance.length > 0 &&
-            balance?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert?.value?.length > 1 ? (
-                      <>
-                        {alert.value.map((val, index) => {
-                          return (
-                            <>
-                              {val}
-                              {index !== alert.value.length - 1 ? ', ' : ''}
-                            </>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                    )}
-                  </td>
-                </tr>
-              )
-            })}
-        </>
-      ) : null}
+                      ) : (
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+          </>
+        ) : null}
       </tbody>
     </table>
   )
