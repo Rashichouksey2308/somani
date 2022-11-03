@@ -239,9 +239,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               
               {data.sellerAddress?.fullAddress},
               {data.sellerAddress?.city}{" "} 
-              {data.sellerAddress?.country},{" "}
-              
-              {data.sellerAddress?.pinCode}
+              {data.sellerAddress?.country},{" "}              
+              &nbsp;{data.sellerAddress?.pinCode}
               </>
               
             </Col>
