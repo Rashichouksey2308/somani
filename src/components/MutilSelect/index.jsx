@@ -149,7 +149,7 @@ function Index(props) {
       ) : null}
       {state?.emails?.length > 0 &&
         state?.emails?.map((email, index) => {
-          return <>{props.getLabel(email, index, removeEmail)}</>;
+          return <><span className={`${styles.pending}`}>{props.getLabel(email, index, removeEmail)}</span></>;
         })}
       <input
         ref={emailInputRef}
