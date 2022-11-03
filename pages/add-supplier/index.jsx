@@ -93,14 +93,15 @@ const index = () => {
                 Router.push('/supplier')
               }}
             >
-              <span className={styles.add_supplier}>+</span>Add Supplier
+              <span className={styles.add_supplier}>+</span>
+              <span className='ml-1 mr-2'>Add Supplier</span>
             </button>
           </div>
 
           {/*UserTable*/}
-          <div className={`${styles.datatable} border datatable card mt-4`}>
+          <div className={`${styles.datatable} border datatable card`}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
+              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
               <h3 className="heading_card">Suppliers</h3>
               <div className="d-flex align-items-center">

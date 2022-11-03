@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import GrowInput from '../GrowInput';
 import Router from 'next/router';
 import moment from 'moment';
+import _get from 'lodash/get';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index(props) {
@@ -37,22 +38,7 @@ function Index(props) {
     curr: '',
     specComment: '',
   });
-  const getAddress = (buyer) => {
-    if (buyer.name == 'Indo German International Private Limited') {
-      if (buyer.branch == 'Delhi') {
-        return '7A, SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
-      } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016';
-      }
-    }
-    if (buyer.name == 'Emergent Industrial Solution Limited') {
-      if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
-      } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016';
-      }
-    }
-  };
+ 
   useEffect(() => {
     if (window) {
       if (props.preview) {
@@ -117,11 +103,8 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:
-            data?.seller?.name == 'Indo Intertrade Ag'
-              ? 'Industriestrasse 16, Zug, 6300'
-              : '',
-          buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : '',
+          sellerAddress:_get(data, 'seller.addresses[0]', {}),
+          buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
           shortbuyer: `${
             data?.buyer?.name == 'Indo German International Private Limited'
@@ -165,7 +148,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
-
+console.log(data.sellerAddress,"sellerAddress")
   return (
     <>
       <div className={`${styles.root}`}>
@@ -251,7 +234,15 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
               <>{data?.seller}</>
               <br />
-              <>{data?.seller ? data.sellerAddress : ''}</>
+             
+              <>
+              
+              {data.sellerAddress?.fullAddress},
+              {data.sellerAddress?.city}{" "} 
+              {data.sellerAddress?.country},{" "}              
+              &nbsp;{data.sellerAddress?.pinCode}
+              </>
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -268,7 +259,14 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             >
               <>{data?.buyer?.toLowerCase()}</>
               <br />
-              <>{data?.buyer ? data.buyerAddress : null}</>
+              <>
+              
+              {data.buyerAddress?.fullAddress},
+              {data.buyerAddress?.city}{" "} 
+              {data.buyerAddress?.country},{" "}
+              
+              {data.buyerAddress?.pinCode}
+              </> 
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

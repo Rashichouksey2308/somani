@@ -43,16 +43,16 @@ function index() {
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016';
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '8B, SAGAR, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016';
       }
     }
   };
@@ -131,8 +131,10 @@ function index() {
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
     let toPrint=toPdf(data)
+    let name ="SalesAgreement"
     if(preview=="Sales"){
       toPrint=toPdf(data)
+       name ="SalesAgreement"
     }
     if(preview=="QPA"){
       toPrint=qpaPrint(data)
@@ -155,7 +157,7 @@ function index() {
     if(preview=="LETTER"){
       toPrint=letterPrint(data)
     }
-    doc.html(ReactDOMServer.renderToString(toPrint()), {
+    doc.html(ReactDOMServer.renderToString(toPrint), {
       callback: function (doc) {
         doc.save('SalesAgreements.pdf');
       },
@@ -294,7 +296,6 @@ const toPdf = (data) => {
               <td
                 style={{
                   borderBottom: '1px solid #000000',
-                  textAlign: 'justify',
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>

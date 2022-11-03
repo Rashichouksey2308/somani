@@ -468,8 +468,7 @@ function Index() {
       'data[0].order.customClearance.billOfEntry.billOfEntry',
       0,
     )
-    console.log(boe,"boe")
-    if(boe!==0){
+     if(boe!==0){
       let boeTotalQuantity = boe?.reduce((accumulator, object) => {
       return accumulator + Number(object.boeDetails.invoiceQuantity);
     }, 0);
@@ -480,7 +479,6 @@ function Index() {
     });
     return boeTotalQuantity;
     }
-    
   };
 
   const returnLiftingData = (number) => {
