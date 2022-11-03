@@ -7,7 +7,7 @@ import { checkNan, convertValue } from '../../../utils/helper';
 
 function Index({ incomeData, rtrnChartIndiaction }) {
   const [unit, setUnit] = useState(10000000);
-  // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
+  
 
   const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {});
 

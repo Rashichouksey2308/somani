@@ -7,7 +7,7 @@ import { checkNan, convertValue } from '../../../utils/helper';
 
 function Index({ cashData, rtrnChartIndiaction }) {
   const [unit, setUnit] = useState(10000000);
-  // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
+  
 
   const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {});
 
@@ -45,7 +45,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
     '',
   ]);
 
-  console.log(cashData, 'lastYearData');
+
 
   return (
     <>

@@ -31,7 +31,7 @@ import { getVendors,getBranches,getInternalCompanies,getPincodes } from '../../r
 function Index(props) {
   const dispatch = useDispatch();
 
-  console.log(props.genericData, 'sales');
+  
 
   const [apiData, setApiData] = useState([]);
   const [active, setActive] = useState('Product Specifications');
@@ -43,7 +43,7 @@ function Index(props) {
   const [sameAsCHA, setSameAsCHA] = useState(true);
   const { companyData } = useSelector((state) => state.companyDetails);
   const { orderList } = useSelector((state) => state.buyer);
-  console.log(companyData, 'companyData', orderList);
+  
   useEffect(() => {
     if (window) {
       props.setDate(localStorage.getItem('timeGenericUpdated'));
@@ -78,7 +78,7 @@ function Index(props) {
         }
       }
     }
-    console.log(tempArr, 'name');
+  
     setSidebar(tempArr);
     setIsSideBarOpen(false);
     setSideStateToLocal(val);
@@ -89,7 +89,7 @@ function Index(props) {
   // }, [active])
 
   const uploadDoc = async (e) => {
-    console.log(e, 'response data');
+
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
@@ -111,7 +111,7 @@ function Index(props) {
           headers: headers,
         },
       );
-      console.log(response.data.data, 'dischargeOfCargo2');
+     
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
@@ -134,7 +134,7 @@ function Index(props) {
     }
   };
   const addressValidation = (type, data, check = true) => {
-    console.log(type, data, 'type,data');
+   
     if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
         if (data.gstin === '' || data.gstin == undefined) {
@@ -192,7 +192,7 @@ function Index(props) {
     return true;
   };
   const addressValidation2 = (type, data, check = true) => {
-    console.log(type, data, 'type,data');
+   
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -245,7 +245,7 @@ function Index(props) {
   };
   const setInitialSideBar = () => {
     let temp = [...sideBar];
-    console.log(props?.genericData, 'props?.genericData');
+   
     if (props?.genericData) {
       if (props?.genericData?.supplier?.isSubmitted == true) {
         temp.forEach((val, index) => {
@@ -762,7 +762,7 @@ function Index(props) {
             tempArr[i].image = '/static/Group 3256.svg';
           }
           let a = i - 1;
-          console.log(a, 'tempArr[a]234');
+         
           tempArr[a].state = 'current';
           if (
             tempArr[i].state != 'pending' &&
@@ -775,17 +775,17 @@ function Index(props) {
         }
       }
     }
-    console.log('aasdaa', tempArr);
+   
     setSidebar(tempArr);
     setSideStateToLocal(active);
   };
   const onRightChange = () => {
-    console.log('RIGHT');
+    
     let tempArr = [...sideBar];
-    console.log(tempArr, '987789');
+    
     if (active !== 'Additional Comments') {
       for (let i = 0; i < tempArr.length; i++) {
-        console.log(tempArr[i], '987');
+       
         if (tempArr[i].name == active) {
           if (i != tempArr.length) {
             tempArr[i].state = 'default';
@@ -796,9 +796,9 @@ function Index(props) {
             ) {
               tempArr[i].image = '/static/Group 3256.svg';
             }
-            console.log(tempArr[i].state, 'tempArr[a]');
+          
             let a = i + 1;
-            console.log(a, 'tempArr[a]234');
+           
 
             tempArr[a].state = 'current';
             if (
@@ -814,12 +814,12 @@ function Index(props) {
           }
         }
       }
-      console.log('aasdaa', tempArr);
+     
       setSidebar([...tempArr]);
       setSideStateToLocal(active);
     }
   };
-  console.log(sideBar, 'sideBar');
+
 
   const onSave = () => {
     setSaveData(true);
@@ -831,7 +831,7 @@ function Index(props) {
   const updateData = async (key, data) => {
     let toastMessage = '';
     let dataToSend = {};
-    console.log('this13', data, key);
+    
 
     if (key == 'Supplier') {
       data.list.forEach((val, index) => {
@@ -964,10 +964,7 @@ function Index(props) {
           i < dataToSend.supplier.authorisedSignatoryDetails.length;
           i++
         ) {
-          console.log(
-            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo,
-            'dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo',
-          );
+         
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].name == undefined
@@ -1061,7 +1058,7 @@ function Index(props) {
           isSubmitted: true,
         },
       };
-      console.log(dataToSend, 'dataToSend');
+      
       let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
@@ -1140,10 +1137,7 @@ function Index(props) {
           i < dataToSend.seller.authorisedSignatoryDetails.length;
           i++
         ) {
-          console.log(
-            dataToSend.seller.authorisedSignatoryDetails[i].phoneNo,
-            'dataToSend.seller.authorisedSignatoryDetails[i].phoneNo',
-          );
+          
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].name == undefined
@@ -1294,10 +1288,7 @@ function Index(props) {
           i < dataToSend.buyer.authorisedSignatoryDetails.length;
           i++
         ) {
-          console.log(
-            dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo,
-            'dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo',
-          );
+         
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].name == undefined
@@ -1377,7 +1368,7 @@ function Index(props) {
       }
     }
     if (key == 'Financing Bank') {
-      console.log(data.financeData, 'finan');
+     
       dataToSend = {
         genericId: props.genericData?._id,
         financingBank: {
@@ -1414,10 +1405,10 @@ function Index(props) {
         }
       }
 
-      console.log(dataToSend, 'dataToSend');
+      
     }
     if (key == 'CMA') {
-      console.log(data.cmaData, 'data.cmaData');
+     
       dataToSend = {
         genericId: props.genericData?._id,
         CMA: {
@@ -1507,10 +1498,7 @@ function Index(props) {
           i < dataToSend.CMA.authorisedSignatoryDetails.length;
           i++
         ) {
-          console.log(
-            dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo,
-            'dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo',
-          );
+         
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].name == undefined
@@ -1667,10 +1655,7 @@ function Index(props) {
           i < dataToSend.CHA.authorisedSignatoryDetails.length;
           i++
         ) {
-          console.log(
-            dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo,
-            'dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo',
-          );
+         
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].name == undefined
@@ -1770,7 +1755,7 @@ function Index(props) {
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-      console.log('Stevedore', dataToSend);
+
       if (
         dataToSend.stevedore.name == '' ||
         dataToSend.stevedore.name == undefined
@@ -1834,10 +1819,7 @@ function Index(props) {
           i < dataToSend.stevedore.authorisedSignatoryDetails.length;
           i++
         ) {
-          console.log(
-            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo,
-            'dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo',
-          );
+      
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == undefined
@@ -1921,7 +1903,7 @@ function Index(props) {
       }
     }
     if (key == 'Shipping Line') {
-      console.log('this14');
+    
       dataToSend = {
         genericId: props.genericData?._id,
         shippingLine: {
@@ -1950,7 +1932,7 @@ function Index(props) {
       }
     }
     if (key == 'Delivery Terms') {
-      console.log('this14', data);
+    
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -2006,7 +1988,7 @@ function Index(props) {
     }
 
     if (key == 'Product Specifications') {
-      console.log('this14');
+    
       dataToSend = {
         genericId: props.genericData?._id,
         productSpecifications: {
@@ -2055,7 +2037,7 @@ function Index(props) {
           isSubmitted: true,
         });
       });
-      console.log('this14', list);
+   
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
@@ -2075,7 +2057,7 @@ function Index(props) {
       }
     }
     if (key == 'Place of Execution') {
-      console.log('this14', data.list);
+   ;
 
       let list = [];
       data.list.forEach((val, index) => {
@@ -2104,9 +2086,7 @@ function Index(props) {
       }
     }
     if (key == 'Associate Buyer') {
-      console.log('this14');
-
-      console.log(data.associate, 'data.associate');
+      
       dataToSend = {
         genericId: props.genericData?._id,
 
@@ -2127,7 +2107,7 @@ function Index(props) {
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
-      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk');
+    
       // if (
       //   dataToSend.associateBuyer.branch == '' ||
       //   dataToSend.associateBuyer.branch == undefined
@@ -2152,10 +2132,7 @@ function Index(props) {
         }
       }
 
-      console.log(
-        data.companyAddress.fullAddress,
-        'data.companyAddress.fullAddress',
-      );
+     
       if (data.companyAddress.fullAddress == '') {
         if (
           dataToSend.associateBuyer.addresses.length <= 0 ||
@@ -2192,10 +2169,7 @@ function Index(props) {
             dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew ==
             'true'
           ) {
-            console.log(
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,
-              'dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo',
-            );
+         
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
                 '' ||
@@ -2315,9 +2289,9 @@ function Index(props) {
       }
     }
 
-    console.log('this15');
+  
     let timestamp = await dispatch(updateGenericData(dataToSend, 'Submitted'));
-    console.log(timestamp, 'timestamp');
+   
     if (timestamp == 500) {
       return;
     }
@@ -2344,7 +2318,7 @@ function Index(props) {
     setSideStateToLocal(key);
   };
   // const sendData = (key, data) => {
-  //   console.log(data, 'sendData')
+  // 
   //   let dataToSend = {}
   //   if (key == 'Supplier') {
   //     dataToSend = {
@@ -2465,7 +2439,7 @@ function Index(props) {
   //     sessionStorage.setItem('add', JSON.stringify(data.addressList))
   //   }
   //   if (key == 'Shipping Line') {
-  //     console.log('this14')
+  //    
   //     dataToSend = {
   //       name: data.shippingData.name,
   //       vesselName: data.shippingData.vesselName,
@@ -2553,7 +2527,7 @@ function Index(props) {
           isSubmitted: false,
         },
       };
-      console.log(dataToSend, 'dataToSend');
+     
       let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
@@ -2586,7 +2560,7 @@ function Index(props) {
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
     }
     if (key == 'Financing Bank') {
-      console.log(data.financeData, 'finan');
+    
       dataToSend = {
         genericId: props.genericData?._id,
         financingBank: {
@@ -2602,7 +2576,7 @@ function Index(props) {
       sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
     }
     if (key == 'CMA') {
-      console.log(data.cmaData, 'data.cmaData');
+   
       dataToSend = {
         genericId: props.genericData?._id,
         CMA: {
@@ -2670,10 +2644,10 @@ function Index(props) {
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-      console.log('Stevedore', dataToSend);
+    
     }
     if (key == 'Shipping Line') {
-      console.log('this14');
+    
       dataToSend = {
         genericId: props.genericData?._id,
         shippingLine: {
@@ -2691,7 +2665,7 @@ function Index(props) {
       sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2));
     }
     if (key == 'Delivery Terms') {
-      console.log('this14', data);
+     
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -2712,7 +2686,7 @@ function Index(props) {
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2));
     }
     if (key == 'Product Specifications') {
-      console.log('this14');
+    
       dataToSend = {
         genericId: props.genericData?._id,
         productSpecifications: {
@@ -2739,7 +2713,7 @@ function Index(props) {
           isSubmitted: false,
         });
       });
-      console.log('this14', list);
+    
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
@@ -2749,7 +2723,7 @@ function Index(props) {
       sessionStorage.setItem('add', JSON.stringify(data.addressList));
     }
     if (key == 'Place of Execution') {
-      console.log('this14', data.list);
+    
 
       let list = [];
       data.list.forEach((val, index) => {
@@ -2770,9 +2744,9 @@ function Index(props) {
       sessionStorage.setItem('exe', JSON.stringify(data.list));
     }
     if (key == 'Associate Buyer') {
-      console.log('this14');
+ 
 
-      console.log(data.associate, 'data.associate');
+    
       dataToSend = {
         genericId: props.genericData?._id,
 
@@ -2793,12 +2767,12 @@ function Index(props) {
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
-      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk');
+    
     }
 
-    console.log('this15');
+   
     let timestamp = await dispatch(updateGenericData(dataToSend, 'Saved'));
-    console.log(timestamp, 'timestamp');
+   
     if (timestamp == 500) {
       return;
     }

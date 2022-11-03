@@ -5,8 +5,7 @@ import styles from '../index.module.scss';
 import _get from 'lodash/get';
 import { checkNan, convertValue } from '../../../utils/helper';
 function Index({ balanceData, rtrnChartIndiaction }) {
-  // console.log(balanceData, 'THIS IS BALANCE ARRAY')
-
+  
   const [darkMode, setDarkMode] = useState(false);
   const [unit, setUnit] = useState(10000000);
 
@@ -15,10 +14,10 @@ function Index({ balanceData, rtrnChartIndiaction }) {
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
-      // console.log('this')
+     
       setDarkMode(true);
     } else {
-      // console.log('this2')
+     
       setDarkMode(false);
     }
   }, []);

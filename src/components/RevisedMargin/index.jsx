@@ -56,7 +56,7 @@ const Index = ({
     address: '',
   });
   const [conversionRateUnit, setConversionRateUnit] = useState();
-  // console.log(conversionRateUnit, 'conversionRateUnit')
+  
   const [branchOptions,setBranchOptions]=useState([])
  useEffect(() => {
   if(invoiceDataRevised){
@@ -1578,22 +1578,11 @@ const Index = ({
                           e.target.name,
                           e.target.value,
                         )
-                          // let filter=getBanksMasterData.filter((val,index)=>{
-                          //             if(val.name==e.target.value){
-                          //               return val
-                          //             }
-                          //           })
-                          //           console.log(filter,"filter")
-                          // dispatch(getBranches(filter[0].code))
+                          
                        }
                       }
                     >
-                      {/* <option selected disabled>
-                        Select an option
-                      </option>
-                       {getBanksMasterData.map((val,index)=>{
-                                   return <option value={`${val.name}`}>{val.name}</option>
-                         })} */}
+                     
                     </input>
                     <label
                       className={`${styles.label_heading} label_heading`}

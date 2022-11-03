@@ -4,7 +4,7 @@ import moment from 'moment';
 import _get from 'lodash/get';
 
 function Index({ auditorsDetails, companyData }) {
-  console.log(companyData, 'auditorsDetails');
+
   const latestYearData = auditorsDetails && auditorsDetails[0];
 
   const previousYearData = auditorsDetails && auditorsDetails[1];
