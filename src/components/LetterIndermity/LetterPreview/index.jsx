@@ -52,7 +52,7 @@ function Index() {
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
-              >
+                >
                 <tr>
                   <td valign="top" align="left">
                     <table
@@ -150,9 +150,9 @@ function Index() {
                           'data[0].order.generic.seller.addresses[0].fullAddress',
                         )}
                          {_get(
-                transitDetails,
-                'data[0].order.generic.seller.addresses[0].city',
-              )}
+                          transitDetails,
+                          'data[0].order.generic.seller.addresses[0].city',
+                        )}
                             <br />
                            {_get(
                           transitDetails,
@@ -188,7 +188,7 @@ function Index() {
                           </td>
                         </tr>
                         <tr>
-                          <td
+                          <td valign='top'
                             colSpan={2}
                             align="left"
                             style={{
@@ -209,7 +209,7 @@ function Index() {
                           transitDetails,
                           'data[0].BL.billOfLanding[0].vesselName',
                           '',
-                        ).toUpperCase()}
+                          ).toUpperCase()}
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>
@@ -247,31 +247,37 @@ function Index() {
                             ).toUpperCase()}
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>
-                              Bill(s) of Lading:
-                            </span>
-                            <div style={{ display: 'flex',flexDirection: 'column', }} >
-                            {_get(
-                              transitDetails,
-                              'data[0].LOI.billOfLanding',
-                              [],
-                            ).map((val, index) => {
-                              return (
-                                <>
-                                <span>
-                                  {' '}
-                                  {val.blnumber} Dated {val.date},{' '}
-                                  {_get(
-                                    transitDetails,
-                                    'data[0].order.portOfDischarge',
-                                    '',
-                                  ).toUpperCase()}{' '}
-                                </span>
-                                
-                                </>
-                              );
-                            })}
-                            </div>
+                            <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                              <tr>
+                                <td align='left' width="13%">
+                                  <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading:</span>
+                                </td>
+                                <td align='left' width="87%">
+                                  <div>
+                                    {_get(
+                                      transitDetails,
+                                      'data[0].LOI.billOfLanding',
+                                      [],
+                                    ).map((val, index) => {
+                                      return (
+                                        <>
+                                        <span>
+                                          {' '}
+                                          {val.blnumber} Dated {val.date},{' '}
+                                          {_get(
+                                            transitDetails,
+                                            'data[0].order.portOfDischarge',
+                                            '',
+                                          ).toUpperCase()}{' '}
+                                        </span>
+                                        
+                                        </>
+                                      );
+                                    })}
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>                            
                           </td>
                         </tr>
                         <tr>
@@ -552,6 +558,39 @@ function Index() {
                             </table>
                           </td>
                         </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <br/><br/>
+            </td>
+          </tr>
+          <tr>
+            <td valign='top'>
+              <table
+                width="100%"
+                bgColor="#FFFFFF"
+                style={{
+                  fontFamily: 'Times New Roman, Times, serif',
+                  borderRadius: '6px',
+                  boxShadow: '0 3px 6px #CAD0E2',
+                  marginBottom: '26px',
+                  border: '2px solid rgba(202, 214, 230, 0.3)',
+                }}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+                >
+                <tr>
+                  <td valign="top" align="left">
+                    <table
+                      width="100%"
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <tbody>
                         <tr>
                           <table
                             width="100%"
@@ -740,7 +779,6 @@ function Index() {
                             <br />
                             <br />
                             <br />
-                            <br />
                             <table
                               width="100%"
                               cellPadding="0"
@@ -830,7 +868,7 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf');
+          doc.save('LetterOfIndemnity.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
