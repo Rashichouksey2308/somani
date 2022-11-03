@@ -18,7 +18,7 @@ function Index({ creditRating }) {
     let tempdates = finalarray.sort((a, b) => b - a).slice(0, 3);
     setDates(tempdates);
   }, [creditRating]);
-
+  console.log(dates, 'jdhgkghfgadsklj');
 
   useEffect(() => {
     const filteredArray = [];
@@ -30,14 +30,14 @@ function Index({ creditRating }) {
       ) {
         filteredArray.push(element);
       }
-      
+      console.log(element?.dateOfIssuance?.slice(0, 4), dates[0], 'filteredArray');
     });
 
-   
+    console.log(filteredArray, 'filteredArray');
     setFilteredCredit(filteredArray);
   }, [dates]);
 
- 
+  // console.log(creditRating, "creditRating")
   return (
     <>
       <div className={`${styles.card} card mb-6 border_color border-bottom`}>
