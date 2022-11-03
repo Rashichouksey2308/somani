@@ -93,6 +93,9 @@
     }
     .card_body {
       padding: 0px 100px 20px 100px;
+      @include respond(lg-desktop) {
+        padding: 0;
+      }
       .sub_heading {
         text-decoration: underline;
         font-weight: 500;

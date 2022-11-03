@@ -1,677 +1,6 @@
 @import '../styles/Core/config';
-.main {
-  margin-bottom: 26px;
-  border-radius: 6px !important;
-  @include respond(lg-desktop) {
-    margin-bottom: 20px;
-  }
-  .head_container {
-    min-height: 80px;
-    cursor: pointer;
-    border-bottom: none;
-    padding: 0 35px !important;
-    @include respond(lg-desktop) {
-      min-height: 60px;
-    }
-    .heading {
-      font-size: 22px;
-      color: #3687e8;
-      font-weight: bold;
-      font-size: 22px;
-      line-height: 27px;
-      @include respond(lg-desktop) {
-        font-size: 18px;
-        line-height: 1.3;
-      }
-      @include respond(phone) {
-        font-size: 16px;
-        margin: 13px 0;
-      }
-    }
-    span {
-      font-size: 45px;
-      color: #3687e8;
-      font-weight: normal;
-      line-height: 20px;
-      @include respond(lg-desktop) {
-        font-size: 35px;
-      }
-      @include respond(sm-desktop) {
-        font-size: 32px;
-      }
-      @include respond(phone) {
-        font-size: 30px;
-      }
-    }
-  }
-  .dashboard_form {
-    padding: 25px 35px !important;
-    border-top: 2px solid #cad6e6;
-    @include respond(phone) {
-      padding: 15px !important;
-    }
-    div {
-      flex-wrap: wrap;
-    }
-    .add_address {
-      margin: 0 0 32px 0;
-      @include respond(phone) {
-        margin: 15px 15px 20px;
-      }
-    }
-    .radio_form {
-      padding: 8px 0 20px 35px;
-      .radio_group {
-        display: flex;
-        .radio {
-          font-size: 20px;
-          line-height: 32px;
-          color: #111111;
-          letter-spacing: 0.19px;
-          padding-right: 10px;
-          @include respond(lg-desktop) {
-            font-size: 15px;
-            line-height: 1.3;
-          }
-          @include respond(sm-desktop) {
-            font-size: 16px;
-          }
-          @include respond(phone) {
-            font-size: 14px;
-          }
-          label {
-            padding-left: 8px;
-          }
-          input {
-            transform: scale(1.5);
-            @include respond(lg-desktop) {
-              transform: scale(1.2);
-            }
-          }
-        }
-      }
-    }
-    .form_group {
-      margin-top: 21px;
-      position: relative;
-      margin-bottom: 27px;
-      @include respond(phone) {
-        margin-top: 10px;
-      }
-      .search_image {
-        margin-left: -40px;
-      }
-      .label_heading {
-        top: 22px;
-        left: 30px;
-        font-size: 16px;
-        line-height: 17px;
-        margin-bottom: 0;
-        letter-spacing: 0.53px;
-        position: absolute;
-        pointer-events: none;
-        box-sizing: border-box;
-        transform: translateY(-30px);
-        transition: 0.3s all ease-in-out;
-        z-index: 0;
-        max-width: 77%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        &::before {
-          top: 51%;
-          left: 0;
-          width: 100%;
-          height: 3px;
-          content: '';
-          z-index: -1;
-          position: absolute;
-          transform: translateY(-50%);
-        }
-        @include respond(lg-desktop) {
-          top: 14px;
-          font-size: 14px;
-          line-height: 15px;
-          transform: translateY(-22px);
-        }
-        // @include respond(sm-desktop) {
-        //   font-size: 16px;
-        // }
-        // @include respond(phone) {
-        //   font-size: 14px;
-        //   //top: 20px;
-        // }
-      }
-      .input_field {
-        height: 60px;
-        border-radius: 4px;
-        font-size: 20px;
-        font-weight: 500;
-        outline: none;
-        box-shadow: none;
-        position: relative;
-        box-sizing: border-box;
-        padding-right: 40px;
-        &:invalid + label {
-          transform: translateY(0);
-        }
-        &:focus {
-          & + label {
-            transform: translateY(-30px);
-            @include respond(lg-desktop) {
-              transform: translateY(-22px);
-            }
-          }
-        }
-        @include respond(lg-desktop) {
-          height: 45px;
-          font-size: 15px;
-          line-height: 1.3;
-        }
-        // @include respond(md-desktop) {
-        //   font-size: 18px;
-        // }
-        // @include respond(sm-desktop) {
-        //   font-size: 16px;
-        //   height: 55px;
-        // }
-        // @include respond(phone) {
-        //   font-size: 14px;
-        //   height: 45px;
-        //   padding: 0px 12px 0px 12px;
-        // }
-      }
-      .phone_card {
-        flex-wrap: unset;
-        .code_phone {
-          font-size: 19px;
-          color: #3687e8;
-          font-weight: 500;
-          line-height: 25px;
-          outline: none;
-          letter-spacing: 0.18px;
-          text-transform: capitalize;
-          border-radius: 4px 0 0 4px;
-          border-top-right-radius: 0px;
-          border-bottom-right-radius: 0px;
-          @include respond(lg-desktop) {
-            font-size: 15px;
-            line-height: 1.3;
-          }
-        }
-        img {
-          @include respond(lg-desktop) {
-            width: 14px;
-            margin-left: -38px;
-          }
-        }
-      }
-      .percent {
-        color: #ea3f3f !important;
-      }
-      .remark_field {
-        border-radius: 4px;
-        // margin-bottom: 2rem !important;
-      }
-      &.small_input {
-        @include respond(lg-desktop) {
-          flex: 0 0 33.333333%;
-          max-width: 33.333333%;
-        }
-        @include respond(phone) {
-          flex: 0 0 50%;
-          max-width: 50%;
-        }
-      }
-    }
-    .phone {
-      .label_heading {
-        left: 90px;
-        transform: translate(-61px, -30px);
-        @include respond(lg-desktop) {
-          transform: translate(-61px, -22px);
-        }
-      }
-      .input_field {
-        border-top-left-radius: 0px;
-        border-bottom-left-radius: 0px;
-        &:focus {
-          & + label {
-            transform: translate(-61px, -30px);
-            @include respond(lg-desktop) {
-              transform: translate(-61px, -22px);
-            }
-          }
-        }
-      }
-    }
-    .btn_outer {
-      @include respond(lg-desktop) {
-        flex: 0 0 100%;
-        max-width: 100%;
-      }
-      @include respond(phone) {
-        flex: 0 0 100%;
-        max-width: 100%;
-      }
-      .btn_container {
-        overflow: hidden;
-        position: relative;
-        display: inline-block;
-        input {
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          opacity: 0;
-          cursor: pointer;
-          position: absolute;
-        }
-        .gst_btn {
-          color: #3687e8;
-          text-transform: capitalize;
-          margin: 10px 20px 10px 0;
-          border: 3px solid #3687e8;
-          border-radius: 5px;
-          font-size: 20px;
-          font-weight: bold;
-          line-height: 25px;
-          background: transparent;
-          max-width: 176px;
-          width: 100%;
-          height: 50px;
-          padding: 0 20px;
-          @include respond(lg-desktop) {
-            font-size: 16px;
-            line-height: 1.3;
-            height: 38px;
-          }
-          img {
-            @include respond(lg-desktop) {
-              width: 11px;
-              margin-bottom: 0 !important;
-            }
-          }
-        }
-        .add_btn {
-          border-style: none;
-          border-radius: 5px;
-          text-align: center;
-          font-size: 20px;
-          font-weight: bold;
-          line-height: 25px;
-          color: #ffffff;
-          text-transform: capitalize;
-          margin: 10px 10px 10px 0;
-          background: #3687e8;
-          height: 48px;
-          padding: 0 20px;
-          @include respond(lg-desktop) {
-            font-size: 16px;
-            line-height: 1.3;
-            height: 38px;
-          }
-        }
-      }
-    }
-    .address_card {
-      border: 1px solid #0000001f;
-      border-radius: 9px;
-      padding: 22px;
-      margin-bottom: 70px;
-      max-width: 49%;
-      width: 100%;
-      @include respond(lg-desktop) {
-        margin-bottom: 30px;
-      }
-      .label {
-        line-height: 25px;
-        font-weight: bold;
-        font-size: 20px;
-        // color: #111111;
-        text-transform: capitalize;
-        padding-left: 18px;
-      }
-      .address_values {
-        padding-left: 30px;
-        @include respond(lg-desktop) {
-          padding-left: 0;
-        }
-        h5 {
-          line-height: 25px;
-          font-weight: bold;
-          font-size: 20px;
-          //color: #111111;
-          text-transform: capitalize;
-          @include respond(lg-desktop) {
-            font-size: 18px;
-            line-height: 1.3;
-          }
-        }
-        p {
-          letter-spacing: 0.19px;
-          font-size: 20px;
-          line-height: 32px;
-          //color: #111111;
-          text-transform: capitalize;
-          margin-bottom: 5px;
-          @include respond(lg-desktop) {
-            font-size: 15px;
-            line-height: 1.6;
-          }
-          span {
-            font-size: 20px;
-            line-height: 25px;
-            font-weight: bold;
-            //color: #111111;
-            text-transform: capitalize;
-            @include respond(lg-desktop) {
-              font-size: 15px;
-              line-height: 1.3;
-            }
-          }
-        }
-        .view_btn {
-          padding-top: 3px;
-          padding-left: 15px;
-          color: #3687e8;
-          margin-left: 1rem;
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-  .datatable {
-    border-radius: 6px;
-    padding: 0px;
-    // width:calc(100vw - 30px);
-    .table_scroll_outer {
-      width: 100%;
-      display: table;
-      table-layout: fixed;
-      .table_scroll_inner {
-        display: table-cell;
-        overflow-x: auto;
-        .table {
-          margin-bottom: 0;
-          th {
-            font-size: 15px;
-            color: #8492a6;
-            font-weight: bold;
-            line-height: 18px;
-            padding: 24px 15px;
-            text-transform: uppercase;
-            white-space: nowrap;
-            border-bottom: none;
-            &:first-child {
-              padding-left: 35px;
-              @include respond(sm-desktop) {
-                padding-left: 15px;
-              }
-            }
-            &:last-child {
-              padding-right: 35px;
-              @include respond(sm-desktop) {
-                padding-right: 15px;
-              }
-            }
-            @include respond(lg-desktop) {
-              height: 50px;
-              font-size: 14px;
-              line-height: 1.2;
-              padding: 17px 15px;
-            }
-            @include respond(sm-desktop) {
-              font-size: 13px;
-            }
-            @include respond(phone) {
-              font-size: 12px;
-              padding: 10px;
-            }
-          }
-          tr {
-            td {
-              font-size: 19px;
-              font-weight: 500;
-              line-height: 24px;
-              padding: 24px 15px;
-              border: none;
-              opacity: 0.7;
-              white-space: nowrap;
-              vertical-align: middle;
-              &:first-child {
-                padding-left: 35px;
-                @include respond(sm-desktop) {
-                  padding-left: 15px;
-                }
-              }
-              &:last-child {
-                padding-right: 35px;
-                @include respond(sm-desktop) {
-                  padding-right: 15px;
-                }
-              }
-              @include respond(lg-desktop) {
-                font-size: 15px;
-                line-height: 1.3;
-                padding: 17px 15px;
-              }
-              @include respond(phone) {
-                font-size: 14px;
-                padding: 10px;
-              }
-              input {
-                // background: #c3c3c31f;
-                // border: 1px solid #0000001f;
-                border-radius: 4px;
-                padding: 5px;
-                height: 40px;
-                font-size: 19px;
-                line-height: 24px;
-                outline: none;
-                @include respond(lg-desktop) {
-                  height: 34px;
-                  font-size: 15px;
-                  line-height: 1.3;
-                }
-              }
-              .checkBox {
-                transform: scale(1.5);
-                @include respond(lg-desktop) {
-                  transform: scale(1.2);
-                }
-              }
-              select {
-                font-size: 19px;
-                line-height: 24px;
-                height: 40px;
-                min-width: 150px;
-                padding-right: 28px;
-                @include respond(lg-desktop) {
-                  height: 34px;
-                  font-size: 15px;
-                  line-height: 1.3;
-                }
-              }
-            }
-          }
-          .dropDown {
-            padding: 5px;
-            border-radius: 4px;
-            font-size: 19px;
-            line-height: 24px;
-            outline: none;
-            // background: transparent;
-            // border: none;
-            // outline: none;
-            @include respond(lg-desktop) {
-              font-size: 15px;
-              line-height: 1.3;
-            }
-          }
-        }
-      }
-    }
-  }
-  .add_row {
-    text-align: center;
-    font-size: 18px;
-    line-height: 23px;
-    font-weight: bold;
-    color: #3687e8;
-    cursor: pointer;
-    padding: 15px 35px;
-    @include respond(lg-desktop) {
-      font-size: 15px;
-      line-height: 1.3;
-    }
-    span {
-      font-size: 28px;
-      line-height: 0.7;
-      margin-right: 14px;
-      @include respond(lg-desktop) {
-        font-size: 20px;
-      }
-    }
-  }
-  .edit_image {
-    background: #c3c3c31f;
-    border: 1px solid #0000001f;
-    border-radius: 4px;
-    padding: 10px 9px;
-    @include respond(lg-desktop) {
-      width: 30px;
-      height: 30px;
-      padding: 7px;
-    }
-    @include respond(sm-desktop) {
-      width: 28px;
-      height: 28px;
-      padding: 6px;
-    }
-    @include respond(phone) {
-      width: 25px;
-      height: 25px;
-      padding: 5px;
-    }
-  }
-  .delete_image {
-    @include respond(lg-desktop) {
-      width: 30px;
-      height: 30px;
-    }
-    @include respond(sm-desktop) {
-      width: 28px;
-      height: 28px;
-    }
-    @include respond(phone) {
-      width: 25px;
-      height: 25px;
-    }
-  }
-  .submit {
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687e8;
-    border-radius: 5px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 1rem;
-    margin: 10px 35px !important;
-  }
-}
-.button {
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 25px;
-  cursor: pointer;
-  width: 260px;
-  height: 48px;
-  background: #3687e8;
-  border-radius: 5px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1rem;
-  flex-wrap: unset !important;
-  padding: 25px 35px !important;
-  @include respond(lg-desktop) {
-    width: 200px;
-    height: 38px;
-    font-size: 18px;
-    line-height: 1.3;
-    padding: 0 10px !important;
-  }
-  @include respond(md-desktop) {
-    width: 120px;
-    font-size: 12px;
-  }
-}
-.button2 {
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 25px;
-  padding: 25px 35px !important;
-  cursor: pointer;
-  width: 260px;
-  height: 48px;
-  background: #3687e8;
-  border-radius: 5px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @include respond(lg-desktop) {
-    width: 200px;
-    height: 38px;
-    font-size: 18px;
-    line-height: 1.3;
-    padding: 0 10px !important;
-  }
-  @include respond(md-desktop) {
-    width: 120px;
-    font-size: 12px;
-  }
-}
-.calanderIcon {
-  margin-left: -40px;
-  margin-top: 15px;
-  width: 23px;
-  height: 26px;
-  z-index: 1;
-  pointer-events: none;
-  @include respond(lg-desktop) {
-    width: 18px;
-    margin-top: 9px;
-    margin-left: -33px;
-  }
-}
-.arrow {
-  margin-left: -40px;
-  width: 13px;
-  pointer-events: none;
-  input[type='date']::-webkit-inner-spin-button,
-  input[type='date']::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-  }
-}
-.arrow2 {
-  width: 13px;
-  right: 15px;
-  pointer-events: none;
-  position: absolute;
-}
 
-.customSelect {
-  appearance: none;
-  // position: relative;
-  box-shadow: none !important;
-}
+
 .sub_heading {
   font-size: 20px;
   line-height: 25px;
@@ -793,5 +122,106 @@
   img {
     width: auto !important;
     height: auto !important;
+  }
+}
+.address_card {
+  border: 1px solid #0000001f;
+  border-radius: 9px;
+  padding: 22px;
+  margin-bottom: 70px;
+  max-width: 49%;
+  width: 100%;
+  @include respond(lg-desktop) {
+    margin-bottom: 30px;
+  }
+  .label {
+    line-height: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    // color: #111111;
+    text-transform: capitalize;
+    padding-left: 18px;
+  }
+  .address_values {
+    padding-left: 30px;
+    @include respond(lg-desktop) {
+      padding-left: 0;
+    }
+    h5 {
+      line-height: 25px;
+      font-weight: bold;
+      font-size: 20px;
+      //color: #111111;
+      text-transform: capitalize;
+      @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+    }
+    p {
+      letter-spacing: 0.19px;
+      font-size: 20px;
+      line-height: 32px;
+      //color: #111111;
+      text-transform: capitalize;
+      margin-bottom: 5px;
+      @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      span {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: bold;
+        //color: #111111;
+        text-transform: capitalize;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
+        }
+      }
+    }
+    .view_btn {
+      padding-top: 3px;
+      padding-left: 15px;
+      color: #3687e8;
+      margin-left: 1rem;
+      text-decoration: underline;
+    }
+  }
+}
+.edit_image {
+  background: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  padding: 10px 9px;
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+  }
+  @include respond(sm-desktop) {
+    width: 28px;
+    height: 28px;
+    padding: 6px;
+  }
+  @include respond(phone) {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+  }
+}
+.delete_image {
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
+  }
+  @include respond(sm-desktop) {
+    width: 28px;
+    height: 28px;
+  }
+  @include respond(phone) {
+    width: 25px;
+    height: 25px;
   }
 }
