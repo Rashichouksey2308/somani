@@ -379,26 +379,26 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                       Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day.
                     </p>
                   </li>
-                  <li>
+                  <li className='pl-4'>
                     <p className="text_sales">
                       Documents to be provided to Buyer
-                      <ol type="1" className="pl-0">
-                        <li>
+                      <ol type="1" className="ml-n4 pl-0">
+                        <li className='pl-4'>
                           <p className="text_sales">The Seller's Commercial Invoice,</p>{' '}
                         </li>
-                        <li>
+                        <li className='pl-4'>
                           <p className="text_sales">Full set of 3/3 originals of Bills of Lading,</p>
                         </li>
-                        <li>
+                        <li className='pl-4'>
                           <p className="text_sales">Certificate of Quality,</p>
                         </li>
-                        <li>
+                        <li className='pl-4'>
                           <p className="text_sales">Certificate of Weight,</p>
                         </li>
-                        <li>
+                        <li className='pl-4'>
                           <p className="text_sales">Certificate of Origin,</p>{' '}
                         </li>
-                        <li>
+                        <li className='pl-4'>
                           <p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p>
                         </li>
                       </ol>

@@ -74,6 +74,7 @@ export default function Index({ isQuery }) {
       router.pathname?.match('/letter-table') ||
       router.pathname?.match('/lc-module') ||
       router.pathname?.match('/letter-credit/lc-create') ||
+      router.pathname?.match('/add-supplier') ||
       router.pathname?.match('/supplier')
     ) {
       show.units = false;

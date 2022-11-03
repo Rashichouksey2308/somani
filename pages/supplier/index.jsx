@@ -790,6 +790,7 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
+               onClick={() => Router.push('/add-supplier')}
                 src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                 alt="arrow right"
                 className="img-fluid image_arrow"

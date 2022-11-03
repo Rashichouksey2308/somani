@@ -472,27 +472,27 @@ export const toPdf = (data) => {
                     cost of such Rent, Claim, and penalty shall be fully borne
                     by the End User. Upon release of payment for the value of
                     each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    shall be sent to the CMA Agent, within one banking day.
                   </li>
-                  <li style={{ marginBottom: '10px' }}>
+                  <li style={{ marginBottom: '10px', paddingLeft:'24px' }}>
                     Documents to be provided to Buyer
-                    <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
+                    <ol type="1" style={{ paddingLeft: '0', marginLeft:'-24px' }}>
+                      <li style={{ color: '#000000', paddingLeft:'24px' }}>
                         The Seller's Commercial Invoice,
                       </li>
-                      <li style={{ color: '#000000' }}>
+                      <li style={{ color: '#000000', paddingLeft:'24px' }}>
                         Full set of 3/3 originals of Bills of Lading,
                       </li>
-                      <li style={{ color: '#000000' }}>
+                      <li style={{ color: '#000000', paddingLeft:'24px' }}>
                         Certificate of Quality,
                       </li>
-                      <li style={{ color: '#000000' }}>
+                      <li style={{ color: '#000000', paddingLeft:'24px' }}>
                         Certificate of Weight,
                       </li>
-                      <li style={{ color: '#000000' }}>
+                      <li style={{ color: '#000000', paddingLeft:'24px' }}>
                         Certificate of Origin.
                       </li>
-                      <li style={{ color: '#000000', marginBottom: '10px' }}>
+                      <li style={{ color: '#000000', paddingLeft:'24px', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
                     </ol>
@@ -512,7 +512,7 @@ export const toPdf = (data) => {
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
-            padding: '100px 20px 40px',
+            padding: '130px 20px 40px',
           }}
         >
           <table
@@ -1066,7 +1066,7 @@ export const toPdf = (data) => {
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
-            padding: '100px 20px 40px',
+            padding: '120px 20px 40px',
           }}
         >
           <table

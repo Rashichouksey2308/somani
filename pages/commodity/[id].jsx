@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './commodity.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
+import AddCommodity from '../../src/components/AddCommodity'
 
 function Index() {
   return (
@@ -21,7 +22,7 @@ function Index() {
                 alt="ArrowRight"
               />
             </div>
-            <h1 className={styles.heading}>Add New User</h1>
+            <h1 className={styles.heading}>Add New Commodity</h1>
           </div>
           <div className="d-flex align-items-center">
             <div className={`${styles.lastModified} text `}>
@@ -32,7 +33,8 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-      </div>
+     <AddCommodity/>
+     </div>
     </Card>
   );
 }
