@@ -52,7 +52,7 @@ function Index() {
     setDetail(supplierData?.shareHoldersDetails ?? [])
     setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? [])
     setBusinessArray(supplierData?.bussinessSummary ?? [])
-    setCommidity(supplierData?.commoditiesTraded ?? [])
+    setListCommodity(supplierData?.commoditiesTraded ?? [])
     setInfoArray(supplierData?.additionalInformation ?? [])
     if (_get(supplierData, 'document[0]', '') !== '') {
       setIncumbencyDoc(supplierData?.document[0])
@@ -166,7 +166,7 @@ function Index() {
     },
   ]);
 
-
+  // console.log(listCommodity,'supplierstate')
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -224,7 +224,6 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-
       action: false
     },
   ]);
@@ -314,7 +313,7 @@ function Index() {
     console.log(businessArray, 'businessArray')
     let temp = [...businessArray]
     // temp.push(business)
-    setBusinessArray([...temp, { business: business }])
+    setBusinessArray([...temp, { businessSummary: business }])
     setBusiness('');
   };
 
@@ -356,17 +355,17 @@ function Index() {
           break;
         }
       }
-      if (
-        person[i].designation === '' ||
-        person[i].designation === null
-      ) {
-        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
+      // if (
+      //   person[i].designation === '' ||
+      //   person[i].designation === null
+      // ) {
+      //   toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     isOk = false;
+      //     break;
+      //   }
+      // }
       if (
         person[i].contact === '' ||
         person[i].contact === null ||
@@ -411,17 +410,17 @@ function Index() {
           break;
         }
       }
-      if (
-        detail[i].designation === '' ||
-        detail[i].designation === null
-      ) {
-        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
+      // if (
+      //   detail[i].designation === '' ||
+      //   detail[i].designation === null
+      // ) {
+      //   toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     isOk = false;
+      //     break;
+      //   }
+      // }
       if (
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
@@ -589,19 +588,19 @@ function Index() {
         shareHoldersDetails: detail,
         directorsAndAuthorizedSignatory: listDirector,
         bussinessSummary: businessArray,
-        commoditiesTraded: commodity,
+        commoditiesTraded: listCommodity,
         additionalInformation: infoArray,
         document1: incumbencyDoc,
         document2: thirdParty
       }
-
+      console.log(apiData, 'supplierstate')
       let fd = new FormData();
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
       fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
       fd.append('bussinessSummary', JSON.stringify(businessArray));
-      fd.append('commoditiesTraded', JSON.stringify(commodity));
+      fd.append('commoditiesTraded', JSON.stringify(listCommodity));
       fd.append('additionalInformation', JSON.stringify(infoArray));
 
       fd.append('document1', incumbencyDoc);
@@ -865,7 +864,7 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab} w-100`}>
+      <div className={`${styles.dashboardTab}`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
@@ -882,8 +881,8 @@ function Index() {
           </div>
         </div>
 
-        <div className={`${styles.backgroundMain} container-fluid`}>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}
+        <div className={`${styles.backgroundMain}`}>
+          <div className={`${styles.main} vessel_card card border_color`}
           >
             <div
               className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
@@ -1077,7 +1076,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1126,7 +1125,7 @@ function Index() {
                   className={`${styles.address_card} mt-3 pb-5 value background1`}
                 >
                   <div
-                    className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
+                    className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
                   >
                     <h3
                       className={`${styles.heading}`}
@@ -1341,7 +1340,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1453,7 +1452,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
                                           console.log("herer1")
@@ -1466,7 +1465,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           console.log("herer2")
@@ -1503,7 +1502,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1594,7 +1593,7 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/mode_edit.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="edit"
                                           onClick={(e) => {
                                             onChangeHandler3("action", true, index)
@@ -1605,7 +1604,7 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/save-3.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="save"
                                           onClick={(e) => {
                                             onChangeHandler3("action", false, index)
@@ -1640,7 +1639,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1732,7 +1731,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
                                           onChangeHandler4("action", true, index)
@@ -1743,7 +1742,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           onChangeHandler4("action", false, index)
@@ -1777,7 +1776,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1819,13 +1818,13 @@ function Index() {
                 </div>
                 <ol>
                   {businessArray?.map((val, index) => {
-                    return <li>{val?.business}</li>
+                    return <li>{val?.businessSummary}</li>
                   })}
                 </ol>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1901,7 +1900,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
                                           onChangeHandler6("action", true, index)
@@ -1912,7 +1911,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           onChangeHandler6("action", false, index)
@@ -1947,7 +1946,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1977,7 +1976,7 @@ function Index() {
                   <div className="ml-3">
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
+                      className={`${styles.edit_image} mb-3`}
                       alt="edit"
                       // onClick={(e) => {
                       //   setEditProfile(!editProfile)
