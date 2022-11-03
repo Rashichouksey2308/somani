@@ -334,9 +334,10 @@ function Index(props) {
                             // readOnly={!saveContactTable}
                             />
                           </td>
-                          <td>
+                          <td style={{minWidth:'200px'}}>
                             <div className="d-flex align-items-center">
                               <DateCalender
+                            
                                 name="chequeDate"
                                 saveDate={(val, name, index) => {
                                   handleChangeInput(name, val, index);
