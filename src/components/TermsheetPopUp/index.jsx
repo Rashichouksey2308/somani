@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  Row,
-  Col,
-  InputGroup,
-  DropdownButton,
-  Dropdown,
-  FormControl,
-  Form,
-} from 'react-bootstrap';
+import { Col, Form, FormControl, Modal, Row } from 'react-bootstrap';
 import styles from './index.module.scss';
 
 function Index(props) {
@@ -26,7 +17,7 @@ function Index(props) {
         <Modal.Title id="contained-modal-title-vcenter">
           Share {props.istermsheet ? '' : 'termsheet'} with buyer
         </Modal.Title>
-        <img onClick={() => props.close()} src="/static/close-2.svg"></img>
+        <img onClick={() => props.close()} src="/static/close-2.svg" />
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
         <Row>
@@ -40,14 +31,9 @@ function Index(props) {
                 <option>+95</option>
                 <option>+24</option>
               </select>
-              <FormControl
-                className={`${styles.input}`}
-                aria-label="Text input with dropdown button"
-              />
+              <FormControl className={`${styles.input}`} aria-label="Text input with dropdown button" />
             </div>
-            <div
-              className={`${styles.button} d-flex justify-content-center align-content-center`}
-            >
+            <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
               <span> {`Share on WhatsApp`}</span>
             </div>
           </Col>

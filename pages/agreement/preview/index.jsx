@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Contract from '../../../src/components/A2S_Sales_Contract';
 import QPA from '../../../src/components/QPA';
 import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
@@ -82,19 +82,13 @@ function index() {
         }
       });
 
-     
-
       setData({
         seller: data?.seller?.name,
         buyer: data?.buyer?.name,
         sellerAddress:_get(data, 'seller.addresses[0]', {}),
         buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
         shortseller: data?.seller?.shortName,
-        shortbuyer: `${
-          data?.buyer?.name == 'Indo German International Private Limited'
-            ? 'IGPL'
-            : 'EISL'
-        }`,
+        shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
         sellerSignature: data?.seller?.name,
         buyerSignature: data?.buyer?.name,
         dateOfExecution: dat,
@@ -104,19 +98,13 @@ function index() {
         detailsOfComm: data?.order?.commodity,
         quan: data?.order?.quantity,
         unitPrice: data.order?.perUnitPrice,
-        totalOrderValue:
-          data?.order?.marginMoney?.calculation?.orderValue ?? '',
+        totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
         lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
         dischargePort: data?.order?.portOfDischarge,
 
         lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
-        terms: `${
-          data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-          'Yes'
-            ? 'Full'
-            : 'Partial'
-        }`,
+        terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
         addComm: comment,
         spec: data?.productSpecifications?.specificationTable,
         specComment: data?.productSpecifications.comments,
@@ -233,12 +221,14 @@ function index() {
   };
   return (
     <>
-      {preview=="Sales"?<Contract preview={true} />:null}
-      {preview=="QPA"?<QPA preview={true} />:null}
-      {preview=="TPASELLER"?<TPASeller preview={true} />:null}
-      {preview=="TPAIGI"?<TPAIGI preview={true} />:null}
-      {preview=="LETTER"?<AssignmentLetter preview={true} />:null}
-      {preview=="ASSO" ||preview=="UNDERTAKING1"||preview=="UNDERTAKING2"?<AssociateshipAgreement preview={true} type={preview}/>:null}  
+      {preview == 'Sales' ? <Contract preview={true} /> : null}
+      {preview == 'QPA' ? <QPA preview={true} /> : null}
+      {preview == 'TPASELLER' ? <TPASeller preview={true} /> : null}
+      {preview == 'TPAIGI' ? <TPAIGI preview={true} /> : null}
+      {preview == 'LETTER' ? <AssignmentLetter preview={true} /> : null}
+      {preview == 'ASSO' || preview == 'UNDERTAKING1' || preview == 'UNDERTAKING2' ? (
+        <AssociateshipAgreement preview={true} type={preview} />
+      ) : null}
 
       <DownloadBar
         downLoadButtonName={`Download`}

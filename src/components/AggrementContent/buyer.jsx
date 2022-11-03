@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import _get from 'lodash/get';
+
 let buyer = {
   name: 'Indo German International Private Limited',
 
   branchName: '',
 };
+
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer);
   useEffect(() => {
@@ -44,12 +46,7 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [options, setOptions] = useState([
-    'Bhawana Jain',
-    'Vipin Kumar',
-    'Devesh Jain',
-    'Fatima Yannoulis',
-  ]);
+  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
   let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
@@ -61,8 +58,8 @@ function Index(props) {
           name: savedData.name || 'Indo German International Private Limited',
           branchName: savedData.branchName,
         };
-        setGstin(savedData.gstin||"")
-        setPan(savedData.pan||"")
+        setGstin(savedData.gstin || '');
+        setPan(savedData.pan || '');
         // if (savedData.branchName == 'Delhi') {
         //   setGstin('07AAACI3028D1Z4');
         // } else if (savedData.branchName == 'Andhra Pradesh') {
@@ -99,12 +96,11 @@ function Index(props) {
         setOptions([...optionArray]);
       } else {
         let buyer = {
-          name:
-            props?.data?.name || 'Indo German International Private Limited',
+          name: props?.data?.name || 'Indo German International Private Limited',
           branchName: props?.data?.branch,
         };
-        setGstin(props?.data.gstin||"")
-        setPan(props?.data.pan||"")
+        setGstin(props?.data.gstin || '');
+        setPan(props?.data.pan || '');
         // if (props?.data?.branch == 'Delhi') {
         //   setGstin('07AAACI3028D1Z4');
         // } else if (props?.data?.branch == 'Andhra Pradesh') {
@@ -175,8 +171,9 @@ function Index(props) {
         list: list,
         addresses: addressList,
         list: list,
-        gstin:gstin,
-        pan,gstin
+        gstin: gstin,
+        pan,
+        gstin,
       };
       props.sendData('Buyer', data);
     }
@@ -186,8 +183,9 @@ function Index(props) {
         list: list,
         addresses: addressList,
         list: list,
-        gstin:gstin,
-        pan,gstin
+        gstin: gstin,
+        pan,
+        gstin,
       };
 
       props.updateData('Buyer', data);
@@ -364,10 +362,7 @@ function Index(props) {
     }
   };
   const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   const setAddress = (name, value) => {
     const newInput = { ...newAddress };
@@ -479,145 +474,126 @@ function Index(props) {
     });
     setAddressType('Registered');
   };
-  const [branchOptions,setBranchOptions]=useState([])
+  const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
-
     if (buyerData?.name) {
-      let filter
-      console.log(buyerData?.name,"buyerData?.name")
+      let filter;
+      console.log(buyerData?.name, 'buyerData?.name');
       if (buyerData.name == 'Indo German International Private Limited') {
         setShotName('IGIPL');
-       
-         filter =props.internal.filter((val)=>{
-                      if(val.Company_Name =="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
-                        return val
-                      }
-                    })
-          let otherData=props.internal.filter((val)=>{
-              console.log(val.Branch==buyerData.branchName,val.Branch,buyerData.branchName,"val.Company_Name")
-                      if(val.Branch==buyerData.branchName){
-                        return val
-                      }
-                    })
-                    console.log(otherData,"otherData")
-                    if(otherData.length > 0){
-                     setGstin(otherData[0]?.GSTIN);
-                     setPan(otherData[0]?.PAN);
-                     console.log(_get(otherData[0],"Branch_Address",""),"otherData[0]")
-                    if(_get(otherData[0],"Branch_Address","")!==""){
 
-                        
-                          let add = otherData[0]?.Branch_Address?.split(",")
-                            let newAddress=[]
-                            add.forEach((val,index)=>{
-                              if(index<add.length-1){
-                                newAddress.push(val)
-                              }
-                            })
-                      
-                            let pincode =   add[add.length-1].split("-")
-                            console.log(newAddress,"dfdfsdfdsf",pincode)
-                            setAddressList([
-                            
-                              {
-                                addressType: 'Registered',
-                                fullAddress:
-                                  newAddress.join(),
-                                pinCode: pincode[1],
-                                country: 'India',
-                                gstin: '',
-                                state:  pincode[0],
-                                city: add[4],
-                              },
-                            ]);
-                            }   else{
-                           setAddressList([
-                            
-                              {
-                                addressType: '',
-                                fullAddress:
-                                  "",
-                                pinCode: "",
-                                country: '',
-                                gstin: '',
-                                state: "",
-                                city: "",
-                              },
-                            ]);
-                            
-                        }
-                         
-                        }else{
-                           setGstin("");
-                            setPan("");
-                        }
-                   
-    
-        
+        filter = props.internal.filter((val) => {
+          if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
+            return val;
+          }
+        });
+        let otherData = props.internal.filter((val) => {
+          console.log(val.Branch == buyerData.branchName, val.Branch, buyerData.branchName, 'val.Company_Name');
+          if (val.Branch == buyerData.branchName) {
+            return val;
+          }
+        });
+        console.log(otherData, 'otherData');
+        if (otherData.length > 0) {
+          setGstin(otherData[0]?.GSTIN);
+          setPan(otherData[0]?.PAN);
+          console.log(_get(otherData[0], 'Branch_Address', ''), 'otherData[0]');
+          if (_get(otherData[0], 'Branch_Address', '') !== '') {
+            let add = otherData[0]?.Branch_Address?.split(',');
+            let newAddress = [];
+            add.forEach((val, index) => {
+              if (index < add.length - 1) {
+                newAddress.push(val);
+              }
+            });
+
+            let pincode = add[add.length - 1].split('-');
+            console.log(newAddress, 'dfdfsdfdsf', pincode);
+            setAddressList([
+              {
+                addressType: 'Registered',
+                fullAddress: newAddress.join(),
+                pinCode: pincode[1],
+                country: 'India',
+                gstin: '',
+                state: pincode[0],
+                city: add[4],
+              },
+            ]);
+          } else {
+            setAddressList([
+              {
+                addressType: '',
+                fullAddress: '',
+                pinCode: '',
+                country: '',
+                gstin: '',
+                state: '',
+                city: '',
+              },
+            ]);
+          }
+        } else {
+          setGstin('');
+          setPan('');
+        }
       }
       if (buyerData.name == 'Emergent Industrial Solution limited') {
         setShotName('EISL');
-      
-           filter =props.internal.filter((val)=>{
-                      if(val.Company_Name=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
-                        return val
-                      }
-                    })
-                       let otherData=props.internal.filter((val)=>{
-                      if(val.Branch==buyerData.branchName && val.Company_Name=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
-                        return val
-                      }
-                    })
-                    console.log(otherData)
-                    if(otherData.length > 0){
-                     setGstin(otherData[0].GSTIN);
-                     setPan(otherData[0].PAN);
-             if(_get(otherData[0],"Branch_Address","")!==""){
 
-                        
-                          let add = otherData[0]?.Branch_Address?.split(",")
-                            let newAddress=[]
-                            add.forEach((val,index)=>{
-                              if(index<add.length-1){
-                                newAddress.push(val)
-                              }
-                            })
-                      
-                            let pincode =   add[add.length-1].split("-")
-                            console.log(newAddress,"dfdfsdfdsf",pincode)
-                            setAddressList([
-                            
-                              {
-                                addressType: 'Registered',
-                                fullAddress:
-                                  newAddress.join(),
-                                pinCode: pincode[1],
-                                country: 'India',
-                                gstin: '',
-                                state:  pincode[0],
-                                city: add[4],
-                              },
-                            ]);
-                            }   else{
-                           setAddressList([
-                            
-                              {
-                                addressType: '',
-                                fullAddress:
-                                  "",
-                                pinCode: "",
-                                country: '',
-                                gstin: '',
-                                state: "",
-                                city: "",
-                              },
-                            ]);
-                             
-                        }
-                    }else{
-                      setGstin("");
-                             setPan("");
-                    }
+        filter = props.internal.filter((val) => {
+          if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+            return val;
+          }
+        });
+        let otherData = props.internal.filter((val) => {
+          if (val.Branch == buyerData.branchName && val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+            return val;
+          }
+        });
+        console.log(otherData);
+        if (otherData.length > 0) {
+          setGstin(otherData[0].GSTIN);
+          setPan(otherData[0].PAN);
+          if (_get(otherData[0], 'Branch_Address', '') !== '') {
+            let add = otherData[0]?.Branch_Address?.split(',');
+            let newAddress = [];
+            add.forEach((val, index) => {
+              if (index < add.length - 1) {
+                newAddress.push(val);
+              }
+            });
+
+            let pincode = add[add.length - 1].split('-');
+            console.log(newAddress, 'dfdfsdfdsf', pincode);
+            setAddressList([
+              {
+                addressType: 'Registered',
+                fullAddress: newAddress.join(),
+                pinCode: pincode[1],
+                country: 'India',
+                gstin: '',
+                state: pincode[0],
+                city: add[4],
+              },
+            ]);
+          } else {
+            setAddressList([
+              {
+                addressType: '',
+                fullAddress: '',
+                pinCode: '',
+                country: '',
+                gstin: '',
+                state: '',
+                city: '',
+              },
+            ]);
+          }
+        } else {
+          setGstin('');
+          setPan('');
+        }
         // if (buyerData.branchName == 'Delhi') {
         //   setGstin('07AAACS8253L1Z0');
         //   setAddressList([
@@ -658,11 +634,10 @@ function Index(props) {
         //   setGstin('');
         // }
       }
-      
-                    
-        setBranchOptions([...filter])
+
+      setBranchOptions([...filter]);
     }
-  }, [buyerData.name, buyerData.branchName,props.internal]);
+  }, [buyerData.name, buyerData.branchName, props.internal]);
   console.log(addressList, 'addressList');
   return (
     <>
@@ -692,11 +667,7 @@ function Index(props) {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Name<strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                 {/* <img
                       className={`${styles.search_image} img-fluid`}
                       src="/static/search-grey.svg"
@@ -714,34 +685,28 @@ function Index(props) {
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
-                    let filter =props.internal.filter((val)=>{
-                      if(val.Company_Name?.toLowerCase()==e.target.value?.toLowerCase()){
-                        return val
+                    let filter = props.internal.filter((val) => {
+                      if (val.Company_Name?.toLowerCase() == e.target.value?.toLowerCase()) {
+                        return val;
                       }
-                    })
-                    console.log(filter,"filter")
+                    });
+                    console.log(filter, 'filter');
                     //  setGstin(props?.data.gstin||"")
                     //  setPan(props?.data.pan||"")
-                    setBranchOptions([...filter])
+                    setBranchOptions([...filter]);
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
 
-                  {
-                    branchOptions.map((val,index)=>{
-                      return <option value={`${val.Branch}`}>{val.Branch}</option>
-                    })
-                  }
+                  {branchOptions.map((val, index) => {
+                    return <option value={`${val.Branch}`}>{val.Branch}</option>;
+                  })}
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
@@ -760,15 +725,10 @@ function Index(props) {
         </Form>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-          <div
-            className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}
-          >
+          <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
             {addressList?.map((val, index) => {
               return (
-                <div
-                  key={index}
-                  className={`${styles.registeredAddress} d-flex justify-content-between border_color`}
-                >
+                <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
                     <div className={`${styles.address_text}`}>
@@ -782,11 +742,7 @@ function Index(props) {
                         handleEditAddressInput(index);
                       }}
                     >
-                      <img
-                        className={`${styles.image} img-fluid`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
+                      <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
                     </div>
                     <div
                       className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
@@ -794,11 +750,7 @@ function Index(props) {
                         onAddressRemove(index);
                       }}
                     >
-                      <img
-                        className={`${styles.image} img-fluid`}
-                        src="/static/delete 2.svg"
-                        alt="delete"
-                      />
+                      <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
                     </div>
                   </div>
                 </div>
@@ -817,17 +769,13 @@ function Index(props) {
             setAddressEditType,
           )}
         {isEdit == false && (
-          <div
-            className={`${styles.newAddressContainer} card m-0 border_color`}
-          >
+          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
             <div className={`${styles.newAddressHead} border_color`}>
               <span>Add a new address</span>
             </div>
             <div className="card-body p-0">
               <div className={`${styles.newAddressContent} row`}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
+                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -840,11 +788,9 @@ function Index(props) {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch </option>
+                      <option value="Branch">Branch</option>
                     </select>
-                    <Form.Label
-                      className={`${styles.label_heading} ${styles.select}  label_heading`}
-                    >
+                    <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
                     </Form.Label>
                     <img
@@ -856,9 +802,7 @@ function Index(props) {
                 </Form.Group>
                 {addressType == 'Registered' || addressType == 'Supplier' ? (
                   <>
-                    <Form.Group
-                      className={`${styles.form_group}  col-md-12 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -869,44 +813,29 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Address<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
                         name="pinCode"
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -917,37 +846,18 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                         onKeyDown={(evt) =>
-                          [
-                            '1',
-                            '2',
-                            '3',
-                            '4',
-                            '5',
-                            '6',
-                            '7',
-                            '8',
-                            '9',
-                            '0',
-                          ].includes(evt.key) && evt.preventDefault()
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                         }
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>
                       </Form.Label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </Form.Group>
                   </>
                 ) : (
                   <>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -958,13 +868,9 @@ function Index(props) {
                           }}
                         >
                           <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">
-                            27AAATW4183C2ZG
-                          </option>
+                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                         </select>
-                        <Form.Label
-                          className={`${styles.label_heading} ${styles.select}  label_heading`}
-                        >
+                        <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                           GSTIN<strong className="text-danger">*</strong>
                         </Form.Label>
                         <img
@@ -974,38 +880,25 @@ function Index(props) {
                         />
                       </div>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
                         name="pinCode"
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1016,29 +909,14 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                         onKeyDown={(evt) =>
-                          [
-                            '1',
-                            '2',
-                            '3',
-                            '4',
-                            '5',
-                            '6',
-                            '7',
-                            '8',
-                            '9',
-                            '0',
-                          ].includes(evt.key) && evt.preventDefault()
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                         }
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1049,15 +927,11 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         State<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1068,15 +942,11 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         City<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-12 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1087,9 +957,7 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Address<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
@@ -1127,9 +995,7 @@ function Index(props) {
           >
             <div className={styles.header}>
               <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-              <span className=" d-flex align-items-center justify-content-between">
-                +
-              </span>
+              <span className=" d-flex align-items-center justify-content-between">+</span>
             </div>
           </div>
           <div
@@ -1139,12 +1005,7 @@ function Index(props) {
           >
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table `}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr className="table_row">
                     <th>NAME</th>
                     <th>DESIGNATION</th>
@@ -1187,28 +1048,18 @@ function Index(props) {
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
                                           setRemovedOption(e.target.value);
-                                          handleChangeInput(
-                                            e.target.name,
-                                            e.target.value,
-                                            index,
-                                          );
+                                          handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
                                         <option>Select an option</option>
                                         {removedOption != null ? (
-                                          <option value={removedOption}>
-                                            {removedOption}
-                                          </option>
+                                          <option value={removedOption}>{removedOption}</option>
                                         ) : null}
                                         {options.map((val, i) => {
-                                          return (
-                                            <option value={val}>{val}</option>
-                                          );
+                                          return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>
-                                          {'Add New'}
-                                        </option>
+                                        <option value={'addnew'}>{'Add New'}</option>
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1227,34 +1078,20 @@ function Index(props) {
                                             value={val.name}
                                             className={`${styles.customSelect} input`}
                                             onChange={(e) => {
-                                              handleChangeInput(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              );
+                                              handleChangeInput(e.target.name, e.target.value, index);
                                             }}
                                           >
                                             <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>
-                                              Vipin Kumar
-                                            </option>
-                                            <option value={'Bhawana Jain'}>
-                                              Bhawana Jain
-                                            </option>
-                                            <option value={'Devesh Jain'}>
-                                              Devesh Jain
-                                            </option>
-                                            <option value={'Fatima Yannoulis'}>
-                                              Fatima Yannoulis
-                                            </option>
+                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
+                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
+                                            <option value={'Devesh Jain'}>Devesh Jain</option>
+                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
 
                                             {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>
-                                              {'Add New'}
-                                            </option>
+                                            <option value={'addnew'}>{'Add New'}</option>
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1271,11 +1108,7 @@ function Index(props) {
                                             name="name"
                                             value={val.name}
                                             onChange={(e) => {
-                                              handleChangeInput2(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              );
+                                              handleChangeInput2(e.target.name, e.target.value, index);
                                             }}
                                           />
                                         </>
@@ -1291,11 +1124,7 @@ function Index(props) {
                                     name="designation"
                                     // readOnly={val.addnew!="true"?true:false}
                                     onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -1306,11 +1135,7 @@ function Index(props) {
                                     name="email"
                                     className="input"
                                     onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -1320,19 +1145,10 @@ function Index(props) {
                                     className="input"
                                     name="phoneNo"
                                     type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -1343,11 +1159,7 @@ function Index(props) {
                                       onEditRemove(index, val);
                                     }}
                                   >
-                                    <img
-                                      className={`${styles.image} mr-3`}
-                                      src="/static/save-3.svg"
-                                      alt="save"
-                                    />
+                                    <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save" />
                                   </div>
                                   <div
                                     className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
@@ -1412,19 +1224,13 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered </option>
-              <option value="Branch">Branch </option>
+              <option value="Registered">Registered</option>
+              <option value="Branch">Branch</option>
             </select>
-            <Form.Label
-              className={`${styles.label_heading} ${styles.select}  label_heading`}
-            >
+            <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
             </Form.Label>
-            <img
-              className={`${styles.arrow} image_arrow img-fluid`}
-              src="/static/inputDropDown.svg"
-              alt="Search"
-            />
+            <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
         {addressEditType == 'Registered' || addressEditType == 'Supplier' ? (
@@ -1444,9 +1250,7 @@ const editData = (
                 Address<strong className="text-danger">*</strong>
               </Form.Label>
             </Form.Group>
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -1454,9 +1258,7 @@ const editData = (
                 onWheel={(event) => event.currentTarget.blur()}
                 name="pinCode"
                 value={EditAddress.pinCode}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={(e) => {
                   editNewAddress(e.target.name, e.target.value);
                 }}
@@ -1464,15 +1266,9 @@ const editData = (
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -1483,19 +1279,13 @@ const editData = (
                   editNewAddress(e.target.name, e.target.value);
                 }}
                 onKeyDown={(evt) =>
-                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
-                    evt.key,
-                  ) && evt.preventDefault()
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                 }
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Country<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
           </>
         ) : (
@@ -1513,21 +1303,13 @@ const editData = (
                   <option>Select an option</option>
                   <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -1535,9 +1317,7 @@ const editData = (
                 onWheel={(event) => event.currentTarget.blur()}
                 name="pinCode"
                 value={EditAddress.pinCode}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={(e) => {
                   editNewAddress(e.target.name, e.target.value);
                 }}
@@ -1545,11 +1325,7 @@ const editData = (
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
@@ -1562,14 +1338,10 @@ const editData = (
                   editNewAddress(e.target.name, e.target.value);
                 }}
                 onKeyDown={(evt) =>
-                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
-                    evt.key,
-                  ) && evt.preventDefault()
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                 }
               />
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-                Short Name
-              </Form.Label>
+              <Form.Label className={`${styles.label_heading} label_heading`}>Short Name</Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control

@@ -24,6 +24,7 @@
     margin: 50px;
   }
 }
+
 .main {
   align-items: center;
   animation: animate-bg 5s linear infinite;
@@ -39,18 +40,22 @@
   z-index: 3000;
 
   justify-content: center;
+
   & > div {
     margin: 50px;
   }
 }
+
 .loader {
   display: inline-block;
   height: 106px;
   position: relative;
   width: 106px;
+
   div {
     animation: spin-03 1s linear infinite;
     transform-origin: 40px 40px;
+
     &:after {
       background: #2075bc;
       border-radius: 20%;
@@ -62,6 +67,7 @@
       top: 3px;
       width: 6px;
     }
+
     @for $i from 1 through 12 {
       &:nth-child(#{$i}) {
         animation-delay: 0.1s * $i;
@@ -70,6 +76,7 @@
     }
   }
 }
+
 @keyframes spin-03 {
   0% {
     opacity: 1;

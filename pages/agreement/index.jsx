@@ -1,28 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
-import AgreementSales from '../../src/components/AgreementSales';
-import SalesAgreement from '../../src/components/SalesAgreement';
-import SalesContract from '../../src/components/SalesContract';
 import Contract from '../../src/components/A2S_Sales_Contract';
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement';
 import TPASeller from '../../src/components/TPASeller';
 import TPAIGI from '../../src/components/TPAIGI';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import QPA from '../../src/components/QPA';
-import { setPageName } from '../../src/redux/userData/action';
-
-import { Form } from 'react-bootstrap';
 
 import AssignmentLetter from '../../src/components/AssignmentLetter';
 
 function Index() {
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
 
   const setPreviewValue = (val) => {
-    sessionStorage.setItem('agreementPreview',val)
+    sessionStorage.setItem('agreementPreview', val);
     setPreview(val);
   };
   const [name, setName] = useState('');
@@ -35,9 +29,7 @@ function Index() {
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
-        <div
-          className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}
-        >
+        <div className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}>
           <img
             onClick={() => Router.push('/agreement-table')}
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
@@ -48,10 +40,7 @@ function Index() {
           <h1 className={`${styles.title} heading `}>{name}</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto mr-2">
-              <button
-                type="button"
-                className={`${styles.btnPrimary} btn btn-primary`}
-              >
+              <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>
                 Print
               </button>
             </div>
@@ -154,67 +143,39 @@ function Index() {
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane fade show active"
-                  id="SalesContract"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade show active" id="SalesContract" role="tabpanel">
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <Contract
-                      preview={preview}
-                      setPreviewValue={setPreviewValue}
-                    />
+                    <Contract preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="Associateship"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="Associateship" role="tabpanel">
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssociateshipAgreement
-                     preview={preview}
-                    setPreviewValue={setPreviewValue} />
+                    <AssociateshipAgreement preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Assignment" role="tabpanel">
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssignmentLetter 
-                     preview={preview}
-                    setPreviewValue={setPreviewValue} />
+                    <AssignmentLetter preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPASeller" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPASeller 
-                     preview={preview}
-                    setPreviewValue={setPreviewValue} />
+                    <TPASeller preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPACMA" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPAIGI 
-                     preview={preview}
-                    setPreviewValue={setPreviewValue} />
+                    <TPAIGI preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="QPA" role="tabpanel">
                   <div className="accordion shadow-none" id="qpaAgreement">
-                    <QPA 
-                    preview={preview}
-                    setPreviewValue={setPreviewValue} />
+                    <QPA preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">
-                  <div
-                    className="accordion shadow-none"
-                    id="inspectionDocument"
-                  >
-                    <InspectionDocument
-                      documentName="Sales Agreement"
-                      isOpen="false"
-                      setLcDoc
-                    />
+                  <div className="accordion shadow-none" id="inspectionDocument">
+                    <InspectionDocument documentName="Sales Agreement" isOpen="false" setLcDoc />
                   </div>
                 </div>
               </div>
@@ -225,4 +186,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

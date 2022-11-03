@@ -1,11 +1,14 @@
 @import '../styles/Core/config';
+
 .main {
   padding: 50px 35px;
   @include respond(phone) {
     padding: 25px 20px 20px;
   }
+
   .term_container {
     display: flex;
+
     .check_box {
       margin: 0;
       transform: scale(1.5);
@@ -13,6 +16,7 @@
         width: 65px;
       }
     }
+
     .term_para {
       color: var(--unnamed-color-111111);
       font-size: 18px;
@@ -23,12 +27,14 @@
       }
     }
   }
+
   .btn_container {
     display: flex;
     justify-content: end;
     @include respond(phone) {
       justify-content: space-between;
     }
+
     .cancel_btn {
       width: 218px;
       height: 48px;
@@ -41,6 +47,7 @@
         margin-left: 0px;
       }
     }
+
     .submit_btn {
       width: 220px;
       height: 48px;
@@ -57,14 +64,18 @@
     }
   }
 }
+
 .mainDark {
   padding: 50px 35px;
+
   .term_container {
     display: flex;
+
     .check_box {
       margin: 0;
       transform: scale(1.5);
     }
+
     .term_para {
       font-size: 18px;
       color: #ffffff;
@@ -72,9 +83,11 @@
       margin-left: 15px;
     }
   }
+
   .btn_container {
     display: flex;
     justify-content: end;
+
     .cancel_btn {
       width: 218px;
       height: 48px;
@@ -86,6 +99,7 @@
       background-color: #1d2530;
       margin: 10px 27px 10px 0;
     }
+
     .submit_btn {
       width: 220px;
       height: 48px;

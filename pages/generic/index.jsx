@@ -1,16 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import SalesAgreement from '../../src/components/SalesAgreement';
-import Cookies from 'js-cookie';
-import API from '../../src/utils/endpoints';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { useDispatch } from 'react-redux';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import Router from 'next/router';
 import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 import { GetAllOrders } from '../../src/redux/registerBuyer/action';
@@ -38,15 +32,12 @@ function Index(props) {
     }
   }, []);
 
-
   const setDate = (date) => {
     setlastModified(date);
   };
   return (
     <div className={`${styles.dashboardTab} w-100`}>
-      <div
-        className={`${styles.tabHeader} tabHeader d-flex align-items-center`}
-      >
+      <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
         <div className={`${styles.tabHeaderInner} d-flex align-items-center`}>
           <img
             src="/static/keyboard_arrow_right-3.svg"
@@ -57,15 +48,12 @@ function Index(props) {
             }}
             style={{ cursor: 'pointer' }}
           />
-          <h1 className={`${styles.title} heading`}>
-            {genericData?.company?.companyName}
-          </h1>
+          <h1 className={`${styles.title} heading`}>{genericData?.company?.companyName}</h1>
         </div>
         <div className={'ml-auto d-flex'}>
           <div className="ml-auto  mr-2">
             <div className={`${styles.lastModified} text `}>
-              <span className="accordion_Text">Last Modified:</span>{' '}
-              {lastModified}
+              <span className="accordion_Text">Last Modified:</span> {lastModified}
             </div>
           </div>
         </div>

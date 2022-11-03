@@ -1,5 +1,4 @@
-
-const scanner = require('sonarqube-scanner');
+const scanner = require('sonarqube-scanner')
 
 scanner(
   {
@@ -14,5 +13,5 @@ scanner(
   },
   /* A function that is called after the sonarqube-scanner module is done. */
   () => process.exit(),
-);
+)
  

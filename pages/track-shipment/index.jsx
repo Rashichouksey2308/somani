@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import DownloadBar from '../../src/components/DownloadBar';
 import Filter from '../../src/components/Filter';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setPageName } from '../../src/redux/userData/action';
 
-import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
+import { GetAllVessel } from '../../src/redux/vessel/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -41,26 +36,22 @@ function Index() {
             name: vessel.company.companyName,
             imoNumber: vessel.vessels[0].IMONumber,
             vesselName: vessel.vessels[0].vesselInformation[0].name,
-            containerNumber:
-              vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
+            containerNumber: vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
           });
         }
         if (vessel?.vessels[0]?.shipmentType == 'Liner') {
           vessel.vessels[0].vesselInformation.forEach((v, index) => {
-
             temp.push({
               orderID: vessel.order.orderId,
               name: vessel.company.companyName,
               imoNumber: v?.IMONumber || '',
               vesselName: v?.name || '',
-              containerNumber:
-                vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
+              containerNumber: vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
             });
           });
         }
       });
       setTable([...temp]);
-   
     }
   }, [allVessel]);
   const getSn = (index) => {
@@ -81,14 +72,8 @@ function Index() {
           </div>
           <div className={styles.search}>
             <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
               <input
                 type="text"
@@ -109,14 +94,11 @@ function Index() {
           Create</button> */}
         </div>
         <div className={`${styles.datatable} border datatable card`}>
-          <div
-            className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-          >
+          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
             <h5 className="heading_card">Shipments</h5>
             <div className={`${styles.pageList} d-flex align-items-center`}>
               <div className={`${styles.showPage}`}>
-                Showing Page {currentPage + 1} out of{' '}
-                {Math.ceil(allVessel?.totalCount / 7)}
+                Showing Page {currentPage + 1} out of {Math.ceil(allVessel?.totalCount / 7)}
               </div>
               <a
                 onClick={() => {
@@ -130,11 +112,7 @@ function Index() {
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
                 {' '}
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
               <a
                 onClick={() => {
@@ -145,22 +123,13 @@ function Index() {
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
             </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table
-                className={`${styles.table} table`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
+              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                 <thead>
                   <tr className="table_row">
                     <th>SR. NO.</th>
@@ -186,9 +155,7 @@ function Index() {
                           <td>{val.vesselName}</td>
                           <td>{val.containerNumber}</td>
                           <td>
-                            <button className={`${styles.trackBtn}`}>
-                              Track
-                            </button>
+                            <button className={`${styles.trackBtn}`}>Track</button>
                           </td>
                         </tr>
                       );
@@ -203,4 +170,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

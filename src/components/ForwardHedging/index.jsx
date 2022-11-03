@@ -1,27 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
-import { useState, useEffect } from 'react';
 import DateCalender from '../DateCalender';
 import Router, { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  GetAllForwardHedging,
-  UpdateForwardHedging,
-} from 'redux/ForwardHedging/action';
+import { GetAllForwardHedging, UpdateForwardHedging } from 'redux/ForwardHedging/action';
 // import { UploadDocument } from 'redux/registerBuyer/action'
 import UploadOther from '../UploadOther';
 import _get from 'lodash/get';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -42,12 +34,8 @@ export default function Index() {
 
   useEffect(() => {
     dispatch(setPageName('forward'));
-    dispatch(
-      setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')),
-    );
-    dispatch(
-      setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})),
-    );
+    dispatch(setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')));
+    dispatch(setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})));
   }, [allForwardHedging]);
   const [list, setList] = useState([
     {
@@ -154,13 +142,9 @@ export default function Index() {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.customClearanceDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      });
       // console.log(response.data.data, 'response data123')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
@@ -266,11 +250,7 @@ export default function Index() {
   const validation = () => {
     let isOk = true;
     for (let i = 0; i < list.length; i++) {
-      if (
-        list[i].bankName === null ||
-        list[i].bankName === undefined ||
-        list[i].bankName === ''
-      ) {
+      if (list[i].bankName === null || list[i].bankName === undefined || list[i].bankName === '') {
         let toastMessage = `Please enter bank name ${i} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -278,11 +258,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].currency === null ||
-        list[i].currency === undefined ||
-        list[i].currency === ''
-      ) {
+      if (list[i].currency === null || list[i].currency === undefined || list[i].currency === '') {
         let toastMessage = `Please enter currency ${i}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -290,11 +266,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].bookedRate === null ||
-        list[i].bookedRate === undefined ||
-        list[i].bookedRate === ''
-      ) {
+      if (list[i].bookedRate === null || list[i].bookedRate === undefined || list[i].bookedRate === '') {
         let toastMessage = `Please enter booked Rate ${i}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -302,11 +274,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].bookedAmount === null ||
-        list[i].bookedAmount === undefined ||
-        list[i].bookedAmount === ''
-      ) {
+      if (list[i].bookedAmount === null || list[i].bookedAmount === undefined || list[i].bookedAmount === '') {
         let toastMessage = `Please enter booked Amount ${i}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -314,11 +282,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].validityFrom === null ||
-        list[i].validityFrom === undefined ||
-        list[i].validityFrom === ''
-      ) {
+      if (list[i].validityFrom === null || list[i].validityFrom === undefined || list[i].validityFrom === '') {
         let toastMessage = `Please enter validity From ${i}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -326,11 +290,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].validityTo === null ||
-        list[i].validityTo === undefined ||
-        list[i].validityTo === ''
-      ) {
+      if (list[i].validityTo === null || list[i].validityTo === undefined || list[i].validityTo === '') {
         let toastMessage = `Please enter validity To ${i}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -338,11 +298,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].validityTo === null ||
-        list[i].validityTo === undefined ||
-        list[i].validityTo === ''
-      ) {
+      if (list[i].validityTo === null || list[i].validityTo === undefined || list[i].validityTo === '') {
         let toastMessage = `Please enter validity To ${i}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -388,19 +344,14 @@ export default function Index() {
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div
-              onClick={() => Router.push('/forward-table')}
-              style={{ cursor: 'pointer' }}
-            >
+            <div onClick={() => Router.push('/forward-table')} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} image_arrow mr-2 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
             </div>
-            <h1 className={`${styles.heading}`}>
-              {hedgingData?.company?.companyName}{' '}
-            </h1>
+            <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
           </div>
           <div className={`${styles.vessel_card} vessel_card border_color`}>
             <div className={`${styles.main}  border_color card `}>
@@ -423,31 +374,19 @@ export default function Index() {
                     </div>
                     <div className={`${styles.dashboard_form} pb-5 card-body`}>
                       <div className="row">
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <select
                               name="bankName"
-                              onChange={(e) =>
-                                saveHedgingData(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
+                              onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                               value={item.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected>Select an option</option>
                               <option value="Indo German">Indo German</option>
-                              <option value="Emergent Solutions">
-                                Emergent Solutions
-                              </option>
+                              <option value="Emergent Solutions">Emergent Solutions</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Bank Name
                               <strong className="text-danger">*</strong>
                             </label>
@@ -458,20 +397,12 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             <select
                               value={item.currency}
                               name="currency"
-                              onChange={(e) =>
-                                saveHedgingData(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
+                              onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected>Select an option</option>
@@ -480,9 +411,7 @@ export default function Index() {
                               <option value="EURO">EURO</option>
                               <option value="POUND">POUND</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Currency<strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -492,9 +421,7 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
@@ -519,32 +446,17 @@ export default function Index() {
                               isFieldInFocus.bookedRate
                                 ? item.bookedRate
                                 : `${item.currency} ` + item.bookedRate
-                                ? Number(item.bookedRate)?.toLocaleString(
-                                    item.currency == 'INR' ? 'en-IN' : 'en-US',
-                                  )
+                                ? Number(item.bookedRate)?.toLocaleString(item.currency == 'INR' ? 'en-IN' : 'en-US')
                                 : ''
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveHedgingData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Booked @<strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="text"
@@ -570,33 +482,18 @@ export default function Index() {
                               isFieldInFocus.bookedAmount
                                 ? item.bookedAmount
                                 : `${item.currency} ` +
-                                  Number(item.bookedAmount)?.toLocaleString(
-                                    item.currency == 'INR' ? 'en-IN' : 'en-US',
-                                  )
+                                  Number(item.bookedAmount)?.toLocaleString(item.currency == 'INR' ? 'en-IN' : 'en-US')
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveHedgingData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Booked Amount
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <DateCalender
                               name="validityFrom"
@@ -611,16 +508,11 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <DateCalender
                               name="validityTo"
-                              startFrom={
-                                item?.validityFrom != '' &&
-                                moment(item.validityFrom).format('DD-MM-YYYY')
-                              }
+                              startFrom={item?.validityFrom != '' && moment(item.validityFrom).format('DD-MM-YYYY')}
                               defaultDate={item?.validityTo ?? ''}
                               // defaultDate={list?.validityTo}
                               saveDate={saveDate}
@@ -633,37 +525,24 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} align-self-center col-lg-2 col-md-6 col-sm-6 `}
-                        >
-                          <button
-                            onClick={() => handleCancel()}
-                            className={`${styles.cancel_btn}`}
-                          >
+                        <div className={`${styles.form_group} align-self-center col-lg-2 col-md-6 col-sm-6 `}>
+                          <button onClick={() => handleCancel()} className={`${styles.cancel_btn}`}>
                             Cancel
                           </button>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                        >
-                          <div className={`${styles.label} text mt-n1`}>
-                            Balance Amount
-                          </div>
+                        <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                          <div className={`${styles.label} text mt-n1`}>Balance Amount</div>
                           <span className={`${styles.value}`}>
                             {item.currency}{' '}
                             {item?.bookedAmount
-                              ? Number(item?.bookedAmount)?.toLocaleString(
-                                  item.currency == 'INR' ? 'en-IN' : 'en-US',
-                                )
+                              ? Number(item?.bookedAmount)?.toLocaleString(item.currency == 'INR' ? 'en-IN' : 'en-US')
                               : ''}
                           </span>
                         </div>
                       </div>
                       {cancel ? (
                         <Row>
-                          <div
-                            className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                          >
+                          <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <input
                               className={`${styles.input_field} input form-control`}
                               type="number"
@@ -671,34 +550,17 @@ export default function Index() {
                               required
                               name="closingRate"
                               value={item?.closingRate}
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
-                              onChange={(e) =>
-                                saveHedgingData(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Closing Rate
                               <strong className="text-danger">*</strong>
                             </label>
                           </div>
-                          <div
-                            className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                          >
+                          <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <div className="d-flex">
-                              <DateCalender
-                                name="closingDate"
-                                saveDate={saveDate}
-                                labelName="Closing Date"
-                              />
+                              <DateCalender name="closingDate" saveDate={saveDate} labelName="Closing Date" />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
@@ -719,18 +581,10 @@ export default function Index() {
                             name="remarks"
                             defaultValue={list?.remarks}
                             required
-                            onChange={(e) =>
-                              saveHedgingData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                             className={`${styles.comment_field} input form-control`}
                           />
-                          <label
-                            className={`${styles.label_comment} ${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_comment} ${styles.label_heading} label_heading`}>
                             Remarks
                           </label>
                         </div>
@@ -739,12 +593,7 @@ export default function Index() {
                     <div className={`${styles.table_container}`}>
                       <div className={styles.table_scroll_outer}>
                         <div className={styles.table_scroll_inner}>
-                          <table
-                            className={`${styles.table} table`}
-                            cellPadding="0"
-                            cellSpacing="0"
-                            border="0"
-                          >
+                          <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                             <thead>
                               <tr>
                                 <th>
@@ -778,49 +627,25 @@ export default function Index() {
                               <tr className="table_row">
                                 <td className={styles.doc_name}>
                                   Forward Sales Contract
-                                  <strong className="text-danger ml-1">
-                                    *
-                                  </strong>
+                                  <strong className="text-danger ml-1">*</strong>
                                 </td>
                                 <td>
                                   {item?.forwardSalesContract ? (
-                                    item?.forwardSalesContract?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xls') ||
-                                    item?.forwardSalesContract?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xlsx') ? (
-                                      <img
-                                        src="/static/excel.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    ) : item?.forwardSalesContract?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.doc') ||
-                                      item?.forwardSalesContract?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.docx') ? (
-                                      <img
-                                        src="/static/doc.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
+                                    item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xls') ||
+                                    item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                    ) : item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.doc') ||
+                                      item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                     ) : (
-                                      <img
-                                        src="/static/pdf.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
+                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                     )
                                   ) : null}
                                 </td>
                                 <td className={styles.doc_row}>
                                   {item?.forwardSalesContract == null
                                     ? ''
-                                    : moment(
-                                        item?.forwardSalesContract.date,
-                                      ).format('DD-MM-YYYY , h:mm a ')}
+                                    : moment(item?.forwardSalesContract.date).format('DD-MM-YYYY , h:mm a ')}
                                 </td>
                                 <td>
                                   {/* <div className={styles.uploadBtnWrapper}>
@@ -833,23 +658,16 @@ export default function Index() {
                                   name="myfile"
                                 />
                               </div> */}
-                                  {item &&
-                                  item?.forwardSalesContract == null ? (
+                                  {item && item?.forwardSalesContract == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
                                           type="file"
                                           name="myfile"
                                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                          onChange={(e) =>
-                                            uploadDocument1(e, index)
-                                          }
+                                          onChange={(e) => uploadDocument1(e, index)}
                                         />
-                                        <button
-                                          className={`${styles.button_upload} btn`}
-                                        >
-                                          Upload
-                                        </button>
+                                        <button className={`${styles.button_upload} btn`}>Upload</button>
                                       </div>
                                       {/* <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -864,15 +682,8 @@ export default function Index() {
                                 </div> */}
                                     </>
                                   ) : (
-                                    <div
-                                      className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                    >
-                                      <span>
-                                        {
-                                          item?.forwardSalesContract
-                                            ?.originalName
-                                        }
-                                      </span>
+                                    <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                      <span>{item?.forwardSalesContract?.originalName}</span>
                                       <img
                                         className={`${styles.close_image} image_arrow`}
                                         src="/static/close.svg"
@@ -894,19 +705,12 @@ export default function Index() {
             </div>
 
             <div className="mt-4">
-              <UploadOther
-                module="Loading-Transit-Unloading"
-                orderid={hedgingData?.order?._id}
-              />
+              <UploadOther module="Loading-Transit-Unloading" orderid={hedgingData?.order?._id} />
             </div>
           </div>
         </div>
 
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={handleSubmit}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   );

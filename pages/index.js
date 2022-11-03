@@ -18,15 +18,8 @@ import styles from './index.module.scss';
 const IndexPage = () => {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.user.isDark);
-  const {
-    orderSummary,
-    leadSummary,
-    commoditySummary,
-    originSummary,
-    customerSummary,
-    exposureSummary,
-    totalOrigin,
-  } = useSelector((state) => state.analytics);
+  const { orderSummary, leadSummary, commoditySummary, originSummary, customerSummary, exposureSummary, totalOrigin } =
+    useSelector((state) => state.analytics);
 
   useEffect(() => {
     dispatch(setPageName('dashboard'));
@@ -80,14 +73,10 @@ const IndexPage = () => {
           <div className={`${styles.right_Container} col-lg-9 col-md-12`}>
             <div className={styles.upper_Container}>
               <div className="row">
-                <div
-                  className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
-                >
+                <div className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}>
                   <Countries data={originSummary} total={totalOrigin} />
                 </div>
-                <div
-                  className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
-                >
+                <div className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}>
                   <DoughnutChart customerSummary={customerSummary} />
                 </div>
               </div>
@@ -96,54 +85,28 @@ const IndexPage = () => {
               <div className="row">
                 <div className={`${styles.dashboardPadding} col-sm-12`}>
                   <div className={`${styles.leads} border card`}>
-                    <div
-                      className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}
-                    >
-                      <div
-                        className={`  d-flex justify-content-between  align-items-center`}
-                      >
+                    <div className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}>
+                      <div className={`  d-flex justify-content-between  align-items-center`}>
                         <h3 className={`heading`}>
                           BL Date{' '}
                           <img
-                            className={`${darkMode ? styles.noRotate : styles.rotate
-                              } img-fluid`}
-                            src={`${darkMode
-                              ? `/static/white-arrow.svg`
-                              : `/static/keyboard_arrow_right-3.svg`
-                              }`}
+                            className={`${darkMode ? styles.noRotate : styles.rotate} img-fluid`}
+                            src={`${darkMode ? `/static/white-arrow.svg` : `/static/keyboard_arrow_right-3.svg`}`}
                             // src="/static/keyboard_arrow_right-3.svg"
                             alt="arrow right"
                           />
                         </h3>
-                        <div
-                          className={` ${styles.filterIcon}  d-flex justify-content-between align-items-center`}
-                        >
-                          <img
-                            src="/static/Group 546.svg"
-                            alt="arrow right"
-                            className="img-fluid"
-                          />
+                        <div className={` ${styles.filterIcon}  d-flex justify-content-between align-items-center`}>
+                          <img src="/static/Group 546.svg" alt="arrow right" className="img-fluid" />
                         </div>
                       </div>
-                      <div
-                        className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
-                      >
+                      <div className={`${styles.pageList}  d-flex justify-content-end align-items-center`}>
                         <span>Showing Page 1 out of 1</span>
-                        <a
-                          href="#"
-                          className={`${styles.arrow} leftArrow arrow`}
-                        >
+                        <a href="#" className={`${styles.arrow} leftArrow arrow`}>
                           {' '}
-                          <img
-                            src="/static/keyboard_arrow_right-3.svg"
-                            alt="arrow right"
-                            className="img-fluid"
-                          />
+                          <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                         </a>
-                        <a
-                          href="#"
-                          className={`${styles.arrow} rightArrow arrow`}
-                        >
+                        <a href="#" className={`${styles.arrow} rightArrow arrow`}>
                           <img
                             src="/static/keyboard_arrow_right-3.svg"
                             alt="arrow right"
@@ -154,12 +117,7 @@ const IndexPage = () => {
                     </div>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={styles.table}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={styles.table} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th>ORDER NO.</th>
@@ -170,7 +128,6 @@ const IndexPage = () => {
                               <th>DUE AMOUNT</th>
                             </tr>
                           </thead>
-
                         </table>
                       </div>
                     </div>

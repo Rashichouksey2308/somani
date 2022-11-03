@@ -1,28 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import UploadDocument from '../../../../src/components/UploadDocument';
+import { Col, Form, Row } from 'react-bootstrap';
 import DateCalender from '../../../../src/components/DateCalender';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
-import {
-  GettingAllInsurance,
-  UpdateInsurance,
-} from '../../../../src/redux/insurance/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../../src/redux/userData/action';
+import { GettingAllInsurance, UpdateInsurance } from '../../../../src/redux/insurance/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../../src/redux/userData/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
 import { toast } from 'react-toastify';
-import {
-  addPrefixOrSuffix,
-  gSTINValidation,
-  removePrefixOrSuffix,
-} from '../../../../src/utils/helper';
+import { gSTINValidation, removePrefixOrSuffix } from '../../../../src/utils/helper';
 import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 
 import moment from 'moment/moment';
@@ -44,16 +32,8 @@ const Index = () => {
 
   useEffect(() => {
     dispatch(setPageName('insurance Request Letter'));
-    dispatch(
-      setDynamicName(
-        _get(insuranceResponse, 'data[0].company.companyName', 'Company Name'),
-      ),
-    );
-    dispatch(
-      setDynamicOrder(
-        _get(insuranceResponse, 'data[0].order.orderId', 'Order Id'),
-      ),
-    );
+    dispatch(setDynamicName(_get(insuranceResponse, 'data[0].company.companyName', 'Company Name')));
+    dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')));
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
   }, [insuranceResponse]);
 
@@ -61,9 +41,7 @@ const Index = () => {
     dispatch(getInternalCompanies());
   }, [dispatch]);
 
-  const { getInternalCompaniesMasterData } = useSelector(
-    (state) => state.MastersData,
-  );
+  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
 
   const [option, setOption] = useState([]);
 
@@ -98,9 +76,7 @@ const Index = () => {
   useEffect(() => {
     setMarineData({
       policyNumber: insuranceData?.marineInsurance?.policyNumber || '',
-      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer
-        ? insuranceData?.marineInsurance?.nameOfInsurer
-        : '',
+      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer ? insuranceData?.marineInsurance?.nameOfInsurer : '',
       gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer || '',
       nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured
         ? insuranceData?.marineInsurance?.nameOfInsured
@@ -177,10 +153,7 @@ const Index = () => {
     // gettingCompanyList(insuranceData?.order?.generic?.buyer?.name)
 
     let filter = getInternalCompaniesMasterData?.filter((val, index) => {
-      if (
-        val?.Company_Name?.toLowerCase() ==
-        insuranceData?.order?.generic?.buyer?.name?.toLowerCase()
-      ) {
+      if (val?.Company_Name?.toLowerCase() == insuranceData?.order?.generic?.buyer?.name?.toLowerCase()) {
         return val;
       }
     });
@@ -257,8 +230,7 @@ const Index = () => {
         gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured || '',
         insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
         insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-        periodOfInsurance:
-          insuranceData?.storageInsurance?.periodOfInsurance || '',
+        periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance || '',
         insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
         lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
         premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
@@ -294,10 +266,7 @@ const Index = () => {
           return false;
         }
       }
-      if (
-        marineData.insuranceFrom == '' ||
-        marineData.insuranceFrom == undefined
-      ) {
+      if (marineData.insuranceFrom == '' || marineData.insuranceFrom == undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -347,20 +316,14 @@ const Index = () => {
           return false;
         }
       }
-      if (
-        storageData.insuranceFrom == '' ||
-        storageData.insuranceFrom == undefined
-      ) {
+      if (storageData.insuranceFrom == '' || storageData.insuranceFrom == undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
         }
       }
-      if (
-        storageData.insuranceTo == '' ||
-        storageData.insuranceTo == undefined
-      ) {
+      if (storageData.insuranceTo == '' || storageData.insuranceTo == undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE TO';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -377,17 +340,13 @@ const Index = () => {
       }
       return true;
     }
-    if (
-      insuranceData?.quotationRequest?.insuranceType ==
-      'Marine & Storage Insurance'
-    ) {
+    if (insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance') {
       if (
         storageData.gstOfInsurer == '' ||
         storageData.gstOfInsurer == undefined ||
         !gSTINValidation(storageData?.gstOfInsurer)
       ) {
-        toastMessage =
-          'VALID GSTIN OF INSURER IS MANDATORY IN STORAGE INSURANCE';
+        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN STORAGE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
@@ -398,43 +357,35 @@ const Index = () => {
         storageData.gstOfInsured == undefined ||
         !gSTINValidation(storageData?.gstOfInsured)
       ) {
-        toastMessage =
-          'VALID GSTIN OF INSURED IS MANDATORY IN STORAGE INSURANCE';
+        toastMessage = 'VALID GSTIN OF INSURED IS MANDATORY IN STORAGE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
         }
       }
       if (
-        (marineData.insuranceFromType == 'Domestic' &&
-          marineData.gstOfInsurer == '') ||
+        (marineData.insuranceFromType == 'Domestic' && marineData.gstOfInsurer == '') ||
         marineData.gstOfInsurer == undefined ||
         !gSTINValidation(marineData?.gstOfInsurer)
       ) {
-        toastMessage =
-          'VALID GSTIN OF INSURER IS MANDATORY IN MARINE INSURANCE';
+        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN MARINE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
         }
       }
       if (
-        (marineData.insuranceFromType == 'Domestic' &&
-          marineData.gstOfInsured == '') ||
+        (marineData.insuranceFromType == 'Domestic' && marineData.gstOfInsured == '') ||
         marineData.gstOfInsured == undefined ||
         !gSTINValidation(marineData?.gstOfInsured)
       ) {
-        toastMessage =
-          ' VALID GSTIN OF INSURED IS MANDATORY IN MARINE INSURANCE';
+        toastMessage = ' VALID GSTIN OF INSURED IS MANDATORY IN MARINE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
         }
       }
-      if (
-        insuranceDocument.marinePolicyDocument == null ||
-        insuranceDocument.storagePolicyDocument == null
-      ) {
+      if (insuranceDocument.marinePolicyDocument == null || insuranceDocument.storagePolicyDocument == null) {
         toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -458,27 +409,14 @@ const Index = () => {
     fd.append('marineInsurance', JSON.stringify(marineObj));
     fd.append('storageInsurance', JSON.stringify(storageObj));
     fd.append('insuranceId', insuranceData?._id);
-    fd.append(
-      'insuranceType',
-      JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
-    );
+    fd.append('insuranceType', JSON.stringify(insuranceData?.quotationRequest?.insuranceType));
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
 
     let code = await dispatch(UpdateInsurance(fd));
     if (code == 200) {
-      sessionStorage.setItem(
-        'inspectionId',
-        _get(insuranceResponse, 'data[0].order.inspection', ''),
-      );
-      dispatch(
-        settingSidebar(
-          'Loading, Transit & Unloadinge',
-          'Inspection',
-          'Inspection',
-          '3',
-        ),
-      );
+      sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ''));
+      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'));
       Router.push(`/third-party`);
     }
   };
@@ -499,9 +437,7 @@ const Index = () => {
             alt="ArrowRight"
           />
 
-          <h1 className={styles.heading}>
-            {insuranceData?.company?.companyName}
-          </h1>
+          <h1 className={styles.heading}>{insuranceData?.company?.companyName}</h1>
         </div>
         <div>
           <button className={`${styles.clear_btn} clear_btn`}>Clear All</button>
@@ -519,12 +455,7 @@ const Index = () => {
                     className={styles.radio}
                     inline
                     label="Marine Insurance"
-                    checked={
-                      insuranceData?.quotationRequest?.insuranceType ==
-                      'Marine Insurance'
-                        ? 'checked'
-                        : ''
-                    }
+                    checked={insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance' ? 'checked' : ''}
                     onChange={(e) => setInsuranceType('Marine Insurance')}
                     name="group1"
                     value="Marine"
@@ -535,12 +466,7 @@ const Index = () => {
                     className={styles.radio}
                     inline
                     label="Storage Insurance"
-                    checked={
-                      insuranceData?.quotationRequest?.insuranceType ==
-                      'Storage Insurance'
-                        ? 'checked'
-                        : ''
-                    }
+                    checked={insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance' ? 'checked' : ''}
                     name="group1"
                     value="Storage"
                     onChange={(e) => {
@@ -555,10 +481,7 @@ const Index = () => {
                     label="Both"
                     value="Both"
                     checked={
-                      insuranceData?.quotationRequest?.insuranceType ==
-                      'Marine & Storage Insurance'
-                        ? 'checked'
-                        : ''
+                      insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance' ? 'checked' : ''
                     }
                     name="group1"
                     type={type}
@@ -572,36 +495,26 @@ const Index = () => {
             </div>
           </div>
         </div>
-        {insuranceData?.quotationRequest?.insuranceType ==
-        'Marine Insurance' ? (
+        {insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance' ? (
           <>
-            <div
-              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
-            >
+            <div className={`${styles.wrapper} vessel_card border_color mt-4 card`}>
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 style={{ cursor: 'default' }}
               >
                 <h2 className="mb-0">Marine Insurance Policy Details</h2>
                 <div className="d-flex justify-content-between align-items-center">
-                  <h5 className={`${styles.radio_label} mt-1 mr-3`}>
-                    Insurance From:
-                  </h5>
+                  <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
                   <div className={`${styles.radio_form} `}>
                     {['radio'].map((type) => (
-                      <div
-                        key={`inline-${type}`}
-                        className={styles.radio_group}
-                      >
+                      <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={styles.radio}
                           inline
                           label="Domestic"
                           name="insuranceFromType"
                           checked={marineData?.insuranceFromType == 'Domestic'}
-                          onChange={(e) =>
-                            saveMarineData(e.target.name, 'Domestic')
-                          }
+                          onChange={(e) => saveMarineData(e.target.name, 'Domestic')}
                           type={type}
                           id={`inline-${type}-1`}
                         />
@@ -610,15 +523,11 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="International"
-                          checked={
-                            marineData?.insuranceFromType == 'International'
-                          }
+                          checked={marineData?.insuranceFromType == 'International'}
                           name="insuranceFromType"
                           type={type}
                           id={`inline-${type}-2`}
-                          onChange={(e) =>
-                            saveMarineData(e.target.name, 'International')
-                          }
+                          onChange={(e) => saveMarineData(e.target.name, 'International')}
                         />
                       </div>
                     ))}
@@ -651,13 +560,9 @@ const Index = () => {
                             type="text"
                             name="policyNumber"
                             value={marineData?.policyNumber}
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Policy Number
                             <strong className="text-danger">*</strong>
                           </label>
@@ -666,25 +571,17 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="nameOfInsurer"
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">
-                                Policy Bazaar
-                              </option>
+                              <option value="Policy Bazaar">Policy Bazaar</option>
                               <option value="TATA AIG">TATA AIG</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Name of Insurer
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>Name of Insurer</label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -700,13 +597,9 @@ const Index = () => {
                               type="text"
                               name="gstOfInsurer"
                               value={marineData?.gstOfInsurer}
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insurer
                               {marineData?.insuranceFromType === 'Domestic' ? (
                                 <strong className="text-danger">*</strong>
@@ -733,8 +626,7 @@ const Index = () => {
                               name="nameOfInsured"
                               value={marineData?.nameOfInsured}
                               onChange={(e) => {
-                                gettingCompanyList(e.target.value),
-                                  saveMarineData(e.target.name, e.target.value);
+                                gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value);
                               }}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
@@ -746,19 +638,12 @@ const Index = () => {
                                 Emergent Industrial Solutions limited
                               </option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -778,9 +663,7 @@ const Index = () => {
                             <select
                               value={marineData?.gstOfInsured}
                               name="gstOfInsured"
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
@@ -792,19 +675,12 @@ const Index = () => {
                                 );
                               })}
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -846,21 +722,12 @@ const Index = () => {
                             onWheel={(event) => event.currentTarget.blur()}
                             name="periodOfInsurance"
                             value={
-                              getDifferenceInDaysMarine()
-                                ? getDifferenceInDaysMarine()
-                                : marineData?.periodOfInsurance
+                              getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Period of Insurance (In days)
                           </label>
                         </Col>
@@ -868,22 +735,16 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               value={marineData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option>Select an option</option>
                               {/* <option value="Reserve Bank of Spain">Reserve Bank of Spain</option> */}
-                              <option value="Zurcher Kantonal Bank,Zurich">
-                                Zurcher Kantonal Bank,Zurich
-                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
@@ -898,12 +759,10 @@ const Index = () => {
                           <input
                             type="text"
                             onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                (e.target.type = 'number');
+                              setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                (e.target.type = 'text');
+                              setIsFieldInFocus(false), (e.target.type = 'text');
                             }}
                             className={`${styles.input_field} input form-control`}
                             required
@@ -914,28 +773,19 @@ const Index = () => {
                                 : `${
                                     marineData?.insuranceFromType === 'Domestic'
                                       ? 'INR'
-                                      : marineData?.insuranceFromType ===
-                                        'International'
+                                      : marineData?.insuranceFromType === 'International'
                                       ? 'USD'
                                       : ''
                                   } ` +
-                                  Number(
-                                    marineData?.premiumAmount,
-                                  )?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'en-In'
-                                      : undefined,
+                                  Number(marineData?.premiumAmount)?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined,
                                   )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Premium Amount
                             <strong className="text-danger">*</strong>
                           </label>
@@ -961,47 +811,24 @@ const Index = () => {
                 <h3 className={styles.heading}>Upload Documents</h3>
                 <span>+</span>
               </div>
-              <div
-                id="upload"
-                className="collapse"
-                aria-labelledby="upload"
-                data-parent="#upload"
-              >
+              <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
                 <div className={`${styles.table_form}`}>
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th>
                                 DOCUMENT NAME{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                FORMAT <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>
                                 DOCUMENT DATE{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>ACTION</th>
                             </tr>
@@ -1020,38 +847,22 @@ const Index = () => {
                                   insuranceDocument?.marinePolicyDocument?.originalName
                                     ?.toLowerCase()
                                     .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
                                   ) : insuranceDocument?.marinePolicyDocument?.originalName
                                       ?.toLowerCase()
                                       .endsWith('.doc') ||
                                     insuranceDocument?.marinePolicyDocument?.originalName
                                       ?.toLowerCase()
                                       .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
-                                {insuranceDocument?.marinePolicyDocument &&
-                                insuranceDocument?.marinePolicyDocument
-                                  ? moment(
-                                      insuranceDocument?.marinePolicyDocument
-                                        ?.date,
-                                    ).format('DD-MM-YYYY,h:mm A')
+                                {insuranceDocument?.marinePolicyDocument && insuranceDocument?.marinePolicyDocument
+                                  ? moment(insuranceDocument?.marinePolicyDocument?.date).format('DD-MM-YYYY,h:mm A')
                                   : ''}
                               </td>
                               <td>
@@ -1068,9 +879,7 @@ const Index = () => {
                                     Upload
                                   </button>
                                 </div> */}
-                                {insuranceDocument &&
-                                insuranceDocument.marinePolicyDocument ==
-                                  null ? (
+                                {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1080,23 +889,12 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument1(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {
-                                        insuranceDocument?.marinePolicyDocument
-                                          ?.name
-                                      }
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
                                     <img
                                       className={`${styles.close_image} image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -1116,12 +914,9 @@ const Index = () => {
               </div>
             </div>
           </>
-        ) : insuranceData?.quotationRequest?.insuranceType ==
-          'Storage Insurance' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance' ? (
           <>
-            <div
-              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
-            >
+            <div className={`${styles.wrapper} vessel_card border_color mt-4 card`}>
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 // data-toggle="collapse"
@@ -1131,28 +926,17 @@ const Index = () => {
               >
                 <h2 className="mb-0">Storage Insurance Details</h2>
                 <div className="d-flex justify-content-between align-items-center">
-                  <h5 className={`${styles.radio_label} mt-1 mr-3`}>
-                    Insurance From:
-                  </h5>
+                  <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
                   <div className={`${styles.radio_form} `}>
                     {['radio'].map((type) => (
-                      <div
-                        key={`inline-${type}`}
-                        className={styles.radio_group}
-                      >
+                      <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={styles.radio}
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          checked={
-                            storageData?.insuranceFromType == 'Domestic'
-                              ? 'checked'
-                              : ''
-                          }
-                          onChange={(e) =>
-                            saveStorageData(e.target.name, 'Domestic')
-                          }
+                          checked={storageData?.insuranceFromType == 'Domestic' ? 'checked' : ''}
+                          onChange={(e) => saveStorageData(e.target.name, 'Domestic')}
                           // name="group1"
                           type={type}
                           id={`inline-${type}-1`}
@@ -1163,14 +947,8 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          checked={
-                            storageData?.insuranceFromType == 'International'
-                              ? 'checked'
-                              : ''
-                          }
-                          onChange={(e) =>
-                            saveStorageData(e.target.name, 'International')
-                          }
+                          checked={storageData?.insuranceFromType == 'International' ? 'checked' : ''}
+                          onChange={(e) => saveStorageData(e.target.name, 'International')}
                           // name="group1"
                           type={type}
                           id={`inline-${type}-2`}
@@ -1200,13 +978,9 @@ const Index = () => {
                               type="text"
                               name="policyNumber"
                               value={storageData?.policyNumber}
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Policy Number
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1221,23 +995,17 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="nameOfInsurer"
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">
-                                Policy Bazaar
-                              </option>
+                              <option value="Policy Bazaar">Policy Bazaar</option>
                               <option value="TATA AIG">TATA AIG</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1255,14 +1023,10 @@ const Index = () => {
                               required
                               name="gstOfInsurer"
                               value={storageData?.gstOfInsurer}
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               type="text"
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1285,11 +1049,7 @@ const Index = () => {
                               value={storageData?.nameOfInsured}
                               name="nameOfInsured"
                               onChange={(e) => {
-                                gettingCompanyList(e.target.value),
-                                  saveStorageData(
-                                    e.target.name,
-                                    e.target.value,
-                                  );
+                                gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value);
                               }}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
@@ -1301,19 +1061,12 @@ const Index = () => {
                                 Emergent Industrial Solutions limited
                               </option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -1332,9 +1085,7 @@ const Index = () => {
                             <select
                               value={storageData?.gstOfInsured}
                               name="gstOfInsured"
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
@@ -1346,19 +1097,12 @@ const Index = () => {
                                 );
                               })}
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -1404,17 +1148,10 @@ const Index = () => {
                                 ? getDifferenceInDaysStorage()
                                 : storageData?.periodOfInsurance
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveStorageData(e.target.name, e.target.value)
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Period of Insurance (In days)
                           </label>
                         </Col>
@@ -1427,22 +1164,16 @@ const Index = () => {
                                 'order.termsheet.transactionDetails.lcOpeningBank',
                                 insuranceData?.quotationRequest?.lossPayee,
                               )}
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Zurcher Kantonal Bank,Zurich">
-                                Zurcher Kantonal Bank,Zurich
-                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1458,39 +1189,28 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                (e.target.type = 'number');
+                              setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                (e.target.type = 'text');
+                              setIsFieldInFocus(false), (e.target.type = 'text');
                             }}
                             name="premiumAmount"
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
                                 : `${
-                                    storageData?.insuranceFromType ===
-                                    'Domestic'
+                                    storageData?.insuranceFromType === 'Domestic'
                                       ? 'INR'
-                                      : storageData?.insuranceFromType ===
-                                        'International'
+                                      : storageData?.insuranceFromType === 'International'
                                       ? 'USD'
                                       : ''
-                                  } ` +
-                                  Number(
-                                    storageData?.premiumAmount,
-                                  )?.toLocaleString()
+                                  } ` + Number(storageData?.premiumAmount)?.toLocaleString()
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
-                            onChange={(e) =>
-                              saveStorageData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                             type="text"
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Premium Amount
                             <strong className="text-danger">*</strong>
                           </label>
@@ -1516,47 +1236,24 @@ const Index = () => {
                 <h3 className={styles.heading}>Upload Documents</h3>
                 <span>+</span>
               </div>
-              <div
-                id="upload"
-                className="collapse"
-                aria-labelledby="upload"
-                data-parent="#upload"
-              >
+              <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
                 <div className={`${styles.table_form}`}>
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th>
                                 DOCUMENT NAME{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                FORMAT <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>
                                 DOCUMENT DATE{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>ACTION</th>
                             </tr>
@@ -1575,48 +1272,28 @@ const Index = () => {
                                   insuranceDocument?.storagePolicyDocument?.originalName
                                     ?.toLowerCase()
                                     .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
                                   ) : insuranceDocument?.storagePolicyDocument?.originalName
                                       ?.toLowerCase()
                                       .endsWith('.doc') ||
                                     insuranceDocument?.storagePolicyDocument?.originalName
                                       ?.toLowerCase()
                                       .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {insuranceDocument?.storagePolicyDocument
-                                  ? insuranceDocument?.storagePolicyDocument
-                                      ?.date
-                                    ? moment(
-                                        insuranceDocument?.storagePolicyDocument
-                                          ?.date,
-                                      ).format('DD-MM-YYYY,h:mm A')
-                                    : moment(new Date()).format(
-                                        'DD-MM-YYYY,h:mm A',
-                                      )
+                                  ? insuranceDocument?.storagePolicyDocument?.date
+                                    ? moment(insuranceDocument?.storagePolicyDocument?.date).format('DD-MM-YYYY,h:mm A')
+                                    : moment(new Date()).format('DD-MM-YYYY,h:mm A')
                                   : ''}
                               </td>
                               <td>
-                                {insuranceDocument &&
-                                insuranceDocument?.storagePolicyDocument ==
-                                  null ? (
+                                {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1626,23 +1303,12 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument2(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {
-                                        insuranceDocument?.storagePolicyDocument
-                                          ?.name
-                                      }
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
                                     <img
                                       className={`${styles.close_image}  image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -1662,39 +1328,26 @@ const Index = () => {
               </div>
             </div>
           </>
-        ) : insuranceData?.quotationRequest?.insuranceType ==
-          'Marine & Storage Insurance' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance' ? (
           <>
-            <div
-              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
-            >
+            <div className={`${styles.wrapper} vessel_card border_color mt-4 card`}>
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 style={{ cursor: 'default' }}
               >
                 <h2 className="mb-0">Marine Insurance Policy Details</h2>
                 <div className="d-flex justify-content-between align-items-center">
-                  <h5 className={`${styles.radio_label} mt-1 mr-3`}>
-                    Insurance From:
-                  </h5>
+                  <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
                   <div className={`${styles.radio_form} `}>
                     {['radio'].map((type) => (
-                      <div
-                        key={`inline-${type}`}
-                        className={styles.radio_group}
-                      >
+                      <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={styles.radio}
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={
-                            insuranceData?.marineInsurance?.insuranceFromType ==
-                            'Domestic'
-                          }
-                          onChange={(e) =>
-                            saveMarineData(e.target.name, 'Domestic')
-                          }
+                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
+                          onChange={(e) => saveMarineData(e.target.name, 'Domestic')}
                           type={type}
                           id={`inline-${type}-1`}
                         />
@@ -1704,13 +1357,8 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          defaultChecked={
-                            insuranceData?.marineInsurance?.insuranceFromType ==
-                            'International'
-                          }
-                          onChange={(e) =>
-                            saveMarineData(e.target.name, 'International')
-                          }
+                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
+                          onChange={(e) => saveMarineData(e.target.name, 'International')}
                           type={type}
                           id={`inline-${type}-2`}
                         />
@@ -1734,9 +1382,7 @@ const Index = () => {
                 //className="collapse"
                 aria-labelledby="marineInsurance"
               >
-                <div
-                  className={` ${styles.cardBody} vessel_card card-body  border_color`}
-                >
+                <div className={` ${styles.cardBody} vessel_card card-body  border_color`}>
                   <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
@@ -1747,13 +1393,9 @@ const Index = () => {
                             type="text"
                             name="policyNumber"
                             value={marineData?.policyNumber}
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Policy Number
                             <strong className="text-danger">*</strong>
                           </label>
@@ -1762,23 +1404,17 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="nameOfInsurer"
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">
-                                Policy Bazaar
-                              </option>
+                              <option value="Policy Bazaar">Policy Bazaar</option>
                               <option value="TATA AIG">TATA AIG</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1798,13 +1434,9 @@ const Index = () => {
                               type="text"
                               name="gstOfInsurer"
                               value={marineData?.gstOfInsurer}
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insurer
                               {marineData?.insuranceFromType == 'Domestic' ? (
                                 <strong className="text-danger">*</strong>
@@ -1821,8 +1453,7 @@ const Index = () => {
                               value={marineData?.nameOfInsured}
                               name="nameOfInsured"
                               onChange={(e) => {
-                                gettingCompanyList(e.target.value),
-                                  saveMarineData(e.target.name, e.target.value);
+                                gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value);
                               }}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
@@ -1834,19 +1465,12 @@ const Index = () => {
                                 Emergent Industrial Solutions limited
                               </option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -1865,9 +1489,7 @@ const Index = () => {
                             <select
                               value={marineData?.gstOfInsured}
                               name="gstOfInsured"
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
@@ -1879,19 +1501,12 @@ const Index = () => {
                                 );
                               })}
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -1933,21 +1548,12 @@ const Index = () => {
                             onWheel={(event) => event.currentTarget.blur()}
                             name="periodOfInsurance"
                             value={
-                              getDifferenceInDaysMarine()
-                                ? getDifferenceInDaysMarine()
-                                : marineData?.periodOfInsurance
+                              getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Period of Insurance (In days)
                           </label>
                         </Col>
@@ -1956,23 +1562,17 @@ const Index = () => {
                             <select
                               name="lossPayee"
                               // value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
-                              onChange={(e) =>
-                                saveMarineData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               value={marineData.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Zurcher Kantonal Bank,Zurich">
-                                Zurcher Kantonal Bank,Zurich
-                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1989,12 +1589,10 @@ const Index = () => {
                             required
                             type="text"
                             onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                (e.target.type = 'number');
+                              setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                (e.target.type = 'text');
+                              setIsFieldInFocus(false), (e.target.type = 'text');
                             }}
                             name="premiumAmount"
                             onWheel={(event) => event.currentTarget.blur()}
@@ -2004,27 +1602,18 @@ const Index = () => {
                                 : `${
                                     marineData?.insuranceFromType === 'Domestic'
                                       ? 'INR'
-                                      : marineData?.insuranceFromType ===
-                                        'International'
+                                      : marineData?.insuranceFromType === 'International'
                                       ? 'USD'
                                       : ''
                                   } ` +
-                                  Number(
-                                    marineData?.premiumAmount,
-                                  )?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'en-In'
-                                      : undefined,
+                                  Number(marineData?.premiumAmount)?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined,
                                   )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Premium Amount
                             <strong className="text-danger">*</strong>
                           </label>
@@ -2035,47 +1624,26 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <div
-              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
-            >
+            <div className={`${styles.wrapper} vessel_card border_color mt-4 card`}>
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
               >
                 <h2 className="mb-0">Storage Insurance Details</h2>
                 <div className={styles.radio_label}>
                   Insurance From:{' '}
-                  <span
-                    className={styles.insurance_from}
-                    style={{ color: '#111111' }}
-                  >
+                  <span className={styles.insurance_from} style={{ color: '#111111' }}>
                     Domestic
                   </span>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                  <div className={`${styles.radio_label}  mr-5`}>
-                    Is the Insurer same as Marine Insurance?
-                  </div>
+                  <div className={`${styles.radio_label}  mr-5`}>Is the Insurer same as Marine Insurance?</div>
                   <div className={`${styles.theme} d-flex align-items-center`}>
-                    <div
-                      className={`${styles.toggle_label} form-check-label mr-3`}
-                    >
-                      Yes
-                    </div>
+                    <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
                     <label className={styles.switch}>
-                      <input
-                        checked={!isInsurerSameData}
-                        onClick={() => handleIsInsuranceSame()}
-                        type="checkbox"
-                      />
-                      <span
-                        className={`${styles.slider} ${styles.round}`}
-                      ></span>
+                      <input checked={!isInsurerSameData} onClick={() => handleIsInsuranceSame()} type="checkbox" />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
                     </label>
-                    <div
-                      className={`${styles.toggle_label} form-check-label ml-3 mr-3`}
-                    >
-                      No
-                    </div>
+                    <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
                   </div>
 
                   <span
@@ -2106,13 +1674,9 @@ const Index = () => {
                               type="text"
                               value={storageData?.policyNumber}
                               name="policyNumber"
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Policy Number
                               <strong className="text-danger">*</strong>
                             </label>
@@ -2127,23 +1691,17 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="nameOfInsurer"
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">
-                                Policy Bazaar
-                              </option>
+                              <option value="Policy Bazaar">Policy Bazaar</option>
                               <option value="TATA AIG">TATA AIG</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
@@ -2161,14 +1719,10 @@ const Index = () => {
                               required
                               name="gstOfInsurer"
                               value={storageData?.gstOfInsurer}
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               type="text"
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
@@ -2181,11 +1735,7 @@ const Index = () => {
                               value={storageData?.nameOfInsured}
                               name="nameOfInsured"
                               onChange={(e) => {
-                                gettingCompanyList(e.target.value),
-                                  saveStorageData(
-                                    e.target.name,
-                                    e.target.value,
-                                  );
+                                gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value);
                               }}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
@@ -2197,19 +1747,12 @@ const Index = () => {
                                 Emergent Industrial Solutions limited
                               </option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Name of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -2228,9 +1771,7 @@ const Index = () => {
                             <select
                               value={storageData?.gstOfInsured}
                               name="gstOfInsured"
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
@@ -2242,19 +1783,12 @@ const Index = () => {
                                 );
                               })}
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               GSTIN of Insured
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </Col>
@@ -2302,17 +1836,10 @@ const Index = () => {
                                 ? getDifferenceInDaysStorage()
                                 : storageData?.periodOfInsurance
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveStorageData(e.target.name, e.target.value)
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Period of Insurance (In days)
                           </label>
                         </Col>
@@ -2320,9 +1847,7 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              onChange={(e) =>
-                                saveStorageData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               value={storageData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
@@ -2330,14 +1855,10 @@ const Index = () => {
                                 Select an option
                               </option>
 
-                              <option value="Zurcher Kantonal Bank,Zurich">
-                                Zurcher Kantonal Bank,Zurich
-                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
@@ -2353,12 +1874,10 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                (e.target.type = 'number');
+                              setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                (e.target.type = 'text');
+                              setIsFieldInFocus(false), (e.target.type = 'text');
                             }}
                             name="premiumAmount"
                             onWheel={(event) => event.currentTarget.blur()}
@@ -2368,28 +1887,19 @@ const Index = () => {
                                 : `${
                                     marineData?.insuranceFromType === 'Domestic'
                                       ? 'INR'
-                                      : marineData?.insuranceFromType ===
-                                        'International'
+                                      : marineData?.insuranceFromType === 'International'
                                       ? 'USD'
                                       : ''
                                   } ` +
-                                  Number(
-                                    storageData?.premiumAmount,
-                                  )?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'en-In'
-                                      : undefined,
+                                  Number(storageData?.premiumAmount)?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined,
                                   )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
-                            onChange={(e) =>
-                              saveStorageData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                             type="text"
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Premium Amount
                             <strong className="text-danger">*</strong>
                           </label>
@@ -2411,47 +1921,24 @@ const Index = () => {
                 <h3 className={styles.heading}>Upload Documents</h3>
                 <span>+</span>
               </div>
-              <div
-                id="upload"
-                className="collapse"
-                aria-labelledby="upload"
-                data-parent="#upload"
-              >
+              <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
                 <div className={`${styles.table_form}`}>
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th>
                                 DOCUMENT NAME{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                FORMAT <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>
                                 DOCUMENT DATE{' '}
-                                <img
-                                  className={`mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
+                                <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                               </th>
                               <th>ACTION</th>
                             </tr>
@@ -2463,15 +1950,9 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
+                              <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -2486,9 +1967,7 @@ const Index = () => {
                                     Upload
                                   </button>
                                 </div> */}
-                                {insuranceDocument &&
-                                insuranceDocument.marinePolicyDocument ==
-                                  null ? (
+                                {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -2498,23 +1977,12 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument1(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {
-                                        insuranceDocument?.marinePolicyDocument
-                                          ?.name
-                                      }
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
                                     <img
                                       className={`${styles.close_image} image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -2531,15 +1999,9 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
+                              <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -2554,9 +2016,7 @@ const Index = () => {
                                     Upload
                                   </button>
                                 </div> */}
-                                {insuranceDocument &&
-                                insuranceDocument?.storagePolicyDocument ==
-                                  null ? (
+                                {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -2566,23 +2026,12 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument2(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {
-                                        insuranceDocument?.storagePolicyDocument
-                                          ?.name
-                                      }
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
                                     <img
                                       className={`${styles.close_image}  image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -2610,10 +2059,7 @@ const Index = () => {
         <div onClick={() => handleRoute()} className={`${styles.reject} ml-3`}>
           <span>Cancel</span>
         </div>
-        <div
-          onClick={() => handleInsuranceUpdate()}
-          className={`${styles.approve} ml-3`}
-        >
+        <div onClick={() => handleInsuranceUpdate()} className={`${styles.approve} ml-3`}>
           <span>Submit</span>
         </div>
       </div>

@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 // import { settingDocument } from 'redux/registerBuyer/action'
-import { useDispatch } from 'react-redux';
 
 const Index = ({
   saveDocument,
@@ -17,12 +16,9 @@ const Index = ({
   removeDoc,
   addTypeOfDoc,
   documentApi,
-  
 }) => {
-  const [list, setList] = useState([
-    { typeDocument: 'Certificate', attachDoc: 'false' },
-  ]);
- console.log(documentApi,"documentApi")
+  const [list, setList] = useState([{ typeDocument: 'Certificate', attachDoc: 'false' }]);
+  console.log(documentApi, 'documentApi');
   const [name, setName] = useState(null);
 
   // const onAddDoc = (index) => {
@@ -40,21 +36,15 @@ const Index = ({
 
   return (
     <div className={`${styles.main} border_color`}>
-      <div className={`${styles.heading} heading_card_switch_blue`}>
-        Documents
-      </div>
+      <div className={`${styles.heading} heading_card_switch_blue`}>Documents</div>
       <form id="documents">
         <div className={`${styles.input_container} row align-items-center`}>
           {documents &&
             documents?.map((val, index) => {
               return (
                 <>
-                  <div
-                    className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}
-                  >
-                    <div className={`${styles.label_heading} label_heading`}>
-                      Type Of Document
-                    </div>
+                  <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}>
+                    <div className={`${styles.label_heading} label_heading`}>Type Of Document</div>
                     <div className="d-flex">
                       <select
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -64,18 +54,15 @@ const Index = ({
                         }}
                       >
                         <option>Select an option</option>
-                        {documentApi?.filter((val,index)=>{
-                          if(val.Sub_Module=="Leads"){
-                            return val
-                          }
-                        })?.map((val,index)=>{
-                          return(
-                            <option value={`${val.Document_Name}`}>
-                             {val.Document_Name}
-                           </option>
-                          )
-                        })}
-                       
+                        {documentApi
+                          ?.filter((val, index) => {
+                            if (val.Sub_Module == 'Leads') {
+                              return val;
+                            }
+                          })
+                          ?.map((val, index) => {
+                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                          })}
                       </select>
                       <img
                         className={`${styles.arrow} image_arrow img-fluid`}
@@ -85,12 +72,8 @@ const Index = ({
                     </div>
                   </div>
 
-                  <div
-                    className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
-                  >
-                    <div className={`${styles.label_heading} label_heading`}>
-                      Attach Document
-                    </div>
+                  <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}>
+                    <div className={`${styles.label_heading} label_heading`}>Attach Document</div>
                     {val.attachDoc == '' ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
@@ -104,14 +87,10 @@ const Index = ({
                           }}
                           style={{ width: '106px', height: '55px' }}
                         />
-                        <button className={`${styles.button_upload} btn`}>
-                          Upload
-                        </button>
+                        <button className={`${styles.button_upload} btn`}>Upload</button>
                       </div>
                     ) : (
-                      <div
-                        className={`${styles.certificate} text1 d-flex justify-content-between`}
-                      >
+                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                         <span className="text-color">{val.attachDoc.name}</span>
                         <img
                           className={`${styles.close_image} image_arrow`}
@@ -123,16 +102,9 @@ const Index = ({
                     )}
                   </div>
 
-                  <div
-                    className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
-                  >
-                    <div className={`${styles.label_heading} label_heading`}>
-                      Action
-                    </div>
-                    <div
-                      onClick={() => setSecondDocName(null)}
-                      className={styles.image_card}
-                    >
+                  <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}>
+                    <div className={`${styles.label_heading} label_heading`}>Action</div>
+                    <div onClick={() => setSecondDocName(null)} className={styles.image_card}>
                       <img
                         className={styles.image_delete}
                         src="/static/delete.svg"
@@ -299,11 +271,7 @@ const Index = ({
                 onAddDoc();
               }}
             >
-              <img
-                className={`${styles.add_image}`}
-                src="/static/add.svg"
-                alt="Add"
-              />
+              <img className={`${styles.add_image}`} src="/static/add.svg" alt="Add" />
               Add More Documents
             </p>
           </div>

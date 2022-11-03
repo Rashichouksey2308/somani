@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import { add } from 'lodash';
-import { useSyncExternalStore } from 'react';
-import {getPincodes } from '../../redux/masters/action';
+import { Col, Form } from 'react-bootstrap';
+import { getPincodes } from '../../redux/masters/action';
 import { useDispatch, useSelector } from 'react-redux';
+
 let supplier = {
   name: '',
   shortName: '',
@@ -22,6 +21,7 @@ let supplier = {
   multiPartyName: '',
   multiPartyAddresses: [],
 };
+
 function Index(props) {
   console.log(props.data, '1234');
   const dispatch = useDispatch();
@@ -40,8 +40,8 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -54,12 +54,7 @@ function Index(props) {
   const [removedOption, setRemovedOption] = useState(null);
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
-  const [options, setOptions] = useState([
-    'Bhawana Jain',
-    'Vipin Kumar',
-    'Devesh Jain',
-    'Fatima Yannoulis',
-  ]);
+  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
   let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
   console.log(supplierState, 'supplierState');
   //multiParty
@@ -186,10 +181,7 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
-        console.log(
-          savedData.authorisedSignatoryDetails,
-          'savedData.authorisedSignatoryDetails',
-        );
+        console.log(savedData.authorisedSignatoryDetails, 'savedData.authorisedSignatoryDetails');
       } else {
         let supplier = {
           name: props?.order?.supplierName || props.order?.supplierName,
@@ -233,10 +225,7 @@ function Index(props) {
           ]);
         }
 
-        console.log(
-          props.data?.authorisedSignatoryDetails,
-          'savedData.authorisedSignatoryDetails',
-        );
+        console.log(props.data?.authorisedSignatoryDetails, 'savedData.authorisedSignatoryDetails');
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
         setAddressList(props.data?.addresses);
@@ -247,15 +236,14 @@ function Index(props) {
   }, [props.data]);
   console.log(list, 'props23424234');
   useEffect(() => {
-    if(getPincodesMasterData.length > 0) {
-      setToShow(getPincodesMasterData)
-      setToView(true)
-      
-    }else{
-       setToShow([])
-       setToView(false)
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
     }
-  },[getPincodesMasterData])
+  }, [getPincodesMasterData]);
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"
@@ -461,47 +449,44 @@ function Index(props) {
     }
   };
   const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
-  const handleData=(name,value)=>{
+  const handleData = (name, value) => {
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
-   newInput.country = "India";
+    newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
     setNewAddress(newInput);
-    setToView(false)
-  }
-  const handleDataEdit=(name,value)=>{
+    setToView(false);
+  };
+  const handleDataEdit = (name, value) => {
     const newInput = { ...EditAddress };
     newInput[name] = value.Pincode;
-    newInput.country = "India";
+    newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
     setEditAddress(newInput);
-    setToView(false)
-  }
-  const handleDataMines=(name,value)=>{
+    setToView(false);
+  };
+  const handleDataMines = (name, value) => {
     const newInput = { ...newMultiAddress };
     newInput[name] = value.Pincode;
-    newInput.country = "India";
+    newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
     setNewMultiAddress(newInput);
-    setToView(false)
-  }
-    const handleDataEditMines=(name,value)=>{
+    setToView(false);
+  };
+  const handleDataEditMines = (name, value) => {
     const newInput = { ...MultiEditAddress };
     newInput[name] = value.Pincode;
-    newInput.country = "India";
+    newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
     setMultiEditAddress(newInput);
-    setToView(false)
-  }
+    setToView(false);
+  };
   const setAddress = (name, value) => {
     const newInput = { ...newAddress };
     newInput[name] = value;
@@ -692,9 +677,7 @@ function Index(props) {
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form} border-bottom-0`}>
           <div className="row  ">
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -708,11 +691,7 @@ function Index(props) {
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Supplier Name<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
 
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -750,11 +729,7 @@ function Index(props) {
                 Bank Name
                 <strong className="text-danger">*</strong>
               </label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Col>
             <Col md={4} sm={12} className={`${styles.form_group}`}>
               <Form.Control
@@ -808,23 +783,16 @@ function Index(props) {
                   handleInput(e.target.name, e.target.value, 'bankName');
                 }}
               />
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-                City
-              </Form.Label>
+              <Form.Label className={`${styles.label_heading} label_heading`}>City</Form.Label>
             </Col>
           </div>
         </div>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-          <div
-            className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}
-          >
+          <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
             {addressList?.map((val, index) => {
               return (
-                <div
-                  key={index}
-                  className={`${styles.registeredAddress} d-flex justify-content-between border_color`}
-                >
+                <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
                     <div className={`${styles.address_text}`}>
@@ -838,11 +806,7 @@ function Index(props) {
                         handleEditAddressInput(index, val.addressType);
                       }}
                     >
-                      <img
-                        className={`${styles.image} img-fluid`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
+                      <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
                     </div>
                     <div
                       className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
@@ -850,11 +814,7 @@ function Index(props) {
                         onAddressRemove(index);
                       }}
                     >
-                      <img
-                        className={`${styles.image} img-fluid`}
-                        src="/static/delete 2.svg"
-                        alt="delete"
-                      />
+                      <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
                     </div>
                   </div>
                 </div>
@@ -875,21 +835,16 @@ function Index(props) {
             handleDataEdit,
             dispatch,
             toShow,
-            toView
-            
+            toView,
           )}
         {isEdit == false && (
-          <div
-            className={`${styles.newAddressContainer} card m-0 border_color`}
-          >
+          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
             <div className={`${styles.newAddressHead} border_color`}>
               <span>Add a new address</span>
             </div>
             <div className="card-body p-0">
               <div className={`${styles.newAddressContent} row`}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
+                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -903,12 +858,10 @@ function Index(props) {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch </option>
-                      <option value="Supplier">Supplier Address </option>
+                      <option value="Branch">Branch</option>
+                      <option value="Supplier">Supplier Address</option>
                     </select>
-                    <Form.Label
-                      className={`${styles.label_heading} ${styles.select}  label_heading`}
-                    >
+                    <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
                     </Form.Label>
                     <img
@@ -920,9 +873,7 @@ function Index(props) {
                 </Form.Group>
                 {addressType == 'Registered' || addressType == 'Supplier' ? (
                   <>
-                    <Form.Group
-                      className={`${styles.form_group}  col-md-12 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -933,15 +884,11 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Address<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -951,44 +898,34 @@ function Index(props) {
 
                         value={newAddress.pinCode}
                         onChange={(e) => {
-                          dispatch(getPincodes(e.target.value))
+                          dispatch(getPincodes(e.target.value));
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      {toShow.length>0 && toView &&  (
+                      {toShow.length > 0 && toView && (
                         <div className={styles.searchResults}>
                           <ul>
                             {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
                               : ''}
                           </ul>
                         </div>
                       )}
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -999,30 +936,13 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                         onKeyDown={(evt) =>
-                          [
-                            '1',
-                            '2',
-                            '3',
-                            '4',
-                            '5',
-                            '6',
-                            '7',
-                            '8',
-                            '9',
-                            '0',
-                          ].includes(evt.key) && evt.preventDefault()
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                         }
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>
                       </Form.Label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </Form.Group>
                   </>
                 ) : (
@@ -1053,9 +973,7 @@ function Index(props) {
                     />
                   </div>
                 </Form.Group> */}
-                    <Form.Group
-                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1065,44 +983,34 @@ function Index(props) {
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
-                          dispatch(getPincodes(e.target.value))
+                          dispatch(getPincodes(e.target.value));
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                       {toShow.length>0 && toView &&  (
+                      {toShow.length > 0 && toView && (
                         <div className={styles.searchResults}>
                           <ul>
                             {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
                               : ''}
                           </ul>
                         </div>
                       )}
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1113,29 +1021,14 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                         onKeyDown={(evt) =>
-                          [
-                            '1',
-                            '2',
-                            '3',
-                            '4',
-                            '5',
-                            '6',
-                            '7',
-                            '8',
-                            '9',
-                            '0',
-                          ].includes(evt.key) && evt.preventDefault()
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                         }
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1146,15 +1039,11 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-4 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1165,15 +1054,11 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         City<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group
-                      className={`${styles.form_group} col-md-12 col-sm-6`}
-                    >
+                    <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1184,9 +1069,7 @@ function Index(props) {
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
-                      <Form.Label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
                         Address<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
@@ -1225,9 +1108,7 @@ function Index(props) {
           >
             <div className={styles.header}>
               <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-              <span className=" d-flex align-items-center justify-content-between">
-                +
-              </span>
+              <span className=" d-flex align-items-center justify-content-between">+</span>
             </div>
           </div>
           <div
@@ -1237,12 +1118,7 @@ function Index(props) {
           >
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table `}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr className="table_row">
                     <th>NAME</th>
                     <th>DESIGNATION</th>
@@ -1285,28 +1161,18 @@ function Index(props) {
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
                                           setRemovedOption(e.target.value);
-                                          handleChangeInput(
-                                            e.target.name,
-                                            e.target.value,
-                                            index,
-                                          );
+                                          handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
                                         <option>Select an option</option>
                                         {removedOption != null ? (
-                                          <option value={removedOption}>
-                                            {removedOption}
-                                          </option>
+                                          <option value={removedOption}>{removedOption}</option>
                                         ) : null}
                                         {options.map((val, i) => {
-                                          return (
-                                            <option value={val}>{val}</option>
-                                          );
+                                          return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>
-                                          {'Add New'}
-                                        </option>
+                                        <option value={'addnew'}>{'Add New'}</option>
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1325,34 +1191,20 @@ function Index(props) {
                                             value={val.name}
                                             className={`${styles.customSelect} input`}
                                             onChange={(e) => {
-                                              handleChangeInput(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              );
+                                              handleChangeInput(e.target.name, e.target.value, index);
                                             }}
                                           >
                                             <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>
-                                              Vipin Kumar
-                                            </option>
-                                            <option value={'Bhawana Jain'}>
-                                              Bhawana Jain
-                                            </option>
-                                            <option value={'Devesh Jain'}>
-                                              Devesh Jain
-                                            </option>
-                                            <option value={'Fatima Yannoulis'}>
-                                              Fatima Yannoulis
-                                            </option>
+                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
+                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
+                                            <option value={'Devesh Jain'}>Devesh Jain</option>
+                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
 
                                             {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>
-                                              {'Add New'}
-                                            </option>
+                                            <option value={'addnew'}>{'Add New'}</option>
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1369,11 +1221,7 @@ function Index(props) {
                                             name="name"
                                             value={val.name}
                                             onChange={(e) => {
-                                              handleChangeInput2(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              );
+                                              handleChangeInput2(e.target.name, e.target.value, index);
                                             }}
                                           />
                                         </>
@@ -1389,11 +1237,7 @@ function Index(props) {
                                     name="designation"
                                     // readOnly={val.addnew!="true"?true:false}
                                     onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -1404,11 +1248,7 @@ function Index(props) {
                                     name="email"
                                     className="input"
                                     onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -1418,19 +1258,10 @@ function Index(props) {
                                     className="input"
                                     name="phoneNo"
                                     type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -1441,11 +1272,7 @@ function Index(props) {
                                       onEditRemove(index, val);
                                     }}
                                   >
-                                    <img
-                                      className={`${styles.image} mr-3`}
-                                      src="/static/save-3.svg"
-                                      alt="save"
-                                    />
+                                    <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save" />
                                   </div>
                                   <div
                                     className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
@@ -1478,16 +1305,12 @@ function Index(props) {
           </div>
         </div>
 
-    
-
         {props.multiPart == true ? (
           <>
             <div className={styles.manufacture}>
               <span className={``}>{props.multiPartValue} Details</span>
               <div className="row mt-4">
-                <Form.Group
-                  className={`${styles.form_group} d-flex col-md-8 col-sm-6`}
-                >
+                <Form.Group className={`${styles.form_group} d-flex col-md-8 col-sm-6`}>
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1498,29 +1321,16 @@ function Index(props) {
                       handleInput(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     {props.multiPartValue} Name
                     <strong className="text-danger">*</strong>
                   </Form.Label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </Form.Group>
               </div>
               <div className={`${styles.addressContainer} m-0`}>
-                {multiList?.length > 0 ? (
-                  <span className={`mb-3`}>
-                    {' '}
-                    {props.multiPartValue} Addresses
-                  </span>
-                ) : null}
-                <div
-                  className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}
-                >
+                {multiList?.length > 0 ? <span className={`mb-3`}> {props.multiPartValue} Addresses</span> : null}
+                <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
                   {multiList?.map((val, index) => {
                     return (
                       <div
@@ -1537,17 +1347,10 @@ function Index(props) {
                           <div
                             className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                             onClick={() => {
-                              handleEditAddressMuliInput(
-                                index,
-                                val.addressType,
-                              );
+                              handleEditAddressMuliInput(index, val.addressType);
                             }}
                           >
-                            <img
-                              className={`${styles.image} img-fluid`}
-                              src="/static/mode_edit.svg"
-                              alt="edit"
-                            />
+                            <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
                           </div>
                           <div
                             className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
@@ -1555,11 +1358,7 @@ function Index(props) {
                               onAddressMultiRemove(index);
                             }}
                           >
-                            <img
-                              className={`${styles.image} img-fluid`}
-                              src="/static/delete 2.svg"
-                              alt="delete"
-                            />
+                            <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
                           </div>
                         </div>
                       </div>
@@ -1580,24 +1379,16 @@ function Index(props) {
                   handleDataEditMines,
                   dispatch,
                   toShow,
-                  toView
-                  
-                  
+                  toView,
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
-                  <div
-                    className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}
-                  >
+                  <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
                     <div className={styles.newAddressHead}>
-                      <span>
-                        Add a new {/*{props.multiPartValue}*/} address
-                      </span>
+                      <span>Add a new {/*{props.multiPartValue}*/} address</span>
                     </div>
                     <div className={`${styles.newAddressContent} row`}>
-                      <Form.Group
-                        className={`${styles.form_group} col-md-4 col-sm-6`}
-                      >
+                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                         <div className="d-flex">
                           <select
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -1609,15 +1400,11 @@ function Index(props) {
                             value={addressMutliType}
                           >
                             <option>Select an option</option>
-                            <option value="Registered">
-                              Registered Office
-                            </option>
-                            <option value="Branch">Branch </option>
-                            <option value="Supplier">Supplier Address </option>
+                            <option value="Registered">Registered Office</option>
+                            <option value="Branch">Branch</option>
+                            <option value="Supplier">Supplier Address</option>
                           </select>
-                          <Form.Label
-                            className={`${styles.label_heading} ${styles.select} label_heading`}
-                          >
+                          <Form.Label className={`${styles.label_heading} ${styles.select} label_heading`}>
                             Address Type
                             <strong className="text-danger">*</strong>
                           </Form.Label>
@@ -1628,12 +1415,9 @@ function Index(props) {
                           />
                         </div>
                       </Form.Group>
-                      {addressMutliType == 'Registered' ||
-                      addressMutliType == 'Supplier' ? (
+                      {addressMutliType == 'Registered' || addressMutliType == 'Supplier' ? (
                         <>
-                          <Form.Group
-                            className={`${styles.form_group}  col-md-12 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1644,15 +1428,11 @@ function Index(props) {
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               Address<strong className="text-danger">*</strong>
                             </Form.Label>
                           </Form.Group>
-                          <Form.Group
-                            className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1662,33 +1442,29 @@ function Index(props) {
                               // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                               onChange={(e) => {
-                                dispatch(getPincodes(e.target.value))
+                                dispatch(getPincodes(e.target.value));
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
-                            {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleDataMines("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            {toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() => handleDataMines('pinCode', results)}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               Pin Code<strong className="text-danger">*</strong>
                             </Form.Label>
                             <img
@@ -1697,9 +1473,7 @@ function Index(props) {
                               alt="Search"
                             />
                           </Form.Group>
-                          <Form.Group
-                            className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1710,23 +1484,11 @@ function Index(props) {
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                               onKeyDown={(evt) =>
-                                [
-                                  '1',
-                                  '2',
-                                  '3',
-                                  '4',
-                                  '5',
-                                  '6',
-                                  '7',
-                                  '8',
-                                  '9',
-                                  '0',
-                                ].includes(evt.key) && evt.preventDefault()
+                                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) &&
+                                evt.preventDefault()
                               }
                             />
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               Country<strong className="text-danger">*</strong>
                             </Form.Label>
                             <img
@@ -1764,9 +1526,7 @@ function Index(props) {
                         />
                       </div>
                     </Form.Group> */}
-                          <Form.Group
-                            className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1776,33 +1536,29 @@ function Index(props) {
                               // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                               onChange={(e) => {
-                                dispatch(getPincodes(e.target.value))
+                                dispatch(getPincodes(e.target.value));
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
-                            {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleDataMines("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            {toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() => handleDataMines('pinCode', results)}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               Pin Code<strong className="text-danger">*</strong>
                             </Form.Label>
                             <img
@@ -1811,9 +1567,7 @@ function Index(props) {
                               alt="Search"
                             />
                           </Form.Group>
-                          <Form.Group
-                            className={`${styles.form_group} col-md-4 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1824,29 +1578,15 @@ function Index(props) {
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                               onKeyDown={(evt) =>
-                                [
-                                  '1',
-                                  '2',
-                                  '3',
-                                  '4',
-                                  '5',
-                                  '6',
-                                  '7',
-                                  '8',
-                                  '9',
-                                  '0',
-                                ].includes(evt.key) && evt.preventDefault()
+                                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) &&
+                                evt.preventDefault()
                               }
                             />
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               Country<strong className="text-danger">*</strong>
                             </Form.Label>
                           </Form.Group>
-                          <Form.Group
-                            className={`${styles.form_group} col-md-4 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1857,15 +1597,11 @@ function Index(props) {
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               State<strong className="text-danger"></strong>
                             </Form.Label>
                           </Form.Group>
-                          <Form.Group
-                            className={`${styles.form_group} col-md-4 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1876,15 +1612,11 @@ function Index(props) {
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               City<strong className="text-danger">*</strong>
                             </Form.Label>
                           </Form.Group>
-                          <Form.Group
-                            className={`${styles.form_group} col-md-12 col-sm-6`}
-                          >
+                          <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
                             <Form.Control
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1895,9 +1627,7 @@ function Index(props) {
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <Form.Label className={`${styles.label_heading} label_heading`}>
                               Address<strong className="text-danger">*</strong>
                             </Form.Label>
                           </Form.Group>
@@ -1947,7 +1677,7 @@ const editData = (
   handleData,
   dispatch,
   toShow,
-  toView
+  toView,
 ) => {
   console.log(addressEditType, 'addressEditType');
   return (
@@ -1968,20 +1698,14 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered </option>
-              <option value="Branch">Branch </option>
-              <option value="Supplier">Supplier </option>
+              <option value="Registered">Registered</option>
+              <option value="Branch">Branch</option>
+              <option value="Supplier">Supplier</option>
             </select>
-            <Form.Label
-              className={`${styles.label_heading} ${styles.select}  label_heading`}
-            >
+            <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
             </Form.Label>
-            <img
-              className={`${styles.arrow} image_arrow img-fluid`}
-              src="/static/inputDropDown.svg"
-              alt="Search"
-            />
+            <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
         {addressEditType == 'Registered' || addressEditType == 'Supplier' ? (
@@ -2001,9 +1725,7 @@ const editData = (
                 Address<strong className="text-danger">*</strong>
               </Form.Label>
             </Form.Group>
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -2013,42 +1735,34 @@ const editData = (
                 // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onChange={(e) => {
-                  dispatch(getPincodes(e.target.value))
+                  dispatch(getPincodes(e.target.value));
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
-               {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleData('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -2059,19 +1773,13 @@ const editData = (
                   editNewAddress(e.target.name, e.target.value);
                 }}
                 onKeyDown={(evt) =>
-                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
-                    evt.key,
-                  ) && evt.preventDefault()
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                 }
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Country<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
           </>
         ) : (
@@ -2089,21 +1797,13 @@ const editData = (
                   <option>Select an option</option>
                   <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger"></strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -2113,38 +1813,32 @@ const editData = (
                 //  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onChange={(e) => {
-                   dispatch(getPincodes(e.target.value))
+                  dispatch(getPincodes(e.target.value));
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
-               {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleData('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
@@ -2157,14 +1851,10 @@ const editData = (
                   editNewAddress(e.target.name, e.target.value);
                 }}
                 onKeyDown={(evt) =>
-                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
-                    evt.key,
-                  ) && evt.preventDefault()
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
                 }
               />
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-                Country
-              </Form.Label>
+              <Form.Label className={`${styles.label_heading} label_heading`}>Country</Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
