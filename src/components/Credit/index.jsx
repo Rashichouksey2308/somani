@@ -34,8 +34,7 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
-  console.log(personData, 'personData');
-  console.log(creditDetail?.existingProcurementOfCommodity, 'debtData');
+ 
   const dispatch = useDispatch();
 
   const [saveTable, setSaveTable] = useState(false);
@@ -43,7 +42,7 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false);
 
   const { gstDocument } = useSelector((state) => state.buyer);
-  console.log(gstDocument, 'gstDocument');
+
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -55,7 +54,9 @@ const index = ({
     commodityOfTotalTrade: false,
     limit: false,
   });
+
   const { updatingCreditCalculate } = useSelector((state) => state.review);
+
   const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const index = ({
       setKeyNameList([...temp]);
     }
   }, [personData]);
-  console.log(keyNameList, 'keyNameList');
+
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -90,8 +91,7 @@ const index = ({
     pinCode: null,
     communication: false,
   });
-  console.log(keyAddressData, 'keyAddressData');
-  console.log(personData, 'personData');
+
   useEffect(() => {
     const newInput = { ...keyAddressData };
     newInput.GSTIN_document.name = gstDocument.name;
@@ -99,7 +99,7 @@ const index = ({
     newInput.GSTIN_document.date = gstDocument.date;
     setKeyAddressData(newInput);
   }, [gstDocument]);
-  console.log(keyAddressData, 'keyAddressData');
+ 
   const removeDoc = () => {
     const newInput = { ...keyAddressData };
     newInput.GSTIN_document.name = undefined;
@@ -124,12 +124,12 @@ const index = ({
     ]);
   };
 
-  console.log(keyNameList, 'THIS IS DEBT');
+
 
   const handleDebtChange = (name, value, index) => {
     let tempArr = [...debtData];
 
-    console.log(name, value, index, 'tempArr123');
+ 
 
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -140,10 +140,10 @@ const index = ({
         }
       }
     });
-    console.log(tempArr, 'tempArr');
+ 
     setDebtData([...tempArr]);
   };
-  console.log(debtData, 'debtData8888');
+ 
 
   const onDebtSave = () => {
     addDebtArr(debt);
@@ -162,12 +162,13 @@ const index = ({
       return newState;
     });
   };
+
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
     const unique = [
       ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
     ];
-    console.log(unique, 'unique');
+
     return unique;
   };
 
@@ -181,7 +182,7 @@ const index = ({
     email: '',
     name: '',
   });
-  console.log(personData, 'personData1111');
+
 
   useEffect(() => {
     setKeyPersonData(personData);
@@ -191,13 +192,13 @@ const index = ({
 
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
-    console.log('jjejjeje');
+
     if (e.target.value == 'addnew') {
-      console.log('jjejjeje');
+     
       newInput[key].addnew = true;
       newInput[key].name = '';
       newInput[key].email = '';
-      console.log('jjejjeje', newInput);
+     
       setKeyPersonData([...newInput]);
       return;
     }
@@ -208,9 +209,9 @@ const index = ({
     }
     setKeyPersonData([...newInput]);
   };
-  console.log(keyPersonData, 'keyPersonDatakeyPersonData');
+ 
   const onKeyPersonSave = () => {
-    console.log(keyPersonData, 'keyPersonData');
+    
     addPersonArr(keyPersonData);
     //console.log(keyPersonData, 'This is person data')
   };
@@ -242,7 +243,7 @@ const index = ({
   };
 
   const addressValidtion = (data) => {
-    console.log(data, 'addressValidtion');
+  
     if (
       data.addressType === null ||
       data.addressType === '' ||
@@ -320,7 +321,7 @@ const index = ({
 
       return false;
     }
-    console.log(data.contact.number.length, 'data.contact.number.lengt');
+  
     if (data.contact.number.length < 10 || data.contact.number.length > 10) {
       let toastMessage = 'Please add valid number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -403,12 +404,12 @@ const index = ({
     pinCode: '',
     communication: false,
   });
-  console.log(editData, 'editData');
+
   const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-    console.log(keyAddData, 'keyAddData');
+  
     let tempArr = keyAddData;
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -433,17 +434,11 @@ const index = ({
     // console.log(newInput)
     setEditData(newInput);
   };
-  console.log(keyAddressData, 'editData');
-  console.log(
-    creditDetail,
-    'creditDetail',
-    creditDetail?.monthlyProductionCapacity,
-  );
 
   const [infoCircle, setInfoCircle] = useState(false);
   const handleInfo = (e) => {
     setInfoCircle(!infoCircle);
-    console.log(infoCircle, 'this is info circle');
+ 
   };
   const [emails, setemails] = useState([]);
   useEffect(() => {
@@ -459,7 +454,7 @@ const index = ({
     }
   }, [creditDetail?.existingSuppliers]);
 
-  console.log(emails, 'emails');
+ 
   const removeEmailParent = (index) => {
     let temp = [...emails];
     temp.splice(index, 1);
@@ -468,10 +463,10 @@ const index = ({
   const removeExSupplierParent = (index) => {
     let temp = [...exSupplier];
     temp.splice(index, 1);
-    console.log(temp, 'temp');
+    
     setexSupplier([...temp]);
   };
-  console.log(exSupplier, 'exSupplier');
+ 
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -785,21 +780,7 @@ const index = ({
                     alt="Search"
                   />
                 </div>
-                {/* <input
-                  className={`${styles.input_field} input form-control`}
-                  type="date"
-                  defaultValue={
-                    creditDetail?.stockCoverageOfCommodity?.split(
-                      'T',
-                    )[0]
-                  }
-                  name="stockCoverageOfCommodity"
-                  onChange={(e) => saveDate(e)}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Stock Coverage of Commodity
-                  <strong className="text-danger">*</strong>
-                </label> */}
+                
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -834,7 +815,7 @@ const index = ({
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
                     onChange={(_emails) => {
-                      console.log(_emails, 'cxzczxczxczxc');
+                  
                       let temp = [...exSupplier];
                       temp.push(_emails[0]);
                       setexSupplier([...temp]);
@@ -856,31 +837,6 @@ const index = ({
                       );
                     }}
                   ></MultiSelect>
-                  {/* <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="existingSuppliers"
-                    defaultValue={
-                      creditDetail
-                        ? creditDetail?.existingSuppliers?.map((e) => {
-                          return `${e}`
-                        })
-                        : ''
-                    }
-                    onBlur={(e) => {
-                      saveProductData(e.target.name, e.target.value.split(','))
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Existing Supplier(s)
-                    <strong className="text-danger">*</strong>
-                  </label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  /> */}
                 </div>
               </div>
 
@@ -958,12 +914,7 @@ const index = ({
                           Number(creditDetail?.AvgMonthlyElectricityBill),
                         )?.toLocaleString()
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.AvgMonthlyElectricityBill,
-                  //   'INR',
-                  //   'front',
-                  //   true,
-                  // )}
+                 
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -980,7 +931,7 @@ const index = ({
                     placeholder="Existing CHA(s)"
                     emails={emails}
                     onChange={(_emails) => {
-                      console.log(_emails, 'cxzczxczxczxc');
+                     
                       let temp = [...emails];
                       temp.push(_emails[0]);
                       setemails([...temp]);
@@ -1002,21 +953,7 @@ const index = ({
                       );
                     }}
                   ></MultiSelect>
-                  {/* <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="existingCHA"
-                    defaultValue={creditDetail?.existingCHA?.map((e) => {
-                      return `${e}`
-                    })}
-                    onBlur={(e) => {
-                      saveProductData(e.target.name, e.target.value.split(','))
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Existing CHA(s)<strong className="text-danger">*</strong>
-                  </label> */}
+                  
                 </div>
               </div>
             </div>
@@ -1070,20 +1007,11 @@ const index = ({
                       saveSupplierData(e.target.name, e.target.value);
                     }}
                   ></input>
-                  {/* <option>
-                      {supplierCred?.supplierName}
-                    </option>
-                    <option>Bhutani Traders</option>
-                    <option>Ramakrishna</option>
-                  </select> */}
+                
                   <label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
-                  {/* <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  /> */}
+                 
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1209,27 +1137,7 @@ const index = ({
                     alt="Search"
                   />
                 </div>
-                {/* <div className={`d-flex`}>
-                  <input
-                  className={`${styles.input_field} input form-control`}
-                  type="date"
-                  defaultValue={
-                    supplierCred?.oldestShipmentDate?.split(
-                      'T',
-                    )[0]
-                  }
-                  name="oldestShipmentDate"
-                  onChange={(e) => saveSupplierDate(e)}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Oldest Shipment Date<strong className="text-danger">*</strong>
-                </label>
-                 <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-               </div> */}
+               
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -1443,7 +1351,7 @@ const index = ({
                                     </>
                                   ) : (
                                     <>
-                                      {console.log(person.name, 'person.name')}
+                                      
                                       <select
                                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                         name="name"
