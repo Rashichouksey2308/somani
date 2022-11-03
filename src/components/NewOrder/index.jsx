@@ -357,7 +357,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   />
                   <Form.Label className={`${styles.label_heading} label_heading`}>
                     Manufacturer / Mines name
-                    <strong className="text-danger">*</strong>
                   </Form.Label>
                   {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
