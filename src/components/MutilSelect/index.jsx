@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './index.module.scss';
+
 function Index(props) {
+
   const [state, setState] = useState({
     focused: false,
     emails: [],
@@ -8,20 +10,21 @@ function Index(props) {
     noClass: false,
     className: '',
   });
+
   useEffect(() => {
-    console.log(props.emails, 'props.emails');
+   
     if (props?.emails?.length > 0) {
       setState({ ...state, emails: props.emails });
     }
   }, [props.emails]);
-  console.log(state.emails, 'zcdvxcv');
+ 
   const emailInputRef = useRef(0);
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
-    console.log(value,"e.currentTarget.value")
+   
   };
   const findEmailAddress = (value, isEnter) => {
-    console.log("herher",value,isEnter)
+   
     let inputValue = '';
     const re = /[ ,;]/g;
     let validEmails = [];
@@ -42,7 +45,7 @@ function Index(props) {
         let splitData = value.split(re).filter((n) => {
           return n !== '' && n !== undefined && n !== null;
         });
-        console.log(splitData,"splitData")
+       
         const setArr = new Set(splitData);
         let arr = [...setArr];
 
@@ -70,7 +73,7 @@ function Index(props) {
     if (isDisabled) {
       return;
     }
-    console.log(index, 'ondex');
+    
     let temp = { ...state };
     temp.emails.splice(index, 1);
     setState({ ...temp });
@@ -106,7 +109,7 @@ function Index(props) {
   };
 
   const handleOnKeyup = (e) => {
-    console.log(e.keyCode, 'e.which');
+    
     switch (e.keyCode) {
       case 13: 
                findEmailAddress(e.currentTarget.value, true)
@@ -124,7 +127,7 @@ function Index(props) {
       default:
     }
   };
-  const handleOnChange = (e) => onChangeInputValue(e.currentTarget.value);
+  const handleOnChange = (e) => {onChangeInputValue(e.currentTarget.value); props.handleSearch(e.currentTarget.value); console.log(e.currentTarget.value, 'currentTarget')};
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });

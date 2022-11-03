@@ -13,6 +13,7 @@ import AddressComponent from './addressComponent';
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import _get from 'lodash/get';
 import MultiSelect from '../MutilSelect';
+import { SearchSupplier } from 'redux/supplier/action';
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -466,6 +467,32 @@ const index = ({
     
     setexSupplier([...temp]);
   };
+
+  const [searchTerm, setSearchTerm] = useState('');
+  
+
+  const handleSearch = (e) => {
+    const query = e;
+    // const query = `${e.target.value}`;
+    setSearchTerm(query);
+    if (query.length >= 3) {
+      dispatch(SearchSupplier( query ));
+    }
+  };
+
+  const handleFilteredData = (results) => {
+    if (results?.pans?.length > 0) {
+      setCompPan(results?.pans[0]);
+      setCompPanName(results?.name);
+      setBoolean1(false);
+      dispatch(GetGst(results?.pans[0]));
+    } else {
+      let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+    }
+  };
  
   return (
     <>
@@ -814,7 +841,9 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
+                    handleSearch={handleSearch}
                     onChange={(_emails) => {
+                      // handleSearch(_emails)
                   
                       let temp = [...exSupplier];
                       temp.push(_emails[0]);
@@ -822,7 +851,7 @@ const index = ({
                     }}
                     getLabel={(email, index, removeEmail) => {
                       return (
-                        <div data-tag key={index}>
+                        <div data-tag className={true && 'red'} key={index}>
                           {email}
                           <span
                             data-tag-handle
