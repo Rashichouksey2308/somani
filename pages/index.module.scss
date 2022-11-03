@@ -1,4 +1,5 @@
 @import '../src/components/styles/Core/config';
+
 .root_Container {
   // width: 100%;
   // height: 84%;
@@ -18,6 +19,7 @@
     margin-left: -10px;
     margin-right: -10px;
   }
+
   @include respond(lg-desktop) {
     padding: 20px 20px 0;
   }
@@ -28,10 +30,12 @@
     margin-bottom: 57px;
     padding: 15px 15px 0;
   }
+
   .dashboardPadding {
     padding-left: 10px;
     padding-right: 10px;
   }
+
   .bottom_Container {
     // margin-top: 1rem;
     // height: 100%;
@@ -51,12 +55,14 @@
     // }
     margin-left: -10px;
     margin-right: -10px;
+
     .left_Container {
       @include respond(xl-desktop) {
         flex: 0 0 28.4%;
         max-width: 28.4%;
       }
     }
+
     .right_Container {
       // height: 100%;
       // width: 70%;
@@ -69,6 +75,7 @@
         flex: 0 0 71.6%;
         max-width: 71.6%;
       }
+
       .upper_Container {
         // display: flex;
         // justify-content: space-between;
@@ -77,10 +84,12 @@
         //     min-height: 280px;
         // }
       }
+
       .bottom_Container {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
+
         .leads {
           width: 100%;
           // height: 369px;
@@ -92,6 +101,7 @@
           @include respond(phone) {
             margin-bottom: 15px;
           }
+
           .tableFilter {
             height: 59px;
             padding-right: 14px;
@@ -103,6 +113,7 @@
             @include respond(phone) {
               height: 50px;
             }
+
             h3 {
               font-size: 18px;
               color: #111111;
@@ -114,12 +125,14 @@
                 font-size: 16px;
                 line-height: 1.3;
               }
+
               .rotate {
                 opacity: 0.5;
                 margin-left: 0.5rem;
                 transform: rotate(270deg);
               }
             }
+
             .filterIcon {
               width: 36px;
               height: 36px;
@@ -132,6 +145,7 @@
                 margin-left: 15px;
               }
             }
+
             .pageList {
               span {
                 font-size: 18px;
@@ -148,6 +162,7 @@
                   display: none;
                 }
               }
+
               .arrow {
                 width: 35px;
                 height: 35px;
@@ -165,12 +180,14 @@
                   width: 28px;
                   height: 28px;
                 }
+
                 img {
                   height: 13px;
                   @include respond(phone) {
                     height: 10px;
                   }
                 }
+
                 .image_reverse {
                   transform: rotate(180deg);
                   height: 13px;
@@ -178,6 +195,7 @@
                     height: 10px;
                   }
                 }
+
                 &.rightArrow {
                   img {
                     transform: rotate(180deg);
@@ -186,19 +204,24 @@
               }
             }
           }
+
           .table_scroll_outer {
             width: 100%;
             display: table;
             table-layout: fixed;
+
             .table_scroll_inner {
               display: table-cell;
               overflow-x: auto;
+
               .table {
                 width: 100%;
+
                 thead {
                   // width: 100%;
                   // background: #fafafb;
                   height: 44px;
+
                   th {
                     height: 100%;
                     font-size: 15px;
@@ -211,6 +234,7 @@
                     text-transform: uppercase;
                     border-top: 2px solid #f2f5f9;
                     border-bottom: 2px solid #f2f5f9;
+
                     &:first-child {
                       height: 44px;
                       padding-left: 28px;
@@ -218,6 +242,7 @@
                         padding-left: 15px;
                       }
                     }
+
                     @include respond(lg-desktop) {
                       font-size: 14px;
                       line-height: 1.2;
@@ -230,13 +255,16 @@
                     }
                   }
                 }
+
                 tr {
                   &:last-child {
                     border-radius: 0 0 8px 8px;
+
                     td {
                       border-bottom: none;
                     }
                   }
+
                   td {
                     font-size: 19px;
                     //color: rgba(17, 17, 17, 0.7);
@@ -246,12 +274,14 @@
                     border-top: none;
                     white-space: nowrap;
                     border-bottom: 2px solid #f2f5f9;
+
                     &:first-child {
                       padding-left: 28px;
                       @include respond(md-desktop) {
                         padding-left: 15px;
                       }
                     }
+
                     @include respond(lg-desktop) {
                       font-size: 15px;
                       line-height: 1.3;
@@ -261,10 +291,12 @@
                       font-size: 14px;
                       padding: 10px;
                     }
+
                     &.buyerName {
                       font-weight: bold;
                       text-transform: capitalize;
                     }
+
                     .status {
                       width: 15px;
                       height: 15px;
@@ -273,12 +305,15 @@
                       display: inline-block;
                       vertical-align: middle;
                     }
+
                     .approved {
                       background: #26dd73;
                     }
+
                     .rejected {
                       background: #ed714c;
                     }
+
                     .review {
                       background: #ffce00;
                     }
@@ -292,9 +327,11 @@
     }
   }
 }
+
 .card {
   box-shadow: 0px 3px 12px #1852ff;
 }
+
 .noRotate {
   width: 12px;
   height: 12px;

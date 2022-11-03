@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PlaceOrder from '../../src/components/PlaceOrder';
 import { setPageName } from '../../src/redux/userData/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {

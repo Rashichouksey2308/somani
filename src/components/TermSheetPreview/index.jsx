@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
-import { Row, Col, Container, Card } from 'react-bootstrap';
+import { Card, Col, Form, Row } from 'react-bootstrap';
 import Paginatebar from '../Paginatebar';
 import TermsheetPopUp from '../TermsheetPopUp';
-import { Form } from 'react-bootstrap';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetTermsheet, sharingTermsheetEmail } from 'redux/buyerProfile/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
@@ -24,7 +19,6 @@ function Index() {
 
   const { termsheet } = useSelector((state) => state.order);
 
- 
   let Id = sessionStorage.getItem('termID');
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
@@ -34,17 +28,9 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('termsheet'));
+    dispatch(setDynamicName(_get(termsheet, 'data[0].company.companyName', 'Order Id')));
     dispatch(
-      setDynamicName(
-        _get(termsheet, 'data[0].company.companyName', 'Order Id'),
-      ),
-    );
-    dispatch(
-      setDynamicOrder(
-        orderId !== 'Order Id'
-          ? orderId
-          : _get(termsheet, 'data[0].order.applicationId', 'Order Id'),
-      ),
+      setDynamicOrder(orderId !== 'Order Id' ? orderId : _get(termsheet, 'data[0].order.applicationId', 'Order Id')),
     );
   }, [dispatch, termsheet]);
 
@@ -76,35 +62,28 @@ function Index() {
               loadPort: sheet?.transactionDetails?.loadPort,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
               shipmentType: sheet?.transactionDetails?.shipmentType,
-              partShipmentAllowed:
-                sheet?.transactionDetails?.partShipmentAllowed,
+              partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
               portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
-              thirdPartyInspectionReq:
-                sheet?.transactionDetails?.thirdPartyInspectionReq,
+              thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate:
-                sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
             },
             commercials: {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
               lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
-              lcOpeningChargesPercentage:
-                sheet?.commercials?.lcOpeningChargesPercentage,
-              usanceInterestPercetage:
-                sheet?.commercials?.usanceInterestPercetage,
-              overDueInterestPerMonth:
-                sheet?.commercials?.overDueInterestPerMonth,
+              lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
+              usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
+              overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
               exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
               forexHedging: sheet?.commercials?.forexHedging,
-              otherTermsAndConditions:
-                sheet?.commercials?.otherTermsAndConditions,
+              otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
               version: sheet?.commercials?.version,
             },
           }),
@@ -113,9 +92,7 @@ function Index() {
   }, [termsheet]);
 
   const filteredValue = (commentType) => {
-    let filteredComments = additionalComments?.filter(
-      (comment) => comment.additionalCommentType === commentType,
-    );
+    let filteredComments = additionalComments?.filter((comment) => comment.additionalCommentType === commentType);
 
     return filteredComments?.[0]?.comment;
   };
@@ -132,125 +109,63 @@ function Index() {
           setOtherTermConditions({
             buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
             chaOrstevedoringCharges: {
-              customClearingCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.customClearingCharges,
-              wharfaceCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.wharfaceCharges,
-              pollutionCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.pollutionCharges,
-              royalyAndPenaltyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.royalyAndPenaltyCharges,
+              customClearingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customClearingCharges,
+              wharfaceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wharfaceCharges,
+              pollutionCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.pollutionCharges,
+              royalyAndPenaltyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges,
               tarpaulinCoverageCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.tarpaulinCoverageCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges,
               wheighmentAndWeighmentSurveyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.wheighmentAndWeighmentSurveyCharges,
-              draughtSurveyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.draughtSurveyCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges,
+              draughtSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.draughtSurveyCharges,
               boatingWhileDraughtSurveyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.boatingWhileDraughtSurveyCharges,
-              hmcCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.hmcCharges,
-              securityCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.securityCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges,
+              hmcCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.hmcCharges,
+              securityCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.securityCharges,
               piotRentalAndStorageCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.piotRentalAndStorageCharges,
-              bondingOfCargoCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.bondingOfCargoCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges,
+              bondingOfCargoCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges,
               exBondDocumentationCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.exBondDocumentationCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges,
               transferOfOwnershipCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.transferOfOwnershipCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges,
               customsBondOfficerOvertimeCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.customsBondOfficerOvertimeCharges,
-              grabHireCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.grabHireCharges,
-              craneHireCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.craneHireCharges,
-              handlingLosses:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.handlingLosses,
-              insuranceCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.insuranceCharges,
-              waterSprinklingCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.waterSprinklingCharges,
-              others:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges,
+              grabHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.grabHireCharges,
+              craneHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.craneHireCharges,
+              handlingLosses: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.handlingLosses,
+              insuranceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.insuranceCharges,
+              waterSprinklingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.waterSprinklingCharges,
+              others: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others,
             },
             lcOpeningCharges: {
-              lcOpeningCharges:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.lcOpeningCharges,
-              lcAmendmentCost:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.lcAmendmentCost,
+              lcOpeningCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcOpeningCharges,
+              lcAmendmentCost: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcAmendmentCost,
               cmaFeesIncludingSupervisionAndSurvey:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.cmaFeesIncludingSupervisionAndSurvey,
-              bankDoIssuanceCharges:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.bankDoIssuanceCharges,
-              remmittanceCharges:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.remmittanceCharges,
-              usanceInterest:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.usanceInterest,
+                sheet?.otherTermsAndConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey,
+              bankDoIssuanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.bankDoIssuanceCharges,
+              remmittanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.remmittanceCharges,
+              usanceInterest: sheet?.otherTermsAndConditions?.lcOpeningCharges?.usanceInterest,
             },
             otherCharges: {
               demurrageOrDetentionChargesOfVessel:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.demurrageOrDetentionChargesOfVessel,
-              transportationCharges:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.transportationCharges,
-              wagonHaulageCharges:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.wagonHaulageCharges,
-              thirdPartyInspectionCharges:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.thirdPartyInspectionCharges,
-              hedgingCharges:
-                sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
+                sheet?.otherTermsAndConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel,
+              transportationCharges: sheet?.otherTermsAndConditions?.otherCharges?.transportationCharges,
+              wagonHaulageCharges: sheet?.otherTermsAndConditions?.otherCharges?.wagonHaulageCharges,
+              thirdPartyInspectionCharges: sheet?.otherTermsAndConditions?.otherCharges?.thirdPartyInspectionCharges,
+              hedgingCharges: sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
               anyOtherCostIncurredOnBehalfOfBuyer:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.anyOtherCostIncurredOnBehalfOfBuyer,
+                sheet?.otherTermsAndConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer,
             },
             dutyAndTaxes: {
-              customsDutyWithAllGovtCess:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.customsDutyWithAllGovtCess,
-              igstWithCess:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
-              cimsCharges:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
-              taxCollectedatSource:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.taxCollectedatSource,
+              customsDutyWithAllGovtCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess,
+              igstWithCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
+              cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
+              taxCollectedatSource: sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource,
             },
             insurance: {
-              marineInsurance:
-                sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
-              storageInsurance:
-                sheet?.otherTermsAndConditions?.insurance?.storageInsurance,
+              marineInsurance: sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
+              storageInsurance: sheet?.otherTermsAndConditions?.insurance?.storageInsurance,
             },
           });
         });
@@ -275,14 +190,7 @@ function Index() {
 
     const doc = new jsPDF('p', 'pt', [1500, 2150]);
     doc.html(
-      ReactDOMServer.renderToString(
-        toPrintPdf(
-          termsheet,
-          termsheetDetails,
-          additionalComments,
-          otherTermConditions,
-        ),
-      ),
+      ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
       {
         callback: function (doc) {
           doc.save('TransactionSummary.pdf');
@@ -291,21 +199,12 @@ function Index() {
         autoPaging: 'text',
       },
     );
-    
   };
   const exportPDF2 = () => {
- 
-
     const doc = new jsPDF('p', 'pt', [1500, 1600]);
     doc.addFileToVFS(
       'Termsheet.pdf',
-      toPrintPdf2(
-        termsheet,
-        termsheetDetails,
-        additionalComments,
-        otherTermConditions,
-        filteredValue,
-      ),
+      toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions, filteredValue),
     );
     return doc.getFileFromVFS('Termsheet.pdf');
     // doc.html(
@@ -320,12 +219,10 @@ function Index() {
     //     autoPaging: 'text',
     //   },
     // )
-   
   };
   const shareEmail = async (email) => {
-   
     let doc = exportPDF2();
-    
+
     let formData = new FormData();
     formData.append('document1', '');
     formData.append('data', {
@@ -348,58 +245,33 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
             />
-            <h1 className={`${styles.heading} heading`}>
-              Transaction Summary Preview
-            </h1>
+            <h1 className={`${styles.heading} heading`}>Transaction Summary Preview</h1>
           </div>
         </div>
 
-        <div
-          className={`${styles.term_container} download-pdf-bg container-fluid`}
-        >
+        <div className={`${styles.term_container} download-pdf-bg container-fluid`}>
           <Row className={`h-50`}>
-            <Col
-              md={4}
-              className={`d-flex justify-content-start align-items-start`}
-            >
+            <Col md={4} className={`d-flex justify-content-start align-items-start`}>
               {termsheet &&
                 termsheet?.data?.map((sheet, index) => (
                   <div key={index}>
                     <div>
-                      <span className={`${styles.termSub_head} text-color`}>
-                        Order ID:
-                      </span>
-                      <span className={`${styles.termValue} text-color`}>
-                        {sheet.order.orderId}
-                      </span>
+                      <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
+                      <span className={`${styles.termValue} text-color`}>{sheet.order.orderId}</span>
                     </div>
                     <div className={`mt-1`}>
-                      <span className={`${styles.termSub_head} text-color`}>
-                        Buyer:
-                      </span>
-                      <span className={`${styles.termValue} text-color`}>
-                        {sheet.company.companyName}
-                      </span>
+                      <span className={`${styles.termSub_head} text-color`}>Buyer:</span>
+                      <span className={`${styles.termValue} text-color`}>{sheet.company.companyName}</span>
                     </div>
                   </div>
                 ))}
             </Col>
-            <Col
-              md={4}
-              className={`d-flex justify-content-center align-items-center`}
-            >
-              <span className="download-pdf-title text-center">
-                TRANSACTION SUMMARY
-              </span>
+            <Col md={4} className={`d-flex justify-content-center align-items-center`}>
+              <span className="download-pdf-title text-center">TRANSACTION SUMMARY</span>
             </Col>
-            <Col
-              md={4}
-              className={`d-flex justify-content-end  align-items-end`}
-            >
+            <Col md={4} className={`d-flex justify-content-end  align-items-end`}>
               <div>
-                <span className={`${styles.termSub_head} text-color`}>
-                  Date:
-                </span>{' '}
+                <span className={`${styles.termSub_head} text-color`}>Date:</span>{' '}
                 <span className={`${styles.termValue} text-color`}>
                   {moment(new Date(), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
                 </span>
@@ -451,18 +323,16 @@ function Index() {
                 <ul>
                   <li>{termsheetDetails?.commodityDetails?.commodity}</li>
                   <li>
-                    {termsheetDetails?.commodityDetails?.quantity?.toLocaleString(
-                      'en-IN',
-                      { maximumFractionDigits: 2 },
-                    )}{' '}
+                    {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                     MT
                   </li>
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                    {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString(
-                      'en-IN',
-                      { maximumFractionDigits: 2 },
-                    )}
+                    {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}
                   </li>
                 </ul>
               </Col>
@@ -513,41 +383,27 @@ function Index() {
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {termsheetDetails?.transactionDetails?.lcValue
-                      ? Number(
-                          termsheetDetails?.transactionDetails?.lcValue,
-                        )?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                      ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                        })
                       : ''}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
                   <li>
-                    {termsheetDetails?.transactionDetails?.marginMoney?.toLocaleString(
-                      'en-IN',
-                      {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      },
-                    )}
+                    {termsheetDetails?.transactionDetails?.marginMoney?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })}
                     %
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.incoTerms}</li>
                   <li>{termsheetDetails?.transactionDetails?.loadPort}</li>
-                  <li>
-                    {termsheetDetails?.transactionDetails?.countryOfOrigin}
-                  </li>
+                  <li>{termsheetDetails?.transactionDetails?.countryOfOrigin}</li>
                   <li>{termsheetDetails?.transactionDetails?.shipmentType}</li>
-                  <li>
-                    {termsheetDetails?.transactionDetails?.partShipmentAllowed}
-                  </li>
-                  <li>
-                    {termsheetDetails?.transactionDetails?.portOfDischarge}
-                  </li>
+                  <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
+                  <li>{termsheetDetails?.transactionDetails?.portOfDischarge}</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                  <li>
-                    {termsheetDetails?.transactionDetails
-                      ?.thirdPartyInspectionReq
-                      ? 'YES'
-                      : 'NO'}
-                  </li>
+                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}</li>
                 </ul>
               </Col>
             </Row>
@@ -633,15 +489,12 @@ function Index() {
                   <li>
                     {filteredValue('Deliveries/Due Date/Payment')
                       ? filteredValue('Deliveries/Due Date/Payment')
-                      : termsheetDetails?.paymentDueDate
-                          ?.computationOfDueDate === 'DaysfromBLDate'
+                      : termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate'
                       ? `${_get(
                           termsheetDetails,
                           'paymentDueDate.daysFromBlDate',
                         )} days from the date of Bill of Lading.`
-                      : termsheetDetails?.paymentDueDate
-                          ?.computationOfDueDate ===
-                        'DaysfromVesselDischargeDate'
+                      : termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate'
                       ? `${_get(
                           termsheetDetails,
                           'paymentDueDate.daysFromVesselDischargeDate',
@@ -654,7 +507,6 @@ function Index() {
                           'paymentDueDate.daysFromBlDate',
                         )} days from the date of Bill of Lading, whichever is earlier.`}
                   </li>
-                
                 </ul>
               </Col>
             </Row>
@@ -701,9 +553,7 @@ function Index() {
                   <li>
                     {' '}
                     {termsheetDetails.commercials?.tradeMarginPercentage
-                      ? Number(
-                          termsheetDetails.commercials?.tradeMarginPercentage,
-                        )?.toLocaleString('en-IN', {
+                      ? Number(termsheetDetails.commercials?.tradeMarginPercentage)?.toLocaleString('en-IN', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         })
@@ -712,19 +562,14 @@ function Index() {
                   </li>
                   <li>
                     {`USD`}{' '}
-                    {Number(
-                      termsheetDetails.commercials?.lcOpeningChargesUnit,
-                    )?.toLocaleString('en-IN', {
+                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
                   </li>
                   <li>
                     {' '}
                     {termsheetDetails.commercials?.lcOpeningChargesPercentage
-                      ? Number(
-                          termsheetDetails.commercials
-                            ?.lcOpeningChargesPercentage,
-                        )?.toLocaleString('en-IN', {
+                      ? Number(termsheetDetails.commercials?.lcOpeningChargesPercentage)?.toLocaleString('en-IN', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         }) + '%'
@@ -733,9 +578,7 @@ function Index() {
                   <li>
                     {' '}
                     {termsheetDetails.commercials?.usanceInterestPercetage
-                      ? Number(
-                          termsheetDetails.commercials?.usanceInterestPercetage,
-                        )?.toLocaleString('en-IN', {
+                      ? Number(termsheetDetails.commercials?.usanceInterestPercetage)?.toLocaleString('en-IN', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         }) + '%'
@@ -745,9 +588,7 @@ function Index() {
                   <li>
                     {' '}
                     {termsheetDetails.commercials?.overDueInterestPerMonth
-                      ? Number(
-                          termsheetDetails.commercials?.overDueInterestPerMonth,
-                        )?.toLocaleString('en-IN', {
+                      ? Number(termsheetDetails.commercials?.overDueInterestPerMonth)?.toLocaleString('en-IN', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         }) + '%'
@@ -826,9 +667,8 @@ function Index() {
                 md={12}
                 className={`${styles.sub_content_other} termsheet_Text label_heading  d-flex justify-content-start align-content-center`}
               >
-                Below charges are to be borne and paid by the Buyer on actual
-                basis,wherever applicable. {otherTermConditions?.buyer?.bank}{' '}
-                will provide proof of all expenses to the Buyer.
+                Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.{' '}
+                {otherTermConditions?.buyer?.bank} will provide proof of all expenses to the Buyer.
               </Col>
             </Row>
           </div>
@@ -836,28 +676,17 @@ function Index() {
           <div className={styles.dashboard_form}>
             <Form>
               <div className="row">
-                <div
-                  className={`${styles.form_group} ${styles.formLeft} mt-5 col-md-6`}
-                >
-                  <h3 className={`${styles.other_heading} row_head`}>
-                    CHA / Stevedoring Charges
-                  </h3>
-                  <div
-                    className={`${styles.checkbox_container} label_heading d-flex flex-column`}
-                  >
+                <div className={`${styles.form_group} ${styles.formLeft} mt-5 col-md-6`}>
+                  <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
+                  <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                     <div className=" d-flex align-items-center">
                       <input
                         id=">Customs clearing charges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.pollutionCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>
                         Customs clearing charges / handling charges / CHA Fee
                       </label>
                     </div>
@@ -867,79 +696,46 @@ function Index() {
                         id="wharfaceCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.wharfaceCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.wharfaceCharges}
                       />
 
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Wharfage Charges{' '}
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Wharfage Charges </label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="pollutionCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.pollutionCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Pollution Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Pollution Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="royalyAndPenaltyCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.royalyAndPenaltyCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Royalty and Penalty Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Royalty and Penalty Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="tarpaulinCoverageCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.tarpaulinCoverageCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Tarpaulin Coverage Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Tarpaulin Coverage Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="wheighmentAndWeighmentSurveyCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.wheighmentAndWeighmentSurveyCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>
                         Wheighment &amp; Weighment Survey Charges
                       </label>
                     </div>
@@ -948,30 +744,18 @@ function Index() {
                         id="draughtSurveyCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.draughtSurveyCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.draughtSurveyCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Draught Survey Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Draught Survey Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="boatingWhileDraughtSurveyCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.boatingWhileDraughtSurveyCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>
                         Boating while Draught Survey Charges
                       </label>
                     </div>
@@ -980,46 +764,27 @@ function Index() {
                         id="hmcCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.hmcCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.hmcCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        HMC Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>HMC Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="securityCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.securityCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.securityCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Security Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Security Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="piotRentalAndStorageCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.piotRentalAndStorageCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>
                         Plot Rental &amp; Storage Charges
                       </label>
                     </div>
@@ -1028,30 +793,18 @@ function Index() {
                         id="bondingOfCargoCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.bondingOfCargoCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Bonding of Cargo Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Bonding of Cargo Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="exBondDocumentationCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.exBondDocumentationCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>
                         Ex - Bond Documentation Charges
                       </label>
                     </div>
@@ -1060,30 +813,18 @@ function Index() {
                         id="transferOfOwnershipCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.transferOfOwnershipCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Transfer of Ownership Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Transfer of Ownership Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="customsBondOfficerOvertimeCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.customsBondOfficerOvertimeCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>
                         Customs Bond Officer Overtime Charges
                       </label>
                     </div>
@@ -1092,48 +833,27 @@ function Index() {
                         id="grabHireCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.grabHireCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.grabHireCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Grab Hire Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Grab Hire Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="craneHireCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.craneHireCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.craneHireCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Crane Hire Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Crane Hire Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="handlingLosses"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.handlingLosses
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.handlingLosses}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Handling Losses
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Handling Losses</label>
                     </div>
 
                     <div className="pt-4 d-flex align-items-center">
@@ -1141,52 +861,31 @@ function Index() {
                         id="waterSprinklingCharges"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.waterSprinklingCharges
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.waterSprinklingCharges}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Water Sprinkling Charges
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Water Sprinkling Charges</label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
                       <input
                         id="others"
                         className={styles.checkbox}
                         type="checkbox"
-                        checked={
-                          otherTermConditions?.chaOrstevedoringCharges?.others
-                        }
+                        checked={otherTermConditions?.chaOrstevedoringCharges?.others}
                       />
-                      <label
-                        className={`${styles.checkbox_label} termsheet_Text`}
-                      >
-                        Others, if any
-                      </label>
+                      <label className={`${styles.checkbox_label} termsheet_Text`}>Others, if any</label>
                     </div>
                   </div>
                   <div className="mt-4">
-                    <h3 className={`${styles.other_heading} row_head`}>
-                      Insurance
-                    </h3>
-                    <div
-                      className={`${styles.checkbox_container} label_heading d-flex flex-column`}
-                    >
+                    <h3 className={`${styles.other_heading} row_head`}>Insurance</h3>
+                    <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                       <div className="d-flex align-items-center">
                         <input
                           id="marineInsurance"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.insurance?.marineInsurance
-                          }
+                          checked={otherTermConditions?.insurance?.marineInsurance}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>
                           Marine Insurance ( if applicable)
                         </label>
                       </div>
@@ -1195,13 +894,9 @@ function Index() {
                           id="storageInsurance"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.insurance?.storageInsurance
-                          }
+                          checked={otherTermConditions?.insurance?.storageInsurance}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>
                           Storage Insurance(Fire &amp; Burglary)
                         </label>
                       </div>
@@ -1210,50 +905,30 @@ function Index() {
                           id="insuranceCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.chaOrstevedoringCharges
-                              ?.insuranceCharges
-                          }
+                          checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
-                          Insurance Charges ( While transferring the material to
-                          customs bonded warehouse )
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>
+                          Insurance Charges ( While transferring the material to customs bonded warehouse )
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} ${styles.formRight} mt-5 col-md-6`}
-                >
+                <div className={`${styles.form_group} ${styles.formRight} mt-5 col-md-6`}>
                   <div className="">
-                    <h3 className={`${styles.other_heading} row_head`}>
-                      LC Opening Charges
-                    </h3>
-                    <div
-                      className={`${styles.checkbox_container}  label_heading d-flex flex-column`}
-                    >
+                    <h3 className={`${styles.other_heading} row_head`}>LC Opening Charges</h3>
+                    <div className={`${styles.checkbox_container}  label_heading d-flex flex-column`}>
                       <div className="d-flex align-items-center">
                         <input
                           id="lcOpeningCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.lcOpeningCharges
-                          }
+                          checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>
                           LC Opening Charges ( on LC value subject to minimum of{' '}
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                          {Number(
-                            termsheetDetails?.commercials?.lcOpeningChargesUnit,
-                          )?.toLocaleString('en-In')}
-                          )
+                          {Number(termsheetDetails?.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')})
                         </label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
@@ -1261,31 +936,18 @@ function Index() {
                           id="lcAmendmentCost"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.lcAmendmentCost
-                          }
+                          checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
-                          LC Amendment Charges
-                        </label>
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>LC Amendment Charges</label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
                         <input
                           id="cmaFeesIncludingSupervisionAndSurvey"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.cmaFeesIncludingSupervisionAndSurvey
-                          }
+                          checked={otherTermConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle3"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle3">
                           CMA Fees including supervision and survey
                         </label>
                       </div>
@@ -1294,15 +956,9 @@ function Index() {
                           id="bankDoIssuanceCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.bankDoIssuanceCharges
-                          }
+                          checked={otherTermConditions?.lcOpeningCharges?.bankDoIssuanceCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle4"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle4">
                           Bank DO Issuance Charges
                         </label>
                       </div>
@@ -1311,15 +967,9 @@ function Index() {
                           id="remmittanceCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.remmittanceCharges
-                          }
+                          checked={otherTermConditions?.lcOpeningCharges?.remmittanceCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle5"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle5">
                           Remmittance Charges
                         </label>
                       </div>
@@ -1328,41 +978,25 @@ function Index() {
                           id="usanceInterest"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.usanceInterest
-                          }
+                          checked={otherTermConditions?.lcOpeningCharges?.usanceInterest}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle6"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle6">
                           Usance Interest
                         </label>
                       </div>
                     </div>
                   </div>
                   <div className="mt-4">
-                    <h3 className={`${styles.other_heading} row_head`}>
-                      Other Charges
-                    </h3>
-                    <div
-                      className={`${styles.checkbox_container} label_heading d-flex flex-column`}
-                    >
+                    <h3 className={`${styles.other_heading} row_head`}>Other Charges</h3>
+                    <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                       <div className="pt-4 d-flex align-items-center">
                         <input
                           id="demurrageOrDetentionChargesOfVessel"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.otherCharges
-                              ?.demurrageOrDetentionChargesOfVessel
-                          }
+                          checked={otherTermConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle2"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">
                           Demurrage / Detention Charges of Vessel
                         </label>
                       </div>
@@ -1371,15 +1005,9 @@ function Index() {
                           id="transportationCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.otherCharges
-                              ?.transportationCharges
-                          }
+                          checked={otherTermConditions?.otherCharges?.transportationCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle3"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle3">
                           Transportation Charges
                         </label>
                       </div>
@@ -1388,17 +1016,10 @@ function Index() {
                           id="wagonHaulageCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.otherCharges
-                              ?.wagonHaulageCharges
-                          }
+                          checked={otherTermConditions?.otherCharges?.wagonHaulageCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle1"
-                        >
-                          Wagon Haulage Charges (in case of Delivery through
-                          railways)
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">
+                          Wagon Haulage Charges (in case of Delivery through railways)
                         </label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
@@ -1406,15 +1027,9 @@ function Index() {
                           id="thirdPartyInspectionCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.otherCharges
-                              ?.thirdPartyInspectionCharges
-                          }
+                          checked={otherTermConditions?.otherCharges?.thirdPartyInspectionCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle1"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">
                           3rd Party Inspection Charges
                         </label>
                       </div>
@@ -1423,14 +1038,9 @@ function Index() {
                           id="hedgingCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.otherCharges?.hedgingCharges
-                          }
+                          checked={otherTermConditions?.otherCharges?.hedgingCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle1"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">
                           Hedging Charges
                         </label>
                       </div>
@@ -1439,41 +1049,25 @@ function Index() {
                           id="anyOtherCostIncurredOnBehalfOfBuyer"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.otherCharges
-                              ?.anyOtherCostIncurredOnBehalfOfBuyer
-                          }
+                          checked={otherTermConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle1"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">
                           Any other cost incurred on behalf of Buyer
                         </label>
                       </div>
                     </div>
                   </div>
                   <div className="mt-4">
-                    <h3 className={`${styles.other_heading} row_head`}>
-                      Duty &amp; Taxes
-                    </h3>
-                    <div
-                      className={`${styles.checkbox_container} label_heading d-flex flex-column`}
-                    >
+                    <h3 className={`${styles.other_heading} row_head`}>Duty &amp; Taxes</h3>
+                    <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                       <div className="d-flex align-items-center">
                         <input
                           id="customsDutyWithAllGovtCess"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.dutyAndTaxes
-                              ?.customsDutyWithAllGovtCess
-                          }
+                          checked={otherTermConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle1"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">
                           Customs Duty with all Govt Cess
                         </label>
                       </div>
@@ -1482,14 +1076,9 @@ function Index() {
                           id="igstWithCess"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.dutyAndTaxes?.igstWithCess
-                          }
+                          checked={otherTermConditions?.dutyAndTaxes?.igstWithCess}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                          htmlFor="vehicle2"
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">
                           IGST with CESS, if applicable
                         </label>
                       </div>
@@ -1498,13 +1087,9 @@ function Index() {
                           id="cimsCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.dutyAndTaxes?.cimsCharges
-                          }
+                          checked={otherTermConditions?.dutyAndTaxes?.cimsCharges}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>
                           CIMS Charges (incase commodity is Coal)
                         </label>
                       </div>
@@ -1513,16 +1098,9 @@ function Index() {
                           id="taxCharges"
                           className={styles.checkbox}
                           type="checkbox"
-                          checked={
-                            otherTermConditions?.dutyAndTaxes
-                              ?.taxCollectedatSource
-                              ? true
-                              : false
-                          }
+                          checked={otherTermConditions?.dutyAndTaxes?.taxCollectedatSource ? true : false}
                         />
-                        <label
-                          className={`${styles.checkbox_label} termsheet_Text`}
-                        >
+                        <label className={`${styles.checkbox_label} termsheet_Text`}>
                           Tax Collected at Source ( if applicable )
                         </label>
                       </div>
@@ -1534,12 +1112,10 @@ function Index() {
           </div>
 
           <div className={`${styles.footer}`}>
-            All necessary documents to be filed with Customs department for
-            discharge of goods &amp; Customs clearance can be filed by{' '}
-            {otherTermConditions?.buyer?.bank} or its nominated person.
+            All necessary documents to be filed with Customs department for discharge of goods &amp; Customs clearance
+            can be filed by {otherTermConditions?.buyer?.bank} or its nominated person.
             <p>
-              <span className={styles.danger}>*</span> GST charges extra
-              wherever applicable
+              <span className={styles.danger}>*</span> GST charges extra wherever applicable
             </p>
           </div>
         </Card>
@@ -1551,26 +1127,16 @@ function Index() {
         rightButtonTitle="Send To Buyer"
         leftButtonTitle="Transaction Summary"
       />
-      {open ? (
-        <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} />
-      ) : null}
+      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} /> : null}
     </>
   );
 }
 
 export default Index;
 
-const toPrintPdf = (
-  data,
-  termsheetDetails,
-  additionalComments,
-  otherTermConditions,
-) => {
- 
+const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions) => {
   const filteredValue = (commentType) => {
-    let filteredComments = additionalComments?.filter(
-      (comment) => comment.additionalCommentType === commentType,
-    );
+    let filteredComments = additionalComments?.filter((comment) => comment.additionalCommentType === commentType);
 
     return filteredComments?.[0]?.comment;
   };
@@ -1681,9 +1247,7 @@ const toPrintPdf = (
                         opacity: '0.7',
                       }}
                     >
-                      {moment(new Date(), 'YYYY-MM-DD', true).format(
-                        'DD-MM-YYYY',
-                      )}
+                      {moment(new Date(), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
                     </span>
                   </span>
                 </td>
@@ -1708,19 +1272,9 @@ const toPrintPdf = (
             >
               <tr>
                 <td valign="top" align="left">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
-                      <td
-                        width="33%"
-                        bgColor="#FAFAFB"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <span
                           style={{
                             fontSize: '22px',
@@ -1737,10 +1291,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -1783,10 +1334,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -1825,18 +1373,12 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString(
-                            'en-In',
-                          )}{' '}
-                          MT
+                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -1876,19 +1418,12 @@ const toPrintPdf = (
                           }}
                         >
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString(
-                            'en-In',
-                          )}
+                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        width="33%"
-                        bgColor="#FAFAFB"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <span
                           style={{
                             fontSize: '22px',
@@ -1905,10 +1440,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -1948,18 +1480,13 @@ const toPrintPdf = (
                         >
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                           {termsheetDetails?.transactionDetails?.lcValue
-                            ? Number(
-                                termsheetDetails?.transactionDetails?.lcValue,
-                              )?.toLocaleString('en-In')
+                            ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-In')
                             : ''}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2002,10 +1529,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2048,10 +1572,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2094,10 +1615,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2140,10 +1658,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2182,18 +1697,12 @@ const toPrintPdf = (
                           }}
                         >
                           {' '}
-                          {
-                            termsheetDetails?.transactionDetails
-                              ?.countryOfOrigin
-                          }
+                          {termsheetDetails?.transactionDetails?.countryOfOrigin}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2236,10 +1745,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2278,18 +1784,12 @@ const toPrintPdf = (
                           }}
                         >
                           {' '}
-                          {
-                            termsheetDetails?.transactionDetails
-                              ?.partShipmentAllowed
-                          }
+                          {termsheetDetails?.transactionDetails?.partShipmentAllowed}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2328,18 +1828,12 @@ const toPrintPdf = (
                           }}
                         >
                           {' '}
-                          {
-                            termsheetDetails?.transactionDetails
-                              ?.portOfDischarge
-                          }
+                          {termsheetDetails?.transactionDetails?.portOfDischarge}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2383,10 +1877,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2424,20 +1915,12 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.transactionDetails
-                            ?.thirdPartyInspectionReq
-                            ? 'YES'
-                            : 'NO'}
+                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        width="33%"
-                        bgColor="#FAFAFB"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <span
                           style={{
                             fontSize: '22px',
@@ -2455,10 +1938,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2506,12 +1986,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        width="33%"
-                        bgColor="#FAFAFB"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <span
                           style={{
                             fontSize: '22px',
@@ -2529,10 +2004,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2572,15 +2044,12 @@ const toPrintPdf = (
                         >
                           {filteredValue('Deliveries/Due Date/Payment')
                             ? filteredValue('Deliveries/Due Date/Payment')
-                            : termsheetDetails?.paymentDueDate
-                                ?.computationOfDueDate === 'DaysfromBLDate'
+                            : termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate'
                             ? `${_get(
                                 termsheetDetails,
                                 'paymentDueDate.daysFromBlDate',
                               )} days from the date of Bill of Lading.`
-                            : termsheetDetails?.paymentDueDate
-                                ?.computationOfDueDate ===
-                              'DaysfromVesselDischargeDate'
+                            : termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate'
                             ? `${_get(
                                 termsheetDetails,
                                 'paymentDueDate.daysFromVesselDischargeDate',
@@ -2596,12 +2065,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        width="33%"
-                        bgColor="#FAFAFB"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <span
                           style={{
                             fontSize: '22px',
@@ -2619,10 +2083,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2661,10 +2122,7 @@ const toPrintPdf = (
                           }}
                         >
                           {termsheetDetails.commercials?.tradeMarginPercentage
-                            ? Number(
-                                termsheetDetails.commercials
-                                  ?.tradeMarginPercentage,
-                              )?.toLocaleString('en-IN', {
+                            ? Number(termsheetDetails.commercials?.tradeMarginPercentage)?.toLocaleString('en-IN', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               }) + ' %'
@@ -2673,10 +2131,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2718,19 +2173,13 @@ const toPrintPdf = (
                             ? termsheetDetails?.commodityDetails?.orderCurrency
                             : ''}{' '}
                           {termsheetDetails.commercials?.lcOpeningChargesUnit
-                            ? Number(
-                                termsheetDetails.commercials
-                                  ?.lcOpeningChargesUnit,
-                              )?.toLocaleString('en-In')
+                            ? Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')
                             : ''}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2768,25 +2217,21 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails.commercials
-                            ?.lcOpeningChargesPercentage
-                            ? Number(
-                                termsheetDetails.commercials
-                                  ?.lcOpeningChargesPercentage,
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
+                          {termsheetDetails.commercials?.lcOpeningChargesPercentage
+                            ? Number(termsheetDetails.commercials?.lcOpeningChargesPercentage)?.toLocaleString(
+                                'en-IN',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )
                             : ''}
                           %{' '}
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2826,10 +2271,7 @@ const toPrintPdf = (
                         >
                           {' '}
                           {termsheetDetails.commercials?.usanceInterestPercetage
-                            ? Number(
-                                termsheetDetails.commercials
-                                  ?.usanceInterestPercetage,
-                              )?.toLocaleString('en-IN', {
+                            ? Number(termsheetDetails.commercials?.usanceInterestPercetage)?.toLocaleString('en-IN', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               })
@@ -2839,10 +2281,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2882,10 +2321,7 @@ const toPrintPdf = (
                         >
                           {' '}
                           {termsheetDetails.commercials?.overDueInterestPerMonth
-                            ? Number(
-                                termsheetDetails.commercials
-                                  ?.overDueInterestPerMonth,
-                              )?.toLocaleString('en-IN', {
+                            ? Number(termsheetDetails.commercials?.overDueInterestPerMonth)?.toLocaleString('en-IN', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               })
@@ -2895,10 +2331,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2941,10 +2374,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -2987,10 +2417,7 @@ const toPrintPdf = (
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -3066,19 +2493,9 @@ const toPrintPdf = (
             >
               <tr>
                 <td valign="top" align="left">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
-                      <td
-                        width="33%"
-                        bgColor="#FAFAFB"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <span
                           style={{
                             fontSize: '22px',
@@ -3096,11 +2513,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
-                        width="33%"
-                        align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
-                      >
+                      <td width="33%" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -3173,9 +2586,8 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          Below charges are to be borne and paid by the Buyer on
-                          actual basis,wherever applicable. will provide proof
-                          of all expenses to the Buyer.
+                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. will
+                          provide proof of all expenses to the Buyer.
                         </p>
                       </td>
                     </tr>
@@ -3184,20 +2596,10 @@ const toPrintPdf = (
               </tr>
               <tr>
                 <td valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td width="49%" valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             <td align="left">
                               <span
@@ -3217,10 +2619,7 @@ const toPrintPdf = (
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              align="left"
-                              style={{ padding: '35px 15px 35px 35px' }}
-                            >
+                            <td align="left" style={{ padding: '35px 15px 35px 35px' }}>
                               <ul
                                 style={{
                                   margin: '0',
@@ -3235,11 +2634,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.pollutionCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3263,8 +2658,7 @@ const toPrintPdf = (
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    Customs clearing charges / handling charges
-                                    / CHA Fee
+                                    Customs clearing charges / handling charges / CHA Fee
                                   </label>
                                 </li>
                                 <li
@@ -3274,11 +2668,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.wharfaceCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.wharfaceCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3312,11 +2702,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.pollutionCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3350,11 +2736,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.royalyAndPenaltyCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3388,11 +2770,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.tarpaulinCoverageCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3427,9 +2805,7 @@ const toPrintPdf = (
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.wheighmentAndWeighmentSurveyCharges
+                                      otherTermConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3464,11 +2840,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.draughtSurveyCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.draughtSurveyCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3503,9 +2875,7 @@ const toPrintPdf = (
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.boatingWhileDraughtSurveyCharges
+                                      otherTermConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3540,10 +2910,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges?.hmcCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.hmcCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3577,11 +2944,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.securityCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.securityCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3615,11 +2978,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.piotRentalAndStorageCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3653,11 +3012,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.bondingOfCargoCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3691,11 +3046,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.exBondDocumentationCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3729,11 +3080,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.transferOfOwnershipCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3768,9 +3115,7 @@ const toPrintPdf = (
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.customsBondOfficerOvertimeCharges
+                                      otherTermConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3805,11 +3150,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.grabHireCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.grabHireCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3843,11 +3184,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.craneHireCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.craneHireCharges}
                                     d
                                     style={{
                                       display: 'table-cell',
@@ -3882,11 +3219,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.handlingLosses
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.handlingLosses}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3920,11 +3253,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.waterSprinklingCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.waterSprinklingCharges}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3953,10 +3282,7 @@ const toPrintPdf = (
                                 </li>
                                 <li style={{ display: 'table' }}>
                                   <input
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges?.others
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.others}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -4003,10 +3329,7 @@ const toPrintPdf = (
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              align="left"
-                              style={{ padding: '35px 15px 35px 35px' }}
-                            >
+                            <td align="left" style={{ padding: '35px 15px 35px 35px' }}>
                               <ul
                                 style={{
                                   margin: '0',
@@ -4021,10 +3344,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions?.insurance
-                                        ?.marineInsurance
-                                    }
+                                    checked={otherTermConditions?.insurance?.marineInsurance}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -4058,10 +3378,7 @@ const toPrintPdf = (
                                   }}
                                 >
                                   <input
-                                    checked={
-                                      otherTermConditions?.insurance
-                                        ?.storageInsurance
-                                    }
+                                    checked={otherTermConditions?.insurance?.storageInsurance}
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -4104,11 +3421,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions
-                                        ?.chaOrstevedoringCharges
-                                        ?.insuranceCharges
-                                    }
+                                    checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges}
                                     id="insuranceCharges"
                                     type="checkbox"
                                   />
@@ -4123,8 +3436,7 @@ const toPrintPdf = (
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    Insurance Charges ( While transferring the
-                                    material to customs bonded warehouse )
+                                    Insurance Charges ( While transferring the material to customs bonded warehouse )
                                   </label>
                                 </li>
                               </ul>
@@ -4134,12 +3446,7 @@ const toPrintPdf = (
                       </td>
                       <td width="2%"></td>
                       <td width="49%" valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             <td align="left">
                               <span
@@ -4159,10 +3466,7 @@ const toPrintPdf = (
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              align="left"
-                              style={{ padding: '35px 15px 35px 35px' }}
-                            >
+                            <td align="left" style={{ padding: '35px 15px 35px 35px' }}>
                               <ul
                                 style={{
                                   margin: '0',
@@ -4188,10 +3492,7 @@ const toPrintPdf = (
                                     }}
                                     id="lcOpeningCharges"
                                     type="checkbox"
-                                    checked={
-                                      otherTermConditions?.lcOpeningCharges
-                                        ?.lcOpeningCharges
-                                    }
+                                    checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges}
                                   />
                                   <label
                                     htmlFor="lcOpeningCharges"
@@ -4204,16 +3505,11 @@ const toPrintPdf = (
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    LC Opening Charges ( on LC value subject to
-                                    minimum of{' '}
-                                    {
-                                      termsheetDetails?.commodityDetails
-                                        ?.orderCurrency
-                                    }{' '}
-                                    {Number(
-                                      termsheetDetails.commercials
-                                        ?.lcOpeningChargesUnit,
-                                    )?.toLocaleString('en-In')}{' '}
+                                    LC Opening Charges ( on LC value subject to minimum of{' '}
+                                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
+                                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString(
+                                      'en-In',
+                                    )}{' '}
                                     )
                                   </label>
                                 </li>
@@ -4233,10 +3529,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.lcOpeningCharges
-                                        ?.lcAmendmentCost
-                                    }
+                                    checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost}
                                     id="lcAmendmentCost"
                                     type="checkbox"
                                   />
@@ -4271,8 +3564,7 @@ const toPrintPdf = (
                                       height: '30px',
                                     }}
                                     checked={
-                                      otherTermConditions?.lcOpeningCharges
-                                        ?.cmaFeesIncludingSupervisionAndSurvey
+                                      otherTermConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey
                                     }
                                     id="cmaFeesIncludingSupervisionAndSurvey"
                                     type="checkbox"
@@ -4307,10 +3599,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.lcOpeningCharges
-                                        ?.bankDoIssuanceCharges
-                                    }
+                                    checked={otherTermConditions?.lcOpeningCharges?.bankDoIssuanceCharges}
                                     id="bankDoIssuanceCharges"
                                     type="checkbox"
                                   />
@@ -4344,10 +3633,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.lcOpeningCharges
-                                        ?.remmittanceCharges
-                                    }
+                                    checked={otherTermConditions?.lcOpeningCharges?.remmittanceCharges}
                                     id="remmittanceCharges"
                                     type="checkbox"
                                   />
@@ -4381,10 +3667,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.lcOpeningCharges
-                                        ?.usanceInterest
-                                    }
+                                    checked={otherTermConditions?.lcOpeningCharges?.usanceInterest}
                                     id="usanceInterest"
                                     type="checkbox"
                                   />
@@ -4424,10 +3707,7 @@ const toPrintPdf = (
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              align="left"
-                              style={{ padding: '35px 15px 35px 35px' }}
-                            >
+                            <td align="left" style={{ padding: '35px 15px 35px 35px' }}>
                               <ul
                                 style={{
                                   margin: '0',
@@ -4451,10 +3731,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.otherCharges
-                                        ?.demurrageOrDetentionChargesOfVessel
-                                    }
+                                    checked={otherTermConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel}
                                     id="demurrageOrDetentionChargesOfVessel"
                                     type="checkbox"
                                   />
@@ -4488,10 +3765,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.otherCharges
-                                        ?.transportationCharges
-                                    }
+                                    checked={otherTermConditions?.otherCharges?.transportationCharges}
                                     id="transportationCharges"
                                     type="checkbox"
                                   />
@@ -4525,10 +3799,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.otherCharges
-                                        ?.wagonHaulageCharges
-                                    }
+                                    checked={otherTermConditions?.otherCharges?.wagonHaulageCharges}
                                     id="wagonHaulageCharges"
                                     type="checkbox"
                                   />
@@ -4543,8 +3814,7 @@ const toPrintPdf = (
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    Wagon Haulage Charges (in case of Delivery
-                                    through railways)
+                                    Wagon Haulage Charges (in case of Delivery through railways)
                                   </label>
                                 </li>
                                 <li
@@ -4563,10 +3833,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.otherCharges
-                                        ?.thirdPartyInspectionCharges
-                                    }
+                                    checked={otherTermConditions?.otherCharges?.thirdPartyInspectionCharges}
                                     id="thirdPartyInspectionCharges"
                                     type="checkbox"
                                   />
@@ -4600,10 +3867,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.otherCharges
-                                        ?.hedgingCharges
-                                    }
+                                    checked={otherTermConditions?.otherCharges?.hedgingCharges}
                                     id="hedgingCharges"
                                     type="checkbox"
                                   />
@@ -4637,10 +3901,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.otherCharges
-                                        ?.anyOtherCostIncurredOnBehalfOfBuyer
-                                    }
+                                    checked={otherTermConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer}
                                     id="anyOtherCostIncurredOnBehalfOfBuyer"
                                     type="checkbox"
                                   />
@@ -4680,10 +3941,7 @@ const toPrintPdf = (
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              align="left"
-                              style={{ padding: '35px 15px 35px 35px' }}
-                            >
+                            <td align="left" style={{ padding: '35px 15px 35px 35px' }}>
                               <ul
                                 style={{
                                   margin: '0',
@@ -4707,10 +3965,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.dutyAndTaxes
-                                        ?.customsDutyWithAllGovtCess
-                                    }
+                                    checked={otherTermConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess}
                                     id="customsDutyWithAllGovtCess"
                                     type="checkbox"
                                   />
@@ -4744,10 +3999,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.dutyAndTaxes
-                                        ?.igstWithCess
-                                    }
+                                    checked={otherTermConditions?.dutyAndTaxes?.igstWithCess}
                                     id="igstWithCess"
                                     type="checkbox"
                                   />
@@ -4781,10 +4033,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.dutyAndTaxes
-                                        ?.cimsCharges
-                                    }
+                                    checked={otherTermConditions?.dutyAndTaxes?.cimsCharges}
                                     id="cimsCharges"
                                     type="checkbox"
                                   />
@@ -4818,10 +4067,7 @@ const toPrintPdf = (
                                       float: 'left',
                                       height: '30px',
                                     }}
-                                    checked={
-                                      otherTermConditions?.dutyAndTaxes
-                                        ?.taxCollectedatSource
-                                    }
+                                    checked={otherTermConditions?.dutyAndTaxes?.taxCollectedatSource}
                                     id="taxCharges"
                                     type="checkbox"
                                   />
@@ -4858,13 +4104,10 @@ const toPrintPdf = (
                       letterSpacing: '0.19px',
                     }}
                   >
-                    All necessary documents to be filed with Customs department
-                    for discharge of goods &amp; Customs clearance can be filed
-                    by {otherTermConditions?.buyer?.bank} or its nominated
-                    person.
+                    All necessary documents to be filed with Customs department for discharge of goods &amp; Customs
+                    clearance can be filed by {otherTermConditions?.buyer?.bank} or its nominated person.
                     <br />
-                    <span style={{ color: 'red' }}>*</span> GST charges extra
-                    wherever applicable
+                    <span style={{ color: 'red' }}>*</span> GST charges extra wherever applicable
                   </p>
                 </td>
               </tr>
@@ -4875,13 +4118,7 @@ const toPrintPdf = (
     </>
   );
 };
-const toPrintPdf2 = (
-  data,
-  termsheetDetails,
-  additionalComments,
-  otherTermConditions,
-) => {
-
+const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermConditions) => {
   return `  <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>

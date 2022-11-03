@@ -10,7 +10,7 @@ export default {
   login: '/login',
   logout: '/logout',
 
-  //analytics
+  // analytics
   orderSummary: '/analytics/order-summary',
   leadSummary: '/analytics/lead-summary',
   commoditySummary: '/analytics/commodity-summary',
@@ -24,7 +24,7 @@ export default {
   search: '/lead/search?searchTerm=',
   getPanGst: '/get-company',
 
-  //orders
+  // orders
   getBuyerOrder: '/lead/order-review',
   updateBuyer: '/lead/order-action',
   orderDetail: '/order/detail',
@@ -36,16 +36,16 @@ export default {
   // gst
   getGst: '/get-gst',
 
-  //token
+  // token
   generateToken: '/generate-token',
   verifyToken: '/verify-token',
 
-  //termsheet
+  // termsheet
   gettermsheet: '/termsheet',
   updatetermsheet: '/termsheet',
   termsheetshareemial: '/delivery/share-doc',
 
-  //marginMoney
+  // marginMoney
   getMarginMoney: '/margin-money',
   updateMarginMoney: '/margin-money',
   reviseMarginMoney: '/margin-money/revised',
@@ -54,7 +54,7 @@ export default {
   getCompanyDetails: '/lead/fetch-company-detail',
   updateCompanyDetails: '/lead/update-company',
 
-  //complienceCase
+  // complienceCase
   getCaseDetails: '/lead/litigation-case-detail',
 
   // Refetch Karza
@@ -63,34 +63,34 @@ export default {
   // Credit Limit
   creditLimit: '/credit-limit',
 
-  //LC Module
+  // LC Module
   getLcModule: '/lc-module',
   updateLcModule: '/lc-module',
   updateLcModuleAmendment: '/lc-module/amendment',
   updateLcAmendmentPost: '/lc-module/post-update-amendment',
 
-  //DocumentsCam :
+  // DocumentsCam :
   getDocuments: '/order/order-document',
   addDocuments: '/order/order-document',
   deleteDocument: '/order/order-document',
   changeDocModule: '/order/document-module',
 
-  //Update Cam Sheet
+  // Update Cam Sheet
   updateCam: '/order/cam',
 
-  //generic
+  // generic
   updateGeneric: '/generic',
 
-  //Vessel Nomination
+  // Vessel Nomination
   getVessel: '/vessel',
   uploadDocVessel: '/vessel/upload-doc',
 
-  //getGstKarza
+  // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
   getConsolidatedGst: '/lead/consolidate-gst',
 
-  //mcaReport
+  // mcaReport
   getMcaReport: '/karza/request-mca-document',
 
   // getGstKarza: 'karza/send-gst-link',
@@ -105,36 +105,37 @@ export default {
   getInspection: '/inspection',
   updateInspection: '/inspection',
 
-  //Transit
+  // Transit
   getTransitDetails: '/transit',
   updateTransitDetails: '/transit',
   fetchAdditionalData: '/transit/additional-info',
 
-  //ForwardHedging
+  // ForwardHedging
   getForwardHedging: '/forward-hedging',
   updateForwardHedging: '/forward-hedging',
 
-  //Custom Clearance
+  // Custom Clearance
   customClearance: '/custom-clearance',
   customClearanceDoc: '/custom-clearance/upload-doc',
 
-  //Delivery
+  // Delivery
   delivery: '/delivery',
   uploadDoc: '/delivery/upload-doc',
   lifting: '/lifting',
 
-  //ViewDocument
+  // ViewDocument
   viewDoc: '/document/access',
 
-  //supplier
+  // supplier
   supplier: '/supplier',
   supplierDoc: '/supplier/supplier-document',
+  searchSupplier: '/supplier/search?searchTerm=',
+
   //preview
   preview: '/document/access/preview',
 
   //ALL MASTER URL's
-  masterBaseUrl:
-    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
+  masterBaseUrl:'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
   portsMaster: 'ports.json',
   commoditiesMaster: 'commodity.json',

@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+
 let shipping = {
   name: '',
   vesselName: '',
   gstin: '',
 };
+
 function Index(props) {
   console.log(props.submitData, 'submitData', props.active);
   const [shippingData, setShippingData] = useState(shipping);
@@ -60,9 +62,7 @@ function Index(props) {
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form} border-bottom-0`}>
           <div className="row border-bottom-0 border_color ">
-            <Form.Group
-              className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}
-            >
+            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -76,11 +76,7 @@ function Index(props) {
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Name<strong className="text-danger">*</strong>
               </Form.Label>
-              <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </Form.Group>
 
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

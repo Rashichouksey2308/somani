@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
+
 function Index({ data }) {
   console.log(data, 'commoditySummary');
   let tempArr = [
@@ -12,9 +13,7 @@ function Index({ data }) {
   ];
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header} border_color heading_card`}>
-        Top 5 Commodities{' '}
-      </Card.Header>
+      <Card.Header className={`${styles.header} border_color heading_card`}>Top 5 Commodities </Card.Header>
       {/* <hr className={styles.hr}/> */}
       <Card.Body className={styles.body}>
         {data
@@ -32,10 +31,7 @@ function Index({ data }) {
                     })}{' '}
                     Cr
                   </span>
-                  <div
-                    className={`${styles.bar} bar`}
-                    style={{ width: `${tempArr[index].percentage}` }}
-                  ></div>
+                  <div className={`${styles.bar} bar`} style={{ width: `${tempArr[index].percentage}` }}></div>
                 </div>
               </div>
             );

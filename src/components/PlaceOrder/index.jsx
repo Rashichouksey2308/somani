@@ -1,27 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import NewOrder from '../NewOrder';
 import NewShipmentDetails from '../NewShipmentDetails';
 import CommonSave from '../CommonSave';
 import { toast } from 'react-toastify';
-import { useSelector, useDispatch } from 'react-redux';
-import { PlaceNewOrder, PlaceNewOrderRouted } from 'redux/newOrder/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { PlaceNewOrder } from 'redux/newOrder/action';
 import { handleCurrencyOrder, removePrefixOrSuffix } from 'utils/helper';
 import _get from 'lodash/get';
-import {
-  GetAllBuyer,
-  GetAllOrders,
-  GetBuyer,
-} from '../../redux/registerBuyer/action';
-import { GetCompanyDetails } from '../../redux/companyDetail/action';
-
-import { GetCreditLimit } from '../../redux/companyDetail/action';
 import { GetOrders } from '../../redux/registerBuyer/action';
-import { CovertvaluefromtoCR, checkNan } from '../../utils/helper';
+import { GetCreditLimit } from '../../redux/companyDetail/action';
+import { checkNan, CovertvaluefromtoCR } from '../../utils/helper';
 import moment from 'moment';
 import Router from 'next/router';
-import { getPorts,getCountries,getCommodities,getDocuments } from '../../redux/masters/action';
+import { getCommodities, getCountries, getDocuments, getPorts } from '../../redux/masters/action';
+
 const Index = () => {
   const dispatch = useDispatch();
 
@@ -54,11 +48,11 @@ const Index = () => {
       // }
     }
   }, [newOrder]);
-    useEffect(() => {
-    dispatch(getCountries())
+  useEffect(() => {
+    dispatch(getCountries());
     dispatch(getPorts());
-    dispatch(getCommodities())
-    dispatch(getDocuments())
+    dispatch(getCommodities());
+    dispatch(getDocuments());
   }, []);
   let singleOrderId = _get(singleOrder, 'data[0].company._id', '');
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
@@ -113,10 +107,7 @@ const Index = () => {
 
   const handleCurr = () => {
     const newInput = { ...orderData };
-    let currVal = handleCurrencyOrder(
-      orderData.unitOfValue,
-      orderData.orderValue,
-    );
+    let currVal = handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue);
     newInput.orderValue = currVal;
     setOrderData(newInput);
   };
@@ -125,9 +116,7 @@ const Index = () => {
     console.log(name, value, 'test');
     const newInput = { ...shipment };
     const namesplit = name.split('.');
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
     setShipment(newInput);
   };
 
@@ -279,8 +268,7 @@ const Index = () => {
       handleCurr();
       let orderDataNew = { ...orderData };
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity);
-      orderDataNew.orderValue =
-        removePrefixOrSuffix(orderData.orderValue) * 10000000;
+      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) * 10000000;
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance);
 
       const obj = {
@@ -310,10 +298,7 @@ const Index = () => {
             <h1 className={styles.heading}>Place a New Order</h1>
           </div>
           <div>
-            <button
-              onClick={() => clearData()}
-              className={`${styles.clear_btn} clear_btn`}
-            >
+            <button onClick={() => clearData()} className={`${styles.clear_btn} clear_btn`}>
               Clear All
             </button>
           </div>
@@ -331,56 +316,42 @@ const Index = () => {
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Total Limit</div>
                 <span className={styles.value}>
-                  {checkNan(
-                    CovertvaluefromtoCR(creditData?.data?.totalLimit),
-                  ) ?? ''}{' '}
-                  Cr{' '}
+                  {checkNan(CovertvaluefromtoCR(creditData?.data?.totalLimit)) ?? ''} Cr{' '}
                 </span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Utilised Limit</div>
                 <span className={styles.value}>
-                  {checkNan(
-                    CovertvaluefromtoCR(creditData?.data?.utilizedLimit) ?? '',
-                  )}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(creditData?.data?.utilizedLimit) ?? '')} Cr
                 </span>
               </div>
               <div className="col-md-2 col-sm-4">
-                <div className={`${styles.label} text`}>Available Limit </div>
+                <div className={`${styles.label} text`}>Available Limit</div>
                 <span className={styles.value}>
-                  {checkNan(
-                    CovertvaluefromtoCR(creditData?.data?.availableLimit),
-                  ) ?? ''}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(creditData?.data?.availableLimit)) ?? ''} Cr
                 </span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
                 <span className={styles.value}>
                   {creditData?.data?.limitExpiry
-                    ? moment(
-                        creditData?.data?.limitExpiry?.split('T')[0],
-                      ).format('DD-MM-YYYY')
+                    ? moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY')
                     : ''}
                 </span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Last Order Value</div>
                 <span className={styles.value}>
-                  {checkNan(
-                    CovertvaluefromtoCR(creditData?.lastOrder?.orderValue),
-                  ) ?? ''}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(creditData?.lastOrder?.orderValue)) ?? ''} Cr
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <NewOrder 
-        orderData={orderData} 
-        saveOrderData={saveOrderData} 
-        country={getCountriesMasterData}
+        <NewOrder
+          orderData={orderData}
+          saveOrderData={saveOrderData}
+          country={getCountriesMasterData}
           port={getPortsMasterData}
           commodity={getCommoditiesMasterData}
         />

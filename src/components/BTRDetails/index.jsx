@@ -13,90 +13,34 @@ const BTRDetails = (props) => {
         </div>
         <Row>
           <Col md={6}>
-            <LabelDetails
-              label="Category"
-              value={selected.category}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Category" value={selected.category} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="Email"
-              value={selected.email}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Email" value={selected.email} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            <LabelDetails
-              label="Name"
-              value={selected.name}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Name" value={selected.name} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="Phone Number"
-              value={selected.mobile}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Phone Number" value={selected.mobile} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            <LabelDetails
-              label="Country"
-              value={selected.country}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Country" value={selected.country} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="State"
-              value={selected.state}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="State" value={selected.state} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            <LabelDetails
-              label="City"
-              value={selected.city}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="City" value={selected.city} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="Pincode"
-              value={selected.pincode}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Pincode" value={selected.pincode} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
         </Row>
         <Row>
@@ -134,14 +78,7 @@ const BTRDetails = (props) => {
             />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="Buy Plan"
-              value={selected.buyPlan}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Buy Plan" value={selected.buyPlan} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
         </Row>
         <Row>
@@ -156,25 +93,14 @@ const BTRDetails = (props) => {
             />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="Cedula"
-              value={selected.cedula}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="Cedula" value={selected.cedula} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
         </Row>
         <Row>
           <Col md={6}>
             <LabelDetails
               label="Whatsapp"
-              value={
-                selected.consents && selected.consents.whatsapp
-                  ? selected.consents.whatsapp
-                  : ''
-              }
+              value={selected.consents && selected.consents.whatsapp ? selected.consents.whatsapp : ''}
               lsmall={6}
               lmedium={3}
               vsmall={6}
@@ -184,11 +110,7 @@ const BTRDetails = (props) => {
           <Col md={6}>
             <LabelDetails
               label="Email"
-              value={
-                selected.consents && selected.consents.email
-                  ? selected.consents.email
-                  : ''
-              }
+              value={selected.consents && selected.consents.email ? selected.consents.email : ''}
               lsmall={6}
               lmedium={3}
               vsmall={6}
@@ -200,11 +122,7 @@ const BTRDetails = (props) => {
           <Col md={6}>
             <LabelDetails
               label="Phone"
-              value={
-                selected.consents && selected.consents.phone
-                  ? selected.consents.phone
-                  : ''
-              }
+              value={selected.consents && selected.consents.phone ? selected.consents.phone : ''}
               lsmall={6}
               lmedium={3}
               vsmall={6}
@@ -214,11 +132,7 @@ const BTRDetails = (props) => {
           <Col md={6}>
             <LabelDetails
               label="SMS"
-              value={
-                selected.consents && selected.consents.sms
-                  ? selected.consents.sms
-                  : ''
-              }
+              value={selected.consents && selected.consents.sms ? selected.consents.sms : ''}
               lsmall={6}
               lmedium={3}
               vsmall={6}
@@ -244,14 +158,7 @@ const BTRDetails = (props) => {
             />
           </Col>
           <Col md={6}>
-            <LabelDetails
-              label="CreatedOn"
-              value={selected.createdOn}
-              lsmall={6}
-              lmedium={3}
-              vsmall={6}
-              vmedium={9}
-            />
+            <LabelDetails label="CreatedOn" value={selected.createdOn} lsmall={6} lmedium={3} vsmall={6} vmedium={9} />
           </Col>
           {selected.category === 'Finance Page' && (
             <>
@@ -279,16 +186,9 @@ const BTRDetails = (props) => {
           )}
         </Row>
         <Row className="d-flex justify-content-around">
-          <Button
-            className="sign-btn"
-            type="submit"
-            onClick={() => props.handleClosePreview()}
-          >
+          <Button className="sign-btn" type="submit" onClick={() => props.handleClosePreview()}>
             Close
-            <i
-              className="fa fa-times-circle-o icon_margin"
-              aria-hidden="true"
-            ></i>
+            <i className="fa fa-times-circle-o icon_margin" aria-hidden="true"></i>
           </Button>
         </Row>
       </div>

@@ -1,62 +1,48 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
+import React, { useEffect, useState } from 'react';
 import Vessels from '../../src/components/Vessel';
 
 import _get from 'lodash/get';
 import VesselSaveBar from '../../src/components/VesselSaveBar';
 import { settingSidebar } from 'redux/breadcrumb/action';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  GetVessel,
-  UpdateVessel,
-  UploadDocVessel,
-} from '../../src/redux/vessel/action';
+import { GetVessel, UpdateVessel } from '../../src/redux/vessel/action';
 //Api
-import * as types from '../../src/redux/vessel/actionType';
 import API from '../../src/utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import { toast } from 'react-toastify';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { removePrefixOrSuffix } from 'utils/helper';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import { getPorts,getCountries,getCommodities,getDocuments } from '../../src/redux/masters/action';
+import { getCountries, getPorts } from '../../src/redux/masters/action';
+
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Vessel1 } = useSelector((state) => state.vessel);
 
-
-
   let id = sessionStorage.getItem('VesselId');
   useEffect(() => {
     fetchInitialData();
   }, []);
-   useEffect(() => {
-    dispatch(getCountries())
+  useEffect(() => {
+    dispatch(getCountries());
     dispatch(getPorts());
-    
   }, []);
- 
+
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
- 
+
   const fetchInitialData = async () => {
     let id = sessionStorage.getItem('VesselId');
     const data = await dispatch(GetVessel(`?vesselId=${id}`));
- 
+
     setData(data);
     serVesselDataToAdd(data);
     dispatch(setPageName('vessel'));
-    dispatch(
-      setDynamicName(_get(data, 'data[0].company.companyName', 'Company Name')),
-    );
+    dispatch(setDynamicName(_get(data, 'data[0].company.companyName', 'Company Name')));
     dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')));
   };
 
@@ -75,64 +61,34 @@ export default function Home() {
   const [orderID, setOrderId] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }]);
 
-
-
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''));
 
- 
-
-    setCurrency(
-      _get(
-        Vessel,
-        'data[0].order.marginMoney.calculation.orderValueCurrency',
-        'USD',
-      ),
-    );
+    setCurrency(_get(Vessel, 'data[0].order.marginMoney.calculation.orderValueCurrency', 'USD'));
     setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
     setVesselData(Vessel);
-    setPartShipmentAllowed(
-      _get(
-        Vessel,
-        'data[0].order.termsheet.transactionDetails.partShipmentAllowed',
-        'No',
-      ),
-    );
+    setPartShipmentAllowed(_get(Vessel, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', 'No'));
     if (_get(Vessel, 'data[0].vessels', []).length > 0) {
       let temp = [];
       list.forEach((val, index) => {
         temp.push({ value: false });
       });
-     
+
       setIsFieldInFocus([...temp]);
     }
     setCompanyName(_get(Vessel, 'data[0].company.companyName', ''));
     if (_get(Vessel, 'data[0].vessels', []).length <= 1) {
-      setShipmentTypeBulk(
-        _get(
-          Vessel,
-          'data[0].order.termsheet.transactionDetails.shipmentType',
-          'Bulk',
-        ),
-      );
+      setShipmentTypeBulk(_get(Vessel, 'data[0].order.termsheet.transactionDetails.shipmentType', 'Bulk'));
       let vesselInfo = JSON.parse(
         JSON.stringify(
           _get(Vessel, 'data[0].vessels[0].vesselInformation', [
             {
               isVesselInsured: false,
-              name: _get(
-                Vessel,
-                'data[0].order.generic.shippingLine.vesselName',
-                '',
-              ),
+              name: _get(Vessel, 'data[0].order.generic.shippingLine.vesselName', ''),
               IMONumber: '',
               flag: '',
               yearOfBuilt: '',
-              shippingLineOrCharter: _get(
-                Vessel,
-                'data[0].order.generic.shippingLine.name',
-                '',
-              ),
+              shippingLineOrCharter: _get(Vessel, 'data[0].order.generic.shippingLine.name', ''),
             },
           ]),
         ),
@@ -148,101 +104,37 @@ export default function Home() {
           : _get(Vessel, 'data[0].order.generic.shippingLine.vesselName', '');
 
       setContainerExcel(_get(Vessel, 'data[0].containerExcel', null));
-      setContainerListDocument(
-        _get(Vessel, 'data[0].containerListDocument', null),
-      );
+      setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null));
       setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null));
       setList([
         {
-          shipmentType: _get(
-            Vessel,
-            'data[0].order.termsheet.transactionDetails.shipmentType',
-            '',
-          ),
+          shipmentType: _get(Vessel, 'data[0].order.termsheet.transactionDetails.shipmentType', ''),
           commodity: _get(Vessel, 'data[0].order.commodity', ''),
           quantity: _get(Vessel, 'data[0].order.quantity', ''),
           orderCurrency: _get(Vessel, 'data[0].order.orderCurrency', ''),
-          orderValue: _get(
-            Vessel,
-            'data[0].order.marginMoney.calculation.orderValue',
-            '',
-          ),
+          orderValue: _get(Vessel, 'data[0].order.marginMoney.calculation.orderValue', ''),
           transitDetails: {
             countryOfOrigin:
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.countryOfOrigin',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.countryOfOrigin',
-                    '',
-                  )
+              _get(Vessel, 'data[0].vessels[0].transitDetails.countryOfOrigin', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.countryOfOrigin', '')
                 : _get(Vessel, 'data[0].order.countryOfOrigin', ''),
             portOfLoading:
-              '' ||
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.portOfLoading',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.portOfLoading',
-                    '',
-                  )
-                : _get(
-                    Vessel,
-                    'data[0].order.termsheet.transactionDetails.loadPort',
-                    '',
-                  ),
+              '' || _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '')
+                : _get(Vessel, 'data[0].order.termsheet.transactionDetails.loadPort', ''),
             portOfDischarge:
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.portOfDischarge',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.portOfDischarge',
-                    '',
-                  )
-                : _get(
-                    Vessel,
-                    'data[0].order.termsheet.transactionDetails.portOfDischarge',
-                    '',
-                  ) ||
-                  _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.portOfDischarge',
-                    '',
-                  ),
+              _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '')
+                : _get(Vessel, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '') ||
+                  _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', ''),
             laycanFrom:
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.laycanFrom',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.laycanFrom',
-                    '',
-                  )
-                : _get(
-                    Vessel,
-                    'data[0].order.shipmentDetail.loadPort.fromDate',
-                    '',
-                  ) || '',
+              _get(Vessel, 'data[0].vessels[0].transitDetails.laycanFrom', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanFrom', '')
+                : _get(Vessel, 'data[0].order.shipmentDetail.loadPort.fromDate', '') || '',
             laycanTo:
-              _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '') !==
-              ''
+              _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '')
-                : _get(
-                    Vessel,
-                    'data[0].order.shipmentDetail.loadPort.toDate',
-                    '',
-                  ) || '',
+                : _get(Vessel, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
             // !== '' ? _get(
             //   Vessel,
             //   "data[0].vessels[0].transitDetails.laycanTo",
@@ -253,27 +145,10 @@ export default function Home() {
             //   ""
             // )
             EDTatLoadPort:
-              '' ||
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.EDTatLoadPort',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.EDTatLoadPort',
-                    '',
-                  )
-                : _get(
-                    Vessel,
-                    'data[0].order.shipmentDetail.ETAofDischarge.toDate',
-                    '',
-                  ),
-            ETAatDischargePort: _get(
-              Vessel,
-              'data[0].vessels[0].transitDetails.ETAatDischargePort',
-              '',
-            ),
+              '' || _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
+                : _get(Vessel, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
+            ETAatDischargePort: _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
             // !== '' ? _get(
             //   Vessel,
             //   "data[0].vessels[0].transitDetails.ETAatDischargePort",
@@ -286,42 +161,23 @@ export default function Home() {
           },
           shippingInformation: {
             shippingLineOrCharter:
-              _get(
-                Vessel,
-                'data[0].vessels[0].shippingInformation.shippingLineOrCharter',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].shippingInformation.shippingLineOrCharter',
-                    '',
-                  )
+              _get(Vessel, 'data[0].vessels[0].shippingInformation.shippingLineOrCharter', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].shippingInformation.shippingLineOrCharter', '')
                 : _get(Vessel, 'data[0].order.generic.shippingLine.name', ''),
-            numberOfContainers: _get(
-              Vessel,
-              'data[0].vessels[0].shippingInformation.numberOfContainers',
-              '',
-            ),
-            freeDetentionPeriod: _get(
-              Vessel,
-              'data[0].vessels[0].shippingInformation.freeDetentionPeriod',
-              '',
-            ),
+            numberOfContainers: _get(Vessel, 'data[0].vessels[0].shippingInformation.numberOfContainers', ''),
+            freeDetentionPeriod: _get(Vessel, 'data[0].vessels[0].shippingInformation.freeDetentionPeriod', ''),
           },
 
           vesselInformation: vesselInfo,
         },
       ]);
     } else {
-   
       setList(_get(Vessel, 'data[0].vessels', []));
     }
     // serVesselDataToAdd(Vessel)
   };
 
-
   const onAddVessel = () => {
-  
     setList([
       ...list,
       {
@@ -330,17 +186,9 @@ export default function Home() {
         quantity: _get(VesselToAdd, 'data[0].order.quantity', ''),
         orderValue: _get(VesselToAdd, 'data[0].order.orderValue', ''),
         transitDetails: {
-          countryOfOrigin: _get(
-            VesselToAdd,
-            'data[0].order.countryOfOrigin',
-            '',
-          ),
+          countryOfOrigin: _get(VesselToAdd, 'data[0].order.countryOfOrigin', ''),
           portOfLoading: '',
-          portOfDischarge: _get(
-            VesselToAdd,
-            'data[0].order.portOfDischarge',
-            '',
-          ),
+          portOfDischarge: _get(VesselToAdd, 'data[0].order.portOfDischarge', ''),
           laycanFrom: null,
           laycanTo: null,
           EDTatLoadPort: null,
@@ -361,7 +209,6 @@ export default function Home() {
     setIsFieldInFocus([...isFieldInFocus, { value: false }]);
   };
 
-
   const OnAddvesselInformation = () => {
     const newArr = [...list];
     newArr[0].vesselInformation.push({
@@ -370,11 +217,9 @@ export default function Home() {
       flag: '',
       yearOfBuilt: '',
     });
-   
+
     setList(newArr);
   };
-
-
 
   const [startDate, setStartDate] = useState(null);
   const [lastDate, setlastDate] = useState(new Date());
@@ -395,16 +240,11 @@ export default function Home() {
     });
   };
 
-
   const OnVesselBasicFieldsChangeHandler = (e, index) => {
     const name = e.target.id;
     const value = e.target.value;
     if (name === 'quantity') {
-    
-      if (
-        removePrefixOrSuffix(value) >
-        _get(vesselData, 'data[0].order.quantity', 0)
-      ) {
+      if (removePrefixOrSuffix(value) > _get(vesselData, 'data[0].order.quantity', 0)) {
         let toastMessage = 'Quantity Cannot Exceed orignal Order QUantity';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -424,10 +264,9 @@ export default function Home() {
   const OnVesselTransitFieldsChangeHandler = (e, index) => {
     const name = e.target.id;
     const value = e.target.value;
-    
+
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
-        
         if (i == index) {
           return {
             ...obj,
@@ -447,18 +286,13 @@ export default function Home() {
     if (_get(vesselData, 'data[0].vessels', []).length > 0) {
       let temp = [];
       _get(vesselData, 'data[0].vessels', []).forEach((val) => {
-        temp.push(
-          moment(new Date(val.transitDetails.laycanFrom).toISOString())
-            .add(1, 'days')
-            .format('DD-MM-YYYY'),
-        );
+        temp.push(moment(new Date(val.transitDetails.laycanFrom).toISOString()).add(1, 'days').format('DD-MM-YYYY'));
       });
       setDateStartFrom(temp);
     }
   }, [vesselData]);
 
   const saveDate = (startDate, name, index) => {
-   
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -477,9 +311,7 @@ export default function Home() {
     if (name == 'laycanFrom') setStartDate2(startDate, index);
   };
   const setStartDate2 = (val, index) => {
-    var new_date = moment(new Date(val).toISOString())
-      .add(1, 'days')
-      .format('DD-MM-YYYY');
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     let temp = [...dateStartFrom];
     temp[index] = new_date;
     setDateStartFrom([...temp]);
@@ -488,7 +320,7 @@ export default function Home() {
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id;
     let value = e.target.value;
-    
+
     if (name.trim() === 'yearOfBuilt' && value.length !== 4) {
       let toastMessage = 'provide a valid year';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -496,7 +328,7 @@ export default function Home() {
       }
     } else {
       let array = { ...list[index].vesselInformation[0], [name]: value };
-      
+
       setList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == index) {
@@ -511,12 +343,10 @@ export default function Home() {
       });
     }
   };
- 
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
     const name = e.target.id;
     let value = e.target.value;
-   
 
     let tempArr = [...list];
     tempArr[0].vesselInformation.forEach((val, i) => {
@@ -548,7 +378,6 @@ export default function Home() {
   const uploadDocHandler = async (e) => {
     let uploadDocType = e.target.id;
 
-
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
 
@@ -561,17 +390,11 @@ export default function Home() {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.uploadDocVessel}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
+        headers: headers,
+      });
       if (response.data.code === 200) {
-       
         if (uploadDocType == 'containerExcel') {
-          
           setContainerExcel(response.data.data);
         }
         if (uploadDocType === 'Vessel Certificate') {
@@ -616,7 +439,6 @@ export default function Home() {
   const validation = () => {
     let isOk = true;
     let toastMessage = '';
-  
 
     for (let i = 0; i < list.length; i++) {
       if (list[i].shipmentType == '' || list[i].shipmentType == undefined) {
@@ -651,10 +473,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.countryOfOrigin == '' ||
-        list[i].transitDetails.countryOfOrigin == undefined
-      ) {
+      if (list[i].transitDetails.countryOfOrigin == '' || list[i].transitDetails.countryOfOrigin == undefined) {
         toastMessage = `Please select country Of Origin of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -662,10 +481,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.portOfLoading == '' ||
-        list[i].transitDetails.portOfLoading == undefined
-      ) {
+      if (list[i].transitDetails.portOfLoading == '' || list[i].transitDetails.portOfLoading == undefined) {
         toastMessage = `Please select port Of Loading of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -673,10 +489,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.portOfDischarge == '' ||
-        list[i].transitDetails.portOfDischarge == undefined
-      ) {
+      if (list[i].transitDetails.portOfDischarge == '' || list[i].transitDetails.portOfDischarge == undefined) {
         toastMessage = `Please select port Of Discharge of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -684,10 +497,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.portOfDischarge == '' ||
-        list[i].transitDetails.portOfDischarge == undefined
-      ) {
+      if (list[i].transitDetails.portOfDischarge == '' || list[i].transitDetails.portOfDischarge == undefined) {
         toastMessage = `Please select port Of Discharge of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -695,10 +505,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.laycanFrom == '' ||
-        list[i].transitDetails.laycanFrom == undefined
-      ) {
+      if (list[i].transitDetails.laycanFrom == '' || list[i].transitDetails.laycanFrom == undefined) {
         toastMessage = `Please add laycan From of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -706,10 +513,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.laycanTo == '' ||
-        list[i].transitDetails.laycanTo == undefined
-      ) {
+      if (list[i].transitDetails.laycanTo == '' || list[i].transitDetails.laycanTo == undefined) {
         toastMessage = `Please add laycan to of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -717,10 +521,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.EDTatLoadPort == '' ||
-        list[i].transitDetails.EDTatLoadPort == undefined
-      ) {
+      if (list[i].transitDetails.EDTatLoadPort == '' || list[i].transitDetails.EDTatLoadPort == undefined) {
         toastMessage = `Please add EDT at Load Port to of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -728,10 +529,7 @@ export default function Home() {
           break;
         }
       }
-      if (
-        list[i].transitDetails.ETAatDischargePort == '' ||
-        list[i].transitDetails.ETAatDischargePort == undefined
-      ) {
+      if (list[i].transitDetails.ETAatDischargePort == '' || list[i].transitDetails.ETAatDischargePort == undefined) {
         toastMessage = `Please add EDT at dischargePort to of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -740,10 +538,7 @@ export default function Home() {
         }
       }
       if (list[i].shipmentType == 'Bulk') {
-        if (
-          list[i].vesselInformation[0].name == '' ||
-          list[i].vesselInformation[0].name == undefined
-        ) {
+        if (list[i].vesselInformation[0].name == '' || list[i].vesselInformation[0].name == undefined) {
           toastMessage = `Please add vessel name  of Vessel Information ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -752,10 +547,7 @@ export default function Home() {
           }
         }
 
-        if (
-          list[i].vesselInformation[0].IMONumber == '' ||
-          list[i].vesselInformation[0].IMONumber == undefined
-        ) {
+        if (list[i].vesselInformation[0].IMONumber == '' || list[i].vesselInformation[0].IMONumber == undefined) {
           toastMessage = `Please add IMO Number  of Vessel Information ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -772,10 +564,7 @@ export default function Home() {
             break;
           }
         }
-        if (
-          list[i].vesselInformation[0].flag == '' ||
-          list[i].vesselInformation[0].flag == undefined
-        ) {
+        if (list[i].vesselInformation[0].flag == '' || list[i].vesselInformation[0].flag == undefined) {
           toastMessage = `Please add IMO Number  of Vessel Information ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -862,7 +651,6 @@ export default function Home() {
   };
 
   const onSubmitHanler = async () => {
-
     if (validation()) {
       const payload = {
         vesselId: id,
@@ -878,7 +666,7 @@ export default function Home() {
       if (containerExcel) {
         payload.containerExcel = containerExcel;
       }
-  
+
       let data = await dispatch(UpdateVessel(payload));
       if (data == 200) {
         let toastMessage = 'VESSEL UPDATED SUCCESSFULLY';
@@ -886,19 +674,11 @@ export default function Home() {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         await fetchInitialData();
-        dispatch(
-          settingSidebar(
-            'Agreement & LC Module',
-            'Insurance',
-            'Insurance',
-            '2',
-          ),
-        );
+        dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'));
         router.push(`/insurance/form`);
       }
     }
   };
-
 
   const onDeleteVessel = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
@@ -910,9 +690,7 @@ export default function Home() {
     setList(tempArr);
   };
 
-
   const onSaveHandler = async () => {
-   
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
@@ -927,7 +705,7 @@ export default function Home() {
     if (containerExcel) {
       payload.containerExcel = containerExcel;
     }
-  
+
     await dispatch(UpdateVessel(payload));
 
     let toastMessage = `Vessel DATA SAVED`;
@@ -981,11 +759,7 @@ export default function Home() {
         port={getPortsMasterData}
       />
       <div className="mt-5">
-        <VesselSaveBar
-          handleSave={onSaveHandler}
-          rightBtn="Submit"
-          rightBtnClick={onSubmitHanler}
-        />
+        <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
       </div>
     </>
   );

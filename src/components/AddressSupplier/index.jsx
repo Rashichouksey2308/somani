@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ViewDocument } from 'redux/ViewDoc/action';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
 
 function AddressComponent({
   index,
@@ -19,7 +17,6 @@ function AddressComponent({
   editAddress,
   pinCode,
 }) {
-
   const dispatch = useDispatch();
 
   return (

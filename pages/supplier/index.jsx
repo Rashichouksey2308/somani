@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import DateCalender from '../../src/components/DateCalender';
 import InspectionDocument from '../../src/components/InspectionDocument';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { setPageName } from '../../src/redux/userData/action';
 import SaveBar from '../../src/components/SaveBar';
 import { Form } from 'react-bootstrap';
 
@@ -23,17 +23,16 @@ function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
 
-  let id = sessionStorage.getItem('supplier')
+  let id = sessionStorage.getItem('supplier');
   useEffect(() => {
     if (id) {
       dispatch(GetSupplier(`?supplierId=${id}`))
     } else {
       dispatch(ClearSupplier())
     }
-  }, [id])
+  }, [id]);
 
-  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
-
+  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
 
 
@@ -122,7 +121,7 @@ function Index() {
   }]);
 
 
-  const [info, setInfo] = useState("");
+  const [info, setInfo] = useState('');
   const [infoArray, setInfoArray] = useState([]);
 
   const [incumbencyDoc, setIncumbencyDoc] = useState(null)
@@ -140,29 +139,20 @@ function Index() {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
   const handleDeletePersonContact = (index) => {
-    setPerson([
-      ...person.slice(0, index),
-      ...person.slice(index + 1),
-    ]);
+    setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
   };
   const handleDeleteDirector = (index) => {
-    setListDirector([
-      ...listDirector.slice(0, index),
-      ...listDirector.slice(index + 1),
-    ]);
+    setListDirector([...listDirector.slice(0, index), ...listDirector.slice(index + 1)]);
   };
   const handleCommodity = (index) => {
-    setListCommodity([
-      ...listCommodity.slice(0, index),
-      ...listCommodity.slice(index + 1),
-    ]);
+    setListCommodity([...listCommodity.slice(0, index), ...listCommodity.slice(index + 1)]);
   };
 
   const [listCommodity, setListCommodity] = useState([
     {
       hsnCode: '',
       commodity: '',
-      action: false
+      action: false,
     },
   ]);
 
@@ -173,9 +163,8 @@ function Index() {
       {
         hsnCode: '',
         commodity: '',
-        action: false
+        action: false,
       },
-
     ]);
   };
   const [listContact, setListContact] = useState([
@@ -194,7 +183,7 @@ function Index() {
         designation: '',
         contactNo: '',
         emailID: '',
-        action: false
+        action: false,
       },
     ]);
   };
@@ -204,7 +193,7 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
-      action: false
+      action: false,
     },
   ]);
   const onAddShare = () => {
@@ -215,7 +204,7 @@ function Index() {
         designation: '',
         contact: '',
         ownershipPercentage: '',
-        action: false
+        action: false,
       },
     ]);
   };
@@ -227,7 +216,7 @@ function Index() {
       action: false
     },
   ]);
-  console.log(listDirector, "listDirector")
+  console.log(listDirector, 'listDirector');
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -236,7 +225,7 @@ function Index() {
         nationality: '',
         authorityToSign: false,
 
-        action: false
+        action: false,
       },
     ]);
   };
@@ -275,33 +264,30 @@ function Index() {
   };
 
   const onChangeHandler2 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...person]
-    console.log(newInput[index], "newInput[index]")
+    console.log(name, value, index, 'name,value,<index></index>');
+    let newInput = [...person];
+    console.log(newInput[index], 'newInput[index]');
     newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setListShare([...newInput])
-
+    console.log(newInput, 'newInput');
+    setListShare([...newInput]);
   };
-  console.log(person, "person")
+  console.log(person, 'person');
   const onChangeHandler3 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...detail]
-    console.log(newInput[index], "newInput[index]")
+    console.log(name, value, index, 'name,value,<index></index>');
+    let newInput = [...detail];
+    console.log(newInput[index], 'newInput[index]');
     newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setDetail([...newInput])
-
+    console.log(newInput, 'newInput');
+    setDetail([...newInput]);
   };
-  console.log(listShare, "listShare")
+  console.log(listShare, 'listShare');
   const onChangeHandler4 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...listDirector]
-    console.log(newInput[index], "newInput[index]")
+    console.log(name, value, index, 'name,value,<index></index>');
+    let newInput = [...listDirector];
+    console.log(newInput[index], 'newInput[index]');
     newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setListDirector([...newInput])
-
+    console.log(newInput, 'newInput');
+    setListDirector([...newInput]);
   };
 
   const onChangeHandler5 = (e) => {
@@ -310,30 +296,28 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
-    console.log(businessArray, 'businessArray')
-    let temp = [...businessArray]
+    console.log(businessArray, 'businessArray');
+    let temp = [...businessArray];
     // temp.push(business)
     setBusinessArray([...temp, { businessSummary: business }])
     setBusiness('');
   };
 
   const onChangeHandler6 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...listCommodity]
+    console.log(name, value, index, 'name,value,<index></index>');
+    let newInput = [...listCommodity];
 
     newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setListCommodity([...newInput])
-
+    console.log(newInput, 'newInput');
+    setListCommodity([...newInput]);
   };
-
 
   const onChangeHandler7 = (e) => {
     const { name, value } = e.target;
     setInfo(value);
   };
   const onChangeHandler7Array = (e) => {
-    let temp = [...infoArray]
+    let temp = [...infoArray];
     // temp.push(info)
     setInfoArray([...temp, { remarks: info }])
     setInfo('');
@@ -344,10 +328,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= person.length - 1; i++) {
-      if (
-        person[i].name === '' ||
-        person[i].name === null
-      ) {
+      if (person[i].name === '' || person[i].name === null) {
         toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -379,11 +360,7 @@ function Index() {
           break;
         }
       }
-      if (
-        person[i].emailId === '' ||
-        person[i].emailId === null ||
-        !emailValidation(person[i].emailId)
-      ) {
+      if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
         toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -399,10 +376,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= detail.length - 1; i++) {
-      if (
-        detail[i].shareHoldersName === '' ||
-        detail[i].shareHoldersName === null
-      ) {
+      if (detail[i].shareHoldersName === '' || detail[i].shareHoldersName === null) {
         toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -425,7 +399,6 @@ function Index() {
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
         detail[i].ownershipPercentage >= 100
-
       ) {
         toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -442,10 +415,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= listDirector.length - 1; i++) {
-      if (
-        listDirector[i].name === '' ||
-        listDirector[i].name === null
-      ) {
+      if (listDirector[i].name === '' || listDirector[i].name === null) {
         toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -453,10 +423,7 @@ function Index() {
           break;
         }
       }
-      if (
-        listDirector[i].nationality === '' ||
-        listDirector[i].nationality === null
-      ) {
+      if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
         toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -466,7 +433,7 @@ function Index() {
       }
       // if (
       //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null 
+      //   listDirector[i].authorityToSign === null
       // ) {
       //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
       //   if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -482,10 +449,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (
-        listCommodity[i].hsnCode === '' ||
-        listCommodity[i].hsnCode === null
-      ) {
+      if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
         toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -493,10 +457,7 @@ function Index() {
           break;
         }
       }
-      if (
-        listCommodity[i].commodity === '' ||
-        listCommodity[i].commodity === null
-      ) {
+      if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
         toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -506,7 +467,7 @@ function Index() {
       }
       // if (
       //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null 
+      //   listDirector[i].authorityToSign === null
       // ) {
       //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
       //   if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -519,36 +480,35 @@ function Index() {
     return isOk;
   };
 
-
   const supplierValidtaion = () => {
     if (!formData.supplierName || formData.supplierName === '') {
       let toastMessage = `supplier Name cannot be empty`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!formData.constitution || formData.constitution === '') {
       let toastMessage = `please select a constitution`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!formData.incorporationDate || formData.incorporationDate === '') {
       let toastMessage = `please select a incorporation Date`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
       let toastMessage = `please provide a country Of Incorporation`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!contactPersonDetailsValidation()) {
-      return false
+      return false;
     } else if (!shareholdersDetailsValidation()) {
-      return false
+      return false;
     } else if (!directorsAndAuthorisedSignatoryValidation()) {
       return false
     }
@@ -570,12 +530,10 @@ function Index() {
     else {
       return true
     }
-
-  }
+  };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-
       // let fd = new FormData();
       // fd.append('document1', incumbencyDoc);
       // fd.append('document2', thirdParty);
@@ -618,15 +576,14 @@ function Index() {
   };
 
   const handleSendForApproval = () => {
-
     sessionStorage.removeItem('supplier');
-    dispatch(ClearSupplier())
+    dispatch(ClearSupplier());
     let toastMessage = `request sent for approval`;
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
-    Router.push('/add-supplier')
-  }
+    Router.push('/add-supplier');
+  };
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -634,14 +591,11 @@ function Index() {
   });
   const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
-    setKeyAddData([
-      ...keyAddData.slice(0, index),
-      ...keyAddData.slice(index + 1),
-    ]);
+    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const addressValidtion = (data) => {
     const emailValidate = () => {
-      let isOk = true
+      let isOk = true;
       data.email.forEach((email, index) => {
         if (
           !String(email)
@@ -655,44 +609,28 @@ function Index() {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
           isOk = false;
-          return
+          return;
         }
-      })
-      console.log(isOk, 'keyAddressData')
-      return isOk
-    }
-
-
+      });
+      console.log(isOk, 'keyAddressData');
+      return isOk;
+    };
 
     console.log(data, 'addressValidtion');
-    if (
-      data.address === null ||
-      data.address === '' ||
-      data.address === undefined
-    ) {
+    if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
       return false;
-    }
-    else if (
-      data.pinCode === null ||
-      data.pinCode === '' ||
-      data.pinCode === undefined
-    ) {
+    } else if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
       let toastMessage = 'Please add pin code';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    }
-    else if (
-      data.country === null ||
-      data.country === '' ||
-      data.country === undefined
-    ) {
+    } else if (data.country === null || data.country === '' || data.country === undefined) {
       let toastMessage = 'Please add country';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -716,10 +654,7 @@ function Index() {
       return false;
     } else {
       return true;
-
     }
-
-
   };
   const [showAddress, setShowAddress] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
@@ -738,13 +673,11 @@ function Index() {
       number: '',
     },
     pinCode: '',
-
   });
   const [keyAddressData, setKeyAddressData] = useState({
-
     email: [''],
     address: '',
-    country: "",
+    country: '',
     contact: {
       phoneNumberCallingCode: '+91',
       alternatePhoneNumberCallingCode: '+91',
@@ -754,7 +687,7 @@ function Index() {
     pinCode: null,
   });
 
-  console.log(keyAddressData, 'keyAddressData')
+  console.log(keyAddressData, 'keyAddressData');
   const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
@@ -771,7 +704,6 @@ function Index() {
         alternatePhoneNumber: tempArr[index].contact.alternatePhoneNumber,
       },
       pinCode: tempArr[index].pinCode,
-
     });
   };
   const keyAddDataArr = (keyAddressData) => {
@@ -783,12 +715,9 @@ function Index() {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
       setKeyAddressData({
-
-
-
         email: [''],
         address: '',
-        country: "",
+        country: '',
         contact: {
           phoneNumberCallingCode: '+91',
           alternatePhoneNumberCallingCode: '+91',
@@ -796,31 +725,22 @@ function Index() {
           alternatePhoneNumber: null,
         },
         pinCode: null,
-
       });
     }
   };
 
   const handleChange = (value, name, index) => {
-
     const newInput = { ...keyAddressData };
 
-
-
-
-    let namesplit = name.split('.')
-    console.log(name, namesplit, value, "name, value")
-
-
+    let namesplit = name.split('.');
+    console.log(name, namesplit, value, 'name, value');
 
     if (name === 'emailId') {
-      newInput.email[index] = value
-    }
-    else if (namesplit.length > 1) {
+      newInput.email[index] = value;
+    } else if (namesplit.length > 1) {
       newInput[namesplit[0]][namesplit[1]] = value;
     } else {
       newInput[name] = value;
-
     }
 
     // console.log(newInput)
@@ -865,15 +785,12 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab} w-100`}>
+      <div className={`${styles.dashboardTab}`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
+                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -882,8 +799,8 @@ function Index() {
           </div>
         </div>
 
-        <div className={`${styles.backgroundMain} container-fluid`}>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}
+        <div className={`${styles.backgroundMain}`}>
+          <div className={`${styles.main} vessel_card card border_color`}
           >
             <div
               className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
@@ -1077,7 +994,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1126,7 +1043,7 @@ function Index() {
                   className={`${styles.address_card} mt-3 pb-5 value background1`}
                 >
                   <div
-                    className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
+                    className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
                   >
                     <h3
                       className={`${styles.heading}`}
@@ -1170,7 +1087,7 @@ function Index() {
                             name="pinCode"
                             value={keyAddressData?.pinCode}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           />
                           <label
@@ -1341,7 +1258,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1349,9 +1266,7 @@ function Index() {
               aria-expanded="true"
               aria-controls="keyContact"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Contact Person Details
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Contact Person Details</h3>
               <span>+</span>
             </div>
             <div
@@ -1363,12 +1278,7 @@ function Index() {
               <div className={`${styles.datatable} border_color card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1376,8 +1286,7 @@ function Index() {
                           </th>
                           <th>DESIGNATION</th>
                           <th>
-                            CONTACT NO.{' '}
-                            <strong className="text-danger">*</strong>
+                            CONTACT NO. <strong className="text-danger">*</strong>
                           </th>
                           <th>
                             EMAIL ID <strong className="text-danger">*</strong>
@@ -1397,7 +1306,7 @@ function Index() {
                                   value={val?.name}
                                   type="text"
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                   readOnly={!val.action}
                                 />
@@ -1410,7 +1319,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1421,16 +1330,11 @@ function Index() {
                                   name="contact"
                                   value={val?.contact}
                                   type="number"
-                                  onWheel={(event) =>
-                                    event.currentTarget.blur()
-                                  }
+                                  onWheel={(event) => event.currentTarget.blur()}
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
-                                  onKeyDown={(evt) =>
-                                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                                    evt.preventDefault()
-                                  }
+                                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                   readOnly={!val.action}
                                 />
                               </td>
@@ -1442,7 +1346,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1453,11 +1357,11 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          console.log("herer1")
-                                          onChangeHandler2("action", true, index)
+                                          console.log('herer1');
+                                          onChangeHandler2('action', true, index);
                                           // setContactTable(true);
                                         }}
                                       />
@@ -1466,11 +1370,11 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          console.log("herer2")
-                                          onChangeHandler2("action", false, index)
+                                          console.log('herer2');
+                                          onChangeHandler2('action', false, index);
                                           // setContactTable(false);
                                         }}
                                       />
@@ -1503,7 +1407,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1523,12 +1427,7 @@ function Index() {
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>SHAREHOLDER NAME</th>
@@ -1550,7 +1449,7 @@ function Index() {
                                     value={val?.shareHoldersName}
                                     type="text"
                                     onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1562,7 +1461,7 @@ function Index() {
                                     value={val?.designation}
                                     type="text"
                                     onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1574,15 +1473,10 @@ function Index() {
                                     name="ownershipPercentage"
                                     value={val?.ownershipPercentage}
                                     type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1594,10 +1488,10 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/mode_edit.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="edit"
                                           onClick={(e) => {
-                                            onChangeHandler3("action", true, index)
+                                            onChangeHandler3('action', true, index);
                                           }}
                                         />
                                       </>
@@ -1605,10 +1499,10 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/save-3.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="save"
                                           onClick={(e) => {
-                                            onChangeHandler3("action", false, index)
+                                            onChangeHandler3('action', false, index);
                                           }}
                                         />
                                       </>
@@ -1635,12 +1529,12 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1648,9 +1542,7 @@ function Index() {
               aria-expanded="true"
               aria-controls="director"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Directors and Authorised Signatory
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Directors and Authorised Signatory</h3>
               <span>+</span>
             </div>
             <div
@@ -1662,12 +1554,7 @@ function Index() {
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1697,7 +1584,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index)
+                                    onChangeHandler4(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1709,7 +1596,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index)
+                                    onChangeHandler4(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1732,10 +1619,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          onChangeHandler4("action", true, index)
+                                          onChangeHandler4('action', true, index);
                                         }}
                                       />
                                     </>
@@ -1743,10 +1630,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          onChangeHandler4("action", false, index)
+                                          onChangeHandler4('action', false, index);
                                         }}
                                       />
                                     </>
@@ -1772,12 +1659,12 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1807,11 +1694,11 @@ function Index() {
                     name="businessSummary"
                     value={business}
                   />
-                  <label className={`${styles.label_textarea} label_heading text`}>
-                    Business Summary
-                  </label>
+                  <label className={`${styles.label_textarea} label_heading text`}>Business Summary</label>
                   <img
-                    onClick={(e) => { addToBusinessArray() }}
+                    onClick={(e) => {
+                      addToBusinessArray();
+                    }}
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
@@ -1825,7 +1712,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1845,12 +1732,7 @@ function Index() {
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1877,7 +1759,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index)
+                                    onChangeHandler6(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1889,7 +1771,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index)
+                                    onChangeHandler6(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1901,10 +1783,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          onChangeHandler6("action", true, index)
+                                          onChangeHandler6('action', true, index);
                                         }}
                                       />
                                     </>
@@ -1912,10 +1794,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          onChangeHandler6("action", false, index)
+                                          onChangeHandler6('action', false, index);
                                         }}
                                       />
                                     </>
@@ -1942,12 +1824,12 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1955,9 +1837,7 @@ function Index() {
               aria-expanded="true"
               aria-controls="additional"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Additional Information
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Additional Information</h3>
               <span>+</span>
             </div>
             <div
@@ -1977,7 +1857,7 @@ function Index() {
                   <div className="ml-3">
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
+                      className={`${styles.edit_image} mb-3`}
                       alt="edit"
                       // onClick={(e) => {
                       //   setEditProfile(!editProfile)
@@ -2001,16 +1881,14 @@ function Index() {
                     className={`${styles.comment_field} input form-control`}
                     onChange={onChangeHandler7}
                   />
-                  <label className={`${styles.label_textarea} label_heading text`}>
-                    Remarks
-                  </label>
+                  <label className={`${styles.label_textarea} label_heading text`}>Remarks</label>
 
                   <img
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
                     onClick={(e) => {
-                      onChangeHandler7Array()
+                      onChangeHandler7Array();
                     }}
                   />
                 </div>
@@ -2565,9 +2443,16 @@ function Index() {
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
+        <SaveBar
+          rightBtn="Send for Approval"
+          handleSave={handleSave}
+          rightBtnClick={() => {
+            handleSendForApproval();
+          }}
+        />
       </div>
     </>
   );
 }
+
 export default Index;

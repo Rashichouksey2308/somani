@@ -1,12 +1,21 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    "next/babel"
+  ],
   "plugins": [
     "inline-dotenv",
-    ["styled-components", { "ssr": true }],
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ],
     [
       "module-resolver",
       {
-        "root": ["./src"]
+        "root": [
+          "./src"
+        ]
       }
     ]
   ],

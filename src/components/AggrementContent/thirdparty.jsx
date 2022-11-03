@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/ermsalt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
+
 function Index(props) {
   const [deliveryData, setDeliveryData] = useState('');
   const [monthOfLoadingCargo, setMonthOfLoadingCargo] = useState('');
@@ -159,27 +160,17 @@ function Index(props) {
                   <option value="CIF	Cost Insurance Freight Incoterms 2000">
                     CIF Cost Insurance Freight Incoterms 2000
                   </option>
-                  <option
-                    value={`CFR	Cost & Freight Incoterms 2000`}
-                  >{`CFR	Cost & Freight Incoterms 2000`}</option>
+                  <option value={`CFR	Cost & Freight Incoterms 2000`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
                   <option value="DDP	Delivery Duties Paid Incoterms 2000">
                     DDP Delivery Duties Paid Incoterms 2000
                   </option>
                   <option value="">EXW Ex Works Incoterms 2000</option>
-                  <option value="FOB	Free on Board Incoterms 2000">
-                    FOB Free on Board Incoterms 2000
-                  </option>
+                  <option value="FOB	Free on Board Incoterms 2000">FOB Free on Board Incoterms 2000</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Delivery Terms <strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -194,24 +185,13 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate">
-                    {' '}
-                    Days from Vessel Discharge Date{' '}
-                  </option>
-                  <option value="Whicheverisearlier">
-                    Whichever is earlier
-                  </option>
+                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date </option>
+                  <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Payment Terms <strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -238,17 +218,11 @@ function Index(props) {
                   <option value="November">November</option>
                   <option value="December">December</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Month of loading of Cargo
                   <strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
           </div>
@@ -258,20 +232,13 @@ function Index(props) {
         <div
           className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
         >
-          <h3 className={`${styles.heading} mb-0`}>
-            Details of post-dated Cheque(s)-
-          </h3>
+          <h3 className={`${styles.heading} mb-0`}>Details of post-dated Cheque(s)-</h3>
         </div>
         <div>
           <div className={`${styles.datatable}`}>
             <div className={`${styles.table_scroll_outer}`}>
               <div className={`${styles.table_scroll_inner}`}>
-                <table
-                  className={`${styles.table}`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table}`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="10%">S NO.</th>
@@ -294,11 +261,7 @@ function Index(props) {
                               type="text"
                               value={val.sNo}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
                             />
                           </td>
@@ -309,11 +272,7 @@ function Index(props) {
                               type="text"
                               value={val.bankName}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
                             />
                           </td>
@@ -325,27 +284,20 @@ function Index(props) {
                               type="text"
                               value={val.chequeNo}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
                             // readOnly={!saveContactTable}
                             />
                           </td>
-                          <td>
+                          <td style={{minWidth:'200px'}}>
                             <div className="d-flex align-items-center">
                               <DateCalender
+                            
                                 name="chequeDate"
                                 saveDate={(val, name, index) => {
                                   handleChangeInput(name, val, index);
                                 }}
-                                defaultDate={
-                                  val.chequeDate == null
-                                    ? null
-                                    : moment(val.chequeDate).toDate()
-                                }
+                                defaultDate={val.chequeDate == null ? null : moment(val.chequeDate).toDate()}
                                 // small={true}
                                 index={index}
                               />
@@ -386,16 +338,9 @@ function Index(props) {
                               name="amount"
                               type="text"
                               value={val.amount}
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
                             // readOnly={!saveContactTable}
                             />

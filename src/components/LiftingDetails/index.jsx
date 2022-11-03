@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
 import DateCalender from '../DateCalender';
 import API from '../../utils/endpoints';
-import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import UploadOther from '../UploadOther';
@@ -33,7 +32,7 @@ export default function Index(props) {
     let text = d.toISOString();
     props.handleChange(name, value, index, index2);
   };
- 
+
   const uploadDoc = async (e, type, index1, index2) => {
     console.log(e, 'response data');
     let fd = new FormData();
@@ -50,13 +49,9 @@ export default function Index(props) {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.customClearanceDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      });
       console.log(response.data.data, 'response data123');
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
@@ -125,46 +120,30 @@ export default function Index(props) {
               <div className="row">
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Commodity</div>
-                  <span className={styles.value}>
-                    {_get(
-                      props.ReleaseOrderData,
-                      'data[0].order.commodity',
-                      '',
-                    )}
-                  </span>
+                  <span className={styles.value}>{_get(props.ReleaseOrderData, 'data[0].order.commodity', '')}</span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignor Name</div>
                   {/* teermshhet */}
                   <span className={styles.value}>
-                    {_get(
-                      props.ReleaseOrderData,
-                      'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-                      '',
-                    )}
+                    {_get(props.ReleaseOrderData, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignee Name</div>
                   {/* //margin ,aoneu */}
                   <span className={styles.value}>
-                    {_get(
-                      props.ReleaseOrderData,
-                      'data[0].invoiceDetail.consigneeName',
-                      '',
-                    ) ||
-                      _get(
-                        props.ReleaseOrderData,
-                        'data[0].company.companyName',
-                        '',
-                      )}
+                    {_get(props.ReleaseOrderData, 'data[0].invoiceDetail.consigneeName', '') ||
+                      _get(props.ReleaseOrderData, 'data[0].company.companyName', '')}
                   </span>
                 </div>
               </div>
             </div>
           </div>
           <div className={`${styles.wrapper} border_color card`}>
-            <div className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}>
+            <div
+              className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}
+            >
               <h2 className="mr-auto">Delivery Order</h2>
               <div className={`${styles.form_group}`}>
                 <div className="d-flex position-relative">
@@ -178,19 +157,17 @@ export default function Index(props) {
                     <option disabled value="">
                       Select an option
                     </option>
-                    {_get(props.data, 'data[0].deliveryDetail', []).map(
-                      (val, index) => {
-                        return (
-                          <option
-                            disabled={checkAvail(val?.deliveryOrderNumber)}
-                            key={index}
-                            value={val?.deliveryOrderNumber}
-                          >
-                            {val?.deliveryOrderNumber}
-                          </option>
-                        );
-                      },
-                    )}
+                    {_get(props.data, 'data[0].deliveryDetail', []).map((val, index) => {
+                      return (
+                        <option
+                          disabled={checkAvail(val?.deliveryOrderNumber)}
+                          key={index}
+                          value={val?.deliveryOrderNumber}
+                        >
+                          {val?.deliveryOrderNumber}
+                        </option>
+                      );
+                    })}
                   </select>
 
                   <img
@@ -230,30 +207,18 @@ export default function Index(props) {
                     <h3 className={`${styles.heading}`}>{val.deliveryOrder}</h3>
                     <div className="d-flex">
                       <div className="d-flex mr-5">
-                        <div
-                          className={`${styles.label_heading} mr-3 label_heading`}
-                        >
-                          DO Quantity
-                        </div>
+                        <div className={`${styles.label_heading} mr-3 label_heading`}>DO Quantity</div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {checkNan(
-                            props.returnLiftingData(val.deliveryOrder)
-                              ?.doQuantity,
-                          )?.toLocaleString('en-IN')}{' '}
+                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.doQuantity)?.toLocaleString('en-IN')}{' '}
                           {_get(props, 'data.data[0].order.unitOfQuantity', '')}
                         </div>
                       </div>
                       <div className="d-flex mr-5">
-                        <div
-                          className={`${styles.label_heading} mr-3 label_heading`}
-                        >
-                          Balance Quantity
-                        </div>
+                        <div className={`${styles.label_heading} mr-3 label_heading`}>Balance Quantity</div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {checkNan(
-                            props.returnLiftingData(val.deliveryOrder)
-                              ?.balaceQuantity,
-                          )?.toLocaleString('en-IN')}{' '}
+                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity)?.toLocaleString(
+                            'en-IN',
+                          )}{' '}
                           {_get(props, 'data.data[0].order.unitOfQuantity', '')}
                         </div>
                       </div>
@@ -268,21 +233,12 @@ export default function Index(props) {
                   >
                     {val.detail.map((val2, index2) => {
                       return (
-                        <div
-                          className={`${styles.dashboard_form} mt-3 card-body`}
-                        >
-                          <div
-                            className={`${styles.bill_landing} border_color`}
-                          >
+                        <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                          <div className={`${styles.bill_landing} border_color`}>
                             <div className={`${styles.vessel_card}`}>
                               <div className="justify-content-between d-flex mt-4">
-                                <div className={`${styles.form_heading}`}>
-                                  Listing Details {getIndex(index2)}
-                                </div>
-                                {checkNan(
-                                  props.returnLiftingData(val.deliveryOrder)
-                                    ?.balaceQuantity,
-                                ) >= 0 && (
+                                <div className={`${styles.form_heading}`}>Listing Details {getIndex(index2)}</div>
+                                {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity) >= 0 && (
                                   <>
                                     {/* <button
                                     className={styles.add_btn}
@@ -298,50 +254,35 @@ export default function Index(props) {
                                         className={`${styles.add_btn} text-center mr-0`}
                                         style={{ paddingBottom: '12px' }}
                                       >
-                                        <span className={styles.add_sign}>
-                                          +
-                                        </span>
+                                        <span className={styles.add_sign}>+</span>
                                         Add
                                       </button>
-                                     
-                                       { index2 > 0 ? ( 
-                                          <button
-                                             onClick={() => props.deleteNewRow(index, index2)}
-                                            className={`${styles.add_btn} border-danger text-danger`}
-                                          >
-                                            <img
-                                              src="/static/delete.svg"
-                                              className="ml-1 mt-n1"
-                                              width={13}
-                                              alt="delete"
-                                            />{' '}
-                                            Delete
-                                          </button>
-                                       ) : null
-                                      } 
+
+                                      {index2 > 0 ? (
+                                        <button
+                                          onClick={() => props.deleteNewRow(index, index2)}
+                                          className={`${styles.add_btn} border-danger text-danger`}
+                                        >
+                                          <img
+                                            src="/static/delete.svg"
+                                            className="ml-1 mt-n1"
+                                            width={13}
+                                            alt="delete"
+                                          />{' '}
+                                          Delete
+                                        </button>
+                                      ) : null}
                                     </div>
                                   </>
                                 )}
                               </div>
                               <div className="row">
-                                <div
-                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                                >
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                                   <div className="d-flex">
                                     <DateCalender
                                       saveDate={(startDate, name, index) => {
-                                        console.log(
-                                          'thisis',
-                                          startDate,
-                                          name,
-                                          index,
-                                        );
-                                        saveDate2(
-                                          startDate,
-                                          name,
-                                          index,
-                                          index2,
-                                        );
+                                        console.log('thisis', startDate, name, index);
+                                        saveDate2(startDate, name, index, index2);
                                       }}
                                       index={index}
                                       index2={index2}
@@ -357,72 +298,43 @@ export default function Index(props) {
                                     />
                                   </div>
                                 </div>
-                                <div
-                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                                >
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                                   <input
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     onFocus={(e) => {
-                                      setIsFieldInFocus(true),
-                                        (e.target.type = 'number');
+                                      setIsFieldInFocus(true), (e.target.type = 'number');
                                     }}
                                     onBlur={(e) => {
-                                      setIsFieldInFocus(false),
-                                        (e.target.type = 'text');
+                                      setIsFieldInFocus(false), (e.target.type = 'text');
                                     }}
                                     value={
                                       isFieldInFocus
                                         ? val2.liftingQuant
-                                        : Number(
-                                            val2.liftingQuant,
-                                          )?.toLocaleString('en-IN') +
-                                          ` ${_get(
-                                            props,
-                                            'data.data[0].order.unitOfQuantity',
-                                            '',
-                                          )}`
+                                        : Number(val2.liftingQuant)?.toLocaleString('en-IN') +
+                                          ` ${_get(props, 'data.data[0].order.unitOfQuantity', '')}`
                                     }
                                     name="liftingQuant"
                                     onChange={(e) => {
-                                      props.handleChange(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                        index2,
-                                      );
+                                      props.handleChange(e.target.name, e.target.value, index, index2);
                                     }}
                                   />
-                                  <label
-                                    className={`${styles.label_heading} label_heading`}
-                                  >
+                                  <label className={`${styles.label_heading} label_heading`}>
                                     Lifting Quantity
                                     <strong className="text-danger">*</strong>
                                   </label>
                                 </div>
-                                <div
-                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                                >
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                   <div className={styles.radio_form}>
-                                    <div
-                                      className={`${styles.sub_heading} sub_heading`}
-                                    >
+                                    <div className={`${styles.sub_heading} sub_heading`}>
                                       Mode of Transportation
                                       <strong className="text-danger">*</strong>
                                     </div>
                                     {['radio'].map((type, index) => (
-                                      <div
-                                        key={index}
-                                        className={styles.radio_group}
-                                      >
+                                      <div key={index} className={styles.radio_group}>
                                         <Form.Check
                                           className={styles.radio}
                                           inline
@@ -431,18 +343,9 @@ export default function Index(props) {
                                           type={type}
                                           id={`inline-${type}-1`}
                                           value={'RR'}
-                                          checked={
-                                            val2?.modeOfTransportation === 'RR'
-                                              ? true
-                                              : false
-                                          }
+                                          checked={val2?.modeOfTransportation === 'RR' ? true : false}
                                           onChange={(e) => {
-                                            props.handleChange(
-                                              e.target.name,
-                                              e.target.value,
-                                              index,
-                                              index2,
-                                            );
+                                            props.handleChange(e.target.name, e.target.value, index, index2);
                                           }}
                                         />
                                         <Form.Check
@@ -453,18 +356,9 @@ export default function Index(props) {
                                           type={type}
                                           id={`inline-${type}-2`}
                                           value={'LR'}
-                                          checked={
-                                            val2.modeOfTransportation !== 'RR'
-                                              ? true
-                                              : false
-                                          }
+                                          checked={val2.modeOfTransportation !== 'RR' ? true : false}
                                           onChange={(e) => {
-                                            props.handleChange(
-                                              e.target.name,
-                                              e.target.value,
-                                              index,
-                                              index2,
-                                            );
+                                            props.handleChange(e.target.name, e.target.value, index, index2);
                                           }}
                                         />
                                       </div>
@@ -472,70 +366,43 @@ export default function Index(props) {
                                   </div>
                                 </div>
                                 {val2.modeOfTransportation === 'checked' ? (
-                                  <div
-                                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                                  >
+                                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                     <input
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="number"
-                                      onWheel={(event) =>
-                                        event.currentTarget.blur()
-                                      }
+                                      onWheel={(event) => event.currentTarget.blur()}
                                       name="transporterName"
                                       // value={val2.rrlrNumber}
                                       onChange={(e) => {
-                                        props.handleChange(
-                                          e.target.name,
-                                          e.target.value,
-                                          index,
-                                          index2,
-                                        );
+                                        props.handleChange(e.target.name, e.target.value, index, index2);
                                       }}
                                     />
-                                    <label
-                                      className={`${styles.label_heading} label_heading`}
-                                    >
+                                    <label className={`${styles.label_heading} label_heading`}>
                                       Transporter Name
                                       <strong className="text-danger">*</strong>
                                     </label>
                                   </div>
                                 ) : null}
-                                <div
-                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                                >
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                   <input
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
                                     name="rrlrNumber"
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     value={val2.rrlrNumber}
                                     onChange={(e) => {
-                                      props.handleChange(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                        index2,
-                                      );
+                                      props.handleChange(e.target.name, e.target.value, index, index2);
                                     }}
                                   />
-                                  <label
-                                    className={`${styles.label_heading} label_heading`}
-                                  >
+                                  <label className={`${styles.label_heading} label_heading`}>
                                     RR/LR No.
                                     <strong className="text-danger">*</strong>
                                   </label>
                                 </div>
-                                <div
-                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                                >
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                   <input
                                     className={`${styles.input_field} input form-control`}
                                     required
@@ -543,24 +410,15 @@ export default function Index(props) {
                                     name="destination"
                                     value={val2.destination}
                                     onChange={(e) => {
-                                      props.handleChange(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                        index2,
-                                      );
+                                      props.handleChange(e.target.name, e.target.value, index, index2);
                                     }}
                                   />
-                                  <label
-                                    className={`${styles.label_heading} label_heading`}
-                                  >
+                                  <label className={`${styles.label_heading} label_heading`}>
                                     Destination
                                     <strong className="text-danger">*</strong>
                                   </label>
                                 </div>
-                                <div
-                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                                >
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                   <input
                                     className={`${styles.input_field} input form-control`}
                                     required
@@ -568,17 +426,10 @@ export default function Index(props) {
                                     name="eWayBill"
                                     value={val2.eWayBill}
                                     onChange={(e) => {
-                                      props.handleChange(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                        index2,
-                                      );
+                                      props.handleChange(e.target.name, e.target.value, index, index2);
                                     }}
                                   />
-                                  <label
-                                    className={`${styles.label_heading} label_heading`}
-                                  >
+                                  <label className={`${styles.label_heading} label_heading`}>
                                     E-way Bill No.
                                     <strong className="text-danger">*</strong>
                                   </label>
@@ -589,12 +440,7 @@ export default function Index(props) {
                             <div className={`${styles.table_container} mt-5`}>
                               <div className={styles.table_scroll_outer}>
                                 <div className={styles.table_scroll_inner}>
-                                  <table
-                                    className={`${styles.table} table`}
-                                    cellPadding="0"
-                                    cellSpacing="0"
-                                    border="0"
-                                  >
+                                  <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                     <thead>
                                       <tr>
                                         <th>
@@ -628,105 +474,50 @@ export default function Index(props) {
                                       {val2.modeOfTransportation !== '' && (
                                         <tr className="table_row">
                                           <td className={styles.doc_name}>
-                                            {val2.modeOfTransportation}{' '}
-                                            <strong className="text-danger">
-                                              *
-                                            </strong>
+                                            {val2.modeOfTransportation} <strong className="text-danger">*</strong>
                                           </td>
                                           <td>
                                             {val2?.LRorRRDoc?.originalName ? (
-                                              val2?.LRorRRDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.xls') ||
-                                              val2?.LRorRRDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.xlsx') ? (
-                                                <img
-                                                  src="/static/excel.svg"
-                                                  className="img-fluid"
-                                                  alt="Pdf"
-                                                />
-                                              ) : val2?.LRorRRDoc?.originalName
-                                                  ?.toLowerCase()
-                                                  .endsWith('.doc') ||
-                                                val2?.LRorRRDoc?.originalName
-                                                  ?.toLowerCase()
-                                                  .endsWith('.docx') ? (
-                                                <img
-                                                  src="/static/doc.svg"
-                                                  className="img-fluid"
-                                                  alt="Pdf"
-                                                />
+                                              val2?.LRorRRDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                              val2?.LRorRRDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                              ) : val2?.LRorRRDoc?.originalName?.toLowerCase().endsWith('.doc') ||
+                                                val2?.LRorRRDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                               ) : (
-                                                <img
-                                                  src="/static/pdf.svg"
-                                                  className="img-fluid"
-                                                  alt="Pdf"
-                                                />
+                                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                               )
                                             ) : null}
                                           </td>
                                           <td className={styles.doc_row}>
                                             {val2?.LRorRRDoc?.date
-                                              ? moment(
-                                                  val2?.LRorRRDoc?.date,
-                                                ).format('DD-MM-YYYY, h:mm A')
+                                              ? moment(val2?.LRorRRDoc?.date).format('DD-MM-YYYY, h:mm A')
                                               : ''}
                                           </td>
 
                                           <td colSpan="2">
-                                            <div
-                                              className={
-                                                styles.uploadBtnWrapper
-                                              }
-                                            >
+                                            <div className={styles.uploadBtnWrapper}>
                                               {val2?.LRorRRDoc?.originalName ? (
                                                 <div
                                                   className={`${styles.certificate} text1 d-flex justify-content-between`}
                                                 >
-                                                  <span>
-                                                    {
-                                                      val2?.LRorRRDoc
-                                                        ?.originalName
-                                                    }
-                                                  </span>
+                                                  <span>{val2?.LRorRRDoc?.originalName}</span>
                                                   <img
                                                     className={`${styles.close_image} ml-2 image_arrow`}
                                                     src="/static/close.svg"
-                                                    onClick={() =>
-                                                      props.removeLiftinDoc(
-                                                        'lr',
-                                                        index,
-                                                        index2,
-                                                      )
-                                                    }
+                                                    onClick={() => props.removeLiftinDoc('lr', index, index2)}
                                                     alt="Close"
                                                   />{' '}
                                                 </div>
                                               ) : (
-                                                <div
-                                                  className={
-                                                    styles.uploadBtnWrapper
-                                                  }
-                                                >
+                                                <div className={styles.uploadBtnWrapper}>
                                                   <input
                                                     id="document3"
-                                                    onChange={(e) =>
-                                                      uploadDoc(
-                                                        e,
-                                                        'LRorRRDoc',
-                                                        index,
-                                                        index2,
-                                                      )
-                                                    }
+                                                    onChange={(e) => uploadDoc(e, 'LRorRRDoc', index, index2)}
                                                     type="file"
                                                     name="myfile"
                                                   />
-                                                  <button
-                                                    className={`${styles.upload_btn} btn`}
-                                                  >
-                                                    Upload
-                                                  </button>
+                                                  <button className={`${styles.upload_btn} btn`}>Upload</button>
                                                 </div>
                                               )}
                                             </div>
@@ -735,49 +526,24 @@ export default function Index(props) {
                                       )}
                                       <tr className="table_row">
                                         <td className={styles.doc_name}>
-                                          E-Way Bill{' '}
-                                          <strong className="text-danger">
-                                            *
-                                          </strong>
+                                          E-Way Bill <strong className="text-danger">*</strong>
                                         </td>
                                         <td>
                                           {val2?.eWayBillDoc?.originalName ? (
-                                            val2?.eWayBillDoc?.originalName
-                                              ?.toLowerCase()
-                                              .endsWith('.xls') ||
-                                            val2?.eWayBillDoc?.originalName
-                                              ?.toLowerCase()
-                                              .endsWith('.xlsx') ? (
-                                              <img
-                                                src="/static/excel.svg"
-                                                className="img-fluid"
-                                                alt="Pdf"
-                                              />
-                                            ) : val2?.eWayBillDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.doc') ||
-                                              val2?.eWayBillDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.docx') ? (
-                                              <img
-                                                src="/static/doc.svg"
-                                                className="img-fluid"
-                                                alt="Pdf"
-                                              />
+                                            val2?.eWayBillDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                            val2?.eWayBillDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                            ) : val2?.eWayBillDoc?.originalName?.toLowerCase().endsWith('.doc') ||
+                                              val2?.eWayBillDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                             ) : (
-                                              <img
-                                                src="/static/pdf.svg"
-                                                className="img-fluid"
-                                                alt="Pdf"
-                                              />
+                                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                             )
                                           ) : null}
                                         </td>
                                         <td className={styles.doc_row}>
                                           {val2?.eWayBillDoc?.date
-                                            ? moment(
-                                                val2?.eWayBillDoc?.date,
-                                              ).format('DD-MM-YYYY, h:mm A')
+                                            ? moment(val2?.eWayBillDoc?.date).format('DD-MM-YYYY, h:mm A')
                                             : ''}
                                         </td>
 
@@ -786,51 +552,25 @@ export default function Index(props) {
                                             <div
                                               className={`${styles.certificate} text1 d-flex justify-content-between`}
                                             >
-                                              <span>
-                                                {
-                                                  val2?.eWayBillDoc
-                                                    ?.originalName
-                                                }
-                                              </span>
+                                              <span>{val2?.eWayBillDoc?.originalName}</span>
                                               <img
                                                 className={`${styles.close_image} ml-2 image_arrow`}
                                                 src="/static/close.svg"
-                                                onClick={() =>
-                                                  props.removeLiftinDoc(
-                                                    'eway',
-                                                    index,
-                                                    index2,
-                                                  )
-                                                }
+                                                onClick={() => props.removeLiftinDoc('eway', index, index2)}
                                                 alt="Close"
                                               />{' '}
                                             </div>
                                           ) : (
-                                            <div
-                                              className={
-                                                styles.uploadBtnWrapper
-                                              }
-                                            >
+                                            <div className={styles.uploadBtnWrapper}>
                                               <input
                                                 id="document3"
-                                                onChange={(e) =>
-                                                  uploadDoc(
-                                                    e,
-                                                    'eWayBillDoc',
-                                                    index,
-                                                    index2,
-                                                  )
-                                                }
+                                                onChange={(e) => uploadDoc(e, 'eWayBillDoc', index, index2)}
                                                 type="file"
                                                 name="myfile"
                                               />
-                                              <button
-                                                className={`${styles.upload_btn} btn`}
-                                              >
-                                                Upload
-                                              </button>
+                                              <button className={`${styles.upload_btn} btn`}>Upload</button>
 
-                                              {/* <input type="file" name="myfile2" 
+                                              {/* <input type="file" name="myfile2"
                                    onChange={(e)=>{
 
                                     uploadDoc(e,"eWayBillDoc",index1,index2)
@@ -865,17 +605,10 @@ export default function Index(props) {
             })}
 
           <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
-            <UploadOther
-              orderid={orderid}
-              module="PaymentsInvoicing&Delivery"
-            />
+            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
           </div>
         </div>
-        <SaveBar
-          rightBtn="Submit"
-          handleSave={props.handleLiftingSubmit}
-          rightBtnClick={props.handleLiftingSubmit}
-        />
+        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} rightBtnClick={props.handleLiftingSubmit} />
 
         {/* </div> */}
       </div>
