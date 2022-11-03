@@ -12,7 +12,7 @@ import { Form } from 'react-bootstrap';
 import AddressComponent from './addressComponent';
 import _get from 'lodash/get';
 import MultiSelect from '../MutilSelect';
-
+import { SearchSupplier } from 'redux/supplier/action';
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -436,6 +436,7 @@ const index = ({
   }, [creditDetail?.existingCHA]);
 
   const [exSupplier, setexSupplier] = useState([]);
+
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(creditDetail?.existingSuppliers);
@@ -453,6 +454,31 @@ const index = ({
     temp.splice(index, 1);
     
     setexSupplier([...temp]);
+  };
+
+  const {searchedSupplier} = useSelector((state)=>state.supplier)
+ 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [removeInput, setRemoveInput] = useState(false) 
+  
+  const handleSearch = (e) => {
+    setRemoveInput(false)
+    const query = e;
+    // const query = `${e.target.value}`;
+    setSearchTerm(query);
+    if (query.length >= 3) {
+      dispatch(SearchSupplier( query ));
+    }
+  };
+
+  const handleFilteredData = (results) => {
+   
+      let temp = [...exSupplier];
+      temp.push({name: results?.supplierProfile?.supplierName, status: results?.status });
+      // temp.push(results?.supplierProfile?.supplierName);
+      setexSupplier([...temp]);
+      setSearchTerm('')
+    
   };
  
   return (
@@ -771,7 +797,14 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
+                    handleSearch={handleSearch}
+                    handleFilteredData={handleFilteredData}
+                    removeInput={removeInput}
+                    setRemoveInput={setRemoveInput}
+                    searchTerm={searchTerm}
+                    searchedSupplier={searchedSupplier}
                     onChange={(_emails) => {
+                      // handleSearch(_emails)
                   
                       let temp = [...exSupplier];
                       temp.push(_emails[0]);
@@ -2071,19 +2104,7 @@ const index = ({
                               </>
                             ))}
                           </select>
-                          {/* <input
-                            name="bankName"
-                            className="input"
-                            disabled={!profile.actions}
-                            defaultValue={profile?.bankName}
-                            onChange={(e) =>
-                              handleDebtChange(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
-                          /> */}
+                         
                         </td>
                         <td>
                           <select

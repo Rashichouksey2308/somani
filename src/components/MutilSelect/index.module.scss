@@ -122,9 +122,11 @@
     padding: 5px 8px 7px;
   }
 }
-.react_multi_email [data-tag].pending {
-  border: 1px solid #ed6a5e;
-  background-color: rgba(234, 106, 94, 0.3);
+.pending {
+  div {
+    border: 1px solid #ed6a5e !important;
+    background-color: rgba(234, 106, 94, 0.3) !important;
+  }
 }
 
 .react_multi_email [data-tag] [data-tag-item] {
@@ -221,6 +223,7 @@
   padding: 7px 20px;
   position: absolute;
   border-radius: 6px;
+  cursor: pointer;
   background: #ffffff;
   border: 1px solid #d2d7e5;
   @include respond(lg-desktop) {

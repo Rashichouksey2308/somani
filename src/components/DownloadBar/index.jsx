@@ -54,7 +54,7 @@ function index({
                 }
               }}
             >
-              <span className={`mr-2`} style={{ color: mcaReportAvailable ? 'green' : 'red' }}>{downLoadButtonName}</span>
+              <span className={`mr-2`} style={{ color: mcaReportAvailable ? '#43C34D' : '#EA3F3F' }}>{downLoadButtonName}</span>
               <Image
                 src="/static/file_download.svg"
                 alt="Picture of the author"
@@ -62,10 +62,10 @@ function index({
                 height={17}
               />
             </div>
-          </div>
-          {downLoadButtonName === 'MCA Report' && <div className="d-flex justify-content-between align-items-center w-100">
+         
+          {downLoadButtonName === 'MCA Report' && <div className="d-flex  align-items-center w-100">
             <div
-              className={`${styles.reject} `}
+              className={`${styles.reject} ml-3`}
               onClick={() => {
                 if (handleReject) {
                   handleReject('fetch');
@@ -76,6 +76,7 @@ function index({
 
             </div>
           </div>}
+          </div>
         </>
       )}
       <div className="d-flex justify-content-between align-items-center">
