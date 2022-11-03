@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .dropdown {
   .filterIcon {
     width: 48px;
@@ -17,12 +18,14 @@
     @include respond(sm-desktop) {
       margin-left: 0;
     }
+
     img {
       @include respond(lg-desktop) {
         height: 18px;
       }
     }
   }
+
   .dropdown_menu {
     margin: 0;
     padding: 0;
@@ -36,6 +39,7 @@
       width: 100%;
       max-width: 381px;
     }
+
     .dropdown_header {
       padding: 13px 24px 15px;
       // color: #111111;
@@ -44,22 +48,27 @@
         height: 19px;
         margin-right: 6px;
       }
+
       h3 {
         font-size: 18px;
         font-weight: bold;
         line-height: 23px;
         margin: 0;
       }
+
       .close {
         height: 14px;
       }
     }
+
     .filter_list {
       background: none;
       padding: 12px 24px;
+
       input {
         transform: scale(1.5);
       }
+
       label {
         font-size: 20px;
         // color: #111111;
@@ -67,10 +76,12 @@
         margin: 0 0 0 34px;
         letter-spacing: 0.19px;
       }
+
       &:last-child {
         padding-bottom: 0;
       }
     }
+
     .btn {
       width: 100%;
       font-size: 20px;

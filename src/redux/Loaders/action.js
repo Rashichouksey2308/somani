@@ -1,10 +1,4 @@
 import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
-import { GetAllOrders } from 'redux/registerBuyer/action';
-import { GetCompanyDetails } from 'redux/companyDetail/action';
 
 export function isLoading(payload) {
   return {

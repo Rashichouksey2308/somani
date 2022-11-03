@@ -1,4 +1,5 @@
 @import '../../src/components/styles/Core/config';
+
 .container_inner {
   margin: 28px;
   margin-bottom: 68px;
@@ -15,6 +16,7 @@
     margin-bottom: 71px;
   }
 }
+
 .filter {
   min-height: 48px;
   margin-bottom: 27px;
@@ -25,9 +27,11 @@
   @include respond(sm-desktop) {
     display: block !important;
   }
+
   .head_header {
     display: flex;
     margin: 15px 20px 0px 10px;
+
     .arrow {
       width: 13px;
       height: 21px;
@@ -38,6 +42,7 @@
         height: auto;
       }
     }
+
     .heading {
       font-size: 34px;
       font-weight: bold;
@@ -45,12 +50,15 @@
       margin: 0;
       padding-left: 18px;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -64,6 +72,7 @@
       }
     }
   }
+
   .search {
     width: 492px;
     position: relative;
@@ -77,6 +86,7 @@
       width: 100%;
       margin-bottom: 15px;
     }
+
     .inputGroupPrepend {
       top: 50%;
       left: 31px;
@@ -92,6 +102,7 @@
       @include respond(sm-desktop) {
         left: 20px;
       }
+
       img {
         @include respond(lg-desktop) {
           height: 20px;
@@ -104,6 +115,7 @@
         }
       }
     }
+
     .formControl {
       font-size: 18px !important;
       font-weight: 500 !important;
@@ -130,6 +142,7 @@
         padding-left: 45px !important;
       }
     }
+
     .searchResults {
       width: 100%;
       top: 65px;
@@ -147,6 +160,7 @@
       @include respond(md-desktop) {
         padding: 7px 15px;
       }
+
       &::after {
         top: -15px;
         left: 40px;
@@ -156,10 +170,12 @@
         border-right: 12px solid transparent;
         border-bottom: 15px solid #d2d7e5;
       }
+
       ul {
         margin: 0;
         padding: 0;
         list-style: none;
+
         li {
           font-size: 18px;
           color: #3687e8;
@@ -180,12 +196,14 @@
           @include respond(sm-desktop) {
             font-size: 14px;
           }
+
           span {
             font-size: 15px;
             font-weight: 500;
             color: #8492a6;
             margin-left: 10px;
           }
+
           @include respond(lg-desktop) {
             font-size: 14px;
           }
@@ -195,6 +213,7 @@
           @include respond(sm-desktop) {
             font-size: 12px;
           }
+
           &:last-child {
             border-bottom: none;
           }
@@ -202,6 +221,7 @@
       }
     }
   }
+
   .filterIcon {
     width: 48px;
     height: 48px;
@@ -222,12 +242,14 @@
       margin-left: 0;
       line-height: 36px;
     }
+
     img {
       @include respond(md-desktop) {
         height: 18px;
       }
     }
   }
+
   .filterList {
     font-size: 18px;
     font-weight: 500;
@@ -247,12 +269,14 @@
       font-size: 14px;
       padding: 6px 10px 7px;
     }
+
     img {
       width: 10px;
       margin-left: 12px;
       display: inline-block;
     }
   }
+
   .btnPrimary {
     font-size: 20px;
     color: #ffffff;
@@ -279,10 +303,12 @@
     @include respond(sm-desktop) {
       font-size: 15px;
     }
+
     & > span {
       @include respond(lg-desktop) {
         font-size: 22px !important;
       }
+
       & + span {
         @include respond(lg-desktop) {
           font-size: 16px !important;
@@ -291,18 +317,22 @@
     }
   }
 }
+
 .statusBox {
   margin: 0 0 20px;
   border-radius: 8px;
   border: 1px solid #d2d7e5;
   box-shadow: 0 3px 12px #e5e7ed;
+
   .boxInner {
     width: 20%;
     padding: 21px 24px;
     border-right: 1px solid #d2d7e5;
+
     &:last-child {
       border-right: none;
     }
+
     @include respond(lg-desktop) {
       padding: 12px 16px;
     }
@@ -317,6 +347,7 @@
     @include respond(phone) {
       padding: 10px;
     }
+
     h3 {
       font-size: 28px;
       color: #111111;
@@ -339,6 +370,7 @@
       @include respond(phone) {
         font-size: 18px;
       }
+
       span {
         font-size: 15px;
         color: #8492a6;
@@ -356,6 +388,7 @@
         }
       }
     }
+
     .iconBox {
       height: 58px;
       min-width: 58px;
@@ -382,26 +415,31 @@
         margin: 0 auto;
       }
     }
+
     &.all {
       .iconBox {
         background: rgba(40, 132, 222, 0.2);
       }
     }
+
     &.approved {
       .iconBox {
         background: rgba(76, 175, 80, 0.2);
       }
     }
+
     &.review {
       .iconBox {
         background: rgba(255, 157, 0, 0.2);
       }
     }
+
     &.rejected {
       .iconBox {
         background: rgba(234, 63, 63, 0.2);
       }
     }
+
     &.saved {
       .iconBox {
         background: rgba(202, 208, 214, 0.2);

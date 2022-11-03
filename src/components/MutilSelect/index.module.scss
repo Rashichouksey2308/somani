@@ -1,4 +1,5 @@
 @import '../../components/styles/Core/config';
+
 .react_multi_email {
   margin: 0;
   max-width: 100%;
@@ -45,6 +46,7 @@
     z-index: 0;
     position: absolute;
     transform: translateY(-30px);
+
     &::before {
       top: 51%;
       left: 0;
@@ -55,6 +57,7 @@
       position: absolute;
       background: #ffffff;
     }
+
     @include respond(lg-desktop) {
       top: 13px;
       font-size: 14px;

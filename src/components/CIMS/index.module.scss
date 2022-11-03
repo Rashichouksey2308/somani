@@ -2,8 +2,10 @@
 
 .backgroundMain {
   margin-bottom: 50px;
+
   .vessel_card {
     border-radius: 6px;
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -22,6 +24,7 @@
 
     .radio_form {
       padding: 26px 0px 20px 35px;
+
       .radio_group {
         display: flex;
 
@@ -45,6 +48,7 @@
           }
         }
       }
+
       .sub_heading {
         font-size: 16px;
         line-height: 17px;
@@ -65,6 +69,7 @@
 
     .main {
       border-radius: 6px;
+
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -90,6 +95,7 @@
           text-align: center;
           border-radius: 3px;
         }
+
         .add_sign {
           font-size: 24px;
           font-weight: bold;
@@ -97,11 +103,13 @@
           margin-right: 5px;
         }
       }
+
       .head_container {
         padding: 25px 35px !important;
         border-bottom: 2px solid #cad6e6;
         height: 80px;
         cursor: pointer;
+
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -118,6 +126,7 @@
             font-size: 17px;
           }
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -144,6 +153,7 @@
           background-color: transparent;
           border: none;
         }
+
         .dropDown_label {
           letter-spacing: 0.53px;
           font-weight: 500;
@@ -156,14 +166,18 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px 40px;
+
       .bill_landing {
         //background: #FFFFFF;
         border: 2px solid #cad6e6;
         border-radius: 9px;
+
         .vessel_card {
           padding: 0px 35px 0px 35px;
+
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -192,11 +206,13 @@
           }
         }
       }
+
       .eta_heading {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
       }
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -211,6 +227,7 @@
           line-height: 15px;
         }
       }
+
       .value {
         font-size: 20px;
         height: 60px;
@@ -232,17 +249,21 @@
         margin-top: 23px;
         background-color: transparent;
       }
+
       .form_group {
         margin-top: 42px;
         position: relative;
         margin-bottom: 12px;
+
         .search_image {
           margin-left: -40px;
         }
+
         .uploadBtnWrapper {
           overflow: hidden;
           position: relative;
           display: inline-block;
+
           input {
             top: 0;
             left: 0;
@@ -252,6 +273,7 @@
             cursor: pointer;
             position: absolute;
           }
+
           @include respond(phone) {
             width: 100%;
           }
@@ -273,6 +295,7 @@
             font-size: 10px;
           }
         }
+
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -290,6 +313,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -300,6 +324,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 14px;
             font-size: 14px;
@@ -307,9 +332,11 @@
             transform: translateY(-22px);
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -327,6 +354,7 @@
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -335,6 +363,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -343,6 +372,7 @@
         }
       }
     }
+
     .search_container {
       //background: #F0F0F0;
       height: 62px;
@@ -389,9 +419,11 @@
   width: 100%;
   display: table;
   table-layout: fixed;
+
   .table_scroll_inner {
     display: table-cell;
     overflow-x: auto;
+
     .table {
       th {
         font-size: 15px;
@@ -403,12 +435,14 @@
         vertical-align: middle;
         text-transform: uppercase;
         white-space: nowrap;
+
         &:first-child {
           padding-left: 35px;
           @include respond(md-desktop) {
             padding-left: 15px;
           }
         }
+
         img {
           &.sort_image {
             width: 14px;
@@ -418,6 +452,7 @@
               height: 12px;
             }
           }
+
           &.searchImg {
             width: 48px;
             height: 48px;
@@ -432,6 +467,7 @@
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 50px;
           font-size: 14px;
@@ -444,10 +480,12 @@
           font-size: 12px;
         }
       }
+
       tr {
         &:last-child {
           border-bottom: none;
         }
+
         td {
           font-size: 19px;
           font-weight: 500;
@@ -465,10 +503,12 @@
             font-size: 14px;
             padding: 10px;
           }
+
           .uploadBtnWrapper {
             overflow: hidden;
             position: relative;
             display: inline-block;
+
             input {
               top: 0;
               left: 0;
@@ -478,9 +518,11 @@
               cursor: pointer;
               position: absolute;
             }
+
             @include respond(phone) {
               width: 100%;
             }
+
             .upload_btn {
               text-align: center;
               color: #3687e8;
@@ -545,6 +587,7 @@
           font-size: 14px;
         }
       }
+
       .doc_row {
         font-size: 19px;
         line-height: 24px;
@@ -563,13 +606,16 @@
     }
   }
 }
+
 .upload_main {
   border-radius: 6px;
   margin-bottom: 1rem;
+
   .head_container {
     cursor: pointer;
     height: 80px;
     padding: 25px 35px !important;
+
     .heading {
       font-size: 22px;
       font-weight: bold;
@@ -580,6 +626,7 @@
         font-size: $font_size_mobile_accordion;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -590,23 +637,27 @@
       }
     }
   }
+
   .dashboard_form {
     padding: 40px 35px 40px 35px;
     border-top: 2px solid #cad6e6;
     @include respond(phone) {
       padding: 25px 20px 20px;
     }
+
     .drop_container {
       background-color: #c3c3c31f;
       border: 1px dashed #00000045;
       border-radius: 4px;
       height: 284px;
       line-height: 1;
+
       .upload_image {
         width: 83px;
         height: 83px;
         line-height: 83px;
       }
+
       .drop_para {
         font-size: 19px;
         line-height: 24px;
@@ -620,6 +671,7 @@
         @include respond(phone) {
           font-size: 12px;
         }
+
         a {
           text-decoration: underline;
           font-size: 19px;
@@ -636,6 +688,7 @@
         }
       }
     }
+
     .upload_button {
       border: 3px solid #3687e8;
       border-radius: 5px;
@@ -659,10 +712,12 @@
         width: 100%;
       }
     }
+
     .form_group {
       position: relative;
       margin-bottom: 40px;
       margin-top: 20px;
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -682,6 +737,7 @@
           font-size: $font_size_mobile_input_label;
         }
       }
+
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -703,10 +759,12 @@
         }
       }
     }
+
     .uploadBtnWrapper {
       overflow: hidden;
       position: relative;
       display: inline-block;
+
       input {
         top: 0;
         left: 0;
@@ -716,17 +774,21 @@
         cursor: pointer;
         position: absolute;
       }
+
       @include respond(phone) {
         width: 100%;
       }
     }
   }
+
   .table_container {
     background-color: #fafafb;
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
@@ -744,6 +806,7 @@
             border-top: 2px solid #f2f5f9;
             border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
@@ -760,6 +823,7 @@
                   height: 12px;
                 }
               }
+
               &.searchImg {
                 width: 48px;
                 height: 48px;
@@ -774,6 +838,7 @@
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -786,10 +851,12 @@
               font-size: 12px;
             }
           }
+
           tr {
             &:last-child {
               border-bottom: none;
             }
+
             td {
               font-size: 19px;
               font-weight: 500;
@@ -799,12 +866,14 @@
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
               white-space: nowrap;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
               }
+
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -814,6 +883,7 @@
                 font-size: 14px;
                 padding: 10px;
               }
+
               .actionContainer {
                 @include respond(phone) {
                   display: flex;
@@ -825,6 +895,7 @@
               }
             }
           }
+
           .module {
             background: #8492a6;
             font-size: 15px;
@@ -845,6 +916,7 @@
               font-size: 11px;
             }
           }
+
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -861,6 +933,7 @@
               font-size: 14px;
             }
           }
+
           .doc_row {
             font-size: 19px;
             line-height: 24px;
@@ -876,6 +949,7 @@
               font-size: 12px;
             }
           }
+
           .status {
             width: 15px;
             height: 15px;
@@ -893,9 +967,11 @@
               height: 10px;
             }
           }
+
           .approved {
             background: #26dd73;
           }
+
           .rejected {
             background: #ff9d00;
           }
@@ -923,6 +999,7 @@
   width: 14px;
   height: 14px;
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -965,6 +1042,7 @@
     height: 25px;
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -978,6 +1056,7 @@
     margin-left: -33px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -989,6 +1068,7 @@
     -webkit-appearance: none;
   }
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -997,6 +1077,7 @@
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
+
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -1004,11 +1085,13 @@
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;

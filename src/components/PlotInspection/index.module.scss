@@ -1,8 +1,10 @@
 @import '../styles/Core/config';
+
 .dashboardTab {
   //background: #FFFFFF;
   //box-shadow: 0px 3px 12px #CAD0E2;
   border: 1px solid #d2d7e5;
+
   .tabHeader {
     padding: 30px;
     @include respond(lg-desktop) {
@@ -16,6 +18,7 @@
     }
   }
 }
+
 .backgroundMain {
   //background: #F3F4F7 !important;
   .vessel_card {
@@ -26,6 +29,7 @@
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
+
       .head_container {
         min-height: 80px;
         padding: 0 35px !important;
@@ -34,6 +38,7 @@
         @include respond(lg-desktop) {
           min-height: 60px;
         }
+
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -54,6 +59,7 @@
             margin: 13px 0;
           }
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -70,17 +76,22 @@
           }
         }
       }
+
       .table_container {
         background-color: #fafafb;
+
         .table_scroll_outer {
           width: 100%;
           display: table;
           table-layout: fixed;
+
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
+
             .table {
               margin-bottom: 0px;
+
               th {
                 font-size: 15px;
                 color: #8492a6;
@@ -94,12 +105,14 @@
                 border-bottom: 2px solid #f2f5f9;
                 white-space: nowrap;
                 vertical-align: middle;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 img {
                   &.sort_image {
                     width: 14px;
@@ -109,6 +122,7 @@
                       height: 12px;
                     }
                   }
+
                   &.searchImg {
                     width: 48px;
                     height: 48px;
@@ -122,6 +136,7 @@
                     }
                   }
                 }
+
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -134,10 +149,12 @@
                   font-size: 12px;
                 }
               }
+
               tr {
                 &:last-child {
                   border-bottom: none;
                 }
+
                 td {
                   font-size: 19px;
                   font-weight: 500;
@@ -155,6 +172,7 @@
                   @include respond(phone) {
                     font-size: 12px;
                   }
+
                   .actionContainer {
                     @include respond(phone) {
                       display: flex;
@@ -163,6 +181,7 @@
                       display: flex;
                     }
                   }
+
                   .pdfImage {
                     width: 57px;
                     height: 25px;
@@ -175,6 +194,7 @@
                       height: 15px;
                     }
                   }
+
                   .uploadDoc {
                     text-align: center;
                     color: #3687e8;
@@ -201,6 +221,7 @@
                   }
                 }
               }
+
               .uploadBtnWrapper {
                 overflow: hidden;
                 position: relative;
@@ -217,6 +238,7 @@
                   position: absolute;
                 }
               }
+
               .updateBtn {
                 text-align: center;
                 color: #3687e8;
@@ -241,6 +263,7 @@
                   padding: 0 15px;
                 }
               }
+
               .certificate {
                 width: 155px;
                 font-size: 20px;
@@ -254,6 +277,7 @@
                   font-size: 15px;
                   line-height: 1.3;
                 }
+
                 span {
                   max-width: 92%;
                   overflow-x: hidden;
@@ -262,6 +286,7 @@
                   text-overflow: ellipsis;
                   margin-left: 5px;
                 }
+
                 img {
                   width: auto !important;
                   height: auto !important;
@@ -271,6 +296,7 @@
                   }
                 }
               }
+
               .doc_name {
                 font-weight: bold;
                 line-height: 25px;
@@ -285,6 +311,7 @@
                   font-size: 14px;
                 }
               }
+
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
@@ -303,8 +330,10 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 0px 35px 25px;
+
       .form_group {
         margin-top: 40px;
         position: relative;
@@ -314,9 +343,11 @@
         @include respond(phone) {
           margin: 15px;
         }
+
         .search_image {
           margin-left: -40px;
         }
+
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -334,6 +365,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -344,6 +376,7 @@
             position: absolute;
             transform: translateY(-30%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -351,9 +384,11 @@
             transform: translateY(-22px);
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -366,9 +401,11 @@
           letter-spacing: 0.19px;
           padding: 13px 30px 13px 17px;
           border: 1px solid #0000001f;
+
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -377,6 +414,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -390,6 +428,7 @@
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 0;

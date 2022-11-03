@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .card_body {
   margin: 28px;
   margin-bottom: 152px;
@@ -11,9 +12,11 @@
     margin-bottom: 121px;
   }
 }
+
 .root {
   position: relative;
   font-family: 'Times New Roman', Times, serif;
+
   .sidebar {
     width: 376px;
     height: 736px;
@@ -25,17 +28,21 @@
     border-radius: 6px !important;
     margin-bottom: 42px;
     padding: 10px 26px 15px 30px;
+
     .sidebar_content {
       height: 70px;
       padding: 20px 0;
+
       .content2 {
         height: 100%;
         cursor: pointer;
         color: #28487b;
+
         input {
           width: 27px;
           height: 27px;
         }
+
         span {
           font-size: 22px;
           line-height: 27px;
@@ -43,6 +50,7 @@
           margin-right: 20px;
           margin-left: 22px !important;
         }
+
         img {
           width: 27px;
           height: 27px;
@@ -56,18 +64,21 @@
           display: flex;
           justify-content: center;
           align-items: center;
+
           img {
             width: 9px;
             height: 14px;
           }
         }
       }
+
       .selected {
         opacity: 1 !important;
         color: #3687e8 !important;
       }
     }
   }
+
   .content {
     // margin-left: 400px;
     box-shadow: 0px 3px 6px #cad0e2;
@@ -76,6 +87,7 @@
     label {
       font-size: 20px;
     }
+
     .date_input {
       font-size: 20px;
       height: 60px;
@@ -91,6 +103,7 @@
         font-size: 15px;
       }
     }
+
     .card_body {
       padding: 0px 100px 20px 100px;
       @include respond(lg-desktop) {
@@ -100,6 +113,7 @@
         text-decoration: underline;
         font-weight: 500;
       }
+
       p {
         font-size: 20px;
         margin-bottom: 0;
@@ -111,6 +125,7 @@
           font-size: 15px;
         }
       }
+
       .para {
         //line-height: 60px;
         font-size: 20px;
@@ -127,6 +142,7 @@
         }
       }
     }
+
     .footer {
       font-size: 22px;
       border-top: 2px solid #d2d7e5;
@@ -137,10 +153,12 @@
       }
     }
   }
+
   p {
     font-size: 20px;
     margin-bottom: 1rem;
     line-height: 28px;
+
     .para {
       padding: 0.5rem;
       text-align: center;
@@ -152,6 +170,7 @@
       border-radius: 4px;
     }
   }
+
   .para {
     font-size: 20px;
     padding: 0.5rem;
@@ -162,6 +181,7 @@
     border-radius: 4px;
     outline: none;
   }
+
   .inputsContainer {
     font-size: 20px;
     line-height: 28px;
@@ -171,25 +191,31 @@
     .row {
       margin: 0px !important;
       border-bottom: 2px solid black;
+
       &:last-child {
         border-bottom: none;
+
         .left {
           border-bottom: none;
         }
+
         .right {
           border-bottom: none;
         }
       }
     }
+
     .left {
       padding-left: 15px;
       display: flex;
       align-items: center;
       border-right: 2px solid black;
     }
+
     .last {
       border-bottom: none;
     }
+
     .right {
       // display: flex;
       // align-items: center !important;
@@ -197,6 +223,7 @@
       padding-left: 15px;
       //text-align: justify;
     }
+
     .para {
       // padding: 0.5rem;
       text-align: left;
@@ -205,11 +232,13 @@
       /* UI Properties */
       border-radius: 4px;
     }
+
     ol {
       padding-left: 22px;
     }
   }
 }
+
 .pageList span {
   font-size: 18px;
   color: #718096;
@@ -217,6 +246,7 @@
   line-height: 23px;
   margin-right: 38px;
 }
+
 .reject {
   cursor: pointer;
   width: 260px;
@@ -232,6 +262,7 @@
     height: 38px;
   }
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -248,12 +279,14 @@
     height: 38px;
   }
 }
+
 .image_reverse {
   transform: rotate(180deg);
   width: 9px;
   height: 14px;
   opacity: 0.6;
 }
+
 .inputsContainer2 {
   padding-left: 50px;
   font-size: 20px;
@@ -261,19 +294,23 @@
   line-height: 28px;
   border: 2px solid black;
   height: 100px;
+
   .row {
     height: 100%;
     margin: 0px !important;
     border-bottom: 2px solid black;
   }
+
   .left {
     height: 100%;
     display: flex;
     border-right: 2px solid black;
   }
+
   .last {
     border-bottom: none;
   }
+
   .right {
     height: 100%;
     display: flex;
@@ -281,6 +318,7 @@
     justify-content: center !important;
     padding: 0px;
   }
+
   .para {
     // padding: 0.5rem;
     text-align: left;
@@ -292,6 +330,7 @@
     border-radius: 4px;
   }
 }
+
 .tableWrapper {
   overflow-y: auto;
   max-height: 500px;

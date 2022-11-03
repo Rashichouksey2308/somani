@@ -101,7 +101,7 @@ function updatingPrivilegedUserFailed(payload) {
 export const fetchAllUserTypes = () => async (dispatch, getState, api) => {
   dispatch(fetchingAllUserTypes());
   try {
-    let response = await api.get(API.getUserTypeList);
+    const response = await api.get(API.getUserTypeList);
     if (response.data.code === 200) {
       dispatch(fetchingAllUserTypesSuccess(response.data.data));
     } else {
@@ -112,27 +112,26 @@ export const fetchAllUserTypes = () => async (dispatch, getState, api) => {
   }
 };
 
-export const registerPrivilegedUser =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(registeringPrivilegedUser());
+export const registerPrivilegedUser = (payload) => async (dispatch, getState, api) => {
+  dispatch(registeringPrivilegedUser());
 
-    try {
-      let response = await api.post(API.registerPrivilegedUser, payload);
-      if (response.data.code === 200) {
-        dispatch(registeringPrivilegedUserSuccess(response.data));
-      } else {
-        dispatch(registeringPrivilegedUserFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(registeringPrivilegedUserFailed('error'));
+  try {
+    const response = await api.post(API.registerPrivilegedUser, payload);
+    if (response.data.code === 200) {
+      dispatch(registeringPrivilegedUserSuccess(response.data));
+    } else {
+      dispatch(registeringPrivilegedUserFailed(response.data));
     }
-  };
+  } catch (error) {
+    dispatch(registeringPrivilegedUserFailed('error'));
+  }
+};
 
 export const fetchPrivilegedUsers = () => async (dispatch, getState, api) => {
   dispatch(fetchingPrivilegedUsers());
 
   try {
-    let response = await api.get(API.getPrivilegedUsers);
+    const response = await api.get(API.getPrivilegedUsers);
     if (response.data.code === 200) {
       dispatch(fetchingPrivilegedUsersSuccess(response.data.data));
     } else {
@@ -143,18 +142,17 @@ export const fetchPrivilegedUsers = () => async (dispatch, getState, api) => {
   }
 };
 
-export const updatePrivilegedUser =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(updatingPrivilegedUser());
+export const updatePrivilegedUser = (payload) => async (dispatch, getState, api) => {
+  dispatch(updatingPrivilegedUser());
 
-    try {
-      let response = await api.post(API.updatePrivilegedUser, payload);
-      if (response.data.code === 200) {
-        dispatch(updatingPrivilegedUserSuccess(response.data));
-      } else {
-        dispatch(updatingPrivilegedUserFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(updatingPrivilegedUserFailed('error'));
+  try {
+    const response = await api.post(API.updatePrivilegedUser, payload);
+    if (response.data.code === 200) {
+      dispatch(updatingPrivilegedUserSuccess(response.data));
+    } else {
+      dispatch(updatingPrivilegedUserFailed(response.data));
     }
-  };
+  } catch (error) {
+    dispatch(updatingPrivilegedUserFailed('error'));
+  }
+};

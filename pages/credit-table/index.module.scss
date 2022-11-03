@@ -1,4 +1,5 @@
 @import '../../src/components/styles/Core/config';
+
 .container_inner {
   margin: 28px;
   margin-bottom: 68px;
@@ -39,6 +40,7 @@
         height: auto;
       }
     }
+
     .heading {
       font-size: 34px;
       font-weight: bold;
@@ -46,12 +48,15 @@
       margin: 0;
       padding-left: 18px;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -65,6 +70,7 @@
       }
     }
   }
+
   .search {
     width: 492px;
     position: relative;
@@ -78,6 +84,7 @@
       width: 100%;
       margin-bottom: 15px;
     }
+
     .inputGroupPrepend {
       top: 50%;
       left: 31px;
@@ -93,6 +100,7 @@
       @include respond(sm-desktop) {
         left: 20px;
       }
+
       img {
         @include respond(lg-desktop) {
           height: 20px;
@@ -105,6 +113,7 @@
         }
       }
     }
+
     .formControl {
       font-size: 18px !important;
       font-weight: 500 !important;
@@ -131,6 +140,7 @@
         padding-left: 45px !important;
       }
     }
+
     .searchResults {
       width: 100%;
       top: 65px;
@@ -148,6 +158,7 @@
       @include respond(md-desktop) {
         padding: 7px 15px;
       }
+
       &::after {
         top: -15px;
         left: 40px;
@@ -157,10 +168,12 @@
         border-right: 12px solid transparent;
         border-bottom: 15px solid #d2d7e5;
       }
+
       ul {
         margin: 0;
         padding: 0;
         list-style: none;
+
         li {
           font-size: 18px;
           color: #3687e8;
@@ -181,12 +194,14 @@
           @include respond(sm-desktop) {
             font-size: 14px;
           }
+
           span {
             font-size: 15px;
             font-weight: 500;
             color: #8492a6;
             margin-left: 10px;
           }
+
           @include respond(lg-desktop) {
             font-size: 14px;
           }
@@ -196,6 +211,7 @@
           @include respond(sm-desktop) {
             font-size: 12px;
           }
+
           &:last-child {
             border-bottom: none;
           }
@@ -203,6 +219,7 @@
       }
     }
   }
+
   .filterIcon {
     width: 48px;
     height: 48px;
@@ -223,12 +240,14 @@
       margin-left: 0;
       line-height: 36px;
     }
+
     img {
       @include respond(md-desktop) {
         height: 18px;
       }
     }
   }
+
   .filterList {
     font-size: 18px;
     font-weight: 500;
@@ -248,12 +267,14 @@
       font-size: 14px;
       padding: 6px 10px 7px;
     }
+
     img {
       width: 10px;
       margin-left: 12px;
       display: inline-block;
     }
   }
+
   .createBtn {
     font-size: 20px;
     color: #ffffff;
@@ -283,14 +304,17 @@
     }
   }
 }
+
 .datatable {
   border-radius: 6px;
   border: 1px solid #d2d7e5;
+
   .tableFilter {
     padding: 0 15px 0 35px;
     @include respond(md-desktop) {
       padding: 0 15px 0 15px;
     }
+
     h5 {
       font-size: 22px !important;
       font-weight: bold;
@@ -308,6 +332,7 @@
         margin: 13px 0;
       }
     }
+
     .pageList {
       .showPage {
         text-align: right;
@@ -324,6 +349,7 @@
           font-size: 14px;
         }
       }
+
       .arrow {
         width: 50px;
         height: 50px;
@@ -343,6 +369,7 @@
           height: 28px;
           line-height: 25px;
         }
+
         img {
           height: 18px;
           @include respond(sm-desktop) {
@@ -352,6 +379,7 @@
             height: 10px;
           }
         }
+
         &.rightArrow {
           img {
             transform: rotate(180deg);
@@ -366,15 +394,19 @@
       }
     }
   }
+
   .table_scroll_outer {
     width: 100%;
     display: table;
     table-layout: fixed;
+
     .table_scroll_inner {
       display: table-cell;
       overflow-x: auto;
+
       .table {
         margin-bottom: 0;
+
         th {
           font-size: 15px;
           font-weight: bold;
@@ -384,12 +416,14 @@
           white-space: nowrap;
           vertical-align: middle;
           text-transform: uppercase;
+
           &:first-child {
             padding-left: 35px;
             @include respond(md-desktop) {
               padding-left: 15px;
             }
           }
+
           img {
             width: 14px;
             height: 14px;
@@ -398,6 +432,7 @@
               height: 12px;
             }
           }
+
           @include respond(lg-desktop) {
             height: 50px;
             font-size: 14px;
@@ -410,10 +445,12 @@
             font-size: 12px;
           }
         }
+
         tr {
           &:last-child {
             border-bottom: none;
           }
+
           td {
             font-size: 19px;
             font-weight: 500;
@@ -422,12 +459,14 @@
             border-top: none;
             white-space: nowrap;
             vertical-align: middle;
+
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
@@ -437,6 +476,7 @@
               font-size: 14px;
               padding: 10px;
             }
+
             .icon {
               background: #ffeccf;
               border-radius: 8px;
@@ -486,21 +526,27 @@
             display: inline-block;
             vertical-align: middle;
           }
+
           .approved {
             background: #26dd73;
           }
+
           .rejected {
             background: #ff9d00;
           }
+
           .review {
             background: #ffce00;
           }
+
           .closed {
             background: #a1a1a1;
           }
+
           .open {
             background: #3687e8;
           }
+
           .expired {
             background: #ea3f3f;
           }

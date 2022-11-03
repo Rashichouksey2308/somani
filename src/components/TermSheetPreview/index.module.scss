@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .root_container {
   margin: 28px;
   // width: 100%;
@@ -19,8 +20,10 @@
     margin: 15px;
     margin-bottom: 121px;
   }
+
   .head_container {
     width: 100%;
+
     .head_header {
       display: flex;
       justify-content: flex-start;
@@ -35,6 +38,7 @@
         align-items: center;
         padding: 0.75rem 0rem;
       }
+
       .arrow {
         width: 13px;
         height: 21px;
@@ -45,6 +49,7 @@
           height: auto;
         }
       }
+
       .heading {
         font-size: 34px;
         font-weight: bold;
@@ -52,12 +57,15 @@
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -72,6 +80,7 @@
       }
     }
   }
+
   .term_container {
     padding: 10px 36px 18px 36px;
     height: 126px;
@@ -82,6 +91,7 @@
     @include respond(lg-desktop) {
       height: 100px;
     }
+
     span {
       // color: #3687E8;
       font-size: 34px;
@@ -92,8 +102,10 @@
         line-height: 1.3;
       }
     }
+
     div {
       flex-direction: column;
+
       .termSub_head {
         font-size: 20px;
         // color: #111111;
@@ -104,6 +116,7 @@
           font-size: 15px;
         }
       }
+
       .termValue {
         font-size: 20px;
         // color: #111111;
@@ -117,6 +130,7 @@
       }
     }
   }
+
   .content {
     padding-right: 15px;
     padding-left: 15px;
@@ -125,6 +139,7 @@
       padding-right: 10px;
       padding-left: 10px;
     }
+
     .row_head {
       .content_header {
         height: 67px;
@@ -143,6 +158,7 @@
           font-size: 15px;
           padding-left: 20px;
         }
+
         span {
           width: 100%;
           display: flex;
@@ -150,6 +166,7 @@
           align-items: center;
         }
       }
+
       .content_header_other {
         height: 67px;
         font-size: 22px;
@@ -167,6 +184,7 @@
           white-space: nowrap;
           padding-left: 20px;
         }
+
         span {
           width: 100%;
           display: flex;
@@ -175,6 +193,7 @@
         }
       }
     }
+
     .sub_content_other {
       font-size: 20px;
       line-height: 24px;
@@ -189,8 +208,10 @@
         padding-left: 12px;
       }
     }
+
     .sub_content {
       border-right: 2px solid #e5e5e5;
+
       ol {
         font-size: 20px;
         line-height: 24px;
@@ -203,17 +224,20 @@
         @include respond(phone) {
           font-size: 15px;
         }
+
         li {
           margin-bottom: 0.5rem;
           padding-bottom: 15px;
         }
       }
     }
+
     .sub_contentValue {
       ul {
         list-style: none;
         opacity: 1;
         padding-left: 12px;
+
         li {
           font-size: 20px;
           font-weight: 500;
@@ -226,24 +250,29 @@
             min-height: auto;
           }
         }
+
         @include respond(phone) {
           font-size: 15px;
         }
       }
+
       li {
         margin-bottom: 0.5rem;
         padding-bottom: 15px;
       }
     }
   }
+
   .checkMarks {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
     .left {
       width: 48%;
       margin-top: 30px;
+
       .head {
         font-size: 22px;
         font-weight: bold;
@@ -253,23 +282,28 @@
         height: 67px;
         // background-color: #FAFAFB;
       }
+
       .checkContent {
         padding-left: 15px;
         padding-top: 1rem;
+
         div {
           font-size: 20px;
           line-height: 30px;
           letter-spacing: 0.19px;
           padding: 15px;
+
           input {
             margin-right: 1.5rem;
           }
         }
       }
     }
+
     .right {
       width: 50%;
       margin-top: 30px;
+
       .head {
         font-size: 22px;
         font-weight: bold;
@@ -278,18 +312,22 @@
         padding: 20px 0 20px 30px;
         height: 67px;
       }
+
       .checkContent {
         //padding-left: 15px;
         padding-top: 1rem;
+
         div {
           font-size: 20px;
           line-height: 30px;
           letter-spacing: 0.19px;
           padding: 15px 0px 15px 28px;
           padding-left: 0px;
+
           input {
             margin-right: 1.5rem;
           }
+
           .subhead {
             font-size: 22px;
             font-weight: bold;
@@ -298,11 +336,13 @@
             padding: 20px 0 20px 30px;
             height: 67px;
           }
+
           // .headSpace {}
         }
       }
     }
   }
+
   .footer {
     text-align: justify;
     text-align-last: center;
@@ -321,6 +361,7 @@
       font-size: 15px;
     }
   }
+
   & + div {
     span {
       @include respond(lg-desktop) {
@@ -329,8 +370,10 @@
     }
   }
 }
+
 .dashboard_form {
   padding: 0 0 35px;
+
   .terms_para {
     font-size: 20px;
     letter-spacing: 0.19px;
@@ -341,6 +384,7 @@
       padding: 25px 20px 20px;
     }
   }
+
   .igpl_para {
     background-color: #c3c3c31f;
     border: 1px solid #0000001f;
@@ -349,6 +393,7 @@
     margin: 0 10px 0 0;
     line-height: 30px;
   }
+
   .form_group {
     position: relative;
     margin-bottom: 20px;
@@ -357,6 +402,7 @@
       font-size: $font_size_mobile_text;
       margin-top: 5px !important;
     }
+
     .other_heading {
       font-size: 22px;
       font-weight: bold;
@@ -369,8 +415,10 @@
         line-height: 1.3;
       }
     }
+
     .checkbox_container {
       padding: 15px 35px;
+
       .checkbox_label {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -383,6 +431,7 @@
           font-size: $font_size_mobile_text;
         }
       }
+
       .checkbox {
         width: 20px;
         height: 20px;
@@ -397,13 +446,16 @@
       }
     }
   }
+
   .formLeft {
     padding-left: 0px !important;
   }
+
   .formRight {
     padding-right: 0px !important;
   }
 }
+
 .danger {
   color: #ea3f3f;
 }

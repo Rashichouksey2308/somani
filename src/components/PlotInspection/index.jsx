@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form } from 'react-bootstrap';
-import InspectionDocument from '../InspectionDocument';
 import SaveBar from '../SaveBar';
 import DateCalender from '../DateCalender';
 import { useDispatch } from 'react-redux';
@@ -24,15 +22,13 @@ export default function Index({ inspectionData }) {
 
   const [plotInspectionData, setPlotInspectionData] = useState({
     plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
-    plotInspectionReport:
-      inspectionData?.plotInspection?.plotInspectionReport || null,
+    plotInspectionReport: inspectionData?.plotInspection?.plotInspectionReport || null,
   });
 
   useEffect(() => {
     setPlotInspectionData({
       plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
-      plotInspectionReport:
-        inspectionData?.plotInspection?.plotInspectionReport,
+      plotInspectionReport: inspectionData?.plotInspection?.plotInspectionReport,
     });
   }, [inspectionData]);
 
@@ -76,10 +72,7 @@ export default function Index({ inspectionData }) {
       };
       let fd = new FormData();
       fd.append('plotInspection', JSON.stringify(obj));
-      fd.append(
-        'plotInspectionReport',
-        plotInspectionData.plotInspectionReport,
-      );
+      fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport);
       fd.append('inspectionId', inspectionData?._id);
       let task = 'submit';
 
@@ -87,18 +80,8 @@ export default function Index({ inspectionData }) {
 
       let code = await dispatch(UpdateInspection({ fd, task }));
       if (code == 200) {
-        sessionStorage.setItem(
-          'transId',
-          _get(inspectionData, 'order.transit', ''),
-        );
-        dispatch(
-          settingSidebar(
-            'Loading, Transit & Unloadinge',
-            'Transit Details',
-            'Transit Details',
-            '3',
-          ),
-        );
+        sessionStorage.setItem('transId', _get(inspectionData, 'order.transit', ''));
+        dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Transit Details', 'Transit Details', '3'));
         router.push(`/transit/id`);
       }
     }
@@ -138,9 +121,7 @@ export default function Index({ inspectionData }) {
                     <DateCalender
                       name="plotInspectionDate"
                       saveDate={saveDate}
-                      defaultDate={
-                        inspectionData?.plotInspection?.plotInspectionDate
-                      }
+                      defaultDate={inspectionData?.plotInspection?.plotInspectionDate}
                       labelName="Plot Inspection Date"
                       dateFormat={`dd-MM-yyyy`}
                     />
@@ -165,23 +146,13 @@ export default function Index({ inspectionData }) {
               <h3 className={styles.heading}>Document</h3>
               <span>+</span>
             </div>
-            <div
-              id="upload"
-              className="collapse"
-              aria-labelledby="upload"
-              data-parent="#upload"
-            >
+            <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
               <div className={styles.table_container}>
                 <div className={`${styles.table_form}`}>
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th width="25%">
@@ -218,28 +189,20 @@ export default function Index({ inspectionData }) {
                                 <strong className="text-danger ml-1">*</strong>
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
                               <td className={styles.doc_row}>
-                                {inspectionData?.plotInspection
-                                  ?.plotInspectionReport
-                                  ? moment(
-                                      inspectionData?.plotInspection
-                                        ?.plotInspectionReport.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
-                                  : plotInspectionData?.plotInspectionReport !=
-                                    null
+                                {inspectionData?.plotInspection?.plotInspectionReport
+                                  ? moment(inspectionData?.plotInspection?.plotInspectionReport.date).format(
+                                      'DD-MM-YYYY, h:mm A',
+                                    )
+                                  : plotInspectionData?.plotInspectionReport != null
                                   ? moment(d).format('DD-MM-YYYY, h:mm A')
                                   : ''}
                               </td>
 
                               <td>
-                                {plotInspectionData?.plotInspectionReport ==
-                                null ? (
+                                {plotInspectionData?.plotInspectionReport == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -248,23 +211,12 @@ export default function Index({ inspectionData }) {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument1(e)}
                                       />
-                                      <button
-                                        className={`${styles.updateBtn} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.updateBtn} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {
-                                        plotInspectionData?.plotInspectionReport
-                                          ?.name
-                                      }
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{plotInspectionData?.plotInspectionReport?.name}</span>
                                     <img
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
@@ -294,11 +246,7 @@ export default function Index({ inspectionData }) {
             orderid={orderid} module="Loading-Transit-Unloading"
           /> */}
         </div>
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={handleSubmit}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   );

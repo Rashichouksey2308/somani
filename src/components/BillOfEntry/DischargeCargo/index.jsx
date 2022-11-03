@@ -1,53 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import SaveBar from '../../SaveBar';
 import UploadOther from '../../UploadOther';
 import DateCalender from '../../DateCalender';
 import _get from 'lodash/get';
-import {
-  UpdateCustomClearance,
-  GetAllCustomClearance,
-} from '../../../redux/CustomClearance&Warehousing/action';
+import { GetAllCustomClearance, UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper';
 
-export default function Index({
-  OrderId,
-  customData,
-  uploadDoc,
-  componentId,
-  setComponentId,
-  setArrivalDate,
-}) {
+export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
   console.log(customData, 'customData');
 
   const dispatch = useDispatch();
- const [sumOfDischargeQuantities,setSum]=useState('')
- useEffect(() => {
- if(customData){
-let data=customData?.billOfEntry?.billOfEntry?.reduce(
-      (previousValue, currentValue) =>
-        previousValue + Number(currentValue?.boeDetails?.invoiceQuantity),
-      0,
-    )
-    console.log(data,"data1111")
-    if (isNaN(data) || data=="NaN" || data == undefined){
-     setSum('')
-    }else{
-     setSum(data)
+  const [sumOfDischargeQuantities, setSum] = useState('');
+  useEffect(() => {
+    if (customData) {
+      let data = customData?.billOfEntry?.billOfEntry?.reduce(
+        (previousValue, currentValue) => previousValue + Number(currentValue?.boeDetails?.invoiceQuantity),
+        0,
+      );
+      console.log(data, 'data1111');
+      if (isNaN(data) || data == 'NaN' || data == undefined) {
+        setSum('');
+      } else {
+        setSum(data);
+      }
     }
-   
- }
-
-    
- },[
-  customData
- ])
-  
-    
+  }, [customData]);
 
   console.log(sumOfDischargeQuantities, 'sumOf');
 
@@ -72,20 +53,11 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  let shipmentTypeBulk =
-    _get(
-      customData,
-      `order.vessel.vessels[0].shipmentType`,
-      '',
-    ).toLowerCase() === 'bulk';
+  let shipmentTypeBulk = _get(customData, `order.vessel.vessels[0].shipmentType`, '').toLowerCase() === 'bulk';
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
-      vesselName: _get(
-        customData,
-        'dischargeOfCargo.dischargeOfCargo.vesselName',
-        '',
-      ),
+      vesselName: _get(customData, 'dischargeOfCargo.dischargeOfCargo.vesselName', ''),
       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
       // dischargeQuantity: _get(
       //   customData,
@@ -94,16 +66,8 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       // ),
       dischargeQuantity: sumOfDischargeQuantities
         ? sumOfDischargeQuantities
-        : _get(
-            customData,
-            'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
-            '',
-          ),
-      numberOfContainers: _get(
-        customData,
-        'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
-        '',
-      ),
+        : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
+      numberOfContainers: _get(customData, 'dischargeOfCargo.dischargeOfCargo.numberOfContainers', ''),
       vesselArrivaldate: '',
       dischargeStartDate: '',
       dischargeEndDate: '',
@@ -160,12 +124,8 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       return;
     }
 
-    if (
-      Number(dischargeOfCargo.dischargeOfCargo.dischargeQuantity) >
-      Number(customData?.order?.quantity)
-    ) {
-      let toastMessage =
-        'DISCHARGE QUANTITY CANNOT BE GREATER THAN ORDER QUANTITY';
+    if (Number(dischargeOfCargo.dischargeOfCargo.dischargeQuantity) > Number(customData?.order?.quantity)) {
+      let toastMessage = 'DISCHARGE QUANTITY CANNOT BE GREATER THAN ORDER QUANTITY';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -173,9 +133,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       return;
     }
 
-    if (
-      _get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner'
-    ) {
+    if (_get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner') {
       if (
         dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' ||
         dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined
@@ -207,8 +165,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate <
       dischargeOfCargo.dischargeOfCargo.vesselArrivaldate
     ) {
-      let toastMessage =
-        'discharge Start Date Cannot Be Before Vessel Arrival Date';
+      let toastMessage = 'discharge Start Date Cannot Be Before Vessel Arrival Date';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -218,8 +175,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       dischargeOfCargo.dischargeOfCargo.dischargeEndDate <
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate
     ) {
-      let toastMessage =
-        'discharge End Date Cannot Be Before Discharge Start Date ';
+      let toastMessage = 'discharge End Date Cannot Be Before Discharge Start Date ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -280,9 +236,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
 
   useEffect(() => {
     if (customData) {
-      let data = Number(
-        _get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''),
-      );
+      let data = Number(_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''));
       setTotalBl(data);
     }
     if (customData?.dischargeOfCargo) {
@@ -291,26 +245,14 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       let tempData = {
         dischargeOfCargo: {
           vesselName: data?.dischargeOfCargo?.vesselName,
-          portOfDischarge: _get(
-            customData,
-            'order.vessel.vessels[0].transitDetails.portOfDischarge',
-            '',
-          ),
+          portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
           dischargeQuantity: sumOfDischargeQuantities
             ? sumOfDischargeQuantities
-            : _get(
-                customData,
-                'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
-                '',
-              ),
+            : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
-          numberOfContainers: _get(
-            customData,
-            'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
-            '',
-          ),
+          numberOfContainers: _get(customData, 'dischargeOfCargo.dischargeOfCargo.numberOfContainers', ''),
         },
         document1: data?.document1 ?? null,
         document2: data?.document2 ?? null,
@@ -336,11 +278,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
       let tempArray = {
         boeAssessment: data?.boeAssessment,
         pdBond: data?.pdBond,
-        billOfEntryFor: _get(
-          customData,
-          'order.termsheet.transactionDetails.billOfEntity',
-          '',
-        ),
+        billOfEntryFor: _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ''),
         // boeNumber: data?.boeNumber,
         // boeDate: data?.boeDate,
 
@@ -365,12 +303,8 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
 
               <div className="d-flex">
                 <div className="d-flex align-items-center">
-                  <label className={`${styles.dropDown_label} text`}>
-                    Shipment Type
-                  </label>
-                  <div className={`${styles.dropDown} ml-2 mr-3`}>
-                    {shipmentTypeBulk ? 'Bulk' : 'Liner'}
-                  </div>
+                  <label className={`${styles.dropDown_label} text`}>Shipment Type</label>
+                  <div className={`${styles.dropDown} ml-2 mr-3`}>{shipmentTypeBulk ? 'Bulk' : 'Liner'}</div>
                 </div>
                 <div className="d-flex align-items-center">
                   <button className={styles.add_btn} onClick={handleShow}>
@@ -396,14 +330,10 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
             >
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <select
-                        onChange={(e) =>
-                          onChangeDischargeOfCargo('vesselName', e.target.value)
-                        }
+                        onChange={(e) => onChangeDischargeOfCargo('vesselName', e.target.value)}
                         value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
@@ -411,33 +341,18 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                           Please select a vessel
                         </option>
                         {shipmentTypeBulk
-                          ? _get(customData, 'order.vessel.vessels', []).map(
-                              (vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation?.name}
-                                  key={index}
-                                >
-                                  {_get(
-                                    vessel,
-                                    'vesselInformation[0].name',
-                                    '',
-                                  )}
-                                </option>
-                              ),
-                            )
-                          : _get(
-                              customData,
-                              'order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
+                          ? _get(customData, 'order.vessel.vessels', []).map((vessel, index) => (
+                              <option value={vessel?.vesselInformation?.name} key={index}>
+                                {_get(vessel, 'vesselInformation[0].name', '')}
+                              </option>
+                            ))
+                          : _get(customData, 'order.vessel.vessels[0].vesselInformation', []).map((vessel, index) => (
                               <option value={vessel?.name} key={index}>
                                 {vessel?.name}
                               </option>
                             ))}
                       </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Vessel Name<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -454,13 +369,9 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                     >
                       Port of Discharge
                     </div>
-                    <span className={styles.value}>
-                      {dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}
-                    </span>
+                    <span className={styles.value}>{dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}</span>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
                       // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                       className={`${styles.input_field} input form-control`}
@@ -473,29 +384,19 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                       onBlur={(e) => {
                         setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                       value={
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                      value={
                         isFieldInFocus
                           ? sumOfDischargeQuantities
-                          : sumOfDischargeQuantities == 0 
-                          ||
+                          : sumOfDischargeQuantities == 0 ||
                             isNaN(sumOfDischargeQuantities) ||
-                             sumOfDischargeQuantities==undefined
-                          || sumOfDischargeQuantities == ''
+                            sumOfDischargeQuantities == undefined ||
+                            sumOfDischargeQuantities == ''
                           ? ''
-                          : Number(
-                              sumOfDischargeQuantities,
-                            )?.toLocaleString('en-IN') +
-                            ` MT`
+                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
                       }
-                    
                       name="dischargeQuantity"
-                      onChange={(e) =>
-                        onChangeDischargeOfCargo(e.target.name, e.target.value)
-                      }
+                      onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
                       required
                       // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
@@ -515,84 +416,48 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                         className={`${styles.input_field} input form-control`}
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
-                        value={
-                          dischargeOfCargo.dischargeOfCargo?.numberOfContainers
-                        }
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
-                        onChange={(e) =>
-                          onChangeDischargeOfCargo(
-                            e.target.name,
-                            e.target.value,
-                          )
-                        }
+                        value={dischargeOfCargo.dischargeOfCargo?.numberOfContainers}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
                         required
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         No. of Containers
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
                   )}
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <DateCalender
-                        defaultDate={
-                          dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate
-                        }
+                        defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
                         name="vesselArrivaldate"
                         saveDate={saveDate}
                         labelName="Vessel Arrival Date"
                       />
-                      <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <DateCalender
-                        defaultDate={
-                          dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate
-                        }
+                        defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
                         name="dischargeStartDate"
                         saveDate={saveDate}
                         labelName="Discharge Start Date"
                       />
-                      <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <DateCalender
-                        defaultDate={
-                          dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate
-                        }
+                        defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                         name="dischargeEndDate"
                         saveDate={saveDate}
                         labelName="Discharge End Date"
                       />
-                      <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
@@ -600,12 +465,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
               <div className={`${styles.table_container} mt-0`}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -642,22 +502,15 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                             <strong className="text-danger ml-1">*</strong>
                           </td>
                           <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
+                            <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                           </td>
                           <td className={styles.doc_row}>
                             {dischargeOfCargo.document1 === null
                               ? ''
-                              : moment(
-                                  dischargeOfCargo?.document1?.Date,
-                                ).format('DD-MM-YYYY, h:mm a')}
+                              : moment(dischargeOfCargo?.document1?.Date).format('DD-MM-YYYY, h:mm a')}
                           </td>
                           <td>
-                            {dischargeOfCargo &&
-                            dischargeOfCargo.document1 === null ? (
+                            {dischargeOfCargo && dischargeOfCargo.document1 === null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -666,20 +519,12 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => onSaveDocument(e)}
                                   />
-                                  <button
-                                    className={`${styles.button_upload} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                                  <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
                               </>
                             ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex justify-content-between`}
-                              >
-                                <span>
-                                  {dischargeOfCargo.document1?.originalName}
-                                </span>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                <span>{dischargeOfCargo.document1?.originalName}</span>
                                 <img
                                   onClick={() => onRemoveDoc('document1')}
                                   className={`${styles.close_image} image_arrow`}
@@ -697,22 +542,15 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                             <strong className="text-danger ml-1">*</strong>
                           </td>
                           <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
+                            <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                           </td>
                           <td className={styles.doc_row}>
                             {dischargeOfCargo.document2 === null
                               ? ''
-                              : moment(
-                                  dischargeOfCargo?.document2?.Date,
-                                ).format('DD-MM-YYYY, h:mm a')}
+                              : moment(dischargeOfCargo?.document2?.Date).format('DD-MM-YYYY, h:mm a')}
                           </td>
                           <td>
-                            {dischargeOfCargo &&
-                            dischargeOfCargo.document2 === null ? (
+                            {dischargeOfCargo && dischargeOfCargo.document2 === null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -721,11 +559,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => onSaveDocument(e)}
                                   />
-                                  <button
-                                    className={`${styles.button_upload} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                                  <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
                                 {/* <div className={styles.uploadBtnWrapper}>
                             <input
@@ -740,12 +574,8 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                             </div> */}
                               </>
                             ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex justify-content-between`}
-                              >
-                                <span>
-                                  {dischargeOfCargo.document2?.originalName}
-                                </span>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                <span>{dischargeOfCargo.document2?.originalName}</span>
                                 <img
                                   onClick={() => onRemoveDoc('document2')}
                                   className={`${styles.close_image} image_arrow`}
@@ -764,18 +594,10 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
             </div>
           </div>
           <div className="">
-            <UploadOther
-              isDocumentName={true}
-              orderid={OrderId}
-              module="customClearanceAndWarehousing"
-            />
+            <UploadOther isDocumentName={true} orderid={OrderId} module="customClearanceAndWarehousing" />
           </div>
         </div>
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={onSaveDischarge}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
       </div>
       <Modal
         show={show}
@@ -791,50 +613,33 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
             id="contained-modal-title-vcenter"
             className={`${styles.title}  d-flex justify-content-between align-items-center`}
           >
-            <div className={`${styles.blue} ml-3`}>BL Details </div>
+            <div className={`${styles.blue} ml-3`}>BL Details</div>
             <div className={`${styles.top}`}>
-              <span className="text">Commodity: </span>{' '}
-              {customData?.order?.commodity}{' '}
+              <span className="text">Commodity: </span> {customData?.order?.commodity}{' '}
             </div>
-            <img
-              src="/static/close.svg"
-              alt="close"
-              onClick={handleClose}
-              className="img-fluid mt-1 mr-2"
-            ></img>
+            <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid mt-1 mr-2"></img>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.body} background1  container-fluid`}>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table
-                className={`${styles.table} table m-0`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
+              <table className={`${styles.table} table m-0`} cellPadding="0" cellSpacing="0" border="0">
                 <tr className="table_row">
                   <th width="25%">BL NUMBER</th>
                   <th width="25%">BL DATE</th>
                   {!shipmentTypeBulk && <th width="25%">NO. OF CONTAINERS</th>}
                   <th width="25%">BL QUANTITY</th>
                 </tr>
-                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
-                  (bl, indexbl) => (
-                    <tr className="table_row " key={indexbl}>
-                      <td className="font-weight-bold">{bl?.blNumber}</td>
+                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => (
+                  <tr className="table_row " key={indexbl}>
+                    <td className="font-weight-bold">{bl?.blNumber}</td>
+                    <td>{bl?.blDate ? moment(bl?.blDate).format('DD-MM-YYYY') : ''}</td>
+                    {!shipmentTypeBulk && (
                       <td>
-                        {bl?.blDate
-                          ? moment(bl?.blDate).format('DD-MM-YYYY')
-                          : ''}
+                        {bl?.blQuantity ? Number(bl.containerDetails.numberOfContainers)?.toLocaleString('en-In') : ''}{' '}
+                        {/* {customData?.order?.unitOfQuantity} */}
                       </td>
-                      {!shipmentTypeBulk && (
-                        <td>
-                          {bl?.blQuantity
-                            ? Number(bl.containerDetails?.numberOfContainers)?.toLocaleString('en-In')
-                            : ''}{' '}
-                          {/* {customData?.order?.unitOfQuantity} */}
-                        </td>
+                    
                       )}
                       <td>
                         {bl?.blQuantity
@@ -851,9 +656,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
           <div className={`${styles.bottom}`}>
             <span className="text">Total Quantity: </span> &nbsp;{' '}
             {isNaN(totalBl) ? '' : totalBl?.toLocaleString('en-In')}{' '}
-            {isNaN(totalBl)
-              ? ''
-              : customData?.order?.unitOfQuantity.toUpperCase()}
+            {isNaN(totalBl) ? '' : customData?.order?.unitOfQuantity.toUpperCase()}
           </div>
         </Modal.Body>
       </Modal>

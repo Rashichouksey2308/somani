@@ -1,10 +1,10 @@
 import * as types from './actionType';
 import API from '../../utils/endpoints';
 import Axios from 'axios';
-import Router from 'next/router';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+
 function mcaReport() {
   return {
     type: types.GET_MCA_REPORT,
@@ -24,18 +24,15 @@ function mcaReportFailed() {
   };
 }
 
-
-
-
 export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   dispatch(mcaReport());
 
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*',
@@ -46,7 +43,7 @@ export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(mcaReportSuccess(response.data.data));
-        let toastMessage = 'MCA report generate request submitted successfully';
+        const toastMessage = 'MCA report generate request submitted successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -54,7 +51,7 @@ export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
         // Router.push('/order-list')
       } else {
         dispatch(mcaReportFailed(response.data.data));
-        let toastMessage = 'could not process your request at the moment';
+        const toastMessage = 'could not process your request at the moment';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -63,7 +60,7 @@ export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(mcaReportFailed());
-    let toastMessage = error.message;
+    const toastMessage = error.message;
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
