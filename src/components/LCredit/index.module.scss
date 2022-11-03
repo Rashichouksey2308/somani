@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .container_inner {
   margin: 28px;
   margin-bottom: 152px;
@@ -14,6 +15,7 @@
     margin: 15px;
     margin-bottom: 121px;
   }
+
   .head_header {
     height: 48px;
     display: flex;
@@ -23,6 +25,7 @@
       height: 40px;
       margin-bottom: 20px;
     }
+
     .back_arrow {
       width: 13px;
       height: 21px;
@@ -32,6 +35,7 @@
         height: auto;
       }
     }
+
     .heading {
       font-size: 34px;
       font-weight: bold;
@@ -39,12 +43,15 @@
       margin: 0;
       padding-left: 18px;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -58,12 +65,14 @@
       }
     }
   }
+
   .wrapper {
     margin-bottom: 26px;
     border-radius: 6px !important;
     @include respond(lg-desktop) {
       margin-bottom: 20px;
     }
+
     .cardHeader {
       min-height: 80px;
       cursor: pointer;
@@ -72,6 +81,7 @@
       @include respond(lg-desktop) {
         min-height: 60px;
       }
+
       h2 {
         font-size: 22px;
         color: #3687e8;
@@ -88,6 +98,7 @@
           font-size: 15px;
         }
       }
+
       span {
         font-size: 45px;
         color: #3687e8;
@@ -104,15 +115,18 @@
         }
       }
     }
+
     .cardBody {
       padding: 0px;
       border-top: 2px solid #cad6e6;
+
       .content {
         .header {
           padding: 25px 35px !important;
           font-weight: bold;
           line-height: 27px;
         }
+
         h5 {
           font-size: 22px;
           font-weight: bold;
@@ -127,8 +141,10 @@
           }
         }
       }
+
       .body {
         padding: 25px 35px !important;
+
         .label_heading {
           top: 22px;
           left: 30px;
@@ -146,6 +162,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -156,6 +173,7 @@
             position: absolute;
             transform: translateY(-30%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -166,6 +184,7 @@
             font-size: 12px;
           }
         }
+
         .input_field {
           height: 60px;
           // background-color: #c3c3c31f;
@@ -177,10 +196,12 @@
           box-shadow: none;
           position: relative;
           box-sizing: border-box;
+
           &:invalid + label {
             //background: none;
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -189,6 +210,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -198,18 +220,22 @@
             font-size: 14px;
           }
         }
+
         .search_image {
           margin-left: -40px;
         }
+
         img {
           @include respond(lg-desktop) {
             height: 30px;
           }
         }
       }
+
       .dashboard_form {
         padding: 10px 20px 0px 20px;
         margin: 15px;
+
         .sub_heading {
           margin-top: 20px;
           font-size: 20px;
@@ -221,6 +247,7 @@
             line-height: 1.3;
           }
         }
+
         .number {
           letter-spacing: 0.19px;
           color: #111111;
@@ -232,6 +259,7 @@
             line-height: 1.3;
           }
         }
+
         h5 {
           letter-spacing: 0.19px;
           color: #111111;
@@ -240,12 +268,14 @@
           line-height: 25px;
           padding-left: 30px;
         }
+
         .paragraph {
           line-height: 25px;
           letter-spacing: 0.19px;
           font-size: 20px;
           width: 85%;
         }
+
         .label_heading {
           font-size: 16px;
           font-weight: 500;
@@ -262,6 +292,7 @@
             line-height: 15px;
           }
         }
+
         .comment_field {
           height: 106px;
           background-color: #c3c3c31f;
@@ -279,22 +310,27 @@
           }
         }
       }
+
       .datatable {
         width: 879px;
         margin: 0 12px 0 12px;
         box-shadow: none !important;
         border: none !important;
         border: 1px solid #d2d7e5;
+
         .table_scroll_outer {
           width: 100%;
           display: table;
           table-layout: fixed;
+
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
+
             .table {
               border: 1px solid #cad6e6;
               margin-bottom: 0 !important;
+
               th {
                 font-size: 15px;
                 line-height: 18px;
@@ -302,12 +338,14 @@
                 border: 1px solid #cad6e6;
                 text-transform: uppercase;
                 background: transparent !important;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -320,6 +358,7 @@
                   font-size: 12px;
                 }
               }
+
               td {
                 font-size: 19px;
                 font-weight: 500;
@@ -327,12 +366,14 @@
                 padding: 24px 15px;
                 border: 1px solid #cad6e6;
                 white-space: nowrap;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   font-size: 15px;
                   line-height: 1.3;
@@ -343,11 +384,13 @@
                   padding: 10px;
                 }
               }
+
               .buyerName {
                 color: #3687e8;
                 font-weight: bold;
                 text-transform: capitalize;
               }
+
               .status {
                 width: 15px;
                 height: 15px;
@@ -356,12 +399,15 @@
                 display: inline-block;
                 vertical-align: middle;
               }
+
               .approved {
                 background: #26dd73;
               }
+
               .rejected {
                 background: #ed714c;
               }
+
               .review {
                 background: #ffce00;
               }
@@ -369,17 +415,21 @@
           }
         }
       }
+
       .line {
         border: 0.5px solid #cad6e6;
       }
     }
   }
+
   .upload_main {
     border-radius: 6px;
     margin-bottom: 26px;
+
     .head_container {
       cursor: pointer;
       padding: 25px 35px !important;
+
       .heading {
         font-size: 22px;
         font-weight: bold;
@@ -387,12 +437,15 @@
         line-height: 27px;
         margin-bottom: 0;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(md-desktop) {
           font-size: 22px;
         }
@@ -403,6 +456,7 @@
           font-size: 15px;
         }
       }
+
       span {
         font-size: 45px;
         color: #3687e8;
@@ -419,22 +473,26 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 40px 35px 40px 35px;
       @include respond(phone) {
         padding: 25px 20px 20px;
       }
+
       .drop_container {
         background-color: #c3c3c31f;
         border: 1px dashed #00000045;
         border-radius: 4px;
         height: 284px;
         line-height: 1;
+
         .upload_image {
           width: 83px;
           height: 83px;
           line-height: 83px;
         }
+
         .drop_para {
           font-size: 19px;
           line-height: 24px;
@@ -448,6 +506,7 @@
           @include respond(phone) {
             font-size: 12px;
           }
+
           a {
             text-decoration: underline;
             font-size: 19px;
@@ -464,6 +523,7 @@
           }
         }
       }
+
       .upload_button {
         border: 3px solid #3687e8;
         border-radius: 5px;
@@ -491,10 +551,12 @@
           height: 35px;
         }
       }
+
       .form_group {
         position: relative;
         margin-bottom: 40px;
         margin-top: 20px;
+
         .label {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -514,6 +576,7 @@
             font-size: $font_size_mobile_input_label;
           }
         }
+
         .value {
           font-size: 20px;
           letter-spacing: 0.19px;
@@ -535,10 +598,12 @@
           }
         }
       }
+
       .uploadBtnWrapper {
         overflow: hidden;
         position: relative;
         display: inline-block;
+
         input {
           top: 0;
           left: 0;
@@ -548,20 +613,25 @@
           cursor: pointer;
           position: absolute;
         }
+
         @include respond(phone) {
           width: 100%;
         }
       }
     }
+
     .table_container {
       background-color: #fafafb;
+
       .table_scroll_outer {
         width: 100%;
         display: table;
         table-layout: fixed;
+
         .table_scroll_inner {
           display: table-cell;
           overflow-x: auto;
+
           .table {
             th {
               font-size: 15px;
@@ -574,12 +644,14 @@
               text-transform: uppercase;
               border-top: 2px solid #f2f5f9;
               border-bottom: 2px solid #f2f5f9;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(sm-desktop) {
                   padding-left: 15px;
                 }
               }
+
               img {
                 opacity: 0.4;
                 width: 14px;
@@ -589,6 +661,7 @@
                   height: 12px;
                 }
               }
+
               @include respond(lg-desktop) {
                 height: 50px;
                 font-size: 14px;
@@ -601,10 +674,12 @@
                 font-size: 12px;
               }
             }
+
             tr {
               &:last-child {
                 border-bottom: none;
               }
+
               td {
                 font-size: 19px;
                 font-weight: 500;
@@ -622,6 +697,7 @@
                 @include respond(phone) {
                   font-size: 12px;
                 }
+
                 .actionContainer {
                   @include respond(phone) {
                     display: flex;
@@ -632,6 +708,7 @@
                 }
               }
             }
+
             .updateBtn {
               text-align: center;
               color: #3687e8;
@@ -644,6 +721,7 @@
               background: transparent;
               padding: 8px 30px 8px 30px;
             }
+
             .doc_name {
               font-weight: bold;
               line-height: 25px;
@@ -660,6 +738,7 @@
                 font-size: 14px;
               }
             }
+
             .doc_row {
               font-size: 19px;
               line-height: 24px;
@@ -680,9 +759,11 @@
       }
     }
   }
+
   .table_clause {
     margin-top: 40px;
     border: none !important;
+
     .table_header {
       letter-spacing: 0.53px;
       // color: #00000080;
@@ -704,8 +785,10 @@
         font-size: 12px;
       }
     }
+
     tr {
       border-bottom: none !important;
+
       td {
         color: #111111;
         font-size: 20px;
@@ -720,6 +803,7 @@
         @include respond(phone) {
           font-size: 12px;
         }
+
         .image {
           padding: 10px 9px;
           border-radius: 4px;
@@ -728,6 +812,7 @@
         }
       }
     }
+
     .updateBtn {
       text-align: center;
       color: #3687e8;
@@ -753,6 +838,7 @@
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -766,20 +852,24 @@
     margin-left: -33px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
   height: 60px !important;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
+
   @include respond(lg-desktop) {
     height: 45px !important;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;

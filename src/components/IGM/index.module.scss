@@ -1,7 +1,9 @@
 @import '../styles/Core/config';
+
 .backgroundMain {
   .vessel_card {
     border-radius: 6px;
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -22,6 +24,7 @@
 
     .radio_form {
       padding: 26px 0px 20px 35px;
+
       .radio_group {
         display: flex;
 
@@ -44,6 +47,7 @@
               padding-left: 10px;
             }
           }
+
           input {
             transform: scale(1.5);
             @include respond(lg-desktop) {
@@ -52,6 +56,7 @@
           }
         }
       }
+
       .sub_heading {
         font-size: 16px;
         line-height: 17px;
@@ -76,6 +81,7 @@
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
+
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -104,6 +110,7 @@
           height: 35px;
           text-align: center;
         }
+
         .add_sign {
           font-size: 24px;
           font-weight: bold;
@@ -115,6 +122,7 @@
           }
         }
       }
+
       .head_container {
         min-height: 80px;
         padding: 0 35px !important;
@@ -122,6 +130,7 @@
         @include respond(lg-desktop) {
           min-height: 60px;
         }
+
         .heading {
           font-size: 22px;
           color: #3687e8;
@@ -140,6 +149,7 @@
             margin: 13px 0;
           }
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -160,6 +170,7 @@
           background-color: transparent;
           border: none;
         }
+
         .dropDown_label {
           letter-spacing: 0.53px;
           font-weight: 500;
@@ -168,14 +179,18 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px 40px;
+
       .bill_landing {
         //background: #FFFFFF;
         border: 2px solid #cad6e6;
         border-radius: 9px;
+
         .vessel_card {
           padding: 0px 35px 0px 35px;
+
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -203,13 +218,16 @@
             }
           }
         }
+
         .table_scroll_outer {
           width: 100%;
           display: table;
           table-layout: fixed;
+
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
+
             .table {
               th {
                 font-size: 15px;
@@ -221,12 +239,14 @@
                 vertical-align: middle;
                 text-transform: uppercase;
                 white-space: nowrap;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(md-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 .sort_img {
                   width: 14px;
                   height: 14px;
@@ -235,6 +255,7 @@
                     height: 12px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -247,10 +268,12 @@
                   font-size: 12px;
                 }
               }
+
               tr {
                 &:last-child {
                   border-bottom: none;
                 }
+
                 td {
                   font-size: 19px;
                   font-weight: 500;
@@ -338,6 +361,7 @@
                   font-size: 14px;
                 }
               }
+
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
@@ -357,11 +381,13 @@
           }
         }
       }
+
       .eta_heading {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
       }
+
       .previewImg {
         background: #c3c3c31f;
         border: 1px solid #0000001f;
@@ -384,6 +410,7 @@
           padding: 3px;
         }
       }
+
       .delete_image {
         margin-left: 40px !important;
         @include respond(lg-desktop) {
@@ -400,6 +427,7 @@
           height: 25px;
         }
       }
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -418,6 +446,7 @@
           margin-bottom: 10px;
         }
       }
+
       .value {
         font-size: 20px;
         height: 60px;
@@ -445,13 +474,16 @@
         height: 46px;
         background-color: transparent;
       }
+
       .form_group {
         margin-top: 42px;
         position: relative;
         margin-bottom: 10px;
+
         .search_image {
           margin-left: -40px;
         }
+
         .upload_btn {
           text-align: center;
           color: #3687e8;
@@ -477,6 +509,7 @@
             height: 30px;
           }
         }
+
         .upload_text {
           color: #8492a6;
           text-transform: uppercase;
@@ -493,6 +526,7 @@
             font-size: 10px;
           }
         }
+
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -510,6 +544,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -520,6 +555,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 14px;
             font-size: 14px;
@@ -530,9 +566,11 @@
             font-size: 13px;
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -549,6 +587,7 @@
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -557,6 +596,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -565,13 +605,16 @@
         }
       }
     }
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
           th {
             font-size: 15px;
@@ -583,12 +626,14 @@
             vertical-align: middle;
             text-transform: uppercase;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
+
             .sort_img {
               width: 14px;
               height: 14px;
@@ -597,6 +642,7 @@
                 height: 12px;
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -609,10 +655,12 @@
               font-size: 12px;
             }
           }
+
           tr {
             &:last-child {
               border-bottom: none;
             }
+
             td {
               font-size: 19px;
               font-weight: 500;
@@ -630,6 +678,7 @@
                 font-size: 14px;
                 padding: 10px;
               }
+
               .upload_btn {
                 width: 106px;
                 height: 38px;
@@ -656,6 +705,7 @@
               }
             }
           }
+
           span {
             margin-left: 5px;
             text-decoration: underline;
@@ -668,6 +718,7 @@
               line-height: 1.3;
             }
           }
+
           .input_field {
             background: #c3c3c31f;
             border-radius: 4px;
@@ -683,6 +734,7 @@
               line-height: 1.3;
             }
           }
+
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -697,6 +749,7 @@
               font-size: 14px;
             }
           }
+
           .doc_row {
             font-size: 19px;
             line-height: 24px;
@@ -737,10 +790,12 @@
     height: 15px;
   }
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
   display: inline-block;
+
   input {
     top: 0;
     left: 0;
@@ -750,9 +805,11 @@
     cursor: pointer;
     position: absolute;
   }
+
   @include respond(phone) {
     width: 100%;
   }
+
   .upload_btn {
     width: 106px;
     height: 38px;
@@ -778,6 +835,7 @@
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -791,6 +849,7 @@
     margin-left: -33px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -802,6 +861,7 @@
     -webkit-appearance: none;
   }
 }
+
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -814,10 +874,12 @@
     height: 15px;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -830,6 +892,7 @@
     font-size: 15px;
     line-height: 1.3;
   }
+
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -837,6 +900,7 @@
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
@@ -845,6 +909,7 @@
     }
   }
 }
+
 .close_image {
   margin-left: -30px;
   @include respond(phone) {

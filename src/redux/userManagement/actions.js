@@ -24,7 +24,7 @@ function fetchingAllUsersFailed(payload) {
 export const fetchAllUsers = (page) => async (dispatch, getState, api) => {
   dispatch(fetchingAllUsers());
   try {
-    let response = await api.get(`${API.fetchUsersRoute}?page=${page}`);
+    const response = await api.get(`${API.fetchUsersRoute}?page=${page}`);
     if (response.data.code === 200) {
       const existingUsers = getState().UserManagement.usersList;
       const newList = [...existingUsers, ...response.data.data];

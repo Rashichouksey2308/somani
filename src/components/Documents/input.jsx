@@ -12,10 +12,7 @@ const index = () => {
             <label className={styles.label_heading} id="dropDoc">
               Type Of Document
             </label>
-            <select
-              id="dropDoc"
-              className={`${styles.input_field} form-control`}
-            >
+            <select id="dropDoc" className={`${styles.input_field} form-control`}>
               <option value="doc1">Incorporation Certificate</option>
               <option value="doc2">Certificate</option>
             </select>
@@ -38,7 +35,7 @@ const index = () => {
               <img className={styles.image_delete} src="/static/delete.svg" />
             </div>
           </div>
-          <hr className={styles.hr_line}></hr>
+          <hr className={styles.hr_line} />
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <select className={`${styles.input_field} form-control`}>
               <option value="cert1">GST Certification</option>
@@ -57,7 +54,7 @@ const index = () => {
               }}
             />
           </div>
-          <hr className={styles.hr_line}></hr>
+          <hr className={styles.hr_line} />
           <div className={`${styles.add_document} col-md-12`}>
             <img className={styles.add_image} src="/static/Group 550.svg" />
             <p className={styles.add_para}>Add More Documents</p>

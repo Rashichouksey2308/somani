@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .root {
   left: 0;
   right: 0;
@@ -33,6 +34,7 @@
     bottom: 55px;
     height: auto;
   }
+
   .reject {
     cursor: pointer;
     width: 260px;
@@ -52,6 +54,7 @@
       font-size: 12px;
     }
   }
+
   .approve {
     cursor: pointer;
     width: 260px;
@@ -72,12 +75,15 @@
     }
   }
 }
+
 .no_sidebar {
   margin-left: 102px !important;
 }
+
 .no_sidebar_mobile {
   margin-left: 0px !important;
 }
+
 .form_group {
   position: relative;
   margin-bottom: 10px;
@@ -99,6 +105,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
     &::before {
       top: 51%;
       left: 0;
@@ -109,6 +116,7 @@
       position: absolute;
       transform: translateY(-50%);
     }
+
     @include respond(lg-desktop) {
       top: 15px;
       font-size: 14px;
@@ -157,6 +165,7 @@
       min-width: 120px;
       font-size: 12px;
     }
+
     &:invalid + label {
       transform: translateY(0);
     }
@@ -169,6 +178,7 @@
         }
       }
     }
+
     @include respond(sm-desktop) {
       font-size: 18px;
     }
@@ -177,6 +187,7 @@
     }
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -188,6 +199,7 @@
     -webkit-appearance: none;
   }
 }
+
 .download_icon {
   margin-left: -40px;
   @include respond(lg-desktop) {

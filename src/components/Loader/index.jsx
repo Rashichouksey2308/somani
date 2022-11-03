@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 const Index = () => {
   const { isOpen } = useSelector((state) => state.Load);
 

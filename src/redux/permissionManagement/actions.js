@@ -84,7 +84,7 @@ function updatingUserPermissionsFailed(payload) {
 export const createUserType = (payload) => async (dispatch, getState, api) => {
   dispatch(creatingUserType());
   try {
-    let response = await api.post(API.userType, payload);
+    const response = await api.post(API.userType, payload);
     if (response.data.code === 200) {
       dispatch(creatingUserTypeSuccess(response.data));
       dispatch(fetchUserType());
@@ -99,12 +99,12 @@ export const createUserType = (payload) => async (dispatch, getState, api) => {
 export const fetchUserType = () => async (dispatch, getState, api) => {
   dispatch(fetchingUserType());
   try {
-    let response = await api.get(API.userType);
+    const response = await api.get(API.userType);
     if (response.data.code === 200) {
       let UserList = [];
       let newPageGroup = {};
       await response.data.data.map(async (userType) => {
-        let newObj = {
+        const newObj = {
           name: userType.name,
           _id: userType._id,
           pageGroups: [],
@@ -135,26 +135,25 @@ export const fetchUserType = () => async (dispatch, getState, api) => {
   }
 };
 
-export const updateUserPermissions =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(updatingUserPermissions());
-    try {
-      let response = await api.post(API.updateUserType, payload);
-      if (response.data.code === 200) {
-        dispatch(updatingUserPermissionsSuccess(response.data));
-        dispatch(fetchUserType());
-      } else {
-        dispatch(updatingUserPermissionsFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(updatingUserPermissionsFailed('error'));
+export const updateUserPermissions = (payload) => async (dispatch, getState, api) => {
+  dispatch(updatingUserPermissions());
+  try {
+    const response = await api.post(API.updateUserType, payload);
+    if (response.data.code === 200) {
+      dispatch(updatingUserPermissionsSuccess(response.data));
+      dispatch(fetchUserType());
+    } else {
+      dispatch(updatingUserPermissionsFailed(response.data));
     }
-  };
+  } catch (error) {
+    dispatch(updatingUserPermissionsFailed('error'));
+  }
+};
 
 export const removeUserType = (payload) => async (dispatch, getState, api) => {
   dispatch(removingUserType());
   try {
-    let response = await api.post(API.deleteUserType, payload);
+    const response = await api.post(API.deleteUserType, payload);
     if (response.data.code === 200) {
       dispatch(removingUserTypeSuccess(response.data));
       dispatch(fetchUserType());

@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
+
 const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   // const {shipmentDetail}= orderDetail;
 
@@ -11,7 +12,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   const [maxdate, setmaxDate] = useState(null);
   useEffect(() => {
     if (expectedShipment) {
-      let date = moment(expectedShipment).add(1, 'days').toDate();
+      const date = moment(expectedShipment).add(1, 'days').toDate();
       setExpectedShipment(moment(date).format('DD-MM-YYYY'));
     }
   }, [expectedShipment]);
@@ -24,7 +25,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   console.log(expShipment, 'expectedShipment');
   const saveDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
     saveShipmentData(name, text);
   };
   const [dateStartFrom, setDateStartFrom] = useState({
@@ -32,9 +33,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
     eta: '',
   });
   const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString())
-      .add(1, 'days')
-      .format('DD-MM-YYYY');
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'loadPort.fromDate') {
       setDateStartFrom({ ...dateStartFrom, laycan: new_date });
     } else {
@@ -54,11 +53,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
         <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
         <span>+</span>
       </div>
-      <div
-        id="shipmentDetails"
-        className="collapse"
-        aria-labelledby="shipmentDetails"
-      >
+      <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails">
         <div className={`${styles.dashboard_form} card-body`}>
           <Form id="ShipmentDetailsForm">
             <div className="row">
@@ -76,9 +71,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Shipment Type<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -89,9 +82,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </div>
               </Form.Group>
 
-              <Form.Group
-                className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
@@ -122,9 +113,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label> */}
               </Form.Group>
-              <Form.Group
-                className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
@@ -184,9 +173,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </Form.Label> */}
               </Form.Group>
 
-              <Form.Group
-                className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.fromDate"
@@ -194,7 +181,11 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="ETA at Discharge Port from"
-                    startFrom={shipment.loadPort.toDate ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY') : moment(new Date()).format('DD-MM-YYYY')}
+                    startFrom={
+                      shipment.loadPort.toDate
+                        ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY')
+                        : moment(new Date()).format('DD-MM-YYYY')
+                    }
                     maxDate={maxdate}
                   />
                   <img
@@ -220,9 +211,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                   </Form.Label>
                 </div> */}
               </Form.Group>
-              <Form.Group
-                className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.toDate"
@@ -230,7 +219,9 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
                     startFrom={dateStartFrom.eta}
-                    maxDate={shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate}
+                    maxDate={
+                      shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
+                    }
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -265,21 +256,21 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     }}
                   >
                     <option value="">Select an option</option>
-                    {port.filter((val, index) => {
-                      if (val.Country.toLowerCase() !== "india") {
-                        return val
-                      }
-                    }).map((val, index) => {
-                      return (
-                        <option value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
-                        </option>
-                      )
-                    })}
+                    {port
+                      .filter((val, index) => {
+                        if (val.Country.toLowerCase() !== 'india') {
+                          return val;
+                        }
+                      })
+                      .map((val, index) => {
+                        return (
+                          <option value={`${val.Port_Name},${val.Country}`}>
+                            {val.Port_Name},{val.Country}
+                          </option>
+                        );
+                      })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Port of Loading<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img

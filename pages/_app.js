@@ -1,4 +1,4 @@
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import styledNormalize from 'styled-normalize';
@@ -7,18 +7,10 @@ import { useStore } from 'store';
 import '../src/components/styles/globals.scss';
 import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import ErrorBoundary from '../src/components/ErrorBoundary';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import router from 'next/router';
 import theme from 'theme';
-import { useDispatch, useSelector } from 'react-redux';
-import { ChangeTheme, setTheme } from '../src/redux/userData/action';
-import {
-  isMobile,
-  settingMobile,
-} from '../src/redux/toggleState/Action/action';
-import Loader from '../src/components/Loader';
+
 const GlobalStyle = createGlobalStyle`
   ${styledNormalize}
 `;
