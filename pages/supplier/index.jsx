@@ -865,7 +865,7 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab} w-100`}>
+      <div className={`${styles.dashboardTab}`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
@@ -882,8 +882,8 @@ function Index() {
           </div>
         </div>
 
-        <div className={`${styles.backgroundMain} container-fluid`}>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}
+        <div className={`${styles.backgroundMain}`}>
+          <div className={`${styles.main} vessel_card card border_color`}
           >
             <div
               className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
@@ -1077,7 +1077,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1126,7 +1126,7 @@ function Index() {
                   className={`${styles.address_card} mt-3 pb-5 value background1`}
                 >
                   <div
-                    className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
+                    className={`${styles.head_container} card-header border_color d-flex justify-content-between align-items-center bg-transparent`}
                   >
                     <h3
                       className={`${styles.heading}`}
@@ -1341,7 +1341,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1453,7 +1453,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
                                           console.log("herer1")
@@ -1466,7 +1466,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           console.log("herer2")
@@ -1503,7 +1503,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1594,7 +1594,7 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/mode_edit.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="edit"
                                           onClick={(e) => {
                                             onChangeHandler3("action", true, index)
@@ -1605,7 +1605,7 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/save-3.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="save"
                                           onClick={(e) => {
                                             onChangeHandler3("action", false, index)
@@ -1640,7 +1640,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1732,7 +1732,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
                                           onChangeHandler4("action", true, index)
@@ -1743,7 +1743,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           onChangeHandler4("action", false, index)
@@ -1777,7 +1777,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1825,7 +1825,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1901,7 +1901,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
                                           onChangeHandler6("action", true, index)
@@ -1912,7 +1912,7 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           onChangeHandler6("action", false, index)
@@ -1947,7 +1947,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
               className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1977,7 +1977,7 @@ function Index() {
                   <div className="ml-3">
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
+                      className={`${styles.edit_image} mb-3`}
                       alt="edit"
                       // onClick={(e) => {
                       //   setEditProfile(!editProfile)
