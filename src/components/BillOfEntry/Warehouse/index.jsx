@@ -176,8 +176,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>Storage Address</div>
                     <span className={styles.value}>
-                      {_get(customData, 'order.insurance.quotationRequest.storageDetails.storagePlotAddress', '')}{' '}
-                      {_get(customData, 'order.insurance.quotationRequest.storageDetails.placeOfStorage', '')}
+                      {_get(customData,"order.insurance.quotationRequest.storageDetails.storagePlotAddress","")} {" "} 
                     </span>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>

@@ -191,7 +191,7 @@ function Index(props) {
           setOptions([...optionArray]);
         }
       } else if (sessionStorage.getItem('Stevedore')) {
-        console.log('s');
+       
         let savedData = JSON.parse(sessionStorage.getItem('Stevedore'));
         let supplier = {
           name: savedData.name || props.vendor?.field4,
@@ -201,8 +201,8 @@ function Index(props) {
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails || [],
         };
         setList(
-          props?.data?.authorisedSignatoryDetails.length > 0
-            ? props?.data?.authorisedSignatoryDetails
+          savedData?.authorisedSignatoryDetails.length > 0
+            ? savedData?.authorisedSignatoryDetails
             : [
                 {
                   name: '',
@@ -266,7 +266,7 @@ function Index(props) {
         setOptions([...optionArray]);
       }
     }
-  }, [props, props.sameAsCHA]);
+  }, [props.data, props.sameAsCHA]);
   console.log(seteveState, 'seteveState');
   useEffect(() => {
     console.log('saasdasd', props.saveData, props.active);
@@ -627,7 +627,7 @@ function Index(props) {
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
                     <div className={`${styles.address_text}`}>
-                      {val.fullAddress} {val.pinCode} {val.country}
+                      {val.fullAddress} {val.city} {val.pinCode} {val.country}
                     </div>
                   </div>
                   <div className={`d-flex ${styles.actions} `}>

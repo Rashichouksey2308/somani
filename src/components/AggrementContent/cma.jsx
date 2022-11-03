@@ -163,12 +163,15 @@ function Index(props) {
           }
         }
         if (a == false) {
-          console.log(props?.vendor?.field23, 'props?.vendor?.field23');
-          let add = props?.vendor?.field23.split(',');
-          let newAddress = [];
-          add.forEach((val, index) => {
-            if (index < 4) {
-              newAddress.push(val);
+           console.log(props?.vendor?.field23,"props?.vendor?.field23")
+          let add = props?.vendor?.field23.split(",")
+          let newAddress=[]
+          if(add?.length > 0) {
+
+         
+          add.forEach((val,index)=>{
+            if(index<4){
+              newAddress.push(val)
             }
           });
           let pincode = add[5].split('-');
@@ -185,6 +188,7 @@ function Index(props) {
               city: add[4],
             },
           ]);
+           }
         }
         if (props.data?.addresses.length > 0) {
         }
@@ -541,7 +545,7 @@ function Index(props) {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  <option value={`${props.vendor.field22}`}>{props.vendor.field22}</option>
+                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -577,7 +581,7 @@ function Index(props) {
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
                     <div className={`${styles.address_text}`}>
-                      {val.fullAddress} {val.pinCode} {val.country}
+                      {val.fullAddress} {val.city} {val.pinCode} {val.country}
                     </div>
                   </div>
                   <div className={`d-flex ${styles.actions} `}>
@@ -732,7 +736,7 @@ function Index(props) {
                         required
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
-                        name="text"
+                        name="pinCode"
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         value={newAddress.pinCode}

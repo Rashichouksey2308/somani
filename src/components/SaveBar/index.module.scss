@@ -67,11 +67,11 @@
     justify-content: center;
     margin-left: 1rem;
     @include respond(lg-desktop) {
-      // width: 200px;
+      width: 200px;
       height: 38px;
     }
     @include respond(md-desktop) {
-      // width: 160px;
+      width: 160px;
       font-size: 12px;
     }
   }

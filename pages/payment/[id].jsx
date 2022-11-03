@@ -412,8 +412,13 @@ function Index() {
   };
 
   const BalanceQuantity = () => {
-    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
-    let boeTotalQuantity = boe.reduce((accumulator, object) => {
+    let boe = _get(
+      ReleaseOrderData,
+      'data[0].order.customClearance.billOfEntry.billOfEntry',
+      0,
+    )
+     if(boe!==0){
+      let boeTotalQuantity = boe?.reduce((accumulator, object) => {
       return accumulator + Number(object.boeDetails.invoiceQuantity);
     }, 0);
 
@@ -421,6 +426,7 @@ function Index() {
       boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
     });
     return boeTotalQuantity;
+    }
   };
 
   const returnLiftingData = (number) => {

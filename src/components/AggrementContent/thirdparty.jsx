@@ -20,6 +20,8 @@ function Index(props) {
       amount: '',
     },
   ]);
+
+  const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const onAddContact = () => {
     setListContact([
       ...listContact,
@@ -31,10 +33,31 @@ function Index(props) {
         amount: '',
       },
     ]);
+    setIsFieldInFocus([...isFieldInFocus, { amount: false }])
   };
   const handleDeleteContact = (index) => {
-    setListContact([...listContact.slice(0, index), ...listContact.slice(index + 1)]);
+    setListContact([
+      ...listContact.slice(0, index),
+      ...listContact.slice(index + 1),
+    ]);
+
+    setIsFieldInFocus([
+      ...isFieldInFocus.slice(0, index),
+      ...isFieldInFocus.slice(index + 1),
+    ])
   };
+
+  console.log(isFieldInFocus, 'isFieldInFocus')
+
+  useEffect(() => {
+    let tempArray = []
+
+    listContact.forEach((item) => {
+      tempArray.push({ amount: false })
+    })
+    setIsFieldInFocus(tempArray)
+  }, [listContact])
+
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
@@ -45,18 +68,19 @@ function Index(props) {
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
         setPaymentTerms(savedData?.paymentTerms);
+
         setListContact(
           savedData?.cheque?.length > 0
             ? savedData.cheque
             : [
-                {
-                  sNo: '',
-                  bankName: '',
-                  chequeNo: '',
-                  chequeDate: null,
-                  amount: '',
-                },
-              ],
+              {
+                sNo: '',
+                bankName: '',
+                chequeNo: '',
+                chequeDate: null,
+                amount: '',
+              },
+            ],
         );
       } else {
         console.log(props?.data, 'sadadsdasd');
@@ -67,14 +91,14 @@ function Index(props) {
           props?.data?.cheque?.length > 0
             ? props.data.cheque
             : [
-                {
-                  sNo: '',
-                  bankName: '',
-                  chequeNo: '',
-                  chequeDate: null,
-                  amount: '',
-                },
-              ],
+              {
+                sNo: '',
+                bankName: '',
+                chequeNo: '',
+                chequeDate: null,
+                amount: '',
+              },
+            ],
         );
       }
     }
@@ -111,6 +135,7 @@ function Index(props) {
     // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
   };
   const handleChangeInput = (name, value, index) => {
+    console.log(name,value,index,'tempArray')
     let temp = [...listContact];
     temp[index][name] = value;
     setListContact([...temp]);
@@ -261,12 +286,13 @@ function Index(props) {
                               onChange={(e) => {
                                 handleChangeInput(e.target.name, e.target.value, index);
                               }}
-                              // readOnly={!saveContactTable}
+                            // readOnly={!saveContactTable}
                             />
                           </td>
-                          <td>
+                          <td style={{minWidth:'200px'}}>
                             <div className="d-flex align-items-center">
                               <DateCalender
+                            
                                 name="chequeDate"
                                 saveDate={(val, name, index) => {
                                   handleChangeInput(name, val, index);
@@ -284,15 +310,39 @@ function Index(props) {
                           </td>
                           <td>
                             <input
+                              // onFocus={(e) => {
+                              //   let tempArray = [...isFieldInFocus]
+                              //   tempArray[index].amount = true
+                              //   setIsFieldInFocus(tempArray),
+
+                              //     (e.target.type = 'number');
+                              // }}
+                              // onBlur={(e) => {
+                              //   let tempArray = [...isFieldInFocus]
+                              //   tempArray[index].amount = false
+                              //   setIsFieldInFocus(tempArray),
+
+                              //     (e.target.type = 'text');
+                              // }}
+                              onWheel={(event) => event.currentTarget.blur()}
+                              // value={
+                              //   isFieldInFocus[index].amount
+                              //     ? val.amount
+                              //     : `INR ` + Number(
+                              //       val.amount
+                              //     )?.toLocaleString('en-In', {
+                              //       maximumFractionDigits: 2,
+                              //     })
+                              // }
                               className="input"
                               name="amount"
-                              type="number"
+                              type="text"
                               value={val.amount}
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => {
                                 handleChangeInput(e.target.name, e.target.value, index);
                               }}
-                              // readOnly={!saveContactTable}
+                            // readOnly={!saveContactTable}
                             />
                           </td>
 

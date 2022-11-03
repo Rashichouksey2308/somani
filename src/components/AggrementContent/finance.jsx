@@ -103,7 +103,7 @@ function Index(props) {
 
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span className="label_heading">Country</span>
-              <p className="text-color">India</p>
+              <p className="text-color">Netherlands</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span className="label_heading">Swift Code</span>
