@@ -5938,7 +5938,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               {data.incoTerms}
             </Col>
           </Row>
-          <Row className={`${styles.row} border_black`}>
+          <Row className={`${styles.row} ${styles.last}`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Month of loading of Cargo
             </Col>
@@ -5993,7 +5993,7 @@ const associateShip = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span
+              <span className='mb-0'
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -6005,10 +6005,10 @@ const associateShip = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span>Save</span>
+              <span className='mb-0'>Save</span>
             </div>
             <div className={styles.approve}>
-              <span>Submit</span>
+              <span className='mb-0'>Submit</span>
             </div>
           </div>
         </>
@@ -6932,7 +6932,7 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span
+              <span className='mb-0'
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -6944,10 +6944,10 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span>Save</span>
+              <span className='mb-0'>Save</span>
             </div>
             <div className={styles.approve}>
-              <span>Submit</span>
+              <span className='mb-0'>Submit</span>
             </div>
           </div>
         </>
@@ -7345,7 +7345,7 @@ const underTaking2 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span
+              <span className='mb-0'
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -7357,10 +7357,10 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span>Save</span>
+              <span className='mb-0'>Save</span>
             </div>
             <div className={styles.approve}>
-              <span>Submit</span>
+              <span className='mb-0'>Submit</span>
             </div>
           </div>
         </>
