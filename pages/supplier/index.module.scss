@@ -105,6 +105,9 @@
     .main {
       border-radius: 6px;
       margin-bottom: 26px;
+      &:first-child {
+        margin-top: 26px;
+      }
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }

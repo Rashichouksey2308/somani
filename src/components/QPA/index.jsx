@@ -80,7 +80,7 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          // addComm: data?.addComm,
+          
           addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
@@ -103,7 +103,7 @@ function Index(props) {
           stevedore:data.stevedore,
           stevedoreAddress:data.stevedoreAddress,
           stevedoreAuthorized:data.stevedoreAuthorized,
-          cma: data.name,
+          cma: data.cma,
           cmaAddress:data.cmaAddress,
           cmaAuthorized:data.cmaAuthorized,
           vessel:data.vessel,
@@ -220,7 +220,7 @@ function Index(props) {
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: data?.shippingLine?.vesselName,
           storagePlot:
-            data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         });
       }
     }
@@ -1094,7 +1094,12 @@ const qpa = (data,preview) => {
       <p className="text_sales">
         {' '}
         <b>{data.buyer}</b> , a company incorporated under the Companies Act,
-        1956, having its registered office at <b>{data.buyerAddress}</b> through
+        1956, having its registered office at <b> 
+          {data.buyerAddress?.fullAddress},
+              {data.buyerAddress?.city}{" "} 
+              {data.buyerAddress?.country},{" "}
+              
+              {data.buyerAddress?.pinCode}</b> through
         its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b>,
         which expression shall, where subject and content allow or admit, be
         deemed to include its successors, legal representatives and assigns) of

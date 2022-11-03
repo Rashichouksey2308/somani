@@ -129,12 +129,13 @@ export default {
   //supplier
   supplier: '/supplier',
   supplierDoc: '/supplier/supplier-document',
+  searchSupplier: '/supplier/search?searchTerm=',
+
   //preview
   preview: '/document/access/preview',
 
   //ALL MASTER URL's
-  masterBaseUrl:
-    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
+  masterBaseUrl:'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
   portsMaster: 'ports.json',
   commoditiesMaster: 'commodity.json',
