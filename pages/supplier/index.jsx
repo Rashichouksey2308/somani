@@ -1126,7 +1126,7 @@ function Index() {
                   className={`${styles.address_card} mt-3 pb-5 value background1`}
                 >
                   <div
-                    className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
+                    className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
                   >
                     <h3
                       className={`${styles.heading}`}
