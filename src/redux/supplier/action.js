@@ -295,24 +295,25 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
 };
 
 export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  dispatch(uploadSupplierDoc());
+  // dispatch(setIsLoading());
+  // dispatch(uploadSupplierDoc());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
-    Axios.post(`${API.corebaseUrl}${API.supplierDoc}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(uploadSupplierDocSuccess(response.data.data));
-        dispatch(setNotLoading());
-        const toastMessage = 'document uploaded successfully';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        // dispatch(uploadSupplierDocSuccess(response.data.data));
+        // dispatch(setNotLoading());
+        // const toastMessage = 'document uploaded successfully';
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+        // }
+        return response
       } else {
         dispatch(uploadSupplierDocFailed(response.data));
         // const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
