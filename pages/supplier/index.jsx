@@ -19,8 +19,6 @@ import _get from 'lodash/get';
 import Router from 'next/router';
 import moment from 'moment';
 
-
-
 function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
@@ -1100,6 +1098,7 @@ function Index() {
               >
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="d-flex justify-content-between">
+                 
                     {keyAddData?.map((address, index) => {
 
                       return (
@@ -1319,7 +1318,7 @@ function Index() {
                                 <strong className="text-danger">*</strong>
                               </label>
 
-                            </div>
+                         
                             <img
                               onClick={() => setKeyAddressData((prev) => {
                                 return { ...prev, email: [...prev.email, ''] }
@@ -1329,6 +1328,7 @@ function Index() {
                               alt="Search"
                             />
 
+                          </div>
                           </div>
                         ))}
                       </div>
@@ -1804,12 +1804,12 @@ function Index() {
               <div className={`${styles.dashboard_form} mr-3`}>
 
 
-                <div className="d-flex mt-4 pb-4 ml-4">
+                <div className="d-flex mt-4 pb-4 ml-4 position-relative">
                   <input
                     as="textarea"
                     rows={3}
                     placeholder=""
-                    className={`${styles.comment_field} mr-n5 form-control`}
+                    className={`${styles.comment_field} input form-control`}
                     onChange={onChangeHandler5}
                     name="businessSummary"
                     value={business}
@@ -1998,14 +1998,14 @@ function Index() {
                   </div>
                 </div> */}
 
-                <div className="d-flex mt-4 pb-4">
+                <div className="d-flex mt-4 pb-4 position-relative">
                   <input
                     as="textarea"
                     rows={3}
                     placeholder=""
                     name="remarks"
                     value={info}
-                    className={`${styles.comment_field} form-control`}
+                    className={`${styles.comment_field} input form-control`}
                     onChange={onChangeHandler7}
                   />
                   <label className={`${styles.label_textarea} label_heading text`}>
@@ -2021,9 +2021,12 @@ function Index() {
                     }}
                   />
                 </div>
+                <ol>
                 {infoArray?.length > 0 && infoArray?.map((val, index) => {
                   return <li>{val.comment}</li>
+                 
                 })}
+                 </ol>
               </div>
             </div>
           </div>
