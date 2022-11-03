@@ -113,13 +113,7 @@
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
   outline: none;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(55%, #3579f6),
-    color-stop(40%, #c3c3c31f)
-  );
+  background: -webkit-gradient(linear, left top, right top, color-stop(55%, #3579f6), color-stop(40%, #c3c3c31f));
   background: linear-gradient(90deg, #3579f6 55%, #c3c3c31f 40%);
   border: 1px solid #0000001f;
   border-radius: 4px;
@@ -140,11 +134,7 @@
   width: 100%;
 }
 
-.main
-  .input_container
-  .each_input
-  .slidecontainer
-  .slider::-webkit-slider-thumb {
+.main .input_container .each_input .slidecontainer .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 29px;
@@ -189,4 +179,5 @@
   -webkit-transform: translate(-61px, -31px);
   transform: translate(-61px, -31px);
 }
+
 /*# sourceMappingURL=index.module.css.map */

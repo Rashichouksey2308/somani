@@ -324,6 +324,7 @@
   border: 1px solid #0000001f !important;
   border-radius: 4px !important;
 }
+
 .paymet {
   div {
     input {
@@ -336,8 +337,10 @@
 
       margin-bottom: 0px !important;
     }
+
     // margin-bottom: 2rem !important;
   }
+
   span {
     font-size: 20px;
     font-weight: bold;
@@ -347,21 +350,26 @@
 
   .comment {
     margin-top: 1rem !important;
+
     input {
       width: 85%;
       margin-bottom: 0px !important;
     }
+
     div {
       width: 15%;
+
       img {
         margin-right: 1rem !important;
         margin-bottom: 0rem !important;
       }
     }
   }
+
   .button_container {
     margin-top: 4rem !important;
     margin-bottom: 4rem !important;
+
     .button {
       width: 310px;
       height: 48px;
@@ -374,14 +382,17 @@
       border: 3px solid #3687e8;
       border-radius: 5px;
     }
+
     .file_text {
       margin-left: 5rem;
       width: 25%;
+
       span {
         font-size: 15px;
         font-weight: bold;
         line-height: 24px;
         color: #8492a6;
+
         .danger {
           color: #ea3f3f;
         }

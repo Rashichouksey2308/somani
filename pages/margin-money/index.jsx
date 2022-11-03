@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import MarginMain from '../../src/components/MarginMain';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { useDispatch } from 'react-redux';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
+
 const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {

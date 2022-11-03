@@ -3,35 +3,40 @@ import Axios from 'axios';
 import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
-import router from 'next/router';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+
 function getDelivery() {
   return {
     type: types.GET_DELIVERY,
   };
 }
+
 function getDeliverySuccess(payload) {
   return {
     type: types.GET_DELIVERY_SUCCESS,
     payload,
   };
 }
+
 function getDeliveryFailed() {
   return {
     type: types.GET_DELIVERY_FAILED,
   };
 }
+
 function getAllDelivery() {
   return {
     type: types.GET_ALL_DELIVERY,
   };
 }
+
 function getAllDeliverySuccess(payload) {
   return {
     type: types.GET_ALL_DELIVERY_SUCCESS,
     payload,
   };
 }
+
 function getAllDeliveryFailed() {
   return {
     type: types.GET_ALL_DELIVERY_FAILED,
@@ -43,12 +48,14 @@ function updateDelivery() {
     type: types.UPDATE_DELIVERY,
   };
 }
+
 function updateDeliverySuccess(payload) {
   return {
     type: types.UPDATE_DELIVERY_SUCCESS,
     payload,
   };
 }
+
 function updateDeliveryFailed() {
   return {
     type: types.UPDATE_DELIVERY_FAILED,
@@ -57,12 +64,12 @@ function updateDeliveryFailed() {
 
 export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
-    Axios.get(`${API.corebaseUrl}${API.delivery}${payload ? payload : ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.delivery}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -70,7 +77,7 @@ export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(getAllDeliveryFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -80,7 +87,7 @@ export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getAllDeliveryFailed());
 
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
@@ -90,10 +97,10 @@ export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
 
 export const GetDelivery = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
     Axios.get(`${API.corebaseUrl}${API.delivery}${payload}`, {
@@ -104,7 +111,7 @@ export const GetDelivery = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(getDeliveryFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -114,7 +121,7 @@ export const GetDelivery = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getDeliveryFailed());
 
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
@@ -124,10 +131,10 @@ export const GetDelivery = (payload) => async (dispatch, getState, api) => {
 
 export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
     Axios.put(`${API.corebaseUrl}${API.delivery}`, payload.payload, {
@@ -135,7 +142,7 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateDeliverySuccess(response.data.data));
-        let id = sessionStorage.getItem('ROrderID');
+        const id = sessionStorage.getItem('ROrderID');
         dispatch(GetDelivery(`?deliveryId=${id}`));
 
         let toastMessage = 'SAVED SUCCESSFULLY';
@@ -148,7 +155,7 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(updateDeliveryFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -158,7 +165,7 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(updateDeliveryFailed());
 
-    let toastMessage = 'COULD NOT SUBMIT YOUR REQUEST';
+    const toastMessage = 'COULD NOT SUBMIT YOUR REQUEST';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
@@ -168,10 +175,10 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
 
 export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
     Axios.post(`${API.corebaseUrl}${API.delivery}`, payload, {
@@ -182,7 +189,7 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(getDeliveryFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -192,7 +199,7 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getDeliveryFailed());
 
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }

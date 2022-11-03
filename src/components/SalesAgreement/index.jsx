@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
+import { Form } from 'react-bootstrap';
 import Buyer from '../AggrementContent/buyer';
 import AssociateBuyer from '../AggrementContent/associateBuyer';
 import CHA from '../AggrementContent/cha';
@@ -19,15 +18,14 @@ import Stevedore from '../AggrementContent/stevedore';
 import Thirdparty from '../AggrementContent/thirdparty';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGenericData } from '../../redux/generic/actionsType';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { cssNumber } from 'jquery';
 import API from '../../../src/utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
-import { forEach } from 'lodash';
-import { getVendors,getBranches,getInternalCompanies,getPincodes } from '../../redux/masters/action';
+import { getInternalCompanies, getVendors } from '../../redux/masters/action';
+
 function Index(props) {
   const dispatch = useDispatch();
 
@@ -49,17 +47,16 @@ function Index(props) {
       props.setDate(localStorage.getItem('timeGenericUpdated'));
     }
   });
-       useEffect(() => {
-     dispatch(getVendors())
-    
-    dispatch(getInternalCompanies())
-   
+  useEffect(() => {
+    dispatch(getVendors());
+
+    dispatch(getInternalCompanies());
   }, []);
-   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
-   const { getBanksMasterData } = useSelector((state) => state.MastersData);
-    const { getBranchesMasterData } = useSelector((state) => state.MastersData);
+  const { getVendorsMasterData } = useSelector((state) => state.MastersData);
+  const { getBanksMasterData } = useSelector((state) => state.MastersData);
+  const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-    const changeActiveValue = (val, index) => {
+  const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
     setSaveData(false);
@@ -82,7 +79,7 @@ function Index(props) {
     setSidebar(tempArr);
     setIsSideBarOpen(false);
     setSideStateToLocal(val);
-   };
+  };
 
   // useEffect(() => {
   //   changeActiveValue(active)
@@ -104,14 +101,10 @@ function Index(props) {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.customClearanceDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
-     
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      });
+      console.log(response.data.data, 'dischargeOfCargo2');
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
@@ -507,10 +500,7 @@ function Index(props) {
           pan={_get(companyData, 'profile.companyDetail.pans[0]', '')}
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
-          address={
-            props?.genericData?.company?.detailedCompanyInfo?.profile
-              ?.companyDetail?.registeredAddress
-          }
+          address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
         />
       );
     }
@@ -608,9 +598,7 @@ function Index(props) {
           sendData={sendData}
           submitData={submitData}
           updateData={updateData}
-          data={
-            sameAsCHA ? props?.genericData?.stevedore : props?.genericData?.CHA
-          }
+          data={sameAsCHA ? props?.genericData?.stevedore : props?.genericData?.CHA}
           uploadDoc={uploadDoc}
           active={active}
           addressValidation={addressValidation}
@@ -754,21 +742,13 @@ function Index(props) {
       if (tempArr[i].name == active) {
         if (i != 0) {
           tempArr[i].state = 'default';
-          if (
-            tempArr[i].state != 'pending' &&
-            tempArr[i].state != 'complete' &&
-            tempArr[i].state != 'default'
-          ) {
+          if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
             tempArr[i].image = '/static/Group 3256.svg';
           }
           let a = i - 1;
          
           tempArr[a].state = 'current';
-          if (
-            tempArr[i].state != 'pending' &&
-            tempArr[i].state != 'complete' &&
-            tempArr[i].state != 'default'
-          ) {
+          if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
             tempArr[a].image = '/static/currnet.svg';
           }
           setActive(tempArr[a].name);
@@ -789,11 +769,7 @@ function Index(props) {
         if (tempArr[i].name == active) {
           if (i != tempArr.length) {
             tempArr[i].state = 'default';
-            if (
-              tempArr[i].state != 'pending' &&
-              tempArr[i].state != 'complete' &&
-              tempArr[i].state != 'default'
-            ) {
+            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
               tempArr[i].image = '/static/Group 3256.svg';
             }
           
@@ -801,11 +777,7 @@ function Index(props) {
            
 
             tempArr[a].state = 'current';
-            if (
-              tempArr[i].state != 'pending' &&
-              tempArr[i].state != 'complete' &&
-              tempArr[i].state != 'default'
-            ) {
+            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
               tempArr[a].image = '/static/currnet.svg';
             }
 
@@ -880,10 +852,7 @@ function Index(props) {
       };
       sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2));
 
-      if (
-        dataToSend.supplier.name == '' ||
-        dataToSend.supplier.name == undefined
-      ) {
+      if (dataToSend.supplier.name == '' || dataToSend.supplier.name == undefined) {
         toastMessage = `Please add supplier name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -891,10 +860,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.supplier.shortName == '' ||
-        dataToSend.supplier.shortName == undefined
-      ) {
+      if (dataToSend.supplier.shortName == '' || dataToSend.supplier.shortName == undefined) {
         toastMessage = `Please add short Name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -902,10 +868,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.supplier.bankDetails.accountNo == '' ||
-        dataToSend.supplier.bankDetails.accountNo == undefined
-      ) {
+      if (dataToSend.supplier.bankDetails.accountNo == '' || dataToSend.supplier.bankDetails.accountNo == undefined) {
         toastMessage = `Please add account number `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -913,10 +876,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.supplier.bankDetails.bankName == '' ||
-        dataToSend.supplier.bankDetails.bankName == undefined
-      ) {
+      if (dataToSend.supplier.bankDetails.bankName == '' || dataToSend.supplier.bankDetails.bankName == undefined) {
         toastMessage = `Please add bank name `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -924,10 +884,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.supplier.bankDetails.swiftCode == '' ||
-        dataToSend.supplier.bankDetails.swiftCode == undefined
-      ) {
+      if (dataToSend.supplier.bankDetails.swiftCode == '' || dataToSend.supplier.bankDetails.swiftCode == undefined) {
         toastMessage = `Please add swift code `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -935,10 +892,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.supplier.addresses.length <= 0 ||
-        dataToSend.supplier.addresses == undefined
-      ) {
+      if (dataToSend.supplier.addresses.length <= 0 || dataToSend.supplier.addresses == undefined) {
         toastMessage = `Please add address `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -959,12 +913,11 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.supplier.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.supplier.authorisedSignatoryDetails.length;
-          i++
-        ) {
-         
+        for (let i = 0; i < dataToSend.supplier.authorisedSignatoryDetails.length; i++) {
+          console.log(
+            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo,
+            'dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo',
+          );
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].name == undefined
@@ -980,10 +933,8 @@ function Index(props) {
             }
           }
           if (
-            dataToSend.supplier.authorisedSignatoryDetails[i].designation ==
-              '' ||
-            dataToSend.supplier.authorisedSignatoryDetails[i].designation ==
-              undefined
+            dataToSend.supplier.authorisedSignatoryDetails[i].designation == '' ||
+            dataToSend.supplier.authorisedSignatoryDetails[i].designation == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details designation of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1011,8 +962,7 @@ function Index(props) {
           }
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo == '' ||
-            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo ==
-              undefined
+            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details phone of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1025,10 +975,8 @@ function Index(props) {
             }
           }
           if (
-            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
-            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length >
-              10
+            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
+            dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1075,10 +1023,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.seller.shortName == '' ||
-        dataToSend.seller.shortName == undefined
-      ) {
+      if (dataToSend.seller.shortName == '' || dataToSend.seller.shortName == undefined) {
         toastMessage = `Please add short name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1087,10 +1032,7 @@ function Index(props) {
         }
       }
 
-      if (
-        dataToSend.seller.addresses.length <= 0 ||
-        dataToSend.seller.addresses == undefined
-      ) {
+      if (dataToSend.seller.addresses.length <= 0 || dataToSend.seller.addresses == undefined) {
         toastMessage = `Please add address `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1111,14 +1053,8 @@ function Index(props) {
       }
 
       if (dataToSend.seller.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.seller.authorisedSignatoryDetails.length;
-          i++
-        ) {
-          if (
-            dataToSend?.seller?.authorisedSignatoryDetails[i]?.document == 'new'
-          ) {
+        for (let i = 0; i < dataToSend.seller.authorisedSignatoryDetails.length; i++) {
+          if (dataToSend?.seller?.authorisedSignatoryDetails[i]?.document == 'new') {
             toastMessage = `Please add authorised Signatory Details document `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
@@ -1132,12 +1068,11 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.seller.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.seller.authorisedSignatoryDetails.length;
-          i++
-        ) {
-          
+        for (let i = 0; i < dataToSend.seller.authorisedSignatoryDetails.length; i++) {
+          console.log(
+            dataToSend.seller.authorisedSignatoryDetails[i].phoneNo,
+            'dataToSend.seller.authorisedSignatoryDetails[i].phoneNo',
+          );
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].name == undefined
@@ -1154,8 +1089,7 @@ function Index(props) {
           }
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].designation == '' ||
-            dataToSend.seller.authorisedSignatoryDetails[i].designation ==
-              undefined
+            dataToSend.seller.authorisedSignatoryDetails[i].designation == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details designation of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1196,8 +1130,7 @@ function Index(props) {
             }
           }
           if (
-            dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
+            dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
@@ -1222,8 +1155,8 @@ function Index(props) {
         buyer: {
           name: data.buyerData.name,
           branch: data.buyerData.branchName,
-          gstin:data.gstin,
-          pan:data.pan,
+          gstin: data.gstin,
+          pan: data.pan,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
@@ -1233,8 +1166,8 @@ function Index(props) {
       let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
-        gstin:data.gstin,
-          pan:data.pan,
+        gstin: data.gstin,
+        pan: data.pan,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
       };
@@ -1247,10 +1180,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.buyer.branch == '' ||
-        dataToSend.buyer.branch == undefined
-      ) {
+      if (dataToSend.buyer.branch == '' || dataToSend.buyer.branch == undefined) {
         toastMessage = `Please add branch Name`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1259,10 +1189,7 @@ function Index(props) {
         }
       }
 
-      if (
-        dataToSend.buyer.addresses.length <= 0 ||
-        dataToSend.buyer.addresses == undefined
-      ) {
+      if (dataToSend.buyer.addresses.length <= 0 || dataToSend.buyer.addresses == undefined) {
         toastMessage = `Please add address `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1283,12 +1210,11 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.buyer.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.buyer.authorisedSignatoryDetails.length;
-          i++
-        ) {
-         
+        for (let i = 0; i < dataToSend.buyer.authorisedSignatoryDetails.length; i++) {
+          console.log(
+            dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo,
+            'dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo',
+          );
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].name == undefined
@@ -1305,8 +1231,7 @@ function Index(props) {
           }
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].designation == '' ||
-            dataToSend.buyer.authorisedSignatoryDetails[i].designation ==
-              undefined
+            dataToSend.buyer.authorisedSignatoryDetails[i].designation == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details designation of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1347,8 +1272,7 @@ function Index(props) {
             }
           }
           if (
-            dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
+            dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
@@ -1382,10 +1306,7 @@ function Index(props) {
         branchName: data.financeData.branchName,
       };
       sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
-      if (
-        dataToSend.financingBank.name == '' ||
-        dataToSend.financingBank.name == undefined
-      ) {
+      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined) {
         toastMessage = `Please add name `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1393,10 +1314,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.financingBank.branch == '' ||
-        dataToSend.financingBank.branch == undefined
-      ) {
+      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined) {
         toastMessage = `Please add branch name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1438,10 +1356,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.CMA.shortName == '' ||
-        dataToSend.CMA.shortName == undefined
-      ) {
+      if (dataToSend.CMA.shortName == '' || dataToSend.CMA.shortName == undefined) {
         toastMessage = `Please add short name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1458,10 +1373,7 @@ function Index(props) {
         }
       }
 
-      if (
-        dataToSend.CMA.designatedStorageArea == '' ||
-        dataToSend.CMA.designatedStorageArea == undefined
-      ) {
+      if (dataToSend.CMA.designatedStorageArea == '' || dataToSend.CMA.designatedStorageArea == undefined) {
         toastMessage = `Please add designated Storage Area  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1469,10 +1381,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend?.CMA?.addresses?.length <= 0 ||
-        dataToSend?.CMA?.addresses == undefined
-      ) {
+      if (dataToSend?.CMA?.addresses?.length <= 0 || dataToSend?.CMA?.addresses == undefined) {
         toastMessage = `Please add address `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1493,12 +1402,11 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.CMA.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.CMA.authorisedSignatoryDetails.length;
-          i++
-        ) {
-         
+        for (let i = 0; i < dataToSend.CMA.authorisedSignatoryDetails.length; i++) {
+          console.log(
+            dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo,
+            'dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo',
+          );
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].name == undefined
@@ -1515,8 +1423,7 @@ function Index(props) {
           }
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].designation == '' ||
-            dataToSend.CMA.authorisedSignatoryDetails[i].designation ==
-              undefined
+            dataToSend.CMA.authorisedSignatoryDetails[i].designation == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details designation of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1606,10 +1513,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.CHA.shortName == '' ||
-        dataToSend.CHA.shortName == undefined
-      ) {
+      if (dataToSend.CHA.shortName == '' || dataToSend.CHA.shortName == undefined) {
         toastMessage = `Please add short name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1626,10 +1530,7 @@ function Index(props) {
         }
       }
 
-      if (
-        dataToSend.CHA.addresses.length <= 0 ||
-        dataToSend.CHA.addresses == undefined
-      ) {
+      if (dataToSend.CHA.addresses.length <= 0 || dataToSend.CHA.addresses == undefined) {
         toastMessage = `Please add address `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1650,12 +1551,11 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.CHA.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.CHA.authorisedSignatoryDetails.length;
-          i++
-        ) {
-         
+        for (let i = 0; i < dataToSend.CHA.authorisedSignatoryDetails.length; i++) {
+          console.log(
+            dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo,
+            'dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo',
+          );
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].name == undefined
@@ -1672,8 +1572,7 @@ function Index(props) {
           }
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].designation == '' ||
-            dataToSend.CHA.authorisedSignatoryDetails[i].designation ==
-              undefined
+            dataToSend.CHA.authorisedSignatoryDetails[i].designation == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details designation of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1755,11 +1654,8 @@ function Index(props) {
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-
-      if (
-        dataToSend.stevedore.name == '' ||
-        dataToSend.stevedore.name == undefined
-      ) {
+      console.log('Stevedore', dataToSend);
+      if (dataToSend.stevedore.name == '' || dataToSend.stevedore.name == undefined) {
         toastMessage = `Please add stevedore name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1767,10 +1663,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.stevedore.shortName == '' ||
-        dataToSend.stevedore.shortName == undefined
-      ) {
+      if (dataToSend.stevedore.shortName == '' || dataToSend.stevedore.shortName == undefined) {
         toastMessage = `Please add short name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1778,10 +1671,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend.stevedore.gstin == '' ||
-        dataToSend.stevedore.gstin == undefined
-      ) {
+      if (dataToSend.stevedore.gstin == '' || dataToSend.stevedore.gstin == undefined) {
         toastMessage = `Please add gstin `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1790,10 +1680,7 @@ function Index(props) {
         }
       }
 
-      if (
-        dataToSend.stevedore.addresses.length <= 0 ||
-        dataToSend.stevedore.addresses == undefined
-      ) {
+      if (dataToSend.stevedore.addresses.length <= 0 || dataToSend.stevedore.addresses == undefined) {
         toastMessage = `Please add address `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1814,12 +1701,11 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.stevedore.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.stevedore.authorisedSignatoryDetails.length;
-          i++
-        ) {
-      
+        for (let i = 0; i < dataToSend.stevedore.authorisedSignatoryDetails.length; i++) {
+          console.log(
+            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo,
+            'dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo',
+          );
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == undefined
@@ -1835,10 +1721,8 @@ function Index(props) {
             }
           }
           if (
-            dataToSend.stevedore.authorisedSignatoryDetails[i].designation ==
-              '' ||
-            dataToSend.stevedore.authorisedSignatoryDetails[i].designation ==
-              undefined
+            dataToSend.stevedore.authorisedSignatoryDetails[i].designation == '' ||
+            dataToSend.stevedore.authorisedSignatoryDetails[i].designation == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details designation of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1852,8 +1736,7 @@ function Index(props) {
           }
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].email == '' ||
-            dataToSend.stevedore.authorisedSignatoryDetails[i].email ==
-              undefined
+            dataToSend.stevedore.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1867,8 +1750,7 @@ function Index(props) {
           }
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo == '' ||
-            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo ==
-              undefined
+            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details phone of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1881,10 +1763,8 @@ function Index(props) {
             }
           }
           if (
-            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
-            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length >
-              10
+            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
+            dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1919,10 +1799,7 @@ function Index(props) {
         gstin: data.shippingData.gstin,
       };
       sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2));
-      if (
-        dataToSend.shippingLine.name == '' ||
-        dataToSend.shippingLine.name == undefined
-      ) {
+      if (dataToSend.shippingLine.name == '' || dataToSend.shippingLine.name == undefined) {
         toastMessage = `Please add shipping name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1951,10 +1828,7 @@ function Index(props) {
       };
 
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2));
-      if (
-        dataToSend?.deliveryTerms?.deliveryTerm == '' ||
-        dataToSend?.deliveryTerms?.deliveryTerm == undefined
-      ) {
+      if (dataToSend?.deliveryTerms?.deliveryTerm == '' || dataToSend?.deliveryTerms?.deliveryTerm == undefined) {
         toastMessage = `Please select delivery Terms  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1962,10 +1836,7 @@ function Index(props) {
           return;
         }
       }
-      if (
-        dataToSend?.deliveryTerms?.paymentTerms == '' ||
-        dataToSend?.deliveryTerms?.paymentTerms == undefined
-      ) {
+      if (dataToSend?.deliveryTerms?.paymentTerms == '' || dataToSend?.deliveryTerms?.paymentTerms == undefined) {
         toastMessage = `Please select payment Terms  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1997,10 +1868,7 @@ function Index(props) {
           isSubmitted: true,
         },
       };
-      sessionStorage.setItem(
-        'Product',
-        JSON.stringify({ list: data.addressList, excel: data?.excelData }),
-      );
+      sessionStorage.setItem('Product', JSON.stringify({ list: data.addressList, excel: data?.excelData }));
       // if (
       //   dataToSend.productSpecifications.comments.length <= 0 ||
       //   dataToSend.productSpecifications.comments == undefined
@@ -2120,10 +1988,7 @@ function Index(props) {
       //   }
       // }
 
-      if (
-        dataToSend.associateBuyer.gstin == '' ||
-        dataToSend.associateBuyer.gstin == undefined
-      ) {
+      if (dataToSend.associateBuyer.gstin == '' || dataToSend.associateBuyer.gstin == undefined) {
         toastMessage = `Please add gstin  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -2132,12 +1997,9 @@ function Index(props) {
         }
       }
 
-     
+      console.log(data.companyAddress.fullAddress, 'data.companyAddress.fullAddress');
       if (data.companyAddress.fullAddress == '') {
-        if (
-          dataToSend.associateBuyer.addresses.length <= 0 ||
-          dataToSend.associateBuyer.addresses == undefined
-        ) {
+        if (dataToSend.associateBuyer.addresses.length <= 0 || dataToSend.associateBuyer.addresses == undefined) {
           toastMessage = `Please add address `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -2160,21 +2022,15 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0) {
-        for (
-          let i = 0;
-          i < dataToSend.associateBuyer.authorisedSignatoryDetails.length;
-          i++
-        ) {
-          if (
-            dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew ==
-            'true'
-          ) {
-         
+        for (let i = 0; i < dataToSend.associateBuyer.authorisedSignatoryDetails.length; i++) {
+          if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true') {
+            console.log(
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,
+              'dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo',
+            );
             if (
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
-                '' ||
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
-                undefined
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == undefined
             ) {
               toastMessage = `Please add authorised Signatory Details name of ${i} `;
               if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2187,10 +2043,8 @@ function Index(props) {
               }
             }
             if (
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i]
-                .designation == '' ||
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i]
-                .designation == undefined
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation == '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation == undefined
             ) {
               toastMessage = `Please add authorised Signatory Details designation of ${i} `;
               if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2203,10 +2057,8 @@ function Index(props) {
               }
             }
             if (
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].email ==
-                '' ||
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].email ==
-                undefined
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].email == '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].email == undefined
             ) {
               toastMessage = `Please add authorised Signatory Details email of ${i} `;
               if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2219,10 +2071,8 @@ function Index(props) {
               }
             }
             if (
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo ==
-                '' ||
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo ==
-                undefined
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == undefined
             ) {
               toastMessage = `Please add authorised Signatory Details phone of ${i} `;
               if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2235,10 +2085,8 @@ function Index(props) {
               }
             }
             if (
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo
-                .length < 10 ||
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo
-                .length > 10
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo.length > 10
             ) {
               toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
               if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2258,19 +2106,9 @@ function Index(props) {
       }
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0) {
         let isDoc = true;
-        for (
-          let i = 0;
-          i < dataToSend.associateBuyer.authorisedSignatoryDetails.length;
-          i++
-        ) {
-          if (
-            dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew ==
-            'true'
-          ) {
-            if (
-              dataToSend.associateBuyer.authorisedSignatoryDetails[i]
-                .document == 'new'
-            ) {
+        for (let i = 0; i < dataToSend.associateBuyer.authorisedSignatoryDetails.length; i++) {
+          if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true') {
+            if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].document == 'new') {
               toastMessage = `Please add document `;
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
@@ -2542,8 +2380,8 @@ function Index(props) {
         buyer: {
           name: data.buyerData.name,
           branch: data.buyerData.branchName,
-          gstin:data.gstin,
-          pan:data.pan,
+          gstin: data.gstin,
+          pan: data.pan,
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
@@ -2552,8 +2390,8 @@ function Index(props) {
       let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
-        gstin:data.gstin,
-        pan:data.pan,
+        gstin: data.gstin,
+        pan: data.pan,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
       };
@@ -2695,10 +2533,7 @@ function Index(props) {
           isSubmitted: false,
         },
       };
-      sessionStorage.setItem(
-        'Product',
-        JSON.stringify({ list: data.addressList, excel: data?.excelData }),
-      );
+      sessionStorage.setItem('Product', JSON.stringify({ list: data.addressList, excel: data?.excelData }));
     }
     if (key == 'Additional Comments') {
       let list = [];
@@ -2809,11 +2644,7 @@ function Index(props) {
 
   return (
     <div className={`${styles.root}`}>
-      <div
-        className={`${styles.sidebar}  ${
-          isSideBarOpen ? null : styles.collapseWidth
-        } card card-body`}
-      >
+      <div className={`${styles.sidebar}  ${isSideBarOpen ? null : styles.collapseWidth} card card-body`}>
         {sideBar.map((row, index) => {
           return (
             <>
@@ -2843,11 +2674,7 @@ function Index(props) {
         })}
       </div>
 
-      <div
-        className={`${styles.content} ${
-          isSideBarOpen ? null : styles.fullScreen
-        } card p-0 card-body`}
-      >
+      <div className={`${styles.content} ${isSideBarOpen ? null : styles.fullScreen} card p-0 card-body`}>
         <div
           className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
           data-toggle="collapse"
@@ -2871,17 +2698,11 @@ function Index(props) {
                 />
               </a>
             ) : null}
-            {active == 'Additional Comments'
-              ? 'Additional Comments for Reference'
-              : active}
+            {active == 'Additional Comments' ? 'Additional Comments for Reference' : active}
           </h2>
-          <div
-            className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
-          >
+          <div className={`${styles.pageList}  d-flex justify-content-end align-items-center`}>
             {active == 'Supplier' ? (
-              <div
-                className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
-              >
+              <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
                 <span className={`mr-4 label`}>Multiple Parties Involved</span>
                 <div className={`d-flex mr-4 align-items-center`}>
                   <div className={`form-check  mr-4`}>
@@ -2895,10 +2716,7 @@ function Index(props) {
                       }}
                       checked={multiPart == true ? true : false}
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexRadioDefault1"
-                    >
+                    <label className="form-check-label" htmlFor="flexRadioDefault1">
                       Yes
                     </label>
                   </div>
@@ -2913,10 +2731,7 @@ function Index(props) {
                         setMultiPart(false);
                       }}
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexRadioDefault2"
-                    >
+                    <label className="form-check-label" htmlFor="flexRadioDefault2">
                       No
                     </label>
                   </div>
@@ -2924,11 +2739,9 @@ function Index(props) {
                 <Form.Group className={`${styles.form_group} `}>
                   <div className="d-flex">
                     <select
-                      className={` ${
-                        multiPart == true
-                          ? styles.input_field
-                          : styles.inputDisabled
-                      }  ${styles.customSelect} input  form-control`}
+                      className={` ${multiPart == true ? styles.input_field : styles.inputDisabled}  ${
+                        styles.customSelect
+                      } input  form-control`}
                       name="countryOfOrigin"
                       onChange={(e) => {
                         setMultiPartValue(e.target.value);
@@ -2950,9 +2763,7 @@ function Index(props) {
               </div>
             ) : null}
             {active == 'Stevedore' ? (
-              <div
-                className={`${styles.switchContainer} d-flex align-items-center`}
-              >
+              <div className={`${styles.switchContainer} d-flex align-items-center`}>
                 <span className="label">Same as CHA</span>
                 <span className={` ${styles.yes} text-color`}>Yes</span>
                 <label className={styles.switch}>
@@ -2976,11 +2787,7 @@ function Index(props) {
               }}
             >
               {' '}
-              <img
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow right"
-                className="image_arrow"
-              />
+              <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="image_arrow" />
             </a>
             <a
               href="#"

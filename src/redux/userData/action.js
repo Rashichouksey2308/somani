@@ -1,8 +1,4 @@
 import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
 
 function changeTheme() {
   return {
@@ -37,31 +33,35 @@ function dynamicPage(value = null) {
     value,
   };
 }
+
 function dynamicOrder(value = null) {
   return {
     type: types.DYNAMIC_ORDER,
     value,
   };
 }
+
 function changeCurrency(value = null) {
   return {
     type: types.CHANGE_CURRENCY,
     value,
   };
 }
+
 function fetchingreleaseDetail(payload) {
   return {
     type: types.RELEASE_DETAIL,
     payload,
   };
 }
+
 export const ChangeCurrency = (payload) => async (dispatch, getState, api) => {
   dispatch(changeCurrency(payload));
   sessionStorage.setItem('unitOfValue', payload);
 };
 export const ChangeTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme());
-  let isDark = localStorage.getItem('darkMode');
+  const isDark = localStorage.getItem('darkMode');
   if (isDark == 'true' || isDark == true) {
     document.body.classList.remove('dark-mode');
     document.body.classList.add('light-mode');
@@ -78,7 +78,7 @@ export const ChangeTheme = () => async (dispatch, getState, api) => {
 
 export const setTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme());
-  let isDark = localStorage.getItem('darkMode');
+  const isDark = localStorage.getItem('darkMode');
 
   if (isDark == 'true' || isDark == true) {
     document.body.classList.add('dark-mode');

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-//Dev
+// Dev
 //  export default {
 //    authServerUrl:
 //    'http://ac201fa5ca83c425eadfafefbc540d04-1369552433.ap-south-1.elb.amazonaws.com:3001/node',
@@ -19,7 +19,7 @@
 //     'http://a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003/node',
 // }
 
-//Https
+// Https
 
 export default {
   baseUrl: 'https://api-dev.simport.global',
@@ -28,7 +28,7 @@ export default {
   coreServerUrl: 'https://api-dev.simport.global/core',
 };
 
-//local
+// local
 
 // export default {
 //   authServerUrl: 'http://localhost:3001/node',

@@ -1,24 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './billofentry.module.scss';
 import BillOfEntry from '../../src/components/BillOfEntry';
 import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo';
 import Warehouse from '../../src/components/BillOfEntry/Warehouse';
-import { useDispatch } from 'react-redux';
-import {
-  GetAllCustomClearance,
-  UploadCustomDoc,
-} from '../../src/redux/CustomClearance&Warehousing/action';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action';
 import _get from 'lodash/get';
 import API from '../../src/utils/endpoints';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
 function Index() {
@@ -42,11 +38,9 @@ function Index() {
   let OrderId = _get(customData, 'order._id', {});
   let CompanyOrderId = _get(customData, 'order', {});
   const uploadDoc = async (e) => {
-  
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
-
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -58,13 +52,9 @@ function Index() {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.customClearanceDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      });
 
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
@@ -104,9 +94,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -120,18 +108,14 @@ function Index() {
               // style={{ textTransform: 'capitalize' }}
               >
                 {customData?.company?.companyName} -{' '}
-                <span style={{ textTransform: 'capitalize' }}>
-                  {CompanyOrderId?.orderId}
-                </span>
+                <span style={{ textTransform: 'capitalize' }}>{CompanyOrderId?.orderId}</span>
               </span>
             </h3>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link ${
-                  componentId === 1 && 'active'
-                }`}
+                className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
                 // data-toggle="tab"
                 // href="#billEntry"
                 // role="tab"
@@ -152,9 +136,7 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${
-                  componentId === 2 && 'active'
-                } `}
+                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
                 role="button"
                 // data-toggle="tab"
                 // id="#dischargeCargo"
@@ -175,9 +157,7 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${
-                  componentId === 3 && 'active'
-                }`}
+                className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'}`}
                 role="button"
                 // data-toggle="tab"
                 // href="#warehouse"
@@ -258,4 +238,5 @@ function Index() {
     </>
   );
 }
+
 export default Index;

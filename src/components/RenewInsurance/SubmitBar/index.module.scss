@@ -1,4 +1,5 @@
 @import '../../styles/Core/config';
+
 .root {
   left: 0;
   right: 0;
@@ -30,6 +31,7 @@
     bottom: 55px;
     height: auto;
   }
+
   .reject {
     cursor: pointer;
     width: 260px;
@@ -46,6 +48,7 @@
       font-size: 12px;
     }
   }
+
   .approve {
     cursor: pointer;
     width: 260px;

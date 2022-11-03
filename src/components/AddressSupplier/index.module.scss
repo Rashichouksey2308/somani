@@ -1,6 +1,5 @@
 @import '../styles/Core/config';
 
-
 .sub_heading {
   font-size: 20px;
   line-height: 25px;
@@ -17,6 +16,7 @@
     font-size: 12px;
   }
 }
+
 .add_btn {
   border-style: none;
   border-radius: 5px;
@@ -38,9 +38,11 @@
     max-width: 150px;
   }
 }
+
 .tooltip {
   position: absolute;
   display: inline-block;
+
   .info_circle {
     margin-left: 295px;
     margin-top: -145px;
@@ -64,6 +66,7 @@
       //margin-right: 50px;
     }
   }
+
   .tooltiptext {
     font-size: 13px !important;
     color: #000000;
@@ -95,6 +98,7 @@
       border-color: #d2d7e5 transparent transparent transparent;
     }
   }
+
   &:hover {
     .tooltiptext {
       visibility: visible;
@@ -102,6 +106,7 @@
     }
   }
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;

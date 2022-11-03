@@ -80,7 +80,8 @@ export function authenticateUser(payload) {
     payload,
   };
 }
-//****** Verify Token   ********//
+
+//* ***** Verify Token   ********//
 
 export function validatingToken() {
   return {
@@ -102,7 +103,7 @@ export function validatingTokenFailed(payload) {
   };
 }
 
-//****** Generate Token   ********//
+//* ***** Generate Token   ********//
 
 export function generatingToken() {
   return { type: types.GENERATE_TOKEN };
@@ -121,7 +122,7 @@ export function generatingTokenFailed(payload) {
   };
 }
 
-//****** logging out user  ********//
+//* ***** logging out user  ********//
 
 // export function loggingoutUserSuccess() {
 //   return {
@@ -141,7 +142,7 @@ function loggingoutUser() {
   };
 }
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
 export function resetPassword() {
   return { type: types.RESET_PASSWORD };
@@ -178,7 +179,7 @@ export function handlePageLoading(payload) {
   };
 }
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
 export function forgotpassword() {
   return { type: types.FORGOT_PASSWORD };
@@ -204,7 +205,7 @@ export function forgotPasswordFailed() {
   return { type: types.FORGOT_PASSWORD_FAILED };
 }
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
 export function otpverification() {
   return { type: types.OTP_VARIFICATION };
@@ -228,7 +229,7 @@ export function otpverificationFailed() {
   return { type: types.OTP_VARIFICATION_FAILED };
 }
 
-//****** SET NEW PASSWORD   ********//
+//* ***** SET NEW PASSWORD   ********//
 
 export function setnewPassword() {
   return { type: types.SET_NEW_PASSWORD };
@@ -259,14 +260,14 @@ export function setnewPasswordFailed() {
   return { type: types.SET_NEW_PASSWORD_FAILED };
 }
 
-//****** LOGIN  ********//
+//* ***** LOGIN  ********//
 
 export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser());
   try {
-    let headers = { authorization: '', Cache: 'no-cache' };
+    const headers = { authorization: '', Cache: 'no-cache' };
     // let response = await api.post(API.login, payload);
-    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
+    const response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
       headers: headers,
     });
 
@@ -281,7 +282,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     } else {
       dispatch(loggingUserFailed(response.data));
       // Cookies.remove('token')
-      let toastMessage = 'Please check your credentials and Try Again!';
+      const toastMessage = 'Please check your credentials and Try Again!';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -295,14 +296,9 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
 export const fetchUserPermissions = () => async (dispatch, getState, api) => {
   dispatch(fetchingUserPermissions());
   try {
-    let response = await api.get(API.getUserPermissions);
+    const response = await api.get(API.getUserPermissions);
     if (response.data.code === 200) {
-      dispatch(
-        fetchingUserPermissionsSuccess(
-          response.data.data.pageGroups,
-          response.data.data,
-        ),
-      );
+      dispatch(fetchingUserPermissionsSuccess(response.data.data.pageGroups, response.data.data));
     } else {
       dispatch(fetchingUserPermissionsFailed(response.data));
     }
@@ -311,35 +307,32 @@ export const fetchUserPermissions = () => async (dispatch, getState, api) => {
   }
 };
 
-export const fetchCurrentUserProfile =
-  () => async (dispatch, getState, api) => {
-    dispatch(fetchingCurrentUserProfile());
-    try {
-      let response = await api.get(API.getUserProfile);
-      if (response.data.code === 200) {
-        dispatch(fetchingCurrentUserProfileSuccess(response.data.data));
-      } else {
-        dispatch(fetchingCurrentUserProfileFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(fetchingCurrentUserProfileFailed(errorMessage));
+export const fetchCurrentUserProfile = () => async (dispatch, getState, api) => {
+  dispatch(fetchingCurrentUserProfile());
+  try {
+    const response = await api.get(API.getUserProfile);
+    if (response.data.code === 200) {
+      dispatch(fetchingCurrentUserProfileSuccess(response.data.data));
+    } else {
+      dispatch(fetchingCurrentUserProfileFailed(response.data));
     }
-  };
-
-
+  } catch (error) {
+    dispatch(fetchingCurrentUserProfileFailed(errorMessage));
+  }
+};
 
 export const validateToken = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
+    const response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: headers,
     });
     if (response.data.code === 200) {
@@ -351,7 +344,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
       }
       dispatch(validatingTokenFailed(response.data.data));
 
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -359,29 +352,29 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(validatingTokenFailed());
     dispatch(generateToken());
-    let toastMessage = 'cound not Process YOur Request ';
+    const toastMessage = 'cound not Process YOur Request ';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
   }
 };
 
-//****** Generate Token  ********//
+//* ***** Generate Token  ********//
 
 export const generateToken = () => async (dispatch, getState, api) => {
   try {
-    let cookie = await Cookies.get('SOMANI');
+    const cookie = await Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken] = decodedString.split('#');
+    const [userId, refreshToken] = decodedString.split('#');
 
-    let response = await api.post(API.generateNewToken, {
+    const response = await api.post(API.generateNewToken, {
       refreshToken: existingRefreshToken,
       userId: guid,
     });
 
     if (response.data.code === 200) {
-      let {
+      const {
         data: { data: jwtAccessToken },
       } = response;
       await Cookies.remove('SOMANI');
@@ -401,15 +394,15 @@ export const generateToken = () => async (dispatch, getState, api) => {
   }
 };
 
-//****** Logout User   ********//
+//* ***** Logout User   ********//
 
 export const logoutUser = () => async (dispatch, getState, api) => {
   // let  cookie =  Cookies.get('SOMANI')
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
 
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   try {
     Axios.get(`${API.authbaseUrl}${API.logout}`, {
       headers: {
@@ -428,18 +421,18 @@ export const logoutUser = () => async (dispatch, getState, api) => {
   }
 };
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
 export function resetpassword(state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       prevPassword: state.recent_password,
       password: state.new_password,
       cPassword: state.confirm_password,
     };
     dispatch(resetPassword());
     try {
-      let response = await api.post(API.changePassword, payload);
+      const response = await api.post(API.changePassword, payload);
       if (response.data.code === 200) {
         dispatch(resetPasswordSuccess(response.data));
       } else {
@@ -451,16 +444,16 @@ export function resetpassword(state) {
   };
 }
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
 export function forgotPassword(state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       username: state.mobileNo,
     };
     dispatch(forgotpassword());
     try {
-      let response = await api.post(API.forgotPassword, payload);
+      const response = await api.post(API.forgotPassword, payload);
       if (response.data.code === 200) {
         dispatch(forgotPasswordSuccess(response.data.data));
       } else {
@@ -472,17 +465,17 @@ export function forgotPassword(state) {
   };
 }
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
 export function optVerification(state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       otp: state.otp_number,
       userid: getState().Auth.userId,
     };
     dispatch(otpverification());
     try {
-      let response = await api.post(API.varifyOTP, payload);
+      const response = await api.post(API.varifyOTP, payload);
       if (response.data.code === 200) {
         await Cookies.set('token', response.data.jwtAccessToken);
         dispatch(otpverificationSuccess(response.data));
@@ -495,19 +488,19 @@ export function optVerification(state) {
   };
 }
 
-//****** SET NEW PASSWORD   ********//
+//* ***** SET NEW PASSWORD   ********//
 
 export function setNewPassword(state) {
   return async (dispatch, getState, api) => {
-    let authorization = Cookies.get('token');
-    let headers = { Authorization: authorization, Cache: 'no-cache' };
-    let payload = {
+    const authorization = Cookies.get('token');
+    const headers = { Authorization: authorization, Cache: 'no-cache' };
+    const payload = {
       password: state.newPassword,
       confirmPassword: state.confirmPassword,
     };
     dispatch(setnewPassword());
     try {
-      let response = await api.post(API.setNewPassword, payload, {
+      const response = await api.post(API.setNewPassword, payload, {
         headers: headers,
       });
       if (response.data.code === 200) {

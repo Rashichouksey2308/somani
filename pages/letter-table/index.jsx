@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import LetterCredit from '../../src/components/LetterCredit';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { useDispatch } from 'react-redux';
+
 const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {

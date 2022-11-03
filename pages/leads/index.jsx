@@ -5,22 +5,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  GetAllBuyer,
-  GetBuyer,
-  GetOrders,
-} from '../../src/redux/registerBuyer/action';
+import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
+
 // import { getPincodes } from '../../src/redux/masters/action';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
-
-
 
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
@@ -42,7 +37,6 @@ function Index() {
   }, []);
 
   const handleRoute = (buyer) => {
-
     sessionStorage.setItem('orderId', buyer._id);
     sessionStorage.setItem('companyID', buyer.company._id);
     dispatch(GetOrders(`?company=${buyer.company._id}`));
@@ -86,14 +80,8 @@ function Index() {
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
               <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
+                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
                   value={serachterm}
@@ -107,11 +95,7 @@ function Index() {
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
                     ))}
@@ -141,19 +125,11 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <div
-            className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}
-          >
-            <div
-              className={`${styles.all} ${styles.boxInner} all border_color`}
-            >
+          <div className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}>
+            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
-                  <img
-                    src="/static/leads-icon.svg"
-                    className="img-fluid"
-                    alt="All Leads"
-                  />
+                  <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
                 </div>
                 <h3>
                   <span> All </span>
@@ -161,16 +137,10 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div
-              className={`${styles.approved} ${styles.boxInner} approved border_color`}
-            >
+            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
-                  <img
-                    src="/static/check.svg"
-                    className="img-fluid"
-                    alt="Check"
-                  />
+                  <img src="/static/check.svg" className="img-fluid" alt="Check" />
                 </div>
                 <h3>
                   <span>APPROVED</span>
@@ -178,16 +148,10 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div
-              className={`${styles.review} ${styles.boxInner} review border_color`}
-            >
+            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
-                  <img
-                    src="/static/access-time.svg"
-                    className="img-fluid"
-                    alt="Access Time"
-                  />
+                  <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
                 </div>
                 <h3>
                   <span>REVIEW</span>
@@ -195,16 +159,10 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div
-              className={`${styles.rejected} ${styles.boxInner} rejected border_color`}
-            >
+            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
-                  <img
-                    src="/static/close-b.svg"
-                    className="img-fluid"
-                    alt="Close"
-                  />
+                  <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
                 </div>
                 <h3>
                   <span>REJECTED</span>
@@ -212,16 +170,10 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div
-              className={`${styles.saved} ${styles.boxInner} saved border_color`}
-            >
+            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
-                  <img
-                    src="/static/bookmark.svg"
-                    className="img-fluid"
-                    alt="Bookmark"
-                  />
+                  <img src="/static/bookmark.svg" className="img-fluid" alt="Bookmark" />
                 </div>
                 <h3>
                   <span>SAVED</span>
@@ -232,16 +184,11 @@ function Index() {
           </div>
           {/*leads table*/}
           <div className={`${styles.datatable} border datatable card`}>
-            <div
-              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-            >
+            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
               <h3 className="heading_card">Leads</h3>
-              <div
-                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-              >
+              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(allBuyerList?.data?.totalCount / 10)}
+                  Showing Page {currentPage + 1} out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -255,49 +202,29 @@ function Index() {
                   className={`${styles.arrow} ${styles.leftArrow} arrow`}
                 >
                   {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
                 <a
                   onClick={() => {
-                    if (
-                      currentPage + 1 <
-                      Math.ceil(allBuyerList?.data?.totalCount / 10)
-                    ) {
+                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr className="table_row">
                       <th>
                         CUSTOMER ID{' '}
-                        <img
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                          onClick={() => handleSort()}
-                        />
+                        <img className={`mb-1`} src="/static/icons8-sort-24.svg" onClick={() => handleSort()} />
                       </th>
                       <th>BUYER NAME</th>
                       <th>CREATED BY</th>
@@ -309,10 +236,7 @@ function Index() {
                   <tbody>
                     {allBuyerList &&
                       allBuyerList.data?.data?.map((buyer, index) => (
-                        <tr
-                          key={index}
-                          className={`${styles.table_row} table_row`}
-                        >
+                        <tr key={index} className={`${styles.table_row} table_row`}>
                           <td>
                             {buyer?.company?.customerId
                               ? buyer?.company?.customerId
@@ -321,17 +245,12 @@ function Index() {
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
-                             
                               handleRoute(buyer);
                             }}
                           >
                             {buyer.company.companyName}
                           </td>
-                          <td>
-                            {buyer.createdBy.userRole
-                              ? buyer.createdBy.userRole
-                              : 'RM'}
-                          </td>
+                          <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
                           <td>{buyer.createdBy.fName}</td>
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>

@@ -1,34 +1,24 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col, Modal } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action';
-import { useSelector } from 'react-redux';
 import _get from 'lodash/get';
-import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper';
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import { toast } from 'react-toastify';
 import { checkNan } from '../../utils/helper';
-import { ViewDocument,previewDocument } from '../../redux/ViewDoc/action';
+import { previewDocument } from '../../redux/ViewDoc/action';
 // import { set } from 'lodash'
-import {
-  GetAllCustomClearance,
-  UploadCustomDoc,
-} from '../../redux/CustomClearance&Warehousing/action';
-export default function Index({
-  customData,
-  OrderId,
-  uploadDoc,
-  setComponentId,
-  componentId,
-}) {
-  const isShipmentTypeBULK =
-    _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
+import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
+
+export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
+  const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
 
   const dispatch = useDispatch();
 
@@ -82,7 +72,7 @@ export default function Index({
     },
   ]);
 
-  console.log(dutyData,'billOfEntryFor')
+  console.log(dutyData, 'billOfEntryFor');
 
   const totalCustomDuty = (index) => {
     let number = 0;
@@ -107,13 +97,13 @@ export default function Index({
 
   const getDoc = (payload) => {
     console.log(payload, 'payload');
-    console.log(customData,"customData")
-    
+    console.log(customData, 'customData');
+
     dispatch(
       previewDocument({
         path: payload,
         order: _get(customData, 'order._id', ''),
-        company: _get(customData, 'company._id', '')
+        company: _get(customData, 'company._id', ''),
 
         // orderId: documentsFetched._id,
       }),
@@ -141,9 +131,7 @@ export default function Index({
 
     const namesplit = name.split('.');
 
-    namesplit.length > 1
-      ? (newInput[index][namesplit[0]][namesplit[1]] = value)
-      : (newInput[index][name] = value);
+    namesplit.length > 1 ? (newInput[index][namesplit[0]][namesplit[1]] = value) : (newInput[index][name] = value);
 
     let conversion = 0;
 
@@ -212,9 +200,9 @@ export default function Index({
   const handleDeleteRow = (index2, index) => {
     const newInput = [...dutyData];
     let a = newInput[index];
-    console.log(a,"sssssss",index2)
-    a.splice(index2 , 1);
-    console.log(a,"232323")
+    console.log(a, 'sssssss', index2);
+    a.splice(index2, 1);
+    console.log(a, '232323');
     setDutyData([...newInput]);
   };
 
@@ -233,7 +221,7 @@ export default function Index({
       action: false,
       value: false,
     });
-    console.log(newInput,"newInput")
+    console.log(newInput, 'newInput');
     setDutyData([...newInput]);
   };
 
@@ -247,10 +235,7 @@ export default function Index({
         }
         isOk = false;
         break;
-      } else if (
-        billOfEntryData[i].boeDate === null ||
-        billOfEntryData[i].boeDate === ''
-      ) {
+      } else if (billOfEntryData[i].boeDate === null || billOfEntryData[i].boeDate === '') {
         let toastMessage = 'BOE DATE CANNOT BE EMPTY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -306,21 +291,15 @@ export default function Index({
         }
         isOk = false;
         break;
-      } else if (
-        billOfEntryData[i].boeDetails.invoiceQuantity >
-        customData?.order?.quantity
-      ) {
-        let toastMessage =
-          'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY';
+      } else if (billOfEntryData[i].boeDetails.invoiceQuantity > customData?.order?.quantity) {
+        let toastMessage = 'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         isOk = false;
         break;
       } else if (billOfEntryData[i].document1 === null) {
-        let toastMessage = `please upload Boe ${
-          billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
-        }`;
+        let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'}`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -349,15 +328,9 @@ export default function Index({
     if (isOk) {
       let tempData = [...billOfEntryData];
       for (let i = 0; i < tempData.length; i++) {
-        tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
-          billOfEntryData[i]?.boeDetails?.conversionRate,
-        );
-        tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
-          billOfEntryData[i]?.boeDetails?.invoiceQuantity,
-        );
-        tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
-          billOfEntryData[i]?.boeDetails?.invoiceValue,
-        );
+        tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.conversionRate);
+        tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceQuantity);
+        tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceValue);
         tempData[i].duty = dutyData[i];
       }
 
@@ -379,15 +352,9 @@ export default function Index({
   const handleSave = async () => {
     let tempData = [...billOfEntryData];
     for (let i = 0; i < tempData.length; i++) {
-      tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
-        billOfEntryData[i]?.boeDetails?.conversionRate,
-      );
-      tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
-        billOfEntryData[i]?.boeDetails?.invoiceQuantity,
-      );
-      tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
-        billOfEntryData[i]?.boeDetails?.invoiceValue,
-      );
+      tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.conversionRate);
+      tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceQuantity);
+      tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceValue);
       tempData[i].duty = dutyData[i];
     }
     const billOfEntry = { billOfEntry: tempData };
@@ -420,7 +387,7 @@ export default function Index({
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
-      console.log('billOfEntryFor' , ' is this running?');
+      console.log('billOfEntryFor', ' is this running?');
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}]);
       let tempArray = [];
       let duty11 = [];
@@ -429,7 +396,9 @@ export default function Index({
         tempArray.push({
           boeAssessment: val?.boeAssessment,
           pdBond: val?.pdBond || false,
-          billOfEntryFor: val?.billOfEntryFor ? val?.billOfEntryFor  : customData.order.termsheet.transactionDetails.billOfEntity ,
+          billOfEntryFor: val?.billOfEntryFor
+            ? val?.billOfEntryFor
+            : customData.order.termsheet.transactionDetails.billOfEntity,
           boeNumber: val?.boeNumber,
           boeDate: val?.boeDate,
 
@@ -472,8 +441,7 @@ export default function Index({
       {
         boeAssessment: '',
         pdBond: false,
-        billOfEntryFor:
-          customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
+        billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
         boeNumber: '',
         boeDate: '',
 
@@ -518,10 +486,7 @@ export default function Index({
   };
 
   const deleteNewRow = (index) => {
-    setBillOfEntryData([
-      ...billOfEntryData.slice(0, index),
-      ...billOfEntryData.slice(index + 1),
-    ]);
+    setBillOfEntryData([...billOfEntryData.slice(0, index), ...billOfEntryData.slice(index + 1)]);
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)]);
   };
 
@@ -532,9 +497,7 @@ export default function Index({
           <div className={`${styles.wrapper} border_color p-2 card`}>
             <div className="d-lg-flex align-items-center d-inline-block  pl-4">
               <h2 className="mb-0">Shipment Type</h2>
-              <div
-                className={`${styles.radio_form} ml-lg-5 ml-n4 d-flex align-items-center`}
-              >
+              <div className={`${styles.radio_form} ml-lg-5 ml-n4 d-flex align-items-center`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
                     <Form.Check
@@ -567,9 +530,7 @@ export default function Index({
             billOfEntryData?.map((val, index) => {
               return (
                 <>
-                  <div
-                    className={`${styles.main} vessel_card card border_color`}
-                  >
+                  <div className={`${styles.main} vessel_card card border_color`}>
                     <div
                       className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                     >
@@ -591,13 +552,7 @@ export default function Index({
                               onClick={() => deleteNewRow(index)}
                               className={`${styles.add_btn} border-danger text-danger`}
                             >
-                              <img
-                                src="/static/delete.svg"
-                                className="ml-1 mt-n1"
-                                width={13}
-                                alt="delete"
-                              />{' '}
-                              Delete
+                              <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
                             </button>
                           ) : null
                           // <button className={styles.add_btn}
@@ -614,29 +569,18 @@ export default function Index({
                     </div>
                     <div className={`${styles.dashboard_form} card-body`}>
                       <div className="row">
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.radio_form} p-0 mt-n3`}>
-                            <div className={`${styles.label} text`}>
-                              BOE Assessment
-                            </div>
+                            <div className={`${styles.label} text`}>BOE Assessment</div>
                             {['radio'].map((type) => (
-                              <div
-                                key={`inline-${type}`}
-                                className={styles.radio_group}
-                              >
+                              <div key={`inline-${type}`} className={styles.radio_group}>
                                 <Form.Check
                                   className={styles.radio}
                                   inline
                                   label="Provisional"
                                   checked={val.boeAssessment === 'Provisional'}
                                   onChange={() => {
-                                    saveBillOfEntryData(
-                                      'boeAssessment',
-                                      'Provisional',
-                                      index,
-                                    );
+                                    saveBillOfEntryData('boeAssessment', 'Provisional', index);
                                   }}
                                   // name="group1"
                                   type={type}
@@ -648,11 +592,7 @@ export default function Index({
                                   label="Final"
                                   checked={val.boeAssessment === 'Final'}
                                   onChange={() => {
-                                    saveBillOfEntryData(
-                                      'boeAssessment',
-                                      'Final',
-                                      index,
-                                    );
+                                    saveBillOfEntryData('boeAssessment', 'Final', index);
                                   }}
                                   // name="group1"
                                   type={type}
@@ -662,66 +602,38 @@ export default function Index({
                             ))}
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6  mt-4`}
-                        >
+                        <div className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6  mt-4`}>
                           <div className={`${styles.label} text`}>PD Bond</div>
-                          <div
-                            className={`${styles.theme} d-flex align-items-center`}
-                          >
-                            <div
-                              className={`${styles.toggle_label} form-check-label mr-3`}
-                            >
-                              No
-                            </div>
+                          <div className={`${styles.theme} d-flex align-items-center`}>
+                            <div className={`${styles.toggle_label} form-check-label mr-3`}>No</div>
                             <label className={`${styles.switch} mb-0`}>
                               <input
                                 onChange={(e) => handlePfCheckBox(e, index)}
                                 type="checkbox"
                                 checked={val.pdBond ? 'checked' : ''}
                               />
-                              <span
-                                className={`${styles.slider} ${styles.round}`}
-                              ></span>
+                              <span className={`${styles.slider} ${styles.round}`}></span>
                             </label>
-                            <div
-                              className={`${styles.toggle_label} form-check-label ml-3`}
-                            >
-                              Yes
-                            </div>
+                            <div className={`${styles.toggle_label} form-check-label ml-3`}>Yes</div>
                           </div>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <select
                               name="billOfEntryFor"
-                              onChange={(e) =>
-                                saveBillOfEntryData(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
+                              onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                               value={val?.billOfEntryFor}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option disabled selected>
                                 Select an option
                               </option>
-                              <option value="Home Consumption">
-                                Home Consumption
-                              </option>
+                              <option value="Home Consumption">Home Consumption</option>
                               <option value="Into-Bond">Into-Bond</option>
-                              <option value="EX-Bond">EX-Bond </option>
+                              <option value="EX-Bond">EX-Bond</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Bill of Entry for
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>Bill of Entry for</label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -729,9 +641,7 @@ export default function Index({
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="number"
@@ -739,27 +649,14 @@ export default function Index({
                             name="boeNumber"
                             required
                             value={val?.boeNumber}
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveBillOfEntryData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             BOE Number<strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <DateCalender
                               defaultDate={val.boeDate}
@@ -781,36 +678,20 @@ export default function Index({
                     <div className={`${styles.dashboard_form} card-body`}>
                       <h3 className={styles.form_heading}>BOE Details</h3>
                       <div className="row mb-5">
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            Commodity{' '}
-                            <strong className="text-danger ml-n1">*</strong>
+                            Commodity <strong className="text-danger ml-n1">*</strong>
                           </div>
-                          <span className={styles.value}>
-                            {customData?.order?.commodity}
-                          </span>
+                          <span className={styles.value}>{customData?.order?.commodity}</span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            BL Quantity{' '}
-                            <strong className="text-danger ml-n1">*</strong>
+                            BL Quantity <strong className="text-danger ml-n1">*</strong>
                           </div>
                           <span className={styles.value}>
-                            {_get(
-                              customData,
-                              'order.transit.BL.billOfLanding[0].blQuantity',
-                              '',
-                            )
+                            {_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', '')
                               ? Number(
-                                  _get(
-                                    customData,
-                                    'order.transit.BL.billOfLanding[0].blQuantity',
-                                    '',
-                                  ),
+                                  _get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''),
                                 )?.toLocaleString('en-IN', {
                                   maximumFractionDigits: 2,
                                 })
@@ -818,42 +699,25 @@ export default function Index({
                             {customData?.order?.unitOfQuantity?.toUpperCase()}
                           </span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            Vessel Name{' '}
-                            <strong className="text-danger ml-n1">*</strong>{' '}
+                            Vessel Name <strong className="text-danger ml-n1">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {_get(
-                              customData,
-                              'order.vessel.vessels[0].vesselInformation[0].name',
-                              '',
-                            )}
+                            {_get(customData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                           </span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
                             Country of origin
                             <strong className="text-danger">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {_get(
-                              customData,
-                              'order.vessel.vessels[0].transitDetails.countryOfOrigin',
-                              '',
-                            )}
+                            {_get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
                           </span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
-                          <div className={`${styles.label} text`}>
-                            Port Of Discharge
-                          </div>
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                          <div className={`${styles.label} text`}>Port Of Discharge</div>
                           <span className={styles.value}>
                             {_get(
                               customData,
@@ -863,106 +727,54 @@ export default function Index({
                           </span>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
                             IGM Number<strong className="text-danger">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {_get(
-                              customData,
-                              'order.transit.IGM.igmDetails[0].igmNumber',
-                              '',
-                            )}
+                            {_get(customData, 'order.transit.IGM.igmDetails[0].igmNumber', '')}
                           </span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
                             IGM Filing Date
                             <strong className="text-danger">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {!_get(
-                              customData,
-                              'order.transit.IGM.igmDetails[0].igmFiling',
-                              '',
-                            ) ||
-                            _get(
-                              customData,
-                              'order.transit.IGM.igmDetails[0].igmFiling',
-                              '',
-                            ) === ''
+                            {!_get(customData, 'order.transit.IGM.igmDetails[0].igmFiling', '') ||
+                            _get(customData, 'order.transit.IGM.igmDetails[0].igmFiling', '') === ''
                               ? ''
-                              : moment(
-                                  _get(
-                                    customData,
-                                    'order.transit.IGM.igmDetails[0].igmFiling',
-                                    '',
-                                  ),
-                                ).format('DD-MM-YYYY')}
+                              : moment(_get(customData, 'order.transit.IGM.igmDetails[0].igmFiling', '')).format(
+                                  'DD-MM-YYYY',
+                                )}
                           </span>
                         </div>
-                        {_get(
-                          customData,
-                          'order.commodity',
-                          '',
-                        ).toLowerCase() === 'coal' ? (
+                        {_get(customData, 'order.commodity', '').toLowerCase() === 'coal' ? (
                           <>
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                            >
-                              <div className={`${styles.label} text`}>
-                                CIRC Number
-                              </div>
+                            <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                              <div className={`${styles.label} text`}>CIRC Number</div>
                               <span className={styles.value}>
-                                {_get(
-                                  customData,
-                                  'order.transit.CIMS.cimsDetails[0].circNumber',
-                                  '',
-                                )}
+                                {_get(customData, 'order.transit.CIMS.cimsDetails[0].circNumber', '')}
                               </span>
                             </div>
 
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                            >
-                              <div className={`${styles.label} text`}>
-                                CIRC Date
-                              </div>
+                            <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                              <div className={`${styles.label} text`}>CIRC Date</div>
                               <span className={styles.value}>
-                                {_get(
-                                  customData,
-                                  'order.transit.CIMS.cimsDetails[0].circDate',
-                                  '',
-                                )
-                                  ? moment(
-                                      _get(
-                                        customData,
-                                        'order.transit.CIMS.cimsDetails[0].circDate',
-                                        '',
-                                      ),
-                                    ).format('DD-MM-YYYY')
+                                {_get(customData, 'order.transit.CIMS.cimsDetails[0].circDate', '')
+                                  ? moment(_get(customData, 'order.transit.CIMS.cimsDetails[0].circDate', '')).format(
+                                      'DD-MM-YYYY',
+                                    )
                                   : ''}
                               </span>
                             </div>
                           </>
                         ) : null}
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <select
                               name="boeDetails.currency"
-                              onChange={(e) =>
-                                saveBillOfEntryData(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
+                              onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                               value={val?.boeDetails?.currency}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
@@ -972,11 +784,7 @@ export default function Index({
                               <option value="EURO">EURO</option>
                               <option value="POUND">POUND</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Currency
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>Currency</label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -984,37 +792,22 @@ export default function Index({
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             value={val?.boeDetails?.invoiceNumber}
                             className={`${styles.input_field} input form-control`}
                             type="text"
                             name="boeDetails.invoiceNumber"
                             required
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveBillOfEntryData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Invoice No.
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <DateCalender
                               defaultDate={val?.boeDetails?.invoiceDate}
@@ -1031,9 +824,7 @@ export default function Index({
                           </div>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                             className={`${styles.input_field} input form-control`}
@@ -1057,40 +848,23 @@ export default function Index({
                                 ? val?.boeDetails?.invoiceQuantity
                                 : val?.boeDetails?.invoiceQuantity == 0
                                 ? ''
-                                : Number(
-                                    val?.boeDetails?.invoiceQuantity,
-                                  )?.toLocaleString('en-IN') +
-                                  ' ' +
-                                  'MT'
+                                : Number(val?.boeDetails?.invoiceQuantity)?.toLocaleString('en-IN') + ' ' + 'MT'
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             name="boeDetails.invoiceQuantity"
                             required
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                            onChange={(e) =>
-                              saveBillOfEntryData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                             // required
                             // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Invoice Quantity
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             // value={billOfEntryData?.boeDetails?.invoiceValue}
                             className={`${styles.input_field} input form-control`}
@@ -1114,11 +888,7 @@ export default function Index({
                                 ? val?.boeDetails?.invoiceValue
                                 : val?.boeDetails?.invoiceValue == 0
                                 ? ''
-                                : `USD` +
-                                  ' ' +
-                                  Number(
-                                    val?.boeDetails?.invoiceValue,
-                                  )?.toLocaleString('en-IN')
+                                : `USD` + ' ' + Number(val?.boeDetails?.invoiceValue)?.toLocaleString('en-IN')
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             // value={addPrefixOrSuffix(
@@ -1126,29 +896,16 @@ export default function Index({
                             //   'USD',
                             //   'front',
                             // )}
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                             name="boeDetails.invoiceValue"
-                            onChange={(e) =>
-                              saveBillOfEntryData(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Invoice Value
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="text"
@@ -1171,11 +928,7 @@ export default function Index({
                                 ? val?.boeDetails?.conversionRate
                                 : val?.boeDetails?.conversionRate == 0
                                 ? ''
-                                : `INR` +
-                                  ' ' +
-                                  Number(
-                                    val?.boeDetails?.conversionRate,
-                                  )?.toLocaleString('en-IN')
+                                : `INR` + ' ' + Number(val?.boeDetails?.conversionRate)?.toLocaleString('en-IN')
                             }
                             // value={
 
@@ -1187,10 +940,7 @@ export default function Index({
                             // }
                             onWheel={(event) => event.currentTarget.blur()}
                             required
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                             // required
                             // value={
                             //   billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
@@ -1202,25 +952,15 @@ export default function Index({
                             //     )
                             // }
                             name="boeDetails.conversionRate"
-                            onChange={(e) =>
-                              conversionRateChange(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
+                            onChange={(e) => conversionRateChange(e.target.name, e.target.value, index)}
                           />
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Custom Conversion Rate
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="text"
@@ -1230,22 +970,12 @@ export default function Index({
                             value={
                               val?.boeDetails?.accessibleValue == 'INR 0'
                                 ? ''
-                                : addPrefixOrSuffix(
-                                    val?.boeDetails?.accessibleValue,
-                                    'INR',
-                                    'front',
-                                  )
+                                : addPrefixOrSuffix(val?.boeDetails?.accessibleValue, 'INR', 'front')
                             }
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Assessable Value{' '}
-                            <strong className="text-danger">*</strong>
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Assessable Value <strong className="text-danger">*</strong>
                           </label>
                         </div>
                         {/* <div
@@ -1267,19 +997,11 @@ export default function Index({
                     BOE Rate<strong className="text-danger">*</strong>
                   </label>
                 </div> */}
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <select
                               name="boeDetails.bankName"
-                              onChange={(e) =>
-                                saveBillOfEntryData(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
+                              onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
                               value={val?.boeDetails?.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
@@ -1287,11 +1009,7 @@ export default function Index({
                               <option value="HDFC">HDFC</option>
                               <option value="SBI">SBI</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Bank Name
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>Bank Name</label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -1299,9 +1017,7 @@ export default function Index({
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
                             AD Code<strong className="text-danger">*</strong>{' '}
                           </div>
@@ -1309,15 +1025,9 @@ export default function Index({
                         </div>
                       </div>
 
-                      <div
-                        className={`${styles.bill_landing} card border_color mt-4`}
-                      >
-                        <div
-                          className={`${styles.vessel_card} d-flex align-items-center`}
-                        >
-                          <div className={`${styles.card_sub_heading}`}>
-                            Duty
-                          </div>
+                      <div className={`${styles.bill_landing} card border_color mt-4`}>
+                        <div className={`${styles.vessel_card} d-flex align-items-center`}>
+                          <div className={`${styles.card_sub_heading}`}>Duty</div>
                         </div>
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
@@ -1342,42 +1052,27 @@ export default function Index({
                                     <tr key={index2} className="table_row">
                                       {!duty.actions ? (
                                         <>
-                                          <td className={styles.doc_name}>
-                                            {getIndex(index2)}
-                                          </td>
+                                          <td className={styles.doc_name}>{getIndex(index2)}</td>
                                           <td>{duty.duty}</td>
                                           <td>
                                             {duty.amount
-                                              ? `${'INR'} ${Number(
-                                                  duty.amount,
-                                                )?.toLocaleString('en-IN')}  `
+                                              ? `${'INR'} ${Number(duty.amount)?.toLocaleString('en-IN')}  `
                                               : ''}
                                           </td>
                                           <td>
-                                            {duty.percentage
-                                              ? `${Number(
-                                                  duty?.percentage,
-                                                )?.toFixed()} ${'%'}`
-                                              : ''}
+                                            {duty.percentage ? `${Number(duty?.percentage)?.toFixed()} ${'%'}` : ''}
                                           </td>
                                         </>
                                       ) : (
                                         <>
                                           {' '}
-                                          <td className={styles.doc_name}>
-                                            {getIndex(index2)}
-                                          </td>
+                                          <td className={styles.doc_name}>{getIndex(index2)}</td>
                                           <td>
                                             <select
                                               name="duty"
                                               value={duty.duty}
                                               onChange={(e) =>
-                                                handleDutyChange(
-                                                  e.target.name,
-                                                  e.target.value,
-                                                  index2,
-                                                  index,
-                                                )
+                                                handleDutyChange(e.target.name, e.target.value, index2, index)
                                               }
                                               disabled={!duty.actions}
                                               className={`${styles.dutyDropdown} input`}
@@ -1407,19 +1102,11 @@ export default function Index({
                                               value={
                                                 duty.value
                                                   ? duty.amount
-                                                  : `${'INR'}  ` +
-                                                    Number(
-                                                      duty.amount,
-                                                    )?.toLocaleString('en-IN')
+                                                  : `${'INR'}  ` + Number(duty.amount)?.toLocaleString('en-IN')
                                               }
                                               disabled={!duty.actions}
                                               onChange={(e) =>
-                                                handleDutyChange(
-                                                  e.target.name,
-                                                  e.target.value,
-                                                  index2,
-                                                  index,
-                                                )
+                                                handleDutyChange(e.target.name, e.target.value, index2, index)
                                               }
                                             />
                                           </td>
@@ -1440,19 +1127,12 @@ export default function Index({
                                               value={
                                                 duty.value
                                                   ? duty.percentage
-                                                  : Number(
-                                                      duty.percentage,
-                                                    ).toFixed(2) + `${'%'}`
+                                                  : Number(duty.percentage).toFixed(2) + `${'%'}`
                                               }
                                               name="percentage"
                                               // value={val.percentage}
                                               onChange={(e) =>
-                                                handleDutyChange(
-                                                  e.target.name,
-                                                  e.target.value,
-                                                  index2,
-                                                  index,
-                                                )
+                                                handleDutyChange(e.target.name, e.target.value, index2, index)
                                               }
                                             />
                                           </td>{' '}
@@ -1476,11 +1156,7 @@ export default function Index({
                                                 className={`${styles.edit_image} mr-3`}
                                                 alt="save"
                                                 onClick={(e) => {
-                                                  setActions(
-                                                    index2,
-                                                    false,
-                                                    index,
-                                                  );
+                                                  setActions(index2, false, index);
                                                 }}
                                               />
                                             </>
@@ -1490,9 +1166,7 @@ export default function Index({
                                             className={`${styles.edit_image} p-0 border-0 img-fluid`}
                                             style={{ cursor: 'pointer' }}
                                             alt="delete"
-                                            onClick={() =>
-                                              handleDeleteRow(index2, index)
-                                            }
+                                            onClick={() => handleDeleteRow(index2, index)}
                                           />
                                         </div>
                                       </td>
@@ -1503,14 +1177,9 @@ export default function Index({
                             <hr className="mt-0" />
                             <div className="d-flex justify-content-between align-items-center mx-4 ">
                               <div className="d-flex align-items-center">
-                                <div className={`${styles.label} text`}>
-                                  Total Custom Duty:
-                                </div>
+                                <div className={`${styles.label} text`}>Total Custom Duty:</div>
                                 <div className={`${styles.value} ml-2 mt-4`}>
-                                  INR{' '}
-                                  {totalCustomDuty(index)?.toLocaleString(
-                                    'en-In',
-                                  )}
+                                  INR {totalCustomDuty(index)?.toLocaleString('en-In')}
                                 </div>
                               </div>
                               <div
@@ -1528,65 +1197,36 @@ export default function Index({
                       </div>
 
                       <div className="row ml-auto">
-                        {_get(customData, 'order.transit.BL.billOfLanding', [
-                          {},
-                        ]).map((bl, indexbl) => {
+                        {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => {
                           return (
                             <>
                               {' '}
-                              <div
-                                key={indexbl}
-                                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                              >
+                              <div key={indexbl} className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                 <Form.Check aria-label="option 1" />
                                 <div className={`${styles.label} text ml-4`}>
-                                  BL Number{' '}
-                                  <strong className="text-danger ml-n1">
-                                    *
-                                  </strong>
+                                  BL Number <strong className="text-danger ml-n1">*</strong>
                                 </div>
-                                <span className={`${styles.value} ml-4`}>
-                                  {bl?.blNumber}
-                                </span>
+                                <span className={`${styles.value} ml-4`}>{bl?.blNumber}</span>
                               </div>
-                              <div
-                                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                              >
+                              <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                 <div className={`${styles.label} text`}>
-                                  BL Date{' '}
-                                  <strong className="text-danger ml-n1">
-                                    *
-                                  </strong>{' '}
+                                  BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                                 </div>
                                 <span className={styles.value}>
-                                  {bl?.blDate
-                                    ? moment(bl?.blDate).format('DD-MM-YYYY')
-                                    : ''}
+                                  {bl?.blDate ? moment(bl?.blDate).format('DD-MM-YYYY') : ''}
                                 </span>
                               </div>
-                              <div
-                                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                              >
+                              <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                 <div className={`${styles.label} text`}>
-                                  BL Quantity{' '}
-                                  <strong className="text-danger ml-n1">
-                                    *
-                                  </strong>{' '}
+                                  BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
                                 </div>
                                 <span className={styles.value}>
-                                  {bl?.blQuantity
-                                    ? Number(bl?.blQuantity)?.toLocaleString(
-                                        'en-In',
-                                      )
-                                    : ''}{' '}
+                                  {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
                                   {customData?.order?.unitOfQuantity.toUpperCase()}
                                 </span>
                               </div>
-                              <div
-                                className="col-lg-3 col-md-4 col-sm-6 text-center"
-                                style={{ top: '40px' }}
-                              >
-                                {console.log(bl,"blbl")}
+                              <div className="col-lg-3 col-md-4 col-sm-6 text-center" style={{ top: '40px' }}>
+                                {console.log(bl, 'blbl')}
                                 <img
                                   src="/static/preview.svg"
                                   className={`${styles.previewImg} img-fluid ml-n4`}
@@ -1605,12 +1245,8 @@ export default function Index({
                         <div className={`${styles.total_quantity} text `}>
                           Total:{' '}
                           <span className="form-check-label ml-2">
-                            {isNaN(totalBl)
-                              ? ''
-                              : totalBl?.toLocaleString('en-In')}{' '}
-                            {isNaN(totalBl)
-                              ? ''
-                              : customData?.order?.unitOfQuantity.toUpperCase()}
+                            {isNaN(totalBl) ? '' : totalBl?.toLocaleString('en-In')}{' '}
+                            {isNaN(totalBl) ? '' : customData?.order?.unitOfQuantity.toUpperCase()}
                           </span>
                         </div>
                       </div>
@@ -1658,57 +1294,31 @@ export default function Index({
                               {val.boeAssessment === 'Final' ? (
                                 <td className={styles.doc_name}>
                                   BOE Final
-                                  <strong className="text-danger ml-1">
-                                    *
-                                  </strong>
+                                  <strong className="text-danger ml-1">*</strong>
                                 </td>
                               ) : (
                                 <td className={styles.doc_name}>
                                   BOE Provisional
-                                  <strong className="text-danger ml-1">
-                                    *
-                                  </strong>
+                                  <strong className="text-danger ml-1">*</strong>
                                 </td>
                               )}
                               <td>
                                 {val.document1 ? (
-                                  val.document1?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                  val.document1?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : val.document1?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
-                                    val.document1?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                  val.document1?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  val.document1?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : val.document1?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    val.document1?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document1 === null
                                   ? ''
-                                  : moment(val?.document1?.date).format(
-                                      'DD-MM-YYYY, h:mm a',
-                                    )}
+                                  : moment(val?.document1?.date).format('DD-MM-YYYY, h:mm a')}
                               </td>
 
                               <td>
@@ -1721,17 +1331,11 @@ export default function Index({
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc1(e, index)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{val?.document1?.originalName}</span>
                                     <img
                                       onClick={() => removeDoc('document1')}
@@ -1750,43 +1354,21 @@ export default function Index({
                               </td>
                               <td>
                                 {val.document2 ? (
-                                  val.document2?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                  val.document2?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : val.document2?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
-                                    val.document2?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                  val.document2?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  val.document2?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : val.document2?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    val.document2?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document2 === null
                                   ? ''
-                                  : moment(val?.document2?.date).format(
-                                      'DD-MM-YYYY, h:mm a',
-                                    )}
+                                  : moment(val?.document2?.date).format('DD-MM-YYYY, h:mm a')}
                               </td>
 
                               <td>
@@ -1799,22 +1381,14 @@ export default function Index({
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc1(e, index)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{val?.document2?.originalName}</span>
                                     <img
-                                      onClick={() =>
-                                        removeDoc('document2', index)
-                                      }
+                                      onClick={() => removeDoc('document2', index)}
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       alt="Close"
@@ -1827,49 +1401,25 @@ export default function Index({
                               <tr className="table_row">
                                 <td className={styles.doc_name}>
                                   PD Bond
-                                  <strong className="text-danger ml-0">
-                                    *
-                                  </strong>
+                                  <strong className="text-danger ml-0">*</strong>
                                 </td>
                                 <td>
                                   {val?.document3 ? (
-                                    val.document3?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xls') ||
-                                    val.document3?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xlsx') ? (
-                                      <img
-                                        src="/static/excel.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    ) : val.document3?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.doc') ||
-                                      val.document3?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.docx') ? (
-                                      <img
-                                        src="/static/doc.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
+                                    val.document3?.originalName?.toLowerCase().endsWith('.xls') ||
+                                    val.document3?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                    ) : val.document3?.originalName?.toLowerCase().endsWith('.doc') ||
+                                      val.document3?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                     ) : (
-                                      <img
-                                        src="/static/pdf.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
+                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                     )
                                   ) : null}
                                 </td>
                                 <td className={styles.doc_row}>
                                   {val.document3 === null
                                     ? ''
-                                    : moment(val.document3.date).format(
-                                        'DD-MM-YYYY, h:mm a',
-                                      )}
+                                    : moment(val.document3.date).format('DD-MM-YYYY, h:mm a')}
                                 </td>
                                 <td>
                                   {val.document3 === null ? (
@@ -1881,24 +1431,14 @@ export default function Index({
                                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                           onChange={(e) => uploadDoc1(e, index)}
                                         />
-                                        <button
-                                          className={`${styles.button_upload} btn`}
-                                        >
-                                          Upload
-                                        </button>
+                                        <button className={`${styles.button_upload} btn`}>Upload</button>
                                       </div>
                                     </>
                                   ) : (
-                                    <div
-                                      className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                    >
-                                      <span>
-                                        {val?.document3?.originalName}
-                                      </span>
+                                    <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                      <span>{val?.document3?.originalName}</span>
                                       <img
-                                        onClick={() =>
-                                          removeDoc('document3', index)
-                                        }
+                                        onClick={() => removeDoc('document3', index)}
                                         className={`${styles.close_image} image_arrow`}
                                         src="/static/close.svg"
                                         alt="Close"
@@ -1917,18 +1457,10 @@ export default function Index({
               );
             })}
           <div className="">
-            <UploadOther
-              orderid={OrderId}
-              module="customClearanceAndWarehousing"
-              isDocumentName={true}
-            />
+            <UploadOther orderid={OrderId} module="customClearanceAndWarehousing" isDocumentName={true} />
           </div>
         </div>
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={handleSubmit}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   );

@@ -25,7 +25,7 @@ export const toPdf = (data) => {
           >
             <strong>SALES CONTRACT</strong>
           </p>
-          <p align="center" style={{ float: 'left', color: '#000000' }}>
+          <p align="center" style={{ float: 'left', color: '#000000', marginBottom:'0' }}>
             This Sales Contract("
             <span style={{ fontWeight: 'bold' }}>
               {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
@@ -43,7 +43,7 @@ export const toPdf = (data) => {
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
-            padding: '20px 20px 40px',
+            padding: '5px 20px 40px',
           }}
         >
           <table
@@ -596,7 +596,7 @@ export const toPdf = (data) => {
                 <p style={{ color: '#000000', marginBottom: '0' }}>
                   All demurrage/despatch for discharge port to be settled
                   directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  no liability upon the Seller whatsoever.
                 </p>
               </td>
             </tr>
@@ -971,7 +971,7 @@ export const toPdf = (data) => {
                   }}
                 >
                   a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  material supplied by Manufacturer/shipper;
                 </p>
                 <p
                   style={{
@@ -982,7 +982,7 @@ export const toPdf = (data) => {
                   }}
                 >
                   b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  material supplied by Manufacturer/shipper;
                 </p>
                 <p
                   style={{
@@ -992,7 +992,7 @@ export const toPdf = (data) => {
                     width: '100%',
                   }}
                 >
-                  c) Loss of cargo,
+                  c) Loss of cargo;
                 </p>
                 <p
                   style={{
@@ -1004,7 +1004,7 @@ export const toPdf = (data) => {
                 >
                   d) Any demurrage charges at the load port and/or discharge
                   port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  Manufacturer/shipper;
                 </p>
                 <p
                   style={{
@@ -1051,7 +1051,7 @@ export const toPdf = (data) => {
                   will use their commercially reasonable effort to achieve a
                   mutually acceptable solution to any problem that may arise due
                   to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  understanding and collaboration.
                 </p>
               </td>
             </tr>

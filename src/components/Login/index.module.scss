@@ -1,12 +1,15 @@
 @import '../styles/Core/config';
+
 .login {
   height: 100vh;
   overflow: hidden;
+
   .loginBanner {
     position: relative;
     @include respond(sm-phone) {
       display: none;
     }
+
     & > img {
       height: 100vh;
       width: 127%;
@@ -16,6 +19,7 @@
         margin-left: 0;
       }
     }
+
     .pattern {
       top: -43px;
       left: -55px;
@@ -24,6 +28,7 @@
       max-width: 648px;
       position: absolute;
     }
+
     .caption {
       left: 50%;
       width: 70%;
@@ -36,6 +41,7 @@
       transform: translateX(-50%);
       visibility: hidden;
     }
+
     &::after {
       top: 0;
       left: 0;
@@ -46,8 +52,10 @@
       background: rgba(10, 61, 122, 0.66);
     }
   }
+
   .loginForm {
     height: 100vh;
+
     & > img {
       top: -10%;
       left: 0;
@@ -57,6 +65,7 @@
       object-fit: cover;
       position: absolute;
     }
+
     .form {
       z-index: 1;
       width: 55%;
@@ -71,6 +80,7 @@
         width: 100%;
         padding: 0 36px;
       }
+
       .logo {
         text-align: center;
         margin-bottom: 45px;
@@ -83,6 +93,7 @@
         @include respond(phone) {
           margin-bottom: 43px;
         }
+
         img {
           width: 278px;
           @include respond(lg-desktop) {
@@ -93,6 +104,7 @@
           }
         }
       }
+
       .title {
         font-size: 28px;
         color: #111111;
@@ -108,6 +120,7 @@
           font-size: 20px;
         }
       }
+
       p {
         font-size: 18px;
         color: #a1a1a1;
@@ -123,6 +136,7 @@
           line-height: 26px;
         }
       }
+
       .labelFloat {
         padding-top: 13px;
         position: relative;
@@ -133,6 +147,7 @@
         @include respond(phone) {
           margin: 22px 0 20px;
         }
+
         label {
           top: 35px;
           left: 15px;
@@ -152,6 +167,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -162,6 +178,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 27px;
             font-size: 14px;
@@ -169,6 +186,7 @@
             transform: translateY(-22px);
           }
         }
+
         .formControl {
           font-size: 20px;
           z-index: 0;
@@ -191,29 +209,36 @@
             line-height: 1.3;
             padding: 0 30px 0 17px;
           }
+
           &:invalid + label {
             transform: translateY(0);
+
             &::before {
               background: none;
             }
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
+
               &::before {
                 background: #ffffff;
               }
+
               @include respond(lg-desktop) {
                 transform: translateY(-22px);
               }
             }
           }
+
           &:-webkit-autofill,
           &:-webkit-autofill:hover,
           &:-webkit-autofill:focus,
           &:-webkit-autofill:active {
             box-shadow: 0 0 0 30px #f8f8f8 inset !important;
             -webkit-box-shadow: 0 0 0 30px #f8f8f8 inset !important;
+
             & + label {
               &::before {
                 background: #ffffff;
@@ -221,12 +246,14 @@
             }
           }
         }
+
         img {
           top: 50%;
           right: 14px;
           position: absolute;
           transform: translateY(-50%);
         }
+
         .signin {
           font-size: 18px;
           color: #ffffff;
@@ -238,22 +265,26 @@
           border-radius: 5px;
           background: #3687e8;
           box-sizing: border-box;
+
           &:focus {
             box-shadow: none;
           }
         }
+
         .signUp {
           font-size: 14px;
           color: #acadaf;
           line-height: 1;
           text-align: left;
           margin: 14px 0 0;
+
           a {
             font-weight: 500;
             margin-left: 15px;
           }
         }
       }
+
       .password {
         label {
           top: 22px;
@@ -261,12 +292,14 @@
             top: 15px;
           }
         }
+
         .formControl {
           &:invalid + label {
             &::before {
               background: none;
             }
           }
+
           &:focus {
             & + label {
               &::before {
@@ -276,15 +309,18 @@
           }
         }
       }
+
       .remember {
         label {
           font-size: 14px;
           line-height: 1;
           margin-left: 10px;
         }
+
         input {
           transform: scale(1.3);
         }
+
         .forgotPassword {
           font-size: 14px;
           color: #3687e8;
@@ -294,6 +330,7 @@
       }
     }
   }
+
   .footer {
     font-size: 14px;
     color: #667085;
@@ -305,6 +342,7 @@
       bottom: 56px;
     }
   }
+
   .footerLinks {
     right: 5%;
     bottom: 10%;
@@ -312,9 +350,11 @@
     padding: 0;
     list-style: none;
     position: absolute;
+
     li {
       margin: 0 8px;
       display: inline-block;
+
       a {
         font-size: 14px;
         font-weight: bold;

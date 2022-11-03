@@ -32,6 +32,7 @@
           height: auto;
         }
       }
+
       .heading {
         font-size: 34px;
         font-weight: bold;
@@ -39,12 +40,15 @@
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -58,6 +62,7 @@
         }
       }
     }
+
     .clear_btn {
       width: 116px;
       height: 38px;
@@ -101,8 +106,10 @@
         font-size: 15px;
       }
     }
+
     .radio_form {
       padding: 26px 0px 20px 35px;
+
       .radio_group {
         display: flex;
 
@@ -126,6 +133,7 @@
           }
         }
       }
+
       .sub_heading {
         font-size: 16px;
         line-height: 17px;
@@ -149,6 +157,7 @@
     margin-bottom: 1rem;
     border-radius: 6px !important;
   }
+
   .cardHeader {
     height: 80px;
     cursor: pointer;
@@ -187,14 +196,17 @@
       }
     }
   }
+
   .cardBody {
     padding: 0px;
     border-top: 2px solid red !important;
+
     .content {
       .header {
         padding: 25px 35px !important;
         font-weight: bold;
         line-height: 27px;
+
         h5 {
           font-size: 22px;
           font-weight: bold;
@@ -210,6 +222,7 @@
         }
       }
     }
+
     .body {
       padding: 25px 35px !important;
 
@@ -229,6 +242,7 @@
           font-size: 12px;
         }
       }
+
       .col_body {
         font-weight: bold;
         font-size: 20px;
@@ -263,6 +277,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -273,6 +288,7 @@
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 15px;
           font-size: 14px;
@@ -283,6 +299,7 @@
           font-size: 12px;
         }
       }
+
       .input_field {
         height: 60px;
         background-color: #c3c3c31f;
@@ -294,9 +311,11 @@
         box-shadow: none;
         position: relative;
         box-sizing: border-box;
+
         &:invalid + label {
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -305,6 +324,7 @@
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -314,6 +334,7 @@
           font-size: 14px;
         }
       }
+
       .search_image {
         margin-left: -40px;
       }
@@ -342,6 +363,7 @@
 
 .table_container {
   background-color: #fafafb;
+
   .table {
     th {
       font-size: 15px;
@@ -354,9 +376,11 @@
       text-transform: uppercase;
       border-top: 2px solid #f2f5f9;
       border-bottom: 2px solid #f2f5f9;
+
       &:first-child {
         padding-left: 35px;
       }
+
       @include respond(md-desktop) {
         font-size: 15px;
       }
@@ -367,6 +391,7 @@
         font-size: 11px;
       }
     }
+
     td {
       font-size: 19px;
       font-weight: 500;
@@ -401,6 +426,7 @@
         font-size: 14px;
       }
     }
+
     .doc_row {
       font-size: 19px;
       line-height: 24px;
@@ -416,6 +442,7 @@
         font-size: 12px;
       }
     }
+
     .button_upload {
       width: 106px;
       height: 38px;
@@ -451,15 +478,18 @@
       position: relative;
       //display: block;
       line-height: 60px;
+
       input {
         cursor: pointer;
         //position: absolute;
       }
+
       .close_image {
       }
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
