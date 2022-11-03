@@ -84,36 +84,36 @@ function Index(props) {
           lastDate: data?.lastDate,
           terms: data?.terms,
           addComm: data?.addComm,
-         
+
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-          loadingCargo:data.monthOfLoadingCargo || "",
-          supplier:data?.supplier,
-          supplierAddress:data?.supplierAddress,
-          supplierAuthorized:data?.supplierAuthorized,
-          buyerAuthorized:data?.buyerAuthorized,
-          toleranceLevel:data?.toleranceLevel,
-          incoTerms:data?.incoTerms,
-          financialBank:data?.financialBank,
-          associateBuyer:data?.associateBuyer,
-          associateBuyerAddress:data?.associateBuyerAddress,
-          associateBuyerGst:data?.associateBuyerGst,
-          associateBuyerPan:data?.associateBuyerPan,
-          associateBuyerAuthorized:data?.associateBuyerAuthorized,
-          stevedore:data?.stevedore,
-          stevedoreAddress:data?.stevedoreAddress,
-          stevedoreAuthorized:data?.stevedoreAuthorized,
-          cma:data?.cma,
-          cmaAddress:data?.cmaAddress,
-          vessel:data?.vessel,
-          storagePlot:data?.storagePlot,
-          cmaAuthorized:data?.cmaAuthorized,
-           priceOfGoods: data?.perUnitPrice,
-       });
+          loadingCargo: data.monthOfLoadingCargo || '',
+          supplier: data?.supplier,
+          supplierAddress: data?.supplierAddress,
+          supplierAuthorized: data?.supplierAuthorized,
+          buyerAuthorized: data?.buyerAuthorized,
+          toleranceLevel: data?.toleranceLevel,
+          incoTerms: data?.incoTerms,
+          financialBank: data?.financialBank,
+          associateBuyer: data?.associateBuyer,
+          associateBuyerAddress: data?.associateBuyerAddress,
+          associateBuyerGst: data?.associateBuyerGst,
+          associateBuyerPan: data?.associateBuyerPan,
+          associateBuyerAuthorized: data?.associateBuyerAuthorized,
+          stevedore: data?.stevedore,
+          stevedoreAddress: data?.stevedoreAddress,
+          stevedoreAuthorized: data?.stevedoreAuthorized,
+          cma: data?.cma,
+          cmaAddress: data?.cmaAddress,
+          vessel: data?.vessel,
+          storagePlot: data?.storagePlot,
+          cmaAuthorized: data?.cmaAuthorized,
+          priceOfGoods: data?.perUnitPrice,
+        });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
         console.log(data, 'data22222');
@@ -138,8 +138,7 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:
-           _get(data, 'seller.addresses[0]', ''),
+          sellerAddress: _get(data, 'seller.addresses[0]', ''),
           buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : '',
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
@@ -156,12 +155,7 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: data?.comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -171,11 +165,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           buyerEmail: '',
           supplierEmail: '',
@@ -183,40 +173,22 @@ function Index(props) {
           incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank: data?.financingBank?.name,
           financialAddress: '',
-          associateBuyer: _get(data,"company.companyName",""),
-          associateBuyerAddress: _get(
-            data,
-            'associateBuyer.addresses[0]',
-            {},
-          ),
+          associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerAddress: _get(data, 'associateBuyer.addresses[0]', {}),
           associateBuyerGst: data?.associateBuyer?.gstin,
-          associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
-          associateBuyerAuthorized: _get(
-            data,
-            'buyer.authorisedSignatoryDetails',
-            [],
-                    ),
+          associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
+          associateBuyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           stevedore: data?.stevedore?.name,
-          stevedoreAddress: _get(
-            data,
-            'stevedore.addresses[0]',
-            {},
-          ),
-          stevedoreAuthorized: _get(
-            data,
-            'stevedore.authorisedSignatoryDetails',
-            [],
-          ),
+          stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
+          stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
           cma: data?.CMA?.name,
-           cmaAddress:_get(data, 'CMA.addresses[0]', {}),
-           
-           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-           vessel: data?.shippingLine?.vesselName,
-          loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
-           storagePlot:
-            data?.order?.termsheet?.transactionDetails?.portOfDischarge,
-             priceOfGoods: data?.order?.perUnitPrice,
-          
+          cmaAddress: _get(data, 'CMA.addresses[0]', {}),
+
+          cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+          vessel: data?.shippingLine?.vesselName,
+          loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
+          storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          priceOfGoods: data?.order?.perUnitPrice,
         });
       }
     }
@@ -5836,10 +5808,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               Address of Seller
             </Col>
             <Col md={7} className={styles.right}>
-             {data.sellerAddress?.fullAddress},
-              {data.sellerAddress?.city}{" "} 
-              {data.sellerAddress?.country},{" "}
-              
+              {data.sellerAddress?.fullAddress},{data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
               {data.sellerAddress?.pinCode}
             </Col>
           </Row>
@@ -5872,10 +5841,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplierAddress?.fullAddress},
-              {data.supplierAddress?.city}{" "} 
-              {data.supplierAddress?.country},{" "}
-              
+              {data.supplierAddress?.fullAddress},{data.supplierAddress?.city} {data.supplierAddress?.country},{' '}
               {data.supplierAddress?.pinCode}
             </Col>
           </Row>
@@ -5901,7 +5867,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               Price of Goods / MT
             </Col>
             <Col md={7} className={styles.right}>
-             {'INR '} {data.priceOfGoods}
+              {'INR '} {data.priceOfGoods}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -5911,7 +5877,8 @@ const associateShip = (data, preview, setPreviewValue) => {
             <Col md={7} className={styles.right}>
               {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
-              })} % 
+              })}{' '}
+              %
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -5993,7 +5960,8 @@ const associateShip = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span className='mb-0'
+              <span
+                className="mb-0"
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -6005,10 +5973,10 @@ const associateShip = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span className='mb-0'>Save</span>
+              <span className="mb-0">Save</span>
             </div>
             <div className={styles.approve}>
-              <span className='mb-0'>Submit</span>
+              <span className="mb-0">Submit</span>
             </div>
           </div>
         </>
@@ -6723,12 +6691,8 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               Address of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress?.fullAddress},
-              {data.associateBuyerAddress?.city}{" "} 
-              {data.associateBuyerAddress?.country},{" "}
-              
-              {data.associateBuyerAddress?.pinCode}
-             
+              {data.associateBuyerAddress?.fullAddress},{data.associateBuyerAddress?.city}{' '}
+              {data.associateBuyerAddress?.country}, {data.associateBuyerAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6752,21 +6716,21 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               Signatory of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-                <ol>
-              {data?.associateBuyerAuthorized?.length > 0 &&
-                data?.associateBuyerAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol>
+                {data?.associateBuyerAuthorized?.length > 0 &&
+                  data?.associateBuyerAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <div>
+                          Name- <span>{val.name}</span>
+                        </div>
+                        <div>
+                          Designation- <span>{val.designation}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6782,10 +6746,7 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               Address of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-             {data.stevedoreAddress?.fullAddress},
-              {data.stevedoreAddress?.city}{" "} 
-              {data.stevedoreAddress?.country},{" "}
-              
+              {data.stevedoreAddress?.fullAddress},{data.stevedoreAddress?.city} {data.stevedoreAddress?.country},{' '}
               {data.stevedoreAddress?.pinCode}
             </Col>
           </Row>
@@ -6794,21 +6755,21 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               Signatory of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-             <ol>
-              {data?.stevedoreAuthorized?.length > 0 &&
-                data?.stevedoreAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol>
+                {data?.stevedoreAuthorized?.length > 0 &&
+                  data?.stevedoreAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <div>
+                          Name- <span>{val.name}</span>
+                        </div>
+                        <div>
+                          Designation- <span>{val.designation}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6824,10 +6785,7 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               Address of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-              {data.cmaAddress?.fullAddress},
-              {data.cmaAddress?.city}{" "} 
-              {data.cmaAddress?.country},{" "}
-              
+              {data.cmaAddress?.fullAddress},{data.cmaAddress?.city} {data.cmaAddress?.country},{' '}
               {data.cmaAddress?.pinCode}
             </Col>
           </Row>
@@ -6836,21 +6794,21 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               Signatory of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-               <ol>
-              {data?.cmaAuthorized?.length > 0 &&
-                data?.cmaAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol>
+                {data?.cmaAuthorized?.length > 0 &&
+                  data?.cmaAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <div>
+                          Name- <span>{val.name}</span>
+                        </div>
+                        <div>
+                          Designation- <span>{val.designation}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6932,7 +6890,8 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span className='mb-0'
+              <span
+                className="mb-0"
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -6944,10 +6903,10 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span className='mb-0'>Save</span>
+              <span className="mb-0">Save</span>
             </div>
             <div className={styles.approve}>
-              <span className='mb-0'>Submit</span>
+              <span className="mb-0">Submit</span>
             </div>
           </div>
         </>
@@ -7136,12 +7095,8 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               Address of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress?.fullAddress},
-              {data.associateBuyerAddress?.city}{" "} 
-              {data.associateBuyerAddress?.country},{" "}
-              
-              {data.associateBuyerAddress?.pinCode}
-             
+              {data.associateBuyerAddress?.fullAddress},{data.associateBuyerAddress?.city}{' '}
+              {data.associateBuyerAddress?.country}, {data.associateBuyerAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7165,21 +7120,21 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               Signatory of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-                <ol>
-              {data?.associateBuyerAuthorized?.length > 0 &&
-                data?.associateBuyerAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol>
+                {data?.associateBuyerAuthorized?.length > 0 &&
+                  data?.associateBuyerAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <div>
+                          Name- <span>{val.name}</span>
+                        </div>
+                        <div>
+                          Designation- <span>{val.designation}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7195,10 +7150,7 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               Address of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-             {data.stevedoreAddress?.fullAddress},
-              {data.stevedoreAddress?.city}{" "} 
-              {data.stevedoreAddress?.country},{" "}
-              
+              {data.stevedoreAddress?.fullAddress},{data.stevedoreAddress?.city} {data.stevedoreAddress?.country},{' '}
               {data.stevedoreAddress?.pinCode}
             </Col>
           </Row>
@@ -7207,21 +7159,21 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               Signatory of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-             <ol>
-              {data?.stevedoreAuthorized?.length > 0 &&
-                data?.stevedoreAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol>
+                {data?.stevedoreAuthorized?.length > 0 &&
+                  data?.stevedoreAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <div>
+                          Name- <span>{val.name}</span>
+                        </div>
+                        <div>
+                          Designation- <span>{val.designation}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7237,10 +7189,7 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               Address of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-              {data.cmaAddress?.fullAddress},
-              {data.cmaAddress?.city}{" "} 
-              {data.cmaAddress?.country},{" "}
-              
+              {data.cmaAddress?.fullAddress},{data.cmaAddress?.city} {data.cmaAddress?.country},{' '}
               {data.cmaAddress?.pinCode}
             </Col>
           </Row>
@@ -7249,21 +7198,21 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               Signatory of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-               <ol>
-              {data?.cmaAuthorized?.length > 0 &&
-                data?.cmaAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol>
+                {data?.cmaAuthorized?.length > 0 &&
+                  data?.cmaAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <div>
+                          Name- <span>{val.name}</span>
+                        </div>
+                        <div>
+                          Designation- <span>{val.designation}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7345,7 +7294,8 @@ const underTaking2 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span className='mb-0'
+              <span
+                className="mb-0"
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -7357,10 +7307,10 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span className='mb-0'>Save</span>
+              <span className="mb-0">Save</span>
             </div>
             <div className={styles.approve}>
-              <span className='mb-0'>Submit</span>
+              <span className="mb-0">Submit</span>
             </div>
           </div>
         </>

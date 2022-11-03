@@ -59,7 +59,7 @@ function Index(props) {
         setData({
           seller: data?.seller,
           buyer: data?.buyer?.toLowerCase(),
-         
+
           shortseller: data?.shortseller,
           shortbuyer: `${data?.buyer == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.sellerSignature,
@@ -76,7 +76,7 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          
+
           addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
@@ -84,32 +84,26 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-          supplier:data.supplier,
-          supplierAddress:data.supplierAddress,
-          supplierAuthorized:data.supplierAuthorized,
-          buyerAuthorized:data.buyerAuthorized,
-          toleranceLevel:data.toleranceLevel,
-          incoTerms:data.incoTerms,
-          financialBank:data.financialBank,
-          associateBuyer:data.associateBuyer,
-          associateBuyerAddress:data.associateBuyerAddress,
-          associateBuyerGst:data.associateBuyerGst,
-          associateBuyerPan:data.associateBuyerPan,
-          associateBuyerAuthorized:data.associateBuyerAuthorized,
-          stevedore:data.stevedore,
-          stevedoreAddress:data.stevedoreAddress,
-          stevedoreAuthorized:data.stevedoreAuthorized,
+          supplier: data.supplier,
+          supplierAddress: data.supplierAddress,
+          supplierAuthorized: data.supplierAuthorized,
+          buyerAuthorized: data.buyerAuthorized,
+          toleranceLevel: data.toleranceLevel,
+          incoTerms: data.incoTerms,
+          financialBank: data.financialBank,
+          associateBuyer: data.associateBuyer,
+          associateBuyerAddress: data.associateBuyerAddress,
+          associateBuyerGst: data.associateBuyerGst,
+          associateBuyerPan: data.associateBuyerPan,
+          associateBuyerAuthorized: data.associateBuyerAuthorized,
+          stevedore: data.stevedore,
+          stevedoreAddress: data.stevedoreAddress,
+          stevedoreAuthorized: data.stevedoreAuthorized,
           cma: data.cma,
-          cmaAddress:data.cmaAddress,
-          cmaAuthorized:data.cmaAuthorized,
-          vessel:data.vessel,
-          storagePlot:data.storagePlot
-
-
-
-
-
-
+          cmaAddress: data.cmaAddress,
+          cmaAuthorized: data.cmaAuthorized,
+          vessel: data.vessel,
+          storagePlot: data.storagePlot,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -130,11 +124,11 @@ function Index(props) {
             comment.push(val.comment);
           }
         });
-       
+
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-        
+
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
@@ -150,12 +144,7 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -165,11 +154,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           buyerEmail: '',
           supplierEmail: '',
@@ -177,41 +162,20 @@ function Index(props) {
           incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank: data?.financingBank?.name,
           financialAddress: '',
-          associateBuyer: _get(data,"company.companyName",""),
-          associateBuyerAddress: _get(
-            data,
-            'company.detailedCompanyInfo.profile.companyDetail.registeredAddress'
-            ,""
-          ),
+          associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
           associateBuyerGst: data?.associateBuyer?.gstin,
-          associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
-          associateBuyerAuthorized: _get(
-            data,
-            'associateBuyer.authorisedSignatoryDetails',
-            [],
-          ),
+          associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
+          associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
           stevedore: data?.stevedore?.name,
-          stevedoreAddress: _get(
-            data,
-            'stevedore.addresses[0]',
-            {},
-          ),
-          stevedoreAuthorized: _get(
-            data,
-            'stevedore.authorisedSignatoryDetails',
-            [],
-          ),
+          stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
+          stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
           cma: data?.CMA?.name,
-          cmaAddress:_get(
-            data,
-            'CMA.addresses[0]',
-            {},
-          ),
-            
+          cmaAddress: _get(data, 'CMA.addresses[0]', {}),
+
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: data?.shippingLine?.vesselName,
-          storagePlot:
-          data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         });
       }
     }
@@ -219,17 +183,16 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {qpa(data,props.preview)}
-         {props.preview !== "QPA" ? (
-            <>
-              <div
-                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
-              >
-                <div className={`${styles.approve} mr-3`}>
-                  <span
-                    onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+        {qpa(data, props.preview)}
+        {props.preview !== 'QPA' ? (
+          <>
+            <div
+              className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+            >
+              <div className={`${styles.approve} mr-3`}>
+                <span
+                  onClick={(e) => {
+                    sessionStorage.setItem('preview', JSON.stringify(data));
 
                     Router.push('agreement/preview');
                     props.setPreviewValue('QPA');
@@ -1044,7 +1007,7 @@ function Index(props) {
       </table> */}
           {/* Undertaking 1 pdf download code end */}
 
-      {/* <div className={`${styles.root}`}>
+          {/* <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
         
           <div
@@ -1062,17 +1025,16 @@ function Index(props) {
           </div>
         </div>
       </div> */}
-    </>
-     </div>
-     </div>
+        </>
+      </div>
+    </div>
   );
 }
 
 export default Index;
-const qpa = (data,preview) => {
+const qpa = (data, preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
-     
       <p className="text-center text_sales">
         {' '}
         <strong>Quadripartite Agreement</strong>
@@ -1084,16 +1046,13 @@ const qpa = (data,preview) => {
       </p>
       <p className="text_sales">
         {' '}
-        <b>{data.buyer}</b> , a company incorporated under the Companies Act,
-        1956, having its registered office at <b> 
-          {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "} 
-              {data.buyerAddress?.country},{" "}
-              
-              {data.buyerAddress?.pinCode}</b> through
-        its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b>,
-        which expression shall, where subject and content allow or admit, be
-        deemed to include its successors, legal representatives and assigns) of
+        <b>{data.buyer}</b> , a company incorporated under the Companies Act, 1956, having its registered office at{' '}
+        <b>
+          {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+          {data.buyerAddress?.pinCode}
+        </b>{' '}
+        through its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b>, which expression shall, where
+        subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of
         the First Part,
       </p>
       <p className="text-center text_sales">And</p>
@@ -1377,8 +1336,6 @@ const qpa = (data,preview) => {
           </Col>
           <Col md={7} className={styles.right}>
             {data.associateBuyerAddress},
-             
-          
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1432,11 +1389,8 @@ const qpa = (data,preview) => {
             Address of Stevedore
           </Col>
           <Col md={7} className={styles.right}>
-            {data.stevedoreAddress?.fullAddress},
-            {data.stevedoreAddress?.city}{" "} 
-            {data.stevedoreAddress?.country},{" "}
+            {data.stevedoreAddress?.fullAddress},{data.stevedoreAddress?.city} {data.stevedoreAddress?.country},{' '}
             {data.stevedoreAddress?.pinCode}
-            
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1474,11 +1428,8 @@ const qpa = (data,preview) => {
             Address of CMA Agent
           </Col>
           <Col md={7} className={styles.right}>
-            {data.cmaAddress?.fullAddress},
-              {data.cmaAddress?.city}{" "} 
-              {data.cmaAddress?.country},{" "}
-              
-              {data.cmaAddress?.pinCode}
+            {data.cmaAddress?.fullAddress},{data.cmaAddress?.city} {data.cmaAddress?.country},{' '}
+            {data.cmaAddress?.pinCode}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>

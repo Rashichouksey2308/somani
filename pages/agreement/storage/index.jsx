@@ -8,17 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GettingAllInsurance } from '../../../src/redux/insurance/action';
 import moment from 'moment';
 import { CovertvaluefromtoCR, convertValue } from '../../../src/utils/helper';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../src/redux/userData/action';
+import { setPageName, setDynamicName, setDynamicOrder } from '../../../src/redux/userData/action';
 import Router from 'next/router';
 import Modal from 'react-bootstrap/Modal';
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
-
-
 
 function Index() {
   const dispatch = useDispatch();
@@ -69,9 +63,7 @@ function Index() {
     }
   };
 
-
   const exportPDF = () => {
-
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(
       ReactDOMServer.renderToString(
@@ -94,12 +86,7 @@ function Index() {
               >
                 <tr>
                   <td valign="top" align="left">
-                    <table
-                      width="100%"
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                       <tr>
                         <td colSpan={2}>
                           <span
@@ -213,8 +200,7 @@ function Index() {
                             Dear Sir/Madam,
                             <br />
                             <br />
-                            As discussed, please note the detail of Cargo as
-                            under:
+                            As discussed, please note the detail of Cargo as under:
                           </p>
                         </td>
                       </tr>
@@ -259,11 +245,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {_get(
-                              insuranceData,
-                              'order.vessel.vessels[0].vesselInformation[0].name',
-                              '',
-                            )}
+                            {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                           </p>
                         </td>
                       </tr>
@@ -304,11 +286,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {_get(
-                              insuranceData,
-                              'order.vessel.vessels[0].vesselInformation[0].IMONumber',
-                              '',
-                            )}
+                            {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
                           </p>
                         </td>
                       </tr>
@@ -349,11 +327,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {_get(
-                              insuranceData,
-                              'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
-                              '',
-                            )?.slice(0, 4)}
+                            {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(
+                              0,
+                              4,
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -395,13 +372,12 @@ function Index() {
                             }}
                           >
                             INR{' '}
-                            {Number(
-                              convertValue(
-                                insuranceData?.quotationRequest?.sumInsured,
-                              ),
-                            )?.toLocaleString('en-IN', {
-                              minimumFractionDigits: 2,
-                            })}{' '}
+                            {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString(
+                              'en-IN',
+                              {
+                                minimumFractionDigits: 2,
+                              },
+                            )}{' '}
                             Crores (Including 110%)
                           </p>
                         </td>
@@ -484,11 +460,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {_get(
-                              insuranceData,
-                              'order.vessel.vessels[0].transitDetails.countryOfOrigin',
-                              '',
-                            )}
+                            {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
                           </p>
                         </td>
                       </tr>
@@ -529,11 +501,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight{' '}
-                            {insuranceData?.order?.quantity?.toLocaleString(
-                              'en-IN',
-                            )}{' '}
-                            MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
+                            BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-IN')} MTs. (+/
+                            {insuranceData?.order?.tolerance ?? 0}%)
                           </p>
                         </td>
                       </tr>
@@ -574,11 +543,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {_get(
-                              insuranceData,
-                              'order.vessel.vessels[0].transitDetails.portOfLoading',
-                              '',
-                            )}
+                            {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
                           </p>
                         </td>
                       </tr>
@@ -619,11 +584,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {_get(
-                              insuranceData,
-                              'order.vessel.vessels[0].transitDetails.portOfDischarge',
-                              '',
-                            )}
+                            {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                           </p>
                         </td>
                       </tr>
@@ -664,10 +625,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {
-                              insuranceData?.quotationRequest?.storageDetails
-                                ?.placeOfStorage
-                            }
+                            {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
                           </p>
                         </td>
                       </tr>
@@ -708,10 +666,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {
-                              insuranceData?.quotationRequest?.storageDetails
-                                ?.storagePlotAddress
-                            }
+                            {insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress}
                           </p>
                         </td>
                       </tr>
@@ -752,14 +707,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {
-                              insuranceData?.quotationRequest?.storageDetails
-                                ?.periodOfInsurance
-                            }{'  Days '}
+                            {insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance}
+                            {'  Days '}
                           </p>
                         </td>
                       </tr>
-                     
+
                       <tr>
                         <td
                           align="left"
@@ -797,13 +750,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(
-                              insuranceData?.quotationRequest?.laycanFrom,
-                            ).format('DD MMM')}{' '}
-                            -{' '}
-                            {moment(
-                              insuranceData?.quotationRequest?.laycanTo,
-                            ).format('DD MMM, YYYY')}
+                            {moment(insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} -{' '}
+                            {moment(insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -844,10 +792,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(
-                              insuranceData?.quotationRequest
-                                ?.expectedTimeOfDispatch,
-                            ).format('DD MMMM , YYYY')}
+                            {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -888,10 +833,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(
-                              insuranceData?.quotationRequest
-                                ?.expectedTimeOfArrival,
-                            ).format('DD MMMM , YYYY')}
+                            {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -932,8 +874,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            All Risks Including ICC-A, War, SRCC, Theft,
-                            Loading, Unloading, Act of God etc.
+                            All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
                           </p>
                         </td>
                       </tr>
@@ -974,31 +915,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {insuranceData?.order?.generic?.buyer?.name} ,{' '}
-                            <br></br>{' '}
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.addresses[0].fullAddress',
-                              '',
-                            )}{' '}
-                            <br></br>
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.addresses[0].state',
-                              '',
-                            )}{' '}
-                            <br></br>
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.addresses[0].country',
-                              '',
-                            )}{' '}
-                            <br></br>
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.gstin',
-                              '',
-                            )}
+                            {insuranceData?.order?.generic?.buyer?.name} , <br></br>{' '}
+                            {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')} <br></br>
+                            {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')} <br></br>
+                            {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')} <br></br>
+                            {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                           </p>
                         </td>
                       </tr>
@@ -1314,32 +1235,11 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.generic?.buyer?.name} ,{' '}
-                    <br></br>{' '}
-                    {_get(
-                      insuranceData,
-                      'order.generic.buyer.addresses[0].fullAddress',
-                      '',
-                    )}{' '}
-                    <br></br>
-                    {_get(
-                      insuranceData,
-                      'order.generic.buyer.addresses[0].state',
-                      '',
-                    )}{' '}
-                    <br></br>
-                    {_get(
-                      insuranceData,
-                      'order.generic.buyer.addresses[0].country',
-                      '',
-                    )}{' '}
-                    <br></br>
-                    {_get(
-                      insuranceData,
-                      'order.generic.buyer.gstin',
-                      '',
-                    )}{' '}
-                    <br></br>
+                    {insuranceData?.order?.generic?.buyer?.name} , <br></br>{' '}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')} <br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')} <br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')} <br></br>
+                    {_get(insuranceData, 'order.generic.buyer.gstin', '')} <br></br>
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

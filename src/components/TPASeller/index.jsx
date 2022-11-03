@@ -86,18 +86,14 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-          supplierAddress:data?.supplierAddress,
-          supplierAuthorized:data?.supplierAuthorized,
-          buyerAuthorized:data?.buyerAuthorized,
-          associateBuyerAuthorized:data?.associateBuyerAuthorized,
-          buyerEmail:data?.buyerEmail,
-          supplierEmail:data?.buyerEmail,
-          endBuyer:data.endBuyer,
+          supplierAddress: data?.supplierAddress,
+          supplierAuthorized: data?.supplierAuthorized,
+          buyerAuthorized: data?.buyerAuthorized,
+          associateBuyerAuthorized: data?.associateBuyerAuthorized,
+          buyerEmail: data?.buyerEmail,
+          supplierEmail: data?.buyerEmail,
+          endBuyer: data.endBuyer,
           supplier: data?.supplier,
-
-
-
-
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -122,8 +118,8 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:_get(data, 'seller.addresses[0]', {}),
-          buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
+          sellerAddress: _get(data, 'seller.addresses[0]', {}),
+          buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
@@ -139,12 +135,7 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -154,27 +145,11 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.addresses[0]', ''),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
-          associateBuyerAuthorized: _get(
-            data,
-            'associateBuyer.authorisedSignatoryDetails',
-            [],
-          ),
-          buyerEmail:_get(
-            data,
-            'associateBuyer.authorisedSignatoryDetails',
-            [],
-          ) ,
-          supplierEmail: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ) ,
+          associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
+          buyerEmail: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
+          supplierEmail: _get(data, 'supplier.authorisedSignatoryDetails', []),
           financialBank: '',
           financialAddress: '',
           endBuyer: data.company.companyName,
@@ -229,7 +204,6 @@ const tripartiteAgreement = (data, preview) => {
   return (
     <>
       <div className="card-body">
-       
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -241,17 +215,16 @@ const tripartiteAgreement = (data, preview) => {
           <strong>Schedule I</strong> hereto by and between:
         </p>
         <p className="text_sales">
-          <b>{data.seller}</b>, a company organized and existing in accordance
-          with Law of Switzerland and having address at{' '}
-          <b> {data.sellerAddress?.fullAddress},
-              {data.sellerAddress?.city}{" "} 
-              {data.sellerAddress?.country},{" "}
-              
-              {data.sellerAddress?.pinCode}</b> through its Authorized Signatory
-          (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
-          which expression shall, unless excluded by or repugnant to the context
-          be deemed to include its legal heirs, successors and permitted
-          assigns) of the First Part.
+          <b>{data.seller}</b>, a company organized and existing in accordance with Law of Switzerland and having
+          address at{' '}
+          <b>
+            {' '}
+            {data.sellerAddress?.fullAddress},{data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
+            {data.sellerAddress?.pinCode}
+          </b>{' '}
+          through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which
+          expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs,
+          successors and permitted assigns) of the First Part.
         </p>
         <p className="text_sales">And</p>
         <p className="text_sales">
@@ -390,10 +363,7 @@ const tripartiteAgreement = (data, preview) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-               {data.supplierAddress?.fullAddress},
-              {data.supplierAddress?.city}{" "} 
-              {data.supplierAddress?.country},{" "}
-              
+              {data.supplierAddress?.fullAddress},{data.supplierAddress?.city} {data.supplierAddress?.country},{' '}
               {data.supplierAddress?.pinCode}
             </Col>
           </Row>
@@ -424,13 +394,12 @@ const tripartiteAgreement = (data, preview) => {
               Email ID of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-             
-                <ol>
-                  {data?.supplierEmail?.length > 0 &&
-                    data?.supplierEmail?.map((val, index) => {
-                       return <li>{val.email}</li>;
-                    })}
-                </ol>
+              <ol>
+                {data?.supplierEmail?.length > 0 &&
+                  data?.supplierEmail?.map((val, index) => {
+                    return <li>{val.email}</li>;
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -468,21 +437,19 @@ const tripartiteAgreement = (data, preview) => {
               Email ID of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              
-                <ol>
-                  {data?.buyerEmail?.length > 0 &&
-                    data?.buyerEmail?.map((val, index) => {
-                      return <li>{val.email}</li>;
-                    })}
-                </ol>
-              
+              <ol>
+                {data?.buyerEmail?.length > 0 &&
+                  data?.buyerEmail?.map((val, index) => {
+                    return <li>{val.email}</li>;
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`} >
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>

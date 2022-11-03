@@ -37,7 +37,7 @@ function Index(props) {
     curr: '',
     specComment: '',
   });
- 
+
   useEffect(() => {
     if (window) {
       if (props.preview) {
@@ -96,8 +96,8 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:_get(data, 'seller.addresses[0]', {}),
-          buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
+          sellerAddress: _get(data, 'seller.addresses[0]', {}),
+          buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
@@ -131,7 +131,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
-console.log(data.sellerAddress,"sellerAddress")
+  console.log(data.sellerAddress, 'sellerAddress');
   return (
     <>
       <div className={`${styles.root}`}>
@@ -193,9 +193,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </strong>
         </p>
         <p className="text_sales mt-3 mb-4">
-          This Sales Contract(“<strong>Contract</strong>”) is made at the place
-          and on the day as set out in <strong>Schedule I</strong> between the
-          Seller and the Buyer.
+          This Sales Contract(“<strong>Contract</strong>”) is made at the place and on the day as set out in{' '}
+          <strong>Schedule I</strong> between the Seller and the Buyer.
         </p>
 
         <div className={`${styles.inputsContainer} border_black`}>
@@ -209,15 +208,11 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
               <>{data?.seller}</>
               <br />
-             
+
               <>
-              
-              {data.sellerAddress?.fullAddress},
-              {data.sellerAddress?.city}{" "} 
-              {data.sellerAddress?.country},{" "}              
-              &nbsp;{data.sellerAddress?.pinCode}
+                {data.sellerAddress?.fullAddress},{data.sellerAddress?.city} {data.sellerAddress?.country}, &nbsp;
+                {data.sellerAddress?.pinCode}
               </>
-              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -231,13 +226,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               <>{data?.buyer?.toLowerCase()}</>
               <br />
               <>
-              
-              {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "} 
-              {data.buyerAddress?.country},{" "}
-              
-              {data.buyerAddress?.pinCode}
-              </> 
+                {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+                {data.buyerAddress?.pinCode}
+              </>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -379,26 +370,26 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                       Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day.
                     </p>
                   </li>
-                  <li className='pl-4'>
+                  <li className="pl-4">
                     <p className="text_sales">
                       Documents to be provided to Buyer
                       <ol type="1" className="ml-n4 pl-0">
-                        <li className='pl-4'>
+                        <li className="pl-4">
                           <p className="text_sales">The Seller's Commercial Invoice,</p>{' '}
                         </li>
-                        <li className='pl-4'>
+                        <li className="pl-4">
                           <p className="text_sales">Full set of 3/3 originals of Bills of Lading,</p>
                         </li>
-                        <li className='pl-4'>
+                        <li className="pl-4">
                           <p className="text_sales">Certificate of Quality,</p>
                         </li>
-                        <li className='pl-4'>
+                        <li className="pl-4">
                           <p className="text_sales">Certificate of Weight,</p>
                         </li>
-                        <li className='pl-4'>
+                        <li className="pl-4">
                           <p className="text_sales">Certificate of Origin,</p>{' '}
                         </li>
-                        <li className='pl-4'>
+                        <li className="pl-4">
                           <p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p>
                         </li>
                       </ol>
@@ -443,9 +434,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               Shipping Terms{' '}
             </Col>
             <Col md={7} className={`${styles.right} text-justify`}>
-              All demurrage/despatch for discharge port to be settled directly
-              between Shipper, Vessel Owner agent and End User with no liability
-              upon the Seller whatsoever.
+              All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and
+              End User with no liability upon the Seller whatsoever.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -634,18 +624,15 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
               </ol>
               <p className="">
-                a) For all quantity and quality claims/ issues pertaining to
-                material supplied by Manufacturer/shipper;
+                a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;
               </p>
               <p className="">
-                b) Any express or implied warranty claim for the quality of
-                material supplied by Manufacturer/shipper;
+                b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
               </p>
               <p className="">c) Loss of cargo;</p>
               <p className="">
-                d) Any demurrage charges at the load port and/or discharge port
-                shall be settled directly between the Buyer and
-                Manufacturer/shipper;
+                d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                Buyer and Manufacturer/shipper;
               </p>
               <p className="mt-3">
                 All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.

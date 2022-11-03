@@ -81,7 +81,7 @@ const index = () => {
               }}
             >
               <span className={styles.add_supplier}>+</span>
-              <span className='ml-1 mr-2'>Add Supplier</span>
+              <span className="ml-1 mr-2">Add Supplier</span>
             </button>
           </div>
 

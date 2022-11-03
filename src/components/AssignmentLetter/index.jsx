@@ -85,27 +85,21 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-          priceOfGoods:data?.priceOfGoods,
-          supplier:data?.supplier,
-          supplierAddress:data?.supplierAddress,
-          supplierAuthorized:data?.supplierAuthorized,
-          buyerAuthorized:data?.buyerAuthorized,
-          toleranceLevel:data?.toleranceLevel,
-          incoTerms:data.incoTerms,
+          priceOfGoods: data?.priceOfGoods,
+          supplier: data?.supplier,
+          supplierAddress: data?.supplierAddress,
+          supplierAuthorized: data?.supplierAuthorized,
+          buyerAuthorized: data?.buyerAuthorized,
+          toleranceLevel: data?.toleranceLevel,
+          incoTerms: data.incoTerms,
           addComm: data.addComm,
-          priceOfGoods:data.priceOfGoods,
-          specComment:data.specComment,
-          buyerEmail:data.buyerEmail,
-          supplierEmail:data.supplierEmail,
-          loadingCargo:data.loadingCargo,
-          dateOfContract:data.dateOfContract,
-          financialAddress:data?.financialAddress
-
-
-         
-
-
-
+          priceOfGoods: data.priceOfGoods,
+          specComment: data.specComment,
+          buyerEmail: data.buyerEmail,
+          supplierEmail: data.supplierEmail,
+          loadingCargo: data.loadingCargo,
+          dateOfContract: data.dateOfContract,
+          financialAddress: data?.financialAddress,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -121,11 +115,11 @@ function Index(props) {
           }
         });
         let comment = [];
-        let dateOfContract =''
+        let dateOfContract = '';
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Assignment Letter') {
             comment.push(val.comment);
-            dateOfContract=moment(val?.dateOfContract).format('DD-MM-YYYY')
+            dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
           }
         });
         console.log(dat, exe, 'exedasa');
@@ -133,8 +127,8 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:_get(data, 'seller.addresses[0]', {}),
-          buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
+          sellerAddress: _get(data, 'seller.addresses[0]', {}),
+          buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
@@ -150,12 +144,7 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -165,11 +154,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           buyerEmail: '',
           supplierEmail: '',
@@ -178,8 +163,8 @@ function Index(props) {
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           priceOfGoods: data?.order?.perUnitPrice,
-          loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
-          dateOfContract:dateOfContract
+          loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
+          dateOfContract: dateOfContract,
         });
       }
     }
@@ -725,7 +710,7 @@ function Index(props) {
       </table> */}
           {/* Assignment Letter pdf download code end */}
 
-      {/* <div className={`${styles.root}`}>
+          {/* <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
           {assignmentSupplier(data)}
           <div
@@ -743,9 +728,9 @@ function Index(props) {
           </div>
         </div>
       </div> */}
-    </>
-     </div>
-     </div>
+        </>
+      </div>
+    </div>
   );
 }
 
@@ -754,7 +739,6 @@ const assignmentSupplier = (data, preview) => {
   return (
     <>
       <div className="card-body">
-      
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -842,10 +826,7 @@ const assignmentSupplier = (data, preview) => {
               Address of Seller
             </Col>
             <Col md={7} className={styles.right}>
-              {data.sellerAddress?.fullAddress},
-              {data.sellerAddress?.city}{" "} 
-              {data.sellerAddress?.country},{" "}
-              
+              {data.sellerAddress?.fullAddress},{data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
               {data.sellerAddress?.pinCode}
             </Col>
           </Row>
@@ -862,10 +843,7 @@ const assignmentSupplier = (data, preview) => {
               Address of Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "} 
-              {data.buyerAddress?.country},{" "}
-              
+              {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
               {data.buyerAddress?.pinCode}
             </Col>
           </Row>
@@ -882,12 +860,8 @@ const assignmentSupplier = (data, preview) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplierAddress?.fullAddress},
-              {data.supplierAddress?.city}{" "} 
-              {data.supplierAddress?.country},{" "}
-              
+              {data.supplierAddress?.fullAddress},{data.supplierAddress?.city} {data.supplierAddress?.country},{' '}
               {data.supplierAddress?.pinCode}
-              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -936,7 +910,7 @@ const assignmentSupplier = (data, preview) => {
               {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
             </Col>
           </Row>
-          
+
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Price of Goods / MT
@@ -953,7 +927,8 @@ const assignmentSupplier = (data, preview) => {
             <Col md={7} className={styles.right}>
               {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
-              })} %
+              })}{' '}
+              %
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

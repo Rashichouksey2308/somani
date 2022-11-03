@@ -42,17 +42,16 @@ function AddressComponent({
               <h5 className={`mb-0`}>{Title}</h5>
             </div>
             <div>
-             
-                <img
-                  className={`${styles.edit_image} ml-2 mr-3`}
-                  src="/static/mode_edit.svg"
-                  alt="edit"
-                  onClick={() => {
-                    console.log('index', index);
-                    editAddress(index);
-                  }}
-                />
-          
+              <img
+                className={`${styles.edit_image} ml-2 mr-3`}
+                src="/static/mode_edit.svg"
+                alt="edit"
+                onClick={() => {
+                  console.log('index', index);
+                  editAddress(index);
+                }}
+              />
+
               {index !== 0 && (
                 <img
                   onClick={() => {
