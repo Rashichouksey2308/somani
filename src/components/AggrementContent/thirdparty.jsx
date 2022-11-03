@@ -358,34 +358,34 @@ function Index(props) {
                           </td>
                           <td>
                             <input
-                              onFocus={(e) => {
-                                let tempArray = [...isFieldInFocus]
-                                tempArray[index].amount = true
-                                setIsFieldInFocus(tempArray),
+                              // onFocus={(e) => {
+                              //   let tempArray = [...isFieldInFocus]
+                              //   tempArray[index].amount = true
+                              //   setIsFieldInFocus(tempArray),
 
-                                  (e.target.type = 'number');
-                              }}
-                              onBlur={(e) => {
-                                let tempArray = [...isFieldInFocus]
-                                tempArray[index].amount = false
-                                setIsFieldInFocus(tempArray),
+                              //     (e.target.type = 'number');
+                              // }}
+                              // onBlur={(e) => {
+                              //   let tempArray = [...isFieldInFocus]
+                              //   tempArray[index].amount = false
+                              //   setIsFieldInFocus(tempArray),
 
-                                  (e.target.type = 'text');
-                              }}
+                              //     (e.target.type = 'text');
+                              // }}
                               onWheel={(event) => event.currentTarget.blur()}
-                              value={
-                                isFieldInFocus[index].amount
-                                  ? val.amount
-                                  : `INR ` + Number(
-                                    val.amount
-                                  )?.toLocaleString('en-In', {
-                                    maximumFractionDigits: 2,
-                                  })
-                              }
+                              // value={
+                              //   isFieldInFocus[index].amount
+                              //     ? val.amount
+                              //     : `INR ` + Number(
+                              //       val.amount
+                              //     )?.toLocaleString('en-In', {
+                              //       maximumFractionDigits: 2,
+                              //     })
+                              // }
                               className="input"
                               name="amount"
                               type="text"
-                              // value={val.amount}
+                              value={val.amount}
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()

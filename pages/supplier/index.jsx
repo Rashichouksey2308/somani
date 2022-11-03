@@ -54,7 +54,7 @@ function Index() {
     setDetail(supplierData?.shareHoldersDetails ?? [])
     setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? [])
     setBusinessArray(supplierData?.bussinessSummary ?? [])
-    setCommidity(supplierData?.commoditiesTraded ?? [])
+    setListCommodity(supplierData?.commoditiesTraded ?? [])
     setInfoArray(supplierData?.additionalInformation ?? [])
     if (_get(supplierData, 'document[0]', '') !== '') {
       setIncumbencyDoc(supplierData?.document[0])
@@ -168,7 +168,7 @@ function Index() {
     },
   ]);
 
-
+  // console.log(listCommodity,'supplierstate')
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -226,7 +226,6 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-
       action: false
     },
   ]);
@@ -316,7 +315,7 @@ function Index() {
     console.log(businessArray, 'businessArray')
     let temp = [...businessArray]
     // temp.push(business)
-    setBusinessArray([...temp, { business: business }])
+    setBusinessArray([...temp, { businessSummary: business }])
     setBusiness('');
   };
 
@@ -358,17 +357,17 @@ function Index() {
           break;
         }
       }
-      if (
-        person[i].designation === '' ||
-        person[i].designation === null
-      ) {
-        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
+      // if (
+      //   person[i].designation === '' ||
+      //   person[i].designation === null
+      // ) {
+      //   toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     isOk = false;
+      //     break;
+      //   }
+      // }
       if (
         person[i].contact === '' ||
         person[i].contact === null ||
@@ -413,17 +412,17 @@ function Index() {
           break;
         }
       }
-      if (
-        detail[i].designation === '' ||
-        detail[i].designation === null
-      ) {
-        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
+      // if (
+      //   detail[i].designation === '' ||
+      //   detail[i].designation === null
+      // ) {
+      //   toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     isOk = false;
+      //     break;
+      //   }
+      // }
       if (
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
@@ -591,19 +590,19 @@ function Index() {
         shareHoldersDetails: detail,
         directorsAndAuthorizedSignatory: listDirector,
         bussinessSummary: businessArray,
-        commoditiesTraded: commodity,
+        commoditiesTraded: listCommodity,
         additionalInformation: infoArray,
         document1: incumbencyDoc,
         document2: thirdParty
       }
-
+      console.log(apiData, 'supplierstate')
       let fd = new FormData();
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
       fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
       fd.append('bussinessSummary', JSON.stringify(businessArray));
-      fd.append('commoditiesTraded', JSON.stringify(commodity));
+      fd.append('commoditiesTraded', JSON.stringify(listCommodity));
       fd.append('additionalInformation', JSON.stringify(infoArray));
 
       fd.append('document1', incumbencyDoc);
@@ -1826,7 +1825,7 @@ function Index() {
                 </div>
                 <ol>
                   {businessArray?.map((val, index) => {
-                    return <li>{val?.business}</li>
+                    return <li>{val?.businessSummary}</li>
                   })}
                 </ol>
               </div>
