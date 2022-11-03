@@ -118,7 +118,13 @@
     height: 28px;
     font-size: 13px;
     border-radius: 4px;
+    line-height: 1;
+    padding: 5px 8px 7px;
   }
+}
+.react_multi_email [data-tag].pending {
+  border: 1px solid #ed6a5e;
+  background-color: rgba(234, 106, 94, 0.3);
 }
 
 .react_multi_email [data-tag] [data-tag-item] {
@@ -137,6 +143,7 @@
   font-size: 22px;
   -webkit-text-fill-color: #ed6a5e;
   @include respond(lg-desktop) {
+    margin-left: 0.5em;
     font-size: 16px;
     line-height: 10px;
   }

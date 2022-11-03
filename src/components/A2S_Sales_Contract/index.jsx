@@ -192,9 +192,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <u>SALES CONTRACT</u>
           </strong>
         </p>
-        <p className="text_sales">
-          This Sales Contract(“<strong>Contract</strong>”) is made at the place and on the day as set out in{' '}
-          <strong>Schedule I</strong> between the Seller and the Buyer.
+        <p className="text_sales mt-3 mb-4">
+          This Sales Contract(“<strong>Contract</strong>”) is made at the place
+          and on the day as set out in <strong>Schedule I</strong> between the
+          Seller and the Buyer.
         </p>
 
         <div className={`${styles.inputsContainer} border_black`}>
@@ -442,8 +443,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               Shipping Terms{' '}
             </Col>
             <Col md={7} className={`${styles.right} text-justify`}>
-              All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and
-              End User with no liability upon the Seller whatsoever
+              All demurrage/despatch for discharge port to be settled directly
+              between Shipper, Vessel Owner agent and End User with no liability
+              upon the Seller whatsoever.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -632,15 +634,18 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
               </ol>
               <p className="">
-                a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper,
+                a) For all quantity and quality claims/ issues pertaining to
+                material supplied by Manufacturer/shipper;
               </p>
               <p className="">
-                b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
+                b) Any express or implied warranty claim for the quality of
+                material supplied by Manufacturer/shipper;
               </p>
-              <p className="">c) Loss of cargo,</p>
+              <p className="">c) Loss of cargo;</p>
               <p className="">
-                d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
-                Buyer and Manufacturer/shipper,
+                d) Any demurrage charges at the load port and/or discharge port
+                shall be settled directly between the Buyer and
+                Manufacturer/shipper;
               </p>
               <p className="mt-3">
                 All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.
