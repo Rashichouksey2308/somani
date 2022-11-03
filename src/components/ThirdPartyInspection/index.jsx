@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
-import { useState } from 'react';
 import DateCalender from '../DateCalender';
 import Modal from 'react-bootstrap/Modal';
-import { useEffect } from 'react';
-import { ReactReduxContext, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UpdateInspection } from 'redux/Inspections/action';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
@@ -28,7 +26,6 @@ export default function Index({ addButton }) {
   const { allInspection } = useSelector((state) => state.Inspection);
 
   const [inspectionData, setInspectionData2] = useState({});
- 
 
   useEffect(() => {
     setInspectionData2(_get(allInspection, 'data[0]', {}));
@@ -76,13 +73,7 @@ export default function Index({ addButton }) {
 
   useEffect(() => {
     if (inspectionData) {
-      setExcelFile(
-        _get(
-          inspectionData,
-          'order.generic.productSpecifications.specificationTable',
-          [],
-        ),
-      );
+      setExcelFile(_get(inspectionData, 'order.generic.productSpecifications.specificationTable', []));
     }
   }, [inspectionData]);
 
@@ -106,105 +97,68 @@ export default function Index({ addButton }) {
       startDate: '',
       specialMention: '',
     },
-    certificateOfOriginStatus:
-      inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
-    certificateOfQualityStatus:
-      inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
-    certificateOfWeightStatus:
-      inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
+    certificateOfOriginStatus: inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+    certificateOfQualityStatus: inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+    certificateOfWeightStatus: inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
 
-    dischargeCertificateOfOriginStatus:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfOriginStatus,
-    dischargeCertificateOfQualityStatus:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfQualityStatus,
-    dischargeCertificateOfWeightStatus:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
+    dischargeCertificateOfOriginStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOriginStatus,
+    dischargeCertificateOfQualityStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQualityStatus,
+    dischargeCertificateOfWeightStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
   });
 
-
   useEffect(() => {
-
-    let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort
-  
+    let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort;
 
     setInspectionData({
-      dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.dischargePortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Discharge Port' ? true : false,
-      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.loadPortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Load Port' ? true : false,
+      dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy
+        ? inspectionData?.thirdPartyInspection?.dischargePortInspection
+        : typeOfPort === 'Both'
+        ? true
+        : typeOfPort === 'Discharge Port'
+        ? true
+        : false,
+      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy
+        ? inspectionData?.thirdPartyInspection?.loadPortInspection
+        : typeOfPort === 'Both'
+        ? true
+        : typeOfPort === 'Load Port'
+        ? true
+        : false,
 
       loadPortInspectionDetails: {
-        numberOfContainer:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.numberOfContainer,
-        inspectionPort:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.inspectionPort,
-        inspectedBy:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.inspectedBy,
-        startDate:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.startDate,
-        specialMention:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.specialMention,
+        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+        inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+        inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
+        startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
+        specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
       },
       dischargePortInspectionDetails: {
-        numberOfContainer:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.numberOfContainer,
-        inspectionPort:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.inspectionPort,
-        inspectedBy:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.inspectedBy,
-        startDate:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.startDate,
-        specialMention:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.specialMention,
+        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+        inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
+        startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
+        specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
       },
-      certificateOfOriginStatus:
-        inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
-      certificateOfQualityStatus:
-        inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
-      certificateOfWeightStatus:
-        inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
+      certificateOfOriginStatus: inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+      certificateOfQualityStatus: inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+      certificateOfWeightStatus: inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
 
-      dischargeCertificateOfOriginStatus:
-        inspectionData?.thirdPartyInspection
-          ?.dischargeCertificateOfOriginStatus,
-      dischargeCertificateOfQualityStatus:
-        inspectionData?.thirdPartyInspection
-          ?.dischargeCertificateOfQualityStatus,
-      dischargeCertificateOfWeightStatus:
-        inspectionData?.thirdPartyInspection
-          ?.dischargeCertificateOfWeightStatus,
+      dischargeCertificateOfOriginStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOriginStatus,
+      dischargeCertificateOfQualityStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQualityStatus,
+      dischargeCertificateOfWeightStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
     });
-
-
   }, [inspectionData, allInspection]);
 
   const [documents, setDocuments] = useState({
-    certificateOfQuality:
-      inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
-    certificateOfWeight:
-      inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
-    certificateOfOrigin:
-      inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
+    certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
+    certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
+    certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   });
 
   const [dischargeDocuments, setDischargeDocuments] = useState({
-    dischargeCertificateOfQuality:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality ||
-      null,
-    dischargeCertificateOfWeight:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight ||
-      null,
-    dischargeCertificateOfOrigin:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin ||
-      null,
+    dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
+    dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
+    dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
   });
 
   useEffect(() => {
@@ -215,11 +169,7 @@ export default function Index({ addButton }) {
     ) {
       sethaveDoc(false);
     }
-  }, [
-    documents.certificateOfQuality,
-    documents.certificateOfWeight,
-    documents.certificateOfOrigin,
-  ]);
+  }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
 
   useEffect(() => {
     if (
@@ -315,9 +265,7 @@ export default function Index({ addButton }) {
   const saveInspectionDetails = (name, value) => {
     const newInput = { ...inspectionDetails };
     const namesplit = name.split('.');
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
     setInspectionData(newInput);
   };
 
@@ -330,9 +278,7 @@ export default function Index({ addButton }) {
   const saveDischargeInspectionDetails = (name, value) => {
     const newInput = { ...inspectionDetails };
     const namesplit = name.split('.');
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
     setInspectionData(newInput);
   };
 
@@ -342,9 +288,7 @@ export default function Index({ addButton }) {
   });
 
   const setStartDate = (val, name) => {
-    let new_date = moment(new Date(val).toISOString())
-      .add(1, 'days')
-      .format('DD-MM-YYYY');
+    let new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'loadPortInspectionDetails.startDate') {
       setDateStartFrom({ ...dateStartFrom, inspectionDateAtLoad: new_date });
     } else {
@@ -358,8 +302,7 @@ export default function Index({ addButton }) {
   const validation = () => {
     let toastMessage = '';
     if (
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
-      null ||
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == null ||
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == ''
     ) {
       toastMessage = 'PLEASE SELECT SHIPMENT TYPE FROM A PREVIOUS MODULE';
@@ -372,14 +315,8 @@ export default function Index({ addButton }) {
   };
 
   const handleSave = () => {
-    if (
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
-      'Liner'
-    ) {
-      if (
-        inspectionDetails.loadPortInspection == true &&
-        inspectionDetails.dischargePortInspection == false
-      ) {
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
+      if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         let fd = new FormData();
 
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
@@ -393,25 +330,15 @@ export default function Index({ addButton }) {
         let task = 'save';
 
         dispatch(UpdateInspection({ fd, task }));
-      } else if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == false
-      ) {
-        if (
-          inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === ''
-        ) {
+      } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
+        if (inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '') {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
-        } else if (
-          inspectionDetails.dischargePortInspection == true &&
-          inspectionDetails.loadPortInspection == true
-        ) {
+        } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
           if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage =
-              'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
             if (!toast.isActive(toastMessage)) {
               toast.error(toastMessage, { toastId: toastMessage });
             }
@@ -426,18 +353,9 @@ export default function Index({ addButton }) {
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
         fd.append('certificateOfWeight', documents.certificateOfWeight);
-        fd.append(
-          'dischargeCertificateOfOrigin',
-          dischargeDocuments.dischargeCertificateOfOrigin,
-        );
-        fd.append(
-          'dischargeCertificateOfQuality',
-          dischargeDocuments.dischargeCertificateOfQuality,
-        );
-        fd.append(
-          'dischargeCertificateOfWeight',
-          dischargeDocuments.dischargeCertificateOfWeight,
-        );
+        fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
+        fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
+        fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
 
         let task = 'save';
 
@@ -470,26 +388,17 @@ export default function Index({ addButton }) {
 
       dispatch(UpdateInspection({ fd, task }));
     }
-    if (
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
-    ) {
-      if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == true
-      ) {
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
+      if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage =
-            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
           return;
         }
       }
-      if (
-        inspectionDetails.loadPortInspection == true &&
-        inspectionDetails.dischargePortInspection == false
-      ) {
+      if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
         // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -501,10 +410,7 @@ export default function Index({ addButton }) {
         let task = 'save';
 
         dispatch(UpdateInspection({ fd, task }));
-      } else if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == false
-      ) {
+      } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
         // fd.append('dischargePortInspection', portType.dischargePortInspection)
@@ -512,18 +418,9 @@ export default function Index({ addButton }) {
         // fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         // fd.append('certificateOfQuality', documents.certificateOfQuality);
         // fd.append('certificateOfWeight', documents.certificateOfWeight);
-        fd.append(
-          'dischargeCertificateOfOrigin',
-          dischargeDocuments.dischargeCertificateOfOrigin,
-        );
-        fd.append(
-          'dischargeCertificateOfQuality',
-          dischargeDocuments.dischargeCertificateOfQuality,
-        );
-        fd.append(
-          'dischargeCertificateOfWeight',
-          dischargeDocuments.dischargeCertificateOfWeight,
-        );
+        fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
+        fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
+        fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
 
         let task = 'save';
 
@@ -547,28 +444,19 @@ export default function Index({ addButton }) {
 
   const handleSubmit = () => {
     if (!validation()) return;
-    if (
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
-      'Liner'
-    ) {
-      if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == true
-      ) {
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
+      if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage =
-            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
           return (noError = true);
         }
         if (
-          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-          '' ||
-          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -578,8 +466,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -599,8 +486,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -609,10 +495,8 @@ export default function Index({ addButton }) {
           return (noError = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === '' ||
-          inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === undefined
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -621,10 +505,8 @@ export default function Index({ addButton }) {
           return (noError = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -634,8 +516,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.startDate === undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -644,10 +525,8 @@ export default function Index({ addButton }) {
           return (noError = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -663,28 +542,16 @@ export default function Index({ addButton }) {
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
           fd.append('certificateOfWeight', documents.certificateOfWeight);
-          fd.append(
-            'dischargeCertificateOfOrigin',
-            dischargeDocuments.dischargeCertificateOfOrigin,
-          );
-          fd.append(
-            'dischargeCertificateOfQuality',
-            dischargeDocuments.dischargeCertificateOfQuality,
-          );
-          fd.append(
-            'dischargeCertificateOfWeight',
-            dischargeDocuments.dischargeCertificateOfWeight,
-          );
+          fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
+          fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
+          fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
           let task = 'submit';
 
           dispatch(UpdateInspection({ fd, task }));
         }
       }
 
-      if (
-        inspectionDetails.loadPortInspection == true &&
-        inspectionDetails.dischargePortInspection == false
-      ) {
+      if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
@@ -694,10 +561,8 @@ export default function Index({ addButton }) {
           return (noError2 = true);
         }
         if (
-          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-          '' ||
-          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -707,8 +572,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -728,8 +592,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -739,7 +602,6 @@ export default function Index({ addButton }) {
         }
 
         if (noError2 == false) {
-         
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
           // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -754,16 +616,11 @@ export default function Index({ addButton }) {
         }
       }
 
-      if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == false
-      ) {
+      if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
         var noError3 = false;
         if (
-          inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === '' ||
-          inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === undefined
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -772,10 +629,8 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -785,8 +640,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.startDate === undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -795,10 +649,8 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -814,35 +666,22 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (noError3 == false) {
-         
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
           fd.append('inspectionId', inspectionData?._id);
 
-          fd.append(
-            'dischargeCertificateOfOrigin',
-            dischargeDocuments.dischargeCertificateOfOrigin,
-          );
-          fd.append(
-            'dischargeCertificateOfQuality',
-            dischargeDocuments.dischargeCertificateOfQuality,
-          );
-          fd.append(
-            'dischargeCertificateOfWeight',
-            dischargeDocuments.dischargeCertificateOfWeight,
-          );
+          fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
+          fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
+          fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
 
           let task = 'submit';
 
           dispatch(UpdateInspection({ fd, task }));
         }
       }
-      if (
-        inspectionDetails.dischargePortInspection == false &&
-        inspectionDetails.loadPortInspection == false
-      ) {
+      if (inspectionDetails.dischargePortInspection == false && inspectionDetails.loadPortInspection == false) {
         let toastMessage = 'PLEASE SELECT LOAD PORT OR DISCHARGE PORT';
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage });
@@ -851,17 +690,11 @@ export default function Index({ addButton }) {
       }
     }
 
-    if (
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
-    ) {
-      if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == true
-      ) {
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
+      if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage =
-            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -870,8 +703,7 @@ export default function Index({ addButton }) {
 
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -891,8 +723,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -902,10 +733,8 @@ export default function Index({ addButton }) {
         }
 
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -915,8 +744,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.startDate === undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -925,10 +753,8 @@ export default function Index({ addButton }) {
           return (noError = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -944,28 +770,16 @@ export default function Index({ addButton }) {
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
           fd.append('certificateOfWeight', documents.certificateOfWeight);
-          fd.append(
-            'dischargeCertificateOfOrigin',
-            dischargeDocuments.dischargeCertificateOfOrigin,
-          );
-          fd.append(
-            'dischargeCertificateOfQuality',
-            dischargeDocuments.dischargeCertificateOfQuality,
-          );
-          fd.append(
-            'dischargeCertificateOfWeight',
-            dischargeDocuments.dischargeCertificateOfWeight,
-          );
+          fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
+          fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
+          fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
           let task = 'submit';
 
           dispatch(UpdateInspection({ fd, task }));
         }
       }
 
-      if (
-        inspectionDetails.loadPortInspection == true &&
-        inspectionDetails.dischargePortInspection == false
-      ) {
+      if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
@@ -977,8 +791,7 @@ export default function Index({ addButton }) {
 
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -998,8 +811,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
-          inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -1009,7 +821,6 @@ export default function Index({ addButton }) {
         }
 
         if (noError2 == false) {
-      
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
           // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -1024,17 +835,12 @@ export default function Index({ addButton }) {
         }
       }
 
-      if (
-        inspectionDetails.dischargePortInspection == true &&
-        inspectionDetails.loadPortInspection == false
-      ) {
+      if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
         var noError3 = false;
 
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -1044,8 +850,7 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.startDate === undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -1054,10 +859,8 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          '' ||
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort === undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -1073,35 +876,22 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (noError3 == false) {
-       
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
           fd.append('inspectionId', inspectionData?._id);
 
-          fd.append(
-            'dischargeCertificateOfOrigin',
-            dischargeDocuments.dischargeCertificateOfOrigin,
-          );
-          fd.append(
-            'dischargeCertificateOfQuality',
-            dischargeDocuments.dischargeCertificateOfQuality,
-          );
-          fd.append(
-            'dischargeCertificateOfWeight',
-            dischargeDocuments.dischargeCertificateOfWeight,
-          );
+          fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
+          fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
+          fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
 
           let task = 'submit';
 
           dispatch(UpdateInspection({ fd, task }));
         }
       }
-      if (
-        inspectionDetails.dischargePortInspection == false &&
-        inspectionDetails.loadPortInspection == false
-      ) {
+      if (inspectionDetails.dischargePortInspection == false && inspectionDetails.loadPortInspection == false) {
         let toastMessage = 'PLEASE SELECT LOAD PORT OR DISCHARGE PORT';
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage });
@@ -1109,7 +899,7 @@ export default function Index({ addButton }) {
         return;
       }
     }
-  }
+  };
 
   // useEffect(() => {
   //   if (inspectionData?.thirdPartyInspection) {
@@ -1189,15 +979,9 @@ export default function Index({ addButton }) {
               <h3 className={`${styles.heading}`}>Inspection Type</h3>
               <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center mr-5">
-                  <label className={`${styles.dropDown_label} text`}>
-                    Shipment Type:
-                  </label>
+                  <label className={`${styles.dropDown_label} text`}>Shipment Type:</label>
                   <div className={`${styles.dropDown} input`} value="Bulk">
-                    {_get(
-                      inspectionData,
-                      'order.vessel.vessels[0].shipmentType',
-                      '',
-                    )}
+                    {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '')}
                   </div>
                 </div>
 
@@ -1214,15 +998,9 @@ export default function Index({ addButton }) {
                 </div> */}
 
                 <div className="d-flex align-items-center">
-                  <label className={`${styles.dropDown_label} text`}>
-                    Part Shipment Allowed:
-                  </label>
+                  <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</label>
                   <div className={`${styles.dropDown} input`}>
-                    {_get(
-                      inspectionData,
-                      'order.termsheet.transactionDetails.partShipmentAllowed',
-                      '',
-                    )}
+                    {_get(inspectionData, 'order.termsheet.transactionDetails.partShipmentAllowed', '')}
                   </div>
 
                   <button className={styles.add_btn}>Add</button>
@@ -1272,48 +1050,32 @@ export default function Index({ addButton }) {
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>
-                    {inspectionData?.order?.commodity}
-                  </span>
+                  <span className={styles.value}>{inspectionData?.order?.commodity}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {Number(inspectionData?.order?.quantity)?.toLocaleString(
-                      'en-IN',
-                      {
-                        maximumFractionDigits: 2,
-                      },
-                    )}{' '}
+                    {Number(inspectionData?.order?.quantity)?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                     MT
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
-                    Country of Origin{' '}
-                    <strong className="text-danger ml-n1">*</strong>{' '}
+                    Country of Origin <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>
-                    {inspectionData?.order?.countryOfOrigin}
-                  </span>
+                  <span className={styles.value}>{inspectionData?.order?.countryOfOrigin}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Vessel Name
-                    {!inspectionDetails.loadPortInspection ? (
-                      <strong className="text-danger">*</strong>
-                    ) : (
-                      ''
-                    )}
+                    {!inspectionDetails.loadPortInspection ? <strong className="text-danger">*</strong> : ''}
                   </div>
                   <span className={styles.value}>
-                    {_get(
-                      inspectionData,
-                      'order.vessel.vessels[0].vesselInformation[0].name',
-                      '',
-                    )}
+                    {_get(inspectionData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                   </span>
                 </div>
               </div>
@@ -1326,36 +1088,18 @@ export default function Index({ addButton }) {
                   className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Inspection Details</h3>
-                  <button
-                    onClick={handleShow}
-                    className={styles.product_btn}
-                    type="button"
-                  >
+                  <button onClick={handleShow} className={styles.product_btn} type="button">
                     {' '}
                     Product Specification
-                    <img
-                      className="img-fluid ml-2"
-                      src="/static/blue-eye.svg"
-                      alt="blue-eye"
-                    />
+                    <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />
                   </button>
                 </div>
-                <div
-                  className={`${styles.dashboard_form} vessel_card card-body`}
-                >
-                  <h5 className={styles.sub_heading}>
-                    Inspection at Load Port
-                  </h5>
+                <div className={`${styles.dashboard_form} vessel_card card-body`}>
+                  <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
 
                   <div className="row">
-                    {_get(
-                      inspectionData,
-                      'order.vessel.vessels[0].shipmentType',
-                      '',
-                    ) === 'Liner' ? (
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                      >
+                    {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') === 'Liner' ? (
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
@@ -1364,22 +1108,13 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.numberOfContainer
                           // }
-                          value={
-                            inspectionDetails?.loadPortInspectionDetails
-                              ?.numberOfContainer
-                          }
-                          onChange={(e) =>
-                            saveInspectionDetails(e.target.name, e.target.value)
-                          }
+                          value={inspectionDetails?.loadPortInspectionDetails?.numberOfContainer}
+                          onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                           type="number"
                           onWheel={(event) => event.currentTarget.blur()}
-                          onKeyDown={(evt) =>
-                            evt.key === 'e' && evt.preventDefault()
-                          }
+                          onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           No of Containers
                           <strong className="text-danger">*</strong>
                         </label>
@@ -1387,9 +1122,7 @@ export default function Index({ addButton }) {
                     ) : (
                       ''
                     )}
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -1400,17 +1133,10 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.inspectionPort
                           // }
-                          value={
-                            inspectionDetails?.loadPortInspectionDetails
-                              ?.inspectionPort
-                          }
-                          onChange={(e) =>
-                            saveInspectionDetails(e.target.name, e.target.value)
-                          }
+                          value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
+                          onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
@@ -1421,9 +1147,7 @@ export default function Index({ addButton }) {
                         /> */}
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1432,24 +1156,15 @@ export default function Index({ addButton }) {
                         //   inspectionData?.thirdPartyInspection
                         //     ?.loadPortInspectionDetails?.inspectedBy
                         // }
-                        value={
-                          inspectionDetails?.loadPortInspectionDetails
-                            ?.inspectedBy
-                        }
-                        onChange={(e) =>
-                          saveInspectionDetails(e.target.name, e.target.value)
-                        }
+                        value={inspectionDetails?.loadPortInspectionDetails?.inspectedBy}
+                        onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                         type="text"
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Inspected By<strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
                         <DateCalender
                           saveDate={saveDate}
@@ -1458,10 +1173,7 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.startDate
                           // }
-                          defaultDate={
-                            inspectionDetails?.loadPortInspectionDetails
-                              ?.startDate
-                          }
+                          defaultDate={inspectionDetails?.loadPortInspectionDetails?.startDate}
                           labelName="Inspection Date"
                           startFrom={dateStartFrom.inspectionDateAtLoad}
                           dateFormat={`dd-MM-yyyy`}
@@ -1488,21 +1200,14 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.specialMention
                           // }
-                          value={
-                            inspectionDetails?.loadPortInspectionDetails
-                              ?.specialMention
-                          }
-                          onChange={(e) =>
-                            saveInspectionDetails(e.target.name, e.target.value)
-                          }
+                          value={inspectionDetails?.loadPortInspectionDetails?.specialMention}
+                          onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                        // style={{ backgroundColor: 'none' }}
+                          // style={{ backgroundColor: 'none' }}
                         />
-                        <label
-                          className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                           Special Mention
                         </label>
                       </div>
@@ -1514,14 +1219,14 @@ export default function Index({ addButton }) {
           ) : null}
           {inspectionDetails.dischargePortInspection
             ? Discharge(
-              inspectionData,
-              inspectionDetails,
-              saveInspectionDetails,
-              saveDate,
-              setStartDate,
-              setDateStartFrom,
-              handleShow,
-            )
+                inspectionData,
+                inspectionDetails,
+                saveInspectionDetails,
+                saveDate,
+                setStartDate,
+                setDateStartFrom,
+                handleShow,
+              )
             : ''}
           {inspectionDetails.loadPortInspection && (
             <div className={`${styles.main} vessel_card card border_color`}>
@@ -1535,22 +1240,12 @@ export default function Index({ addButton }) {
                 <h3 className={styles.heading}>Load Port Document</h3>
                 <span>+</span>
               </div>
-              <div
-                id="upload"
-                className="collapse"
-                aria-labelledby="upload"
-                data-parent="#upload"
-              >
+              <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
                 <div className={`${styles.table_form}`}>
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th width="25%">
@@ -1586,15 +1281,12 @@ export default function Index({ addButton }) {
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ? (
                                   <span
                                     onClick={() =>
                                       dispatch(
                                         ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.certificateOfOrigin?.path,
+                                          path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
@@ -1607,22 +1299,16 @@ export default function Index({ addButton }) {
                                 )}
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
                               <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfOrigin
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.certificateOfOrigin?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
+                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin
+                                  ? moment(inspectionData?.thirdPartyInspection?.certificateOfOrigin?.date).format(
+                                      'DD-MM-YYYY, h:mm A',
+                                    )
                                   : documents?.certificateOfOrigin != null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
                               <td>
                                 {' '}
@@ -1681,47 +1367,28 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${inspectionDetails?.certificateOfOriginStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.certificateOfOriginStatus ===
-                                          'Rejected'
+                                      className={`${
+                                        inspectionDetails?.certificateOfOriginStatus === 'On Hold'
+                                          ? styles.hold_option
+                                          : inspectionDetails?.certificateOfOriginStatus === 'Rejected'
                                           ? styles.rejected_option
-                                          : inspectionDetails?.certificateOfOriginStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
+                                          : inspectionDetails?.certificateOfOriginStatus === 'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                      } ${styles.customSelect} input form-control`}
                                       id="docType"
-                                      value={
-                                        inspectionDetails?.certificateOfOriginStatus
-                                      }
+                                      value={inspectionDetails?.certificateOfOriginStatus}
                                       name="certificateOfOriginStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                      onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                                     >
                                       <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
+                                      <option className={`${styles.hold_option}`} value="On Hold">
                                         On Hold
                                       </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
+                                      <option className={`${styles.rejected_option}`} value="Rejected">
                                         Rejected
                                       </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
+                                      <option className={`${styles.approved_option}`} value="Approved">
                                         Approved
                                       </option>
                                     </select>
@@ -1734,8 +1401,7 @@ export default function Index({ addButton }) {
                                 </Form.Group>
                               </td>
                               <td>
-                                {documents &&
-                                  documents?.certificateOfOrigin == null ? (
+                                {documents && documents?.certificateOfOrigin == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1744,22 +1410,14 @@ export default function Index({ addButton }) {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument3(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
                                       {documents?.certificateOfOrigin?.name.slice(
-                                        documents?.certificateOfOrigin?.name.lastIndexOf(
-                                          '_',
-                                        ) + 1,
+                                        documents?.certificateOfOrigin?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -1776,15 +1434,12 @@ export default function Index({ addButton }) {
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfQuality ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfQuality ? (
                                   <span
                                     onClick={() =>
                                       dispatch(
                                         ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.certificateOfQuality?.path,
+                                          path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
@@ -1797,22 +1452,16 @@ export default function Index({ addButton }) {
                                 )}
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
                               <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfQuality
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.certificateOfQuality?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
+                                {inspectionData?.thirdPartyInspection?.certificateOfQuality
+                                  ? moment(inspectionData?.thirdPartyInspection?.certificateOfQuality?.date).format(
+                                      'DD-MM-YYYY, h:mm A',
+                                    )
                                   : documents?.certificateOfQuality != null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
                               <td>
                                 {' '}
@@ -1866,47 +1515,28 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${inspectionDetails?.certificateOfQualityStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.certificateOfQualityStatus ===
-                                          'Rejected'
+                                      className={`${
+                                        inspectionDetails?.certificateOfQualityStatus === 'On Hold'
+                                          ? styles.hold_option
+                                          : inspectionDetails?.certificateOfQualityStatus === 'Rejected'
                                           ? styles.rejected_option
-                                          : inspectionDetails?.certificateOfQualityStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
+                                          : inspectionDetails?.certificateOfQualityStatus === 'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                      } ${styles.customSelect} input form-control`}
                                       id="docType"
-                                      value={
-                                        inspectionDetails?.certificateOfQualityStatus
-                                      }
+                                      value={inspectionDetails?.certificateOfQualityStatus}
                                       name="certificateOfQualityStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                      onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                                     >
                                       <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
+                                      <option className={`${styles.hold_option}`} value="On Hold">
                                         On Hold
                                       </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
+                                      <option className={`${styles.rejected_option}`} value="Rejected">
                                         Rejected
                                       </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
+                                      <option className={`${styles.approved_option}`} value="Approved">
                                         Approved
                                       </option>
                                     </select>
@@ -1919,8 +1549,7 @@ export default function Index({ addButton }) {
                                 </Form.Group>
                               </td>
                               <td>
-                                {documents &&
-                                  documents?.certificateOfQuality == null ? (
+                                {documents && documents?.certificateOfQuality == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1929,22 +1558,14 @@ export default function Index({ addButton }) {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument1(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
                                       {documents?.certificateOfQuality?.name.slice(
-                                        documents?.certificateOfQuality?.name.lastIndexOf(
-                                          '_',
-                                        ) + 1,
+                                        documents?.certificateOfQuality?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -1961,15 +1582,12 @@ export default function Index({ addButton }) {
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfWeight ? (
                                   <span
                                     onClick={() =>
                                       dispatch(
                                         ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.certificateOfWeight?.path,
+                                          path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
@@ -1982,23 +1600,17 @@ export default function Index({ addButton }) {
                                 )}
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
 
                               <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfWeight
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.certificateOfWeight?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
+                                {inspectionData?.thirdPartyInspection?.certificateOfWeight
+                                  ? moment(inspectionData?.thirdPartyInspection?.certificateOfWeight?.date).format(
+                                      'DD-MM-YYYY, h:mm A',
+                                    )
                                   : documents?.certificateOfWeight != null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
                               <td>
                                 {' '}
@@ -2052,47 +1664,28 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${inspectionDetails?.certificateOfWeightStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.certificateOfWeightStatus ===
-                                          'Rejected'
+                                      className={`${
+                                        inspectionDetails?.certificateOfWeightStatus === 'On Hold'
+                                          ? styles.hold_option
+                                          : inspectionDetails?.certificateOfWeightStatus === 'Rejected'
                                           ? styles.rejected_option
-                                          : inspectionDetails?.certificateOfWeightStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
+                                          : inspectionDetails?.certificateOfWeightStatus === 'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                      } ${styles.customSelect} input form-control`}
                                       id="docType"
-                                      value={
-                                        inspectionDetails?.certificateOfWeightStatus
-                                      }
+                                      value={inspectionDetails?.certificateOfWeightStatus}
                                       name="certificateOfWeightStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                      onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                                     >
                                       <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
+                                      <option className={`${styles.hold_option}`} value="On Hold">
                                         On Hold
                                       </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
+                                      <option className={`${styles.rejected_option}`} value="Rejected">
                                         Rejected
                                       </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
+                                      <option className={`${styles.approved_option}`} value="Approved">
                                         Approved
                                       </option>
                                     </select>
@@ -2105,8 +1698,7 @@ export default function Index({ addButton }) {
                                 </Form.Group>
                               </td>
                               <td>
-                                {documents &&
-                                  documents?.certificateOfWeight == null ? (
+                                {documents && documents?.certificateOfWeight == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -2115,22 +1707,14 @@ export default function Index({ addButton }) {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument2(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
                                       {documents?.certificateOfWeight?.name.slice(
-                                        documents?.certificateOfWeight?.name.lastIndexOf(
-                                          '_',
-                                        ) + 1,
+                                        documents?.certificateOfWeight?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -2148,9 +1732,7 @@ export default function Index({ addButton }) {
                       </div>
                     </div>
 
-                    <div
-                      className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}
-                    >
+                    <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
                       Any one document is mandatory
                     </div>
@@ -2182,12 +1764,7 @@ export default function Index({ addButton }) {
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th width="25%">
@@ -2223,15 +1800,12 @@ export default function Index({ addButton }) {
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin ? (
                                   <span
                                     onClick={() =>
                                       dispatch(
                                         ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.dischargeCertificateOfOrigin
+                                          path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
@@ -2245,69 +1819,43 @@ export default function Index({ addButton }) {
                                 )}
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
                               <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfOrigin
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
                                   ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.dischargeCertificateOfOrigin?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : dischargeDocuments?.dischargeCertificateOfOrigin !=
-                                    null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
+                                      inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.date,
+                                    ).format('DD-MM-YYYY, h:mm A')
+                                  : dischargeDocuments?.dischargeCertificateOfOrigin != null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                          'Rejected'
+                                      className={`${
+                                        inspectionDetails?.dischargeCertificateOfOriginStatus === 'On Hold'
+                                          ? styles.hold_option
+                                          : inspectionDetails?.dischargeCertificateOfOriginStatus === 'Rejected'
                                           ? styles.rejected_option
-                                          : inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
+                                          : inspectionDetails?.dischargeCertificateOfOriginStatus === 'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                      } ${styles.customSelect} input form-control`}
                                       id="docType"
-                                      value={
-                                        inspectionDetails?.dischargeCertificateOfOriginStatus
-                                      }
+                                      value={inspectionDetails?.dischargeCertificateOfOriginStatus}
                                       name="dischargeCertificateOfOriginStatus"
-                                      onChange={(e) =>
-                                        saveDischargeInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                      onChange={(e) => saveDischargeInspectionDetails(e.target.name, e.target.value)}
                                     >
                                       <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
+                                      <option className={`${styles.hold_option}`} value="On Hold">
                                         On Hold
                                       </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
+                                      <option className={`${styles.rejected_option}`} value="Rejected">
                                         Rejected
                                       </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
+                                      <option className={`${styles.approved_option}`} value="Approved">
                                         Approved
                                       </option>
                                     </select>
@@ -2320,35 +1868,23 @@ export default function Index({ addButton }) {
                                 </Form.Group>
                               </td>
                               <td>
-                                {dischargeDocuments &&
-                                  dischargeDocuments?.dischargeCertificateOfOrigin ==
-                                  null ? (
+                                {dischargeDocuments && dischargeDocuments?.dischargeCertificateOfOrigin == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         type="file"
                                         name="myfile"
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) =>
-                                          uploadDischargeDocument3(e)
-                                        }
+                                        onChange={(e) => uploadDischargeDocument3(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
                                       {dischargeDocuments?.dischargeCertificateOfOrigin?.name.slice(
-                                        dischargeDocuments?.dischargeCertificateOfOrigin?.name.lastIndexOf(
-                                          '_',
-                                        ) + 1,
+                                        dischargeDocuments?.dischargeCertificateOfOrigin?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -2365,15 +1901,12 @@ export default function Index({ addButton }) {
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfQuality ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality ? (
                                   <span
                                     onClick={() =>
                                       dispatch(
                                         ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.dischargeCertificateOfQuality
+                                          path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
@@ -2387,23 +1920,16 @@ export default function Index({ addButton }) {
                                 )}
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
                               <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfQuality
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
                                   ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.dischargeCertificateOfQuality?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : dischargeDocuments?.dischargeCertificateOfQuality !=
-                                    null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
+                                      inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.date,
+                                    ).format('DD-MM-YYYY, h:mm A')
+                                  : dischargeDocuments?.dischargeCertificateOfQuality != null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
                               <td>
                                 {' '}
@@ -2457,47 +1983,28 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                          'Rejected'
+                                      className={`${
+                                        inspectionDetails?.dischargeCertificateOfQualityStatus === 'On Hold'
+                                          ? styles.hold_option
+                                          : inspectionDetails?.dischargeCertificateOfQualityStatus === 'Rejected'
                                           ? styles.rejected_option
-                                          : inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
+                                          : inspectionDetails?.dischargeCertificateOfQualityStatus === 'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                      } ${styles.customSelect} input form-control`}
                                       id="docType"
-                                      value={
-                                        inspectionDetails?.dischargeCertificateOfQualityStatus
-                                      }
+                                      value={inspectionDetails?.dischargeCertificateOfQualityStatus}
                                       name="dischargeCertificateOfQualityStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                      onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                                     >
                                       <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
+                                      <option className={`${styles.hold_option}`} value="On Hold">
                                         On Hold
                                       </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
+                                      <option className={`${styles.rejected_option}`} value="Rejected">
                                         Rejected
                                       </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
+                                      <option className={`${styles.approved_option}`} value="Approved">
                                         Approved
                                       </option>
                                     </select>
@@ -2510,35 +2017,23 @@ export default function Index({ addButton }) {
                                 </Form.Group>
                               </td>
                               <td>
-                                {dischargeDocuments &&
-                                  dischargeDocuments?.dischargeCertificateOfQuality ==
-                                  null ? (
+                                {dischargeDocuments && dischargeDocuments?.dischargeCertificateOfQuality == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         type="file"
                                         name="myfile"
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) =>
-                                          uploadDischargeDocument1(e)
-                                        }
+                                        onChange={(e) => uploadDischargeDocument1(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
                                       {dischargeDocuments?.dischargeCertificateOfQuality?.name.slice(
-                                        dischargeDocuments?.dischargeCertificateOfQuality?.name.lastIndexOf(
-                                          '_',
-                                        ) + 1,
+                                        dischargeDocuments?.dischargeCertificateOfQuality?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -2555,15 +2050,12 @@ export default function Index({ addButton }) {
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight ? (
                                   <span
                                     onClick={() =>
                                       dispatch(
                                         ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.dischargeCertificateOfWeight
+                                          path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
@@ -2577,24 +2069,17 @@ export default function Index({ addButton }) {
                                 )}
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                               </td>
 
                               <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfWeight
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
                                   ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.dischargeCertificateOfWeight?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : dischargeDocuments?.dischargeCertificateOfWeight !=
-                                    null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
+                                      inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.date,
+                                    ).format('DD-MM-YYYY, h:mm A')
+                                  : dischargeDocuments?.dischargeCertificateOfWeight != null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
                               <td>
                                 {' '}
@@ -2648,47 +2133,28 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                          'Rejected'
+                                      className={`${
+                                        inspectionDetails?.dischargeCertificateOfWeightStatus === 'On Hold'
+                                          ? styles.hold_option
+                                          : inspectionDetails?.dischargeCertificateOfWeightStatus === 'Rejected'
                                           ? styles.rejected_option
-                                          : inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
+                                          : inspectionDetails?.dischargeCertificateOfWeightStatus === 'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                      } ${styles.customSelect} input form-control`}
                                       id="docType"
-                                      value={
-                                        inspectionDetails?.dischargeCertificateOfWeightStatus
-                                      }
+                                      value={inspectionDetails?.dischargeCertificateOfWeightStatus}
                                       name="dischargeCertificateOfWeightStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                      onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                                     >
                                       <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
+                                      <option className={`${styles.hold_option}`} value="On Hold">
                                         On Hold
                                       </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
+                                      <option className={`${styles.rejected_option}`} value="Rejected">
                                         Rejected
                                       </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
+                                      <option className={`${styles.approved_option}`} value="Approved">
                                         Approved
                                       </option>
                                     </select>
@@ -2701,35 +2167,23 @@ export default function Index({ addButton }) {
                                 </Form.Group>
                               </td>
                               <td>
-                                {dischargeDocuments &&
-                                  dischargeDocuments?.dischargeCertificateOfWeight ==
-                                  null ? (
+                                {dischargeDocuments && dischargeDocuments?.dischargeCertificateOfWeight == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         type="file"
                                         name="myfile"
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) =>
-                                          uploadDischargeDocument2(e)
-                                        }
+                                        onChange={(e) => uploadDischargeDocument2(e)}
                                       />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
                                       {dischargeDocuments?.dischargeCertificateOfWeight?.name.slice(
-                                        dischargeDocuments?.dischargeCertificateOfWeight?.name.lastIndexOf(
-                                          '_',
-                                        ) + 1,
+                                        dischargeDocuments?.dischargeCertificateOfWeight?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -2747,9 +2201,7 @@ export default function Index({ addButton }) {
                       </div>
                     </div>
 
-                    <div
-                      className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}
-                    >
+                    <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
                       Any one document is mandatory
                     </div>
@@ -2763,11 +2215,7 @@ export default function Index({ addButton }) {
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={handleSubmit}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
       <Modal
         show={show}
@@ -2778,30 +2226,18 @@ export default function Index({ addButton }) {
       >
         <Modal.Header className="modal-header p-0 bg-transparent border-0 d-flex justify-content-between">
           <h3>Product Specification</h3>
-          <img
-            src="/static/close.svg"
-            alt="close"
-            onClick={handleClose}
-            className="img-fluid"
-          />
+          <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid" />
         </Modal.Header>
         <Modal.Body className="p-0">
           <div className={styles.table_container}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table-bordered table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table-bordered table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr className="table_row">
                       {excelFile &&
                         excelFile.length > 0 &&
-                        Object.keys(excelFile[0]).map((val, index) => (
-                          <th key={index}>{val}</th>
-                        ))}
+                        Object.keys(excelFile[0]).map((val, index) => <th key={index}>{val}</th>)}
                     </tr>
                   </thead>
                   <tbody>
@@ -2840,26 +2276,17 @@ const Discharge = (
         className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
       >
         <h3 className={`${styles.heading}`}>Inspection Details</h3>
-        <button
-          onClick={handleShow}
-          className={styles.product_btn}
-          type="button"
-        >
+        <button onClick={handleShow} className={styles.product_btn} type="button">
           {' '}
           Product Specification
-          <img
-            className="img-fluid ml-2"
-            src="/static/blue-eye.svg"
-            alt="blue-eye"
-          />
+          <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />
         </button>
       </div>
       <div className={`${styles.dashboard_form} card-body`}>
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-          {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
-            'Liner' ? (
+          {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') === 'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 className={`${styles.input_field} input form-control`}
@@ -2869,13 +2296,8 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.numberOfContainer
                 // }
-                value={
-                  inspectionDetails?.dischargePortInspectionDetails
-                    ?.numberOfContainer
-                }
-                onChange={(e) =>
-                  saveInspectionDetails(e.target.name, e.target.value)
-                }
+                value={inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer}
+                onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                 type="number"
                 onWheel={(event) => event.currentTarget.blur()}
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
@@ -2899,13 +2321,8 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.inspectionPort
                 // }
-                value={
-                  inspectionDetails?.dischargePortInspectionDetails
-                    ?.inspectionPort
-                }
-                onChange={(e) =>
-                  saveInspectionDetails(e.target.name, e.target.value)
-                }
+                value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
+                onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Inspection Port
@@ -2928,12 +2345,8 @@ const Discharge = (
               //   inspectionData?.thirdPartyInspection
               //     ?.dischargePortInspectionDetails?.inspectedBy
               // }
-              value={
-                inspectionDetails?.dischargePortInspectionDetails?.inspectedBy
-              }
-              onChange={(e) =>
-                saveInspectionDetails(e.target.name, e.target.value)
-              }
+              value={inspectionDetails?.dischargePortInspectionDetails?.inspectedBy}
+              onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
             />
             <label className={`${styles.label_heading} label_heading`}>
               Inspected By<strong className="text-danger">*</strong>
@@ -2947,9 +2360,7 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.startDate
                 // }
-                defaultDate={
-                  inspectionDetails?.dischargePortInspectionDetails?.startDate
-                }
+                defaultDate={inspectionDetails?.dischargePortInspectionDetails?.startDate}
                 saveDate={saveDate}
                 setDateStartFrom={setStartDate}
                 labelName="Inspection Date"
@@ -2974,20 +2385,13 @@ const Discharge = (
                 as="textarea"
                 rows={3}
                 name="dischargePortInspectionDetails.specialMention"
-                value={
-                  inspectionDetails?.dischargePortInspectionDetails
-                    ?.specialMention
-                }
-                onChange={(e) =>
-                  saveInspectionDetails(e.target.name, e.target.value)
-                }
+                value={inspectionDetails?.dischargePortInspectionDetails?.specialMention}
+                onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-              // style={{ backgroundColor: 'none' }}
+                // style={{ backgroundColor: 'none' }}
               />
-              <label
-                className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
-              >
+              <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                 Special Mention
               </label>
             </div>

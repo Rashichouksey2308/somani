@@ -1,7 +1,6 @@
 import * as types from './actionType';
 import API from '../../utils/endpoints';
 import Axios from 'axios';
-import Router from 'next/router';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
@@ -90,8 +89,6 @@ export function ClearSupplier() {
   };
 }
 
-
-
 function uploadSupplierDoc(payload) {
   return {
     type: types.UPLOAD_SUPPLIER_DOC,
@@ -111,8 +108,6 @@ function uploadSupplierDocFailed() {
     type: types.UPLOAD_SUPPLIER_DOC_FAILED,
   };
 }
-
-
 
 function deleteSupplierDoc(payload) {
   return {
@@ -263,7 +258,6 @@ export const GetSupplier = (payload) => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   }
 };
-
 
 export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());

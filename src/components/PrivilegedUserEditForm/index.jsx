@@ -5,7 +5,7 @@ import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import '../../assets/css/components/privilegedUserForm.css';
 
 const PrivilegedUserEditForm = (props) => {
-  let {
+  const {
     editable,
     userTypeList,
     data: { name, email, phoneNo, userType },

@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .main_container {
   min-height: 42px;
   width: 100%;
@@ -13,6 +14,7 @@
     height: auto;
     padding: 5px 10px;
   }
+
   div {
     // padding-left: 1rem;
     // display: flex;
@@ -35,12 +37,15 @@
         margin-top: -4px;
       }
     }
+
     .breadcrumItem {
       padding: 0px;
       line-height: 19px;
+
       .breadcrumcontainer {
         padding: 0px;
         display: inline-block;
+
         span {
           height: 19px;
           font-weight: bold;
@@ -49,15 +54,19 @@
           margin-left: 0.5rem;
           // white-space: nowrap;
           text-transform: capitalize;
+
           &:first-letter {
             text-transform: uppercase;
           }
+
           &:first-line {
             text-transform: capitalize;
           }
+
           &:last-line {
             text-transform: capitalize;
           }
+
           @include respond(lg-desktop) {
             font-size: 14px;
             line-height: 1.2;
@@ -67,6 +76,7 @@
             margin-left: 0.5rem;
           }
         }
+
         .values {
           height: 19px;
           font-weight: bold;
@@ -86,6 +96,7 @@
       }
     }
   }
+
   .unit_container {
     padding-right: 10px;
     @include respond(phone) {
@@ -94,6 +105,7 @@
     @include respond(sm-phone) {
       float: right;
     }
+
     .unit_label {
       font-size: 18px;
       text-transform: capitalize;
@@ -112,6 +124,7 @@
         padding-right: 5px;
       }
     }
+
     .options {
       color: #3687e8;
       font-size: 18px;
@@ -136,8 +149,10 @@
     }
   }
 }
+
 .highlight {
   color: #3687e8 !important;
+
   span {
     height: 19px;
     font-weight: bold;
@@ -154,6 +169,7 @@
       margin-left: 0.5rem;
     }
   }
+
   .values {
     height: 19px;
     font-weight: bold;

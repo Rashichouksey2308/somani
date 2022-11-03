@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from '../index.module.scss';
 import moment from 'moment';
 import _get from 'lodash/get';
-import { checkNan, convertValue } from '../../../utils/helper';
+import { checkNan } from '../../../utils/helper';
 
 function Index({ ratioData, rtrnChartIndiaction }) {
   const [unit, setUnit] = useState(10000000);
@@ -21,29 +21,17 @@ function Index({ ratioData, rtrnChartIndiaction }) {
 
   const latestIncomeData = _get(ratioData, 'financial.incomeStatement[0]', {});
 
-  const previousIncomeData = _get(
-    ratioData,
-    'financial.incomeStatement[1]',
-    {},
-  );
+  const previousIncomeData = _get(ratioData, 'financial.incomeStatement[1]', {});
 
   const lastIncomeData = _get(ratioData, 'financial.incomeStatement[2]', {});
 
   const latestCashData = _get(ratioData, 'financial.cashFlowStatement[0]', {});
 
-  const previousCashData = _get(
-    ratioData,
-    'financial.cashFlowStatement[1]',
-    {},
-  );
+  const previousCashData = _get(ratioData, 'financial.cashFlowStatement[1]', {});
 
   const lastCashData = _get(ratioData, 'financial.cashFlowStatement[2]', {});
 
-  const yearArray = _get(ratioData, 'financial.other.financialYears', [
-    '',
-    '',
-    '',
-  ]);
+  const yearArray = _get(ratioData, 'financial.other.financialYears', ['', '', '']);
 
   return (
     <>
@@ -64,11 +52,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                 </option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -80,75 +64,47 @@ function Index({ ratioData, rtrnChartIndiaction }) {
             </span>
           </div>
         </div>
-        <div
-          id="ratioAnalysis"
-          className="collapse"
-          aria-labelledby="ratioAnalysis"
-          data-parent="#FinancialsAccordion"
-        >
-          <div
-            className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}
-          >
+        <div id="ratioAnalysis" className="collapse" aria-labelledby="ratioAnalysis" data-parent="#FinancialsAccordion">
+          <div className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="50%">
-                        <h3 className="text-color">
-                          Activity &amp; Profitibility Ratio
-                        </h3>
+                        <h3 className="text-color">Activity &amp; Profitibility Ratio</h3>
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${
-                            latestYearData?.financialEndDate ? '#3687e8' : 'red'
-                          }`,
+                          color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                         }}
                       >
                         {latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${
-                            previousYearData?.financialEndDate
-                              ? '#3687e8'
-                              : 'red'
-                          }`,
+                          color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                         }}
                       >
                         {previousYearData?.financialEndDate
-                          ? moment(previousYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : 'MAR-' + yearArray[1].slice(5, 7)}
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${
-                            lastYearData?.financialEndDate ? '#3687e8' : 'red'
-                          }`,
+                          color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                         }}
                       >
                         {lastYearData?.financialEndDate
-                          ? moment(lastYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : 'MAR-' + yearArray[2].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
@@ -165,31 +121,22 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Working Capital Turnover Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.workingCapitalTurnover?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {latestYearData?.workingCapitalTurnover?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.workingCapitalTurnover?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.workingCapitalTurnover?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.workingCapitalTurnover?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {lastYearData?.workingCapitalTurnover?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -204,52 +151,40 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {checkNan(
                           latestIncomeData?.revenue?.revenueFromOperations /
-                            ((latestBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              latestCashData?.previous
-                                ?.propertyPlantAndEquipment) /
+                            ((latestBalanceData?.assets?.propertyPlantAndEquipment +
+                              latestCashData?.previous?.propertyPlantAndEquipment) /
                               2),
                         )}
                       </td>
                       <td className="text-center">
                         {checkNan(
                           previousIncomeData?.revenue?.revenueFromOperations /
-                            ((previousBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              previousCashData?.previous
-                                ?.propertyPlantAndEquipment) /
+                            ((previousBalanceData?.assets?.propertyPlantAndEquipment +
+                              previousCashData?.previous?.propertyPlantAndEquipment) /
                               2),
                         )}
                       </td>
                       <td className="text-center">
                         {checkNan(
                           lastIncomeData?.revenue?.revenueFromOperations /
-                            ((lastBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              lastCashData?.previous
-                                ?.propertyPlantAndEquipment) /
+                            ((lastBalanceData?.assets?.propertyPlantAndEquipment +
+                              lastCashData?.previous?.propertyPlantAndEquipment) /
                               2),
                         )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestIncomeData?.revenue?.revenueFromOperations /
-                            ((latestBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              latestCashData?.previous
-                                ?.propertyPlantAndEquipment) /
+                            ((latestBalanceData?.assets?.propertyPlantAndEquipment +
+                              latestCashData?.previous?.propertyPlantAndEquipment) /
                               2),
                           previousIncomeData?.revenue?.revenueFromOperations /
-                            ((previousBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              previousCashData?.previous
-                                ?.propertyPlantAndEquipment) /
+                            ((previousBalanceData?.assets?.propertyPlantAndEquipment +
+                              previousCashData?.previous?.propertyPlantAndEquipment) /
                               2),
                           lastIncomeData?.revenue?.revenueFromOperations /
-                            ((lastBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              lastCashData?.previous
-                                ?.propertyPlantAndEquipment) /
+                            ((lastBalanceData?.assets?.propertyPlantAndEquipment +
+                              lastCashData?.previous?.propertyPlantAndEquipment) /
                               2),
                         )}
                       </td>
@@ -257,31 +192,22 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Working Capital Cycle (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysWorkingCapital?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {latestYearData?.daysWorkingCapital?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysWorkingCapital?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.daysWorkingCapital?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysWorkingCapital?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {lastYearData?.daysWorkingCapital?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -295,31 +221,22 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Debtors Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfSalesOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {latestYearData?.daysOfSalesOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfSalesOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.daysOfSalesOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfSalesOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {lastYearData?.daysOfSalesOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -332,31 +249,22 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Inventory Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfInventoryOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {latestYearData?.daysOfInventoryOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfInventoryOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.daysOfInventoryOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfInventoryOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {lastYearData?.daysOfInventoryOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -369,31 +277,22 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Creditors Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfPayablesOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {latestYearData?.daysOfPayablesOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfPayablesOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.daysOfPayablesOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfPayablesOutstanding?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {lastYearData?.daysOfPayablesOutstanding?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -421,10 +320,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             maximumFractionDigits: 4,
                           })} */}
                         {latestYearData?.operatingProfitMargin
-                          ? (
-                              Number(latestYearData?.operatingProfitMargin) *
-                              100
-                            )?.toLocaleString('en-In', {
+                          ? (Number(latestYearData?.operatingProfitMargin) * 100)?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             }) + '%'
@@ -438,10 +334,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             maximumFractionDigits: 2,
                           })} */}
                         {previousYearData?.operatingProfitMargin
-                          ? (
-                              Number(previousYearData?.operatingProfitMargin) *
-                              100
-                            )?.toLocaleString('en-In', {
+                          ? (Number(previousYearData?.operatingProfitMargin) * 100)?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             }) + '%'
@@ -455,9 +348,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             maximumFractionDigits: 2,
                           })} */}
                         {lastYearData?.operatingProfitMargin
-                          ? (
-                              Number(lastYearData?.operatingProfitMargin) * 100
-                            )?.toLocaleString('en-In', {
+                          ? (Number(lastYearData?.operatingProfitMargin) * 100)?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             }) + '%'
@@ -490,10 +381,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             latestIncomeData?.expenses?.totExp +
                             latestIncomeData?.expenses?.finCost) /
                             ((latestBalanceData?.assets?.totalAssets -
-                              latestBalanceData?.equityLiabilities
-                                ?.currentLiabilties +
-                              (latestCashData?.previous?.totalAssets -
-                                latestCashData?.previous?.currentLiabilties)) /
+                              latestBalanceData?.equityLiabilities?.currentLiabilties +
+                              (latestCashData?.previous?.totalAssets - latestCashData?.previous?.currentLiabilties)) /
                               2)) *
                             100,
                         )?.toLocaleString('en-In', {
@@ -508,11 +397,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             previousIncomeData?.expenses?.totExp +
                             previousIncomeData?.expenses?.finCost) /
                             ((previousBalanceData?.assets?.totalAssets -
-                              previousBalanceData?.equityLiabilities
-                                ?.currentLiabilties +
+                              previousBalanceData?.equityLiabilities?.currentLiabilties +
                               (previousCashData?.previous?.totalAssets -
-                                previousCashData?.previous
-                                  ?.currentLiabilties)) /
+                                previousCashData?.previous?.currentLiabilties)) /
                               2)) *
                             100,
                         )?.toLocaleString('en-In', {
@@ -527,10 +414,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             lastIncomeData?.expenses?.totExp +
                             lastIncomeData?.expenses?.finCost) /
                             ((lastBalanceData?.assets?.totalAssets -
-                              lastBalanceData?.equityLiabilities
-                                ?.currentLiabilties +
-                              (lastCashData?.previous?.totalAssets -
-                                lastCashData?.previous?.currentLiabilties)) /
+                              lastBalanceData?.equityLiabilities?.currentLiabilties +
+                              (lastCashData?.previous?.totalAssets - lastCashData?.previous?.currentLiabilties)) /
                               2)) *
                             100,
                         )?.toLocaleString('en-In', {
@@ -545,31 +430,25 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             latestIncomeData?.expenses?.totExp +
                             latestIncomeData?.expenses?.finCost) /
                             ((latestBalanceData?.assets?.totalAssets -
-                              latestBalanceData?.equityLiabilities
-                                ?.currentLiabilties +
-                              (latestCashData?.previous?.totalAssets -
-                                latestCashData?.previous?.currentLiabilties)) /
+                              latestBalanceData?.equityLiabilities?.currentLiabilties +
+                              (latestCashData?.previous?.totalAssets - latestCashData?.previous?.currentLiabilties)) /
                               2)) *
                             100,
                           ((previousIncomeData?.revenue?.revenueFromOperations -
                             previousIncomeData?.expenses?.totExp +
                             previousIncomeData?.expenses?.finCost) /
                             ((previousBalanceData?.assets?.totalAssets -
-                              previousBalanceData?.equityLiabilities
-                                ?.currentLiabilties +
+                              previousBalanceData?.equityLiabilities?.currentLiabilties +
                               (previousCashData?.previous?.totalAssets -
-                                previousCashData?.previous
-                                  ?.currentLiabilties)) /
+                                previousCashData?.previous?.currentLiabilties)) /
                               2)) *
                             100,
                           ((lastIncomeData?.revenue?.revenueFromOperations -
                             lastIncomeData?.expenses?.totExp +
                             lastIncomeData?.expenses?.finCost) /
                             ((lastBalanceData?.assets?.totalAssets -
-                              lastBalanceData?.equityLiabilities
-                                ?.currentLiabilties +
-                              (lastCashData?.previous?.totalAssets -
-                                lastCashData?.previous?.currentLiabilties)) /
+                              lastBalanceData?.equityLiabilities?.currentLiabilties +
+                              (lastCashData?.previous?.totalAssets - lastCashData?.previous?.currentLiabilties)) /
                               2)) *
                             100,
                         )}
@@ -598,13 +477,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         %
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.returnOnAssets * 100
-                          ? lastYearData?.returnOnAssets * 100
-                          : ''
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                        {(lastYearData?.returnOnAssets * 100 ? lastYearData?.returnOnAssets * 100 : '')?.toLocaleString(
+                          'en-In',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          },
+                        )}
                         %
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -624,38 +503,25 @@ function Index({ ratioData, rtrnChartIndiaction }) {
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="50%">
-                        <h3 className="text-color">
-                          Coverage, Liquidity &amp; Growth Ratio
-                        </h3>
+                        <h3 className="text-color">Coverage, Liquidity &amp; Growth Ratio</h3>
                       </th>
                       <th className="text-center" width="12.5%">
                         {latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : ''}
                       </th>
                       <th className="text-center" width="12.5%">
                         {previousYearData?.financialEndDate
-                          ? moment(previousYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : ''}
                       </th>
                       <th className="text-center" width="12.5%">
                         {lastYearData?.financialEndDate
-                          ? moment(lastYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : ''}
                       </th>
                       <th className="text-center" width="12.5%">
@@ -706,13 +572,10 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.debtToEbitda?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.debtToEbitda?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {lastYearData?.debtToEbitda?.toLocaleString('en-In', {
@@ -731,31 +594,22 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Interest Coverage Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.interestCoverage?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {latestYearData?.interestCoverage?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.interestCoverage?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.interestCoverage?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.interestCoverage?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {lastYearData?.interestCoverage?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -822,13 +676,10 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.currentRatio?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          },
-                        )}
+                        {previousYearData?.currentRatio?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {lastYearData?.currentRatio?.toLocaleString('en-In', {
@@ -943,13 +794,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         %
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.netWorthGrowth * 100
-                          ? lastYearData?.netWorthGrowth * 100
-                          : ''
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                        {(lastYearData?.netWorthGrowth * 100 ? lastYearData?.netWorthGrowth * 100 : '')?.toLocaleString(
+                          'en-In',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          },
+                        )}
                         %
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -983,13 +834,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         %
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.netSalesGrowth * 100
-                          ? lastYearData?.netSalesGrowth * 100
-                          : ''
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                        {(lastYearData?.netSalesGrowth * 100 ? lastYearData?.netSalesGrowth * 100 : '')?.toLocaleString(
+                          'en-In',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          },
+                        )}
                         %
                       </td>
                       <td className={`${styles.trend} text-center`}>

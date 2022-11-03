@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .card {
   margin: 28px;
   margin-bottom: 68px;
@@ -10,6 +11,7 @@
     margin: 15px;
     margin-bottom: 71px;
   }
+
   .head_container {
     min-height: 48px;
     display: flex;
@@ -25,10 +27,12 @@
       margin-top: 15px;
       margin-bottom: -20px;
     }
+
     .head_header {
       display: flex;
       justify-content: space-around;
       flex-direction: row;
+
       .arrow {
         width: 13px;
         height: 21px;
@@ -39,6 +43,7 @@
           height: auto;
         }
       }
+
       .heading {
         font-size: 34px;
         font-weight: bold;
@@ -46,12 +51,15 @@
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -65,6 +73,7 @@
         }
       }
     }
+
     .clear_btn {
       width: 116px;
       height: 38px;
@@ -86,12 +95,14 @@
       }
     }
   }
+
   .main {
     margin-bottom: 26px;
     border-radius: 6px;
     @include respond(lg-desktop) {
       margin-bottom: 20px;
     }
+
     .head_container {
       min-height: 80px;
       padding: 0 35px !important;
@@ -99,6 +110,7 @@
       @include respond(lg-desktop) {
         min-height: 60px;
       }
+
       .heading {
         color: #3687e8;
         font-weight: bold;
@@ -119,8 +131,10 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px 40px;
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -131,12 +145,14 @@
         margin-bottom: 15px;
         color: #00000080;
       }
+
       .value {
         font-size: 20px;
         height: 60px;
         line-height: 25px;
         font-weight: 500;
       }
+
       .comment_field {
         height: 106px;
         background-color: #c3c3c31f;
@@ -149,12 +165,14 @@
         position: relative;
         box-sizing: border-box;
       }
+
       .sub_heading {
         font-size: 20px;
         font-weight: bold;
         text-transform: capitalize;
         line-height: 25px;
       }
+
       .upload_button {
         border: 3px solid #3687e8;
         border-radius: 5px;
@@ -168,13 +186,16 @@
         height: 46px;
         background-color: transparent;
       }
+
       .form_group {
         margin-top: 40px;
         position: relative;
         margin-bottom: 10px;
+
         .search_image {
           margin-left: -40px;
         }
+
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -192,6 +213,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -202,6 +224,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -209,9 +232,11 @@
             transform: translateY(-22px);
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -224,10 +249,12 @@
           letter-spacing: 0.19px;
           padding: 13px 30px 13px 17px;
           border: 1px solid #0000001f;
+
           &:invalid + label {
             //background: none;
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -236,6 +263,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;

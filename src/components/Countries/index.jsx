@@ -1,8 +1,5 @@
 import React from 'react';
 import styles from './index.module.scss';
-import ProgressBar from '@ramonak/react-progress-bar';
-import { checkNan } from '../../utils/helper';
-import { number } from 'prop-types';
 
 const Index = (props) => {
   let backgroundColor = ['#2884DE', '#876EB1', '#4CAF50'];
@@ -29,9 +26,7 @@ const Index = (props) => {
 
   return (
     <div className={`${styles.main} border card`}>
-      <div
-        className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}
-      >
+      <div className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}>
         <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
       </div>
 
@@ -40,9 +35,7 @@ const Index = (props) => {
           props.data.map((val, index) => {
             return (
               <div key={index} className={styles.each_progress}>
-                <h1 className={styles.country}>
-                  {val?._id?.toUpperCase() ?? ''}
-                </h1>
+                <h1 className={styles.country}>{val?._id?.toUpperCase() ?? ''}</h1>
 
                 <div className={styles.bar_container}>
                   <div className={styles.progress_bar}>
@@ -50,9 +43,7 @@ const Index = (props) => {
                       <div
                         className={getClass(index)}
                         style={{
-                          width: `${Number(
-                            getPercentage(val?.total).toFixed(0),
-                          )}%`,
+                          width: `${Number(getPercentage(val?.total).toFixed(0))}%`,
                         }}
                       ></div>
                     </div>
@@ -64,9 +55,7 @@ const Index = (props) => {
                     /> */}
                   </div>
                   <div className={styles.number_container}>
-                    <h3 className={styles.percent}>
-                      {getPercentage(val?.total)?.toFixed(2)}%
-                    </h3>
+                    <h3 className={styles.percent}>{getPercentage(val?.total)?.toFixed(2)}%</h3>
                     <h3 className={`${styles.amount} text1`}>
                       {' '}
                       ₹{' '}

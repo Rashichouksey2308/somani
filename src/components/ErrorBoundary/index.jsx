@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
-//import ContactDelershipModal from "../contactDealershipModal";
+// import ContactDelershipModal from "../contactDealershipModal";
 // import captureErrorForLogs from "../../utility/error-logger";
 // import Error from '../../pages/404'
 
@@ -35,10 +35,7 @@ export class ErrorBoundary extends Component {
         >
           <h2>Something went wrong</h2>
           <div>
-            <button
-              type="button"
-              onClick={() => this.setState({ hasError: false })}
-            >
+            <button type="button" onClick={() => this.setState({ hasError: false })}>
               Try again?
             </button>
             <button

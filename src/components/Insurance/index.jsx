@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 
 const index = () => {
@@ -8,11 +8,7 @@ const index = () => {
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={styles.head_header}>
-          <img
-            className={`${styles.arrow} img-fluid`}
-            src="/static/keyboard_arrow_right-3.svg"
-            alt="ArrowRight"
-          />
+          <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt="ArrowRight" />
           <h1 className={styles.heading}>Insurance</h1>
         </div>
         <div>
@@ -21,7 +17,7 @@ const index = () => {
       </div>
 
       <div className={`${styles.vessel_card} mt-3 border_color`}>
-        <div className={`${styles.heading} heading_card`}></div>
+        <div className={`${styles.heading} heading_card`} />
         <div className={styles.radio_form}>
           {['checkbox'].map((type) => (
             <div key={`inline-${type}`} className={styles.radio_group}>
@@ -57,12 +53,7 @@ const index = () => {
           <h2 className="mb-0">Marine Insurance</h2>
           <span>+</span>
         </div>
-        <div
-          id="marineInsurance"
-          className="collapse"
-          aria-labelledby="marineInsurance"
-          data-parent="#marineInsurance"
-        >
+        <div id="marineInsurance" className="collapse" aria-labelledby="marineInsurance" data-parent="#marineInsurance">
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.header}  card_sub_header`}>
@@ -71,47 +62,31 @@ const index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Vessel Name
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Vessel Name</div>
                     <div className={styles.col_body}>Abcz</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Commodity
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Commodity</div>
                     <div className={styles.col_body}>Iron</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Country of Origin
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Country of Origin</div>
                     <div className={styles.col_body}>India</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Quantity
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Quantity</div>
                     <div className={styles.col_body}>5,000.00 MT</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Port of Loading
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Port of Loading</div>
                     <div className={styles.col_body}>Navasheva</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Port of Discharge
-                    </div>
-                    <div className={styles.col_body}>
-                      Gangavaram Port, Andhra Pradesh
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
+                    <div className={styles.col_body}>Gangavaram Port, Andhra Pradesh</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Loss Payee Bank
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Loss Payee Bank</div>
                     <div className={styles.col_body}>HDFC Bank</div>
                   </Col>
                   <Col className="mt-4" md={4}>
@@ -135,19 +110,13 @@ const index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Policy Number<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>Ramakrishna Traders</option>
                       <option>Balaji Traders</option>
                     </select>
@@ -156,9 +125,7 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>COA202138329477</option>
                       <option>DSDA202138329477</option>
                     </select>
@@ -168,21 +135,13 @@ const index = () => {
                   </Col>
 
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Name of Insured<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Address of Insured
                       <strong className="text-danger">*</strong>
@@ -215,10 +174,7 @@ const index = () => {
                       required
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
@@ -226,9 +182,7 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>HDFC Bank</option>
                       <option>SBI</option>
                     </select>
@@ -247,62 +201,38 @@ const index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Sum Insured<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Premium Amount<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       IGST<strong className="text-danger">*</strong>
                     </label>
                   </Col>
 
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       CGST<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       SGST<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Recoverable Stamp duty
                       <strong className="text-danger">*</strong>
@@ -310,11 +240,7 @@ const index = () => {
                   </Col>
 
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Total Amount<strong className="text-danger">*</strong>
                     </label>
@@ -351,47 +277,31 @@ const index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Vessel Name
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Vessel Name</div>
                     <div className={styles.col_body}>Abcz</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Commodity
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Commodity</div>
                     <div className={styles.col_body}>Iron</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Country of Origin
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Country of Origin</div>
                     <div className={styles.col_body}>India</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Quantity
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Quantity</div>
                     <div className={styles.col_body}>5,000.00 MT</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Port of Loading
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Port of Loading</div>
                     <div className={styles.col_body}>Navasheva</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Port of Discharge
-                    </div>
-                    <div className={styles.col_body}>
-                      Gangavaram Port, Andhra Pradesh
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
+                    <div className={styles.col_body}>Gangavaram Port, Andhra Pradesh</div>
                   </Col>
                   <Col md={4}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Loss Payee Bank
-                    </div>
+                    <div className={`${styles.col_header} label_heading`}>Loss Payee Bank</div>
                     <div className={styles.col_body}>HDFC Bank</div>
                   </Col>
                   <Col className="mt-4" md={4}>
@@ -415,19 +325,13 @@ const index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Policy Number<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>Ramakrishna Traders</option>
                       <option>Balaji Traders</option>
                     </select>
@@ -436,9 +340,7 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>COA202138329477</option>
                       <option>DSDA202138329477</option>
                     </select>
@@ -448,21 +350,13 @@ const index = () => {
                   </Col>
 
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Name of Insured<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Address of Insured
                       <strong className="text-danger">*</strong>
@@ -495,10 +389,7 @@ const index = () => {
                       required
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
@@ -506,9 +397,7 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>HDFC Bank</option>
                       <option>SBI</option>
                     </select>
@@ -517,9 +406,7 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                    <select className={`${styles.input_field} input form-control`}>
                       <option>Warehouse</option>
                       <option>Warehouse</option>
                     </select>
@@ -529,22 +416,12 @@ const index = () => {
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
                     <div className="d-flex">
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <input className={`${styles.input_field} input form-control`} required type="text" />
+                      <label className={`${styles.label_heading} label_heading`}>
                         Address of storage
                         <strong className="text-danger">*</strong>
                       </label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </div>
                   </Col>
                 </Row>
@@ -558,62 +435,38 @@ const index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Sum Insured<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Premium Amount<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       IGST<strong className="text-danger">*</strong>
                     </label>
                   </Col>
 
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       CGST<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       SGST<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Recoverable Stamp duty
                       <strong className="text-danger">*</strong>
@@ -621,11 +474,7 @@ const index = () => {
                   </Col>
 
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    <input className={`${styles.input_field} input form-control`} required type="text" />
                     <label className={`${styles.label_heading} label_heading`}>
                       Total Amount<strong className="text-danger">*</strong>
                     </label>
@@ -648,12 +497,7 @@ const index = () => {
           <h2 className="mb-0">Remarks</h2>
           <span>+</span>
         </div>
-        <div
-          id="remarks"
-          className="collapse"
-          aria-labelledby="remarks"
-          data-parent="#remarks"
-        >
+        <div id="remarks" className="collapse" aria-labelledby="remarks" data-parent="#remarks">
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={styles.remark_field}>
               <p>
@@ -681,19 +525,9 @@ const index = () => {
           <h2 className="mb-0">Upload Documents</h2>
           <span>+</span>
         </div>
-        <div
-          id="uploadDoc"
-          className="collapse"
-          aria-labelledby="uploadDoc"
-          data-parent="#uploadDoc"
-        >
+        <div id="uploadDoc" className="collapse" aria-labelledby="uploadDoc" data-parent="#uploadDoc">
           <div className={styles.table_container}>
-            <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
+            <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
               <thead>
                 <tr>
                   <th>DOCUMENT NAME</th>
@@ -704,15 +538,9 @@ const index = () => {
               </thead>
               <tbody>
                 <tr className="table_row">
-                  <td className={`${styles.doc_name}`}>
-                    Policy Document - Marine
-                  </td>
+                  <td className={`${styles.doc_name}`}>Policy Document - Marine</td>
                   <td>
-                    <img
-                      src="/static/pdf.svg"
-                      className="img-fluid"
-                      alt="Pdf"
-                    />
+                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                   </td>
                   <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                   <td>
@@ -727,40 +555,26 @@ const index = () => {
                   </td>
                 </tr>
                 <tr className="table_row">
-                  <td className={`${styles.doc_name}`}>
-                    Policy Document - Marine
-                  </td>
+                  <td className={`${styles.doc_name}`}>Policy Document - Marine</td>
                   <td>
-                    <img
-                      src="/static/pdf.svg"
-                      className="img-fluid"
-                      alt="Pdf"
-                    />
+                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                   </td>
                   <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                   <td>
                     {' '}
-                    <button className={`${styles.button_upload} btn`}>
-                      Upload
-                    </button>
+                    <button className={`${styles.button_upload} btn`}>Upload</button>
                   </td>
                 </tr>
 
                 <tr className="table_row">
                   <td className={`${styles.doc_name}`}>Invoice</td>
                   <td>
-                    <img
-                      src="/static/pdf.svg"
-                      className="img-fluid"
-                      alt="Pdf"
-                    />
+                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                   </td>
                   <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                   <td>
                     {' '}
-                    <button className={`${styles.button_upload} btn`}>
-                      Upload
-                    </button>
+                    <button className={`${styles.button_upload} btn`}>Upload</button>
                   </td>
                 </tr>
               </tbody>

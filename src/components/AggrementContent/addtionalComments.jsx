@@ -1,15 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
+
 function Index(props) {
   const [addressList, setAddressList] = useState([]);
   const [value, setValue] = useState('');
   const [isAssignment, setIsAssignment] = useState('');
-
 
   const changeEdit = (index) => {
     setAddressList((prevState) => {
@@ -26,7 +25,6 @@ function Index(props) {
   };
   useEffect(() => {
     if (window) {
-     
       if (sessionStorage.getItem('add')) {
         let savedData = JSON.parse(sessionStorage.getItem('add'));
         let temp = [];
@@ -76,10 +74,7 @@ function Index(props) {
     // setSupplierState({...supplierState,multiParty:props.multiPart})
   }, [props.saveData, props.submitData]);
   const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
 
   const addMoreRows = () => {
@@ -97,14 +92,9 @@ function Index(props) {
     ]);
   };
   const handleRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   const handleChangeInput = (name, value, index) => {
- 
-
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -146,7 +136,6 @@ function Index(props) {
   const getFiled = () => {
     let isPresent = false;
     addressList.forEach((val, index) => {
-    
       if (val.name == 'Assignment Letter') {
         isPresent = true;
       }
@@ -170,12 +159,7 @@ function Index(props) {
           <div id="customerDetail" className={`${styles.body} card-body row`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table `}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <th width="10%" className="border-0 generic_th">
                       Agreement Name
@@ -186,17 +170,17 @@ function Index(props) {
                     {/* <th width="15%" className="border-0 generic_th">
                       Date of Execution
                     </th> */}
-                   
-                      <>
-                        <th width="20%" className="border-0 generic_th">
-                          Month of loading of Cargo
-                          <strong className="text-danger">*</strong>
-                        </th>
-                        <th width="15%" className="border-0 generic_th">
-                          Date of Contract between Shipper and Buyer
-                        </th>
-                      </>
-                  
+
+                    <>
+                      <th width="20%" className="border-0 generic_th">
+                        Month of loading of Cargo
+                        <strong className="text-danger">*</strong>
+                      </th>
+                      <th width="15%" className="border-0 generic_th">
+                        Date of Contract between Shipper and Buyer
+                      </th>
+                    </>
+
                     <th width="10%" className="border-0 generic_th">
                       Actions
                     </th>
@@ -206,15 +190,14 @@ function Index(props) {
                       addressList?.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true'  ?
-                            (
+                            {val.actions == 'true' ? (
                               <tr key={index}>
                                 <td>{val?.name}</td>
                                 <td>{val?.comment}</td>
                                 {/* <td>{val?.dateOfExecution ? moment(val?.dateOfExecution).format('DD-MM-YYYY') : '' }</td> */}
                                 <td>{val?.monthOfLoadingCargo}</td>
 
-                                <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : '' }</td>
+                                <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : ''}</td>
 
                                 <td className={`d-flex`}>
                                   <img
@@ -223,13 +206,10 @@ function Index(props) {
                                     src="/static/mode_edit.svg"
                                     alt="edit"
                                   />
-                                  <img
-                                    onClick={() => handleRemove(index)}
-                                    src="/static/delete 2.svg"
-                                  ></img>
+                                  <img onClick={() => handleRemove(index)} src="/static/delete 2.svg"></img>
                                 </td>
                               </tr>
-                            )  : (
+                            ) : (
                               <tr key={index}>
                                 <td>
                                   <select
@@ -237,31 +217,17 @@ function Index(props) {
                                     className={`${styles.customSelect} input`}
                                     name="name"
                                     onChange={(e) => {
-                                      handleChangeInput(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      ),
+                                      handleChangeInput(e.target.name, e.target.value, index),
                                         setIsAssignment(e.target.value);
                                     }}
                                   >
                                     <option>Select an option</option>
-                                    <option value={'Sales Agreement'}>
-                                      {'Sales Agreement'}
-                                    </option>
-                                    <option value={'Associateship Agreement'}>
-                                      {'Associateship Agreement'}
-                                    </option>
-                                    <option value={'TPA (Seller)'}>
-                                      {'TPA (Seller)'}
-                                    </option>
-                                    <option value={'Assignment Letter'}>
-                                      {'Assignment Letter'}
-                                    </option>
+                                    <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
+                                    <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
+                                    <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
+                                    <option value={'Assignment Letter'}>{'Assignment Letter'}</option>
                                     <option value={'QPA'}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'}>
-                                      {'TPA (CMA)'}
-                                    </option>
+                                    <option value={'TPA (CMA)'}>{'TPA (CMA)'}</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}
@@ -278,11 +244,7 @@ function Index(props) {
                                     name="comment"
                                     value={val.comment}
                                     onChange={(e) => {
-                                      handleChangeInput(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -318,40 +280,22 @@ function Index(props) {
                                           name="monthOfLoadingCargo"
                                           value={val.monthOfLoadingCargo}
                                           onChange={(e) => {
-                                            handleChangeInput(
-                                              e.target.name,
-                                              e.target.value,
-                                              index,
-                                            );
+                                            handleChangeInput(e.target.name, e.target.value, index);
                                           }}
                                         >
-                                          <option value="">
-                                            Select an option
-                                          </option>
-                                          <option value="January">
-                                            January
-                                          </option>
-                                          <option
-                                            value={`February`}
-                                          >{`February`}</option>
+                                          <option value="">Select an option</option>
+                                          <option value="January">January</option>
+                                          <option value={`February`}>{`February`}</option>
                                           <option value="March">March</option>
                                           <option value="April">April</option>
                                           <option value="May">May</option>
                                           <option value="June">June</option>
                                           <option value="July">July</option>
                                           <option value="August">August</option>
-                                          <option value="September">
-                                            September
-                                          </option>
-                                          <option value="October">
-                                            October
-                                          </option>
-                                          <option value="November">
-                                            November
-                                          </option>
-                                          <option value="December">
-                                            December
-                                          </option>
+                                          <option value="September">September</option>
+                                          <option value="October">October</option>
+                                          <option value="November">November</option>
+                                          <option value="December">December</option>
                                         </select>
                                         <img
                                           className={`${styles.arrow} image_arrow img-fluid`}
@@ -368,11 +312,7 @@ function Index(props) {
                                             handleChangeInput(name, val, index);
                                           }}
                                           defaultDate={
-                                            val.dateOfContract == null
-                                              ? null
-                                              : moment(
-                                                  val.dateOfContract,
-                                                ).toDate()
+                                            val.dateOfContract == null ? null : moment(val.dateOfContract).toDate()
                                           }
                                           // // small={true}
                                           index={index}
@@ -387,8 +327,8 @@ function Index(props) {
                                   </>
                                 ) : (
                                   <>
-                                  <td></td>
-                                  <td></td>
+                                    <td></td>
+                                    <td></td>
                                   </>
                                 )}
                                 <td className={`d-flex`}>
@@ -398,10 +338,7 @@ function Index(props) {
                                     src="/static/save-3.svg"
                                     alt="save"
                                   />
-                                  <img
-                                    onClick={() => handleRemove(index)}
-                                    src="/static/delete 2.svg"
-                                  ></img>
+                                  <img onClick={() => handleRemove(index)} src="/static/delete 2.svg"></img>
                                 </td>
                               </tr>
                             )}

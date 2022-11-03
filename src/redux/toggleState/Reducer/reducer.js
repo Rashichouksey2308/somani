@@ -22,7 +22,6 @@ export const sidebar = (state = initialState, action) => {
         isMobile: action.value,
       };
     case 'SET_MOBILE':
-     
       return {
         ...state,
         isMobile: action.value,
