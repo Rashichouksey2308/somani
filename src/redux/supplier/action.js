@@ -134,6 +134,25 @@ function deleteSupplierDocFailed() {
   };
 }
 
+function searchSupplier() {
+  return {
+    type: types.SEARCH_SUPPLIER,
+  };
+}
+
+function searchSupplierSuccess(payload) {
+  return {
+    type: types.SEARCH_SUPPLIER_SUCCESSFULL,
+    payload,
+  };
+}
+
+function searchSupplierFailed() {
+  return {
+    type: types.SEARCH_SUPPLIER_FAILED,
+  };
+}
+
 
 export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -349,6 +368,40 @@ export const DeleteSupplierDoc = (payload) => async (dispatch, getState, api) =>
     // if (!toast.isActive(toastMessage.toUpperCase())) {
     //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     // }
+    dispatch(setNotLoading());
+  }
+};
+
+export const SearchSupplier = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  let cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  let headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(searchSupplier());
+    Axios.get(`${API.corebaseUrl}${API.searchSupplier}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(searchSupplierSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(searchSupplierFailed(response.data));
+        const toastMessage = 'Search Supplier request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(searchSupplierFailed());
+    const toastMessage = 'Search Supplier request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
     dispatch(setNotLoading());
   }
 };
