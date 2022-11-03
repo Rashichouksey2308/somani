@@ -436,13 +436,12 @@ const index = ({
   }, [creditDetail?.existingCHA]);
 
   const [exSupplier, setexSupplier] = useState([]);
+
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(creditDetail?.existingSuppliers);
     }
   }, [creditDetail?.existingSuppliers]);
-
-  console.log(exSupplier, 'searched')
 
  
   const removeEmailParent = (index) => {
@@ -458,11 +457,12 @@ const index = ({
   };
 
   const {searchedSupplier} = useSelector((state)=>state.supplier)
-  console.log(searchedSupplier?.data, 'searchedSupplier')
-
+ 
   const [searchTerm, setSearchTerm] = useState('');
+  const [removeInput, setRemoveInput] = useState(false) 
   
   const handleSearch = (e) => {
+    setRemoveInput(false)
     const query = e;
     // const query = `${e.target.value}`;
     setSearchTerm(query);
@@ -472,13 +472,12 @@ const index = ({
   };
 
   const handleFilteredData = (results) => {
-    console.log(results, 'searchedSupplier2')
    
       let temp = [...exSupplier];
-      temp.push(results?.supplierProfile?.supplierName);
+      temp.push({name: results?.supplierProfile?.supplierName, status: results?.status });
+      // temp.push(results?.supplierProfile?.supplierName);
       setexSupplier([...temp]);
       setSearchTerm('')
-   
     
   };
  
@@ -800,6 +799,8 @@ const index = ({
                     emails={exSupplier}
                     handleSearch={handleSearch}
                     handleFilteredData={handleFilteredData}
+                    removeInput={removeInput}
+                    setRemoveInput={setRemoveInput}
                     searchTerm={searchTerm}
                     searchedSupplier={searchedSupplier}
                     onChange={(_emails) => {
