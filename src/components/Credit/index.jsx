@@ -811,7 +811,7 @@ const index = ({
                     }}
                     getLabel={(email, index, removeEmail) => {
                       return (
-                        <div data-tag className={true && 'red'} key={index}>
+                        <div data-tag key={index}>
                           {email}
                           <span
                             data-tag-handle

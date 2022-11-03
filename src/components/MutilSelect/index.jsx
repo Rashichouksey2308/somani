@@ -121,7 +121,7 @@ function Index(props) {
       default:
     }
   };
-  const handleOnChange = (e) => {onChangeInputValue(e.currentTarget.value); props.handleSearch(e.currentTarget.value); console.log(e.currentTarget.value, 'currentTarget')};
+  const handleOnChange = (e) => {onChangeInputValue(e.currentTarget.value); props.handleSearch(e.currentTarget.value);};
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
@@ -170,7 +170,7 @@ function Index(props) {
           <li>ADN FIRE SAFETY PRIVATE LIMITED<span>IMH220000081</span></li>
         </ul>
       </div> */}
-      {props?.searchedSupplier && props.searchTerm &&  (
+      {props?.searchedSupplier && props.searchedSupplier?.data?.length > 0 && props.searchTerm &&  (
                 <div className={styles.searchResults}>
                   <ul>
                     {props.searchedSupplier
