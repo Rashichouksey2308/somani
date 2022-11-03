@@ -24,7 +24,7 @@ const Index = ({
 }) => {
   const { gstList } = useSelector((state) => state.buyer);
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan);
-  console.log(gettingCompanyPanResponse, 'GETTING COMPANY PAN');
+
 
   const dispatch = useDispatch();
 
@@ -73,7 +73,7 @@ const Index = ({
             list="tickmarks"
             value={slider}
             onChange={(e) => {
-              console.log(Number(e.target.value), 'sadaasd');
+             
               saveCompanyData(e.target.name, Number(e.target.value));
               if (Number(e.target.value == 100)) {
                 setSliderType(1);
@@ -425,7 +425,7 @@ const Index = ({
                   // max={100}
                   name="turnOver"
                   onChange={(e) => {
-                    console.log(e.target.value, 'e.target.value');
+                  
                     setSlider(Number(e.target.value));
                     saveCompanyData(e.target.name, Number(e.target.value));
                     getSlider();
@@ -479,7 +479,7 @@ const Index = ({
                         inline
                         label="Whatsapp"
                         onChange={(e) => {
-                          console.log(e, 'this is e');
+                     
                           // saveCompanyData('communicationMode', 'Whatsapp')
                           handleCommunication(e);
                         }}
@@ -515,10 +515,7 @@ const Index = ({
                       // saveCompanyData(e.target.name, e.target.value)
                       whatsappFunction(e);
                       //green tick
-                      console.log('is it validating?');
-                    } else {
-                      //red mark
-                      console.log('phone formaat invalid');
+                    
                     }
                   }}
                   id="textNumber"
