@@ -20,7 +20,7 @@ function Index(props) {
     setWidth(evt.target.value.length);
     setState(evt.target.value);
   };
-  console.log(length, 'length');
+
   return (
     <>
       {textType == 'text' ? (

@@ -30,8 +30,8 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('setgenActive');
   };
   const router = useRouter();
-  console.log(router.pathname, 'router.pathname');
-  console.log(isQuery, 'isQuery');
+
+
   useEffect(() => {
     if (
       isQuery == '/letter-table' ||
@@ -134,9 +134,9 @@ export default function Index({ isQuery }) {
   }, [customData]);
   const { allCustomClearance } = useSelector((state) => state.Custom);
   const data = useSelector((state) => state.Breadcrumb);
-  console.log(data, 'data');
+
   const { upperTabs, companyId } = useSelector((state) => state.Breadcrumb.breadCrumbData);
-  console.log(upperTabs, companyName, companyId, '12222');
+
 
   let customData = _get(allCustomClearance, 'data[0]', {});
   let OrderId = _get(customData, 'order.orderId', {});
@@ -151,7 +151,7 @@ export default function Index({ isQuery }) {
   const id = useSelector((state) => state?.user.id);
   const order = useSelector((state) => state?.user.order);
 
-  console.log('pageName23', order, id);
+
   const [unit, setUnit] = useState({ value: 'crores' });
   const [curency, setCurency] = useState({ value: 'inr' });
 
@@ -208,7 +208,7 @@ export default function Index({ isQuery }) {
     if ('margin-money' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router123', router.route);
+   
       } else {
         router.route = '/Leads' + '/Margin Money';
       }
@@ -217,10 +217,10 @@ export default function Index({ isQuery }) {
     if ('termsheet' == pageName) {
       if (order != null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router1234', router.route);
+      
       } else if (id !== null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `;
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Leads' + '/Transaction Summary';
       }
@@ -228,7 +228,7 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Leads' + '/Termsheet';
       }
@@ -236,7 +236,7 @@ export default function Index({ isQuery }) {
     if ('generic' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Generic' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router123', router.route);
+        
       } else {
         router.route = '/Agreements & LC' + '/Generic';
       }
@@ -244,7 +244,7 @@ export default function Index({ isQuery }) {
     if ('agreement' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Agreement' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Agreements & LC' + '/Agreement';
       }
@@ -252,10 +252,10 @@ export default function Index({ isQuery }) {
     if ('Lc' == pageName) {
       if (order != null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router1234', router.route);
+      
       } else if (id !== null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}`;
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Agreements & LC' + '/LC';
       }
@@ -287,7 +287,7 @@ export default function Index({ isQuery }) {
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Loading, Transit & Unloading';
       }
@@ -309,8 +309,8 @@ export default function Index({ isQuery }) {
           '/Loading, Transit & Unloading' +
           `Inspection` +
           `/${upperTabs}` +
-          `/${id?.toLowerCase()}` +
-          console.log('router123', router.route);
+          `/${id?.toLowerCase()}` 
+        
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Inspection';
       }
@@ -323,7 +323,7 @@ export default function Index({ isQuery }) {
           `/${id?.toLowerCase()}` +
           `/${upperTabs}` +
           `/${order}`;
-        console.log('router123', router.route);
+      
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Transit Details';
       }
@@ -331,10 +331,10 @@ export default function Index({ isQuery }) {
     if ('forward' == pageName) {
       if (order != null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()}` + `/${order}`;
-        console.log('router1234', router.route);
+        
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()} `;
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging';
       }
@@ -344,10 +344,10 @@ export default function Index({ isQuery }) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
         // `/${id}` +
         // `/${order}`
-        console.log('router1234', router.route);
+      
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
-        console.log('router123', router.route);
+       
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
       }
@@ -355,13 +355,12 @@ export default function Index({ isQuery }) {
     if ('custom' == pageName) {
       if (id !== null) {
         router.route = '/Custom Clearance & Warehouse' + `/${companyName}` + `/${upperTabs}` + `/${OrderId}`;
-        console.log('router123', router.route);
-        console.log(id, 'id123');
+        
       } else {
         router.route = '/Custom Clearance & Warehouse';
       }
     }
-    console.log('tabname', pageTabName);
+  
     if ('payment' == pageName) {
       if (id !== null) {
         router.route = '/Payment, Invoicing & Delivery' + `/${id?.toLowerCase()}` + `/${upperTabs}` + `/${companyId}`;
@@ -370,10 +369,10 @@ export default function Index({ isQuery }) {
       }
     }
 
-    console.log(router.route, ' router.route');
+   
 
     router.route.split('/').map((subRoute, index) => {
-      console.log(subRoute, 'subRoute');
+     
 
       if (subRoute !== '') {
         if (subRoute == '[id]') {
@@ -407,9 +406,7 @@ export default function Index({ isQuery }) {
         pageName == 'payment' ? (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-              {
-                console.log(myUrl.length - 1 == index, 'val');
-              }
+              
               return (
                 <span
                   key={index}
@@ -426,9 +423,7 @@ export default function Index({ isQuery }) {
         ) : (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-              {
-                console.log(myUrl.length - 1 == index, 'val');
-              }
+              
               return (
                 <span
                   key={index}

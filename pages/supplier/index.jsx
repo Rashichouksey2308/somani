@@ -61,7 +61,7 @@ function Index() {
     }
 
   }, [supplierResponse])
-  console.log(supplierData, keyAddData, 'supplierResponse')
+ 
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
 
 
@@ -80,7 +80,7 @@ function Index() {
     status: "Active"
   });
 
-  console.log(formData, 'setFormData')
+
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -97,7 +97,7 @@ function Index() {
     emailId: '',
     action: false
   }]);
-  console.log(person, 'person')
+ 
 
   const [detail, setDetail] = useState([{
     shareHoldersName: '',
@@ -133,7 +133,7 @@ function Index() {
 
   const [docs, setdocs] = useState([])
 
-  console.log(thirdParty, incumbencyDoc, _get(supplierData, 'document[0]', ''), 'incumbencyDoc')
+
 
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
@@ -156,7 +156,7 @@ function Index() {
     },
   ]);
 
-  // console.log(listCommodity,'supplierstate')
+
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -216,7 +216,7 @@ function Index() {
       action: false
     },
   ]);
-  console.log(listDirector, 'listDirector');
+
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -231,7 +231,7 @@ function Index() {
   };
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+   
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
@@ -239,7 +239,7 @@ function Index() {
   };
 
   const saveQuotationData = (name, value) => {
-    // console.log(value, 'dhjsgfksjdghf')
+ 
 
     formData.incorporationDate = value;
     setFormData({
@@ -264,29 +264,29 @@ function Index() {
   };
 
   const onChangeHandler2 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+
     let newInput = [...person];
-    console.log(newInput[index], 'newInput[index]');
+   
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setListShare([...newInput]);
   };
-  console.log(person, 'person');
+ 
   const onChangeHandler3 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+
     let newInput = [...detail];
-    console.log(newInput[index], 'newInput[index]');
+   
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setDetail([...newInput]);
   };
-  console.log(listShare, 'listShare');
+
   const onChangeHandler4 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+
     let newInput = [...listDirector];
-    console.log(newInput[index], 'newInput[index]');
+  
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setListDirector([...newInput]);
   };
 
@@ -296,7 +296,7 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
-    console.log(businessArray, 'businessArray');
+ 
     let temp = [...businessArray];
     // temp.push(business)
     setBusinessArray([...temp, { businessSummary: business }])
@@ -304,11 +304,11 @@ function Index() {
   };
 
   const onChangeHandler6 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+   
     let newInput = [...listCommodity];
 
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setListCommodity([...newInput]);
   };
 
@@ -551,7 +551,7 @@ function Index() {
         document1: incumbencyDoc,
         document2: thirdParty
       }
-      console.log(apiData, 'supplierstate')
+    
       let fd = new FormData();
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
@@ -571,7 +571,7 @@ function Index() {
       } else {
         dispatch(CreateSupplier(fd))
       }
-      // console.log('apidata', apiData)
+
     }
   };
 
@@ -612,11 +612,11 @@ function Index() {
           return;
         }
       });
-      console.log(isOk, 'keyAddressData');
+
       return isOk;
     };
 
-    console.log(data, 'addressValidtion');
+
     if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -687,12 +687,12 @@ function Index() {
     pinCode: null,
   });
 
-  console.log(keyAddressData, 'keyAddressData');
+
   const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-    console.log(keyAddData, 'keyAddData');
+
     let tempArr = keyAddData;
     setEditData({
       email: tempArr[index].email,
@@ -733,7 +733,7 @@ function Index() {
     const newInput = { ...keyAddressData };
 
     let namesplit = name.split('.');
-    console.log(name, namesplit, value, 'name, value');
+
 
     if (name === 'emailId') {
       newInput.email[index] = value;
@@ -743,7 +743,7 @@ function Index() {
       newInput[name] = value;
     }
 
-    // console.log(newInput)
+
     setKeyAddressData(newInput);
   };
 
@@ -1350,7 +1350,7 @@ function Index() {
                                   }}
                                 />
                               </td>
-                              {console.log('data55', val)}
+                      
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
@@ -1360,9 +1360,9 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          console.log('herer1');
+                          
                                           onChangeHandler2('action', true, index);
-                                          // setContactTable(true);
+                                  
                                         }}
                                       />
                                     </>
@@ -1373,7 +1373,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          console.log('herer2');
+                                   
                                           onChangeHandler2('action', false, index);
                                           // setContactTable(false);
                                         }}
@@ -1775,7 +1775,7 @@ function Index() {
                                   }}
                                 />
                               </td>
-                              {console.log('data99', commodity)}
+             
 
                               <td className="text-right">
                                 <div>

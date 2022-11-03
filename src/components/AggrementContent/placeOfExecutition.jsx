@@ -13,11 +13,11 @@ function Index(props) {
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
 
-  console.log(list, 'val.dateOfExecution');
+
 
   useEffect(() => {
     if (window) {
-      console.log(sessionStorage.getItem('exe'), '.getItem');
+      
       if (sessionStorage.getItem('exe')) {
         let savedData = JSON.parse(sessionStorage.getItem('exe'));
 
@@ -100,7 +100,7 @@ function Index(props) {
   };
 
   const handleChangeInput = (name, value, index) => {
-    console.log(name, 'name');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -114,7 +114,7 @@ function Index(props) {
       return newState;
     });
   };
-  console.log(list, 'exx');
+
   const handleAddressInput = () => {
     // let tempArr=[...addressList]
     setAddressList((current) => [...current, newAddress]);
@@ -132,23 +132,12 @@ function Index(props) {
   const onAddressRemove = (index) => {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
-  console.log(list, '564456');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <div className={`${styles.tableContainer} border_color card p-0`}>
-          {/* <div
-            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-           
-          >
-            <div className={styles.header}>
-           
-              <span className=" d-flex align-items-center justify-content-between">
-          
-               
-              </span>
-            </div>
-          </div> */}
+      
           <div id="customerDetail" className={` ${styles.body} card-body row`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>

@@ -2771,7 +2771,7 @@ function Index() {
         leftButtonTitle={'Revised Margin Money'}
         rightButtonTitle={'Send to Buyer'}
         openbar={() => {
-          console.log('OPEN');
+          
         }}
       />
     </>

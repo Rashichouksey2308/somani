@@ -72,7 +72,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
     },
   ]);
 
-  console.log(dutyData, 'billOfEntryFor');
+
 
   const totalCustomDuty = (index) => {
     let number = 0;
@@ -96,8 +96,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   };
 
   const getDoc = (payload) => {
-    console.log(payload, 'payload');
-    console.log(customData, 'customData');
+
 
     dispatch(
       previewDocument({
@@ -148,7 +147,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const conversionRateChange = (name, value, index) => {
     const newInput = [...billOfEntryData];
     newInput[index]['boeDetails']['conversionRate'] = value;
-    console.log(newInput, 'newInput');
+
     let conversion = 0;
     if (name == 'boeDetails.conversionRate') {
       conversion = checkNan(
@@ -200,9 +199,9 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const handleDeleteRow = (index2, index) => {
     const newInput = [...dutyData];
     let a = newInput[index];
-    console.log(a, 'sssssss', index2);
+    
     a.splice(index2, 1);
-    console.log(a, '232323');
+
     setDutyData([...newInput]);
   };
 
@@ -221,7 +220,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       action: false,
       value: false,
     });
-    console.log(newInput, 'newInput');
+   
     setDutyData([...newInput]);
   };
 
@@ -387,7 +386,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
-      console.log('billOfEntryFor', ' is this running?');
+     
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}]);
       let tempArray = [];
       let duty11 = [];
@@ -435,7 +434,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   };
 
   const addNewRow = () => {
-    console.log('SDfsdfs');
+
     setBillOfEntryData([
       ...billOfEntryData,
       {
@@ -1226,7 +1225,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 </span>
                               </div>
                               <div className="col-lg-3 col-md-4 col-sm-6 text-center" style={{ top: '40px' }}>
-                                {console.log(bl, 'blbl')}
+                              
                                 <img
                                   src="/static/preview.svg"
                                   className={`${styles.previewImg} img-fluid ml-n4`}
