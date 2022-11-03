@@ -221,6 +221,7 @@
   padding: 7px 20px;
   position: absolute;
   border-radius: 6px;
+  cursor: pointer;
   background: #ffffff;
   border: 1px solid #d2d7e5;
   @include respond(lg-desktop) {

@@ -170,6 +170,19 @@ function Index(props) {
           <li>ADN FIRE SAFETY PRIVATE LIMITED<span>IMH220000081</span></li>
         </ul>
       </div> */}
+      {props?.searchedSupplier && props.searchTerm &&  (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {props.searchedSupplier
+                      ? props?.searchedSupplier?.data?.map((results, index) => (
+                          <li onClick={() => props.handleFilteredData(results)} id={results._id} key={index} value={results}>
+                            {results?.supplierProfile?.supplierName}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
     </div>
   );
 }

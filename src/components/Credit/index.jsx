@@ -442,6 +442,8 @@ const index = ({
     }
   }, [creditDetail?.existingSuppliers]);
 
+  console.log(exSupplier, 'searched')
+
  
   const removeEmailParent = (index) => {
     let temp = [...emails];
@@ -455,9 +457,11 @@ const index = ({
     setexSupplier([...temp]);
   };
 
+  const {searchedSupplier} = useSelector((state)=>state.supplier)
+  console.log(searchedSupplier?.data, 'searchedSupplier')
+
   const [searchTerm, setSearchTerm] = useState('');
   
-
   const handleSearch = (e) => {
     const query = e;
     // const query = `${e.target.value}`;
@@ -468,17 +472,14 @@ const index = ({
   };
 
   const handleFilteredData = (results) => {
-    if (results?.pans?.length > 0) {
-      setCompPan(results?.pans[0]);
-      setCompPanName(results?.name);
-      setBoolean1(false);
-      dispatch(GetGst(results?.pans[0]));
-    } else {
-      let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    }
+    console.log(results, 'searchedSupplier2')
+   
+      let temp = [...exSupplier];
+      temp.push(results?.supplierProfile?.supplierName);
+      setexSupplier([...temp]);
+      setSearchTerm('')
+   
+    
   };
  
   return (
@@ -798,6 +799,9 @@ const index = ({
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
                     handleSearch={handleSearch}
+                    handleFilteredData={handleFilteredData}
+                    searchTerm={searchTerm}
+                    searchedSupplier={searchedSupplier}
                     onChange={(_emails) => {
                       // handleSearch(_emails)
                   
@@ -2099,19 +2103,7 @@ const index = ({
                               </>
                             ))}
                           </select>
-                          {/* <input
-                            name="bankName"
-                            className="input"
-                            disabled={!profile.actions}
-                            defaultValue={profile?.bankName}
-                            onChange={(e) =>
-                              handleDebtChange(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
-                          /> */}
+                         
                         </td>
                         <td>
                           <select

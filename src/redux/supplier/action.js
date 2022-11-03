@@ -379,10 +379,10 @@ export const SearchSupplier = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(searchSupplierSuccess(response.data));
+        dispatch(searchSupplierSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(searchSupplierFailed(response.data));
+        dispatch(searchSupplierFailed(response.data.data));
         const toastMessage = 'Search Supplier request Failed';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

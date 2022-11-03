@@ -119,7 +119,6 @@ const Index = ({
     if (compPan !== '') {
       const newInput = { ...companyDetails };
       newInput.companyPan = compPan;
-      console.log(newInput, 'new input');
       setCompanyDetails(newInput);
       // dispatch(GetGst(compPan))
     }
