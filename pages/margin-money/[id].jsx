@@ -45,13 +45,15 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', '');
 
+
   let id = sessionStorage.getItem('marginId');
 
   const [unit, setUnit] = useState({ value: 'Crores' });
   const [coversionUnit, setCoversionUnit] = useState(10000000);
+  const [isConsigneeSameAsBuyer,setisConsigneeSameAsBuyer]=useState(true)
 
   const RevisedMarginMoneyTrue = _get(margin, 'data.data[0].revisedMarginMoney.isActive', false);
-
+  
   useEffect(() => {
     let id = sessionStorage.getItem('marginId');
 
@@ -230,21 +232,8 @@ function Index() {
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
+   
 
-    if (invoiceData?.isConsigneeSameAsBuyer == true) {
-      if (name == 'buyerName') {
-        let a = 'consigneeName';
-        newInput[a] = value;
-      }
-      if (name == 'buyerGSTIN') {
-        let a = 'consigneeGSTIN';
-        newInput[a] = value;
-      }
-      if (name == 'buyerAddress') {
-        let a = 'consigneeAddress';
-        newInput[a] = value;
-      }
-    }
 
     setInvoiceData({ ...newInput });
   };
@@ -501,7 +490,26 @@ function Index() {
         isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
-        invoiceDetail: { ...invoiceData },
+        invoiceDetail: { 
+                buyerName: invoiceData?.companyName ,
+                buyerGSTIN:invoiceData?.buyerGSTIN ,
+                buyerAddress: invoiceData?.buyerAddress ,
+                isConsigneeSameAsBuyer:isConsigneeSameAsBuyer,
+                consigneeName:invoiceData?.consigneeName ,
+                consigneeGSTIN:invoiceData?.consigneeGSTIN ,
+                consigneeAddress:invoiceData?.consigneeAddress ,
+                importerName:
+                invoiceData?.importerName ,
+                  
+                branchOffice:invoiceData?.branchOffice ,
+                companyAddress:invoiceData?.companyAddress ,
+                importerGSTIN:invoiceData?.importerGSTIN ,
+                bankName:invoiceData?.bankName ,
+                branch:invoiceData?.branch ,
+                branchAddress:invoiceData?.branchAddress ,
+                IFSCcode:invoiceData?.IFSCcode ,
+                accountNo:invoiceData?.accountNo ,
+         },
         calculation: {
           orderValue: finalCal.orderValue,
           orderValueCurrency: finalCal.orderValueCurrency,
@@ -744,6 +752,7 @@ function Index() {
         IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
       });
+   
     }
   }, [marginData]);
 
@@ -1310,16 +1319,12 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
+                          {(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                              ? marginData?.order?.tolerance
+                              : 0
+                            
+                          )} %
                         </p>
                       </td>
                     </tr>
@@ -2767,16 +2772,11 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
+                          {(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                              ? marginData?.order?.tolerance
+                              : 0
+                          )} %
                         </p>
                       </td>
                       <td align="left">
@@ -2791,7 +2791,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.tolerance ? marginData?.order?.tolerance : 0, '%', '')}
+                          {(marginData?.order?.tolerance ? marginData?.order?.tolerance : 0)} %
                         </p>
                       </td>
                     </tr>
@@ -4068,7 +4068,7 @@ function Index() {
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
+        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
         consigneeName: marginData?.invoiceDetail?.consigneeName || '',
         consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
@@ -4087,10 +4087,10 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       });
+       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer ==false ? false : true)
     }
 
   }, [marginData, getInternalCompaniesMasterData]);
-
 
   useEffect(() => {
     getRevisedData();
@@ -4457,14 +4457,10 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(
-                                    marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                      maximumFractionDigits: 2,
-                                      minimumFractionDigits: 2,
-                                    }),
-                                    '%',
-                                    '',
-                                  )}
+                                 
+                                   {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
+                                   
+                                 
                                 </div>
                               </div>
                             </div>
@@ -4926,7 +4922,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerAddress"
-                                defaultValue={marginData?.invoiceDetail?.buyerAddress}
+                                value={marginData?.invoiceDetail?.buyerAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
@@ -4949,35 +4945,25 @@ function Index() {
                                       inline
                                       label="Yes"
                                       onChange={(e) => {
-                                        setInvoiceData({
-                                          ...invoiceData,
-                                          isConsigneeSameAsBuyer: true,
-                                        });
-                                        // saveInvoiceData(
-                                        //   'isConsigneeSameAsBuyer',
-                                        //   true,
-                                        // )
+                                       setisConsigneeSameAsBuyer(true)
+                                       
                                         setSame(true);
                                       }}
+                                      
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-1`}
+                                      checked={isConsigneeSameAsBuyer==true ?"checked":""}
                                     />
                                     <Form.Check
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
                                       onChange={(e) => {
-                                        // saveInvoiceData(
-                                        //   'isConsigneeSameAsBuyer',
-                                        //   false,
-                                        // )
-                                        setInvoiceData({
-                                          ...invoiceData,
-                                          isConsigneeSameAsBuyer: false,
-                                        });
+                                        setisConsigneeSameAsBuyer(false)
                                         setSame(false);
                                       }}
+                                      checked={isConsigneeSameAsBuyer==false?"checked":""}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-2`}
@@ -5046,6 +5032,7 @@ function Index() {
                                   value={invoiceData?.importerName}
                                   onChange={(e) => dropDownChange(e.target.name, e.target.value)}
                                   style={{ paddingRight: '40px' }}
+                                  disabled
                                 >
                                   {/* <option>Select an option</option>
                                   {getInternalCompaniesMasterData.filter((val)=>{

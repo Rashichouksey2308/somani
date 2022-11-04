@@ -73,12 +73,12 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     let name = e.target.id;
     let doc = await uploadDoc(e);
 
-    // onChangeWarehouseDetails('document', doc)
+   
     let tempData = { ...warehouseDetails };
     tempData[name] = doc;
     setWarehouseDetails({ ...tempData });
   };
-  // console.log(warehouseDetails,'warehouseDetails')
+
   const onSaveDischarge = async () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails;
     if (warehouseDetailpayload.quantity === '') {
@@ -209,7 +209,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      BL Qty<strong className="text-danger">*</strong>
+                     BL Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>

@@ -21,8 +21,7 @@ function Index({
   commodity,
 }) {
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState(['Import', 'Domestic']);
-  console.log(country, port, commodity, 'sasdasdad');
-  console.log(fields, 'payloadData');
+ 
   const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
   const countryOfOriginDropdown = ['India', 'Australia', 'Sri Lanka', 'Qatar', 'Dubai'];
   const portOfDischargeDropdown = ['Mumbai, India', 'Gujrat, India', 'Vishakapatnam, India'];
@@ -68,7 +67,7 @@ function Index({
     document.getElementById('ReviewProfileForm').reset();
   };
 
-  console.log(payloadData, 'payloadData');
+
 
   const handleCheckBox = (index, name) => {
     let tempArr = [...fields];

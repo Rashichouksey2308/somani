@@ -884,7 +884,7 @@ function Index(props) {
                                           return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>{'Add New'}</option>
+                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -916,7 +916,7 @@ function Index(props) {
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>{'Add New'}</option>
+                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}

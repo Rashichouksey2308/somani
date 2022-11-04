@@ -694,7 +694,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   </div>
                   <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
-                    {item.blNumber.map((blEntry, index2) => {
+                    {item?.blNumber?.length> 0 && item.blNumber.map((blEntry, index2) => {
                       return (
                         <>
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
@@ -737,8 +737,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   BL Date <strong className="text-danger ml-n1">*</strong>
                                 </div>
                                 <span className={styles.value}>
-                                  {blEntry?.blDate
-                                    ? moment(blEntry?.blDate).format(
+                                  {blEntry?.BlDate
+                                    ? moment(blEntry?.BlDate,"DD-MM-YYYY").format(
                                       'DD-MM-YYYY',
                                     )
                                     : ''}
@@ -749,7 +749,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   BL Quantity <strong className="text-danger ml-n1">*</strong>
                                 </div>
                                 <span className={styles.value}>
-                                  <span className="mr-2">{blEntry?.blQuantity} </span>
+                                  <span className="mr-2">{blEntry?.quantity} </span>
                                   {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                 </span>
                               </div>
@@ -788,8 +788,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       BL Date <strong className="text-danger ml-n1">*</strong>
                                     </div>
                                     <span className={styles.value}>
-                                      {blEntry?.blDate
-                                        ? moment(blEntry?.blDate).format(
+                                      {blEntry?.BlDate
+                                        ? moment(blEntry?.BlDate ,"DD-MM-YYYY").format(
                                           'DD-MM-YYYY',
                                         )
                                         : ''}
@@ -813,7 +813,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      <span className="mr-2">{blEntry?.blQuantity}</span>
+                                      <span className="mr-2">{blEntry?.quantity}</span>
                                       {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                     </span>
                                   </div>

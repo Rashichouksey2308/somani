@@ -33,7 +33,7 @@ function Index({ shareHolding }) {
   const [equiltyCapitalShares, setEquiltyCapitalShares] = useState([]);
   const [prefrenceCapitalShares, setPrefrenceCapitalShares] = useState([]);
 
-  console.log(shareHolding, 'shareholding');
+ 
   Chart.register(ArcElement);
   // let tempArr = [
   //   { name: 'Sail', value: '21', color: '#9675CE' },
@@ -73,7 +73,7 @@ function Index({ shareHolding }) {
     ?.sort((a, b) => b.numberOfShares - a.numberOfShares)
     .slice(0, 5)
     .forEach((item) => {
-      console.log(item, 'item');
+  
       equityShareNo.push(item.numberOfShares);
       equityShareName.push(item.fullName);
     });
@@ -101,11 +101,9 @@ function Index({ shareHolding }) {
     totalPrefrenceSharePercentage += item.percentageShareHolding;
   });
 
-  setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
-  console.log(equityShareNo, 'equityShareNo', topprefrencesShareNo);
+ 
 
-  // const equityShare1 = equityCapital()?.slice(0, 5)
-  console.log(equityShareNo, 'equityCapital');
+
   const equitydata = {
     labels: equityShareName,
     datasets: [
@@ -172,9 +170,6 @@ function Index({ shareHolding }) {
     cutout: 100,
   };
 
-  const onClickEvent = (event) => {
-    console.log(getDatasetAtEvent(chartRef.current, event));
-  };
 
   const colorReturn = (index) => {
     let finalColor = 'red';
@@ -185,33 +180,12 @@ function Index({ shareHolding }) {
     } else {
       finalColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     }
-    console.log(finalColor, colors[index], 'final color');
+    
     return finalColor;
   };
 
-  //   useEffect(() => {
 
-  //     if(chartRef?.current!=null){
-  //     let ctx = document.getElementById("canvas").getContext("2d");
-  // let myLine = new Chart(ctx, config);
-
-  // document.getElementById("canvas").onclick = function(evt) {
-  //   let activePoint = myLine.getElementAtEvent(event);
-
-  //   // make sure click was on an actual point
-  //   if (activePoint.length > 0) {
-  //     let clickedDatasetIndex = activePoint[0]._datasetIndex;
-  //     let clickedElementindex = activePoint[0]._index;
-  //     let label = myLine.data.labels[clickedElementindex];
-  //     let value = myLine.data.datasets[clickedDatasetIndex].data[clickedElementindex];
-  //     alert("Clicked: " + label + " - " + value);
-  //   }
-  // };
-  //     }
-
-  //   },[chartRef])
-
-  console.log(equitydata, 'equitydata');
+ 
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -269,7 +243,7 @@ function Index({ shareHolding }) {
                           return b?.numberOfShares - a?.numberOfShares;
                         })
                         .map((shareHolder, index) => {
-                          console.log(shareHolder.percentageShareHolding, 'mapping');
+                         
 
                           return (
                             <tr key={index}>

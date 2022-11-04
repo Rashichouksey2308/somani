@@ -146,7 +146,7 @@ export default function Index(props) {
                                       isFieldInFocus
                                         ? val.Quantity
                                         : Number(val.Quantity)?.toLocaleString('en-IN') +
-                                          ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`
+                                        ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`
                                     }
                                     name="Quantity"
                                     onChange={(e) => {
@@ -161,7 +161,7 @@ export default function Index(props) {
                                 <>
                                   <div className={`${styles.label} text`}>Quantity Released</div>
                                   <span className={styles.value}>
-                                    {val.Quantity ? Number(val.Quantity)?.toLocaleString('en-In') : ''}
+                                    {val.Quantity ? Number(val.Quantity)?.toLocaleString('en-In') + ' ' + _get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '') : ''}
                                   </span>
                                 </>
                               )}
@@ -291,8 +291,8 @@ export default function Index(props) {
         <SaveBar
           handleSave={props.onSaveHAndler}
           rightBtn="null"
-          // rightBtnClick={() => setShow(true)}
-          // handleRoute={handleRoute}
+        // rightBtnClick={() => setShow(true)}
+        // handleRoute={handleRoute}
         />
       </div>
 

@@ -53,8 +53,8 @@ const Index = ({
     }
   }, [reset]);
 
-  console.log('sdasdasda', defaultDate);
-  // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
+
+  
   return (
     <>
       <div className="vessel_card w-100">

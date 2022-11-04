@@ -12,7 +12,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
 
   useEffect(() => {
     if (localStorage.getItem('darkMode') == 'true' || localStorage.getItem('darkMode') == true) {
-      // console.log('this')
+
       setDarkMode(true);
     } else {
      

@@ -19,16 +19,12 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [orderid, setorderId] = useState('');
-  console.log(ReleaseOrderData, 'ReleaseOrderData123');
-  // let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
+
+ 
   useEffect(() => {
     setorderId(_get(ReleaseOrderData, 'data[0].order._id', ''));
   }, [ReleaseOrderData]);
-  // let InvoiceQuantity =  _get(
-  //   ReleaseOrderData,
-  //   'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
-  //   0,
-  // );
+ 
   let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', []);
   const boeTotalQuantity = boe?.reduce((accumulator, object) => {
     return accumulator + Number(object.boeDetails.invoiceQuantity);
@@ -38,8 +34,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(boeTotalQuantity);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  console.log(releaseDetail, 'releaseDetail');
-  console.log(releaseDetail.length - 1, '111');
+ 
   useEffect(() => {
     if (releaseDetail) {
       let index = releaseDetail.length - 1;
@@ -54,20 +49,20 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   };
 
   const handlereleaseDetailChange = (name, value, index) => {
-    console.log(name, value, index, 'name,value,index2');
+   
     let tempArr = [...releaseDetail];
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
       }
     });
-    // console.log(tempArr,"tempArr")
+   
 
     setReleaseDetail([...tempArr]);
   };
-  console.log(Number(netBalanceQuantity), 'Number(netBalanceQuantity)');
+  
   const uploadDoc = async (e) => {
-    console.log(e, 'response data');
+ 
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
@@ -85,38 +80,29 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       let response = await Axios.post(`${API.corebaseUrl}${API.uploadDoc}`, fd, {
         headers: headers,
       });
-      console.log(response.data.data, 'response data123');
+     
       if (response.data.code === 200) {
-        // dispatch(getCustomClearanceSuccess(response.data.data))
-        console.log(response.data.data, 'name,value,index3');
+       
+       
         return response.data.data;
 
-        // let toastMessage = 'DOCUMENT UPDATED'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+        
       } else {
-        // dispatch(getCustomClearanceFailed(response.data.data))
-        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+       
       }
     } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      // }
+    
     }
   };
 
   const handleDeleteRow = (index) => {
-    // console.log(index, 'temparr')
+   
     let tempArr = [...releaseDetail];
     tempArr.pop(index);
     setReleaseDetail(tempArr);
   };
 
-  // console.log(releaseDetail, 'temparr')
+  
   const [releaseOrderButtonIndex, setReleaseOrderButtonIndex] = useState(0);
   const addMorereleaseDetailDataRows = (index) => {
     setReleaseDetail([
@@ -132,7 +118,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     setReleaseOrderButtonIndex(index);
   };
   const saveDate = (value, name, index) => {
-    // console.log(value, name, 'save date')
+  
     const d = new Date(value);
     let text = d.toISOString();
     handlereleaseDetailChange(name, text, index);
@@ -151,10 +137,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       Number(_get(ReleaseOrderData, 'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity', 0)) <
       Number(e.target.value)
     ) {
-      // let temp = Number(e.target.value)
-      // if (e.target.value == "") {
-      //   temp = 0
-      // }
+      
 
       const toastMessage = 'net quantity Realesed cannot be Greater than net bALance Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -164,10 +147,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     }
 
     if (Number(e.target.value) < 0) {
-      // let temp = Number(e.target.value)
-      // if (e.target.value == "") {
-      //   temp = 0
-      // }
+    
 
       const toastMessage = 'Net Quantity Realesed cannot be Negative';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -176,18 +156,18 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       return;
     }
     handlereleaseDetailChange(e.target.id, e.target.value, index);
-    // getData()
+    
   };
-  console.log(netBalanceQuantity, 'val2');
+ 
   const getData = () => {
     let value = boeTotalQuantity;
     releaseDetail.forEach((item) => {
       value = value - item.netQuantityReleased;
     });
-    // console.log(value, "val")
+   
     setNetBalanceQuantity(value);
   };
-  // console.log(releaseDetail, "val123")
+ 
   useEffect(() => {
     getData();
   }, [releaseDetail]);
@@ -198,10 +178,10 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   };
 
   const uplaodDoc = async (e, index) => {
-    // console.log(e.target.id, index, 'UploadDocRealeseORder')
+  
     let name = e.target.id;
     let doc = await uploadDoc(e);
-    console.log(e.target.id, doc, index, 'UploadDocRealeseORder');
+   
     handlereleaseDetailChange(name, doc, index);
   };
 
@@ -216,7 +196,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       releaseDetail: [...releaseDetail],
     };
     let task = 'save';
-    // console.log(payload)
+    
     if (netBalanceQuantity >= 0) {
       await dispatch(UpdateDelivery({ payload, task }));
     } else {
@@ -231,7 +211,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= releaseDetail.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', releaseDetail.length);
+     
       if (releaseDetail[i]?.releaseOrderDate == '' || releaseDetail[i]?.releaseOrderDate == null) {
         toastMessage = `please input a date for release order   ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -250,7 +230,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       }
     }
     return isOk;
-    console.log(isOk, 'isOktrue');
+  
   };
 
   const onSubmitHanler = async () => {
@@ -261,7 +241,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     };
     let task = 'submit';
 
-    // console.log(payload)
+    
     if (netBalanceQuantity >= 0) {
       await dispatch(UpdateDelivery({ payload, task }));
     } else {
@@ -271,7 +251,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       }
     }
   };
-  // console.log(netBalanceQuantity, 'netBalanceQuantity')
+  
 
   return (
     <>
@@ -349,7 +329,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                               name="releaseOrderDate"
                               labelName="Release Order Date"
                             />
-                            {console.log('release Details', item.releaseOrderDate)}
+                  
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -370,7 +350,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             type="text"
                             onChange={(e) => {
                               e.target.value;
-                              // console.log( e.target.value,"333")
+                            
                               netQuantityChange(e, index);
                             }}
                             id="netQuantityReleased"
@@ -383,9 +363,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             className={`${styles.input_field} input form-control`}
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
 
-                            // onKeyDown={(evt) =>
-                            //   evt.key === 'e' && evt.preventDefault()
-                            // }
+                           
                           />
                           <label className={`${styles.label_heading} label_heading`}>
                             Net Quantity Released

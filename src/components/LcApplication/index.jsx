@@ -30,7 +30,7 @@ function Index({
   name,
   port,
 }) {
-  console.log(lcModuleData, 'lcCondition12234');
+
   const [editStren, setEditStren] = useState(false);
   const [edit, setEdit] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -53,7 +53,7 @@ function Index({
     let a = index;
     return `${a + 1}.`;
   };
-  console.log(lcData?.drawee, 'lcData?.drawee');
+
   return (
     <>
       {' '}

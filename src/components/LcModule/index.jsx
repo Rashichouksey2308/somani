@@ -37,7 +37,7 @@ function Index() {
   }, [lcModule]);
 
   const handleRoute = (lc) => {
-    console.log(lc, 'lc-module');
+ 
     if (!lc.firstTimeUpdate) {
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
