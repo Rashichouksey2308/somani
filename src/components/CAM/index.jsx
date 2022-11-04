@@ -63,7 +63,7 @@ function Index({
   debtProfileColor,
 }) {
   const dispatch = useDispatch();
-  console.log(companyData, 'companyData');
+ 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -72,23 +72,14 @@ function Index({
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
-  console.log(darkMode, 'This is dark CAM');
-  // useEffect(() => {
-  //   if (window) {
-  //     let id1 = sessionStorage.getItem('orderID')
-  //     let id2 = sessionStorage.getItem('companyID')
-  //     dispatch(GetAllOrders({ orderId: id1 }))
-  //     dispatch(GetCompanyDetails({ company: id2 }))
-  //     // dispatch(GetDocuments(`?order=${id1}`))
-  //   }
-  // }, [dispatch, fetchingKarzaGst])
+ 
+  
   useEffect(() => {
     let id1 = sessionStorage.getItem('orderID');
     dispatch(GetDocuments(`?order=${id1}`));
   }, [dispatch]);
 
-  console.log(camData, 'THIS IS CAM DATA');
-  // console.log(companyData, 'THIS IS COMPANY DATA')
+
 
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
@@ -96,7 +87,7 @@ function Index({
 
   const { documentsFetched } = useSelector((state) => state.review);
 
-  console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED');
+
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -139,7 +130,7 @@ function Index({
     filteredData = camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
     const length = _get(filteredData[0], 'bankName', '');
-    console.log(length, 'PRIMARY BANK NAME', filteredData);
+
 
     return length;
   };
@@ -216,29 +207,9 @@ function Index({
       });
     }
 
-    console.log(tempArr, 'dhjj');
+
   }, [camData]);
-  // let tempArr = [
 
-  // {
-  //   name: "Bindu Singh",
-  //   value: 66705,
-  //   color: "#3687E8"
-  // },
-  // {
-  //   name: "Bindu Singh",
-  //   value: 66705,
-  //   color: "#43C34D"
-  // },
-  // {
-  //   name: "Bidu Singh",
-  //   value: 66705,
-  //   color: "#FF9D00"
-  // },
-
-  // ]
-
-  // console.log(tempArr, 'tempArr')
 
   let data = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
@@ -317,16 +288,16 @@ function Index({
       },
     },
   };
-  console.log(_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''), '651645');
+ 
 
   function createGradient(ctx, area, color, color2) {
-    console.log('cts', color2, color);
+  
 
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
 
-    console.log(gradient, 'gradient');
+
     return gradient;
   }
 
@@ -434,7 +405,7 @@ function Index({
     }
   };
   const findTop3Share = (data) => {
-    console.log(data, 'sasdasd');
+
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
@@ -467,7 +438,7 @@ function Index({
     }
   };
   const findTop3Open = (data) => {
-    console.log(data, 'opqpqpqp');
+
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
@@ -504,14 +475,11 @@ function Index({
     }
   };
 
-  console.log(top3Share, 'top3Share');
+
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus);
     findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers);
-    console.log(
-      camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern,
-      'camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)',
-    );
+  
     findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern);
     findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges);
   }, [GstData, camData]);
@@ -869,7 +837,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
   );
 };
 const supplierInfo = (camData) => {
-  console.log(camData, 'camData');
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -984,7 +952,7 @@ const groupExposure = (camData, camConversionunit) => {
               {camData &&
                 camData?.company?.groupExposureDetail?.map((exp, index) => {
                   let name = exp?.name?.split(' ') ?? 'NA';
-                  console.log(name, 'thirdkjdfbh');
+              
                   return (
                     <Col key={index} md={4}>
                       <div className={`${styles.exposureCard} border_color`}>
@@ -1411,7 +1379,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
   );
 };
 const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
-  console.log(top3Open, 'top3Open');
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1745,7 +1713,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
   );
 };
 const operationalDetails = (camData) => {
-  console.log(camData?.productSummary?.monthlyProductionCapacity, 'camData?.productSummary?.monthlyProductionCapacity');
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3530,7 +3498,7 @@ const skewness = (
   );
 };
 const customerRating = (data, filteredCreditRating, rating, darkMode) => {
-  console.log(filteredCreditRating, 'filteredCreditRating22');
+ 
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>

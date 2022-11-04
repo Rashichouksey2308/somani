@@ -47,16 +47,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  console.log(companyData, 'companyData');
 
-  console.log(GstData, 'GSTDATA');
+
+
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const chartRef3 = useRef(null);
   const [chartData, setChartData] = useState({
     datasets: [],
   });
-  console.log(chartData, 'THIS IS CHART DATA');
+
   const [chartData2, setChartData2] = useState({
     datasets: [],
   });
@@ -64,7 +64,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     datasets: [],
   });
   const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList);
-  console.log(gstFilteredData, 'gst filtered data');
+
   const [revenueProfile, setRevenueProfile] = useState(10000000);
   const [saleDetails, setSalesDetails] = useState(10000000);
   const [purchasesDetailsUnit, setPurchasesDetailsUnit] = useState(10000000);
@@ -92,21 +92,21 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     });
     setGstOption(arrayGst);
 
-    console.log(GstData?.length, 'GstData?.length ');
+
     if (GstData?.length > 0) {
       setCredential({ ...credential, gstin: GstData[0].gstin });
-      console.log('inside GSt UseEffetc');
+
       SetGstFilteredData({ ...GstData[0] });
       GstDataHandler(GstData[0]);
     }
     if (GstData?.length == 0) {
       setCredential({ ...credential, gstin: '' });
-      console.log('inside GSt UseEffetc');
+
       SetGstFilteredData({});
       GstDataHandler({});
     }
   }, [GstData]);
-  // console.log(gstFilteredData, 'gstFilteredData')
+ 
 
   const handleGStinFetch = () => {
     if (selected.length !== 1) {
@@ -124,7 +124,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         payload.gstinList.push(item.value);
       });
 
-      console.log(payload, 'gstinP[ayload');
+    
       // dispatch(VerifyGstKarza(payload));
     }
   };
@@ -145,7 +145,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         payload.gstinList.push(item.value);
       });
 
-      console.log(payload, 'gstinP[ayload');
+
       // dispatch(VerifyGstKarza(payload));
     }
   };
@@ -165,7 +165,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const handleChangeGstin = (e) => {
     const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value);
-    // console.log(filteredgstin.length, 'filteredgstin')
+   
     if (filteredgstin?.length === 1) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData };
@@ -187,13 +187,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     // const colorEnd = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart && color !== colorMid)
     // );
-    console.log('cts', color2, color);
+
 
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
 
-    console.log(gradient, 'gradient');
+
     return gradient;
   }
 
@@ -212,7 +212,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       data.forEach((val, index) => {
         temArr.push(Number(CovertvaluefromtoCR(val)).toFixed(2));
       });
-      console.log(temArr, 'slaes');
+
       return temArr;
     } else {
       return [];
@@ -278,15 +278,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         b = data[i] + data[i - 1] + data[i - 2];
         arr.push(Number(b.toFixed(2)));
       }
-      console.log(arr, 'arr1121212');
+
       return arr;
     };
 
-    //  let v1 =  filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7])
-    //  let v3 =  filteredData1([1, 2, 3, 4, 500, 6, 6, 6,7, 9, 10])
-    //   let v4 = filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7, 100, 13242,6564])
 
-    //   console.log(v1, v3, v4, 'LINES IN DATA')
 
     const newData = {
       labels: covertMonths(filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months)),
@@ -390,7 +386,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
     const chart3 = chartRef3.current;
-    console.log('here', chart.ctx);
+
     if (!chart) {
       return;
     }
@@ -510,12 +506,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     setChartData2(data2);
     setChartData3(data3);
   };
-  console.log(chartData, 'setChartData');
+
   useEffect(() => {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
     const chart3 = chartRef3.current;
-    console.log('here', chart.ctx);
+ 
     if (!chart) {
       return;
     }
@@ -913,7 +909,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     }
   }, [gstFilteredData]);
 
-  console.log(top10Supplier, 'top10Customers');
+
 
   let stateWiseSales = {
     labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
@@ -938,7 +934,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         ticks: {
           callback: function (t) {
-            console.log(t, 'asasdasdasd');
+          
             let a = gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names[t];
             var maxLabelLength = 8;
             if (a?.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
@@ -970,7 +966,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         ticks: {
           callback: function (t) {
-            console.log(t, 'asasdasdasd');
+       
             let a = gstFilteredData?.detail?.summaryCharts?.top10Cus?.names[t];
             var maxLabelLength = 8;
             if (a.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
@@ -1052,7 +1048,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     let financialYear = '';
     if (current) {
       let [startYear, endYear] = (currentperiod ? currentperiod : '-').split('-');
-      console.log(endYear, startYear, 'startYear');
+     
 
       financialYear = `${startYear !== '' ? moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase() : ''} - ${
         endYear !== '' ? moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase() : ''
@@ -1074,15 +1070,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     endYear ? endYear : '';
     // }`
   };
-  console.log(
-    (
-      _get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', 0) * 100
-    )?.toLocaleString('en-IN', { minimumFractionDigits: 2 }),
-    'busis',
-  );
+ 
 
   const getCompliencePeriod = (period, chart) => {
-    console.log(period, 'period', chart);
+
     let item = (period ? period : '')?.split('-');
     let text = `${moment(item[0], 'MMYYYY').format('MMM YYYY')?.toUpperCase()}-${moment(item[1], 'MMYYYY')
       .format('MMM YYYY')
@@ -1096,10 +1087,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     }
     return text;
   };
-  console.log(
-    getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod),
-    'jdhgvdfghkzjdshfiugdsfjh',
-  );
+  
   return (
     <>
       <div className={`${styles.wrapper} card border_color border-bottom`}>

@@ -12,10 +12,10 @@ const initialState = {
 };
 
 function AnalyticsReducer(state = initialState, action) {
-  console.log(action.payload, '12121212');
+
   switch (action.type) {
     case types.GET_ORDER_DATA:
-      console.log(action.payload, 'action.payload');
+     
       return {
         ...state,
         orderSummary: action.payload,

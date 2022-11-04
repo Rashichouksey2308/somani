@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 import { checkNan } from 'utils/helper';
 
 function Index({ data }) {
-  console.log(data, 'data');
+
   return (
     <Card className={`${styles.card} border`}>
       <Card.Header className={`${styles.header} border_color heading_card`}> Exposure </Card.Header>

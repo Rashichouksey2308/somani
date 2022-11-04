@@ -75,7 +75,7 @@ const Index = () => {
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney ? sheet?.transactionDetails?.marginMoney : 10,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || 'First Class European Bank',
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,

@@ -43,7 +43,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       receiver: '',
     },
   });
-  console.log(sharedDoc, 'sharedDoc');
+
 
   useEffect(() => {
     const tempArray = documentsFetched?.documents?.filter((doc) => {
@@ -100,7 +100,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       }
     } else {
       const fd = new FormData();
-      console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module);
+ 
       fd.append('document', newDoc.document);
       fd.append('module', newDoc.module);
       fd.append('order', orderId);

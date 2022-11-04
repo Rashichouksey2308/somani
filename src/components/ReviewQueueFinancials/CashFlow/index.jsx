@@ -7,7 +7,7 @@ import { convertValue } from '../../../utils/helper';
 
 function Index({ cashData, rtrnChartIndiaction }) {
   const [unit, setUnit] = useState(10000000);
-  // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
+  
 
   const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {});
 
@@ -29,7 +29,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
 
   const yearArray = _get(cashData, 'financial.other.financialYears', ['', '', '']);
 
-  console.log(cashData, 'lastYearData');
+
 
   return (
     <>

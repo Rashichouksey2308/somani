@@ -5,7 +5,7 @@ import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
   const { buyerList } = useSelector((state) => state.buyer);
-  // console.log(buyerList, "this is buyer list")
+
   return (
     <div className={`${styles.wrapper} card`}>
       <div
