@@ -128,9 +128,6 @@ const index = ({
 
   const handleDebtChange = (name, value, index) => {
     let tempArr = [...debtData];
-
- 
-
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
@@ -332,6 +329,7 @@ const index = ({
     }
     return true;
   };
+
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
@@ -416,6 +414,7 @@ const index = ({
       communication: tempArr[index].communication || false,
     });
   };
+
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
@@ -439,7 +438,8 @@ const index = ({
 
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
-      setexSupplier(creditDetail?.existingSuppliers);
+      setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
+      
     }
   }, [creditDetail?.existingSuppliers]);
 
@@ -449,6 +449,7 @@ const index = ({
     temp.splice(index, 1);
     setemails([...temp]);
   };
+
   const removeExSupplierParent = (index) => {
     let temp = [...exSupplier];
     temp.splice(index, 1);
@@ -475,7 +476,6 @@ const index = ({
    
       let temp = [...exSupplier];
       temp.push({name: results?.supplierProfile?.supplierName, status: results?.status });
-      // temp.push(results?.supplierProfile?.supplierName);
       setexSupplier([...temp]);
       setSearchTerm('')
     
@@ -797,6 +797,7 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
+                    id='Existing Supplier(s)'
                     handleSearch={handleSearch}
                     handleFilteredData={handleFilteredData}
                     removeInput={removeInput}
@@ -912,6 +913,7 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing CHA(s)"
                     emails={emails}
+                    id='Existing CHA(s)'
                     onChange={(_emails) => {
                      
                       let temp = [...emails];

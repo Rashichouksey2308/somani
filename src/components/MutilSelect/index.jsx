@@ -36,7 +36,12 @@ function Index(props) {
           return false;
         }
       }
+      if(props.id == 'Existing Supplier(s)'){
       validEmails.push({ name: email, status: 'Active' });
+      // validEmails.push(email);
+      }else{
+        validEmails.push(email)
+      }
       return true;
     };
 
@@ -107,8 +112,10 @@ function Index(props) {
     switch (e.keyCode) {
       case 13:
         findEmailAddress(e.currentTarget.value, true);
+        if(props.id == 'Existing Supplier(s)'){
         props.setRemoveInput(true);
         setHandleFunc(false)
+        }
       case 9: {
         findEmailAddress(e.currentTarget.value, true);
         break;
@@ -127,7 +134,9 @@ function Index(props) {
 
   const handleOnChange = (e) => {
     onChangeInputValue(e.currentTarget.value);
+    if(props.id == 'Existing Supplier(s)'){
     props.handleSearch(e.currentTarget.value);
+    }
   };
 
   const handleOnBlur = (e) => {
@@ -169,7 +178,8 @@ function Index(props) {
               <span
                 className={email.status === 'Pending' && `${styles.pending}`}
               >
-                {props.getLabel(email.name, index, removeEmail)}
+                
+                { props.id == 'Existing Supplier(s)' ?  props.getLabel(email.name, index, removeEmail) : props.getLabel(email, index, removeEmail) }
               </span>
             </>
           );
@@ -178,7 +188,7 @@ function Index(props) {
         ref={emailInputRef}
         type="text"
         //   placeholder={props.placeholder}
-        value={ handeFunc ? props.searchTerm : state.inputValue}
+        value={ props.id == 'Existing Supplier(s)' ? handeFunc ? props.searchTerm : state.inputValue : state.inputValue}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={handleOnChange}
