@@ -209,8 +209,9 @@ const Index = () => {
               <>
                 <div
                   id="storageInsurance"
-                  //className="collapse"
+                  //className='collapse'
                   aria-labelledby="storageInsurance"
+                  data-parent="#storageInsurance"
                 >
                   <div className={` ${styles.cardBody} card-body  border_color`}>
                     <div className={` ${styles.content}`}>
@@ -347,7 +348,9 @@ const Index = () => {
               </>
             ) : (
               <>
-                <div id="storageInsurance" className="collapse" aria-labelledby="storageInsurance">
+                <div id="storageInsurance" 
+                //className="collapse" 
+                aria-labelledby="storageInsurance">
                   <div className={` ${styles.cardBody} card-body  border_color`}>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>

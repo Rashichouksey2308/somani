@@ -1,8 +1,9 @@
 // import  Router  from 'next/router'
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import Modal from 'react-bootstrap/Modal';
 
 function index({
   handleApprove,
@@ -18,94 +19,119 @@ function index({
 }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const isMobile = useSelector((state) => state.sidebar.isMobile);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
   return (
-    <div
-      className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
+    <>
+      <div
+        className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
-    >
-      {isDropdown ? (
-        <div className={`${styles.form_group}`} style={{ top: '5px' }}>
-          <div className="d-flex">
-            <select onChange={(e) => handleReject(e.target.value)} className={`${styles.input_field} form-control`}>
-              <option selected value="" disabled>
-                GST Report{' '}
-              </option>
-              <option value="pdf">GST Report in Pdf</option>
-              <option value="excel">GST Report in Excel</option>
-            </select>
-            <div className={`${styles.download_icon} my-auto`}>
-              <Image src="/static/file_download.svg" alt="Picture of the author" width={14} height={17} />
-            </div>
-            {/* <img
+      >
+        {isDropdown ? (
+          <div className={`${styles.form_group}`} style={{ top: '5px' }}>
+            <div className="d-flex">
+              <select onChange={(e) => handleReject(e.target.value)} className={`${styles.input_field} form-control`}>
+                <option selected value="" disabled>
+                  GST Report{' '}
+                </option>
+                <option value="pdf">GST Report in Pdf</option>
+                <option value="excel">GST Report in Excel</option>
+              </select>
+              <div className={`${styles.download_icon} my-auto`}>
+                <Image src="/static/file_download.svg" alt="Picture of the author" width={14} height={17} />
+              </div>
+              {/* <img
           className={`${styles.arrow} image_arrow img-fluid`}
           src="/static/inputDropDown.svg"
           alt="Search"
         /> */}
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="d-flex justify-content-between align-items-center w-100" >
-            <div
-              className={`${styles.reject} `}
-              onClick={() => {
-                if (handleReject) {
-                  handleReject('downlaod');
-                }
-              }}
-            >
-              <span className={`${downLoadButtonName === 'MCA Report' ? mcaReportAvailable ? styles.btn_green : styles.btn_red : ''} mr-2`} >{downLoadButtonName}</span>
-              <Image
-                src="/static/file_download.svg"
-                alt="Picture of the author"
-                width={14}
-                height={17}
-              />
             </div>
-         
-          {downLoadButtonName === 'MCA Report' && <div className="d-flex  align-items-center w-100">
+          </div>
+        ) : (
+          <>
+            <div className="d-flex justify-content-between align-items-center w-100">
+              <div
+                className={`${styles.reject} `}
+                onClick={() => {
+                  if (handleReject) {
+                    handleReject('downlaod');
+                  }
+                }}
+              >
+                <span
+                  className={`${
+                    downLoadButtonName === 'MCA Report' ? (mcaReportAvailable ? styles.btn_green : styles.btn_red) : ''
+                  } mr-2`}
+                >
+                  {downLoadButtonName}
+                </span>
+                <Image src="/static/file_download.svg" alt="Picture of the author" width={14} height={17} />
+              </div>
+
+              {downLoadButtonName === 'MCA Report' && (
+                <div className="d-flex  align-items-center w-100">
+                  <div
+                    className={`${styles.reject} ml-3`}
+                    onClick={() => {
+                      if (handleReject) {
+                        handleReject('fetch');
+                        setShow('true');
+                      }
+                    }}
+                  >
+                    <span className={`mr-2`}>Fetch MCA Report</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+        <div className="d-flex justify-content-between align-items-center">
+          {isPrevious ? (
             <div
               className={`${styles.reject} ml-3`}
               onClick={() => {
-                if (handleReject) {
-                  handleReject('fetch');
+                if (handleUpdate) {
+                  handleUpdate();
                 }
               }}
             >
-              <span className={`mr-2`}>Fetch MCA Report</span>
-
+              <span>{leftButtonName}</span>
             </div>
-          </div>}
-          </div>
-        </>
-      )}
-      <div className="d-flex justify-content-between align-items-center">
-        {isPrevious ? (
-          <div
-            className={`${styles.reject} ml-3`}
-            onClick={() => {
-              if (handleUpdate) {
-                handleUpdate();
-              }
-            }}
-          >
-            <span>{leftButtonName}</span>
-          </div>
-        ) : null}
-        {isApprove ? (
-          <div
-            className={`${styles.approve} ml-3`}
-            onClick={() => {
-              if (handleApprove) {
-                handleApprove();
-              }
-            }}
-          >
-            <span>{rightButtonName}</span>
-          </div>
-        ) : null}
+          ) : null}
+          {isApprove ? (
+            <div
+              className={`${styles.approve} ml-3`}
+              onClick={() => {
+                if (handleApprove) {
+                  handleApprove();
+                }
+              }}
+            >
+              <span>{rightButtonName}</span>
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
+
+      <Modal show={show} className={`${styles.verify_gst} vessel_card card verify_gst`}>
+        <Modal.Body>
+          <div className={`${styles.title} d-flex justify-content-between align-items-center`}>
+            <h3>Are you sure?</h3>
+            <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid"></img>
+          </div>
+          <div className="d-flex justify-content-center mt-3">
+            <button type="button" className={`${styles.close} ${styles.btn} mr-3 text border_color btn w-50`}>
+              Yes
+            </button>
+            <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+              No
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 }
 
