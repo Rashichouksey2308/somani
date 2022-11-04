@@ -2,7 +2,7 @@
 
 .root_container {
   margin: 28px;
-  // width: 100%;
+
   margin-bottom: 152px;
   @include respond(lg-desktop) {
     margin: 20px;
@@ -77,8 +77,7 @@
     min-height: 126px;
     border-radius: 6px;
     margin-bottom: 26px;
-    // background: #d8eaff;
-    // border: 1px solid #d2d7e5;
+    
     padding: 18px 36px 13px 36px;
     @include respond(lg-desktop) {
       min-height: 100px;
@@ -97,7 +96,7 @@
     }
 
     .left {
-      // margin-top: 42px;
+   
       @include respond(phone) {
         margin: 0 0 15px;
       }
@@ -105,7 +104,7 @@
       div {
         .termSub_head {
           font-size: 20px;
-          // color: #111111;
+        
           font-weight: 500;
           line-height: 25px;
           margin-right: 7px;
@@ -117,7 +116,7 @@
 
         .termValue {
           font-size: 20px;
-          // color: #111111;
+         
           font-weight: normal;
           line-height: 24px;
           opacity: 0.7;
@@ -131,7 +130,7 @@
 
     span {
       font-size: 34px;
-      // color: #3687e8;
+
       font-weight: bold;
       line-height: 41px;
       @include respond(lg-desktop) {
@@ -145,7 +144,7 @@
 
     .right {
       text-align: right;
-      // margin-top: 30px;
+    
       @include respond(phone) {
         margin: 0;
       }
@@ -191,7 +190,7 @@
             width: 25%;
             height: 67px;
             padding: 9px 28px;
-            // white-space: nowrap;
+         
             vertical-align: middle;
 
             &:first-child {

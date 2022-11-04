@@ -11,7 +11,8 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 
 export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
-  console.log(customData, 'customData');
+
+
 
   const dispatch = useDispatch();
   const [sumOfDischargeQuantities, setSum] = useState('');
@@ -21,7 +22,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         (previousValue, currentValue) => previousValue + Number(currentValue?.boeDetails?.invoiceQuantity),
         0,
       );
-      console.log(data, 'data1111');
+
       if (isNaN(data) || data == 'NaN' || data == undefined) {
         setSum('');
       } else {
@@ -30,7 +31,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     }
   }, [customData]);
 
-  console.log(sumOfDischargeQuantities, 'sumOf');
+
 
   const [show, setShow] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
@@ -67,7 +68,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       dischargeQuantity: sumOfDischargeQuantities
         ? sumOfDischargeQuantities
         : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
-      numberOfContainers: _get(customData, 'dischargeOfCargo.dischargeOfCargo.numberOfContainers', ''),
+      numberOfContainers:  _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
       vesselArrivaldate: '',
       dischargeStartDate: '',
       dischargeEndDate: '',
@@ -76,8 +77,10 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     document2: null,
   });
 
+ 
+
   const saveDate = (value, name) => {
-    console.log(value, name, 'save date');
+
     const d = new Date(value);
     let text = d.toISOString();
     onChangeDischargeOfCargo(name, text);
@@ -103,7 +106,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   const onSaveDocument = async (e) => {
     let name = e.target.name;
     let doc = await uploadDoc(e);
-    console.log(doc, 'dischargeOfCargo1');
+
     let tempData = { ...dischargeOfCargo };
     tempData[name] = doc;
     setDischargeOfCargo(tempData);
@@ -114,13 +117,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const onSaveDischarge = () => {
-    console.log(1,"a")
+
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-       console.log(1,"a")
+
       return;
     }
 
@@ -129,7 +132,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-       console.log(2,"a")
+
       return;
     }
 
@@ -142,26 +145,26 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        console.log(3,"a")
+
         return;
       }
-    } 
-     if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
+    }
+    if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      console.log(3,"a")
+
       return;
-    } 
+    }
     if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (
+    }
+    if (
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate <
       dischargeOfCargo.dischargeOfCargo.vesselArrivaldate
     ) {
@@ -170,8 +173,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (
+    }
+    if (
       dischargeOfCargo.dischargeOfCargo.dischargeEndDate <
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate
     ) {
@@ -180,40 +183,40 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
+    }
+    if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (dischargeOfCargo.document1 === null) {
+    }
+    if (dischargeOfCargo.document1 === null) {
       let toastMessage = 'Statement Of Facts must be uploaded';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
+    }
     if (dischargeOfCargo.document2 === null) {
       let toastMessage = 'Draft Survey Report must be uploaded ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-      let fd = new FormData();
-      fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
-      fd.append('customClearanceId', customData._id);
-      fd.append('document1', dischargeOfCargo.document1);
-      fd.append('document2', dischargeOfCargo.document2);
+    }
+    let fd = new FormData();
+    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
+    fd.append('customClearanceId', customData._id);
+    fd.append('document1', dischargeOfCargo.document1);
+    fd.append('document2', dischargeOfCargo.document2);
 
-      let task = 'submit';
-      dispatch(UpdateCustomClearance({ fd, task }));
-      let id = sessionStorage.getItem('customId');
-      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
-      setComponentId(componentId + 1);
-    
+    let task = 'submit';
+    dispatch(UpdateCustomClearance({ fd, task }));
+    let id = sessionStorage.getItem('customId');
+    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
+    setComponentId(componentId + 1);
+
   };
 
   const handleSave = () => {
@@ -252,7 +255,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
-          numberOfContainers: _get(customData, 'dischargeOfCargo.dischargeOfCargo.numberOfContainers', ''),
+          numberOfContainers: customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers ? customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers : _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         },
         document1: data?.document1 ?? null,
         document2: data?.document2 ?? null,
@@ -342,15 +345,15 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         </option>
                         {shipmentTypeBulk
                           ? _get(customData, 'order.vessel.vessels', []).map((vessel, index) => (
-                              <option value={vessel?.vesselInformation?.name} key={index}>
-                                {_get(vessel, 'vesselInformation[0].name', '')}
-                              </option>
-                            ))
+                            <option value={vessel?.vesselInformation?.name} key={index}>
+                              {_get(vessel, 'vesselInformation[0].name', '')}
+                            </option>
+                          ))
                           : _get(customData, 'order.vessel.vessels[0].vesselInformation', []).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                       </select>
                       <label className={`${styles.label_heading} label_heading`}>
                         Vessel Name<strong className="text-danger">*</strong>
@@ -392,13 +395,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                             isNaN(sumOfDischargeQuantities) ||
                             sumOfDischargeQuantities == undefined ||
                             sumOfDischargeQuantities == ''
-                          ? ''
-                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
+                            ? ''
+                            : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
                       }
                       name="dischargeQuantity"
                       onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
                       required
-                      // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Discharge Quantity
@@ -639,16 +642,16 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         {bl?.blQuantity ? Number(bl.containerDetails.numberOfContainers)?.toLocaleString('en-In') : ''}{' '}
                         {/* {customData?.order?.unitOfQuantity} */}
                       </td>
-                    
-                      )}
-                      <td>
-                        {bl?.blQuantity
-                          ? Number(bl?.blQuantity)?.toLocaleString('en-In')
-                          : ''}{' '}
-                        {customData?.order?.unitOfQuantity}
-                      </td>
-                    </tr>
-                  ),
+
+                    )}
+                    <td>
+                      {bl?.blQuantity
+                        ? Number(bl?.blQuantity)?.toLocaleString('en-In')
+                        : ''}{' '}
+                      {customData?.order?.unitOfQuantity}
+                    </td>
+                  </tr>
+                ),
                 )}
               </table>
             </div>

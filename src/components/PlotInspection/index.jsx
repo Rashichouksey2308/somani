@@ -17,7 +17,7 @@ export default function Index({ inspectionData }) {
   const router = useRouter();
 
   let orderid = _get(inspectionData, 'order._id', '');
-  console.log(_get(inspectionData, 'order.transit'), 'transit');
+
   let d = new Date();
 
   const [plotInspectionData, setPlotInspectionData] = useState({
@@ -32,7 +32,7 @@ export default function Index({ inspectionData }) {
     });
   }, [inspectionData]);
 
-  // console.log(plotInspectionData, 'THIS IS PLOT')
+  
 
   const savePlotInspectionData = (name, value) => {
     let newInput = { ...plotInspectionData };
@@ -60,7 +60,7 @@ export default function Index({ inspectionData }) {
   };
 
   const handleSubmit = async () => {
-    // console.log('payload Third party1')
+
     if (plotInspectionData.plotInspectionDate == '') {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
@@ -76,8 +76,7 @@ export default function Index({ inspectionData }) {
       fd.append('inspectionId', inspectionData?._id);
       let task = 'submit';
 
-      // console.log('payload Third party2', 'Payload')
-
+  
       let code = await dispatch(UpdateInspection({ fd, task }));
       if (code == 200) {
         sessionStorage.setItem('transId', _get(inspectionData, 'order.transit', ''));
@@ -98,7 +97,7 @@ export default function Index({ inspectionData }) {
 
     let task = 'save';
 
-    console.log('payload Third party2', 'Payload');
+
 
     dispatch(UpdateInspection({ fd, task }));
   };

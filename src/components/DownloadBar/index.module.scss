@@ -212,3 +212,85 @@
 .btn_green {
   color: #43C34D;
 }
+.verify_gst {
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  border: none;
+  margin: 0 auto;
+  max-width: 320px;
+  max-height: 150px;
+  box-shadow: none !important;
+  border-radius: 12px;
+  padding-right: 0 !important;
+  transform: translate(-50%, -50%);
+
+  & > div {
+    margin: 0;
+    max-width: none;
+
+    & > div {
+      border: none;
+    }
+  }
+
+ .title {
+  padding: 15px;
+
+
+    h3 {
+      font-size: 22px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 27px;
+      margin-bottom: 0;
+    }
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  
+ }
+ .btn {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 16px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+  width: 49%;
+  max-width: 90px;
+  border-radius: 5px;
+  box-shadow: none;
+  @include respond(md-desktop) {
+    font-size: 16px;
+  }
+
+  &.close {
+    color: #4d4d4d;
+    // background: #FFFFFF;
+    border: 3px solid #d5d5d5;
+  }
+
+  &.submit {
+    color: #ffffff;
+    background: #3687e8;
+    border: 3px solid #3687e8;
+  }
+}
+  .card_body {
+    padding: 21px 35px 51px;
+
+    p {
+      font-size: 16px;
+      //color: #00000080;
+      font-weight: 500;
+      line-height: 22px;
+      letter-spacing: 0.53px;
+    }
+
+   
+    
+   
+  }
+}

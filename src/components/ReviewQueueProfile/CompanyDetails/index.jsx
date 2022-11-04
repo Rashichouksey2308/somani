@@ -7,7 +7,7 @@ import { checkNan, CovertvaluefromtoCR } from '../../../utils/helper';
 import _get from 'lodash/get';
 
 function Index({ order, companyDetail }) {
-  console.log(companyDetail, 'companyDetail');
+
 
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
@@ -23,15 +23,7 @@ function Index({ order, companyDetail }) {
     };
     setUpdateCompany(newCompanyData);
 
-    // if (order?.referalName) {
-    //   setUpdateCompany({ ...updateCompany, referalName: order.referalName })
-    // }
-    // if (order?.referedBy) {
-    //   setUpdateCompany({ ...updateCompany, referedBy: order.referedBy })
-    // }
-    // if (order?.sourceChanel) {
-    //   setUpdateCompany({ ...updateCompany, sourceChanel: order.sourceChanel })
-    // }
+   
   }, [order]);
 
   const dispatch = useDispatch();
@@ -39,7 +31,7 @@ function Index({ order, companyDetail }) {
   const onChangeHandler = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    console.log(Key, ':', value);
+  
     setUpdateCompany((prev) => ({ ...prev, [Key]: value }));
   };
 
@@ -48,10 +40,10 @@ function Index({ order, companyDetail }) {
       ...updateCompany,
       _id: companyDetail?.company,
     };
-    // console.log(updateCompany, "updateCompany")
+    
     dispatch(UpdateCompanyDetails(payload));
   };
-  console.log(order, 'order', companyDetail);
+
 
   return (
     <>
@@ -68,7 +60,7 @@ function Index({ order, companyDetail }) {
         </div>
         <div
           id="companyDetails"
-          // className="collapse"
+       
           aria-labelledby="companyDetails"
           data-parent="#profileAccordion"
         >

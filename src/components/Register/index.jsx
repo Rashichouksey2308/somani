@@ -19,10 +19,10 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     if (localStorage.getItem('darkMode') == 'true' || localStorage.getItem('darkMode') == true) {
-      // console.log('this')
+
       setDarkMode(true);
     } else {
-      // console.log('this2')
+
       setDarkMode(false);
     }
   }, []);
@@ -38,29 +38,7 @@ function Index() {
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
 
-  // useEffect(() => {
-  //   if (createdBuyerResponse) {
-  //     Router.push('/order-list')
-  //     // sessionStorage.setItem('orderID1', createdBuyerResponse.orderRes._id)
-  //     // sessionStorage.setItem('company', createdBuyerResponse.orderRes.company)
-  //     // // console.log(' before go to get document')
-  //     // // sessionStorage.setItem('company', buyer.company._id)
-  //     // if (createdBuyerResponse.queue === 'CreditQueue') {
-  //     //   // dispatch(GetAllOrders({ orderId: buyer._id }))
-  //     //   //dispatch(GetDocuments({order: buyer._id}))
-  //     //   dispatch(GetCompanyDetails({ company: createdBuyerResponse.orderRes.company }))
-  //     //   Router.push('/review')
-  //     //   dispatch(PlaceNewOrderRouted())
-
-  //     // }
-  //     // if (createdBuyerResponse.queue === 'ReviewQueue') {
-  //     //   dispatch(GetBuyer({ companyId: createdBuyerResponse.orderRes.company, orderId: createdBuyerResponse.orderRes._id }))
-  //     //   Router.push('/review/id')
-  //     //   dispatch(PlaceNewOrderRouted())
-
-  //     // }
-  //   }
-  // }, [createdBuyerResponse])
+  
 
   const { gstList } = useSelector((state) => state.buyer);
 
@@ -153,7 +131,7 @@ function Index() {
     ExpectedDateOfShipment: null,
     incoTerm: '',
   });
-  // console.log(orderDetails, "orderDetailjdefhk")
+
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails };
@@ -205,10 +183,9 @@ function Index() {
   const chanegTermsCheck = () => {
     setTermsCheck(!termsCheck);
   };
-  // console.log(companyDetails.transactionType,"trans")
+
   const submitData = () => {
-    //  console.log("submit1")
-    // handleCurrOrder()
+   
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -263,13 +240,7 @@ function Index() {
       }
       return;
     }
-    // else if (isNaN(orderDetails.quantity)) {
-    //   let toastMessage = 'Please Fill A valid quantity'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+   
     else if (
       Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0 ||
       orderDetails.orderValue === null ||
@@ -282,13 +253,7 @@ function Index() {
       return;
     }
 
-    // else if (orderDetails.supplierName.trim() === '') {
-    //   let toastMessage = 'Please Fill A valid Supplier Name'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+   
     else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -314,14 +279,9 @@ function Index() {
       }
       return;
     }
-    //  else if (!documents.document1 && !documents.document1) {
-    //   let toastMessage = 'Please Check Document Upload'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
+   
     else {
-      //  console.log("submit3")
+ 
       let docTypeArr = [];
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument);
@@ -338,30 +298,30 @@ function Index() {
       fd.append('documentType', JSON.stringify(docTypeArr));
 
       documents.forEach((val, index) => {
-        // console.log(val.attachDoc,"doc")
+      
         fd.append(`documents`, val.attachDoc);
       });
 
-      // fd.append('documents', documents.document2)
+    
       fd.append('gstList', JSON.stringify(gstListData));
-      // console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
+     
 
       dispatch(CreateBuyer(fd));
     }
   };
-  // console.log(companyDetails, 'this is payload2')
+
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset();
     document.getElementById('OrderDetailsForm').reset();
     document.getElementById('documents').reset();
     document.getElementById('companyInput').value = '';
 
-    // document.querySelector(companyInput).value = ''
+   
   };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      // console.log(companyDetails.companyName, "companyName")
+      
     }, 3000);
     return () => clearTimeout(delayDebounceFn);
   }, [companyDetails.companyName]);

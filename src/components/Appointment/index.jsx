@@ -19,8 +19,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const [appointmentData, setAppointmentData] = useState();
-  console.log(inspectionData?.thirdPartyAppointment?.dateOfAppointment, 'inspectionData');
-  console.log(vendor, 'vendor');
+ 
   useEffect(() => {
     let add = [];
     let pincode = [];
@@ -34,7 +33,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
       //     }
       //   })
       // pincode =   add[add.length-1].split("-")
-      //   console.log(add,"dfdfsdfdsf",pincode)
+     
     }
 
     setAppointmentData({
@@ -58,12 +57,9 @@ export default function Index({ inspectionData, setDate, vendor }) {
       },
     });
   }, [inspectionData, vendor]);
-  // console.log(appointmentData, 'appointmentData')
 
-  // console.log(
-  //   moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(),
-  //   'THIS IS APPOINTMENTD ',
-  // )
+
+ 
 
   const [addressData, setAddressData] = useState({
     name: '',
@@ -101,7 +97,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     const newInput = { ...addressData };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
-    console.log(newInput, 'newInput');
+   
     setAddressData({ ...newInput });
   };
 
@@ -114,7 +110,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleOnAdd = () => {
-    console.log(addressData, 'addressData');
+
     if (addressData.address.addressType === '' || addressData.address.addressType == undefined) {
       let toastMessage = 'Please add address Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -160,7 +156,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleSave = () => {
-    console.log('SAvee');
+
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
     fd.append('inspectionId', inspectionData?._id);
@@ -171,7 +167,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
   const handleSubmit = () => {
     if (!validation()) <return></return>;
-    console.log('SAvee');
+  
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
     fd.append('inspectionId', inspectionData?._id);
@@ -187,7 +183,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     temp.address.country = '';
     setAppointmentData({ ...temp });
   };
-  console.log(appointmentData?.dateOfAppointment, 'oment(appointmentData?.dateOfAppointment).toDate()');
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>

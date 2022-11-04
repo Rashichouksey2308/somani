@@ -37,7 +37,7 @@ ChartJS.register(
   Tooltip,
 );
 
-// Chart.register(linear);
+
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [gstOption, setGstOption] = useState([]);
 
@@ -47,16 +47,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  console.log(companyData, 'companyData');
 
-  console.log(GstData, 'GSTDATA');
+
+
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const chartRef3 = useRef(null);
   const [chartData, setChartData] = useState({
     datasets: [],
   });
-  console.log(chartData, 'THIS IS CHART DATA');
+
   const [chartData2, setChartData2] = useState({
     datasets: [],
   });
@@ -64,7 +64,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     datasets: [],
   });
   const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList);
-  console.log(gstFilteredData, 'gst filtered data');
+
   const [revenueProfile, setRevenueProfile] = useState(10000000);
   const [saleDetails, setSalesDetails] = useState(10000000);
   const [purchasesDetailsUnit, setPurchasesDetailsUnit] = useState(10000000);
@@ -92,21 +92,21 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     });
     setGstOption(arrayGst);
 
-    console.log(GstData?.length, 'GstData?.length ');
+
     if (GstData?.length > 0) {
       setCredential({ ...credential, gstin: GstData[0].gstin });
-      console.log('inside GSt UseEffetc');
+
       SetGstFilteredData({ ...GstData[0] });
       GstDataHandler(GstData[0]);
     }
     if (GstData?.length == 0) {
       setCredential({ ...credential, gstin: '' });
-      console.log('inside GSt UseEffetc');
+
       SetGstFilteredData({});
       GstDataHandler({});
     }
   }, [GstData]);
-  // console.log(gstFilteredData, 'gstFilteredData')
+ 
 
   const handleGStinFetch = () => {
     if (selected.length !== 1) {
@@ -124,8 +124,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         payload.gstinList.push(item.value);
       });
 
-      console.log(payload, 'gstinP[ayload');
-      // dispatch(VerifyGstKarza(payload));
+    
+     
     }
   };
 
@@ -145,8 +145,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         payload.gstinList.push(item.value);
       });
 
-      console.log(payload, 'gstinP[ayload');
-      // dispatch(VerifyGstKarza(payload));
+
+
     }
   };
 
@@ -157,7 +157,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       username: credential.username,
       password: credential.password,
     };
-    //console.log(payload, 'payload')
+   
 
     dispatch(VerifyGstKarza(payload));
     handleClose();
@@ -165,7 +165,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const handleChangeGstin = (e) => {
     const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value);
-    // console.log(filteredgstin.length, 'filteredgstin')
+   
     if (filteredgstin?.length === 1) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData };
@@ -180,20 +180,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   };
 
   function createGradient(ctx, area, color, color2) {
-    // const colorStart = faker.random.arrayElement(colors);
-    // const colorMid = faker.random.arrayElement(
-    //   colors.filter(color => color !== colorStart)
-    // );
-    // const colorEnd = faker.random.arrayElement(
-    //   colors.filter(color => color !== colorStart && color !== colorMid)
-    // );
-    console.log('cts', color2, color);
+   
+
 
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
 
-    console.log(gradient, 'gradient');
+
     return gradient;
   }
 
@@ -212,7 +206,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       data.forEach((val, index) => {
         temArr.push(Number(CovertvaluefromtoCR(val)).toFixed(2));
       });
-      console.log(temArr, 'slaes');
+
       return temArr;
     } else {
       return [];
@@ -220,6 +214,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   };
 
   const [arr, setArr] = useState([]);
+ 
 
   const handleGrowthPurchase = () => {
     let arr1 = _get(gstFilteredData, 'detail.purchaseDetail.purchases', []);
@@ -230,7 +225,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       arr2.push(j);
     }
     setArr(arr2);
-    // return arr
+   
   };
 
   const [arrSales, setArrSales] = useState([]);
@@ -244,7 +239,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       arr2.push(j);
     }
     setArrSales(arr2);
-    // return arr
+   
   };
 
   useEffect(() => {
@@ -271,21 +266,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       if (!data || !data?.length) return arr;
       for (let i = 2; i <= data.length - 1; i = i + 3) {
         let b = 0;
-        // for (let j = 0; j <= i; j++) {
-        //   b = b + data[j]
-        // }
+        
         b = data[i] + data[i - 1] + data[i - 2];
         arr.push(Number(b.toFixed(2)));
       }
-      console.log(arr, 'arr1121212');
+
       return arr;
     };
 
-    //  let v1 =  filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7])
-    //  let v3 =  filteredData1([1, 2, 3, 4, 500, 6, 6, 6,7, 9, 10])
-    //   let v4 = filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7, 100, 13242,6564])
 
-    //   console.log(v1, v3, v4, 'LINES IN DATA')
 
     const newData = {
       labels: covertMonths(filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months)),
@@ -293,33 +282,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: 'Total Sales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales)),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#2979F2',
         },
         {
           label: 'thirdPartySales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales)),
-          // fill: true,
-
-          // backgroundColor: color,
+     
           borderColor: '#FA5F1C',
         },
         {
           label: 'relatedPartySales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales)),
-          // fill: true,
-
-          // backgroundColor: color,
+       
           borderColor: '#FFD950',
         },
         {
           label: 'intraOrgSales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales)),
-          // fill: true,
-
-          // backgroundColor: color,
+        
           borderColor: '#02BC77',
         },
       ],
@@ -389,12 +370,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
     const chart3 = chartRef3.current;
-    console.log('here', chart.ctx);
+
     if (!chart) {
       return;
     }
 
-    // let color = createGradient(chart.ctx, chart.chartArea)
+
 
     const data = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
@@ -402,34 +383,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: [],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#2979F2',
         },
         {
           label: [],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+     
           borderColor: '#FA5F1C',
         },
         {
           label: [],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#FFD950',
         },
         {
           label: [],
 
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
-          // fill: true,
-
-          // backgroundColor: color,
+         
           borderColor: '#02BC77',
         },
       ],
@@ -464,7 +437,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     if (!chart3) {
       return;
     }
-    // let color3 = createGradient(chart3.ctx, chart3.chartArea)
+   
     const data3 = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
       datasets: [
@@ -486,22 +459,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: 'rgb(250, 95, 28,1)',
         },
-        // {
-        //   label: 'First dataset',
-        //   data: getdata(
-        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-        //       ?.avgMonthlySales,
-        //   ),
-        //   fill: true,
-        //   backgroundColor: createGradient(
-        //     chart2.ctx,
-        //     chart2.chartArea,
-        //     'rgb(67, 195, 77,0.0)',
-        //     'rgb(67, 195, 77,0.0)',
-        //   ),
-        //   borderColor: 'rgb(67, 195, 77)',
-        //   borderDash: [10, 5],
-        // },
+       ,
       ],
     };
 
@@ -509,17 +467,17 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     setChartData2(data2);
     setChartData3(data3);
   };
-  console.log(chartData, 'setChartData');
+
   useEffect(() => {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
     const chart3 = chartRef3.current;
-    console.log('here', chart.ctx);
+ 
     if (!chart) {
       return;
     }
 
-    // let color = createGradient(chart.ctx, chart.chartArea)
+  
 
     const data = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
@@ -527,33 +485,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: ['Total Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
-          // fill: true,
-
-          // backgroundColor: color,
+       
           borderColor: '#2979F2',
         },
         {
           label: ['Third Party Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#FA5F1C',
         },
         {
           label: ['Related Party Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+         
           borderColor: '#FFD950',
         },
         {
           label: ['Intra Org Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
-          // fill: true,
-
-          // backgroundColor: color,
+        
           borderColor: '#02BC77',
         },
       ],
@@ -590,7 +540,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     if (!chart3) {
       return;
     }
-    // let color3 = createGradient(chart3.ctx, chart3.chartArea)
+   
     const data3 = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
       datasets: [
@@ -614,22 +564,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: 'rgb(250, 95, 28,1)',
         },
-        // {
-        //   label: 'First dataset',
-        //   data: getdata(
-        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-        //       ?.avgMonthlySales,
-        //   ),
-        //   fill: true,
-        //   backgroundColor: createGradient(
-        //     chart2.ctx,
-        //     chart2.chartArea,
-        //     'rgb(67, 195, 77,0.0)',
-        //     'rgb(67, 195, 77,0.0)',
-        //   ),
-        //   borderColor: 'rgb(67, 195, 77)',
-        //   borderDash: [10, 5],
-        // },
+       
       ],
     };
 
@@ -638,110 +573,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     setChartData3(data3);
   }, [chartRef.current, chartRef2.current, chartRef3.current, gstFilteredData]);
 
-  // const getOrCreateTooltip = (chart) => {
-  //   let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
-  //   if (!tooltipEl) {
-  //     tooltipEl = document.createElement('div');
-  //     tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-  //     tooltipEl.style.borderRadius = '3px';
-  //     tooltipEl.style.color = 'white';
-  //     tooltipEl.style.opacity = 1;
-  //     tooltipEl.style.pointerEvents = 'none';
-  //     tooltipEl.style.position = 'absolute';
-  //     tooltipEl.style.transform = 'translate(-50%, 0)';
-  //     tooltipEl.style.transition = 'all .1s ease';
-
-  //     const table = document.createElement('table');
-  //     table.style.margin = '0px';
-
-  //     tooltipEl.appendChild(table);
-  //     chart.canvas.parentNode.appendChild(tooltipEl);
-  //   }
-
-  //   return tooltipEl;
-  // };
-
-  // const externalTooltipHandler = (context) => {
-  //   // Tooltip Element
-  //   const { chart, tooltip } = context;
-  //   const tooltipEl = getOrCreateTooltip(chart);
-
-  //   // Hide if no tooltip
-  //   if (tooltip.opacity === 0) {
-  //     tooltipEl.style.opacity = 0;
-  //     return;
-  //   }
-
-  //   // Set Text
-  //   if (tooltip.body) {
-  //     const titleLines = tooltip.title || [];
-  //     const bodyLines = tooltip.body.map(b => b.lines);
-
-  //     const tableHead = document.createElement('thead');
-
-  //     titleLines.forEach(title => {
-  //       const tr = document.createElement('tr');
-  //       tr.style.borderWidth = 0;
-
-  //       const th = document.createElement('th');
-  //       th.style.borderWidth = 0;
-  //       const text = document.createTextNode(title);
-
-  //       th.appendChild(text);
-  //       tr.appendChild(th);
-  //       tableHead.appendChild(tr);
-  //     });
-
-  //     const tableBody = document.createElement('tbody');
-  //     bodyLines.forEach((body, i) => {
-  //       const colors = tooltip.labelColors[i];
-
-  //       const span = document.createElement('span');
-  //       span.style.background = colors.backgroundColor;
-  //       span.style.borderColor = colors.borderColor;
-  //       span.style.borderWidth = '2px';
-  //       span.style.marginRight = '10px';
-  //       span.style.height = '10px';
-  //       span.style.width = '10px';
-  //       span.style.display = 'inline-block';
-
-  //       const tr = document.createElement('tr');
-  //       tr.style.backgroundColor = 'inherit';
-  //       tr.style.borderWidth = 0;
-
-  //       const td = document.createElement('td');
-  //       td.style.borderWidth = 0;
-
-  //       const text = document.createTextNode(body);
-
-  //       td.appendChild(span);
-  //       td.appendChild(text);
-  //       tr.appendChild(td);
-  //       tableBody.appendChild(tr);
-  //     });
-
-  //     const tableRoot = tooltipEl.querySelector('table');
-
-  //     // Remove old children
-  //     while (tableRoot.firstChild) {
-  //       tableRoot.firstChild.remove();
-  //     }
-
-  //     // Add new children
-  //     tableRoot.appendChild(tableHead);
-  //     tableRoot.appendChild(tableBody);
-  //   }
-
-  //   const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
-
-  //   // Display, position, and set styles for font
-  //   tooltipEl.style.opacity = 1;
-  //   tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-  //   tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-  //   tooltipEl.style.font = tooltip.options.bodyFont.string;
-  //   tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
-  // };
 
   const DATA_COUNT = 7;
   const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100, decimals: 0 };
@@ -855,45 +687,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: [],
     datasets: [],
   });
-  // const getArray=(value)=>{
-  //   let tempArr=[]
-  //   // value.forEach((val,index)=>{
 
-  //   // })
-  //   for(let i=0;i<value.length;i++){
-  //     let toCheck
-  //     const result = value[i].trim().split(/\s+/)
-  //     for(let j=0;j<result.length;j++){
-
-  //     if(j<result.length){
-  //         toCheck = result[i]+" "+ result[i+1]
-  //         if(toCheck.length>8){
-
-  //         }
-  //     }else{
-  //         toCheck = result[i]
-  //     }
-  //     }
-  //     console.log(toCheck,"toCheck")
-  //     // tempArr.push(toCheck[i])
-  //   }
-  //   // let arr=[]
-  //   // while(i<tempArr.length)
-  //   // {
-  //   //    if(tempArr[i].length<8){
-  //   //      let text= tempArr[i] + tempArr[i+1]
-  //   //      console.log(text,"text")
-  //   //      i++
-  //   //   }
-  //   // }
-  //   // for(let i=0;i<tempArr.length;i++){
-  //   //   if(tempArr[i].length<8){
-  //   //      let text= tempArr[i] + tempArr[i]
-  //   //   }
-  //   // }
-  //   return tempArr
-
-  // }
   useEffect(() => {
     if (gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names.length > 0) {
       settop10Supplier({
@@ -912,7 +706,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     }
   }, [gstFilteredData]);
 
-  console.log(top10Supplier, 'top10Customers');
+
 
   let stateWiseSales = {
     labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
@@ -937,7 +731,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         ticks: {
           callback: function (t) {
-            console.log(t, 'asasdasdasd');
+          
             let a = gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names[t];
             var maxLabelLength = 8;
             if (a?.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
@@ -969,7 +763,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         ticks: {
           callback: function (t) {
-            console.log(t, 'asasdasdasd');
+       
             let a = gstFilteredData?.detail?.summaryCharts?.top10Cus?.names[t];
             var maxLabelLength = 8;
             if (a.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
@@ -1051,7 +845,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     let financialYear = '';
     if (current) {
       let [startYear, endYear] = (currentperiod ? currentperiod : '-').split('-');
-      console.log(endYear, startYear, 'startYear');
+     
 
       financialYear = `${startYear !== '' ? moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase() : ''} - ${
         endYear !== '' ? moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase() : ''
@@ -1067,21 +861,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
       return financialYear;
     }
-    // return financialYear
-
-    // let finacialYear = `MAR ${ startYear ? startYear : '' } - APR ${
+  
     endYear ? endYear : '';
-    // }`
+
   };
-  console.log(
-    (
-      _get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', 0) * 100
-    )?.toLocaleString('en-IN', { minimumFractionDigits: 2 }),
-    'busis',
-  );
+ 
 
   const getCompliencePeriod = (period, chart) => {
-    console.log(period, 'period', chart);
+
     let item = (period ? period : '')?.split('-');
     let text = `${moment(item[0], 'MMYYYY').format('MMM YYYY')?.toUpperCase()}-${moment(item[1], 'MMYYYY')
       .format('MMM YYYY')
@@ -1095,10 +882,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     }
     return text;
   };
-  console.log(
-    getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod),
-    'jdhgvdfghkzjdshfiugdsfjh',
-  );
+  
   return (
     <>
       <div className={`${styles.wrapper} card border_color border-bottom`}>

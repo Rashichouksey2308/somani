@@ -31,21 +31,7 @@ const Index = ({
     conversionRate: false,
   });
 
-  let emergent = {
-    companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-    branch: 'DELHI',
-    state: 'DELHI',
-    address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
-    GSTIN: '07AAACS8253L1Z0',
-  };
 
-  let indoGerman = {
-    companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-    branch: 'SURAT',
-    state: 'GUJARAT',
-    address: 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
-    GSTIN: '24AAACI3028D1Z8',
-  };
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
@@ -53,41 +39,21 @@ const Index = ({
     address: '',
   });
   const [conversionRateUnit, setConversionRateUnit] = useState();
-  // console.log(conversionRateUnit, 'conversionRateUnit')
+  
   const [branchOptions, setBranchOptions] = useState([]);
-  useEffect(() => {
-    if (invoiceDataRevised) {
-      let filter = getInternalCompaniesMasterData.filter((val, index) => {
-        if (val.Company_Name?.toLowerCase() == invoiceDataRevised.importerName?.toLowerCase()) {
-          return val;
-        }
-      });
-
-      setBranchOptions(filter);
-    }
-  }, [invoiceDataRevised, getInternalCompaniesMasterData]);
+  
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      // setChangeImporterData({ ...emergent });
+     
       const newInput = { ...invoiceDataRevised };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
-      // newInput['branchOffice'] = emergent.branch;
-      // newInput['importerGSTIN'] = emergent.GSTIN;
-      // newInput['companyAddress'] = emergent.address;
-      // saveInvoiceData('branchOffice', emergent.branch)
-      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-      // saveInvoiceData('companyAddress', emergent.address)
+    
       setInvoiceDataRevised({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      // setChangeImporterData({ ...indoGerman });
+  
       const newInput = { ...invoiceDataRevised };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
-      // newInput['branchOffice'] = indoGerman.branch;
-      // newInput['importerGSTIN'] = indoGerman.GSTIN;
-      // newInput['companyAddress'] = indoGerman.address;
-      // saveInvoiceData('branchOffice', emergent.branch)
-      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-      // saveInvoiceData('companyAddress', emergent.address)
+    
       setInvoiceDataRevised({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -97,7 +63,9 @@ const Index = ({
     });
     setBranchOptions(filter);
   };
-
+ useEffect(() => {
+    dropDownChange("name",invoiceDataRevised.importerName )
+  },[invoiceDataRevised])
   const routeChange = () => {
     Router.push('/revised-margin-preview');
   };
@@ -178,7 +146,7 @@ const Index = ({
         </div>
         <div
           id="commodityAccordion"
-          //className="collapse"
+         
           aria-labelledby="commodityAccordion"
           data-parent="#commodityAccordion"
         >
@@ -1023,7 +991,7 @@ const Index = ({
                           : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
                       }
                       onChange={(e) => {
-                        //  changeImporter(e)
+                     
                         let filter = getInternalCompaniesMasterData.filter((val, index) => {
                           if (
                             val.Branch == e.target.value &&
@@ -1042,20 +1010,10 @@ const Index = ({
                             changeImporterData.GSTIN = filter[0].GSTIN;
                             newInput['importerGSTIN'] = filter[0].GSTIN;
 
-                            newInput['branchAddress'] = filter[0]?.Branch_Address || '';
-                            changeImporterData.branchAddress = filter[0]?.Branch_Address || '';
+                            
 
-                            newInput['IFSCcode'] = filter[0]?.IFSC || '';
-                            changeImporterData.IFSCcode = filter[0]?.IFSC || '';
-
-                            newInput['accountNo'] = filter[0]?.Account_No || '';
-                            changeImporterData.accountNo = filter[0]?.Account_No || '';
-
-                            newInput['branch'] = filter[0]?.Branch_Type || '';
-                            changeImporterData.branch = filter[0]?.Branch_Type || '';
-
-                            newInput['bankName'] = filter[0]?.Bank_Name || '';
-                            changeImporterData.bankName = filter[0]?.Bank_Name || '';
+                           
+                          
 
                             newInput['branchOffice'] = e.target.value;
                             changeImporterData.branch = e.target.value;
@@ -1121,44 +1079,57 @@ const Index = ({
 
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <div className="d-flex">
-                    <input
+                    <select
                       type="text"
                       id="Code"
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={invoiceDataRevised?.bankName}
-                      onChange={(e) => {
-                        saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
-                        // let filter=getBanksMasterData.filter((val,index)=>{
-                        //             if(val.name==e.target.value){
-                        //               return val
-                        //             }
-                        //           })
-                        //           console.log(filter,"filter")
-                        // dispatch(getBranches(filter[0].code))
-                      }}
+                      value={
+                       
+                        invoiceDataRevised?.bankName
+                      }
+                      onChange={(e) =>
+                       {
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                        let filter = getBanksMasterData.filter(
+                                  (val, index) => {
+                                    if (val.name == e.target.value) {
+                                      return val;
+                                    }
+                                  },
+                                );
+                        
+                       }
+                       
+                      }
                     >
-                      {/* <option selected disabled>
-                        Select an option
-                      </option>
-                       {getBanksMasterData.map((val,index)=>{
-                                   return <option value={`${val.name}`}>{val.name}</option>
-                         })} */}
-                    </input>
+                      <option>Select an option</option>
+                        {getBanksMasterData.map((val, index) => {
+                          return (
+                            <option value={`${val.name}`}>
+                              {val.name}
+                            </option>
+                          );
+                        })}
+                    </select>
+
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Bank Name
                       <strong className="text-danger">*</strong>
                     </label>
-                    {/* <img
+                    <img
                       className={`img-fluid  image_arrow ${styles.arrow}`}
                       src="/static/inputDropDown.svg"
-                    ></img> */}
+                    ></img>
                   </div>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <div className="d-flex">
-                    <input
+                    <select
                       type="text"
                       id="Code"
                       name="branch"
@@ -1167,30 +1138,30 @@ const Index = ({
                       value={invoiceDataRevised?.branch}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
-                        // let filter=getBranchesMasterData.filter((val,index)=>{
-                        //       if(val.BRANCH==e.target.value){
-                        //         return val
-                        //       }
-                        //     })
+                        let filter=getBranchesMasterData.filter((val,index)=>{
+                              if(val.BRANCH==e.target.value){
+                                return val
+                              }
+                            })
 
-                        //    savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
+                           savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
                       }}
                     >
-                      {/* <option selected disabled>
+                      <option selected >
                         Select an option
                       </option>
                      {getBranchesMasterData.map((val,index)=>{
-                                  return  <option value={`${val.BRANCH}`}>{val.BRANCH}</option>
-                                  })} */}
-                    </input>
+                          return  <option value={`${val.BRANCH}`}>{val.BRANCH}</option>
+                      })}
+                    </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Branch
                       <strong className="text-danger">*</strong>
                     </label>
-                    {/* <img
+                    <img
                       className={`img-fluid image_arrow ${styles.arrow}`}
                       src="/static/inputDropDown.svg"
-                    ></img> */}
+                    ></img>
                   </div>
                 </div>
 

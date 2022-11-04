@@ -199,7 +199,6 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
       }
       dispatch(setNotLoading());
       return response.data.code;
-      //   router.push('/margin-money')
     } else {
       dispatch(updateInsuranceFailed(response.data));
       const toastMessage = 'UPDATE REQUEST FAILED';
@@ -236,7 +235,6 @@ export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
-        //   router.push('/margin-money')
       } else {
         dispatch(renewInsuranceFailed(response.data.data));
         const toastMessage = 'RENEW REQUEST FAILED';
@@ -274,7 +272,6 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
       }
       dispatch(setNotLoading());
       return response.data.code;
-      //   router.push('/margin-money')
     } else {
       dispatch(updateQuotationFailed(response.data));
       const toastMessage = 'UPDATE REQUEST FAILED';

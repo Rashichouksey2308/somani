@@ -3,18 +3,14 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { ViewDocument } from 'redux/ViewDoc/action';
-// import {GetBuyer} from '../../redux/registerBuyer/action'
+
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  // useEffect(() => {
-  //   const orderId = sessionStorage.getItem('orderId')
-  //   const companyId = sessionStorage.getItem('company')
-  //   dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
-  // }, [dispatch])
+  
 
   const { buyerList } = useSelector((state) => state.buyer);
-  console.log(moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'), 'moment list');
+
 
   return (
     <div className={`${styles.wrapper} card`}>
@@ -34,7 +30,7 @@ function Index() {
         id="orderDetail"
         className={`collapse ${styles.body} value_card card-body row`}
         aria-labelledby="orderDetail"
-        //   data-parent="#profileAccordion"
+       
       >
         {fields('Commodity', buyerList?.order?.commodity)}
         {fields('Quantity (in MT)', buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}

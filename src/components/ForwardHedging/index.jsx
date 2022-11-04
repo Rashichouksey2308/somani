@@ -30,7 +30,6 @@ export default function Index() {
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '');
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {});
-  console.log(hedgingDataDetail, 'THIS IS HEDGING DATA');
 
   useEffect(() => {
     dispatch(setPageName('forward'));
@@ -57,7 +56,9 @@ export default function Index() {
     bookedRate: false,
     bookedAmount: false,
   });
-  console.log(isFieldInFocus, 'isFieldInFocus');
+  const onDeleteClick = (index) => {
+    setList([...list.slice(0, index), ...list.slice(index + 1)]);
+  };
 
   useEffect(() => {
     setList([
@@ -78,7 +79,6 @@ export default function Index() {
     ]);
   }, [hedgingData]);
 
-  console.log(list, 'list');
   const onAddForwardHedging = () => {
     setList((prevState) => {
       return [
@@ -102,9 +102,6 @@ export default function Index() {
   };
 
   const saveHedgingData = (name, value, index = 0) => {
-    // const name = name
-    // const value = value
-    console.log(name, value, 'Dsdff');
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -120,17 +117,16 @@ export default function Index() {
   };
 
   const saveDate = (value, name, index) => {
-    // console.log(value, name, 'save date')
     const d = new Date(value);
     let text = d.toISOString();
     saveHedgingData(name, text, index);
   };
 
   const uploadDocument = async (e) => {
-    // console.log(e, "response data")
+   
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-    // dispatch(UploadCustomDoc(fd))
+   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -145,28 +141,21 @@ export default function Index() {
       let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
-      // console.log(response.data.data, 'response data123')
+     
       if (response.data.code === 200) {
-        // dispatch(getCustomClearanceSuccess(response.data.data))
+      
 
         return response.data.data;
       } else {
-        // dispatch(getCustomClearanceFailed(response.data.data))
-        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+        
       }
     } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      // }
+      
     }
   };
 
   const uploadDocument1 = async (e, index) => {
-    // console.log(uploadDocument(e), 'function call')
+   
     const doc = await uploadDocument(e);
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -180,9 +169,7 @@ export default function Index() {
       });
       return newState;
     });
-    // setList(doc1 => {
-    //   return { ...doc1, {forwardSalesContract: doc }}
-    // })
+    
   };
 
   const [cancel, setCancel] = useState(false);
@@ -192,33 +179,11 @@ export default function Index() {
   };
 
   const handleClose = (index) => {
-    console.log(index, 'forward Hedging');
     let tempArr = [...list];
     tempArr[index].forwardSalesContract = null;
     setList(tempArr);
-    // setList([...list, { ...list[index], forwardSalesContract: null }])
+  
   };
-
-  // const onAddClick = () => {
-  //   setList([
-  //     ...list,
-  //     {
-  //       headingCard: '',
-  //       isAddBtn: '',
-  //       bankName: '',
-  //       currency: '',
-  //       booked: '',
-  //       bookAmount: '',
-  //       validityTo: '',
-  //       validityFrom: '',
-  //       isCancel: '',
-  //       balanceAmount: '',
-  //       closingRate: '',
-  //       closingDate: '',
-  //       remarks: '',
-  //     },
-  //   ])
-  // }
 
   const [editInput, setEditInput] = useState(true);
 
@@ -235,10 +200,7 @@ export default function Index() {
 
     hedgingObj.balanceAmount = list.bookedAmount;
 
-    // let fd = new FormData()
-    // fd.append('forwardHedgingId', hedgingData?._id)
-    // fd.append('detail', JSON.stringify(list))
-    // fd.append('forwardSalesContract', list?.forwardSalesContract)
+  
     let obj = {
       forwardHedgingId: hedgingData?._id,
       detail: hedgingObj,
@@ -246,7 +208,7 @@ export default function Index() {
     let task = 'save';
     dispatch(UpdateForwardHedging({ obj, task }));
   };
-  console.log(list, 'listlistlistlist');
+
   const validation = () => {
     let isOk = true;
     for (let i = 0; i < list.length; i++) {
@@ -325,8 +287,7 @@ export default function Index() {
     if (validation()) {
       let hedgingObj = [...list];
 
-      // hedgingObj.balanceAmount = list.bookedAmount
-      console.log(hedgingObj, 'dasd');
+  
 
       let obj = {
         forwardHedgingId: hedgingData?._id,
@@ -337,7 +298,6 @@ export default function Index() {
       router.push(`/track-shipment`);
     }
   };
-  console.log(list[0]?.item?.bookedRate, 'list');
 
   return (
     <>
@@ -363,14 +323,24 @@ export default function Index() {
                       className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                     >
                       <h3 className={`${styles.heading}`}>Forward Hedging</h3>
-                      <button
-                        className={styles.add_btn}
-                        onClick={() => {
-                          onAddForwardHedging();
-                        }}
-                      >
-                        <span className={styles.add_sign}>+</span>Add
-                      </button>
+                      <div className="d-flex align-items-center">
+                        <button
+                          className={styles.add_btn}
+                          onClick={() => {
+                            onAddForwardHedging();
+                          }}
+                        >
+                          <span className={styles.add_sign}>+</span>Add
+                        </button>
+                        {index > 0 ? (
+                          <button
+                            onClick={() => onDeleteClick(index)}
+                            className={`${styles.add_btn} border-danger text-danger`}
+                          >
+                            <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
+                          </button>
+                        ) : null}
+                      </div>
                     </div>
                     <div className={`${styles.dashboard_form} pb-5 card-body`}>
                       <div className="row">
@@ -477,7 +447,7 @@ export default function Index() {
                                 (e.target.type = 'text');
                             }}
                             name="bookedAmount"
-                            // value={item.bookedAmount}
+                          
                             value={
                               isFieldInFocus.bookedAmount
                                 ? item.bookedAmount

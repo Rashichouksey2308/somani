@@ -24,10 +24,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
 
   const { documentsFetched } = useSelector((state) => state.review);
 
-  // useEffect(() => {
-  //   sessionStorage.setItem('docId', orderId)
-  //   dispatch(GetDocuments(`?order=${orderId}`))
-  // }, [dispatch, orderId])
+ 
 
   const [filteredDoc, setFilteredDoc] = useState([]);
 
@@ -43,7 +40,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       receiver: '',
     },
   });
-  console.log(sharedDoc, 'sharedDoc');
+
 
   useEffect(() => {
     const tempArray = documentsFetched?.documents?.filter((doc) => {
@@ -60,7 +57,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       })
       .map((obj) => ({ ...obj, moving: false }));
 
-    // console.log(tempArray, 'dltDoc2')
+   
     setFilteredDoc(tempArray);
   }, [orderId, documentsFetched]);
 
@@ -100,7 +97,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       }
     } else {
       const fd = new FormData();
-      console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module);
+ 
       fd.append('document', newDoc.document);
       fd.append('module', newDoc.module);
       fd.append('order', orderId);
@@ -171,7 +168,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       if (data?.code == 200) {
         close();
       }
-      console.table(tempArr);
+  
     } else {
       let toastMessage = 'please provide a valid email';
       if (!toast.isActive(toastMessage.toUpperCase())) {

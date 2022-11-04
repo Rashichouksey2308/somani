@@ -27,7 +27,7 @@ function Index() {
             return true;
           } else {
             if (document.body.clientWidth <= 1199) {
-              // console.log('yes')
+             
               dispatch(settingMobile(true));
               dispatch(hideSidebar());
             } else {
@@ -44,7 +44,7 @@ function Index() {
   }, [dispatch]);
   useEffect(() => {}, []);
 
-  // console.log(darkMode,"darkMode")
+
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const darkMode = useSelector((state) => state.user.isDark);
   const handleOpen = () => {
@@ -56,31 +56,9 @@ function Index() {
   };
   const changeDarkMode = () => {
     dispatch(ChangeTheme());
-    // let isLight= document.body.classList.contains(
-    //                     'light-mode'
-    //                    );
-    //                    console.log(isLight)
-    //                    if(isLight){
-    //                     document.body.classList.remove(
-    //                     'light-mode'
-    //                    );
-    //                     document.body.classList.add(
-    //                     'dark-mode'
-    //                    );
-    //                    setDarkMode(true)
-    //                    localStorage.setItem("darkMode",true)
-    //                    }else{
-    //                       document.body.classList.remove(
-    //                     'dark-mode'
-    //                    );
-    //                     document.body.classList.add(
-    //                     'light-mode'
-    //                    );
-    //                     setDarkMode(false)
-    //                     localStorage.setItem("darkMode",false)
-    //                    }
+
   };
-  // console.log(darkMode,"darkmode123")
+ 
 
   return (
     <header className={`${`navbar-static-top`} ${styles.main_container} darknavbar`} role="navigation">

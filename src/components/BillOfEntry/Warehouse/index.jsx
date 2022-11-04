@@ -24,7 +24,6 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     },
     document: null,
   });
-
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {});
 
@@ -64,7 +63,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     setWarehouseDetails(newData);
   };
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+
     const d = new Date(value);
     let text = d.toISOString();
     onChangeWarehouseDetails(name, text);
@@ -73,13 +72,13 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   const onSaveDocument = async (e) => {
     let name = e.target.id;
     let doc = await uploadDoc(e);
-    console.log(doc, 'doc');
-    // onChangeWarehouseDetails('document', doc)
+
+   
     let tempData = { ...warehouseDetails };
     tempData[name] = doc;
     setWarehouseDetails({ ...tempData });
   };
-  // console.log(warehouseDetails,'warehouseDetails')
+
   const onSaveDischarge = async () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails;
     if (warehouseDetailpayload.quantity === '') {
@@ -95,7 +94,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       }
       return;
     } else {
-      console.log(warehouseDetailpayload, 'warehouseDetailpayload');
+    
       let fd = new FormData();
       fd.append('warehouseDetails', JSON.stringify(warehouseDetails));
       fd.append('customClearanceId', customData._id);
@@ -210,7 +209,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      BL Qty<strong className="text-danger">*</strong>
+                     BL Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>

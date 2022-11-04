@@ -174,7 +174,7 @@
             font-weight: 500;
 
             span {
-              // color: #111111;
+            
               font-size: 20px;
               line-height: 23px;
               font-weight: 500;
@@ -188,7 +188,7 @@
           }
 
           .bill_landing {
-            //background: #FFFFFF;
+          
             border: 2px solid #cad6e6;
             border-radius: 9px;
 
@@ -331,7 +331,7 @@
 
           .toggle_label {
             letter-spacing: 0.19px;
-            //color: #111111;
+          
             font-size: 20px;
             line-height: 25px;
 
@@ -397,7 +397,7 @@
             white-space: nowrap;
             letter-spacing: 0.19px;
             padding: 13px 30px 13px 17px;
-            // border: 1px solid #0000001f;
+           
             &:invalid + label {
               transform: translateY(0);
             }
@@ -917,7 +917,7 @@
   }
 
   .search_container {
-    //background: #F0F0F0;
+
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
@@ -962,7 +962,7 @@
   width: 100%;
   font-size: 20px;
   letter-spacing: 0.19px;
-  // color: #111111;
+
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
@@ -1015,7 +1015,7 @@
 
 .customSelect {
   appearance: none;
-  // position: relative;
+
 }
 
 .theme {
@@ -1327,7 +1327,7 @@ input:checked + .slider:before {
   color: #111111;
   border: none;
   padding: 5px 0px 5px 15px;
-  //width: 299px;
+ 
 }
 
 .uploadBtnWrapper {
@@ -1369,12 +1369,12 @@ input:checked + .slider:before {
 
     @include respond(sm-desktop) {
       font-size: 14px;
-      //padding: 4px 25px;
+    
     }
 
     @include respond(phone) {
       font-size: 12px;
-      //padding: 0px 15px;
+    
     }
   }
 }
@@ -1405,7 +1405,7 @@ input:checked + .slider:before {
   max-width: 234px;
   font-size: 20px;
   letter-spacing: 0.19px;
-  // color: #111111;
+
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
@@ -1470,7 +1470,7 @@ input:checked + .slider:before {
 .button_upload {
   min-width: 160px;
   width: 234px;
-  // width: 100%;
+
   height: 36px;
   border: 3px solid #3687e8;
   border-radius: 5px;
@@ -1482,7 +1482,7 @@ input:checked + .slider:before {
   line-height: 23px;
   text-transform: capitalize;
   @include respond(lg-desktop) {
-    // min-width: 160px;
+    
     font-size: 15px;
     line-height: 1.3;
     width: 90px;

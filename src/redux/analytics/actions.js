@@ -1,8 +1,7 @@
-// import Cookies from 'js-cookie'
 import Axios from 'axios';
 import API from '../../utils/endpoints';
 import * as types from './actionType';
-// import history from '../../history'
+
 import Cookies from 'js-cookie';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 
@@ -61,7 +60,7 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    // let response = await api.post(API.login, payload);
+
     const orderSummary = await Axios.get(`${API.corebaseUrl}${API.orderSummary}`, {
       headers: {
         authorization: jwtAccessToken,
@@ -124,7 +123,5 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   } catch (error) {
     dispatch(setNotLoading());
-
-    // dispatch(loggingUserFailed(errorMessage))
   }
 };

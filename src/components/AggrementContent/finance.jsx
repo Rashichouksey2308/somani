@@ -52,7 +52,7 @@ function Index(props) {
     newInput[name] = value;
     setFinanceData(newInput);
   };
-  console.log(financeData, 'dsad');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>

@@ -139,9 +139,7 @@ function Index({
                           ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
                           : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
 
-                        // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
-                        //   'T',
-                        // )[0]
+                      
                       }
                     </td>
 

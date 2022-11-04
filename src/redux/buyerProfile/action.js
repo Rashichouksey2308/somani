@@ -201,7 +201,7 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
 };
 
 export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
-  // dispatch(updateCredit()
+ 
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -291,7 +291,7 @@ export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api
 };
 
 export const UpdateOrderShipment = (payload) => async (dispatch, getState, api) => {
-  //   dispatch(updateOrder()
+
 
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');

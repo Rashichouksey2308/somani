@@ -231,7 +231,6 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 };
 
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
-  // dispatch(updateBuyer()
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -281,7 +280,6 @@ export const settingDocument = (payload) => {
 };
 
 export const GetBuyer = (payload) => async (dispatch, getState, api) => {
-  // dispatch(createBuyer())
   dispatch(setIsLoading());
 
   const cookie = Cookies.get('SOMANI');
@@ -299,7 +297,7 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getBuyerSuccess(response.data.data));
-        // toast.error("Buyers fetched")
+
         dispatch(setNotLoading());
       } else {
         dispatch(getBuyerFailed(response.data.data));
@@ -364,7 +362,7 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
     });
     if (response.data.code === 200) {
       dispatch(getAllOrderSuccess(response.data.data));
-      // toast.error("Buyers fetched")
+
       dispatch(setNotLoading());
     } else {
       dispatch(getAllOrderFailed(response.data.data));
@@ -416,14 +414,13 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
 };
 
 export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
-  // dispatch(createBuyer())
   dispatch(setIsLoading());
   try {
     const response = await api.delete(`${API.createBuyer}?BuyerId=${payload.BuyerId}`);
 
     if (response.data.code === 200) {
       dispatch(deleteBuyerSuccess(response.data.data));
-      // window.location.reload(false)
+
       payload.history.go(0);
       toast.error('Buyer Deleted Succesfully');
       dispatch(setNotLoading());
@@ -440,7 +437,6 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
 };
 
 export const GetGst = (payload) => async (dispatch, getState, api) => {
-  // dispatch(createBuyer())
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -455,7 +451,7 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     Axios.post(`${API.userbaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getGstSuccess(response.data));
-        // toast.error("Buyers fetched")
+
         dispatch(setNotLoading());
       } else {
         dispatch(getGstFailed(response.data));

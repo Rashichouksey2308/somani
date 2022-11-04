@@ -100,7 +100,7 @@
     }
 
     .navTabs {
-      // margin-top: 2rem;
+     
       border-bottom: none;
       @include respond(phone) {
         display: flex;
@@ -153,7 +153,7 @@
 
     .card {
       margin-bottom: 1rem;
-      // box-shadow: 0 3px 6px #cad0e2;
+
       .cardHeader {
         height: 80px;
         cursor: pointer;
@@ -645,8 +645,7 @@
         .card {
           margin-bottom: 1rem;
           border-radius: 6px !important;
-          // border: 1px solid #D2D7E5;
-          // box-shadow: 0 3px 6px #CAD0E2;
+      
           .cardHeader {
             height: 80px;
             cursor: pointer;
@@ -749,8 +748,7 @@
 
         .cardBody {
           padding: 17px 25px;
-          // border: 2px solid #e6eaf0;
-          // border-left: 9px solid #c4d7ef;
+        
         }
       }
     }
@@ -780,15 +778,12 @@
         }
       }
 
-      // .card_compliance_wrapper {
-      //   // height: 70px;
-      // }
+     
     }
 
     .cardBody_litigations {
       padding-left: 35px;
-      // .checkbox_Container {
-      // }
+     
       .risk_Container {
         .risk {
           width: 25%;

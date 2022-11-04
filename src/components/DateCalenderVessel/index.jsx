@@ -23,7 +23,7 @@ const Index = ({
 
   useEffect(() => {
     if (startFrom) {
-      console.log('in start DAte');
+   
       setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
     } else {
       setlastDate(new Date());
@@ -32,8 +32,8 @@ const Index = ({
   useEffect(() => {
     setStartDate(null);
   }, [reset]);
-  console.log(defaultDate, 'lastDate', startDate);
-  // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
+
+ 
   return (
     <>
       <div className="vessel_card w-100">

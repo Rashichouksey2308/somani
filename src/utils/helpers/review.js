@@ -7,7 +7,7 @@ export const handleErrorToast = (toastMessage) => {
   }
 };
 
-export const orderValidation = (orderDetails, shipment) => {
+export const orderValidation = (orderDetails, shipment,approvedCredit) => {
   if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
     handleErrorToast('Invalid Transaction Type');
     return false;
@@ -96,7 +96,7 @@ export const orderValidation = (orderDetails, shipment) => {
     handleErrorToast('add port Of Loading');
     return false;
   }
-  if (approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue) {
+  if (approvedCredit?.approvedOrderValue > approvedCredit?.approvedCreditValue) {
     handleErrorToast('Order Value Cannot Be Greater Than Limit Value');
     return false;
   }

@@ -34,10 +34,10 @@ const index = () => {
     dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
-  const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id);
-    Router.push('/supplier');
-  };
+  // const handleRoute = (id) => {
+  //   sessionStorage.setItem('supplier', id);
+  //   Router.push('/supplier');
+  // };
 
   return (
     <>
@@ -75,10 +75,10 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
-              onClick={() => {
-                sessionStorage.removeItem('supplier');
-                Router.push('/supplier');
-              }}
+              // onClick={() => {
+              //   sessionStorage.removeItem('supplier');
+              //   Router.push('/supplier');
+              // }}
             >
               <span className={styles.add_supplier}>+</span>
               <span className='ml-1 mr-2'>Add Supplier</span>

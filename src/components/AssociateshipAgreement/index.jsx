@@ -10,7 +10,7 @@ import moment from 'moment';
 import Router from 'next/router';
 
 function Index(props) {
-  console.log(props.type, 'adadf');
+
   const [active, setActive] = useState('none');
   const [data, setData] = useState({
     seller: '',
@@ -116,7 +116,7 @@ function Index(props) {
        });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-        console.log(data, 'data22222');
+
         let exe;
         let dat = '';
         data?.placeOfExecution?.execution?.forEach((val, index) => {
@@ -133,7 +133,7 @@ function Index(props) {
             comment.push(val.comment);
           }
         });
-        console.log(dat, exe, 'exedasa');
+
 
         setData({
           seller: data?.seller?.name,
@@ -4761,7 +4761,7 @@ const tpaSeller = () => {
 };
 
 const associateShip = (data, preview, setPreviewValue) => {
-  console.log(data, 'data');
+
   return (
     <>
       <div className="card-body" style={{ minHeight: 'auto', flex: 'none' }}>
