@@ -75,6 +75,8 @@
     }
 
     .oderListParent {
+      font-size: 20px;
+      line-height: 1.5;
       .oderListParent_Head {
         font-weight: bold;
         text-decoration: underline;
@@ -339,4 +341,7 @@
     border: 1px solid #0000001f;
     border-radius: 4px;
   }
+}
+.red {
+  color: #ff0000 !important;
 }

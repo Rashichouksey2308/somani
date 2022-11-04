@@ -230,7 +230,11 @@ function Index(props) {
             <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
               <tr>
                 <td align='center' style={{padding:'20px 0'}}>
-                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong><u>ASSOCIATESHIP AGREEMENT</u></strong></p></td>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong>ASSOCIATESHIP AGREEMENT</strong></p></td>
+              </tr>
+              <tr>
+                <td align='justify'>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>{data.buyer}, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at {data.buyerAddress}, through its Authorised Signatory (hereinafter called <strong>{data.shortbuyer}</strong> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.</p></td>
               </tr>
               <tr>
                 <td align='justify'>
@@ -244,7 +248,7 @@ function Index(props) {
               </tr>
               <tr>
                 <td align='justify'>
-                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "<strong>Associate Buyer</strong>") of the other Part.</p></td>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "<strong>Associate Buyer</strong>"), which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.</p></td>
               </tr>
               <tr>
                 <td align='justify'>
@@ -292,10 +296,10 @@ function Index(props) {
               <tr>
                 <td valign='top'>
                   <ol type='1' style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                    <li>
+                    <li style={{fontWeight:'bold'}}>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}><strong>Item &amp; Price</strong></p>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>The details of the Commodity contracted quantity, Origin, Unit Price and total contract value are mentioned in Schedule I.</p>
-                      <ol type="A" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0'}}>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', fontWeight:'normal'}}>The details of the Commodity contracted quantity, Origin, Unit Price and total contract value are mentioned in Schedule I.</p>
+                      <ol type="A" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0', fontWeight:'normal'}}>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
                             The Associate Buyer affirms that the Supplier, Item,
@@ -347,33 +351,25 @@ function Index(props) {
                             be borne by the Associate Buyer and will be included in the
                             sale price of Goods/Services.
                           </p>
-                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>
                             The exchange rate prevailing at the time of making payment of
                             the margin money by the Associate Buyer shall be the
                             provisional price for preparation of provisional invoice .
                           </p>
-                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>
                             The final invoicing will be done in INR and the final exchange
                             rate on the basis of which invoicing shall be:
                           </p>
-                          <ol type="a" style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545', paddingLeft:'0'}}>
-                            <li>
-                              <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
-                                the price at which the forward is booked or
-                              </p>
-                            </li>
-                            <li>
-                              <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
-                                the average of the exchanges rate at which the payment of
-                                Import is made by IGI to Indo for this transaction.
-                              </p>
-                            </li>
-                          </ol>
-                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>a) the price at which the forward is booked or
+                          </p>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>b) the average of the exchanges rate at which the payment of
+                            Import is made by IGI to Indo for this transaction.
+                          </p>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>
                             The exchange rate difference loss or gain both will be to the
                             Associate Buyer account.
                           </p>
-                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>
                             The final price so worked out shall be reflected in the last
                             invoice carrying out all adjustments in regards to exchange
                             rate variation / expenses &amp; charges.
@@ -451,7 +447,7 @@ function Index(props) {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>Seller's trading Margin</p>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule 6, and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.</p>
                     </li>
-                    <li>
+                    <li style={{fontWeight:'bold'}}>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}><strong>IGI 's trading Margin</strong></p>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
                         The Trading margin of IGI shall be paid by the Associate Buyer as
@@ -479,7 +475,7 @@ function Index(props) {
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
                             Ensuring pre-shipment inspection of the goods/items from
-                            agency of International repute as acceptable to Seller.
+                            agency of international repute as acceptable to Seller.
                           </p>
                         </li>
                         <li>
@@ -490,21 +486,21 @@ function Index(props) {
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
                             Ensuring that quality and quantities of goods shipped are as
-                            per Letter of Credit/sales Contract/Performa Invoice at
+                            per LC / Sales Contract / Proforma Invoice at
                             pre-shipment stage and also at port of discharge.</p>
                         </li>
-                        <li>
-                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#dc3545'}}>
-                            Quantity as per Bill of Lading shall be final and binding on
+                        <li style={{color:'#FF0000'}}>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#FF0000'}}>
+                            Quantity as per Bill of Lading (“<strong>BL</strong>”) shall be final and binding on
                             the Associate Buyer.</p>
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            Seller shall not be responsible for any variation in quantity
+                            Seller shall not be responsible for <em>any</em> variation in quantity
                             and/or quality of material at the port of loading, port of
                             discharge, during transit to godown/warehouse/plot, while in
                             godown/warehouse/plot and/or till it is delivered to the
-                            Associate Buyer. Associate Buyer shall be solely responsible
+                            Associate Buyer. It shall at all times remain the sole responsibility of the Associate Buyer. Associate Buyer shall be solely responsible
                             for any non-supply, short supply or deviation in quality
                             standards/quantity or delay in supply for any reason
                             whatsoever.
@@ -531,47 +527,22 @@ function Index(props) {
                       <ol type="A" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0'}}>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            The Marine Insurance will be arranged by the Associate Buyer
-                            in favour of Seller or Seller's nominated Bank (as per
-                            Seller's discretion), for 110% of Import Cargo Value, the cost
-                            of it shall be borne by the Associate Buyer.
+                            The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IGI’s nominated Bank (as per IGI’s discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in its name, the cost of it shall be borne by the Associate Buyer.
                           </p>
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            The cargo while in the port, during transit from port to
-                            godown/plot/warehouse and while in the godown/plot/warehouse
-                            shall be insured by way of insurance by Associate Buyer in
-                            favour of Seller or Seller's nominated Bank (as per Seller's
-                            discretion), for 110% of landed cost (inclusive of custom
-                            duty, all other taxes applicable under GST Act 2017).
-                            Associate Buyer will ensure that the material shall at all
-                            times remain insured. In case Seller decides to take the
-                            insurance directly in its name, the cost of it shall be borne
-                            by the Associate Buyer.
+                            The cargo while in the port, during transit from port to godown/plot/warehouse and while in the godown/plot/warehouse and while in Ocean shall be insured by way of insurance by Associate Buyer in favour of IGI or IGI’s nominated Bank (as per IGI’s discretion), for 110% of landed cost (inclusive of custom duty, all other taxes applicable under GST Act 2017 as amended till date). Associate Buyer will ensure that the material shall at all times remain insured.
                           </p>
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            The Insurance policy in original shall be submitted by
-                            Associate Buyer to Seller immediately on demand. In case the
-                            Associate Buyer fails to take the Insurance as desired by
-                            Seller, Seller shall among other rights reserved under this
-                            Agreement, including right to terminate the Agreement, be at
-                            liberty to take such insurance at cost of the Associate Buyer.
+                            The Insurance policy in original or digitally signed by Insurance Company whichever is required to file and process the claim before Insurance Company, shall be submitted by Associate Buyer to IGI immediately on demand. In case the Associate Buyer fails to take the Insurance as desired by IGI, IGI shall among other rights reserved under this Agreement, including right to terminate the Agreement, be at liberty to take such insurance at cost of the Associate Buyer.
                           </p>
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            In the event of any loss, or any other event, leading to
-                            invocation of insurance policy, the process of filing of
-                            claim, settlement of amount, etc. shall be the sole
-                            responsibility of the Associate Buyer. It has been agreed by
-                            the Associate Buyer that settlement, if any, arrived with the
-                            Insurance Company, shall be paid directly by the Insurance
-                            Company to Seller or Seller's nominated bank as the case may
-                            be and the same shall not absolve the Associate Buyer of their
-                            liability under the Associateship Agreement towards Selle
+                            In the event of any loss, or any other event, leading to invocation of insurance policy, the process of filing of claim, settlement of amount, etc. shall be the sole responsibility of the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any, arrived with the Insurance Company, shall be paid directly by the Insurance Company to IGI or IGI’s nominated bank as the case may be and the same shall not absolve the Associate Buyer of their liability under the Associateship Agreement towards Seller.
                           </p>
                         </li>
                       </ol>
@@ -664,8 +635,7 @@ function Index(props) {
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
                             <strong>Safekeeping and Security of the Goods: </strong>
                             <br />
-                            Proper safekeeping and security of Goods shall be the
-                            responsibility of the Associate Buyer. The Associate Buyer
+                            Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer
                             shall provide round the clock security guards at the Storage
                             yard where Goods shall be stored. Seller shall in no way be
                             responsible or liable for any loss or damage to the Goods for
@@ -811,7 +781,7 @@ function Index(props) {
                             Seller shall in no way be liable for the same.
                           </p>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginLeft:'-16px'}}>
-                            <strong>11 (A). OCEAN TRANSPORTATION:</strong>
+                            <strong>11 (A). <u>OCEAN TRANSPORTATION:</u></strong>
                           </p>
                           <ol type="A" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0'}}>
                             <li>
@@ -894,7 +864,7 @@ function Index(props) {
                     <li>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}><strong>Exchange Rate and Exchange Risk</strong></p>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                        Seller will take forward cover from its Bank, in consultation with
+                        If required, Seller will take forward cover from its Bank, in consultation with
                         Associate Buyer, at the cost and risk of Associate Buyer. The
                         exchange rate so decided, shall be acceptable to Associate Buyer.
                       </p>
@@ -1020,20 +990,7 @@ function Index(props) {
                       <ol type="A" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0'}}>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            Any dispute or difference, whatsoever, arising between the
-                            parties out of, or relating to, or incidental to the
-                            construction, meaning, scope, operation or effect of this
-                            Agreement; or the validity or the breach thereof, shall be
-                            settled by Arbitration in accordance with Rules of Arbitration
-                            formulated by Singapore International Arbitration Centre
-                            (SIAC) and the Associate Buyer agrees to submit to the said
-                            forum. The Award made in pursuance thereof shall be binding on
-                            the parties. The venue of the Arbitration will be Singapore
-                            and Singapore Courts shall have sole jurisdiction with respect
-                            to this Agreement and any other agreement(s) executed in
-                            pursuance/furtherance of or in connection to this Agreement.
-                            The English Laws shall be the governing laws in respect of
-                            this Agreement.
+                            Any dispute or difference, whatsoever, arising between the parties out of, or relating to, or incidental to the construction, meaning, scope, operation or effect of this Agreement; or the validity or the breach thereof, shall be settled by Arbitration by a Sole Arbitrator in accordance with Rules of Arbitration formulated by Indian Council of Arbitration (ICA) and the Associate Buyer agrees to submit to the said forum. The Award made in pursuance thereof shall be binding on the parties. The seat and venue of Arbitration will be New Delhi and the language of Arbitration Proceedings shall be in English.
                           </p>
                         </li>
                       </ol>
@@ -1084,7 +1041,7 @@ function Index(props) {
                       <ol type="A" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0'}}>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            After conclusion of the deal i.e., receipt of the entire
+                            After conclusion of the deal i.e. receipt of the
                             amounts due to Seller from Associate Buyer/remittance against
                             the import &amp; receipt of RR copies and all other supporting
                             documents related to domestic sale, the account maintained by
@@ -1094,12 +1051,7 @@ function Index(props) {
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            In case after the L/C is opened and the supply contract
-                            between Indo and the Supplier is cancelled for any reason
-                            whatsoever, Seller shall be entitled to receive from Associate
-                            Buyer all costs incurred by Indo/Seller along with the agreed
-                            margin / service charge + GST at applicable rates/other costs
-                            etc.
+                            In case after opening of Letter of credit by Indo, the supply contract with Supplier is cancelled for any reason whatsoever, IGI shall be entitled to receive from Associate Buyer all costs incurred by Indo and IGI along with its margin/ service charges + applicable GST rate + other costs etc.
                           </p>
                         </li>
                       </ol>
@@ -1276,21 +1228,13 @@ function Index(props) {
                     </li>
                     <li>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}><strong>Special Conditions</strong></p>
-                      <ol type="i" style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0'}}>
+                      <ol style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'0', listStyle:'none'}}>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            It is expressly and unconditionally agreed and acknowledged by
-                            the and Associate Buyer that the title in the goods/ material
-                            shall pass on to the Associate Buyer only in respect of such
-                            specific quantity thereof as released from the storage
-                            facility by the CHA/Stevedoring under the Authorized Release
-                            Orders after receipt by the Seller of the price and other
-                            payables in respect thereof from the Associate Buyer and
-                            actual delivery of the goods having been made to the Associate
-                            Buyer. The Seller shall continue to be the owner, holding
+                            <span style={{marginLeft:'-20px'}}>i)</span>It is expressly and unconditionally agreed and acknowledged by the and Associate Buyer that the title in the goods/ material shall pass on to the Associate Buyer only in respect of such specific quantity thereof as released from the storage facility by the Stevedore under the Authorized Release Orders after receipt of the price and other payables in respect and actual delivery of the goods having been made to the Associate buyer. The Seller shall continue to be the owner, holding
                             absolute title in the goods/material not so released and
                             delivered to the Associate Buyer in any contingency including
-                            of Associate Buyer even becoming insolvent but not limiting,
+                            but not limited to Associate Buyer even becoming insolvent,
                             and shall be entitled to deal with the goods/material as it
                             may deem fit including disposing them off at the risk, costs
                             and consequences of the Associate Buyer. For the avoidance of
@@ -1305,20 +1249,12 @@ function Index(props) {
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            It is specifically agreed that the Associate Buyer shall
-                            accept the goods on no complaint basis with regard to quality,
-                            quantity and/or any other claims. The Seller shall in no way
-                            be responsible or liable for the quality, quantity or any
-                            other claims with respect to the Goods supplied by the
-                            Supplier and/or any other claim associated or related to this
-                            transaction. All such claims shall be lodged, pursued and
-                            settled directly between the Associate Buyer and Supplier with
-                            no liability whatsoever upon Indo and/or the Seller.
+                            <span style={{marginLeft:'-20px'}}>ii)</span>It is specifically agreed that the Associate Buyer shall accept the goods on no complaint basis with regard to quality, quantity, mix-up, shortage and/or any other claims. The Seller shall in no way be responsible or liable for the quality, quantity, shortage or any other claims with respect to the Goods supplied by the Supplier and/or any other claim associated or related to this transaction. All such claims shall be lodged, pursued and settled directly between the Associate buyer and Supplier with no liability whatsoever upon Indo and/or the Seller.
                           </p>
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            The Associate Buyer agrees and acknowledges that the sale of
+                            <span style={{marginLeft:'-20px'}}>iii)</span>The Associate Buyer agrees and acknowledges that the sale of
                             Goods under this Sales Contract is necessary to maintain the
                             Associate Buyer as a going concern and to continue its
                             business operations and consequently, it has requested the
@@ -1338,7 +1274,7 @@ function Index(props) {
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            Notwithstanding anything contained herein to the contrary, all
+                            <span style={{marginLeft:'-20px'}}>iv)</span>Notwithstanding anything contained herein to the contrary, all
                             risks, consequences arising out of the actual transaction(s)
                             taking place between Supplier &amp; Indo, Indo &amp; IGI and
                             Associate Buyer and IGI and/or agreement with Stevedore under
@@ -1349,7 +1285,7 @@ function Index(props) {
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            In the event of any breach or default by Associate Buyer or
+                            <span style={{marginLeft:'-20px'}}>v)</span>In the event of any breach or default by Associate Buyer or
                             the stevedore of the terms of this Agreement or the
                             Quadripartite agreement, IGI at its sole discretion shall have
                             the right to adjust/set off any amounts paid to it by the
@@ -1362,7 +1298,7 @@ function Index(props) {
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            The Associate Buyer undertakes to ensure that all payments to
+                            <span style={{marginLeft:'-20px'}}>vi)</span>The Associate Buyer undertakes to ensure that all payments to
                             be made to Seller in furtherance of this Agreement or any
                             similar agreements shall be treated as direct cost of
                             production (budgeted operating expenses) and as a 'insolvency
@@ -1390,7 +1326,7 @@ function Index(props) {
                         </li>
                         <li>
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-                            The Associate Buyer shall not assign or transfer this
+                            <span style={{marginLeft:'-20px'}}>vii)</span>The Associate Buyer shall not assign or transfer this
                             Agreement or all or any part of its rights or obligations
                             hereunder to any person, firm or corporation without the prior
                             written consent of Seller. Notwithstanding anything to the
@@ -1872,8 +1808,18 @@ function Index(props) {
                   <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong>Undertaking for Post-dated Cheques issued by Associate Buyer</strong></p></td>
               </tr>
               <tr>
-                <td align='center' style={{padding:'15px 0'}}>
-                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>To: <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong></p></td>
+                <td align='left' valign="top" style={{padding:'15px 0'}}>
+                  <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                    <tr>
+                      <td align='left' width="10%">
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>To:</p>
+                      </td>
+                      <td align='left'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><u>Indo German International Private Limited,<br/>7A, Sagar Apartments, 6, Tilak Marg,<br/>New Delhi</u></p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
               </tr>
               <tr>
                 <td align='center' style={{padding:'15px 0'}}>
@@ -1886,10 +1832,10 @@ function Index(props) {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we, being the Associate Buyer have entered into the Associateship Agreement with Seller.</p>
                     </li>
                     <li>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That as requested by us, the Supplier shall sell the Goods to <strong>Indo</strong> and <strong>Indo</strong> will establish Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <strong>Indo</strong> shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to as “Contracts”.</p>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That as requested by us, the Supplier shall sell the Goods to <u>Indo</u> and <u>Indo</u> will establish Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>Indo</u> shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to as “Contracts”.</p>
                     </li>
                     <li>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the present Undertaking is being executed in pursuance of the Contracts being entered into by <strong>Indo</strong> and Seller on our request. It is pertinent to mention that the terms of the Associateship Agreement be read as a part of this Undertaking.</p>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the present Undertaking is being executed in pursuance of the Contracts being entered into by <u>Indo</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship Agreement be read as a part of this Undertaking.</p>
                     </li>
                     <li>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We enclose herewith the following post-dated Cheque(s) as per details in Schedule I. In pursuance of the above, we authorize Seller to present the post-dated cheques on due date and present the same with its Banker, without any notice to us.</p>
@@ -2403,7 +2349,7 @@ function Index(props) {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have negotiated with the Supplier for supply of the Goods through Indo/ Seller.</p>
                     </li>
                     <li>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have requested <strong>Indo German International Private Limited</strong>(“IGI/ Seller”) to import on our behalf the Goods and sell the same to us on stock and sale basis as per Associateship Agreement. We confirm and undertake that all the terms & conditions of the Sales Contract entered into between <strong>Indo</strong> and the Supplier (hereinafter referred to as “Sales Contract”) are acceptable and binding on us.</p>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have requested <strong>Indo German International Private Limited</strong>(“IGI/ Seller”) to import on our behalf the Goods and sell the same to us on stock and sale basis as per Associateship Agreement. We confirm and undertake that all the terms & conditions of the Sales Contract entered into between <u>Indo</u> and the Supplier (hereinafter referred to as “Sales Contract”) are acceptable and binding on us.</p>
                     </li>
                     <li>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the price indicated in the Sales Contract is neither under-invoiced nor over-invoiced and is as per prevailing international rates for the above-mentioned item and is at par with prices at which item of similar quality being imported into India.</p>
@@ -3783,7 +3729,7 @@ Andhra Pradesh, 530016 India
                     of the price and other payables in respect thereof and actual delivery of the goods having been made
                     to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
                     goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
-                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    becoming insolvent, and shall be entitled to deal with the goods/material as it may
                     deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
                     the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
                     to be in the constructive or ac'ual possession of the Buyer until the Goods are released and
@@ -4833,25 +4779,18 @@ const associateShip = (data, preview, setPreviewValue) => {
         ) : null}
         <p className="text-center text_sales">
           {' '}
-          <strong>
-            <u>ASSOCIATESHIP AGREEMENT</u>
-          </strong>
+          <strong>ASSOCIATESHIP AGREEMENT</strong>
         </p>
         <p className="text_sales">
           This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in{' '}
           <strong>Schedule I</strong> hereto by and between:
         </p>
-        <p className="text_sales">
-          {' '}
-          <b>{data.buyer}</b>, a company incorporated under the Indian Companies Act, 1956, having its Registered Office
-          at <b>{data.buyerAddress}</b>, through its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b>{' '}
-          or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning
-          thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.
+        <p className="text_sales"> {' '} {data.buyer}, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at {data.buyerAddress}, through its Authorised Signatory (hereinafter called <strong>{data.shortbuyer}</strong>{' '} or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.
         </p>
         <p className=" text-center text_sales">AND</p>
         <p className="text_sales">
           Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "
-          <strong>Associate Buyer</strong>") of the other Part.
+          <strong>Associate Buyer</strong>"), which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.
         </p>
         <p className="text_sales">
           <b>{data.shortbuyer}</b> and the Associate Buyer, wherever required, are collectively referred to as the
@@ -4892,13 +4831,13 @@ const associateShip = (data, preview, setPreviewValue) => {
           Parties hereby agree as follows:
         </p>
         <ol className={`${styles.oderListParent}`}>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Item &amp; Price</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               The details of the Commodity contracted quantity, Origin, Unit Price and total contract value are
               mentioned in Schedule I.
             </p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   The Associate Buyer affirms that the Supplier, Item, specifications, quantities, Origin, delivery and
@@ -4935,29 +4874,21 @@ const associateShip = (data, preview, setPreviewValue) => {
                   Buyer. The expenses for such services shall also be borne by the Associate Buyer and will be included
                   in the sale price of Goods/Services.
                 </p>
-                <p className="text_sales text-danger">
+                <p className={`${styles.red} text_sales`}>
                   The exchange rate prevailing at the time of making payment of the margin money by the Associate Buyer
                   shall be the provisional price for preparation of provisional invoice .
                 </p>
-                <p className="text_sales text-danger">
+                <p className={`${styles.red} text_sales`}>
                   The final invoicing will be done in INR and the final exchange rate on the basis of which invoicing
                   shall be:
                 </p>
-                <ol type="a" className={`${styles.oderListChild} text-danger pl-0`}>
-                  <li>
-                    <p className="text_sales text-danger">the price at which the forward is booked or</p>
-                  </li>
-                  <li>
-                    <p className="text_sales text-danger">
-                      the average of the exchanges rate at which the payment of Import is made by IGI to Indo for this
-                      transaction.
-                    </p>
-                  </li>
-                </ol>
-                <p className="text_sales text-danger">
+                <p className={`${styles.red} text_sales ml-n4`}>a)&nbsp; the price at which the forward is booked or</p>
+                <p className={`${styles.red} text_sales ml-n4`}>b)&nbsp; the average of the exchanges rate at which the payment of Import is made by IGI to Indo for this transaction.
+                </p>
+                <p className={`${styles.red} text_sales`}>
                   The exchange rate difference loss or gain both will be to the Associate Buyer account.
                 </p>
-                <p className="text_sales text-danger">
+                <p className={`${styles.red} text_sales`}>
                   The final price so worked out shall be reflected in the last invoice carrying out all adjustments in
                   regards to exchange rate variation / expenses &amp; charges.
                 </p>
@@ -4968,22 +4899,22 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Advance Margin Money</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               The Associate Buyer shall make payment of margin money of the total Contract Value as advance prior to
               opening of LC by Indo on the Supplier as mentioned in Schedule I.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Indo will open the LC in favour of Supplier within 5 working days of receipt of the Advance as stated
               herein.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               The cash advance shall be adjusted at the time of issuance of the last release order of the consignment.
               The Associate Buyer unequivocally agrees that the exchange rate prevailing at the time of last release
               order shall be applicable on the foregoing cash advance.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               It is expressly clarified that the advance margin money shall be maintained on Mark-to-Market (M2M) basis
               on the prevailing exchange rate and market price of the commodity. In the event of shortfall in the margin
               money Seller have the right &amp; the Associate Buyer has the obligation pay the shortfall amount
@@ -4992,9 +4923,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               time.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Payment</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               The Associate Buyer shall pay for the Goods imported as per mutually agreed terms mentioned in{' '}
               <strong>Schedule I</strong>. The Associate Buyer shall make full payment of the material to be lifted
               through RTGS/NEFT. Seller/Custom House Agent (“
@@ -5003,7 +4934,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               Order. The delivery order instructions shall be issued for the part material by Seller, for which the
               payment has been made.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               At the time of execution of this Agreement, Associate Buyer will give post-dated cheques for agreed
               percentage mentioned in <strong>Schedule I</strong> of the total Contract value in Indian Rupees which
               includes agreed percentage of Trading Margin of Seller, as security towards payment of the balance
@@ -5012,7 +4943,7 @@ const associateShip = (data, preview, setPreviewValue) => {
             <p className="text_sales">
               <strong>Delay in payment</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Any delay in payment beyond due date shall attract a penal interest at the rate of agreed percentage per
               month mentioned in <strong>Schedule I</strong>, which shall be payable by Associate Buyer to Seller
               forthwith on receipt of demand for the same.
@@ -5022,29 +4953,29 @@ const associateShip = (data, preview, setPreviewValue) => {
             <p className={`${styles.oderListParent_Head}`}>Seller's trading Margin</p>
             <p className="text_sales">The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule 6, and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.</p>
           </li> */}
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>IGI 's trading Margin</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               The Trading margin of IGI shall be paid by the Associate Buyer as per details mentioned in Schedule I, and
               the same shall be collected in the Sale Invoice raised by IGI on the Associate Buyer.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Other Charges</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Any and all incidental charges that may be incurred by Indo and/or Seller in relation to the
               import/storage/maintenance/delivery/security, Railway Freight, Penalty, Charges etc. of the Goods shall be
               to the account of the Associate Buyer and will be payable by Associate Buyer to Seller at actuals within 5
               days of demand from Seller.{' '}
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Quality, Quantity, Pre-Shipment Inspection </p>
-            <p className="text_sales">Obligations of the Associate Buyer are as under:</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <p className="text_sales font-weight-normal">Obligations of the Associate Buyer are as under:</p>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  Ensuring pre-shipment inspection of the goods/items from agency of International repute as acceptable
+                  Ensuring pre-shipment inspection of the goods/items from agency of international repute as acceptable
                   to Seller.
                 </p>
               </li>
@@ -5055,20 +4986,19 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  Ensuring that quality and quantities of goods shipped are as per Letter of Credit/sales
-                  Contract/Performa Invoice at pre-shipment stage and also at port of discharge.{' '}
+                  Ensuring that quality and quantities of goods shipped are as per LC / Sales Contract / Proforma Invoice at pre-shipment stage and also at port of discharge.{' '}
                 </p>
               </li>
-              <li>
-                <p className="text_sales text-danger">
-                  Quantity as per Bill of Lading shall be final and binding on the Associate Buyer.{' '}
+              <li className={`${styles.red}`}>
+                <p className={`${styles.red} text_sales`}>
+                  Quantity as per Bill of Lading (“<strong>BL</strong>”) shall be final and binding on the Associate Buyer.{' '}
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  Seller shall not be responsible for any variation in quantity and/or quality of material at the port
+                  Seller shall not be responsible for <em>any</em> variation in quantity and/or quality of material at the port
                   of loading, port of discharge, during transit to godown/warehouse/plot, while in godown/warehouse/plot
-                  and/or till it is delivered to the Associate Buyer. Associate Buyer shall be solely responsible for
+                  and/or till it is delivered to the Associate Buyer. It shall at all times remain the sole responsibility of the Associate Buyer. Associate Buyer shall be solely responsible for
                   any non-supply, short supply or deviation in quality standards/quantity or delay in supply for any
                   reason whatsoever.{' '}
                 </p>
@@ -5085,50 +5015,34 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Insurance </p>
-
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  The Marine Insurance will be arranged by the Associate Buyer in favour of Seller or Seller's nominated
-                  Bank (as per Seller's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by
-                  the Associate Buyer.
+                The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IG's nominated Bank (as per IGI's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in its name, the cost of it shall be borne by the Associate Buyer.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  The cargo while in the port, during transit from port to godown/plot/warehouse and while in the
-                  godown/plot/warehouse shall be insured by way of insurance by Associate Buyer in favour of Seller or
-                  Seller's nominated Bank (as per Seller's discretion), for 110% of landed cost (inclusive of custom
-                  duty, all other taxes applicable under GST Act 2017). Associate Buyer will ensure that the material
-                  shall at all times remain insured. In case Seller decides to take the insurance directly in its name,
-                  the cost of it shall be borne by the Associate Buyer.{' '}
+                The cargo while in the port, during transit from port to godown/plot/warehouse and while in the godown/plot/warehouse and while in Ocean shall be insured by way of insurance by Associate Buyer in favour of IGI or IGI's nominated Bank (as per IGI's discretion), for 110% of landed cost (inclusive of custom duty, all other taxes applicable under GST Act 2017 as amended till date). Associate Buyer will ensure that the material shall at all times remain insured.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  The Insurance policy in original shall be submitted by Associate Buyer to Seller immediately on
-                  demand. In case the Associate Buyer fails to take the Insurance as desired by Seller, Seller shall
-                  among other rights reserved under this Agreement, including right to terminate the Agreement, be at
-                  liberty to take such insurance at cost of the Associate Buyer.{' '}
+                The Insurance policy in original or digitally signed by Insurance Company whichever is required to file and process the claim before Insurance Company, shall be submitted by Associate Buyer to IGI immediately on demand. In case the Associate Buyer fails to take the Insurance as desired by IGI, IGI shall among other rights reserved under this Agreement, including right to terminate the Agreement, be at liberty to take such insurance at cost of the Associate Buyer.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  In the event of any loss, or any other event, leading to invocation of insurance policy, the process
-                  of filing of claim, settlement of amount, etc. shall be the sole responsibility of the Associate
-                  Buyer. It has been agreed by the Associate Buyer that settlement, if any, arrived with the Insurance
-                  Company, shall be paid directly by the Insurance Company to Seller or Seller's nominated bank as the
-                  case may be and the same shall not absolve the Associate Buyer of their liability under the
-                  Associateship Agreement towards Selle
+                In the event of any loss, or any other event, leading to invocation of insurance policy, the process of filing of claim, settlement of amount, etc. shall be the sole responsibility of the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any, arrived with the Insurance Company, shall be paid directly by the Insurance Company to IGI or IGI's nominated bank as the case may be and the same shall not absolve the Associate Buyer of their liability under the Associateship Agreement towards Seller.
                 </p>
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Stock &amp; Sale / Clearance at Port of Entry </p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   The Goods shall be sold by IGI to Associate Buyer on Stock &amp; Sale basis as per delivery terms
@@ -5168,9 +5082,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Transport/Storage</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   Associate Buyer shall bear and pay railway / Truck freight &amp; related expenses for movement of
@@ -5197,7 +5111,7 @@ const associateShip = (data, preview, setPreviewValue) => {
                 <p className="text_sales">
                   <strong>Safekeeping and Security of the Goods: </strong>
                   <br />
-                  Proper safekeeping and security of Goods shall be the responsibility of the Associate Buyer. The
+                  Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The
                   Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be
                   stored. Seller shall in no way be responsible or liable for any loss or damage to the Goods for any
                   reason whatsoever including shortage or theft.{' '}
@@ -5205,9 +5119,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Custom House Agent / Stevedoring Agent </p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   On Associate Buyer's request, IGI has agreed to appoint Associate Buyer's nominated Stevedoring agent
@@ -5251,7 +5165,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               <li>
                 {' '}
                 <p className="text_sales">Stevedoring Agent shall inter-alia undertake the following tasks:</p>
-                <ul>
+                <ul type='disc'>
                   <li>
                     <p className="text_sales mb-0">Arranging allotment of plot at the Discharge Port</p>
                   </li>
@@ -5281,9 +5195,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               <p className="text_sales">The detailed tasks shall be laid down in the stevedoring agreement.</p>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Inland Transportation</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   The movement of goods from port to warehouse/ plot shall be made by an approved transporter under
@@ -5307,7 +5221,7 @@ const associateShip = (data, preview, setPreviewValue) => {
                 </p>
                 <ol type="A" className={`${styles.oderListChild} pl-0`}>
                   <p className="ml-n4">
-                    <strong>11 (A). OCEAN TRANSPORTATION:</strong>
+                    <strong>11 (A). <u>OCEAN TRANSPORTATION:</u></strong>
                   </p>
                   <li>
                     <p className="text_sales">
@@ -5332,9 +5246,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Independent Surveyor/Security </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               IGI will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost who will be
               present at the time of release of each consignment and will provide a daily report of the stock at
               godown/warehouse/plot. The Stevedoring agent and the Associate Buyer shall provide unrestricted and
@@ -5342,25 +5256,25 @@ const associateShip = (data, preview, setPreviewValue) => {
               Collateral Manager shall enter into an agreement detailing the rights and responsibility of each party.{' '}
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Payment before Completion of Due Date </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               IGI will sell the goods to Associate Buyer against 100% payment including IGI 's Trading Margin and other
               expenses to be made by Associate Buyer as per Payment Terms.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Associate Buyer shall pay for the entire material 3 working days before the due date as mentioned in
               clause 3 above. The advance paid by Associate Buyer shall be adjusted against release of the last lot at
               the exchange rate prevailing at the time of adjustment of the advance.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               In case IGI and/or Indo remains out of pocket beyond the agreed due date and/or Indo's/IGI's funds are
               blocked in this transaction, the Associate Buyer will pay interest at the rate of 1.25% per month to IGI.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Title/Risk </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Title to the Goods shall be deemed to have been transferred to the Associate Buyer and the Goods shall be
               deemed to be sold and delivered to the Associate Buyer only upon receipt by the Seller of the entire
               contract value from the Associate Buyer. It is clarified that the Seller shall retain full legal ownership
@@ -5369,16 +5283,16 @@ const associateShip = (data, preview, setPreviewValue) => {
               Buyer as per Incoterms 2020.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Exchange Rate and Exchange Risk</p>
-            <p className="text_sales">
-              Seller will take forward cover from its Bank, in consultation with Associate Buyer, at the cost and risk
+            <p className="text_sales font-weight-normal">
+              If required, Seller will take forward cover from its Bank, in consultation with Associate Buyer, at the cost and risk
               of Associate Buyer. The exchange rate so decided, shall be acceptable to Associate Buyer.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Right to Dispose off Goods </p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   In the event of breach of the quadripartite agreement and /or this Agreement including but not limited
@@ -5413,9 +5327,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> GST/Other Tax </p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   The GST Liability and issuance of certificates under the GST Act 2017 as applicable will be the
@@ -5438,9 +5352,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Notices</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Any notice given under this Agreement, and/or any other agreement emanating from this Agreement, shall be
               in writing and shall be served by email, courier, registered mail or Speed Post only. The party's address
               for the service of notice shall be the address mentioned in <strong>Schedule I</strong> of this agreement
@@ -5448,9 +5362,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               served if it was served by post, 48 hours after it was posted.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> Governing Laws and Jurisdiction</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   The Laws of India shall be the governing laws in respect of this Agreement.
@@ -5467,27 +5381,19 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> Arbitration</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  Any dispute or difference, whatsoever, arising between the parties out of, or relating to, or
-                  incidental to the construction, meaning, scope, operation or effect of this Agreement; or the validity
-                  or the breach thereof, shall be settled by Arbitration in accordance with Rules of Arbitration
-                  formulated by Singapore International Arbitration Centre (SIAC) and the Associate Buyer agrees to
-                  submit to the said forum. The Award made in pursuance thereof shall be binding on the parties. The
-                  venue of the Arbitration will be Singapore and Singapore Courts shall have sole jurisdiction with
-                  respect to this Agreement and any other agreement(s) executed in pursuance/furtherance of or in
-                  connection to this Agreement. The English Laws shall be the governing laws in respect of this
-                  Agreement.
+                Any dispute or difference, whatsoever, arising between the parties out of, or relating to, or incidental to the construction, meaning, scope, operation or effect of this Agreement; or the validity or the breach thereof, shall be settled by Arbitration by a Sole Arbitrator in accordance with Rules of Arbitration formulated by Indian Council of Arbitration (ICA) and the Associate Buyer agrees to submit to the said forum. The Award made in pursuance thereof shall be binding on the parties. The seat and venue of Arbitration will be New Delhi and the language of Arbitration Proceedings shall be in English.
                 </p>
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Dispute resolution with Indo/Supplier</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   {' '}
@@ -5516,12 +5422,12 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Settlement of Accounts</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  After conclusion of the deal i.e., receipt of the entire amounts due to Seller from Associate
+                  After conclusion of the deal i.e. receipt of the amounts due to Seller from Associate
                   Buyer/remittance against the import &amp; receipt of RR copies and all other supporting documents
                   related to domestic sale, the account maintained by Seller for the Associate will be settled as per
                   the procedure followed by Seller.
@@ -5529,16 +5435,14 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  In case after the L/C is opened and the supply contract between Indo and the Supplier is cancelled for
-                  any reason whatsoever, Seller shall be entitled to receive from Associate Buyer all costs incurred by
-                  Indo/Seller along with the agreed margin / service charge + GST at applicable rates/other costs etc.
+                  In case after opening of Letter of credit by Indo, the supply contract with Supplier is cancelled for any reason whatsoever, IGI shall be entitled to receive from Associate Buyer all costs incurred by Indo and IGI along with its margin/ service charges + applicable GST rate + other costs etc. 
                 </p>
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> Indemnification</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   Associate Buyer agrees to defend, indemnify, keep indemnified and hold harmless at all times, IGI
@@ -5573,9 +5477,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> General Dispute Clause</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   In the event any dispute of whatsoever nature arises including but not limited to regarding the time
@@ -5587,9 +5491,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> Confidentiality</p>
-            <ol type="A" className={`${styles.oderListChild} pl-0`}>
+            <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   This contract, its provisions and existence, as well as any commercial data including price or
@@ -5624,27 +5528,27 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Amendments</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               This Agreement shall not be amended, altered or modified, or any provision herein shall not be waived,
               except by an instrument in writing expressly referring to this Agreement and signed by the duly authorized
               representatives of both the Parties, and no verbal agreement or conduct of any nature related to the
               subject matter hereof or to the relationship between the Parties will be considered valid enforceable.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Severability</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               If any part or provision of this Agreement not being a fundamental nature is held illegal or
               unenforceable, the validity of enforceability of the remainder of the Agreement shall not be affected if
               such part, term of provision is severable from the rest of the Agreement without altering the essence of
               this Agreement.
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Breach of the Contract</p>
-            <ol type="1" className={`${styles.oderListChild} pl-2`}>
+            <ol type="1" className={`${styles.oderListChild} pl-2 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   In the event the Associate Buyer commits any breach of the terms of the Agreement, then the Seller
@@ -5670,19 +5574,15 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> Special Conditions</p>
-            <ol type="i" className={`${styles.oderListChild} pl-2`}>
+            <ol className={`${styles.oderListChild} pl-2 font-weight-normal list-unstyled`}>
               <li>
                 <p className="text_sales">
-                  It is expressly and unconditionally agreed and acknowledged by the and Associate Buyer that the title
-                  in the goods/ material shall pass on to the Associate Buyer only in respect of such specific quantity
-                  thereof as released from the storage facility by the CHA/Stevedoring under the Authorized Release
-                  Orders after receipt by the Seller of the price and other payables in respect thereof from the
-                  Associate Buyer and actual delivery of the goods having been made to the Associate Buyer. The Seller
+                  <span className='ml-n3'>i) </span>It is expressly and unconditionally agreed and acknowledged by the and Associate Buyer that the title in the goods/ material shall pass on to the Associate Buyer only in respect of such specific quantity thereof as released from the storage facility by the Stevedore under the Authorized Release Orders after receipt of the price and other payables in respect and actual delivery of the goods having been made to the Associate buyer. The Seller
                   shall continue to be the owner, holding absolute title in the goods/material not so released and
-                  delivered to the Associate Buyer in any contingency including of Associate Buyer even becoming
-                  insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit
+                  delivered to the Associate Buyer in any contingency including but not limited to Associate Buyer even becoming
+                  insolvent, and shall be entitled to deal with the goods/material as it may deem fit
                   including disposing them off at the risk, costs and consequences of the Associate Buyer. For the
                   avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner
                   whatsoever be construed to be in the constructive or actual possession of the Associate Buyer until
@@ -5693,17 +5593,12 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  It is specifically agreed that the Associate Buyer shall accept the goods on no complaint basis with
-                  regard to quality, quantity and/or any other claims. The Seller shall in no way be responsible or
-                  liable for the quality, quantity or any other claims with respect to the Goods supplied by the
-                  Supplier and/or any other claim associated or related to this transaction. All such claims shall be
-                  lodged, pursued and settled directly between the Associate Buyer and Supplier with no liability
-                  whatsoever upon Indo and/or the Seller.
+                  <span className='ml-n3'>ii) </span>It is specifically agreed that the Associate Buyer shall accept the goods on no complaint basis with regard to quality, quantity, mix-up, shortage and/or any other claims. The Seller shall in no way be responsible or liable for the quality, quantity, shortage or any other claims with respect to the Goods supplied by the Supplier and/or any other claim associated or related to this transaction. All such claims shall be lodged, pursued and settled directly between the Associate buyer and Supplier with no liability whatsoever upon Indo and/or the Seller.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  The Associate Buyer agrees and acknowledges that the sale of Goods under this Sales Contract is
+                  <span className='ml-n4'>iii) </span>The Associate Buyer agrees and acknowledges that the sale of Goods under this Sales Contract is
                   necessary to maintain the Associate Buyer as a going concern and to continue its business operations
                   and consequently, it has requested the Seller to supply goods in accordance with the terms of this
                   Sales Contract. Further, the Associate Buyer agrees and acknowledges that in the event that it is
@@ -5717,7 +5612,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of the
+                  <span className='ml-n4'>iv) </span>Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of the
                   actual transaction(s) taking place between Supplier &amp; Indo, Indo &amp; IGI and Associate Buyer and
                   IGI and/or agreement with Stevedore under this contract and/or any modified/amended agreement will be
                   to the account of the Associate Buyer only. Indo/Seller shall in no way be responsible or liable for
@@ -5726,7 +5621,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  In the event of any breach or default by Associate Buyer or the stevedore of the terms of this
+                  <span className='ml-n3'>v) </span>In the event of any breach or default by Associate Buyer or the stevedore of the terms of this
                   Agreement or the Quadripartite agreement, IGI at its sole discretion shall have the right to
                   adjust/set off any amounts paid to it by the Associate Buyer. If the Associate Buyer owes several,
                   independent debts to IGI based on the same or different legal nature, IGI is entitled to declare which
@@ -5735,13 +5630,13 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  The Associate Buyer undertakes to ensure that all payments to be made to Seller in furtherance of this
+                  <span className='ml-n4'>vi) </span>The Associate Buyer undertakes to ensure that all payments to be made to Seller in furtherance of this
                   Agreement or any similar agreements shall be treated as direct cost of production (budgeted operating
                   expenses) and as a 'insolvency resolution process cost' under the Insolvency and Bankruptcy Code, 2016
                   at all times during the entire term of any such agreements (including this Agreement). If Associate
                   Buyer has or avails any debt or enters into any arrangement with any of its lenders for the plant or
                   otherwise, including any restructuring arrangements of existing debt, it shall ensure that all
-                  payments to be made to Seller shall be treated as ‘direct cost of production' and ‘insolvency
+                  payments to be made to Seller shall be treated as 'direct cost of production' and 'insolvency
                   resolution process costs' and shall have priority over any financial or operational debt service
                   payments of Associate Buyer. Further, the Associate Buyer shall: (A) not create any lien, or any other
                   encumbrance or security over the goods in favour of its lenders or any other person, without the prior
@@ -5753,7 +5648,7 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  The Associate Buyer shall not assign or transfer this Agreement or all or any part of its rights or
+                  <span className='ml-n5 pl-3'>vii) </span>The Associate Buyer shall not assign or transfer this Agreement or all or any part of its rights or
                   obligations hereunder to any person, firm or corporation without the prior written consent of Seller.
                   Notwithstanding anything to the contrary contained in this Agreement, for avoidance of any doubts, if
                   Associate Buyer decides to enter into any binding legal agreement with any person which will have the
@@ -5776,14 +5671,14 @@ const associateShip = (data, preview, setPreviewValue) => {
               </li>
             </ol>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Force Majeur</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               That IGI shall not be liable for any damages or losses on account of Force Majeure, as defined herein
               below. However, the Associate Buyer shall at all times remain liable for payment of the Goods to IGI,
               irrespective of occurrence of any force majeure condition.
             </p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               “Force Majeure Events” means any event, act or performance which is beyond the control of a party, which
               includes but not limited to, war, invasion, act of foreign enemies, terrorist activities, nationalization,
               force majeure declared by Shipper/Supplier, breakdown of transport, government acquisition or sanctions,
@@ -5792,9 +5687,9 @@ const associateShip = (data, preview, setPreviewValue) => {
               disobedience, riots, floods..
             </p>
           </li>
-          <li>
+          <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}> Waiver</p>
-            <p className="text_sales">
+            <p className="text_sales font-weight-normal">
               Failure of either Party at any time to require performance of any provision of this Agreement shall not
               affect the right to require full performance thereof, at any time thereafter, and the waiver by any party
               of a breach of any provision shall not be taken to be a waiver of any subsequent breach thereof, or as
@@ -5809,15 +5704,7 @@ const associateShip = (data, preview, setPreviewValue) => {
         <div className={`${styles.inputsContainer} border_black`}>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Place of execution of Assignment Letter
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.placeOfExecution}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Date of execution of Assignment Letter
+              Date of execution
             </Col>
             <Col md={7} className={styles.right}>
               {data.dateOfExecution}
@@ -5825,7 +5712,15 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Name of Seller
+              Place of execution
+            </Col>
+            <Col md={7} className={styles.right}>
+              {data.placeOfExecution}
+            </Col>
+          </Row>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>
+              Name of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
               {data.seller}
@@ -5833,7 +5728,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Address of Seller
+              Address of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
              {data.sellerAddress?.fullAddress},
@@ -5845,7 +5740,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Name of Buyer
+              GSTIN of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
               {data.buyer}
@@ -5853,7 +5748,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Address of Buyer
+              Commodity details
             </Col>
             <Col md={7} className={styles.right}>
               {data.buyerAddress}
@@ -5861,7 +5756,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Name of Supplier
+              Quantity in MT
             </Col>
             <Col md={7} className={styles.right}>
               {data.supplier}
@@ -5869,7 +5764,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Address of Supplier
+              Supplier details
             </Col>
             <Col md={7} className={styles.right}>
               {data.supplierAddress?.fullAddress},
@@ -5889,7 +5784,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row> */}
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Quantity of Goods in MT
+              Port of Loading
             </Col>
             <Col md={7} className={styles.right}>
               {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
@@ -5898,7 +5793,7 @@ const associateShip = (data, preview, setPreviewValue) => {
 
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Price of Goods / MT
+              Port of Discharge
             </Col>
             <Col md={7} className={styles.right}>
              {'INR '} {data.priceOfGoods}
@@ -5906,7 +5801,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Tolerance levels
+              Commodity Specifications
             </Col>
             <Col md={7} className={styles.right}>
               {data.toleranceLevel?.toLocaleString('en-In', {
@@ -5916,7 +5811,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Load Port
+              Incoterms
             </Col>
             <Col md={7} className={styles.right}>
               {data.lordPort}
@@ -5924,7 +5819,7 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Discharge Port
+              Unit Price
             </Col>
             <Col md={7} className={styles.right}>
               {data.dischargePort}
@@ -5932,57 +5827,60 @@ const associateShip = (data, preview, setPreviewValue) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Inco-Terms
+              Total Price
             </Col>
             <Col md={7} className={styles.right}>
               {data.incoTerms}
             </Col>
           </Row>
-          <Row className={`${styles.row} ${styles.last}`}>
+          <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Month of loading of Cargo
+              Advance Margin Money
             </Col>
             <Col md={7} className={styles.right}>
               {data.loadingCargo}
             </Col>
           </Row>
-          {/* <Row className={`${styles.row} ${styles.last}`}>
+          <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Date of Sales Contract between Supplier and Buyer
+              Payment Terms
             </Col>
             <Col md={7} className={styles.right}>
               {''}
             </Col>
-          </Row> */}
+          </Row>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>
+              Trading margin of Seller
+            </Col>
+            <Col md={7} className={styles.right}>
+              {''}
+            </Col>
+          </Row>
+          <Row className={`${styles.row} ${styles.last}`}>
+            <Col md={5} className={`${styles.left} border_black`}>
+              Delivery Terms
+            </Col>
+            <Col md={7} className={styles.right}>
+              {''}
+            </Col>
+          </Row>
         </div>
-        <p className=" text_sales">
-          {' '}
-          <strong>SIGNATURE PAGE</strong>
-        </p>
-
         <div className={`row`}>
           <Col md={6}>
-            <p className="text_sales  m-0">
-              <strong>.................................................</strong>
-            </p>
             <p className="text_sales">
-              <strong>(Seller)</strong>
+              <strong>(Associate Buyer)</strong>
+            </p>
+            <p className="text_sales mt-5">
+              <strong>Name:<br/>Designation:</strong>
             </p>
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0">
-              <strong>.................................................</strong>
-            </p>
             <p className="text_sales">
-              <strong> (Buyer)</strong>
+              <strong>(Indo German International Private Limited)</strong>
             </p>
-          </Col>
-          <Col md={6}>
-            <p className="text_sales  m-0">
-              <strong>.................................................</strong>
-            </p>
-            <p className="text_sales">
-              <strong>(Shipper)</strong>
+            <p className="text_sales mt-5">
+              <strong>Name:<br/>Designation:</strong>
             </p>
           </Col>
         </div>
@@ -6050,7 +5948,7 @@ const associateShip = (data, preview, setPreviewValue) => {
 
 //            <ol className={`${styles.oderListParent}`}>
 //              <li>
-//               <p  className={`${styles.oderListParent_Head}`}>Item &amp; Price</p>
+//               <p className={`${styles.oderListParent_Head}`}>Item &amp; Price</p>
 //               <p className="text_sales">The details of the Commodity contracted quantity, Origin, Unit Price and total contract value are mentioned in Schedule 2.</p>
 //              <ol type="A" className={`${styles.oderListChild}`}>
 //                <li><p className="text_sales">The Associate Buyer affirms that the Supplier, Item, specifications, quantities, Origin, delivery and all other terms &amp; conditions of sale between Indo and the Supplier have been negotiated and firmed up between Associate Buyer and Supplier. The Associate Buyer further undertakes that it has ensured that the Sales Contract to be entered into between Indo and the Supplier (“Sale Contract”) is in accordance with the negotiations undertaken by the Associate Buyer and the Supplier.</p></li>
@@ -6081,13 +5979,13 @@ const associateShip = (data, preview, setPreviewValue) => {
 //               <p  className={`${styles.oderListParent_Head}`}>Quality, Quantity, Pre-Shipment Inspection </p>
 //               <p className="text_sales">Obligations of the Associate Buyer are as under:</p>
 //              <ol type="A" className={`${styles.oderListChild}`}>
-//                <li><p className="text_sales">Ensuring pre-shipment inspection of the goods/items from agency of International repute as acceptable to Seller.</p></li>
+//                <li><p className="text_sales">Ensuring pre-shipment inspection of the goods/items from agency of international repute as acceptable to Seller.</p></li>
 //                <li><p className="text_sales">Approval and/or acceptance of quantity and quality certificate issued by the Supplier. </p></li>
-//                 <li><p className="text_sales">Ensuring that quality and quantities of goods shipped are as per Letter of Credit/sales Contract/Performa Invoice at pre-shipment stage and also at port of discharge. </p>
+//                 <li><p className="text_sales">Ensuring that quality and quantities of goods shipped are as per LC / Sales Contract / Proforma Invoice at pre-shipment stage and also at port of discharge. </p>
 
 //                 </li>
-//                  <li><p className="text_sales">Quantity as per Bill of Lading shall be final and binding on the Associate Buyer.  </p></li>
-//                  <li><p className="text_sales">Seller shall not be responsible for any variation in quantity and/or quality of material at the port of loading, port of discharge, during transit to godown/warehouse/plot, while in godown/warehouse/plot and/or till it is delivered to the Associate Buyer. Associate Buyer shall be solely responsible for any non-supply, short supply or deviation in quality standards/quantity or delay in supply for any reason whatsoever.  </p></li>
+//                  <li><p className="text_sales">Quantity as per Bill of Lading (“<strong>BL</strong>”) shall be final and binding on the Associate Buyer.  </p></li>
+//                  <li><p className="text_sales">Seller shall not be responsible for <em>any</em> variation in quantity and/or quality of material at the port of loading, port of discharge, during transit to godown/warehouse/plot, while in godown/warehouse/plot and/or till it is delivered to the Associate Buyer. It shall at all times remain the sole responsibility of the Associate Buyer. Associate Buyer shall be solely responsible for any non-supply, short supply or deviation in quality standards/quantity or delay in supply for any reason whatsoever.  </p></li>
 //                    <li><p className="text_sales">Associate Buyer shall be solely liable and responsible for all consequences arising out of any variation of the item/quality/quantity contracted for &amp; actually shipped. Associate Buyer undertakes to indemnify Seller in this regard. It has been agreed by the Associate Buyer that any claim/liability arising from the Supplier against Indo/Seller shall be passed on to the Associate Buyer. If the Supplier agrees upon any compensation on account of any quality deviation, then Seller shall refund the same to the Associate Buyer on receipt of the same.</p></li>
 //              </ol>
 //              </li>
@@ -6095,13 +5993,13 @@ const associateShip = (data, preview, setPreviewValue) => {
 //               <p  className={`${styles.oderListParent_Head}`}>Insurance </p>
 
 //              <ol type="A" className={`${styles.oderListChild}`}>
-//                <li><p className="text_sales">The Marine Insurance will be arranged by the Associate Buyer in favour of Seller or Seller's nominated Bank (as per Seller's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the Associate Buyer.
+//                <li><p className="text_sales">The Marine Insurance will be arranged by the Associate Buyer in favour of Seller or Seller's nominated Bank (as per Seller's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in its name, the cost of it shall be borne by the Associate Buyer.
 //                  </p></li>
 //                <li><p className="text_sales">The cargo while in the port, during transit from port to godown/plot/warehouse and while in the godown/plot/warehouse shall be insured by way of insurance by Associate Buyer in favour of Seller or Seller's nominated Bank (as per Seller's discretion), for 110% of landed cost (inclusive of custom duty, all other taxes applicable under GST Act 2017). Associate Buyer will ensure that the material shall at all times remain insured. In case Seller decides to take the insurance directly in its name, the cost of it shall be borne by the Associate Buyer. </p></li>
 //                 <li><p className="text_sales">The Insurance policy in original shall be submitted by Associate Buyer to Seller immediately on demand. In case the Associate Buyer fails to take the Insurance as desired by Seller, Seller shall among other rights reserved under this Agreement, including right to terminate the Agreement, be at liberty to take such insurance at cost of the Associate Buyer. </p>
 
 //                 </li>
-//                  <li><p className="text_sales">In the event of any loss, or any other event, leading to invocation of insurance policy, the process of filing of claim, settlement of amount, etc. shall be the sole responsibility of the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any, arrived with the Insurance Company, shall be paid directly by the Insurance Company to Seller or Seller's nominated bank as the case may be and the same shall not absolve the Associate Buyer of their liability under the Associateship Agreement towards Selle</p></li>
+//                  <li><p className="text_sales">In the event of any loss, or any other event, leading to invocation of insurance policy, the process of filing of claim, settlement of amount, etc. shall be the sole responsibility of the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any, arrived with the Insurance Company, shall be paid directly by the Insurance Company to IGI or IGI’s nominated bank as the case may be and the same shall not absolve the Associate Buyer of their liability under the Associateship Agreement towards Seller.</p></li>
 
 //              </ol>
 //              </li>
@@ -6136,7 +6034,7 @@ const associateShip = (data, preview, setPreviewValue) => {
 //                   </p>
 
 //                 </li>
-//                  <li> <p  className={`${styles.oderListChild_Head}`}>Safekeeping and Security of the Goods: </p><p className="text_sales">Proper safekeeping and security of Goods shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. Seller shall in no way be responsible or liable for any loss or damage to the Goods for any reason whatsoever including shortage or theft. </p></li>
+//                  <li> <p  className={`${styles.oderListChild_Head}`}>Safekeeping and Security of the Goods: </p><p className="text_sales">Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. Seller shall in no way be responsible or liable for any loss or damage to the Goods for any reason whatsoever including shortage or theft. </p></li>
 
 //              </ol>
 //              </li>
@@ -6204,7 +6102,7 @@ const associateShip = (data, preview, setPreviewValue) => {
 //             </li>
 //               <li>
 //               <p  className={`${styles.oderListParent_Head}`}>.	 Exchange Rate and Exchange Risk</p>
-//               <p className="text_sales">Seller will take forward cover from its Bank, in consultation with Associate Buyer, at the cost and risk of Associate Buyer. The exchange rate so decided, shall be acceptable to Associate Buyer.</p>
+//               <p className="text_sales">If required, Seller will take forward cover from its Bank, in consultation with Associate Buyer, at the cost and risk of Associate Buyer. The exchange rate so decided, shall be acceptable to Associate Buyer.</p>
 //             </li>
 //              <li>
 //               <p  className={`${styles.oderListParent_Head}`}>Right to Dispose off Goods </p>
@@ -6244,7 +6142,7 @@ const associateShip = (data, preview, setPreviewValue) => {
 //               <p  className={`${styles.oderListParent_Head}`}> Arbitration</p>
 
 //              <ol type="A" className={`${styles.oderListChild}`}>
-//                <li><p className="text_sales">Any dispute or difference, whatsoever, arising between the parties out of, or relating to, or incidental to the construction, meaning, scope, operation or effect of this Agreement; or the validity or the breach thereof, shall be settled by Arbitration in accordance with Rules of Arbitration formulated by Singapore International Arbitration Centre (SIAC) and the Associate Buyer agrees to submit to the said forum. The Award made in pursuance thereof shall be binding on the parties. The venue of the Arbitration will be Singapore and Singapore Courts shall have sole jurisdiction with respect to this Agreement and any other agreement(s) executed in pursuance/furtherance of or in connection to this Agreement. The English Laws shall be the governing laws in respect of this Agreement.
+//                <li><p className="text_sales">Any dispute or difference, whatsoever, arising between the parties out of, or relating to, or incidental to the construction, meaning, scope, operation or effect of this Agreement; or the validity or the breach thereof, shall be settled by Arbitration by a Sole Arbitrator in accordance with Rules of Arbitration formulated by Indian Council of Arbitration (ICA) and the Associate Buyer agrees to submit to the said forum. The Award made in pursuance thereof shall be binding on the parties. The seat and venue of Arbitration will be New Delhi and the language of Arbitration Proceedings shall be in English.
 
 //                  </p></li>
 //                <li><p className="text_sales">In case there is any dispute, arising out of and/or pursuant to this Agreement, either between Associate Buyer and the Supplier and/ or the Supplier and Indo/Seller, the same shall be settled amicably directly by Associate Buyer with the Supplier, without any recourse to Indo/Seller. In case, such dispute is not settled amicably, any arbitration proceedings and/or other proceeding, which may be initiated by any of the Parties, shall be solely at the costs, risks and consequences of Associate Buyer and Seller shall in no manner be liable and responsible for the same.
@@ -6278,11 +6176,10 @@ const associateShip = (data, preview, setPreviewValue) => {
 //               <p  className={`${styles.oderListParent_Head}`}> 	Settlement of Accounts</p>
 
 //              <ol type="A" className={`${styles.oderListChild}`}>
-//                <li><p className="text_sales">After conclusion of the deal i.e., receipt of the entire amounts due to Seller from Associate Buyer/remittance against the import &amp; receipt of RR copies and all other supporting documents related to domestic sale, the account maintained by Seller for the Associate will be settled as per the procedure followed by Seller.
+//                <li><p className="text_sales">After conclusion of the deal i.e. receipt of the amounts due to Seller from Associate Buyer/remittance against the import &amp; receipt of RR copies and all other supporting documents related to domestic sale, the account maintained by Seller for the Associate will be settled as per the procedure followed by Seller.
 
 //                  </p></li>
-//                <li><p className="text_sales">In case after the L/C is opened and the supply contract between Indo and the Supplier is cancelled for any reason whatsoever, Seller shall be entitled to receive from Associate Buyer all costs incurred by Indo/Seller along with the agreed margin / service charge + GST at applicable rates/other costs etc.
-
+//                <li><p className="text_sales">In case after opening of Letter of credit by Indo, the supply contract with Supplier is cancelled for any reason whatsoever, IGI shall be entitled to receive from Associate Buyer all costs incurred by Indo and IGI along with its margin/ service charges + applicable GST rate + other costs etc.
 //                 </p></li>
 
 //              </ol>
@@ -6331,10 +6228,9 @@ const associateShip = (data, preview, setPreviewValue) => {
 //               <p  className={`${styles.oderListParent_Head}`}> Special Conditions</p>
 
 //              <ol type="i" className={`${styles.oderListChild}`}>
-//                <li><p className="text_sales">It is expressly and unconditionally agreed and acknowledged by the and Associate Buyer that the title in the goods/ material shall pass on to the Associate Buyer only in respect of such specific quantity thereof as released from the storage facility by the CHA/Stevedoring under the Authorized Release Orders after receipt by the Seller of the price and other payables in respect thereof from the Associate Buyer and actual delivery of the goods having been made to the Associate Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Associate Buyer in any contingency including of Associate Buyer even becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit including disposing them off at the risk, costs  and consequences of the Associate Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Associate Buyer until receipt by the Seller of the entire contract value. The Associate Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until it makes payment of the entire contract value to the Selle
+//                <li><p className="text_sales">It is expressly and unconditionally agreed and acknowledged by the and Associate Buyer that the title in the goods/ material shall pass on to the Associate Buyer only in respect of such specific quantity thereof as released from the storage facility by the CHA/Stevedoring under the Authorized Release Orders after receipt by the Seller of the price and other payables in respect thereof from the Associate Buyer and actual delivery of the goods having been made to the Associate Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Associate Buyer in any contingency including but not limited to Associate Buyer even becoming insolvent, and shall be entitled to deal with the goods/material as it may deem fit including disposing them off at the risk, costs  and consequences of the Associate Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Associate Buyer until receipt by the Seller of the entire contract value. The Associate Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until it makes payment of the entire contract value to the Selle
 //                </p></li>
-//                <li><p className="text_sales">It is specifically agreed that the Associate Buyer shall accept the goods on no complaint basis with regard to quality, quantity and/or any other claims. The Seller shall in no way be responsible or liable for the quality, quantity or any other claims with respect to the Goods supplied by the Supplier and/or any other claim associated or related to this transaction. All such claims shall be lodged, pursued and settled directly between the Associate Buyer and Supplier with no liability whatsoever upon Indo and/or the Seller.
-
+//                <li><p className="text_sales">It is specifically agreed that the Associate Buyer shall accept the goods on no complaint basis with regard to quality, quantity, mix-up, shortage and/or any other claims. The Seller shall in no way be responsible or liable for the quality, quantity, shortage or any other claims with respect to the Goods supplied by the Supplier and/or any other claim associated or related to this transaction. All such claims shall be lodged, pursued and settled directly between the Associate buyer and Supplier with no liability whatsoever upon Indo and/or the Seller.
 //                </p></li>
 //                <li><p className="text_sales">The Associate Buyer agrees and acknowledges that the sale of Goods under this Sales Contract is necessary to maintain the Associate Buyer as a going concern and to continue its business operations and consequently, it has requested the Seller to supply goods in accordance with the terms of this Sales Contract. Further, the Associate Buyer agrees and acknowledges that in the event that it is subject to a corporate insolvency resolution process (“CIRP”) under the provisions of the Insolvency and Bankruptcy Code, 2016 (“IBC”) or any other analogous creditors process under applicable law, it (either through itself or through any resolution professional/interim resolution professional appointed to manage its operations pursuant to the IBC) shall make payments of all outstanding amounts due to the Seller under this Sales Contract notwithstanding any general moratorium in relation to the Associate Buyer.
 
@@ -6571,10 +6467,10 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           {' '}
           <strong>Undertaking for Post-dated Cheques issued by Associate Buyer</strong>
         </p>
-        <p className="text-center text_sales">
+        <p className="text-left text_sales ml-4 d-flex align-items-start">
           {' '}
-          <span>To:</span>{' '}
-          <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
+          <span className='mb-0'>To:</span>{' '}
+          <span className='ml-4'><u>Indo German International Private Limited,<br/>7A, Sagar Apartments, 6, Tilak Marg,<br/>New Delhi</u></span>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -6590,9 +6486,9 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           </li>
           <li>
             <p className="text_sales">
-              That as requested by us, the Supplier shall sell the Goods to <strong>Indo</strong> and{' '}
-              <strong>Indo</strong> will establish Letter of Credit in favour of the Supplier and make payment to the
-              Supplier for the Goods. <strong>Indo</strong> shall sell the Goods to Seller and Seller shall sell the
+              That as requested by us, the Supplier shall sell the Goods to <u>Indo</u> and{' '}
+              <u>Indo</u> will establish Letter of Credit in favour of the Supplier and make payment to the
+              Supplier for the Goods. <u>Indo</u> shall sell the Goods to Seller and Seller shall sell the
               same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the
               Associateship Agreement shall jointly be referred to as “Contracts”.
             </p>
@@ -6600,7 +6496,7 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the Contracts being entered into by{' '}
-              <strong>Indo</strong> and Seller on our request. It is pertinent to mention that the terms of the
+              <u>Indo</u> and Seller on our request. It is pertinent to mention that the terms of the
               Associateship Agreement be read as a part of this Undertaking.
             </p>
           </li>
@@ -6615,11 +6511,11 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             <p className="text_sales">
               That, the undersigned being the Authorised Signatory of the Associate Buyer, do hereby undertake as under:
             </p>
-            <ul>
+            <ul type="disc">
               <li>
                 <p className="text_sales">
                   To pay the balance/outstanding amount in respect of the above-mentioned transaction on the first
-                  demand of Seller without recourse, demur and protest
+                  demand of Seller without recourse, demur and protest.
                 </p>
               </li>
               <li>
@@ -6680,11 +6576,7 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           </li>
           <li>
             <p className="text_sales">
-              In any event of our failure to perform the Associateship Agreement in accordance with its terms including
-              default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil
-              and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We
-              unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds
-              whatsoever.
+            In any event of our failure to perform the Associateship Agreement in accordance with its terms including default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds whatsoever.
             </p>
           </li>
         </ol>
@@ -6693,8 +6585,77 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           {' '}
           <strong>Schedule I</strong>
         </p>
+        <p className="text_sales pb-3"><u>Details of post-dated Cheque(s)-</u></p>        
         <div className={`${styles.inputsContainer} border_black`}>
           <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>
+              <strong>S No</strong>
+            </Col>
+            <Col md={4} className={`${styles.left} border_black`}>
+              <strong>Bank Name</strong>
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              <strong>Cheque No</strong>
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              <strong>Cheque Date</strong>
+            </Col>
+            <Col md={3} className={styles.right}>
+              <strong>Amount</strong>
+            </Col>
+          </Row>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={4} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={3} className={styles.right}>
+              -
+            </Col>
+          </Row>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={4} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={3} className={styles.right}>
+              -
+            </Col>
+          </Row>
+          <Row className={`${styles.row} ${styles.last}`}>
+            <Col md={1} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={4} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              -
+            </Col>
+            <Col md={3} className={styles.right}>
+              -
+            </Col>
+          </Row>
+          {/* <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Date of execution
             </Col>
@@ -6908,7 +6869,7 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             <Col md={7} className={styles.right}>
               {data.storagePlot}
             </Col>
-          </Row>
+          </Row> */}
         </div>
 
         <p className=" text_sales">
@@ -7032,7 +6993,7 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               <li>
                 <p className="text_sales">
                   To pay the balance/outstanding amount in respect of the above-mentioned transaction on the first
-                  demand of Seller without recourse, demur and protest
+                  demand of Seller without recourse, demur and protest.
                 </p>
               </li>
               <li>
