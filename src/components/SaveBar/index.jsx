@@ -6,7 +6,7 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const isMobile = useSelector((state) => state.sidebar.isMobile);
 
- // const {updatingAmendment} = useSelector((state)=>state.lc)
+
   return (
     <div
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
@@ -34,10 +34,10 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 
 
               rightBtnClick();
 
-              // handleRoute()
+          
             }
 
-            // handleSave()
+          
           }}
         >
           <span>{rightBtn}</span>

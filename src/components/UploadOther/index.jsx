@@ -147,7 +147,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       fd.append('document', newDoc.document);
       fd.append('module', newDoc.module);
       fd.append('order', orderid);
-      // fd.append('type', newDoc.type))
+     
       fd.append('name', newDoc.name);
 
       dispatch(AddingDocument(fd));
@@ -221,7 +221,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
-                    // <div className=''>
+                  
                     <div className={`${styles.certificate} text1 d-inline-flex justify-content-between`}>
                       <span>{newDoc?.document?.name}</span>
                       <img
@@ -232,7 +232,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       />{' '}
                     </div>
                   ) : (
-                    // </div>
+                  
                     <p className={styles.drop_para}>
                       Drop Files here or
                       <br />

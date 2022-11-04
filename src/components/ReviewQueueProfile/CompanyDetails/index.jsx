@@ -23,15 +23,7 @@ function Index({ order, companyDetail }) {
     };
     setUpdateCompany(newCompanyData);
 
-    // if (order?.referalName) {
-    //   setUpdateCompany({ ...updateCompany, referalName: order.referalName })
-    // }
-    // if (order?.referedBy) {
-    //   setUpdateCompany({ ...updateCompany, referedBy: order.referedBy })
-    // }
-    // if (order?.sourceChanel) {
-    //   setUpdateCompany({ ...updateCompany, sourceChanel: order.sourceChanel })
-    // }
+   
   }, [order]);
 
   const dispatch = useDispatch();
@@ -68,7 +60,7 @@ function Index({ order, companyDetail }) {
         </div>
         <div
           id="companyDetails"
-          // className="collapse"
+       
           aria-labelledby="companyDetails"
           data-parent="#profileAccordion"
         >

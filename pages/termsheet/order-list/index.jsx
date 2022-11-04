@@ -241,7 +241,7 @@ function Index() {
                                     dispatch(GetTermsheet(`?company=${term.company._id}`));
 
                                     dispatch(setDynamicName(term.order.orderId));
-                                    // dispatch(setDynamicOrder(term))
+                                  
                                     Router.push('/termsheet-preview');
                                   }}
                                 />

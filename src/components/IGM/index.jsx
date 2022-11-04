@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
-// import InspectionDocument from '../InspectionDocument'
+
 import UploadOther from '../UploadOther';
 import DateCalender from '../DateCalender';
 import _get from 'lodash/get';
@@ -160,7 +160,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let VesselName = e.target.value;
     let filteredVessel = {};
 
-    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+   
     if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
         if (vessel.vesselInformation[0].name === VesselName) {
@@ -297,16 +297,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         return item.blNumber === value;
       });
 
-      //     setIgmList(prevState => {
-      //       return {
-      //         ...prevState, [
-      //         ...prevState.igmDetails, {
-      //           ...prevState.igmDetails[index], [
-      //       ...prevState.igmDetails[index].blNumber, {
-      //         ...prevState.igmDetails[index].blNumber[index2]}, blNumber:'' ,BlDate:'' ,quantity: '',
-      //     ] }]
-      // }
-      // })
+    
       let tempArray = { ...igmList };
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
@@ -390,13 +381,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       name="group11"
                       disabled={!shipmentTypeBulk}
                       type={type}
-                      // checked={
-                      //   _get(
-                      //     TransitDetails,
-                      //     'data[0].order.vessel.vessels[0].shipmentType',
-                      //     '',
-                      //   ) == 'Bulk' ? 'checked' : ''
-                      // }
+                     
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
@@ -406,13 +391,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       label="Liner"
                       name="group11"
                       disabled={shipmentTypeBulk}
-                      // checked={
-                      //   _get(
-                      //     TransitDetails,
-                      //     'data[0].order.vessel.vessels[0].shipmentType',
-                      //     '',
-                      //   ) == 'Liner' ? 'checked' : ''
-                      // }
+                     
                       checked={!shipmentTypeBulk}
                       type={type}
                       id={`inline-${type}-2`}

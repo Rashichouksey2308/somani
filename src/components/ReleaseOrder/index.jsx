@@ -65,7 +65,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
  
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-    // dispatch(UploadCustomDoc(fd))
+   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -271,7 +271,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
             </div>
             <div
               id="lcApplication"
-              // className="collapse"
+             
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -339,7 +339,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                         </div>
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                           <input
-                            // onWheel={(e) => e.target.blur()}
+                         
                             onFocus={(e) => {
                               setIsFieldInFocus(true), (e.target.type = 'number');
                             }}

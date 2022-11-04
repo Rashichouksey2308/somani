@@ -6,7 +6,7 @@ import DateCalender from '../DateCalender';
 import moment from 'moment';
 
 const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
-  // const {shipmentDetail}= orderDetail;
+ 
 
   const [expShipment, setExpectedShipment] = useState(null);
   const [maxdate, setmaxDate] = useState(null);

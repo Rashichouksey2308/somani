@@ -143,18 +143,12 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                     }`
               }
               onChange={(e) => {
-                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
-                //  saveOrderData(e.target.name, e.target.value * 10000000)
+               
                 saveOrderData(e.target.name, e.target.value);
               }}
-              // onChange={(e) => {
-              //   saveOrderData(e.target.name, e.target.value)
-              // }}
+            
               className={`${styles.input_field} input form-control`}
-              // value={
-              //   addPrefixOrSuffix(orderDetails?.orderValue?.toString(),
-              // orderDetails?.unitOfValue == "Millions" ? "Mn" :
-              //   orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)}
+            
 
               required
             />

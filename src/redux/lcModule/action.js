@@ -144,7 +144,7 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      // router.push('/margin-money')
+
       dispatch(setNotLoading());
       return response.data.code;
     } else {

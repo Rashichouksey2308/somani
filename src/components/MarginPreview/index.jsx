@@ -50,13 +50,7 @@ function Index() {
     setOpen(false);
   };
   const exportPDF = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
+   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>

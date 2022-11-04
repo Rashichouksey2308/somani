@@ -257,7 +257,7 @@ function Index() {
       let tempArr = { ...sharedDoc };
       tempArr.company = documentsFetched.company;
       tempArr.order = orderid;
-      // let data = await dispatch(ShareDocument(tempArr));
+     
       if (data?.code == 200) {
         setClose(false);
       }
@@ -276,7 +276,7 @@ function Index() {
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
-    // setStartDate(value, name)
+   
   };
 
   const saveQuotationData = (name, value) => {
@@ -339,7 +339,7 @@ function Index() {
   const addToBusinessArray = (e) => {
  
     let temp = [...businessArray];
-    // temp.push(business)
+   
     setBusinessArray([...temp, { businessSummary: business }])
     setBusiness('');
   };
@@ -359,7 +359,7 @@ function Index() {
   };
   const onChangeHandler7Array = (e) => {
     let temp = [...infoArray];
-    // temp.push(info)
+  
     setInfoArray([...temp, { remarks: info }])
     setInfo('');
   };
@@ -377,17 +377,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   person[i].designation === '' ||
-      //   person[i].designation === null
-      // ) {
-      //   toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+    
       if (
         person[i]?.contact === '' ||
         person[i]?.contact === null ||
@@ -425,17 +415,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   detail[i].designation === '' ||
-      //   detail[i].designation === null
-      // ) {
-      //   toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+    
       if (
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
@@ -472,17 +452,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null
-      // ) {
-      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+    
     }
     return isOk;
   };
@@ -506,17 +476,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null
-      // ) {
-      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+     
     }
     return isOk;
   };
@@ -581,9 +541,7 @@ function Index() {
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-      // let fd = new FormData();
-      // fd.append('document1', incumbencyDoc);
-      // fd.append('document2', thirdParty);
+     
 
 
       let apiData = {
@@ -916,7 +874,7 @@ function Index() {
             </div>
             <div
               id="supplierProfile"
-              //className="collapse"
+           
               aria-labelledby="supplierProfile"
               data-parent="#supplierProfile"
             >
@@ -1099,7 +1057,7 @@ function Index() {
                           deleteComponent={deleteComponent}
                           editAddress={editAddress}
                           pinCode={address.pinCode}
-                          // orderDetail={orderDetail}
+                     
                           path={''}
 
                         />
@@ -1445,7 +1403,7 @@ function Index() {
                                         onClick={(e) => {
                                    
                                           onChangeHandler2('action', false, index);
-                                          // setContactTable(false);
+                                        
                                         }}
                                       />
                                     </>
@@ -1917,29 +1875,7 @@ function Index() {
               data-parent="#additional"
             >
               <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
-                {/* <div className={`${styles.comment_para} d-flex `}>
-                  <Form.Control
-                    className={`${styles.comment}`}
-                    as="textarea"
-                    rows={3}
-                  />
-
-                  <div className="ml-3">
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mb-3`}
-                      alt="edit"
-                      // onClick={(e) => {
-                      //   setEditProfile(!editProfile)
-                      // }}
-                    />
-                    <img
-                      src="/static/delete 2.svg"
-                      className={`${styles.delete_image} border-0 p-0`}
-                      alt="delete"
-                    />
-                  </div>
-                </div> */}
+             
 
                 <div className="d-flex mt-4 pb-4 position-relative">
                   <input
@@ -2235,9 +2171,9 @@ function Index() {
                           <div className="d-flex">
                             <select
                               className={`${styles.value} ${styles.customSelect} input form-control`}
-                              // value={manualDocModule ? newDoc.name : 'others'}
+                            
                               id="name"
-                            // onChange={(e) => handleNewDocModule(e)}
+                          
                             >
                               <option value="others">Others</option>
                             </select>
@@ -2260,7 +2196,7 @@ function Index() {
                             className={`${styles.value} input form-control`}
                             type="text"
                             required
-                          // disabled={manualDocModule}
+                         
                           />
                           <Form.Label className={`${styles.label} label_heading`}>
                             Please Specify Document Name
@@ -2270,7 +2206,7 @@ function Index() {
                           <button
                             onClick={(e) => uploadDocumentHandler(e)}
                             className={`${styles.upload_button} btn`}
-                          // disabled={!editInput}
+                         
                           >
                             Upload
                           </button>

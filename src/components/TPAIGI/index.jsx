@@ -36,22 +36,7 @@ function Index(props) {
     curr: '',
     specComment: '',
   });
-  // const getAddress = (buyer) => {
-  //   if (buyer.name == 'Indo German International Private Limited') {
-  //     if (buyer.branch == 'Delhi') {
-  //       return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
-  //     } else {
-  //       return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
-  //     }
-  //   }
-  //   if (buyer.name == 'Emergent Industrial Solution Limited') {
-  //     if (buyer.branch == 'Delhi') {
-  //       return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
-  //     } else {
-  //       return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
-  //     }
-  //   }
-  // };
+
   useEffect(() => {
     if (window) {
       if (props.preview) {

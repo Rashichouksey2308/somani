@@ -182,7 +182,7 @@ export default function Index() {
     let tempArr = [...list];
     tempArr[index].forwardSalesContract = null;
     setList(tempArr);
-    // setList([...list, { ...list[index], forwardSalesContract: null }])
+  
   };
 
   const [editInput, setEditInput] = useState(true);
@@ -200,10 +200,7 @@ export default function Index() {
 
     hedgingObj.balanceAmount = list.bookedAmount;
 
-    // let fd = new FormData()
-    // fd.append('forwardHedgingId', hedgingData?._id)
-    // fd.append('detail', JSON.stringify(list))
-    // fd.append('forwardSalesContract', list?.forwardSalesContract)
+  
     let obj = {
       forwardHedgingId: hedgingData?._id,
       detail: hedgingObj,
@@ -290,7 +287,7 @@ export default function Index() {
     if (validation()) {
       let hedgingObj = [...list];
 
-      // hedgingObj.balanceAmount = list.bookedAmount
+  
 
       let obj = {
         forwardHedgingId: hedgingData?._id,
@@ -450,7 +447,7 @@ export default function Index() {
                                 (e.target.type = 'text');
                             }}
                             name="bookedAmount"
-                            // value={item.bookedAmount}
+                          
                             value={
                               isFieldInFocus.bookedAmount
                                 ? item.bookedAmount

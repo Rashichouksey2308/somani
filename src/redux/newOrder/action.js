@@ -59,7 +59,6 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
-        // Router.push('/order-list')
       } else {
         dispatch(placeNewOrderFailed(response.data.data));
         const toastMessage = 'FAILED TO PLACE NEW ORDER';

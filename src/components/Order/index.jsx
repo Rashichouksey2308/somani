@@ -86,7 +86,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
       </div>
       <div
         id="orderSummary"
-        // className="collapse"
+       
         aria-labelledby="orderSummary"
       >
         <div className={`${styles.dashboard_form} card-body border_color`}>
@@ -207,12 +207,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
                         ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   orderDetail?.orderValue,
-                  //   orderDetail?.unitOfValue == 'Crores'
-                  //     ? 'Cr'
-                  //     : orderDetail?.unitOfValue,
-                  // )}
+                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -284,7 +279,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                           maximumFractionDigits: 2,
                         }) + ' %'
                   }
-                  // value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
+                 
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -421,25 +416,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                  // onFocus={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: true }),
-                  //     e.target.type = 'text'
-                  // }}
-                  // onBlur={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: false }),
-                  //     e.target.type = 'text'
-                  //     if(e.target.value > 10){
-                  //       let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
-                  //          if(!toast.isActive(toastMessage)){
-                  //           toast.error(toastMessage, {toastId: toastMessage})
-                  //          }
-                  //        }
-                  //     }
-                  // }
-                  // value={
-                  //   isFieldInFocus.hsnCode ?
-                  //     orderDetail?.hsnCode :
-                  //     orderDetail?.hsnCode}
+                 
+                
                   defaultValue={orderDetail?.hsnCode}
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 />
@@ -448,9 +426,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
-              {/* <div className={styles.button}>
-                <span>Submit</span>
-              </div> */}
+         
             </div>
           </Form>
         </div>

@@ -44,26 +44,16 @@ const Index = ({
   
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      // setChangeImporterData({ ...emergent });
+     
       const newInput = { ...invoiceDataRevised };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
-      // newInput['branchOffice'] = emergent.branch;
-      // newInput['importerGSTIN'] = emergent.GSTIN;
-      // newInput['companyAddress'] = emergent.address;
-      // saveInvoiceData('branchOffice', emergent.branch)
-      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-      // saveInvoiceData('companyAddress', emergent.address)
+    
       setInvoiceDataRevised({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      // setChangeImporterData({ ...indoGerman });
+  
       const newInput = { ...invoiceDataRevised };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
-      // newInput['branchOffice'] = indoGerman.branch;
-      // newInput['importerGSTIN'] = indoGerman.GSTIN;
-      // newInput['companyAddress'] = indoGerman.address;
-      // saveInvoiceData('branchOffice', emergent.branch)
-      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-      // saveInvoiceData('companyAddress', emergent.address)
+    
       setInvoiceDataRevised({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -156,7 +146,7 @@ const Index = ({
         </div>
         <div
           id="commodityAccordion"
-          //className="collapse"
+         
           aria-labelledby="commodityAccordion"
           data-parent="#commodityAccordion"
         >
@@ -1001,7 +991,7 @@ const Index = ({
                           : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
                       }
                       onChange={(e) => {
-                        //  changeImporter(e)
+                     
                         let filter = getInternalCompaniesMasterData.filter((val, index) => {
                           if (
                             val.Branch == e.target.value &&

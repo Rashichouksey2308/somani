@@ -81,15 +81,13 @@ function Index(props) {
     setSideStateToLocal(val);
   };
 
-  // useEffect(() => {
-  //   changeActiveValue(active)
-  // }, [active])
+  
 
   const uploadDoc = async (e) => {
    
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-    // dispatch(UploadCustomDoc(fd))
+   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -1842,17 +1840,7 @@ function Index(props) {
         },
       };
       sessionStorage.setItem('Product', JSON.stringify({ list: data.addressList, excel: data?.excelData }));
-      // if (
-      //   dataToSend.productSpecifications.comments.length <= 0 ||
-      //   dataToSend.productSpecifications.comments == undefined
-      // ) {
-      //   toastMessage = `Please add comments `
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      //     setSubmitData(false)
-      //     return
-      //   }
-      // }
+     
       if (
         dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
         dataToSend?.productSpecifications?.specificationTable == undefined
@@ -2426,25 +2414,9 @@ function Index(props) {
       return;
     }
     setSaveData(false);
-    // props.setDate(timestamp)
-    // localStorage.setItem('timeGenericUpdated', timestamp)
+   
     setSubmitData(false);
-    // let tempArr = sideBar
-    // tempArr.forEach((val, index) => {
-    //   if (val.value == key) {
-    //     tempArr[index].state = 'pending'
-    //     tempArr[index].image = '/static/pending2.svg'
-    //     if (key !== 'Additional Comments') {
-    //       let a = index + 1
-    //     tempArr[index].state = 'pending'
-    //       tempArr[a].image = '/static/pending2.svg'
-
-    //       setActive(tempArr[a].name)
-    //     }
-    //   }
-    // })
-
-    // setSidebar([...tempArr])
+ 
 
     setSideStateToLocal(key);
   };

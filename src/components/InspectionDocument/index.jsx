@@ -24,10 +24,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
 
   const { documentsFetched } = useSelector((state) => state.review);
 
-  // useEffect(() => {
-  //   sessionStorage.setItem('docId', orderId)
-  //   dispatch(GetDocuments(`?order=${orderId}`))
-  // }, [dispatch, orderId])
+ 
 
   const [filteredDoc, setFilteredDoc] = useState([]);
 

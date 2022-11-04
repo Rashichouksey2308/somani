@@ -2,7 +2,7 @@ import Axios from 'axios';
 import API from '../../utils/endpoints';
 import * as types from './actions';
 import { toast } from 'react-toastify';
-// import history from '../../history'
+
 import Cookies from 'js-cookie';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 

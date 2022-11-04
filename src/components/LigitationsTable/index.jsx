@@ -30,7 +30,7 @@ function index({ data, Heading, val, totalData }) {
     dispatch(GetCaseDetails({ cin: cinNo }));
   };
   const totalNumberOfCases = data?.length;
-  //const pendingCases = data.filter((e)=> e.)
+  /
   return (
     <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
