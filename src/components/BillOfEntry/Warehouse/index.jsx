@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 
 export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
-  console.log(customData, 'customData');
+
   const dispatch = useDispatch();
   const router = useRouter();
   const [editInput, setEditInput] = useState(true);
@@ -24,7 +24,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     },
     document: null,
   });
-  console.log(warehouseDetails?.wareHouseDetails?.quantity, ' warehouseDetails?.wareHouseDetails?.quantity');
+
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {});
 
@@ -38,7 +38,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     };
     setWarehouseDetails(tempData);
   }, [customData]);
-  console.log(warehouseDetails, 'warehouseDetails');
+
   const [plotInspectionData, setPlotInspectionData] = useState('');
   const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] = useState(false);
 
@@ -137,7 +137,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       e.preventDefault();
     }
   };
-  console.log(customData, 'warehouseDetails');
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
