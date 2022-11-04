@@ -389,9 +389,9 @@ function Index() {
       //   }
       // }
       if (
-        person[i].contact === '' ||
-        person[i].contact === null ||
-        person[i].contact.length !== 10
+        person[i]?.contact === '' ||
+        person[i]?.contact === null ||
+        person[i]?.contact?.length !== 10
 
       ) {
         toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
@@ -620,7 +620,7 @@ function Index() {
       } else {
         dispatch(CreateSupplier(fd))
       }
-      // console.log('apidata', apiData)
+      console.log('apidata', apiData)
     }
   };
 
@@ -806,7 +806,9 @@ function Index() {
       }).then((response) => {
         if (response.data.code === 200) {
           console.log(response.data.data, 'uplaod doc response')
-          setdocs([...docs, response.data.data])
+          let temp = [...docs]
+          temp.push(response.data.data)
+          setdocs(temp)
         } else {
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -836,11 +838,11 @@ function Index() {
       }
     }
   }
-  console.log(docs, 'uplaod doc response3')
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
+    console.log(document,index, 'uplaod doc response3')
 
     let payload = {
       supplierId: supplierData._id,
@@ -2402,7 +2404,7 @@ function Index() {
                                     <td colSpan="2">
                                       <img
                                         onClick={(e) => {
-                                          deleteDocumentHandler(document, index)
+                                          deleteDocumentHandler({document, index})
                                         }}
                                         src="/static/delete.svg"
                                         className={`${styles.delete_image} mr-3`}
