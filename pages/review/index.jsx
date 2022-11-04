@@ -458,6 +458,7 @@ function Index() {
   }, [orderList])
 
   const handleProductSave = (chas, exsupp) => {
+
     if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1213,6 +1214,7 @@ function Index() {
         }
       }
     } else {
+ 
       dispatch(
         McaReportFetch({
           company: orderList.company._id,

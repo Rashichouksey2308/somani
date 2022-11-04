@@ -199,13 +199,15 @@ const Index = () => {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } else if (orderData?.manufacturerName?.trim() === '') {
-      let toastMessage = 'Manufacturer Name can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
-    } else if (shipment?.shipmentType?.trim() === '') {
+    } 
+    // else if (orderData?.manufacturerName?.trim() === '') {
+    //   let toastMessage = 'Manufacturer Name can not be Empty';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //   }
+    //   return;
+    // } 
+    else if (shipment?.shipmentType?.trim() === '') {
       let toastMessage = 'SHIPMENT TYPE  can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

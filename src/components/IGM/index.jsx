@@ -131,10 +131,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     setIgmList(tempArray);
   };
   const onDeleteClick = (index) => {
-    // setIgmList({
-    //     ...igmList.igmDetails.slice(0, index),
-    //     ...igmList.igmDetails.slice(index + 1),
-    // })
     setIgmList({
       ...igmList,
       igmDetails: [...igmList.igmDetails.slice(0, index), ...igmList.igmDetails.slice(index + 1)],
@@ -604,7 +600,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                         className={`${styles.add_btn} mt-2 border-danger text-danger`}
                       >
                         <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
-                      </button>
+                      </button> 
                     ) : null}
                   </div>
                 </div>

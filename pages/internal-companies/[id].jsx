@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './index.module.scss';
+import styles from './internal.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddVendor from '../../src/components/AddVendor'
+import InternalCompanies from '../../src/components/InternalCompanies';
 
 function Index() {
   return (
@@ -17,7 +17,7 @@ function Index() {
                 alt="ArrowRight"
               />
             </div>
-            <h1 className={styles.heading}>Add New User</h1>
+            <h1 className={styles.heading}>Internal Companies</h1>
           </div>
           <div className="d-flex align-items-center">
             <div className={`${styles.lastModified} text `}>
@@ -26,10 +26,9 @@ function Index() {
               </span>
               Balakrishna SGF001 - 28 Jan,11:34am
             </div>
-            <button className={`${styles.clear_btn} ml-5 clear_btn`}>Edit</button>
           </div>
         </Card.Header>
-        <AddVendor />
+       <InternalCompanies/>
       </div>
     </Card>
   );

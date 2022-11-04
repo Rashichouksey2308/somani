@@ -45,6 +45,7 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', '');
 
+
   let id = sessionStorage.getItem('marginId');
 
   const [unit, setUnit] = useState({ value: 'Crores' });
@@ -1318,16 +1319,12 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
+                          {(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                              ? marginData?.order?.tolerance
+                              : 0
+                            
+                          )} %
                         </p>
                       </td>
                     </tr>
@@ -2775,16 +2772,11 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
+                          {(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                              ? marginData?.order?.tolerance
+                              : 0
+                          )} %
                         </p>
                       </td>
                       <td align="left">
@@ -2799,7 +2791,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.tolerance ? marginData?.order?.tolerance : 0, '%', '')}
+                          {(marginData?.order?.tolerance ? marginData?.order?.tolerance : 0)} %
                         </p>
                       </td>
                     </tr>
@@ -4465,14 +4457,10 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(
-                                    marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                      maximumFractionDigits: 2,
-                                      minimumFractionDigits: 2,
-                                    }),
-                                    '%',
-                                    '',
-                                  )}
+                                 
+                                   {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
+                                   
+                                 
                                 </div>
                               </div>
                             </div>

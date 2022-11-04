@@ -621,10 +621,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
-                              ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
+                              ? Number(marginData?.order?.tolerance)
                               : 0,
                             '%',
                             '',
@@ -645,10 +642,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
-                              ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
+                              ? Number(marginData?.order?.tolerance)
                               : 0,
                             '%',
                             '',
@@ -2336,10 +2330,7 @@ function Index() {
                     <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
-                          ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
+                          ? Number(marginData?.order?.tolerance)
                           : 0,
                         '%',
                         '',
@@ -2348,10 +2339,7 @@ function Index() {
                     <td>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
-                          ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
+                          ? Number(marginData?.order?.tolerance)
                           : 0,
                         '%',
                         '',

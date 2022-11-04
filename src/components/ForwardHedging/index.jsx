@@ -31,7 +31,6 @@ export default function Index() {
   let hedgingData = _get(allForwardHedging, 'data[0]', '');
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {});
 
-
   useEffect(() => {
     dispatch(setPageName('forward'));
     dispatch(setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')));
@@ -57,7 +56,9 @@ export default function Index() {
     bookedRate: false,
     bookedAmount: false,
   });
-
+  const onDeleteClick = (index) => {
+    setList([...list.slice(0, index), ...list.slice(index + 1)]);
+  };
 
   useEffect(() => {
     setList([
@@ -77,7 +78,6 @@ export default function Index() {
       },
     ]);
   }, [hedgingData]);
-
 
   const onAddForwardHedging = () => {
     setList((prevState) => {
@@ -102,9 +102,6 @@ export default function Index() {
   };
 
   const saveHedgingData = (name, value, index = 0) => {
-    // const name = name
-    // const value = value
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -120,7 +117,6 @@ export default function Index() {
   };
 
   const saveDate = (value, name, index) => {
-
     const d = new Date(value);
     let text = d.toISOString();
     saveHedgingData(name, text, index);
@@ -183,33 +179,11 @@ export default function Index() {
   };
 
   const handleClose = (index) => {
-   
     let tempArr = [...list];
     tempArr[index].forwardSalesContract = null;
     setList(tempArr);
     // setList([...list, { ...list[index], forwardSalesContract: null }])
   };
-
-  // const onAddClick = () => {
-  //   setList([
-  //     ...list,
-  //     {
-  //       headingCard: '',
-  //       isAddBtn: '',
-  //       bankName: '',
-  //       currency: '',
-  //       booked: '',
-  //       bookAmount: '',
-  //       validityTo: '',
-  //       validityFrom: '',
-  //       isCancel: '',
-  //       balanceAmount: '',
-  //       closingRate: '',
-  //       closingDate: '',
-  //       remarks: '',
-  //     },
-  //   ])
-  // }
 
   const [editInput, setEditInput] = useState(true);
 
@@ -317,7 +291,6 @@ export default function Index() {
       let hedgingObj = [...list];
 
       // hedgingObj.balanceAmount = list.bookedAmount
-     
 
       let obj = {
         forwardHedgingId: hedgingData?._id,
@@ -328,7 +301,6 @@ export default function Index() {
       router.push(`/track-shipment`);
     }
   };
-
 
   return (
     <>
@@ -354,14 +326,24 @@ export default function Index() {
                       className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                     >
                       <h3 className={`${styles.heading}`}>Forward Hedging</h3>
-                      <button
-                        className={styles.add_btn}
-                        onClick={() => {
-                          onAddForwardHedging();
-                        }}
-                      >
-                        <span className={styles.add_sign}>+</span>Add
-                      </button>
+                      <div className="d-flex align-items-center">
+                        <button
+                          className={styles.add_btn}
+                          onClick={() => {
+                            onAddForwardHedging();
+                          }}
+                        >
+                          <span className={styles.add_sign}>+</span>Add
+                        </button>
+                        {index > 0 ? (
+                          <button
+                            onClick={() => onDeleteClick(index)}
+                            className={`${styles.add_btn} border-danger text-danger`}
+                          >
+                            <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
+                          </button>
+                        ) : null}
+                      </div>
                     </div>
                     <div className={`${styles.dashboard_form} pb-5 card-body`}>
                       <div className="row">

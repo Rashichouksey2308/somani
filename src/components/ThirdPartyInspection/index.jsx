@@ -126,14 +126,14 @@ export default function Index({ addButton }) {
         : false,
 
       loadPortInspectionDetails: {
-        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
         inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
       },
       dischargePortInspectionDetails: {
-        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,

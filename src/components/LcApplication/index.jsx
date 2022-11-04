@@ -137,6 +137,7 @@ function Index({
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <DateCalender
+                            isRequired={true}
                             name="dateOfExpiry"
                             defaultDate={lcData?.dateOfExpiry}
                             saveDate={saveDate}
@@ -161,10 +162,7 @@ function Index({
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label className={`${styles.label_heading} label_heading`}>
-                          (31D) Place Of Expiry
-                          <strong className="text-danger">*</strong>
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>(31D) Place Of Expiry</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
