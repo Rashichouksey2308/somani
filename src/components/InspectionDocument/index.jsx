@@ -60,7 +60,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       })
       .map((obj) => ({ ...obj, moving: false }));
 
-    // console.log(tempArray, 'dltDoc2')
+   
     setFilteredDoc(tempArray);
   }, [orderId, documentsFetched]);
 
@@ -171,7 +171,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       if (data?.code == 200) {
         close();
       }
-      console.table(tempArr);
+  
     } else {
       let toastMessage = 'please provide a valid email';
       if (!toast.isActive(toastMessage.toUpperCase())) {

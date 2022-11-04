@@ -73,12 +73,12 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     let name = e.target.id;
     let doc = await uploadDoc(e);
 
-    // onChangeWarehouseDetails('document', doc)
+   
     let tempData = { ...warehouseDetails };
     tempData[name] = doc;
     setWarehouseDetails({ ...tempData });
   };
-  // console.log(warehouseDetails,'warehouseDetails')
+
   const onSaveDischarge = async () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails;
     if (warehouseDetailpayload.quantity === '') {

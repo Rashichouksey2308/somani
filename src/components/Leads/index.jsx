@@ -16,9 +16,9 @@ function index(props) {
       let rejected = 0;
       let all = 0;
       props?.data.forEach((val, index) => {
-        console.log(val.total, 'val.total', val._id);
+    
         if (val._id == 'ReviewQueue') {
-          console.log('vlllllll');
+        
           inprocess = val.total;
         }
         if (val._id == 'CreditQueue') {
@@ -36,7 +36,7 @@ function index(props) {
       });
     }
   }, [props.data]);
-  console.log(data, 'data121');
+
   return (
     <Card className={`${styles.card} border`}>
       <Card.Header className={`${styles.header} heading_card border_color`}> {props.header} </Card.Header>

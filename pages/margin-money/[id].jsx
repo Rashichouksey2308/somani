@@ -209,7 +209,7 @@ function Index() {
 
   const [invoiceData, setInvoiceData] = useState({});
   const [branchOptions, setBranchOptions] = useState([]);
-console.log(invoiceData,"invoiceData?.isConsigneeSameAsBuyer", marginData?.invoiceDetail?.isConsigneeSameAsBuyer)
+
   const saveData = (name, value, name2, value2, value3) => {
   
     const newInput = { ...invoiceData };
@@ -231,7 +231,7 @@ console.log(invoiceData,"invoiceData?.isConsigneeSameAsBuyer", marginData?.invoi
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
-    console.log(newInput,"newInputnewInput")
+   
 
 
     setInvoiceData({ ...newInput });
@@ -4099,7 +4099,7 @@ console.log(invoiceData,"invoiceData?.isConsigneeSameAsBuyer", marginData?.invoi
     }
 
   }, [marginData, getInternalCompaniesMasterData]);
-  console.log(isConsigneeSameAsBuyer,"setisConsigneeSameAsBuyer")
+
   useEffect(() => {
     getRevisedData();
 

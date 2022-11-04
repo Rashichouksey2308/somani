@@ -7,14 +7,10 @@ import { ViewDocument } from 'redux/ViewDoc/action';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  // useEffect(() => {
-  //   const orderId = sessionStorage.getItem('orderId')
-  //   const companyId = sessionStorage.getItem('company')
-  //   dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
-  // }, [dispatch])
+  
 
   const { buyerList } = useSelector((state) => state.buyer);
-  console.log(buyerList, 'this is buyer list');
+
 
   return (
     <div className={`${styles.wrapper} card border_color`}>

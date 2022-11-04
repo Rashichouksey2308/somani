@@ -78,17 +78,17 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
     dutyData[index]?.forEach((val) => {
       number += Number(val.amount);
     });
-    //console.log(totalCustomDuty, 'totalCustomDuty')
+
     if (number) {
       return number;
     }
   };
-  console.log(dutyData,"dutyDatadutyData")
+
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
 
-    //  console.log(docs, uploadDoc(e), 'this is upload response')
+
     let newInput = [...billOfEntryData];
     newInput[index][name] = docs;
     setBillOfEntryData([...newInput]);
@@ -103,22 +103,21 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         order: _get(customData, 'order._id', ''),
         company: _get(customData, 'company._id', ''),
 
-        // orderId: documentsFetched._id,
+        
       }),
     );
   };
 
-  //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
+
 
   const saveDate = (value, name, index) => {
-    // console.log(value, name, 'save date')
+   
     const d = new Date(value);
     let text = d.toISOString();
     saveBillOfEntryData(name, text, index);
   };
   const saveBoeDetaiDate = (value, name, index) => {
-    // console.log(value, name, 'save date')
-    // const namesplit = name?.split('.')
+
     const d = new Date(value);
     let text = d.toISOString();
     saveBillOfEntryData(name, text, index);
@@ -170,7 +169,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const [dutyData, setDutyData] = useState([]);
 
   const handleDutyChange = (name, value, index2, index) => {
-    // console.log(name,value,index,"name,value")
+   
     const newInput = [...dutyData];
     newInput[index][index2][name] = value;
     setDutyData([...newInput]);
@@ -211,7 +210,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   };
 
   const addMoredutyDataRows = (index) => {
-    console.log(dutyData,"dutyData")
+
     if(dutyData.length==0){
       setDutyData({
           percentage: '',
@@ -384,7 +383,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   };
   let duty11 = [];
   useEffect(() => {
-    console.log(customData?.billOfEntry?.billOfEntry,"customData")
+  
     if (customData) {
       let total = 0;
       let data = customData?.order?.transit?.BL?.billOfLanding;
@@ -434,7 +433,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
 
         duty11.push(JSON.parse(JSON.stringify(val.duty)));
       });
-      console.log(duty11,"duty11")
+
       
 
        
@@ -443,7 +442,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       
       setBillOfEntryData([...tempArray]);
     }
-    console.log(duty11,"duty11")
+   
     if(duty11.length == 0){
         setDutyData([[{
           percentage: '',

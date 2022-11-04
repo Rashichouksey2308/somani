@@ -805,7 +805,7 @@ function Index() {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-          console.log(response.data.data, 'uplaod doc response')
+     
           setdocs([...docs, response.data.data])
         } else {
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
@@ -836,7 +836,7 @@ function Index() {
       }
     }
   }
-  console.log(docs, 'uplaod doc response3')
+
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);

@@ -100,7 +100,7 @@ function Index({
     // }
   };
 
-  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
+
 
   const [sanctionComments, setSanctionComments] = useState('');
 
@@ -125,7 +125,7 @@ function Index({
   };
 
   const primaryBankName = () => {
-    // console.log(camData?.company?.debtProfile, 'camData?.company?.debtProfile')
+    
     let filteredData = [];
     filteredData = camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 

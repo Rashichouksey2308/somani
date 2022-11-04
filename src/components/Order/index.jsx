@@ -28,7 +28,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
     let filterData = commodity.filter((o) => {
       return o.Commodity.toLowerCase().includes(value.toLowerCase());
     });
-    console.log(filterData, 'filterData');
+
 
     setToShow(filterData);
     setToView(true);
@@ -37,7 +37,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
     saveOrderData(name, value);
     setToView(false);
   };
-  console.log(orderDetail?.transactionType, 'orderDetail');
+
   return (
     <div className={`${styles.main} vessel_card card border_color border-bottom`}>
       <div

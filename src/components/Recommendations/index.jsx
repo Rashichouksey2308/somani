@@ -53,13 +53,11 @@ const Index = ({
     suggestedCreditLimit: false,
   });
 
-  // console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
   });
 
-  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
 
   const [exposureData, setExposureData] = useState({
     accountConduct: '',
@@ -125,7 +123,7 @@ const Index = ({
       }
     });
 
-    // console.log(tempArr, 'tempArr')
+
     setGroupExposureData([...tempArr]);
   };
 

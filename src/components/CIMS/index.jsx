@@ -298,7 +298,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     dispatch(UpdateTransitDetails({ fd, task }));
   };
 
-  // console.log(cimsDetails, 'khjfdfgkegfk')
+
 
   return (
     <>

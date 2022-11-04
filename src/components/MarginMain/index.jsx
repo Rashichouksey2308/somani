@@ -19,7 +19,7 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order);
 
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney);
-  // console.log(marginMoneyResponse, 'THIS IS MARGIN MONEY RESPONSE')
+
 
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`));
@@ -40,7 +40,7 @@ function Index() {
   };
 
   const handleRoute = (margin) => {
-    // console.log(margin, "THIS IS MARGIN MONEY")
+   
     sessionStorage.setItem('marginId', margin?.order?._id);
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
@@ -48,7 +48,7 @@ function Index() {
   };
 
   const handlePreviewRoute = (margin) => {
-    // console.log(margin, "THIS IS MARGIN MONEY")
+    
     if (margin.revisedMarginMoney.isActive !== true) {
       sessionStorage.setItem('marginId', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
