@@ -458,8 +458,6 @@ function Index() {
   }, [orderList])
 
   const handleProductSave = (chas, exsupp) => {
-    
-    let exSupps = exsupp.map(name => name.name)
 
     if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields'
@@ -469,7 +467,7 @@ function Index() {
     } else {
       let data = { ...product }
       data.existingCHA = chas
-      data.existingSuppliers = exSupps
+      data.existingSuppliers = exsupp
       data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
       data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
       data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)

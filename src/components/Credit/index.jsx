@@ -476,7 +476,7 @@ const index = ({
   const handleFilteredData = (results) => {
    
       let temp = [...exSupplier];
-      temp.push({name: results?.supplierProfile?.supplierName, status: results?.status });
+      temp.push(results?.supplierProfile?.supplierName);
       setexSupplier([...temp]);
       setSearchTerm('')
     

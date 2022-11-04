@@ -16,8 +16,6 @@ function Index(props) {
     }
   }, [props.emails]);
 
-  console.log(props.emails, 'exSupplier 2')
-
   const emailInputRef = useRef(null);
   // console.log(emailInputRef.current.value, 'emails');
 
@@ -39,8 +37,8 @@ function Index(props) {
         }
       }
       if(props.id == 'Existing Supplier(s)'){
-      validEmails.push({ name: email, status: 'Active' });
-      // validEmails.push(email);
+      // validEmails.push({ name: email, status: 'Active' });
+      validEmails.push(email);
       }else{
         validEmails.push(email)
       }
@@ -178,10 +176,10 @@ function Index(props) {
           return (
             <>
               <span
-                className={email.status === 'Pending' && `${styles.pending}`}
+                // className={email.status === 'Pending' && `${styles.pending}`}
               >
                 
-                { props.id == 'Existing Supplier(s)' ?  props.getLabel(email.name, index, removeEmail) : props.getLabel(email, index, removeEmail) }
+                { props.id == 'Existing Supplier(s)' ?  props.getLabel(email, index, removeEmail) : props.getLabel(email, index, removeEmail) }
               </span>
             </>
           );
