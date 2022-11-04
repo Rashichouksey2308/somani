@@ -20,7 +20,9 @@
       z-index: 2;
       position: relative;
       display: inline-block;
-      margin-left: 22px;
+      margin-left: 0;
+      transform: scale(0.7);
+      left: -20px;
       @include respond(phone) {
         margin-left: 0;
       }
@@ -48,6 +50,7 @@
       z-index: 2;
       position: relative;
       display: inline-block;
+      transform: scale(0.7);
       @include respond(md-desktop) {
         margin-top: 0.2rem;
       }
@@ -73,7 +76,8 @@
   }
 
   .theme {
-    margin-right: 40px;
+    margin-right: 0;
+    transform: scale(0.7);
     @include respond(lg-desktop) {
       margin-right: 30px;
     }
@@ -119,7 +123,8 @@
 
   .header_icon {
     padding: 0;
-    margin: 0 48px 0 0;
+    margin: 0;
+    transform: scale(0.7);
     @include respond(lg-desktop) {
       margin-right: 30px;
     }
@@ -159,7 +164,8 @@
   .user_profile {
     text-align: left;
     position: relative;
-    margin-right: 60px;
+    margin-right: 0;
+    transform: scale(0.7);
     @include respond(lg-desktop) {
       margin-right: 40px;
     }
