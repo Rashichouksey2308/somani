@@ -34,10 +34,10 @@ const index = () => {
     dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
-  // const handleRoute = (id) => {
-  //   sessionStorage.setItem('supplier', id);
-  //   Router.push('/supplier');
-  // };
+  const handleRoute = (id) => {
+    sessionStorage.setItem('supplier', id);
+    Router.push('/supplier');
+  };
 
   return (
     <>
@@ -45,6 +45,14 @@ const index = () => {
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
+            <div className={`${styles.head_header} mr-3 align-items-center`}>
+              <img
+                className={`${styles.arrow} image_arrow mr-3 img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="ArrowRight"
+              />
+              <h1 className={styles.heading}>Internal Companies</h1>
+            </div>
             <div className={`${styles.search}`}>
               <div className="input-group">
                 <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
@@ -80,15 +88,15 @@ const index = () => {
               //   Router.push('/supplier');
               // }}
             >
-              <span className={styles.add_supplier}>+</span>
-              <span className='ml-1 mr-2'>Add Supplier</span>
+              {/* <span className={styles.add_supplier}>+</span> */}
+              <span className="ml-1 mr-2">Add</span>
             </button>
           </div>
 
           {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
             <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">Suppliers</h3>
+              <h3 className="heading_card">Internal Companies</h3>
               <div className="d-flex align-items-center">
                 <div className={`${styles.show_record}`}>Show Records:</div>
                 <div className="d-flex align-items-center position-relative ml-2">
@@ -140,7 +148,7 @@ const index = () => {
                   <thead>
                     <tr>
                       <th className={`${styles.table_heading} table_heading`}>
-                        SUPPLIER NAME{' '}
+                        COMPANY NAME{' '}
                         <Image
                           width="9px"
                           height="14px"
@@ -151,7 +159,7 @@ const index = () => {
                       </th>
 
                       <th className={`${styles.table_heading} table_heading`}>
-                        ONBOARDING DATE{' '}
+                        SHORT NAME{' '}
                         <Image
                           width="9px"
                           height="14px"
@@ -160,7 +168,16 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th className={`${styles.table_heading} table_heading`}>COUNTRY</th>
+                      <th className={`${styles.table_heading} table_heading`}>
+                        COUNTRY{' '}
+                        <Image
+                          width="9px"
+                          height="14px"
+                          className={`${styles.sort_img}`}
+                          src="/static/icons8-sort-24.svg"
+                          alt="Sort icon"
+                        />
+                      </th>
                       <th className={`${styles.table_heading} table_heading`}>
                         STATUS{' '}
                         <Image
@@ -175,53 +192,22 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {allSupplierResponse &&
-                      allSupplierResponse?.data?.map((supplier) => {
-                        return (
-                          <tr className={`${styles.table_row} table_row17`}>
-                            <td className={styles.buyerName}>{supplier?.supplierProfile?.supplierName}</td>
-                            <td>{moment(supplier?.createdAt).format('DD-MM-YYYY')}</td>
-                            <td>{supplier?.supplierProfile?.countryOfIncorporation}</td>
-                            <td>
-                              <span className={`${styles.status} ${styles.review}`}></span>
-                              {supplier?.status}
-                            </td>
-
-                            <td>
-                              {' '}
-                              <div className={`${styles.edit_image} img-fluid`}>
-                                <Image
-                                  onClick={() => {
-                                    handleRoute(supplier._id);
-                                  }}
-                                  height="40px"
-                                  width="40px"
-                                  src="/static/mode_edit.svg"
-                                  alt="Edit"
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-
-                    {/* <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Bhutani Traders</td>
-
-                      <td>22-02-2022</td>
+                    <tr className={`${styles.table_row} table_row17`}>
+                      <td className={styles.buyerName}>Indo German Private Limited</td>
+                      <td>IGPL</td>
                       <td>India</td>
-
                       <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
+                        <span className="m-3">Approved</span>
                       </td>
 
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
+                            onClick={() => {
+                              handleRoute(supplier._id);
+                            }}
                             height="40px"
                             width="40px"
                             src="/static/mode_edit.svg"
@@ -231,21 +217,21 @@ const index = () => {
                       </td>
                     </tr>
                     <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ramakrishna Traders </td>
-
-                      <td>22-02-2022</td>
+                      <td className={styles.buyerName}>Indo German Private Limited</td>
+                      <td>IGPL</td>
                       <td>India</td>
-
                       <td>
-                        <span
-                          className={`${styles.status} ${styles.expired}`}
-                        ></span>
-                        Inactive
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
+                        <span className="m-3">Approved</span>
                       </td>
+
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
+                            onClick={() => {
+                              handleRoute(supplier._id);
+                            }}
                             height="40px"
                             width="40px"
                             src="/static/mode_edit.svg"
@@ -255,43 +241,21 @@ const index = () => {
                       </td>
                     </tr>
                     <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Bhutani Traders </td>
+                      <td className={styles.buyerName}>Indo German Private Limited</td>
+                      <td>IGPL</td>
+                      <td>India</td>
+                      <td>
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
+                        <span className="m-3">Approved</span>
+                      </td>
 
-                      <td>22-02-2022</td>
-                      <td>India</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.blacklisted}`}
-                        ></span>
-                        Blacklisted
-                      </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                   
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ramakrishna Traders </td>
-                      <td>22-02-2022</td>
-                      <td>India</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
+                            onClick={() => {
+                              handleRoute(supplier._id);
+                            }}
                             height="40px"
                             width="40px"
                             src="/static/mode_edit.svg"
@@ -301,20 +265,21 @@ const index = () => {
                       </td>
                     </tr>
                     <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Somani Traders </td>
-                      <td>22-02-2022</td>
+                      <td className={styles.buyerName}>Indo German Private Limited</td>
+                      <td>IGPL</td>
                       <td>India</td>
                       <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
+                        <span className="m-3">Approved</span>
                       </td>
 
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
+                            onClick={() => {
+                              handleRoute(supplier._id);
+                            }}
                             height="40px"
                             width="40px"
                             src="/static/mode_edit.svg"
@@ -324,20 +289,21 @@ const index = () => {
                       </td>
                     </tr>
                     <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ramakrishna Traders </td>
-                      <td>22-02-2022</td>
+                      <td className={styles.buyerName}>Indo German Private Limited</td>
+                      <td>IGPL</td>
                       <td>India</td>
                       <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
+                      <img src="/static/notice.svg" className="img-fluid" alt="Notice Period" />
+                        <span className="m-3">Pending</span>
                       </td>
 
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
+                            onClick={() => {
+                              handleRoute(supplier._id);
+                            }}
                             height="40px"
                             width="40px"
                             src="/static/mode_edit.svg"
@@ -345,7 +311,31 @@ const index = () => {
                           />
                         </div>
                       </td>
-                    </tr> */}
+                    </tr>
+                    <tr className={`${styles.table_row} table_row17`}>
+                      <td className={styles.buyerName}>Indo German Private Limited</td>
+                      <td>IGPL</td>
+                      <td>India</td>
+                      <td>
+                      <img src="/static/notice.svg" className="img-fluid" alt="Notice Period" />
+                        <span className="m-3">Pending</span>
+                      </td>
+
+                      <td>
+                        {' '}
+                        <div className={`${styles.edit_image} img-fluid`}>
+                          <Image
+                            onClick={() => {
+                              handleRoute(supplier._id);
+                            }}
+                            height="40px"
+                            width="40px"
+                            src="/static/mode_edit.svg"
+                            alt="Edit"
+                          />
+                        </div>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -366,7 +356,9 @@ const index = () => {
         </div>
       </div> */}
       </div>
-      <DownloadMasterBar btnName="Download Reports" />
+      <DownloadMasterBar 
+      downloadFormat={true}
+      btnName="Download" />
     </>
   );
 };
