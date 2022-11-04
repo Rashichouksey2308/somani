@@ -37,7 +37,7 @@ function Index() {
       },
     ]);
   };
-  // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 

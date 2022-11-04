@@ -19,7 +19,7 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc);
 
-  console.log(lcModule?.data, 'THIS IS LC MOD');
+
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcCompanyId');

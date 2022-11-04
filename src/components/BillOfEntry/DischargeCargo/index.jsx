@@ -11,7 +11,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 
 export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
-  console.log(customData, 'customData');
+
 
   const dispatch = useDispatch();
   const [sumOfDischargeQuantities, setSum] = useState('');
@@ -21,7 +21,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         (previousValue, currentValue) => previousValue + Number(currentValue?.boeDetails?.invoiceQuantity),
         0,
       );
-      console.log(data, 'data1111');
+     
       if (isNaN(data) || data == 'NaN' || data == undefined) {
         setSum('');
       } else {
@@ -30,7 +30,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     }
   }, [customData]);
 
-  console.log(sumOfDischargeQuantities, 'sumOf');
+
 
   const [show, setShow] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
@@ -77,7 +77,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   });
 
   const saveDate = (value, name) => {
-    console.log(value, name, 'save date');
+  
     const d = new Date(value);
     let text = d.toISOString();
     onChangeDischargeOfCargo(name, text);
@@ -103,7 +103,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   const onSaveDocument = async (e) => {
     let name = e.target.name;
     let doc = await uploadDoc(e);
-    console.log(doc, 'dischargeOfCargo1');
+    
     let tempData = { ...dischargeOfCargo };
     tempData[name] = doc;
     setDischargeOfCargo(tempData);
@@ -114,13 +114,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const onSaveDischarge = () => {
-    console.log(1,"a")
+
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-       console.log(1,"a")
+    
       return;
     }
 
@@ -129,7 +129,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-       console.log(2,"a")
+  
       return;
     }
 
@@ -142,7 +142,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        console.log(3,"a")
+   
         return;
       }
     } 
@@ -151,7 +151,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      console.log(3,"a")
+  
       return;
     } 
     if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {

@@ -30,7 +30,7 @@ export default function Index() {
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '');
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {});
-  console.log(hedgingDataDetail, 'THIS IS HEDGING DATA');
+
 
   useEffect(() => {
     dispatch(setPageName('forward'));
@@ -57,7 +57,7 @@ export default function Index() {
     bookedRate: false,
     bookedAmount: false,
   });
-  console.log(isFieldInFocus, 'isFieldInFocus');
+
 
   useEffect(() => {
     setList([
@@ -78,7 +78,7 @@ export default function Index() {
     ]);
   }, [hedgingData]);
 
-  console.log(list, 'list');
+
   const onAddForwardHedging = () => {
     setList((prevState) => {
       return [
@@ -104,7 +104,7 @@ export default function Index() {
   const saveHedgingData = (name, value, index = 0) => {
     // const name = name
     // const value = value
-    console.log(name, value, 'Dsdff');
+
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -192,7 +192,7 @@ export default function Index() {
   };
 
   const handleClose = (index) => {
-    console.log(index, 'forward Hedging');
+   
     let tempArr = [...list];
     tempArr[index].forwardSalesContract = null;
     setList(tempArr);
@@ -246,7 +246,7 @@ export default function Index() {
     let task = 'save';
     dispatch(UpdateForwardHedging({ obj, task }));
   };
-  console.log(list, 'listlistlistlist');
+
   const validation = () => {
     let isOk = true;
     for (let i = 0; i < list.length; i++) {
@@ -326,7 +326,7 @@ export default function Index() {
       let hedgingObj = [...list];
 
       // hedgingObj.balanceAmount = list.bookedAmount
-      console.log(hedgingObj, 'dasd');
+     
 
       let obj = {
         forwardHedgingId: hedgingData?._id,
@@ -337,7 +337,7 @@ export default function Index() {
       router.push(`/track-shipment`);
     }
   };
-  console.log(list[0]?.item?.bookedRate, 'list');
+
 
   return (
     <>

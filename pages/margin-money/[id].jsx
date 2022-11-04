@@ -17,11 +17,11 @@ import { GetMarginMoney, RevisedMarginMoney, UpdateMarginMoney } from '../../src
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import { GetAllOrders } from '../../src/redux/registerBuyer/action';
-// import { Row, Col } from 'react-bootstrap'
+
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
 import moment from 'moment';
-import { getBanks, getInternalCompanies } from '../../src/redux/masters/action';
+import { getBanks, getInternalCompanies ,getBranches} from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -31,12 +31,7 @@ function Index() {
     conversion: false,
     noOfPdcs: false,
   });
-  const [bankDetails, setBankDetails] = useState({
-    address: '',
-    bank: '',
-    branch: '',
-    ifsc: '',
-  });
+
   useEffect(() => {
     dispatch(getBanks());
     dispatch(getInternalCompanies());
@@ -215,6 +210,7 @@ function Index() {
   const [branchOptions, setBranchOptions] = useState([]);
 
   const saveData = (name, value, name2, value2, value3) => {
+  
     const newInput = { ...invoiceData };
     newInput.branch = value3;
     newInput.branchAddress = value;
@@ -253,21 +249,7 @@ function Index() {
     setInvoiceData({ ...newInput });
   };
 
-  let emergent = {
-    companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-    branch: 'DELHI',
-    state: 'DELHI',
-    address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
-    GSTIN: '07AAACS8253L1Z0',
-  };
-
-  let indoGerman = {
-    companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-    branch: 'SURAT',
-    state: 'GUJARAT',
-    address: 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
-    GSTIN: '24AAACI3028D1Z8',
-  };
+ 
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
@@ -276,6 +258,7 @@ function Index() {
   });
 
   const dropDownChange = (name, value) => {
+
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       // setChangeImporterData({ ...emergent });
       const newInput = { ...invoiceData };
@@ -305,8 +288,17 @@ function Index() {
       }
     });
 
-    setBranchOptions(filter);
+    setBranchOptions([...filter]);
   };
+  useEffect(() => {
+    dropDownChange("name",marginData?.invoiceDetail?.importerName? marginData?.invoiceDetail?.importerName:  marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '')
+  },[ marginData?.invoiceDetail?.importerName,marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          ''])
 
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
@@ -818,6 +810,7 @@ function Index() {
   };
 
   const saveInvoiceDataRevisedRevised = (name, value) => {
+  
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
 
@@ -906,13 +899,7 @@ function Index() {
   };
 
   const exportPDF = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
+   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -2265,13 +2252,7 @@ function Index() {
   };
 
   const exportPDFReviced = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
+   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -4107,23 +4088,9 @@ function Index() {
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       });
     }
-    if (getInternalCompaniesMasterData) {
-      let filter = getInternalCompaniesMasterData.filter((val, index) => {
-        if (
-          val.Company_Name?.toLowerCase() == marginData?.invoiceDetail?.importerName?.toLowerCase() ||
-          val.Company_Name?.toLowerCase() ==
-            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-              ?.toUpperCase()
-              ?.replace(/ *\([^)]*\) */g, '')
-              .toLowerCase()
-        ) {
-          return val;
-        }
-      });
 
-      setBranchOptions(filter);
-    }
   }, [marginData, getInternalCompaniesMasterData]);
+
 
   useEffect(() => {
     getRevisedData();
@@ -5134,20 +5101,14 @@ function Index() {
                                       changeImporterData.GSTIN = filter[0].GSTIN;
                                       newInput['importerGSTIN'] = filter[0].GSTIN;
 
-                                      newInput['branchAddress'] = filter[0]?.Branch_Address || '';
-                                      changeImporterData.branchAddress = filter[0]?.Branch_Address || '';
+                                     
 
-                                      newInput['IFSCcode'] = filter[0]?.IFSC || '';
-                                      changeImporterData.IFSCcode = filter[0]?.IFSC || '';
+                                     
 
-                                      newInput['accountNo'] = filter[0]?.Account_No || '';
-                                      changeImporterData.accountNo = filter[0]?.Account_No || '';
+                                     
+                                      
 
-                                      newInput['branch'] = filter[0]?.Branch_Type || '';
-                                      changeImporterData.branch = filter[0]?.Branch_Type || '';
-
-                                      newInput['bankName'] = filter[0]?.Bank_Name || '';
-                                      changeImporterData.bankName = filter[0]?.Bank_Name || '';
+                                     
 
                                       newInput['branchOffice'] = e.target.value;
                                       changeImporterData.branch = e.target.value;
@@ -5215,7 +5176,7 @@ function Index() {
 
                             <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                               <div className="d-flex">
-                                <input
+                                <select
                                   type="text"
                                   id="Code"
                                   name="bankName"
@@ -5224,43 +5185,43 @@ function Index() {
                                   value={invoiceData?.bankName}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
-                                    // let filter = getBanksMasterData.filter(
-                                    //   (val, index) => {
-                                    //     if (val.name == e.target.value) {
-                                    //       return val;
-                                    //     }
-                                    //   },
-                                    // );
+                                    let filter = getBanksMasterData.filter(
+                                      (val, index) => {
+                                        if (val.name == e.target.value) {
+                                          return val;
+                                        }
+                                      },
+                                    );
 
-                                    // dispatch(getBranches(filter[0].code));
+                                    dispatch(getBranches(filter[0].code));
                                   }}
                                 >
-                                  {/* <option>Select an option</option> */}
-                                  {/* {getBanksMasterData.map((val, index) => {
+                                  <option>Select an option</option>
+                                  {getBanksMasterData.map((val, index) => {
                                     return (
                                       <option value={`${val.name}`}>
                                         {val.name}
                                       </option>
                                     );
-                                  })} */}
+                                  })}
                                   {/* <option value={`${invoiceData?.bankName}`}>
                                     {invoiceData?.bankName}
                                   </option> */}
                                   {/* <option value="ICICI">ICICI Bank Ltd</option> */}
-                                </input>
+                                </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Bank Name
                                   <strong className="text-danger">*</strong>
                                 </label>
-                                {/* <img
+                                <img
                                   className={`img-fluid  image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
-                                ></img> */}
+                                ></img>
                               </div>
                             </div>
                             <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                               <div className="d-flex">
-                                <input
+                                <select
                                   type="text"
                                   id="Code"
                                   name="branch"
@@ -5269,49 +5230,49 @@ function Index() {
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
-                                    // let filter = getBranchesMasterData.filter(
-                                    //   (val, index) => {
-                                    //     if (val.BRANCH == e.target.value) {
-                                    //       return val;
-                                    //     }
-                                    //   },
-                                    // );
+                                    let filter = getBranchesMasterData.filter(
+                                      (val, index) => {
+                                        if (val.BRANCH == e.target.value) {
+                                          return val;
+                                        }
+                                      },
+                                    );
 
-                                    // saveData(
-                                    //   'branchAddress',
-                                    //   filter[0].ADDRESS,
-                                    //   'IFSCcode',
-                                    //   filter[0].IFSC,
-                                    //   e.target.value,
-                                    // );
+                                    saveData(
+                                      'branchAddress',
+                                      filter[0].ADDRESS,
+                                      'IFSCcode',
+                                      filter[0].IFSC,
+                                      e.target.value,
+                                    );
 
-                                    //    saveInvoiceData(
+                                    // saveInvoiceData(
                                     //    "branchAddress",
                                     //    filter[0].ADDRESS,
                                     // )
                                   }}
                                 >
-                                  {/* <option>Select an option</option> */}
-                                  {/* <option selected>Select an option</option> */}
-                                  {/* {getBranchesMasterData.map((val, index) => {
+                                 
+                                  <option selected>Select an option</option>
+                                  {getBranchesMasterData.map((val, index) => {
                                     return (
                                       <option value={`${val.BRANCH}`}>
                                         {val.BRANCH}
                                       </option>
                                     );
-                                  })} */}
+                                  })}
                                   {/* <option value={`${invoiceData?.branch}`}>
                                     {invoiceData?.branch}
                                   </option> */}
-                                </input>
+                                </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Branch
                                   <strong className="text-danger">*</strong>
                                 </label>
-                                {/* <img
+                                <img
                                   className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
-                                ></img> */}
+                                ></img>
                               </div>
                             </div>
 

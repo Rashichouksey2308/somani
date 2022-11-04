@@ -13,7 +13,7 @@ function Index({ customerSummary }) {
     { name: 'Tradex India Corporation', value: '45', color: '#2884DE' },
     { name: 'Metalco India', value: '34', color: '#FFCE00' },
   ];
-  console.log(customerSummary, 'sssssss');
+
   const [data, setData] = useState({
     labels: [],
     datasets: [
@@ -31,7 +31,7 @@ function Index({ customerSummary }) {
 
     if (customerSummary?.length > 0) {
       customerSummary.forEach((val, index) => {
-        console.log(val.total, 'qqqqqqq');
+    
         tempData.push(val?.company[0]?.companyName);
         tempPoint.push(val.total);
       });
@@ -47,26 +47,10 @@ function Index({ customerSummary }) {
         ],
       });
     }
-    console.log(tempData, tempPoint, 'ssssss');
+   
   }, [customerSummary]);
-  console.log(data, 'datadatadata');
-  // const data = {
-  //   labels: [
-  //     'Sail',
-  //     'Jindal Grou',
-  //     'SR Steel',
-  //     'Tradex India Corporation',
-  //     'Metalco India',
-  //   ],
-  //   datasets: [
-  //     {
-  //       label: '',
-  //       data: [25, 24, 25, 25, 3],
 
-  //       backgroundColor: ["#9675CE",'#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
-  //     },
-  //   ],
-  // }
+
   const options = {
     elements: {
       arc: {
@@ -87,40 +71,6 @@ function Index({ customerSummary }) {
     responsive: false,
     cutout: 55,
   };
-  //   const options = {
-  //        elements: {
-  //       arc: {
-  //           borderWidth: 0
-  //       }
-  //   }
-  // ,
-  //     plugins: {
-  //       title: {
-  //         display: false,
-  //         text: 'Doughnut Chart',
-  //         color: 'blue',
-
-  //         font: {
-  //           size: 34,
-  //         },
-  //         padding: {
-  //           top: 30,
-  //           bottom: 30,
-  //         },
-
-  //         animation: {
-  //           animateScale: true,
-  //         },
-  //         legend: {
-  //         display: false
-  //       }
-  //       },
-
-  //     },
-  //      responsive: false,
-  //      cutout: 55
-
-  //   }
 
   return (
     <Card className={`${styles.card} border`}>

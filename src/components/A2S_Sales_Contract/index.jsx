@@ -7,7 +7,7 @@ import _get from 'lodash/get';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index(props) {
-  console.log(props, 'props');
+
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -131,7 +131,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
-console.log(data.sellerAddress,"sellerAddress")
+
   return (
     <>
       <div className={`${styles.root}`}>

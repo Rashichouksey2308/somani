@@ -45,13 +45,13 @@ function AddressComponent({
                   src="/static/mode_edit.svg"
                   alt="edit"
                   onClick={() => {
-                    console.log('index', index);
+                  
                     editAddress(index);
                   }}
                 />
                 <img
                   onClick={() => {
-                    // console.log('index', index)
+                  
                     deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"

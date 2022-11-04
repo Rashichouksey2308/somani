@@ -12,7 +12,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
 
   const { allCustomClearance } = useSelector((state) => state.Custom);
 
-  console.log(allCustomClearance, 'INSURANCE RESPONSE');
+
 
   useEffect(() => {
     dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`));
