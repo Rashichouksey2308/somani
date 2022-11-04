@@ -471,16 +471,12 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
+                          {(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                })
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                              ? marginData?.order?.tolerance
+                              : 0
+                            
+                          )} %
                         </p>
                       </td>
                     </tr>
@@ -1610,16 +1606,11 @@ function Index() {
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
+                      {(
                         marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
-                          : 0,
-                        '%',
-                        '',
-                      )}
+                          ? marginData?.order?.tolerance
+                          : 0
+                      )} %
                     </td>
                   </tr>
                   <tr>
