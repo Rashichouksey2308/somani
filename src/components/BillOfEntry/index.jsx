@@ -855,9 +855,9 @@ export default function Index({
                             Port Of Discharge
                           </div>
                           <span className={styles.value}>
-                            {_get(
+                          {_get(
                               customData,
-                              'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                              'order.vessel.vessels[0].transitDetails.portOfDischarge',
                               '',
                             )}
                           </span>
