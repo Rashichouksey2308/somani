@@ -220,6 +220,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   };
 
   const [arr, setArr] = useState([]);
+  console.log(arr,'gstGrowth')
 
   const handleGrowthPurchase = () => {
     let arr1 = _get(gstFilteredData, 'detail.purchaseDetail.purchases', []);
