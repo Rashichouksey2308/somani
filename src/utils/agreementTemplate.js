@@ -2033,14 +2033,14 @@ export const toPdf = (data) => {
               <td style={{ paddingRight: '15px' }}>
                 <textarea
                   value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
+                  style={{ width: '100%', border:'none', outline: 'none' }}
                   rows={4}
                 ></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
                 <textarea
                   value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
+                  style={{ width: '100%', border:'none', outline: 'none' }}
                   rows={4}
                 ></textarea>
               </td>
