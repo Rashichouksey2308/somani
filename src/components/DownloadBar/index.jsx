@@ -1,4 +1,4 @@
-// import  Router  from 'next/router'
+
 import React, { useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';

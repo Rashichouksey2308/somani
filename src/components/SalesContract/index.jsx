@@ -8,7 +8,7 @@ function Index() {
   const changeActiveValue = (val, index) => {
    
     setActive(val);
-    // showContent()
+ 
     let tempArr = sideBar;
     for (let i = 0; i < tempArr.length; i++) {
       if (i == index) {

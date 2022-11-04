@@ -35,11 +35,7 @@ function Index({ shareHolding }) {
 
  
   Chart.register(ArcElement);
-  // let tempArr = [
-  //   { name: 'Sail', value: '21', color: '#9675CE' },
-  //   { name: 'Jindal Group', value: '23', color: '#4CAF50' },
-  //   { name: 'SR Steel', value: '23', color: '#EA3F3F' },
-  // ]
+
 
   let totalEquityShare = 0;
   let totalEquitySharePercentage = 0;
@@ -81,7 +77,7 @@ function Index({ shareHolding }) {
     totalEquityShare += equity.numberOfShares;
     totalEquitySharePercentage += equity.percentageShareHolding;
   });
-  // const top
+
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return item.type !== 'EquityShares1Member';

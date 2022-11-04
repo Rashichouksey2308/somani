@@ -14,7 +14,7 @@ function Index() {
   const [transitDetails, setTransitDetails] = useState();
   const dispatch = useDispatch();
   const id = sessionStorage.getItem('transitPId');
-  // const { TransitDetails } = useSelector((state) => state.TransitDetails)
+ 
 
   useEffect(() => {
     if (id) {

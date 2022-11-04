@@ -1,7 +1,7 @@
 @import '../../src/components/styles/Core/config';
 /*-----Dashboard Tab------*/
 .dashboardTab {
-  // margin-bottom: 126px;
+
   .tabHeader {
     padding: 28px 28px 0;
     margin-bottom: 10px;
@@ -237,7 +237,7 @@
 
     .card {
       margin-bottom: 26px;
-      // box-shadow: 0 3px 6px #cad0e2;
+     
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
@@ -307,8 +307,7 @@
         }
 
         .categories {
-          // margin-right: 1rem;
-          // width: 80%;
+          
           @include respond(md-desktop) {
             width: 100%;
           }
@@ -327,8 +326,7 @@
             max-width: 272px;
             border-radius: 4px;
             letter-spacing: 0.19px;
-            // background: #c3c3c31f;
-            // border: 1px solid #0000001f;
+           
             margin-right: 67px;
             box-shadow: none;
             @include respond(lg-desktop) {
@@ -472,7 +470,7 @@
 
           td {
             font-size: 19px;
-            //color: rgba(17, 17, 17, 0.7);
+           
             font-weight: 500;
             line-height: 24px;
             padding: 15px 30px;
@@ -579,8 +577,7 @@
         .card {
           margin-bottom: 1rem;
           border-radius: 6px !important;
-          // border: 1px solid #D2D7E5;
-          // box-shadow: 0 3px 6px #CAD0E2;
+        
           .cardHeader {
             cursor: pointer;
             border-bottom: none;
@@ -591,7 +588,7 @@
 
               .unit_label {
                 font-size: 18px;
-                // color: #2837566A;
+              
                 text-transform: capitalize;
                 font-weight: bold;
                 margin-top: 10px;
@@ -720,15 +717,13 @@
 
         .cardBody {
           padding: 17px 25px;
-          // border: 2px solid #e6eaf0;
-          // border-left: 9px solid #c4d7ef;
+         
         }
       }
     }
 
     .cardBody_compliance {
-      // overflow-y: auto;
-      // height: 300px;
+     
       border-top: 2px solid red;
       @include respond(md-desktop) {
         padding: 15px !important;
@@ -757,7 +752,7 @@
             font-size: 16px;
             line-height: 18px;
             font-weight: bold;
-            // margin-top: 0.5rem;
+          
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
@@ -781,7 +776,7 @@
 
       .checkbox_Container {
         p {
-          //color: #00000080;
+         
           font-size: 16px;
           line-height: 17px;
         }
@@ -807,7 +802,7 @@
               align-items: center;
               min-width: 197px;
               height: 61px;
-              //background: #f8f8f8;
+            
               border: 2px solid #cccccc;
               border-radius: 31px;
               justify-content: center;
@@ -820,7 +815,7 @@
               }
 
               span {
-                // width:100%;
+               
                 text-align: center;
                 font-size: 19px;
                 line-height: 24px;
@@ -1181,7 +1176,7 @@
         tr {
           th {
             background: #fafafb;
-            // border: none;
+       
             font-weight: bold;
             font-size: 15px;
             color: #3687e8;
@@ -1403,19 +1398,7 @@
     background: #f0f0f0;
     height: 62px;
 
-    //     .dropDown{
-    //         //background: #FFFFFF;
-    //         border: 1px solid #0000001F;
-    //         border-radius: 4px;
-    //         color: #3687E8;
-    //         text-transform: capitalize;
-    //         font-size: 16px;
-    //         line-height: 19px;
-    //         font-weight: bold;
-    //         width: 279px;
-    //         padding-left: 20px;
-    // height: 40px;
-    //     }
+
     .filter {
       margin-bottom: 15px;
       @include respond(sm-desktop) {
@@ -1470,9 +1453,7 @@
       .search {
         width: 492px;
         position: relative;
-        // @include respond(md-desktop) {
-        //     width: 50%;
-        // }
+       
         @include respond(lg-desktop) {
           width: 400px;
         }
@@ -1520,7 +1501,7 @@
           box-shadow: none !important;
           padding-left: 65px !important;
           border-radius: 24px !important;
-          // border: 2px solid #d2d7e5 !important;
+       
           @include respond(lg-desktop) {
             font-size: 16px !important;
             line-height: 1.3 !important;
@@ -1837,7 +1818,7 @@ img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
-    // position: absolute;
+  
     pointer-events: none;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
 
@@ -1860,5 +1841,5 @@ img {
 
 .customSelect {
   appearance: none;
-  // position: relative;
+
 }

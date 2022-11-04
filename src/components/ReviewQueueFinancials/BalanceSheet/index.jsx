@@ -25,38 +25,9 @@ function Index({ balanceData, rtrnChartIndiaction }) {
   const lastYearData = _get(balanceData, 'financial.balanceSheet[2]', {});
 
   const yearArray = _get(balanceData, 'financial.other.financialYears', ['', '', '']);
-  // const checkTrend = (latest,previous,last) => {
-  //   if(latest>=previous && previous>last){
-  //     return 'green'
-  //   }
-  //   else if(latest>previous)
-  // }
+ 
 
-  // const rtrnChartIndiaction = (latest, previous, last) => {
-  //   if (latest > previous && previous > last) {
-  //     return (<img
-  //       src="/static/profit.svg"
-  //       alt="Profit"
-  //       className="img-fluid"
-  //     />)
-  //   }
-  //   else if (latest < previous && previous < last) {
-  //     return (
-  //       <img
-  //         src="/static/loss.svg"
-  //         alt="Loss"
-  //         className="img-fluid"
-  //       />
-  //     )
-  //   }
-  //   else
-  //     return (<img
-  //       src="/static/average.svg"
-  //       alt="Average"
-  //       className="img-fluid"
-  //     />)
 
-  // }
 
   return (
     <>

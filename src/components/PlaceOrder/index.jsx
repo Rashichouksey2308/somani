@@ -138,13 +138,7 @@ const Index = () => {
       }
       return;
     }
-    // else if (orderData?.orderCurrency?.trim() === '') {
-    //   let toastMessage = 'Order Currency cannot be empty'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+    
     else if (orderData?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please set the unit of value';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -200,13 +194,7 @@ const Index = () => {
       }
       return;
     } 
-    // else if (orderData?.manufacturerName?.trim() === '') {
-    //   let toastMessage = 'Manufacturer Name can not be Empty';
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    //   }
-    //   return;
-    // } 
+    
     else if (shipment?.shipmentType?.trim() === '') {
       let toastMessage = 'SHIPMENT TYPE  can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {

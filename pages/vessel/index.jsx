@@ -135,29 +135,13 @@ export default function Home() {
               _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
-            // !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.laycanTo",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.loadPort.toDate",
-            //   ""
-            // )
+          
             EDTatLoadPort:
               '' || _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
             ETAatDischargePort: _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
-            // !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.ETAatDischargePort",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.ETAofDischarge.fromDate",
-            //   ""
-            // )
+           
           },
           shippingInformation: {
             shippingLineOrCharter:
@@ -174,7 +158,7 @@ export default function Home() {
     } else {
       setList(_get(Vessel, 'data[0].vessels', []));
     }
-    // serVesselDataToAdd(Vessel)
+   
   };
 
   const onAddVessel = () => {
@@ -724,7 +708,7 @@ export default function Home() {
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={orderID}
-        // orderID={orderID}
+    
         list={list}
         companyName={companyName}
         onAddVessel={onAddVessel}

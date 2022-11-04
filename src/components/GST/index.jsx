@@ -37,7 +37,7 @@ ChartJS.register(
   Tooltip,
 );
 
-// Chart.register(linear);
+
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [gstOption, setGstOption] = useState([]);
 
@@ -125,7 +125,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       });
 
     
-      // dispatch(VerifyGstKarza(payload));
+     
     }
   };
 
@@ -180,13 +180,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   };
 
   function createGradient(ctx, area, color, color2) {
-    // const colorStart = faker.random.arrayElement(colors);
-    // const colorMid = faker.random.arrayElement(
-    //   colors.filter(color => color !== colorStart)
-    // );
-    // const colorEnd = faker.random.arrayElement(
-    //   colors.filter(color => color !== colorStart && color !== colorMid)
-    // );
+   
 
 
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
@@ -231,7 +225,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       arr2.push(j);
     }
     setArr(arr2);
-    // return arr
+   
   };
 
   const [arrSales, setArrSales] = useState([]);
@@ -245,7 +239,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       arr2.push(j);
     }
     setArrSales(arr2);
-    // return arr
+   
   };
 
   useEffect(() => {
@@ -272,9 +266,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       if (!data || !data?.length) return arr;
       for (let i = 2; i <= data.length - 1; i = i + 3) {
         let b = 0;
-        // for (let j = 0; j <= i; j++) {
-        //   b = b + data[j]
-        // }
+        
         b = data[i] + data[i - 1] + data[i - 2];
         arr.push(Number(b.toFixed(2)));
       }
@@ -290,33 +282,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: 'Total Sales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales)),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#2979F2',
         },
         {
           label: 'thirdPartySales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales)),
-          // fill: true,
-
-          // backgroundColor: color,
+     
           borderColor: '#FA5F1C',
         },
         {
           label: 'relatedPartySales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales)),
-          // fill: true,
-
-          // backgroundColor: color,
+       
           borderColor: '#FFD950',
         },
         {
           label: 'intraOrgSales',
           data: getdata(filteredData1(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales)),
-          // fill: true,
-
-          // backgroundColor: color,
+        
           borderColor: '#02BC77',
         },
       ],
@@ -391,7 +375,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       return;
     }
 
-    // let color = createGradient(chart.ctx, chart.chartArea)
+
 
     const data = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
@@ -399,34 +383,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: [],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#2979F2',
         },
         {
           label: [],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+     
           borderColor: '#FA5F1C',
         },
         {
           label: [],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#FFD950',
         },
         {
           label: [],
 
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
-          // fill: true,
-
-          // backgroundColor: color,
+         
           borderColor: '#02BC77',
         },
       ],
@@ -461,7 +437,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     if (!chart3) {
       return;
     }
-    // let color3 = createGradient(chart3.ctx, chart3.chartArea)
+   
     const data3 = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
       datasets: [
@@ -483,22 +459,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: 'rgb(250, 95, 28,1)',
         },
-        // {
-        //   label: 'First dataset',
-        //   data: getdata(
-        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-        //       ?.avgMonthlySales,
-        //   ),
-        //   fill: true,
-        //   backgroundColor: createGradient(
-        //     chart2.ctx,
-        //     chart2.chartArea,
-        //     'rgb(67, 195, 77,0.0)',
-        //     'rgb(67, 195, 77,0.0)',
-        //   ),
-        //   borderColor: 'rgb(67, 195, 77)',
-        //   borderDash: [10, 5],
-        // },
+       ,
       ],
     };
 
@@ -516,7 +477,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       return;
     }
 
-    // let color = createGradient(chart.ctx, chart.chartArea)
+  
 
     const data = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
@@ -524,33 +485,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: ['Total Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
-          // fill: true,
-
-          // backgroundColor: color,
+       
           borderColor: '#2979F2',
         },
         {
           label: ['Third Party Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+          
           borderColor: '#FA5F1C',
         },
         {
           label: ['Related Party Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
-          // fill: true,
-
-          // backgroundColor: color,
+         
           borderColor: '#FFD950',
         },
         {
           label: ['Intra Org Sales'],
           data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
-          // fill: true,
-
-          // backgroundColor: color,
+        
           borderColor: '#02BC77',
         },
       ],
@@ -587,7 +540,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     if (!chart3) {
       return;
     }
-    // let color3 = createGradient(chart3.ctx, chart3.chartArea)
+   
     const data3 = {
       labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
       datasets: [
@@ -611,22 +564,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: 'rgb(250, 95, 28,1)',
         },
-        // {
-        //   label: 'First dataset',
-        //   data: getdata(
-        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-        //       ?.avgMonthlySales,
-        //   ),
-        //   fill: true,
-        //   backgroundColor: createGradient(
-        //     chart2.ctx,
-        //     chart2.chartArea,
-        //     'rgb(67, 195, 77,0.0)',
-        //     'rgb(67, 195, 77,0.0)',
-        //   ),
-        //   borderColor: 'rgb(67, 195, 77)',
-        //   borderDash: [10, 5],
-        // },
+       
       ],
     };
 
@@ -635,110 +573,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     setChartData3(data3);
   }, [chartRef.current, chartRef2.current, chartRef3.current, gstFilteredData]);
 
-  // const getOrCreateTooltip = (chart) => {
-  //   let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
-  //   if (!tooltipEl) {
-  //     tooltipEl = document.createElement('div');
-  //     tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-  //     tooltipEl.style.borderRadius = '3px';
-  //     tooltipEl.style.color = 'white';
-  //     tooltipEl.style.opacity = 1;
-  //     tooltipEl.style.pointerEvents = 'none';
-  //     tooltipEl.style.position = 'absolute';
-  //     tooltipEl.style.transform = 'translate(-50%, 0)';
-  //     tooltipEl.style.transition = 'all .1s ease';
-
-  //     const table = document.createElement('table');
-  //     table.style.margin = '0px';
-
-  //     tooltipEl.appendChild(table);
-  //     chart.canvas.parentNode.appendChild(tooltipEl);
-  //   }
-
-  //   return tooltipEl;
-  // };
-
-  // const externalTooltipHandler = (context) => {
-  //   // Tooltip Element
-  //   const { chart, tooltip } = context;
-  //   const tooltipEl = getOrCreateTooltip(chart);
-
-  //   // Hide if no tooltip
-  //   if (tooltip.opacity === 0) {
-  //     tooltipEl.style.opacity = 0;
-  //     return;
-  //   }
-
-  //   // Set Text
-  //   if (tooltip.body) {
-  //     const titleLines = tooltip.title || [];
-  //     const bodyLines = tooltip.body.map(b => b.lines);
-
-  //     const tableHead = document.createElement('thead');
-
-  //     titleLines.forEach(title => {
-  //       const tr = document.createElement('tr');
-  //       tr.style.borderWidth = 0;
-
-  //       const th = document.createElement('th');
-  //       th.style.borderWidth = 0;
-  //       const text = document.createTextNode(title);
-
-  //       th.appendChild(text);
-  //       tr.appendChild(th);
-  //       tableHead.appendChild(tr);
-  //     });
-
-  //     const tableBody = document.createElement('tbody');
-  //     bodyLines.forEach((body, i) => {
-  //       const colors = tooltip.labelColors[i];
-
-  //       const span = document.createElement('span');
-  //       span.style.background = colors.backgroundColor;
-  //       span.style.borderColor = colors.borderColor;
-  //       span.style.borderWidth = '2px';
-  //       span.style.marginRight = '10px';
-  //       span.style.height = '10px';
-  //       span.style.width = '10px';
-  //       span.style.display = 'inline-block';
-
-  //       const tr = document.createElement('tr');
-  //       tr.style.backgroundColor = 'inherit';
-  //       tr.style.borderWidth = 0;
-
-  //       const td = document.createElement('td');
-  //       td.style.borderWidth = 0;
-
-  //       const text = document.createTextNode(body);
-
-  //       td.appendChild(span);
-  //       td.appendChild(text);
-  //       tr.appendChild(td);
-  //       tableBody.appendChild(tr);
-  //     });
-
-  //     const tableRoot = tooltipEl.querySelector('table');
-
-  //     // Remove old children
-  //     while (tableRoot.firstChild) {
-  //       tableRoot.firstChild.remove();
-  //     }
-
-  //     // Add new children
-  //     tableRoot.appendChild(tableHead);
-  //     tableRoot.appendChild(tableBody);
-  //   }
-
-  //   const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
-
-  //   // Display, position, and set styles for font
-  //   tooltipEl.style.opacity = 1;
-  //   tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-  //   tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-  //   tooltipEl.style.font = tooltip.options.bodyFont.string;
-  //   tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
-  // };
 
   const DATA_COUNT = 7;
   const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100, decimals: 0 };
@@ -1026,11 +861,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
       return financialYear;
     }
-    // return financialYear
-
-    // let finacialYear = `MAR ${ startYear ? startYear : '' } - APR ${
+  
     endYear ? endYear : '';
-    // }`
+
   };
  
 

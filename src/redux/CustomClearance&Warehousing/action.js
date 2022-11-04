@@ -139,7 +139,7 @@ export const GetCustomClearance = (payload) => async (dispatch, getState, api) =
 
 export const UpdateCustomClearance = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  // let CustomId = sessionStorage.getItem('customId')
+
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -154,7 +154,6 @@ export const UpdateCustomClearance = (payload) => async (dispatch, getState, api
       headers: headers,
     });
     if (response.data.code === 200) {
-      // dispatch(GetAllCustomClearance(`?customClearanceId=${CustomId}`))
       const id = sessionStorage.getItem('customId');
       dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
       dispatch(updateCustomClearanceSuccess(response.data.data));

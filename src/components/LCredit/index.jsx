@@ -505,26 +505,10 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              // ref={inputRef}
-                              // onFocus={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: true }),
-                              //     e.target.type = 'number'
-                              // }}
-                              // onBlur={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: false }),
-                              //     e.target.type = 'text'
-                              // }}
-
-                              // value={isFieldInFocus.existingValue ?
-                              //   editInput ? editCurrent?.newValue : ''  :
-                              //   Number(editInput ? editCurrent?.newValue : '' ).toLocaleString('en-In')
-                              // }
-                              // defaultValue={
-                              //   editInput ? editCurrent?.newValue : ''
-                              // }
+                          
                               value={clauseObj?.newValue}
                               onChange={(e) => {
-                                // inputRef.current.value = ''
+                              
                                 arrChange('newValue', e.target.value);
                               }}
                             />

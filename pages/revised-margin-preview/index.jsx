@@ -38,13 +38,7 @@ function Index() {
     setOpen(false);
   };
   const exportPDF = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
+   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -2174,13 +2168,13 @@ function Index() {
         </tr>
       </table>
     );
-    // const doc = new jsPDF('p', 'pt', 'a4')
+   
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('RevisedMarginMoney.pdf');
       },
-      // margin:margins,
+      
       autoPaging: 'text',
     });
   };

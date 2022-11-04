@@ -185,28 +185,7 @@ function BranchCreation(props) {
     props.handleFetchBranchState(state.countryCode.toUpperCase());
   };
 
-  // const handleStateChange = (e) => {
-  //   let parsedValue = JSON.parse(e.target.value);
-  //   if (e.target.value !== "Select State") {
-  //     state.state = parsedValue.name;
-  //     state.stateCode = parsedValue.stateCode;
-  //     state.city = "";
-  //   }
-  //   setState({ ...state });
-  //   let data = {
-  //     countryCode: state.countryCode.toUpperCase(),
-  //     state: state.stateCode,
-  //   };
-  //   props.handleFetchBranchCity(data);
-  // };
 
-  // const handleCityChange = (e) => {
-  //   let parsedValue = JSON.parse(e.target.value);
-  //   if (e.target.value !== "Select City") {
-  //     state.city = parsedValue.name;
-  //   }
-  //   setState({ ...state });
-  // };
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -331,37 +310,7 @@ function BranchCreation(props) {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    // let payload = {
-    //   addressLine1: state.addressLine1,
-    //   addressLine2: state.addressLine2,
-    //   addressLine3: state.addressLine3,
-    //   altPhone: state.altPhone,
-    //   businessHours: state.businessHours,
-    //   city: state.city,
-    //   country: state.country,
-    //   branchName: state.branchName,
-    //   branchPrincipalName: state.branchPrincipalName,
-    //   emailId: state.emailId,
-    //   landmark: state.landmark,
-    //   latitude: state.latitude,
-    //   locality: JSON.stringify(state.locality),
-    //   longitude: state.longitude,
-    //   phone: state.phone,
-    //   pincode: state.pincode,
-    //   branchDescription: state.description,
-    //   state: state.state,
-    //   storeManagerName: state.storeManagerName,
-    //   weeklyOff: state.weeklyOff,
-    //   websiteUrl: state.websiteUrl,
-    //   dealer: state.dealer_id,
-    //   dealerId: state.dealerId,
-    //   id: state.id,
-    //   tab: state.tab,
-    //   branchId: state.branchId,
-    //   facebookUrl: state.facebookUrl,
-    //   branchCode: state.branchCode,
-    //   instagramUrl: state.instagramUrl,
-    // };
+  
 
     const formData = new FormData();
     formData.append('addressLine1', state.addressLine1);

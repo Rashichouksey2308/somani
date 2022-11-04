@@ -37,7 +37,7 @@ function Index(props) {
         }
       }
       if(props.id == 'Existing Supplier(s)'){
-      // validEmails.push({ name: email, status: 'Active' });
+     
       validEmails.push(email);
       }else{
         validEmails.push(email)
@@ -81,31 +81,10 @@ function Index(props) {
     let temp = { ...state };
     temp.emails.splice(index, 1);
     setState({ ...temp });
-    // if (props.onChange) {
-    //       props.onChange(temp.emails);
-    // }
+   
   };
   const handleOnKeydown = (e) => {
-    // switch (e.keyCode) {
-    //   case 13:
-    //   case 9: {
-    //     e.preventDefault();
-    //     break;
-    //   }
-    //   case 8: {
-    //     if (!e.currentTarget.value) {
-    //       // removeEmail(state.emails.length - 1, false);
-    //     }
-    //     break;
-    //   }
-    //   case 32: {
-    //       if (!e.currentTarget.value) {
-    //       // removeEmail(state.emails.length - 1, false);
-    //     }
-    //     break;
-    //   }
-    //   default:
-    // }
+   
   };
 
   const handleOnKeyup = (e) => {
@@ -121,7 +100,7 @@ function Index(props) {
         break;
       }
       case 32: {
-        //  findEmailAddress(e.currentTarget.value);
+       
         e.preventDefault();
 
         break;
@@ -141,7 +120,7 @@ function Index(props) {
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
-    // findEmailAddress(e.currentTarget.value, true);
+   
   };
 
   const handleOnFocus = () =>

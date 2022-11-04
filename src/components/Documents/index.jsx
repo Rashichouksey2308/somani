@@ -21,16 +21,7 @@ const Index = ({
 
   const [name, setName] = useState(null);
 
-  // const onAddDoc = (index) => {
-  //   setList([
-  //     ...list,
-  //     {
-  //       typeDocument: '',
-  //       attachDoc: '',
-  //       actions: 'false',
-  //     },
-  //   ])
-  // }
+
 
   const [secondDocName, setSecondDocName] = useState(null);
 

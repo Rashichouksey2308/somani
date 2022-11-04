@@ -209,7 +209,7 @@ const Index = () => {
               <>
                 <div
                   id="storageInsurance"
-                  //className='collapse'
+                
                   aria-labelledby="storageInsurance"
                   data-parent="#storageInsurance"
                 >
@@ -334,22 +334,12 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div>
-                {' '}
              
-                <UploadDocument
-                  docName={`Policy Document ${
-                    insuranceType == false ? `- Marine` : `- Storage`
-                  } `}
-                  uploadDocument1={uploadDocument1}
-                />
-            
-              </div> */}
               </>
             ) : (
               <>
                 <div id="storageInsurance" 
-                //className="collapse" 
+                
                 aria-labelledby="storageInsurance">
                   <div className={` ${styles.cardBody} card-body  border_color`}>
                     <div className={` ${styles.content}`}>

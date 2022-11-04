@@ -48,7 +48,7 @@ export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
-        // Router.push('/order-list')
+       
       } else {
         dispatch(mcaReportFailed(response.data.data));
         const toastMessage = 'could not process your request at the moment';

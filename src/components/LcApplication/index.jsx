@@ -82,7 +82,7 @@ function Index({
             </div>
             <div
               id="lcApplication"
-              // className="collapse"
+         
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -264,11 +264,7 @@ function Index({
                                   { maximumFractionDigits: 2 },
                                 )
                           }
-                          // defaultValue={lcData?.currecyCodeAndAmountValue}
-                          // value={addPrefixOrSuffix(
-                          //   lcData?.currecyCodeAndAmountValue,
-                          //   'USD',
-                          // )}
+                         
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
@@ -314,10 +310,7 @@ function Index({
                                 ) +
                                 ` %`
                           }
-                          // value={addPrefixOrSuffix(
-                          //   lcData?.tolerancePercentage,
-                          //   '%',
-                          // )}
+                         
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}

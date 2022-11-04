@@ -240,13 +240,7 @@ function Index() {
       }
       return;
     }
-    // else if (isNaN(orderDetails.quantity)) {
-    //   let toastMessage = 'Please Fill A valid quantity'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+   
     else if (
       Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0 ||
       orderDetails.orderValue === null ||
@@ -259,13 +253,7 @@ function Index() {
       return;
     }
 
-    // else if (orderDetails.supplierName.trim() === '') {
-    //   let toastMessage = 'Please Fill A valid Supplier Name'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+   
     else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin';
       if (!toast.isActive(toastMessage.toUpperCase())) {

@@ -28,17 +28,7 @@ function GenericReducer(state = initialState, action) {
         ...state,
       };
     }
-    // case types.GET_GENERIC:
-    //   return {
-    //     ...state,
-    //   }
-
-    // case types.GET_GENERIC_FAILED: {
-    //   return {
-    //     ...state,
-    //     allGeneric: [],
-    //   }
-    // }
+  
 
     default:
       return state;

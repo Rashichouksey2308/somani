@@ -49,7 +49,7 @@ export default function Index({}) {
                   </div>
                   <div className={`${styles.tooltip} `}>
                     <img
-                      //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                    
                       className={`${styles.info_circle} img-fluid`}
                       src="/static/info-circle.svg"
                     />
@@ -512,10 +512,7 @@ export default function Index({}) {
                           className={`${styles.input_field} input form-control`}
                           type="text"
                           required
-                          // onKeyDown={(evt) =>
-                          //   ['e', 'E', '+', '-'].includes(evt.key) &&
-                          //   evt.preventDefault()
-                          // }
+                        
                         />
 
                         <label className={`${styles.label_heading} label_heading`}>
@@ -594,10 +591,7 @@ export default function Index({}) {
                           className={`${styles.input_field} input form-control`}
                           type="text"
                           required
-                          // onKeyDown={(evt) =>
-                          //   ['e', 'E', '+', '-'].includes(evt.key) &&
-                          //   evt.preventDefault()
-                          // }
+                        
                         />
 
                         <label className={`${styles.label_heading} label_heading`}>
@@ -638,10 +632,7 @@ export default function Index({}) {
                           className={`${styles.input_field} input form-control`}
                           type="text"
                           required
-                          // onKeyDown={(evt) =>
-                          //   ['e', 'E', '+', '-'].includes(evt.key) &&
-                          //   evt.preventDefault()
-                          // }
+                        
                         />
 
                         <label className={`${styles.label_heading} label_heading`}>Swift Code</label>
@@ -665,7 +656,7 @@ export default function Index({}) {
                       rows={3}
                       required
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                      // style={{ backgroundColor: 'none' }}
+                    
                     />
                     <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                       Narration Remarks

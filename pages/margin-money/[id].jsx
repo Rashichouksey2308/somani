@@ -249,26 +249,16 @@ function Index() {
   const dropDownChange = (name, value) => {
 
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      // setChangeImporterData({ ...emergent });
+    
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
-      // newInput['branchOffice'] = emergent.branch;
-      // newInput['importerGSTIN'] = emergent.GSTIN;
-      // newInput['companyAddress'] = emergent.address;
-      // saveInvoiceData('branchOffice', emergent.branch)
-      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-      // saveInvoiceData('companyAddress', emergent.address)
+      
       setInvoiceData({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      // setChangeImporterData({ ...indoGerman });
+     
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
-      // newInput['branchOffice'] = indoGerman.branch;
-      // newInput['importerGSTIN'] = indoGerman.GSTIN;
-      // newInput['companyAddress'] = indoGerman.address;
-      // saveInvoiceData('branchOffice', emergent.branch)
-      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-      // saveInvoiceData('companyAddress', emergent.address)
+     
       setInvoiceData({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -874,13 +864,9 @@ function Index() {
         },
       },
 
-      // conversionRate: forCalculationRevised.conversionRate,
+     
       isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
-      // orderObj: {
-      //   quantity: forCalculationRevised.quantity,
-      //   perUnitPrice: forCalculationRevised.perUnitPrice,
-      //   orderValue: finalCalRevised.orderValue,
-      // },
+      
     };
 
     dispatch(RevisedMarginMoney(obj));
@@ -2245,13 +2231,13 @@ function Index() {
         </tr>
       </table>
     );
-    // const doc = new jsPDF('p', 'pt', [1000, 1000])
+   
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
-      // margin:margins,
+      
       autoPaging: 'text',
     });
   };
@@ -4049,13 +4035,13 @@ function Index() {
         </tr>
       </table>
     );
-    // const doc = new jsPDF('p', 'pt', 'a4')
+   
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
-      // margin:margins,
+     
       autoPaging: 'text',
     });
   };
@@ -4123,8 +4109,6 @@ function Index() {
   useEffect(() => {
     getRevisedData2();
   }, [revisedCalc]);
-  // ? revisedCalc.additionalAmountPerPDC
-  //           : 0,
 
   useEffect(() => {
     getDataRevised2();
@@ -4277,7 +4261,7 @@ function Index() {
                     </div>
                     <div
                       id="commodityAccordion"
-                      // className="collapse"
+                     
                       aria-labelledby="commodityAccordion"
                       data-parent="#commodityAccordion"
                     >
@@ -4359,7 +4343,7 @@ function Index() {
                                         maximumFractionDigits: 2,
                                       })
                                 }
-                                // value={forCalculation?.conversionRate}
+                             
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -4519,7 +4503,7 @@ function Index() {
                                     : checkNan(Number(forCalculation?.numberOfPDC))?.toLocaleString('en-In')
                                 }
                                 onChange={(e) => saveForCalculation(e.target.name, e.target.value)}
-                                // value={forCalculation?.numberOfPDC}
+                               
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -4895,9 +4879,7 @@ function Index() {
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
-                                  // defaultValue={
-                                  //   marginData?.invoiceDetail?.buyerGSTIN
-                                  // }
+                                 
                                   value={invoiceData?.buyerGSTIN}
                                 >
                                   <option selected>Select an Option</option>
@@ -5070,7 +5052,7 @@ function Index() {
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
                                   onChange={(e) => {
-                                    //  changeImporter(e)
+                                  
                                     let filter = getInternalCompaniesMasterData.filter((val, index) => {
                                       if (
                                         val.Branch == e.target.value &&
@@ -5233,10 +5215,6 @@ function Index() {
                                       e.target.value,
                                     );
 
-                                    // saveInvoiceData(
-                                    //    "branchAddress",
-                                    //    filter[0].ADDRESS,
-                                    // )
                                   }}
                                 >
                                  
@@ -5284,9 +5262,7 @@ function Index() {
                                 name="IFSCcode"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.IFSCcode}
-                                // {
-                                //   marginData?.invoiceDetail?.IFSCcode
-                                // }
+                                
 
                                 className={`${styles.input_field} input form-control`}
                                 required

@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { ViewDocument } from 'redux/ViewDoc/action';
-// import {GetBuyer} from '../../redux/registerBuyer/action'
+
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
@@ -30,7 +30,7 @@ function Index() {
         id="orderDetail"
         className={`collapse ${styles.body} card-body row`}
         aria-labelledby="orderDetail"
-        //   data-parent="#profileAccordion"
+      
       >
         {fields('Commodity', buyerList?.order?.commodity)}
         {fields(

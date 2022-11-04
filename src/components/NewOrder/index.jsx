@@ -165,11 +165,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                   }}
-                  // value={addPrefixOrSuffix(
-                  //   orderData.quantity ? orderData.quantity : 0,
-                  //   orderData.unitOfQuantity,
-                  //   '',
-                  // )}
+                 
                   value={
                     isFieldInFocus.quantity
                       ? orderData.quantity
@@ -209,23 +205,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                             : orderData.unitOfValue
                         }`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   orderData.orderValue ? orderData.orderValue : 0,
-                  //   orderData.unitOfValue == 'Crores'
-                  //     ? 'Cr'
-                  //     : orderData.unitOfValue == 'Million'
-                  //       ? 'Mn'
-                  //       : orderData.unitOfValue,
-                  //   '',
-                  // )}
-                  // value={
-                  //   isFieldInFocus.orderValue ?
-                  //     orderData.orderValue :
-                  //     Number(orderData.orderValue).toLocaleString() + ` ${orderData.unitOfValue == 'Crores'
-                  //       ? 'Cr'
-                  //       : orderData.unitOfValue == 'Million'
-                  //         ? 'Mn'
-                  //         : orderData.unitOfValue}`}
+                 
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -299,7 +279,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                         }) +
                         ' %'
                   }
-                  // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
+                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
