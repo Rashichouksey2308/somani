@@ -54,7 +54,7 @@ function index({
                 }
               }}
             >
-              <span className={`mr-2`} style={{ color: mcaReportAvailable ? '#43C34D' : '#EA3F3F' }}>{downLoadButtonName}</span>
+              <span className={`${downLoadButtonName === 'MCA Report' ? mcaReportAvailable ? styles.btn_green : styles.btn_red : ''} mr-2`} >{downLoadButtonName}</span>
               <Image
                 src="/static/file_download.svg"
                 alt="Picture of the author"
