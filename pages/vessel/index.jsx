@@ -321,12 +321,7 @@ export default function Home() {
     const name = e.target.id;
     let value = e.target.value;
 
-    if (name.trim() === 'yearOfBuilt' && value.length !== 4) {
-      let toastMessage = 'provide a valid year';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else {
+     
       let array = { ...list[index].vesselInformation[0], [name]: value };
 
       setList((prevState) => {
@@ -341,7 +336,7 @@ export default function Home() {
         });
         return newState;
       });
-    }
+    
   };
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
