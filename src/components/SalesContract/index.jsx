@@ -6,7 +6,7 @@ import GrowInput from '../GrowInput';
 function Index() {
   const [active, setActive] = useState('Seller');
   const changeActiveValue = (val, index) => {
-    console.log(val, 'val');
+   
     setActive(val);
     // showContent()
     let tempArr = sideBar;
@@ -17,7 +17,7 @@ function Index() {
         tempArr[i].state = 'default';
       }
     }
-    console.log(tempArr, 'name');
+   
     setSidebar(tempArr);
   };
 

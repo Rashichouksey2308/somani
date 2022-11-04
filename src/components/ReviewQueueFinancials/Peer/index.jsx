@@ -6,7 +6,7 @@ import { checkNan, convertValue } from 'utils/helper';
 function Index({ peerData }) {
   const [conversionUnit, setConversionUnit] = useState(10000000);
 
-  // console.log(peerData?.financial?.peerComparison, 'THIS IS PEER COMPARISON DATA')
+ 
 
   return (
     <>
