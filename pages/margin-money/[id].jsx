@@ -2,25 +2,25 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import RevisedMargin from '../../src/components/RevisedMargin';
-import { Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import _get from 'lodash/get';
-import UploadOther from '../../src/components/UploadOther';
-import DownloadBar from '../../src/components/DownloadBar';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import DownloadBar from '../../src/components/DownloadBar';
+import RevisedMargin from '../../src/components/RevisedMargin';
+import UploadOther from '../../src/components/UploadOther';
 import { GetMarginMoney, RevisedMarginMoney, UpdateMarginMoney } from '../../src/redux/marginMoney/action';
+import { GetAllOrders } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
-import { GetAllOrders } from '../../src/redux/registerBuyer/action';
+import styles from './index.module.scss';
 // import { Row, Col } from 'react-bootstrap'
 import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
 import moment from 'moment';
+import ReactDOMServer from 'react-dom/server';
 import { getBanks, getInternalCompanies } from '../../src/redux/masters/action';
 
 function Index() {
@@ -906,13 +906,6 @@ function Index() {
   };
 
   const exportPDF = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -2253,7 +2246,6 @@ function Index() {
         </tr>
       </table>
     );
-    // const doc = new jsPDF('p', 'pt', [1000, 1000])
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
@@ -2265,13 +2257,6 @@ function Index() {
   };
 
   const exportPDFReviced = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>

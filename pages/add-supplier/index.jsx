@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import Filter from '../../src/components/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { SearchLeads } from 'redux/buyerProfile/action';
-import DownloadMasterBar from '../../src/components/DownloadMasterBar';
+import moment from 'moment';
 import Image from 'next/image';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchLeads } from 'redux/buyerProfile/action';
 import { GetAllSupplier } from 'redux/supplier/action';
-import moment from 'moment';
+import DownloadMasterBar from '../../src/components/DownloadMasterBar';
+import Filter from '../../src/components/Filter';
+import styles from './index.module.scss';
 
 const index = () => {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const index = () => {
               }}
             >
               <span className={styles.add_supplier}>+</span>
-              <span className='ml-1 mr-2'>Add Supplier</span>
+              <span className="ml-1 mr-2">Add Supplier</span>
             </button>
           </div>
 
@@ -204,148 +204,6 @@ const index = () => {
                           </tr>
                         );
                       })}
-
-                    {/* <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Bhutani Traders</td>
-
-                      <td>22-02-2022</td>
-                      <td>India</td>
-
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
-                      </td>
-
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ramakrishna Traders </td>
-
-                      <td>22-02-2022</td>
-                      <td>India</td>
-
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.expired}`}
-                        ></span>
-                        Inactive
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Bhutani Traders </td>
-
-                      <td>22-02-2022</td>
-                      <td>India</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.blacklisted}`}
-                        ></span>
-                        Blacklisted
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                   
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ramakrishna Traders </td>
-                      <td>22-02-2022</td>
-                      <td>India</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Somani Traders </td>
-                      <td>22-02-2022</td>
-                      <td>India</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
-                      </td>
-
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ramakrishna Traders </td>
-                      <td>22-02-2022</td>
-                      <td>India</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        Approved
-                      </td>
-
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -355,16 +213,6 @@ const index = () => {
             Total Count: <span>{allSupplierResponse?.totalCount}</span>
           </div>
         </div>
-        {/* <div className="d-flex justify-content-end mt-5 mb-4">
-        <div className={styles.btn_file}>
-          <span>Download</span>
-          <img
-            src="/static/file_download.svg"
-            className="img-fluid"
-            alt="FileDownload"
-          />
-        </div>
-      </div> */}
       </div>
       <DownloadMasterBar btnName="Download Reports" />
     </>
