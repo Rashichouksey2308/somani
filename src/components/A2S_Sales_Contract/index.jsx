@@ -1090,7 +1090,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         </p>
         <div className={`row`}>
           <Col md={6}>
-            <p className="text_sales m-0">Seller</p>
+            <p className="text_sales m-0">(Seller)</p>
             {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
             </Col> */}
@@ -1118,7 +1118,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             )}
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0">Buyer</p>
+            <p className="text_sales m-0">(Buyer)</p>
             {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
             </Col> */}
