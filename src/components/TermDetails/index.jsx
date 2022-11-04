@@ -418,6 +418,7 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
+                  <option value='First Class European Bank'>First Class European Bank</option>
                   <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
                   <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                 </select>

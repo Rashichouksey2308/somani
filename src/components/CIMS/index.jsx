@@ -51,8 +51,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       ]);
     }
   }, [TransitDetails]);
-  console.log(TransitDetails, 'TransitDetails');
-  console.log(cimsDetails, 'xxxxzxc');
+
   // useEffect(() => {
   //   let temp = [...cimsDetails]
   //   temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
@@ -108,7 +107,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let newArray = cimsDetails.slice();
     newArray[index].vesselName = _get(filteredVessel, 'vesselName', '');
     newArray[index].quantity = _get(filteredVessel, 'blQuantity', '');
-    console.log(filteredVessel, 'filteredVessel');
+
     setCimsDetails(newArray.slice());
   };
 
@@ -128,9 +127,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       return newState;
     });
   };
-  console.log(cimsDetails, '2222222');
+
   const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1');
+
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -174,7 +173,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
   const handleCloseDoc = (e, index) => {
     let tempArr = [...cimsDetails];
-    console.log(tempArr, 'khjfdfgkegfk12', tempArr[index].e, index, e);
+   
 
     tempArr[index][e] = null;
     setCimsDetails(tempArr);
@@ -185,7 +184,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const uploadDoc = async (e, index) => {
     let id = e.target.id;
     let doc = await docUploadFunction(e);
-    console.log(doc, id, 'khjfdfgkegfk');
+ 
 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -200,13 +199,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       return newState;
     });
   };
-  console.log(cimsDetails, 'khjfdfgkegfk');
+
   const validation = () => {
     let isOk = true;
     let toastMessage = '';
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', cimsDetails.length);
+      
       if (cimsDetails[i]?.vesselName == '' || cimsDetails[i]?.vesselName == undefined) {
         toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -281,7 +280,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       fd.append('transitId', transId._id);
 
       let task = 'submit';
-      console.log({ fd, task, idtrans }, 'transitUpdatePayload');
+   
       dispatch(UpdateTransitDetails({ fd, task, idtrans }));
     }
   };

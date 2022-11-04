@@ -15,7 +15,7 @@ export default function Index(props) {
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
     Router.push('/delivery-preview');
   };
-  console.log(props.deliveryOrder, 'tempArr');
+
   let boe = _get(props, 'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry', []);
   const boeTotalQuantity = boe?.reduce((accumulator, object) => {
     return accumulator + Number(object.boeDetails.invoiceQuantity);

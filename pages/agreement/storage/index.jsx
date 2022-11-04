@@ -980,25 +980,32 @@ function Index() {
                               insuranceData,
                               'order.generic.buyer.addresses[0].fullAddress',
                               '',
-                            )}{' '}
+                            )},
                             <br></br>
                             {_get(
                               insuranceData,
                               'order.generic.buyer.addresses[0].state',
                               '',
-                            )}{' '}
+                            )},
                             <br></br>
                             {_get(
                               insuranceData,
                               'order.generic.buyer.addresses[0].country',
                               '',
-                            )}{' '}
-                            <br></br>
+                            )}{' '}  -
                             {_get(
+                              insuranceData,
+                              'order.generic.buyer.addresses[0].pinCode',
+                              '',
+                            )},
+                            <br></br>
+                            GSTIN NO - {_get(
                               insuranceData,
                               'order.generic.buyer.gstin',
                               '',
                             )}
+                            <br></br>
+                 
                           </p>
                         </td>
                       </tr>
@@ -1320,25 +1327,30 @@ function Index() {
                       insuranceData,
                       'order.generic.buyer.addresses[0].fullAddress',
                       '',
-                    )}{' '}
+                    )},
                     <br></br>
                     {_get(
                       insuranceData,
                       'order.generic.buyer.addresses[0].state',
                       '',
-                    )}{' '}
+                    )},
                     <br></br>
                     {_get(
                       insuranceData,
                       'order.generic.buyer.addresses[0].country',
                       '',
-                    )}{' '}
+                    )}{' '}  -
+                     {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].pinCode',
+                      '',
+                    )},
                     <br></br>
-                    {_get(
+                    GSTIN NO - {_get(
                       insuranceData,
                       'order.generic.buyer.gstin',
                       '',
-                    )}{' '}
+                    )}
                     <br></br>
                   </Col>
                 </Row>

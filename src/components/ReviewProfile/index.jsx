@@ -81,8 +81,7 @@ function Index({
       setPayloadData(tempObj);
     }
   };
-  console.log(fields, 'fields');
-  console.log(reviewedProfile, 'this is reviewed');
+ 
 
   return (
     <div className={`${styles.leads} border card`}>

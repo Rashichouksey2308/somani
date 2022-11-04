@@ -47,7 +47,7 @@ function Index(props) {
     ])
   };
 
-  console.log(isFieldInFocus, 'isFieldInFocus')
+
 
   useEffect(() => {
     let tempArray = []
@@ -61,10 +61,10 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
-        console.log(props?.data, 'sadadsdasd1');
+
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
 
-        console.log('savd', savedData);
+
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
         setPaymentTerms(savedData?.paymentTerms);
@@ -83,7 +83,7 @@ function Index(props) {
             ],
         );
       } else {
-        console.log(props?.data, 'sadadsdasd');
+
         setDeliveryData(props?.data?.deliveryTerm);
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
         setPaymentTerms(props?.data?.paymentTerms);
@@ -115,7 +115,7 @@ function Index(props) {
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log('this12');
+
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -135,12 +135,12 @@ function Index(props) {
     // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
   };
   const handleChangeInput = (name, value, index) => {
-    console.log(name,value,index,'tempArray')
+
     let temp = [...listContact];
     temp[index][name] = value;
     setListContact([...temp]);
   };
-  console.log(deliveryData, 'deliveryData');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0 `}>

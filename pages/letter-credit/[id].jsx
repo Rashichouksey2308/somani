@@ -276,7 +276,7 @@ function Index() {
     }
   };
   const getDataFormDropDown = (value) => {
-    console.log(value, fieldType, 'SADdsdfsdf');
+    
     if (fieldType == 'date') {
       return moment(value).format('DD-MM-YYYY');
     } else if (fieldType == 'drop') {

@@ -20,7 +20,7 @@ import { updateGenericData } from '../../redux/generic/actionsType';
 function Index(props) {
   const dispatch = useDispatch();
 
-  console.log(props, 'sales');
+
   const [active, setActive] = useState('Supplier');
   const [multiPart, setMultiPart] = useState(false);
   const [saveData, setSaveData] = useState(false);
@@ -41,7 +41,7 @@ function Index(props) {
         }
       }
     }
-    console.log(tempArr, 'name');
+
     setSidebar(tempArr);
   };
 
@@ -154,28 +154,28 @@ function Index(props) {
           tempArr[i].state = 'default';
           tempArr[i].image = '/static/Group 3256.svg';
           let a = i - 1;
-          console.log(a, 'tempArr[a]234');
+    
           tempArr[a].state = 'current';
           tempArr[a].image = '/static/currnet.svg';
           setActive(tempArr[a].name);
         }
       }
     }
-    console.log('aasdaa', tempArr);
+    
     setSidebar(tempArr);
   };
   const onRightChange = () => {
     let tempArr = sideBar;
-    console.log(tempArr, '987789');
+
     for (let i = 0; i < tempArr.length; i++) {
-      console.log(tempArr[i], '987');
+    
       if (tempArr[i].state == 'current') {
         if (i != tempArr.length) {
           tempArr[i].state = 'default';
           tempArr[i].image = '/static/Group 3256.svg';
-          console.log(tempArr[i].state, 'tempArr[a]');
+  
           let a = i + 1;
-          console.log(a, 'tempArr[a]234');
+
           tempArr[a].state = 'current';
           tempArr[a].image = '/static/currnet.svg';
           setActive(tempArr[a].name);
@@ -183,10 +183,10 @@ function Index(props) {
         }
       }
     }
-    console.log('aasdaa', tempArr);
+
     setSidebar(tempArr);
   };
-  console.log(sideBar, 'sideBar');
+
 
   const onSave = () => {
     setSaveData(true);
@@ -213,7 +213,7 @@ function Index(props) {
           multiParty: data.supplierState.multiParty,
         },
       };
-      console.log(dataToSend, 'dataToSend');
+     
     }
     if (key == 'Seller') {
       dataToSend = {
@@ -226,7 +226,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
         },
       };
-      console.log(dataToSend, 'dataToSend');
+
 
       sessionStorage.removeItem('Seller');
     }
@@ -241,7 +241,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
         },
       };
-      console.log(dataToSend, 'dataToSend');
+
     }
     if (key == 'Finance') {
       dataToSend = {
@@ -251,7 +251,7 @@ function Index(props) {
           branchName: data.financeData.branchName,
         },
       };
-      console.log(dataToSend, 'dataToSend');
+
     }
     if (key == 'Cma') {
       dataToSend = {
@@ -304,7 +304,7 @@ function Index(props) {
     setSubmitData(false);
   };
   const sendData = (key, data) => {
-    console.log(data, 'sendData');
+
     let dataToSend = {};
     if (key == 'Supplier') {
       dataToSend = {

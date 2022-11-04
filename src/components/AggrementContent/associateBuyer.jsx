@@ -11,7 +11,7 @@ let associate = {
 };
 
 function Index(props) {
-  console.log(props.selectedGST, props.gstList, 'asdasda');
+
   const [associateData, setAssociateData] = useState(associate);
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
@@ -35,7 +35,7 @@ function Index(props) {
     state: '',
     city: '',
   });
-  console.log(props.order, 'companyName23243534');
+
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -89,11 +89,11 @@ function Index(props) {
         setAddressList(savedData.addresses);
         setList(savedData.authorisedSignatoryDetails);
         let temp = [];
-        console.log(savedData, 'savedData.authorisedSignatoryDetail');
+  
         if (savedData.authorisedSignatoryDetails?.length > 0) {
           savedData.authorisedSignatoryDetails.forEach((val, index) => {
             if (val.document) {
-              console.log(val.document, 'val.document');
+            
               temp.push({ attachDoc: val.document });
             }
           });
@@ -109,7 +109,7 @@ function Index(props) {
             },
           ]);
         }
-        console.log(temp, 'temp');
+      
         setDocList(temp);
         setAssociateData(buyer);
         let tempArr = savedData?.authorisedSignatoryDetails;
@@ -125,7 +125,7 @@ function Index(props) {
         });
         setOptions([...optionArray]);
       } else {
-        console.log('in props');
+
         let buyer = {
           branchName: props?.data?.branch,
           shortName: props?.data?.shortName,
@@ -189,8 +189,7 @@ function Index(props) {
       setCompanyAddress(a);
     }
   }, [props.address]);
-  console.log(companyAddress, 'companyAddress');
-  console.log(docList, 'sasads');
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'Associate Buyer') {
       let data = {
@@ -202,7 +201,7 @@ function Index(props) {
       props.sendData('Associate Buyer', data);
     }
     if (props.submitData == true && props.active == 'Associate Buyer') {
-      console.log('this12');
+     
       let data = {
         associate: associateData,
         address: addressList,
@@ -228,7 +227,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+         
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -240,14 +239,14 @@ function Index(props) {
       return newState;
     });
   };
-  console.log(associate, 'associate', docList);
+
   const handleInput = (name, value, key) => {
     const newInput = { ...associateData };
 
     newInput[name] = value;
     setAssociateData(newInput);
   };
-  console.log();
+
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"
@@ -268,7 +267,7 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -323,7 +322,7 @@ function Index(props) {
     }
   };
   const removeDoc = (index) => {
-    console.log('removeDOc');
+
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -347,7 +346,7 @@ function Index(props) {
       return newState;
     });
   };
-  console.log(docList, 'document');
+
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -385,7 +384,7 @@ function Index(props) {
         };
         setDocList([...docList, { attachDoc: '', index: index }]);
       } else {
-        console.log('herehr');
+
         arrayToSave = {
           name: '',
           designation: '',
@@ -467,11 +466,11 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
+
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -520,7 +519,7 @@ function Index(props) {
     });
     setAddressType('Registered');
   };
-  console.log(isEdit, 'associateData');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -1004,7 +1003,7 @@ function Index(props) {
                             // addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                            let data = await props.uploadDoc(e)
-                           console.log(data,"upload")
+                          
                             setdoc({attachDoc:data})
                           }}
                         />
@@ -1176,10 +1175,8 @@ const editData = (
               name="country"
               onChange={(e) => {
                 let temp = e.target.value;
-                console.log(temp, 'tempp');
-                // if(temp=="1"||temp=="2"||temp=="3"||temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8"||temp=="9"||temp=="0"){
-                //   temp=""
-                // }
+               
+               
                 editNewAddress(e.target.name, temp);
               }}
               onKeyDown={(evt) =>

@@ -23,7 +23,7 @@ let supplier = {
 };
 
 function Index(props) {
-  console.log(props.data, '1234');
+
   const dispatch = useDispatch();
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [supplierState, setSupplierState] = useState(supplier);
@@ -56,7 +56,7 @@ function Index(props) {
   const [addressEditType, setAddressEditType] = useState('Registered');
   const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
   let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
-  console.log(supplierState, 'supplierState');
+ 
   //multiParty
   const [multiList, setMultiList] = useState([]);
   const [newMultiAddress, setNewMultiAddress] = useState({
@@ -105,7 +105,7 @@ function Index(props) {
     },
   ];
 
-  console.log(multiList, 'props?.order?.supplierName');
+
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Supplier') {
@@ -133,7 +133,7 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Supplier')) {
-        console.log('herer23123');
+  
 
         let savedData = JSON.parse(sessionStorage.getItem('Supplier'));
         let supplier = {
@@ -181,23 +181,8 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
-        console.log(savedData.authorisedSignatoryDetails, 'savedData.authorisedSignatoryDetails');
-      } else {
-        let supplier = {
-          name: props?.order?.supplierName || props.order?.supplierName,
-          shortName: props.data?.shortName,
-          bankDetails: {
-            bankName: props.data?.bankDetails?.bankName,
-            accountNo: props.data?.bankDetails?.accountNo,
-            swiftCode: props.data?.bankDetails?.swiftCode,
-            city: props.data?.bankDetails?.city,
-          },
-          addresses: props.data?.addresses,
-          authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails,
-          multiParty: props.data?.multiParty,
-          multiPartyName: props.data?.multiPartyName,
-          multiPartyAddresses: props.data?.multiPartyAddresses,
-        };
+      
+      
         if (props.data?.authorisedSignatoryDetails.length > 0) {
           let tempArr = props.data?.authorisedSignatoryDetails;
           let optionArray = [...options];
@@ -225,7 +210,7 @@ function Index(props) {
           ]);
         }
 
-        console.log(props.data?.authorisedSignatoryDetails, 'savedData.authorisedSignatoryDetails');
+       
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
         setAddressList(props.data?.addresses);
@@ -234,7 +219,7 @@ function Index(props) {
       }
     }
   }, [props.data]);
-  console.log(list, 'props23424234');
+
   useEffect(() => {
     if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData);
@@ -267,7 +252,7 @@ function Index(props) {
     //  setRemovedOption(value.name)
   };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -287,7 +272,7 @@ function Index(props) {
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
-    console.log(temp, 'temp');
+
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -334,9 +319,9 @@ function Index(props) {
       setSupplierState(newInput);
     }
   };
-  console.log(removedOption, 'removedOption');
+
   const removeDoc = (index) => {
-    console.log('removeDOc');
+
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -407,7 +392,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -556,11 +541,11 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
+ 
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -651,7 +636,7 @@ function Index(props) {
     setMultiList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == toEditIndex) {
-          console.log('here');
+
           return MultiEditAddress;
         }
         // 👇️ otherwise return object as is
@@ -671,7 +656,7 @@ function Index(props) {
       city: '',
     });
   };
-  console.log(addressMutliType, 'addressMutliType');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -764,7 +749,7 @@ function Index(props) {
                   if (temp == '_') {
                     temp = '';
                   }
-                  console.log(temp, '____');
+               
                   handleInput(e.target.name, temp, 'bankName');
                 }}
               />
@@ -1679,7 +1664,7 @@ const editData = (
   toShow,
   toView,
 ) => {
-  console.log(addressEditType, 'addressEditType');
+
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>

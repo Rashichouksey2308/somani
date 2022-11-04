@@ -20,7 +20,7 @@ function AddressComponent({
   path,
   communicationModeYes,
 }) {
-  console.log(communicationModeYes, ' ');
+
   const dispatch = useDispatch();
 
   return (
@@ -48,7 +48,7 @@ function AddressComponent({
                   src="/static/mode_edit.svg"
                   alt="edit"
                   onClick={() => {
-                    console.log('index', index);
+                  
                     editAddress(index);
                   }}
                 />
@@ -56,7 +56,7 @@ function AddressComponent({
               {index !== 0 && (
                 <img
                   onClick={() => {
-                    // console.log('index', index)
+                  
                     deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"
