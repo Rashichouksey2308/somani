@@ -16,6 +16,8 @@ function Index(props) {
     }
   }, [props.emails]);
 
+  console.log(props.emails, 'exSupplier 2')
+
   const emailInputRef = useRef(null);
   // console.log(emailInputRef.current.value, 'emails');
 

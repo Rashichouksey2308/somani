@@ -436,6 +436,7 @@ const index = ({
 
   const [exSupplier, setexSupplier] = useState([]);
 
+
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
