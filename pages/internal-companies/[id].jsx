@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './index.module.scss';
+import styles from './internal.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddVendor from '../../src/components/AddVendor'
 
 function Index() {
   return (
@@ -29,7 +28,7 @@ function Index() {
             <button className={`${styles.clear_btn} ml-5 clear_btn`}>Edit</button>
           </div>
         </Card.Header>
-        <AddVendor />
+       
       </div>
     </Card>
   );
