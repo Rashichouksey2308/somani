@@ -125,8 +125,9 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
  * @param unitOfValue - The value that you want to remove the prefix or suffix from.
  * @returns The number of the unit of value.
  */
+
 export const removePrefixOrSuffix = (unitOfValue) => {
-  return Number(unitOfValue.replace( /\D+/g, ''))
+  return Number(unitOfValue.toString().replace( /\D+/g, ''));
 }
 
 /**

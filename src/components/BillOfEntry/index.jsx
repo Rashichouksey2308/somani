@@ -18,6 +18,7 @@ import { previewDocument } from '../../redux/ViewDoc/action';
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
+
   const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
 
   const dispatch = useDispatch();
@@ -71,8 +72,6 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       document3: null,
     },
   ]);
-
-  console.log(dutyData, 'billOfEntryFor');
 
   const totalCustomDuty = (index) => {
     let number = 0;

@@ -130,6 +130,7 @@ export default {
   supplier: '/supplier',
   supplierDoc: '/supplier/supplier-document',
   searchSupplier: '/supplier/search?searchTerm=',
+  SupplierUploadDoc: '/supplier/upload-doc',
 
   //preview
   preview: '/document/access/preview',

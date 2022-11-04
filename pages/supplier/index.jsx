@@ -14,10 +14,15 @@ import Image from 'next/image';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc, UploadSupplierDoc } from 'redux/supplier/action';
+import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc } from 'redux/supplier/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
 import moment from 'moment';
+import Axios from 'axios';
+import API from 'utils/endpoints'
+import Cookies from 'js-cookie';
+import { element } from 'prop-types';
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -53,6 +58,7 @@ function Index() {
     setBusinessArray(supplierData?.bussinessSummary ?? [])
     setListCommodity(supplierData?.commoditiesTraded ?? [])
     setInfoArray(supplierData?.additionalInformation ?? [])
+    setdocs(supplierData?.extraDocument ?? [])
     if (_get(supplierData, 'document[0]', '') !== '') {
       setIncumbencyDoc(supplierData?.document[0])
     }
@@ -548,11 +554,13 @@ function Index() {
         bussinessSummary: businessArray,
         commoditiesTraded: listCommodity,
         additionalInformation: infoArray,
-        document1: incumbencyDoc,
-        document2: thirdParty
+        incumbencyCertificateDocument: incumbencyDoc,
+        thirdPartyCertificateDocument: thirdParty,
+        extraDocument : docs
       }
       console.log(apiData, 'supplierstate')
       let fd = new FormData();
+      fd.append('supplierId', supplierData?._id)
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
@@ -561,9 +569,9 @@ function Index() {
       fd.append('bussinessSummary', JSON.stringify(businessArray));
       fd.append('commoditiesTraded', JSON.stringify(listCommodity));
       fd.append('additionalInformation', JSON.stringify(infoArray));
-
-      fd.append('document1', incumbencyDoc);
-      fd.append('document2', thirdParty);
+      fd.append('incumbencyCertificateDocument', incumbencyDoc);
+      fd.append('thirdPartyCertificateDocument', thirdParty);
+      fd.append('extraDocument', JSON.stringify(docs));
 
 
       if (id) {
@@ -746,18 +754,40 @@ function Index() {
     // console.log(newInput)
     setKeyAddressData(newInput);
   };
+  const docUploader = async (payload) => {
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    try {
+      Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          console.log(response.data.data, 'uplaod doc response')
+          setdocs([...docs, response.data.data])
+        } else {
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+        }
+      });
+    } catch (error) {
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
+  };
 
 
-  const uploadDocumentHandler = (e) => {
+
+  const uploadDocumentHandler = async (e) => {
     if (newDoc?.document) {
-      let tempArr = [...docs]
-      tempArr.push(newDoc.document)
-      setdocs(tempArr)
-
       let fd = new FormData();
-      fd.append('supplierId', JSON.stringify(supplierData._id));
       fd.append('document', newDoc.document);
-      dispatch(UploadSupplierDoc(fd))
+      docUploader(fd)
     } else {
       let toastMessage = 'please upload a document first';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -765,20 +795,17 @@ function Index() {
       }
     }
   }
-
+  console.log(docs, 'uplaod doc response3')
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
-    setdocs(tempArray)
 
-    // let payload = {
-    //   supplierId: supplierData._id,
-    //   path: path
-    // }
-
-
-    // dispatch(DeleteSupplierDoc(payload))
+    let payload = {
+      supplierId: supplierData._id,
+      path: document?.path
+    }
+    dispatch(DeleteSupplierDoc(payload))
   }
 
 
@@ -1013,7 +1040,7 @@ function Index() {
             >
               <div className={`${styles.dashboard_form} card-body border_color`}>
                 <div className="d-flex align-items-center justify-content-between">
-                
+
                   {keyAddData?.map((address, index) => {
 
                     return (
@@ -1084,9 +1111,10 @@ function Index() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="text"
+                            type="number"
                             name="pinCode"
                             value={keyAddressData?.pinCode}
+                            onWheel={(e)=> e.target.blur()}
                             onChange={(e) => {
                               handleChange(e.target.value, e.target.name);
                             }}
@@ -1233,17 +1261,17 @@ function Index() {
                               <strong className="text-danger">*</strong>
                             </label>
 
-                        
-                          <img
-                            onClick={() => setKeyAddressData((prev) => {
-                              return { ...prev, email: [...prev.email, ''] }
-                            })}
-                            className={`${styles.plus_add} img-fluid`}
-                            src="/static/add-btn.svg"
-                            alt="Search"
-                          />
 
-                        </div>
+                            <img
+                              onClick={() => setKeyAddressData((prev) => {
+                                return { ...prev, email: [...prev.email, ''] }
+                              })}
+                              className={`${styles.plus_add} img-fluid`}
+                              src="/static/add-btn.svg"
+                              alt="Search"
+                            />
+
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -1894,11 +1922,11 @@ function Index() {
                   />
                 </div>
                 <ol>
-                {infoArray?.length > 0 && infoArray?.map((val, index) => {
-                  return <li>{val?.remarks}</li>
-                 
-                })}
-                 </ol>
+                  {infoArray?.length > 0 && infoArray?.map((val, index) => {
+                    return <li>{val?.remarks}</li>
+
+                  })}
+                </ol>
               </div>
             </div>
           </div>
@@ -2259,19 +2287,19 @@ function Index() {
                         <tbody>
                           {docs &&
                             docs?.map((document, index) => {
-                              if (document.deleted) {
+                              if (document?.deleted) {
                                 return null;
                               } else {
                                 return (
                                   <tr key={index} className="uploadRowTable">
                                     <td className={`${styles.doc_name}`}>
-                                      {document?.name ? document?.name : document?.originalName}
+                                      {document?.originalName}
                                     </td>
                                     <td>
-                                      {document.name
+                                      {document?.originalName
                                         ?.toLowerCase()
                                         ?.endsWith('.xls') ||
-                                        document.name
+                                        document?.originalName
                                           .toLowerCase()
                                           .endsWith('.xlsx') ? (
                                         <img
@@ -2279,10 +2307,10 @@ function Index() {
                                           className="img-fluid"
                                           alt="Pdf"
                                         />
-                                      ) : document.name
+                                      ) : document?.originalName
                                         .toLowerCase()
                                         .endsWith('.doc') ||
-                                        document.name
+                                        document?.originalName
                                           .toLowerCase()
                                           .endsWith('.docx') ? (
                                         <img
@@ -2298,7 +2326,7 @@ function Index() {
                                         />
                                       )}
                                     </td>
-                                    <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
+                                    <td className={styles.doc_row}>{moment(document?.date).format('DD-MM-YYYY, h:mm A')}</td>
                                     <td className={styles.doc_row}>
                                       {document?.uploadedBy?.fName}{' '}
                                       {document?.uploadedBy?.lName}
