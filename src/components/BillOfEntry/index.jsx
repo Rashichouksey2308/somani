@@ -83,7 +83,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       return number;
     }
   };
-
+  console.log(dutyData,"dutyDatadutyData")
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
@@ -211,6 +211,17 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   };
 
   const addMoredutyDataRows = (index) => {
+    console.log(dutyData,"dutyData")
+    if(dutyData.length==0){
+      setDutyData({
+          percentage: '',
+          duty: '',
+          amount: '',
+          action: false,
+          value: false,
+        })
+        return
+    }
     const newInput = [...dutyData];
     newInput[index].push({
       percentage: '',
@@ -371,8 +382,9 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       e.preventDefault();
     }
   };
-
+  let duty11 = [];
   useEffect(() => {
+    console.log(customData?.billOfEntry?.billOfEntry,"customData")
     if (customData) {
       let total = 0;
       let data = customData?.order?.transit?.BL?.billOfLanding;
@@ -388,7 +400,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
      
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}]);
       let tempArray = [];
-      let duty11 = [];
+    
 
       data.forEach((val, index) => {
         tempArray.push({
@@ -422,10 +434,27 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
 
         duty11.push(JSON.parse(JSON.stringify(val.duty)));
       });
+      console.log(duty11,"duty11")
+      
 
-      setDutyData([...duty11]);
+       
+         
+      
+      
       setBillOfEntryData([...tempArray]);
     }
+    console.log(duty11,"duty11")
+    if(duty11.length == 0){
+        setDutyData([[{
+          percentage: '',
+          duty: '',
+          amount: '',
+          action: false,
+          value: false,
+        }]])
+       }else{
+         setDutyData([...duty11]); 
+       }
   }, [customData]);
 
   const getIndex = (index) => {
