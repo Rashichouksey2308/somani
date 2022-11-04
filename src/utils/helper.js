@@ -127,7 +127,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
  */
 
 export const removePrefixOrSuffix = (unitOfValue) => {
-  return Number(unitOfValue.toString().replace( /\D+/g, ''));
+  return Number( unitOfValue !== undefined ? unitOfValue.toString().replace( /\D+/g, '') : '');
 }
 
 /**
