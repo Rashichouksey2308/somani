@@ -27,7 +27,7 @@ function Index() {
     setTransitDetails(data);
   };
 
-  console.log(transitDetails, 'transitDetails');
+
 
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1150]);

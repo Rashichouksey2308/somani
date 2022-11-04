@@ -123,8 +123,11 @@ export default function Index() {
   };
 
   const uploadDocument = async (e) => {
+   
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
+   
+
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -138,27 +141,21 @@ export default function Index() {
       let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
-      // console.log(response.data.data, 'response data123')
+     
       if (response.data.code === 200) {
-        // dispatch(getCustomClearanceSuccess(response.data.data))
+      
 
         return response.data.data;
       } else {
-        // dispatch(getCustomClearanceFailed(response.data.data))
-        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+        
       }
     } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      // }
+      
     }
   };
 
   const uploadDocument1 = async (e, index) => {
+   
     const doc = await uploadDocument(e);
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -172,9 +169,7 @@ export default function Index() {
       });
       return newState;
     });
-    // setList(doc1 => {
-    //   return { ...doc1, {forwardSalesContract: doc }}
-    // })
+    
   };
 
   const [cancel, setCancel] = useState(false);

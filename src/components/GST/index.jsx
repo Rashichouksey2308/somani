@@ -146,7 +146,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       });
 
 
-      // dispatch(VerifyGstKarza(payload));
+
     }
   };
 
@@ -157,7 +157,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       username: credential.username,
       password: credential.password,
     };
-    //console.log(payload, 'payload')
+   
 
     dispatch(VerifyGstKarza(payload));
     handleClose();
@@ -220,7 +220,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   };
 
   const [arr, setArr] = useState([]);
-  console.log(arr,'gstGrowth')
+ 
 
   const handleGrowthPurchase = () => {
     let arr1 = _get(gstFilteredData, 'detail.purchaseDetail.purchases', []);
@@ -852,45 +852,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: [],
     datasets: [],
   });
-  // const getArray=(value)=>{
-  //   let tempArr=[]
-  //   // value.forEach((val,index)=>{
 
-  //   // })
-  //   for(let i=0;i<value.length;i++){
-  //     let toCheck
-  //     const result = value[i].trim().split(/\s+/)
-  //     for(let j=0;j<result.length;j++){
-
-  //     if(j<result.length){
-  //         toCheck = result[i]+" "+ result[i+1]
-  //         if(toCheck.length>8){
-
-  //         }
-  //     }else{
-  //         toCheck = result[i]
-  //     }
-  //     }
-  //     console.log(toCheck,"toCheck")
-  //     // tempArr.push(toCheck[i])
-  //   }
-  //   // let arr=[]
-  //   // while(i<tempArr.length)
-  //   // {
-  //   //    if(tempArr[i].length<8){
-  //   //      let text= tempArr[i] + tempArr[i+1]
-  //   //      console.log(text,"text")
-  //   //      i++
-  //   //   }
-  //   // }
-  //   // for(let i=0;i<tempArr.length;i++){
-  //   //   if(tempArr[i].length<8){
-  //   //      let text= tempArr[i] + tempArr[i]
-  //   //   }
-  //   // }
-  //   return tempArr
-
-  // }
   useEffect(() => {
     if (gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names.length > 0) {
       settop10Supplier({

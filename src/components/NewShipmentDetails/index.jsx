@@ -22,7 +22,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
     }
   }, [expectedShipment]);
 
-  console.log(expShipment, 'expectedShipment');
+
   const saveDate = (value, name) => {
     const d = new Date(value);
     const text = d.toISOString();
@@ -40,7 +40,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
       setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
   };
-  console.log(shipment, 'shipment');
+
   return (
     <div className={`${styles.main} vessel_card border_color card`}>
       <div

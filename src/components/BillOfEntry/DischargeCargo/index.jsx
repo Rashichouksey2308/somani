@@ -77,7 +77,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     document2: null,
   });
 
-  console.log(dischargeOfCargo,customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers,'dischargeOfCargo1')
+ 
 
   const saveDate = (value, name) => {
 

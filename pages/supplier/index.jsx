@@ -620,7 +620,7 @@ function Index() {
       } else {
         dispatch(CreateSupplier(fd))
       }
-      console.log('apidata', apiData)
+      
     }
   };
 
@@ -805,10 +805,8 @@ function Index() {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-          console.log(response.data.data, 'uplaod doc response')
-          let temp = [...docs]
-          temp.push(response.data.data)
-          setdocs(temp)
+     
+          setdocs([...docs, response.data.data])
         } else {
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -842,7 +840,7 @@ function Index() {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
-    console.log(document,index, 'uplaod doc response3')
+    
 
     let payload = {
       supplierId: supplierData._id,

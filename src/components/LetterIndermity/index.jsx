@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 
 function Index({ TransitDetails }) {
-  console.log('🚀 ~ file: index.jsx ~ line 21 ~ Index ~ TransitDetails', TransitDetails);
+
   const dispatch = useDispatch();
   let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
@@ -81,7 +81,7 @@ function Index({ TransitDetails }) {
       setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } });
     } else {
       if (e.target.value.toLowerCase() === 'bhawana jain') {
-        console.log(e.target.value.toLowerCase(), 'Bhawana Jain');
+       
 
         setLOI({
           ...loi,
@@ -92,7 +92,7 @@ function Index({ TransitDetails }) {
         });
       }
       if (e.target.value.toLowerCase() === 'vipin kumar') {
-        console.log('Vipin Kumar');
+       
         setLOI({
           ...loi,
           authorizedSignatory: {
@@ -102,7 +102,7 @@ function Index({ TransitDetails }) {
         });
       }
       if (e.target.value.toLowerCase() === 'devesh jain') {
-        console.log('Devesh Jain');
+      
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -114,7 +114,7 @@ function Index({ TransitDetails }) {
         });
       }
       if (e.target.value.toLowerCase() === 'fatima yannoulis') {
-        console.log('Fatima Yannoulis');
+     
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -127,28 +127,11 @@ function Index({ TransitDetails }) {
       }
     }
 
-    // let tempArray = { ...loi }
-    // if (e.target.value === 'Bhawana Jain') {
-    //   tempArray.authorizedSignatory = { name: 'Bhawana Jain', designation: 'Vice President Finance & Accounts' }
-    // }
-    // if (e.target.value === 'Vipin Kumar') {
-    //   tempArray.authorizedSignatory = { name: 'Vipin Kumar', designation: 'Manager Accounts ' }
-    // }
-    // if (e.target.value === 'Devesh Jain') {
-    //   tempArray.authorizedSignatory = { name: 'Devesh Jain', designation: 'Director' }
-    // }
-    // if (e.target.value === 'Fatima Yannoulis') {
-    //   tempArray.authorizedSignatory = { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
-    // }
-    // else {
-    //   tempArray.authorizedSignatory = { name: '', designation: '' }
-    // }
-    // console.log(e.target.value, tempArray.authorizedSignatory, "billsofLanding")
-    // setLOI(tempArray)
+  
   };
 
   const BolDropDown = (e, index) => {
-    console.log(e.target.value, 'onclclc');
+  
     let temp = [...billsofLanding];
 
     let text = e.target.value;
@@ -159,7 +142,7 @@ function Index({ TransitDetails }) {
     } else {
       thenum = Number(Number(thenum) - 1);
     }
-    console.log(thenum, 'indexindex');
+    
     temp[index].blnumber = e.target.value;
 
     temp[index].date = moment(_get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[thenum].blDate).format(
@@ -206,13 +189,13 @@ function Index({ TransitDetails }) {
     // const billOfLanding = [...bolList]
     const LOI = { ...loi };
     LOI.billOfLanding = billsofLanding;
-    console.log(LOI, 'LOI111');
+  
     let fd = new FormData();
     fd.append('loi', JSON.stringify(LOI));
     fd.append('transitId', transId._id);
     let task = 'submit';
     dispatch(UpdateTransitDetails({ fd, task }));
-    //console.log(fd, bol, 'filteredVessel')
+
 
     Router.push('/loi-preview');
   };

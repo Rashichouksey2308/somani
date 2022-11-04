@@ -44,7 +44,7 @@ const Index = () => {
   };
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+   
     const d = new Date(value);
     let text = d.toISOString();
     saveMarineData(name, text);
@@ -62,7 +62,7 @@ const Index = () => {
   });
 
   const saveStorageDate = (value, name) => {
-    // console.log(value, name, 'save date')
+
     const d = new Date(value);
     let text = d.toISOString();
     setStorageData(name, text);
@@ -82,7 +82,7 @@ const Index = () => {
   const uploadDocument2 = (e) => {
     const newUploadDoc = { ...insuranceDocument };
     newUploadDoc.storagePolicyDocument = e.target.files[0];
-    // console.log(newUploadDoc, 'new upload doc')
+   
     setInsuranceDocument(newUploadDoc);
   };
   const uploadDocument1 = (e) => {

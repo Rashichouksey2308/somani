@@ -23,29 +23,12 @@ const Index = () => {
   const { creditData } = useSelector((state) => state.companyDetails);
   const { newOrder } = useSelector((state) => state.placeOrder);
 
-  console.log(newOrder, 'newOrder');
+
 
   useEffect(() => {
     if (newOrder) {
       Router.push('/order-list');
-      // sessionStorage.setItem('orderID1', newOrder.orderRes._id)
-      // sessionStorage.setItem('company', newOrder.orderRes.company)
-      // // console.log(' before go to get document')
-      // // sessionStorage.setItem('company', buyer.company._id)
-      // if (newOrder.queue === 'CreditQueue') {
-      //   // dispatch(GetAllOrders({ orderId: buyer._id }))
-      //   //dispatch(GetDocuments({order: buyer._id}))
-      //   dispatch(GetCompanyDetails({ company: newOrder.orderRes.company }))
-      //   Router.push('/review')
-      //   dispatch(PlaceNewOrderRouted())
-
-      // }
-      // if (newOrder.queue === 'ReviewQueue') {
-      //   dispatch(GetBuyer({ companyId: newOrder.orderRes.company, orderId: newOrder.orderRes._id }))
-      //   Router.push('/review/id')
-      //   dispatch(PlaceNewOrderRouted())
-
-      // }
+   
     }
   }, [newOrder]);
   useEffect(() => {
@@ -103,7 +86,7 @@ const Index = () => {
 
     setOrderData(newInput);
   };
-  console.log(orderData, 'stat');
+
 
   const handleCurr = () => {
     const newInput = { ...orderData };
@@ -113,7 +96,7 @@ const Index = () => {
   };
 
   const saveShipmentData = (name, value) => {
-    console.log(name, value, 'test');
+
     const newInput = { ...shipment };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
@@ -121,9 +104,9 @@ const Index = () => {
   };
 
   const onOrderSave = () => {
-    console.log(orderData, 'orderDatabefore');
+  
 
-    console.log(orderData, 'orderDataafter');
+   
     if (orderData?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {

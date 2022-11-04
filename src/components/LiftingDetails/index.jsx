@@ -13,7 +13,7 @@ import { checkNan } from 'utils/helper';
 import moment from 'moment';
 
 export default function Index(props) {
-  console.log(props.liftingData, '97111');
+
   const [editInput, setEditInput] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [currentOrder, setCurrentOrder] = useState('');
@@ -34,7 +34,7 @@ export default function Index(props) {
   };
 
   const uploadDoc = async (e, type, index1, index2) => {
-    console.log(e, 'response data');
+  
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
@@ -52,7 +52,7 @@ export default function Index(props) {
       let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
-      console.log(response.data.data, 'response data123');
+     
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
         props.handleChange(type, response.data.data, index1, index2);
@@ -74,7 +74,7 @@ export default function Index(props) {
     }
   };
 
-  console.log(props.liftingData, 'props.liftingData');
+
   const checkAvail = (value) => {
     let returned = false;
     const filtered = props.liftingData.filter((item) => {
@@ -194,7 +194,7 @@ export default function Index(props) {
           </div>
           {props.liftingData &&
             props.liftingData.map((val, index) => {
-              console.log(val, 'Lifting Add ');
+            
               return (
                 <div className={`${styles.main} card border_color`}>
                   <div
@@ -281,7 +281,7 @@ export default function Index(props) {
                                   <div className="d-flex">
                                     <DateCalender
                                       saveDate={(startDate, name, index) => {
-                                        console.log('thisis', startDate, name, index);
+                                     
                                         saveDate2(startDate, name, index, index2);
                                       }}
                                       index={index}

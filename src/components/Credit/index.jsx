@@ -185,7 +185,7 @@ const index = ({
     setKeyPersonData(personData);
   }, [personData]);
 
-  // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
+  
 
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
@@ -210,14 +210,14 @@ const index = ({
   const onKeyPersonSave = () => {
     
     addPersonArr(keyPersonData);
-    //console.log(keyPersonData, 'This is person data')
+    
   };
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
 
-    // console.log(newInput)
+    
     setKeyAddressData(newInput);
   };
 
@@ -418,7 +418,7 @@ const index = ({
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
-    // console.log(newInput)
+   
     setEditData(newInput);
   };
 

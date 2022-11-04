@@ -281,7 +281,7 @@ export default function Index({ isQuery }) {
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
     if ('insurance Request Letter' == pageName) {
-      // console.log(id, order, 'bredcrums')
+
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
 
@@ -293,14 +293,7 @@ export default function Index({ isQuery }) {
         router.route = '/Loading, Transit & Unloading';
       }
     }
-    // if ('inception' == pageName) {
-    //   if (id !== null) {
-    //     router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}`
-    //     console.log('router123', router.route)
-    //   } else {
-    //     router.route = '/Loading, Transit & Unloading'
-    //   }
-    // }
+   
     if ('inception2' == pageName) {
       if (order != null) {
         router.route =

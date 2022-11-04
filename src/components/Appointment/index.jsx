@@ -33,7 +33,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
       //     }
       //   })
       // pincode =   add[add.length-1].split("-")
-      //   console.log(add,"dfdfsdfdsf",pincode)
+     
     }
 
     setAppointmentData({
@@ -57,12 +57,9 @@ export default function Index({ inspectionData, setDate, vendor }) {
       },
     });
   }, [inspectionData, vendor]);
-  // console.log(appointmentData, 'appointmentData')
 
-  // console.log(
-  //   moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(),
-  //   'THIS IS APPOINTMENTD ',
-  // )
+
+ 
 
   const [addressData, setAddressData] = useState({
     name: '',

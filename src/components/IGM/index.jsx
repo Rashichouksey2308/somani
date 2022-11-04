@@ -50,7 +50,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     branch: '',
     address: '',
   });
-console.log(igmList,"igmList.igmDetails")
+
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
@@ -75,7 +75,7 @@ console.log(igmList,"igmList.igmDetails")
     ],
     document: null,
   });
-  console.log(igmList,"igmList")
+
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
     BlDate: new Date(),

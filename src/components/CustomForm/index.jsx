@@ -256,7 +256,7 @@ function BranchCreation(props) {
     const { dealerData } = props;
 
     if (dealerData !== null) {
-      // console.log(dealerData)
+     
       state.storeManagerName = dealerData.storeManagerName;
       state.dealerName = dealerData.dealerName;
       state.dealerId = dealerData.dealerId;
@@ -429,7 +429,7 @@ function BranchCreation(props) {
     }
   };
 
-  // console.log(props.countriesBranch)
+ 
 
   return (
     <React.Fragment>
