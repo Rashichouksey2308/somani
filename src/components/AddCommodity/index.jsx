@@ -64,12 +64,39 @@ function Index() {
                 Chapter Code  <strong className="text-danger">*</strong>
                 </label>
               </div>
-
+              <div className={`${styles.form_group} mt-0 col-lg-2 col-md-6 col-sm-6 `}>
+                    <div className={`${styles.radio_form} ml-1`}>
+                      <div className={`${styles.sub_heading} label_heading`}>
+                      Approved Commodity
+                      </div>
+                      {['radio'].map((type, index) => (
+                        <div key={`inline-${index}`} className={`${styles.radio_group}`}>
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            defaultChecked
+                            label="Yes"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-1`}
+                          />
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="No"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-2`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
               <div
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
+                  <DateCalender labelName="Approved Date " />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
