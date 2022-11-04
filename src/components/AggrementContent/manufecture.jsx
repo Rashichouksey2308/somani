@@ -182,21 +182,7 @@ function Index(props) {
         });
         setOptions([...optionArray]);
       
-        let supplier = {
-          name: props?.order?.supplierName || props.order?.supplierName,
-          shortName: props.data?.shortName,
-          bankDetails: {
-            bankName: props.data?.bankDetails?.bankName,
-            accountNo: props.data?.bankDetails?.accountNo,
-            swiftCode: props.data?.bankDetails?.swiftCode,
-            city: props.data?.bankDetails?.city,
-          },
-          addresses: props.data?.addresses,
-          authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails,
-          multiParty: props.data?.multiParty,
-          multiPartyName: props.data?.multiPartyName,
-          multiPartyAddresses: props.data?.multiPartyAddresses,
-        };
+      
         if (props.data?.authorisedSignatoryDetails.length > 0) {
           let tempArr = props.data?.authorisedSignatoryDetails;
           let optionArray = [...options];

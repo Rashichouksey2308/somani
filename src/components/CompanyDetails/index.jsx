@@ -119,7 +119,6 @@ const Index = ({
     if (compPan !== '') {
       const newInput = { ...companyDetails };
       newInput.companyPan = compPan;
-    
       setCompanyDetails(newInput);
       // dispatch(GetGst(compPan))
     }
@@ -426,7 +425,7 @@ const Index = ({
                   // max={100}
                   name="turnOver"
                   onChange={(e) => {
-                 
+                  
                     setSlider(Number(e.target.value));
                     saveCompanyData(e.target.name, Number(e.target.value));
                     getSlider();
@@ -480,7 +479,7 @@ const Index = ({
                         inline
                         label="Whatsapp"
                         onChange={(e) => {
-      
+                     
                           // saveCompanyData('communicationMode', 'Whatsapp')
                           handleCommunication(e);
                         }}
@@ -516,10 +515,7 @@ const Index = ({
                       // saveCompanyData(e.target.name, e.target.value)
                       whatsappFunction(e);
                       //green tick
-                
-                    } else {
-                      //red mark
-              
+                    
                     }
                   }}
                   id="textNumber"

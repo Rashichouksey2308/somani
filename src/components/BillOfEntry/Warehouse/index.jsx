@@ -24,7 +24,6 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     },
     document: null,
   });
- 
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {});
 

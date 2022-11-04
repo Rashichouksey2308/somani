@@ -37,7 +37,7 @@ function Index() {
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
-  console.log(getCountriesMasterData, 'getCountriesMasterData');
+
   // useEffect(() => {
   //   if (createdBuyerResponse) {
   //     Router.push('/order-list')
