@@ -21,7 +21,9 @@ import moment from 'moment';
 import Axios from 'axios';
 import API from 'utils/endpoints'
 import Cookies from 'js-cookie';
-import { element } from 'prop-types';
+import TermsheetPopUp from '../../src/components/TermsheetPopUp'
+import { ShareDocument } from 'redux/shareDoc/action';
+
 
 
 function Index() {
@@ -75,6 +77,19 @@ function Index() {
   const [saveContactTable, setContactTable] = useState(false);
   const [saveDirectorTable, setDirectorTable] = useState(false);
   const [saveCommodityTable, setCommodityTable] = useState(false);
+
+  const [open, setOpen] = useState(false)
+  const [sharedDoc, setSharedDoc] = useState({
+    company: '',
+    order: '',
+    path: '',
+    data: {
+      subject: 'this is subject',
+      text: 'this is text',
+      receiver: '',
+    },
+  });
+
 
   const [formData, setFormData] = useState({
     supplierName: '',
@@ -235,6 +250,26 @@ function Index() {
       },
     ]);
   };
+
+
+  const handleShareDoc = async (doc) => {
+    if (emailValidation(sharedDoc.data.receiver)) {
+      let tempArr = { ...sharedDoc };
+      tempArr.company = documentsFetched.company;
+      tempArr.order = orderid;
+      // let data = await dispatch(ShareDocument(tempArr));
+      if (data?.code == 200) {
+        setClose(false);
+      }
+    } else {
+      let toastMessage = 'please provide a valid email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
+  };
+
+
 
   const saveDate = (value, name) => {
    
@@ -511,6 +546,12 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
+    } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
+      let toastMessage = `please provide a national Identification Number`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
     } else if (!shareholdersDetailsValidation()) {
@@ -556,7 +597,7 @@ function Index() {
         additionalInformation: infoArray,
         incumbencyCertificateDocument: incumbencyDoc,
         thirdPartyCertificateDocument: thirdParty,
-        extraDocument : docs
+        extraDocument: docs
       }
     
       let fd = new FormData();
@@ -817,7 +858,7 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-               onClick={() => Router.push('/add-supplier')}
+                onClick={() => Router.push('/add-supplier')}
                 src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
@@ -1114,7 +1155,7 @@ function Index() {
                             type="number"
                             name="pinCode"
                             value={keyAddressData?.pinCode}
-                            onWheel={(e)=> e.target.blur()}
+                            onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
                               handleChange(e.target.value, e.target.name);
                             }}
@@ -1997,11 +2038,35 @@ function Index() {
                             </td>
 
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
+                              {incumbencyDoc?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.xls') ||
+                                incumbencyDoc?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : incumbencyDoc?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.doc') ||
+                                incumbencyDoc?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {incumbencyDoc && incumbencyDoc?.lastModifiedDate
@@ -2048,11 +2113,35 @@ function Index() {
                             </td>
 
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
+                              {thirdParty?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.xls') ||
+                                thirdParty?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : thirdParty?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.doc') ||
+                                thirdParty?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {thirdParty && thirdParty?.lastModifiedDate
@@ -2197,34 +2286,7 @@ function Index() {
                       <div
                         className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-end align-items-center`}
                       >
-                        {/* <div className="d-flex align-items-center">
-                          <select
-                            onChange={(e) => setModuleSelected(e.target.value)}
-                            className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            <option value="LeadOnboarding&OrderApproval">
-                              Lead Onboarding &amp; Order Approval
-                            </option>
-                            <option value="Agreements&Insurance&LC&Opening">
-                              Agreements, Insurance &amp; LC Opening
-                            </option>
-                            <option value="Loading-Transit-Unloading">
-                              Loading-Transit-Unloading
-                            </option>
-                            <option value="CustomClearanceAndWarehousing">
-                              Custom Clearance And Warehousing
-                            </option>
-                            <option value="Others">Others</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow2} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div> */}
+
                         <div
                           className={`d-flex align-items-center ${styles.searchBarContainer} `}
                         >
@@ -2351,7 +2413,7 @@ function Index() {
                                         className="mr-3"
                                         alt="Share"
                                         onClick={() => {
-                                          openbar();
+                                          setOpen(true);
                                           setSharedDoc({ ...sharedDoc, path: document.path })
 
                                         }}
@@ -2427,48 +2489,14 @@ function Index() {
                                 return null
                               }
                             })}
-                          {/* <tr className="table_row">
-                            <td className={styles.doc_name}>Container No. List</td>
-                            <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
-                            </td>
-                            <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td className={styles.doc_row}>Buyer</td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
-                              Verified
-                            </td>
-                            <td colSpan="2">
-                              <img
-                                src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
-                                alt="Bin"
-                              />
-                              <img
-                                src="/static/upload.svg"
-                                className="img-fluid mr-3"
-                                alt="Share"
-                              />
-                              <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
-                                alt="Share"
-                              />
-                            </td>
-                          </tr> */}
+
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}  */}
+              {open ? <TermsheetPopUp close={() => setOpen(false)} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}
             </div>
           </div>
         </div>
