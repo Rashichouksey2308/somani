@@ -20,7 +20,7 @@ function index({
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const isMobile = useSelector((state) => state.sidebar.isMobile);
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+
 
   return (
     <>
@@ -60,9 +60,8 @@ function index({
                 }}
               >
                 <span
-                  className={`${
-                    downLoadButtonName === 'MCA Report' ? (mcaReportAvailable ? styles.btn_green : styles.btn_red) : ''
-                  } mr-2`}
+                  className={`${downLoadButtonName === 'MCA Report' ? (mcaReportAvailable ? styles.btn_green : styles.btn_red) : ''
+                    } mr-2`}
                 >
                   {downLoadButtonName}
                 </span>
@@ -75,7 +74,7 @@ function index({
                     className={`${styles.reject} ml-3`}
                     onClick={() => {
                       if (handleReject) {
-                        handleReject('fetch');
+
                         setShow('true');
                       }
                     }}
@@ -119,13 +118,20 @@ function index({
         <Modal.Body>
           <div className={`${styles.title} d-flex justify-content-between align-items-center`}>
             <h3>Are you sure?</h3>
-            <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid"></img>
+            <img src="/static/close.svg" alt="close" onClick={() => setShow(false)} className="img-fluid"></img>
           </div>
           <div className="d-flex justify-content-center mt-3">
-            <button type="button" className={`${styles.close} ${styles.btn} mr-3 text border_color btn w-50`}>
+            <button
+              onClick={() => {
+                if (handleReject) {
+                  handleReject('fetch');
+                  setShow(false)
+                }
+              }}
+              type="button" className={`${styles.close} ${styles.btn} mr-3 text border_color btn w-50`}>
               Yes
             </button>
-            <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+            <button onClick={() => setShow(false)} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
               No
             </button>
           </div>
