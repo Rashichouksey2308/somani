@@ -11,7 +11,7 @@
 
   .navContainer {
     width: 100%;
-    height: 75px;
+    height: 62px;
     @include respond(lg-desktop) {
       height: 70px;
     }
@@ -29,7 +29,7 @@
 
     .sidebarContainer {
       height: 100%;
-      width: 345px;
+      width: 330px;
       height: 100vh;
       position: fixed;
       z-index: 10;
