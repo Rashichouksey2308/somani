@@ -1,68 +1,68 @@
-import * as types from './actionType';
+
 import Axios from 'axios';
 import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 
-function getForwardHedging() {
+function getCommodity() {
   return {
-    type: types.GET_FORWARDHEDGING,
+    type: types.GET_COMMODITY,
   };
 }
 
-function getForwardHedgingSuccess(payload) {
+function getCommoditySuccess(payload) {
   return {
-    type: types.GET_FORWARDHEDGING_SUCCESS,
+    type: types.GET_COMMODITY_SUCCESS,
     payload,
   };
 }
 
-function getForwardHedgingFailed() {
+function getCommodityFailed() {
   return {
-    type: types.GET_FORWARDHEDGING_FAILED,
+    type: types.GET_COMMODITY_FAILED,
   };
 }
 
-function getAllForwardHedging() {
+function getAllCommodity() {
   return {
-    type: types.GET_ALL_FORWARDHEDGING,
+    type: types.GET_ALL_COMMODITY,
   };
 }
 
-function getAllForwardHedgingSuccess(payload) {
+function getAllCommoditySuccess(payload) {
   return {
-    type: types.GET_ALL_FORWARDHEDGING_SUCCESS,
+    type: types.GET_ALL_COMMODITY_SUCCESS,
     payload,
   };
 }
 
-function getAllForwardHedgingFailed() {
+function getAllCommodityFailed() {
   return {
-    type: types.GET_ALL_FORWARDHEDGING_FAILED,
+    type: types.GET_ALL_COMMODITY_FAILED,
   };
 }
 
-function updateForwardHedging() {
+function updateCommodity() {
   return {
-    type: types.UPDATE_FORWARDHEDGING,
+    type: types.UPDATE_COMMODITY,
   };
 }
 
-function updateForwardHedgingSuccess(payload) {
+function updateCommoditySuccess(payload) {
   return {
-    type: types.UPDATE_FORWARDHEDGING_SUCCESS,
+    type: types.UPDATE_COMMODITY_SUCCESS,
     payload,
   };
 }
 
-function updateForwardHedgingFailed() {
+function updateCommodityFailed() {
   return {
-    type: types.UPDATE_FORWARDHEDGING_FAILED,
+    type: types.UPDATE_COMMODITY_FAILED,
   };
 }
 
-export const GetAllForwardHedging = (payload) => async (dispatch, getState, api) => {
+export const GetAllCommodity = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -73,23 +73,30 @@ export const GetAllForwardHedging = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getCommodity}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllForwardHedgingSuccess(response.data.data));
+        dispatch(getAllCommoditySuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllForwardHedgingFailed());
+        dispatch(getAllCommodityFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
       }
-    });
+    }).catch((error)=>{
+        dispatch(getAllCommodityFailed());
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+    })
   } catch (error) {
-    dispatch(getAllForwardHedgingFailed());
+    dispatch(getAllCommodityFailed());
 
     const toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -99,7 +106,7 @@ export const GetAllForwardHedging = (payload) => async (dispatch, getState, api)
   }
 };
 
-export const GetForwardHedging = (payload) => async (dispatch, getState, api) => {
+export const GetCommodity = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -111,23 +118,30 @@ export const GetForwardHedging = (payload) => async (dispatch, getState, api) =>
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
+    Axios.get(`${API.corebaseUrl}${API.getCommodity}${payload}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getForwardHedgingSuccess(response.data.data));
+        dispatch(getCommoditySuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getForwardHedgingFailed());
+        dispatch(getCommodityFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
       }
-    });
+    }).catch((error)=>{
+        dispatch(getCommodityFailed());
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+    })
   } catch (error) {
-    dispatch(getForwardHedgingFailed());
+    dispatch(getCommodityFailed());
 
     const toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -137,7 +151,7 @@ export const GetForwardHedging = (payload) => async (dispatch, getState, api) =>
   }
 };
 
-export const UpdateForwardHedging = (payload) => async (dispatch, getState, api) => {
+export const UpdateCommodity = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -149,11 +163,11 @@ export const UpdateForwardHedging = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
+    Axios.put(`${API.corebaseUrl}${API.getCommodity}`, payload.obj, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updateForwardHedgingSuccess(response.data.data));
+        dispatch(updateCommoditySuccess(response.data.data));
 
         let toastMessage = 'updated  SUCCESSFULLY';
 
@@ -167,18 +181,25 @@ export const UpdateForwardHedging = (payload) => async (dispatch, getState, api)
         }
         dispatch(setNotLoading());
       } else {
-        dispatch(updateForwardHedgingFailed(response.data.data));
+        dispatch(updateCommodityFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
       }
-    });
+    }).catch((error)=>{
+        dispatch(updateCommodityFailed());
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+    })
   } catch (error) {
-    dispatch(updateForwardHedgingFailed());
+    dispatch(updateCommodityFailed());
 
-    const toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME';
+    const toastMessage = 'COULD NOT UPDATE COMMODITY AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
