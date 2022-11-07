@@ -386,7 +386,7 @@ function Index(props) {
                           <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
                             arranging plot allotment in the name of <strong>{data.shortbuyer}</strong>
                             from the discharge Port authorities to store&nbsp;
-                            <strong>{data.shortbuyer}</strong>'s cargo
+                            <strong>{data.shortbuyer}</strong>'s cargo,
                           </p>
                         </li>
                         <li>
@@ -574,7 +574,7 @@ function Index(props) {
                         whatsoever, if <strong>{data.buyer}</strong> instructs it to deliver the Goods
                         to any third party so nominated by them. The instructions of the&nbsp;
                         <strong>{data.buyer}</strong> shall be followed forthwith, without any
-                        objection, hindrance or delay whatsoever
+                        objection, hindrance or delay whatsoever.
                       </p>
                     </li>
                     <li>
@@ -1119,97 +1119,65 @@ const qpa = (data,preview) => {
         representatives and assigns) of the Fourth Part.
       </p>
       <p className=" text_sales">
-        WHEREAS <b>{data.shortbuyer}</b> has agreed to import Goods as detailed in <strong>Schedule I </strong>hereof on
-        stock and sale basis as per Associateship Agreement entered into between <b>{data.shortbuyer}</b> and the
+        WHEREAS <u>{data.shortbuyer}</u> has agreed to import Goods as detailed in <strong>Schedule I </strong>hereof on
+        stock and sale basis as per Associateship Agreement entered into between <u>{data.shortbuyer}</u> and the
         Associate Buyer.
       </p>
       <p className="text_sales">
-        WHEREAS <b>{data.shortbuyer}</b>&nbsp;has appointed the Stevedore for handling the vessel as detailed in{' '}
+        WHEREAS <u>{data.shortbuyer}</u>&nbsp;has appointed the Stevedore for handling the vessel as detailed in{' '}
         <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge port and the plot
-        allotted to <b>{data.shortbuyer}</b>are mentioned at Schedule I.
+        allotted to <u>{data.shortbuyer}</u> are mentioned at Schedule I.
       </p>
 
       <p className=" text_sales">
-        WHEREAS the, LC opening Bank has a first ranking security right over the Goods and it has appointed the CMA
-        Agent in accordance with the terms of the Collateral Management Agreement executed by Financing Bank
+      WHEREAS the, LC opening Bank has  a first ranking security right over the Goods and it has appointed the CMA Agent in accordance with the terms of the Collateral Management Agreement executed by Financing Bank.
       </p>
       <p className=" text_sales">IT IS NOW HEREBY AGREED BY AND BETWEEN THE PARTIES AS UNDER: -</p>
       <ol type="1" className="pl-4">
         <li>
           <p className=" text_sales">
             {' '}
-            The Goods shall be stored at the Plot allotted to &nbsp;
-            <b>{data.shortbuyer}</b> by the Discharge Port authorities and shall be kept under the control and custody
+            The Goods shall be stored at the Plot allotted to&nbsp;
+            <u>{data.shortbuyer}</u> by the Discharge Port authorities and shall be kept under the control and custody
             of CHA on behalf of &nbsp;
-            <b>{data.shortbuyer}</b>. All dispatches from the plot shall be done by CHA solely on the basis of Written
-            Delivery Orders issued by <b>{data.shortbuyer}</b>.{' '}
+            <u>{data.shortbuyer}</u>. All dispatches from the plot shall be done by CHA solely on the basis of Written
+            Delivery Orders issued by <u>{data.shortbuyer}</u>.{' '}
           </p>
         </li>
         <li>
-          <p className=" text_sales"> Scope of Work of CHA: </p>
+          <p className=" text_sales mb-0"> Scope of Work of CHA: </p>
           <p className=" text_sales"> The Scope of work of CHA shall include but not be limited to: </p>
-          <ol type="a" className="pl-3">
-            <li>
-              <p className=" text_sales">
-                arranging plot allotment in the name of <b>{data.shortbuyer}</b> from the discharge Port authorities to
-                store <b>{data.shortbuyer}</b>'s cargo
-              </p>
-            </li>
-            <li>
-              <p className=" text_sales">discharge of cargo from the Vessel,</p>
-            </li>
-            <li>
-              <p className=" text_sales">loading of wharf, intra carting at Port,</p>
-            </li>
-            <li>
-              <p className=" text_sales">deployment of labors and equipments,</p>
-            </li>
-
-            <li>
-              <p className=" text_sales">
-                transportation from wharf to <b>{data.shortbuyer}</b> allotted plot, ensure that the plot where goods
-                are being stored is suitable for the storage of the goods,{' '}
-              </p>
-            </li>
-            <li>
-              <p className=" text_sales">segregated stacking cargo at plot grade wise,</p>
-            </li>
-            <li>
-              <p className=" text_sales">placement of wagon indents, wagon cleaning, wooden plugging </p>
-            </li>
-
-            <li>
-              <p className=" text_sales">
-                loading into wagons/trucks, leveling of cargo, lime marking on stacks and wagons, placing Railway
-                Indents, Loading on wagons/trucks
-              </p>
-            </li>
-            <li>
-              <p className=" text_sales">Arranging round the clock security cover at the storage area, </p>
-            </li>
-            <li>
-              <p className=" text_sales">liaison with Discharge Port authorities </p>
-            </li>
-            <li>
-              <p className=" text_sales">
-                obtaining RRs and arranging dispatches as per Written release orders issued by <b>{data.shortbuyer}</b>,
-                obtaining gate passes,
-              </p>
-            </li>
-            <li>
-              <p className=" text_sales">yard management, </p>
-            </li>
-            <li>
-              <p className=" text_sales">
-                maintenance of proper records and registers for incoming and outgoing of material,
-              </p>
-            </li>
-            <li>
-              <p className=" text_sales">
-                water sprinkling as per PCB norms and other services as may be required by <b>{data.shortbuyer}</b>{' '}
-              </p>
-            </li>
-          </ol>
+          <p className=" text_sales mb-0">
+            a) arranging plot allotment in the name of <u>{data.shortbuyer}</u> from the discharge Port authorities to
+            store <u>{data.shortbuyer}</u>'s cargo,
+          </p>
+          <p className=" text_sales mb-0">b) discharge of cargo from the Vessel,</p>
+          <p className=" text_sales mb-0">c) loading of wharf, intra carting at Port,</p>
+          <p className=" text_sales mb-0">d) deployment of labors and equipments,</p>
+          <p className=" text_sales mb-0">
+            e) transportation from wharf to <u>{data.shortbuyer}</u> allotted plot, ensure that the plot where goods
+            are being stored is suitable for the storage of the goods,{' '}
+          </p>
+          <p className=" text_sales mb-0">f) segregated stacking cargo at plot grade wise,</p>
+          <p className=" text_sales mb-0">g) placement of wagon indents, wagon cleaning, wooden plugging,</p>
+          <p className=" text_sales mb-0">
+            h) loading into wagons/trucks, leveling of cargo, lime marking on stacks and wagons, placing Railway
+            Indents, Loading on wagons/trucks,
+          </p>
+          <p className=" text_sales mb-0">i) Arranging round the clock security cover at the storage area, </p>
+          <p className=" text_sales mb-0">j) liaison with Discharge Port authorities,</p>
+          <p className=" text_sales mb-0">
+            k) obtaining RRs and arranging dispatches as per Written release orders issued by <u>{data.shortbuyer}</u>,
+          </p>
+          <p className=" text_sales mb-0">l) obtaining gate passes,
+          </p>
+          <p className=" text_sales mb-0">m) yard management, </p>
+          <p className=" text_sales mb-0">
+            n) maintenance of proper records and registers for incoming and outgoing of material,
+          </p>
+          <p className=" text_sales">
+            o) water sprinkling as per PCB norms and other services as may be required by <u>{data.shortbuyer}</u>,{' '}
+          </p>
         </li>
         <li>
           <p className=" text_sales">
@@ -1217,16 +1185,16 @@ const qpa = (data,preview) => {
             Safekeeping and Security of the Goods-Proper safekeeping and security of Goods shall be the joint and
             several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and Stevedore shall
             provide round the clock security guards at the Storage Plot allotted at Discharge Port, where Goods shall be
-            stored. <b>{data.shortbuyer}</b> shall in no way be responsible or liable for any loss or damage to the
+            stored. <u>{data.shortbuyer}</u> shall in no way be responsible or liable for any loss or damage to the
             Goods for any reason whatsoever including shortage, theft or mix up.
           </p>
         </li>
         <li>
           <p className=" text_sales">
             {' '}
-            Bill of Entry to be filed in the name <b>{data.shortbuyer}</b>. Payment of customs duty, IGST, energy cess,
+            Bill of Entry to be filed in the name <u>{data.shortbuyer}</u>. Payment of customs duty, IGST, energy cess,
             Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer to{' '}
-            <b>{data.shortbuyer}</b> in advance at the time of Custom Clearance. The Associate Buyer shall pay Port
+            <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate Buyer shall pay Port
             Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills
             on IGI for this. A copy of the same has to be furnished to IGI. Any penalty/demurrage on account of delayed
             payment shall be solely to the account of the Associate Buyer
@@ -1235,7 +1203,7 @@ const qpa = (data,preview) => {
         <li>
           <p className=" text_sales">
             Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty (if
-            applicable) are to be paid by the Associate Buyer in advance to <b>{data.shortbuyer}</b> as per the
+            applicable) are to be paid by the Associate Buyer in advance to <u>{data.shortbuyer}</u> as per the
             Discharge Port. HMC crane charges at the Discharge Port and any pre berthing delays/detentions/demurrages
             will be to the account of the Associate Buyer on actual basis.
           </p>
@@ -1254,17 +1222,17 @@ const qpa = (data,preview) => {
         </li>
         <li>
           <p className=" text_sales">
-            Scanned copy of RR shall be furnished by Stevedore to <b>{data.shortbuyer}</b> as well as to Associate Buyer
+            Scanned copy of RR shall be furnished by Stevedore to <u>{data.shortbuyer}</u> as well as to Associate Buyer
             as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for
             taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
           </p>
         </li>
         <li>
           <p className=" text_sales">
-            The Associate Buyer will arrange comprehensive storage insurance against all risks for <strong>110</strong>{' '}
-            of the value of goods. The insurance policy will indicate <b>{data.shortbuyer}</b> or its nominated Bank (as
-            per <b>{data.shortbuyer}</b>'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore
-            the details of the goods for which <b>{data.shortbuyer}</b>/IGI's nominated Bank shall be the beneficiary
+            The Associate Buyer will arrange comprehensive storage insurance against all risks for <strong>110%</strong>{' '}
+            of the value of goods. The insurance policy will indicate <u>{data.shortbuyer}</u> or its nominated Bank (as
+            per <u>{data.shortbuyer}</u>'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore
+            the details of the goods for which <u>{data.shortbuyer}</u>/IGI's nominated Bank shall be the beneficiary
             for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of
             CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till
             realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and
@@ -1276,8 +1244,8 @@ const qpa = (data,preview) => {
             <b>{data.shortbuyer}</b> and CMA Agent (Collateral Manager appointed by LC opening Bank) shall have free and
             unfettered access to the plot where the goods are stored without any prior notice to the plot keeper during
             all reasonable hours including the right of ingress and egress to and from the plot by{' '}
-            <b>{data.shortbuyer}</b> 's and /or CMA Agent's officials, agents, other nominated buyers, if any, of{' '}
-            <b>{data.shortbuyer}</b> and/or CMA Agent, its vehicles, any Government Agency, for
+            <u>{data.shortbuyer}</u>'s and /or CMA Agent's officials, agents, other nominated buyers, if any, of{' '}
+            <u>{data.shortbuyer}</u> and/or CMA Agent, its vehicles, any Government Agency, for
             storing/de-storing/removing the material in or from the plot without any hindrance or obstruction.
           </p>
         </li>
@@ -1295,23 +1263,23 @@ const qpa = (data,preview) => {
         </li>
         <li>
           <p className=" text_sales">
-            CHA/Stevedore shall at all times follow and be bound by the instructions solely of <b>{data.shortbuyer}</b>{' '}
+            CHA/Stevedore shall at all times follow and be bound by the instructions solely of <u>{data.shortbuyer}</u>{' '}
             with regard to delivery of the Goods. Stevedore confirms and undertakes that it shall not release the Goods
-            without the written Release Order of <b>{data.shortbuyer}</b>. Stevedore shall have no objection whatsoever,
-            if <b>{data.buyer}</b> instructs it to deliver the Goods to any third party so nominated by them. The
-            instructions of the <b>{data.buyer}</b> shall be followed forthwith, without any objection, hindrance or
-            delay whatsoever
+            without the written Release Order of <u>{data.shortbuyer}</u>. Stevedore shall have no objection whatsoever,
+            if <u>{data.buyer}</u> instructs it to deliver the Goods to any third party so nominated by them. The
+            instructions of the <u>{data.buyer}</u> shall be followed forthwith, without any objection, hindrance or
+            delay whatsoever.
           </p>
         </li>
         <li>
           <p className=" text_sales">
             CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt, storage and
-            release of goods from the warehouse and furnish a daily report to <b>{data.shortbuyer}</b> & the Associate
+            release of goods from the warehouse and furnish a daily report to <u>{data.shortbuyer}</u> & the Associate
             Buyer. Under no circumstance releases will be made by Stevedore or be taken by the Associate Buyer without
-            obtaining proper Release Order in writing from <b>{data.shortbuyer}</b>. Stevedore and the Associate Buyer
-            jointly and severally agree to indemnify and hold harmless at all times <b>{data.shortbuyer}</b>, its
+            obtaining proper Release Order in writing from <u>{data.shortbuyer}</u>. Stevedore and the Associate Buyer
+            jointly and severally agree to indemnify and hold harmless at all times <u>{data.shortbuyer}</u>, its
             officers, agents, employees for any losses, damages, claims, costs and expenses incurred by{' '}
-            <b>{data.shortbuyer}</b> due to unauthorized, improper release of the Goods, shortage and/or for breach of
+            <u>{data.shortbuyer}</u> due to unauthorized, improper release of the Goods, shortage and/or for breach of
             the terms of this Agreement.
           </p>
         </li>
@@ -1319,15 +1287,15 @@ const qpa = (data,preview) => {
           <p className=" text_sales">
             This Agreement is irrevocable and non-assignable by the Associate Buyer and Stevedore until the entire Goods
             stored at the storage facility have been delivered to the Associate Buyer, or to the persons nominated by{' '}
-            <b>{data.shortbuyer}</b> under the Authorized Release Orders.
+            <u>{data.shortbuyer}</u> under the Authorized Release Orders.
           </p>
         </li>
         <li>
           <p className=" text_sales">
             In the event the Associate Buyer does not lift the goods/material within the scheduled period{' '}
-            <b>{data.shortbuyer}</b> has the right to sell/dispose of the Goods at the sole risk, cost of the Associate
-            Buyer. The Associate Buyer shall liable to pay to <b>{data.shortbuyer}</b> the loss (if any) incurred by{' '}
-            <b>{data.shortbuyer}</b>.
+            <u>{data.shortbuyer}</u> has the right to sell/dispose of the Goods at the sole risk, cost of the Associate
+            Buyer. The Associate Buyer shall liable to pay to <u>{data.shortbuyer}</u> the loss (if any) incurred by{' '}
+            <u>{data.shortbuyer}</u>.
           </p>
         </li>
         <li>
@@ -1407,12 +1375,12 @@ const qpa = (data,preview) => {
                 data?.associateBuyerAuthorized?.map((val, index) => {
                   return (
                     <li>
-                      <div>
+                      <p className='mb-0'>
                         Name- <span>{val.name}</span>
-                      </div>
-                      <div>
+                      </p>
+                      <p className='mb-0'>
                         Designation- <span>{val.designation}</span>
-                      </div>
+                      </p>
                     </li>
                   );
                 })}
@@ -1449,12 +1417,12 @@ const qpa = (data,preview) => {
                 data?.stevedoreAuthorized?.map((val, index) => {
                   return (
                     <li>
-                      <div>
+                      <p className='mb-0'>
                         Name- <span>{val.name}</span>
-                      </div>
-                      <div>
+                      </p>
+                      <p className='mb-0'>
                         Designation- <span>{val.designation}</span>
-                      </div>
+                      </p>
                     </li>
                   );
                 })}
@@ -1491,12 +1459,12 @@ const qpa = (data,preview) => {
                 data?.cmaAuthorized?.map((val, index) => {
                   return (
                     <li>
-                      <div>
+                      <p className='mb-0'>
                         Name- <span>{val.name}</span>
-                      </div>
-                      <div>
+                      </p>
+                      <p className='mb-0'>
                         Designation- <span>{val.designation}</span>
-                      </div>
+                      </p>
                     </li>
                   );
                 })}
@@ -1566,13 +1534,35 @@ const qpa = (data,preview) => {
         <strong>SIGNATURE PAGE</strong>
       </p>
       <div className={`row`}>
-        <Col md={12} className={`d-flex justify-content-around`}>
-          <p className="text_sales w-50 text-center m-0">(Seller)</p>
-          <p className="text_sales w-50 text-center m-0">(Buyer)</p>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
         </Col>
-        <Col md={12} className={`d-flex justify-content-around`}>
-          <div className="w-50 text-center">{data.seller}</div>
-          <div className="w-50 text-center">{data.buyer}</div>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+      </div>
+      <div className={`row`}>
+        <Col md={6}>
+          <div className="w-50"><strong>{data.seller}</strong></div>
+        </Col>
+        <Col md={6}>
+          <div className="w-50"><strong>{data.buyer}</strong></div>
+        </Col>
+      </div>
+      <div className={`row`}>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+      </div>
+      <div className={`row`}>
+        <Col md={6}>
+          <div className="w-50"><strong>{data.seller}</strong></div>
+        </Col>
+        <Col md={6}>
+          <div className="w-50"><strong>{data.buyer}</strong></div>
         </Col>
       </div>
     </div>
