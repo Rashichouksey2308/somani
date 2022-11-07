@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import Contract from '../../src/components/A2S_Sales_Contract';
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement';
-import TPASeller from '../../src/components/TPASeller';
-import TPAIGI from '../../src/components/TPAIGI';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import QPA from '../../src/components/QPA';
+import TPAIGI from '../../src/components/TPAIGI';
+import TPASeller from '../../src/components/TPASeller';
+import styles from './index.module.scss';
 
 import AssignmentLetter from '../../src/components/AssignmentLetter';
 
@@ -44,10 +44,6 @@ function Index() {
                 Print
               </button>
             </div>
-            {/* <div className="ml-auto text-right">
-              <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-              <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </div> */}
           </div>
         </div>
         <ul className={`${styles.navTabs} nav nav-tabs`}>

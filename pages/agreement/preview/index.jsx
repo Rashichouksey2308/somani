@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Contract from '../../../src/components/A2S_Sales_Contract';
-import QPA from '../../../src/components/QPA';
-import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
-import TPASeller from '../../../src/components/TPASeller';
-import TPAIGI from '../../../src/components/TPAIGI';
-import DownloadBar from '../../../src/components/DownloadBar';
-import AssignmentLetter from '../../../src/components/AssignmentLetter';
-import moment from 'moment';
 import jsPDF from 'jspdf';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import Contract from '../../../src/components/A2S_Sales_Contract';
+import AssignmentLetter from '../../../src/components/AssignmentLetter';
+import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
+import DownloadBar from '../../../src/components/DownloadBar';
+import QPA from '../../../src/components/QPA';
+import TPAIGI from '../../../src/components/TPAIGI';
+import TPASeller from '../../../src/components/TPASeller';
 
-import { toPdf, letterPrint, igiPrint, sellerPrint, qpaPrint } from '../../../src/utils/agreementTemplate';
 import _get from 'lodash/get';
+import { igiPrint, letterPrint, qpaPrint, sellerPrint, toPdf } from '../../../src/utils/agreementTemplate';
 function index() {
   const [data, setData] = useState({
     seller: '',
@@ -145,7 +145,6 @@ function index() {
   }, []);
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
-    // let toPrint=toPdf(data)
     let toPrint = toPdf(data);
     let name = 'SalesAgreement';
     if (preview == 'Sales') {
@@ -156,15 +155,6 @@ function index() {
       toPrint = qpaPrint(data);
       name = 'QPA.pdf';
     }
-    // if(preview=="ASSO"){
-    //   toPrint=associateshipPrint(data)
-    // }
-    //  if(preview=="UNDERTAKING1"){
-    //   toPrint=undertakingPrint(data)
-    // }
-    //  if(preview=="UNDERTAKING2"){
-    //   toPrint=undertaking2Print(data)
-    // }
     if (preview == 'TPASELLER') {
       toPrint = sellerPrint(data);
       name = 'TPA(Seller).pdf';
@@ -181,7 +171,6 @@ function index() {
       callback: function (doc) {
         doc.save(name);
       },
-      // margin:margins,
       autoPaging: 'text',
     });
   };
@@ -196,15 +185,7 @@ function index() {
         <AssociateshipAgreement preview={true} type={preview} />
       ) : null}
 
-      <DownloadBar
-        downLoadButtonName={`Download`}
-        handleReject={exportPDF}
-        // isPrevious={true}
-        // handleUpdate={handleUpdate}
-        // leftButtonName={`Save`}
-        // rightButtonName={`Preview`}
-        // handleApprove={routeChange}
-      />
+      <DownloadBar downLoadButtonName={`Download`} handleReject={exportPDF} />
     </>
   );
 }

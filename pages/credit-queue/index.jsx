@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './creditqueue.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action';
-import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
 import Loader from '../../src/components/Loader';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
+import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import styles from './creditqueue.module.scss';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -110,17 +110,7 @@ function Index() {
                 )}
               </div>
               <Filter />
-              {/* <a href="#" className={`${styles.filterList} filterList `}>
-            Ramesh Shetty
-            <img src="/static/close.svg" className="img-fluid" alt="Close" />
-          </a>
-          <a href="#" className={`${styles.filterList} filterList `}>
-            Raj Traders
-            <img src="/static/close.svg" className="img-fluid" alt="Close" />
-          </a> */}
             </div>
-
-            {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
             <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>
               <div className={`${styles.all} ${styles.boxInner} all border_color`}>

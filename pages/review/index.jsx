@@ -1,41 +1,40 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './reviewqueue.module.scss';
-import Order from '../../src/components/Order';
-import ShipmentDetails from '../../src/components/ShipmentDetails';
-import LigitationsTable from '../../src/components/LigitationsTable';
-import GST from '../../src/components/GST';
 import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-import Credit from '../../src/components/Credit';
-import Recommendations from '../../src/components/Recommendations';
-import CAM from '../../src/components/CAM';
+import { default as router, default as Router } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import router from 'next/router';
-import Router from 'next/router';
+import ReactDOMServer from 'react-dom/server';
+import CAM from '../../src/components/CAM';
+import Credit from '../../src/components/Credit';
+import GST from '../../src/components/GST';
+import LigitationsTable from '../../src/components/LigitationsTable';
+import Order from '../../src/components/Order';
+import Recommendations from '../../src/components/Recommendations';
+import ShipmentDetails from '../../src/components/ShipmentDetails';
+import styles from './reviewqueue.module.scss';
 
-import PreviousBar from '../../src/components/PreviousBar';
-import DownloadBar from '../../src/components/DownloadBar';
 import CommonSave from '../../src/components/CommonSave';
+import DownloadBar from '../../src/components/DownloadBar';
+import PreviousBar from '../../src/components/PreviousBar';
 //sub modules
-import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails';
-import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern';
 import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils';
 import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDetails';
+import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails';
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings';
+import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern';
 
+import { GetCompanyDetails } from 'redux/companyDetail/action';
+import { GetAllOrders } from 'redux/registerBuyer/action';
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
 import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
 import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeStatement';
 import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges';
 import Peer from '../../src/components/ReviewQueueFinancials/Peer';
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios';
-import { ViewDocument } from '../../src/redux/ViewDoc/action';
-import { GetAllOrders } from 'redux/registerBuyer/action';
-import { GetCompanyDetails } from 'redux/companyDetail/action';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
+import { ViewDocument } from '../../src/redux/ViewDoc/action';
 import {
   addPrefixOrSuffix,
   checkNan,
@@ -44,20 +43,20 @@ import {
   removePrefixOrSuffix,
 } from '../../src/utils/helper';
 
-import { handleErrorToast, rtrnChartIndiaction, orderValidation } from '../../src/utils/helpers/review';
+import { handleErrorToast, orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
 //redux
-import { RefetchCombineKarza, UpdateCompanyDetails } from '../../src/redux/companyDetail/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCredit, UpdateCreditCalculate, UpdateOrderShipment } from '../../src/redux/buyerProfile/action';
+import { RefetchCombineKarza, UpdateCompanyDetails } from '../../src/redux/companyDetail/action';
 
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { settingSidebar } from '../../src/redux/breadcrumb/action';
-import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
+import _get from 'lodash/get';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import UploadOther from '../../src/components/UploadOther';
-import _get from 'lodash/get';
+import { settingSidebar } from '../../src/redux/breadcrumb/action';
+import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
 import { McaReportFetch } from '../../src/redux/mcaReport/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 let alertObj = {
   isShell: 'Shell',

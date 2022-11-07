@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/templates/*": ["templates/*"]
+    }
   },
-  "include": [
-    "src",
-    "src/components/AggrementContent/.jsx"
-  ]
+  "include": ["src", "src/components/AggrementContent/.jsx"]
 }
