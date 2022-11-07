@@ -105,22 +105,27 @@ function Index(props) {
   }, [props.data]);
 
   useEffect(() => {
+    let temp=[...listContact]
+      temp.forEach((val,index)=>{
+      delete val?._id;
+      })
     if (props.saveData == true && props.active == 'Delivery Terms') {
+      
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
         paymentTerms: paymentTerms,
-        listContact: listContact,
+        listContact: temp,
       };
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-
+      console.log(temp,"listContact")
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
         paymentTerms: paymentTerms,
-        listContact: listContact,
+        listContact: temp,
       };
 
       props.updateData('Delivery Terms', data);
