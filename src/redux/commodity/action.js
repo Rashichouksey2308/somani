@@ -119,7 +119,7 @@ export const GetAllCommodity = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getAllCommodityFailed());
 
-    const toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME';
+    const toastMessage = 'COULD NOT GET COMMODITIES AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
@@ -166,7 +166,7 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getCommodityFailed());
 
-    const toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME';
+    const toastMessage = 'COULD NOT GET COMMODITIES AT THIS TIME';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
@@ -186,7 +186,7 @@ export const CreateCommodity = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(`${API.corebaseUrl}${API.getCommodity}`, payload.obj, {
+    Axios.post(`${API.corebaseUrl}${API.getCommodity}`, payload, {
       headers: headers,
     })
       .then((response) => {
@@ -195,9 +195,6 @@ export const CreateCommodity = (payload) => async (dispatch, getState, api) => {
 
           let toastMessage = 'created  SUCCESSFULLY';
 
-          if (payload.task === 'save') {
-            toastMessage = 'SAVED SUCCESSFULLY';
-          }
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {
               toastId: toastMessage,

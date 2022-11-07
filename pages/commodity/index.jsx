@@ -42,7 +42,7 @@ const index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetAllCommodity(`?company=${id}`));
+    // dispatch(GetAllCommodity(`?company=${id}`));
   };
 
   return (
