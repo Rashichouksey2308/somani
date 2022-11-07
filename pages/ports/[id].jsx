@@ -6,13 +6,14 @@ import Ports from '../../src/components/Ports';
 
 function Index() {
   return (
-    <Card className={`${styles.card} container-fluid`}>
-      <div className="m-2">
-        <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
+    <div className="container-fluid p-0 border-0">
+    <Card className={`${styles.card}`}>
+     
+        <Card.Header className={`${styles.head_container}  d-flex justify-content-between align-items-center border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => Router.push('/ports')} style={{ cursor: 'pointer' }}>
               <img
-                className={`${styles.arrow} img-fluid image_arrow mr-2`}
+                className={`${styles.arrow} img-fluid image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
@@ -29,8 +30,9 @@ function Index() {
           </div>
         </Card.Header>
        <Ports/>
-      </div>
+      
     </Card>
+    </div>
   );
 }
 

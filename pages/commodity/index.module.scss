@@ -35,7 +35,13 @@
   }
 
   .head_header {
+    height: 48px;
     display: flex;
+    align-items: center;
+    margin: 0 0 0 10px;
+    @include respond(lg-desktop) {
+      height: 40px;
+    }
 
     .arrow {
       width: 13px;
