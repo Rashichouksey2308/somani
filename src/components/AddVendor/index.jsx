@@ -12,7 +12,7 @@ function Index() {
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
-        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        <div className={`${styles.main} vessel_card card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
           >

@@ -21,6 +21,7 @@
     border: none;
     background: none;
     flex-direction: row;
+    margin: 0 0 27px 10px;
     justify-content: space-between;
 
     @include respond(lg-desktop) {

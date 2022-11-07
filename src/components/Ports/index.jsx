@@ -12,7 +12,7 @@ function Index() {
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
        
-        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        <div className={`${styles.main} vessel_card card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
             data-toggle="collapse"
