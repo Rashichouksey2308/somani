@@ -147,7 +147,8 @@ function Index() {
             </div>
           </div>
         </div>
-        { !isUpdate ? 
+        { 
+        // !isUpdate ? 
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
        
@@ -158,12 +159,12 @@ function Index() {
          
           </div>
         </div>
-        :
-        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
-          <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
-            <button className={`${styles.approve} ml-3`}>Update</button>
-          </div>
-        </div>
+        // :
+        // <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        //   <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
+        //     <button className={`${styles.approve} ml-3`}>Update</button>
+        //   </div>
+        // </div>
 }
         <div className='d-flex justify-content-end mb-5'
         style={{marginTop:'35px'}}>

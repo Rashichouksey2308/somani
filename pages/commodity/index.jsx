@@ -6,7 +6,7 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Image from 'next/image';
 import Router from 'next/router';
-import {GetAllCommodity} from '../../src/redux/commodity/action' 
+import {GetAllCommodity, GetCommodity} from '../../src/redux/commodity/action' 
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 const index = () => {
@@ -19,7 +19,6 @@ const index = () => {
   const { searchedLeads } = useSelector((state) => state.order);
   
   const {allCommodity} = useSelector((state)=> state.commodity)
-  console.log(allCommodity, 'ALL COMMODITY')
 
   useEffect(() => {
     dispatch(GetAllCommodity(`?page=${currentPage}&limit=${10}`));
@@ -44,6 +43,12 @@ const index = () => {
     const id = `${e.target.id}`;
     // dispatch(GetAllCommodity(`?company=${id}`));
   };
+
+  const handleRoute = (commodity) => {
+    sessionStorage.setItem('commodityId', commodity._id)
+    dispatch(GetCommodity(`?commodityId=${commodity._id}`))
+    Router.push('/update-commodity')
+  }
 
   return (
     <>
@@ -196,14 +201,18 @@ const index = () => {
                       <td>{commodity.Chapter_Name}</td>
 
                       <td>{commodity.Chapter_Code}</td>
+                      {commodity && commodity.Approved_Commodity == 'Yes' ?
                       <td>
                         <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">{commodity?.Approved_Commodity}</span>
-                      </td>
+                        <span className="m-3">{'Yes'}</span>
+                      </td>: <td>
+                        <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
+                        <span className="m-3">No</span>
+                      </td>}
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}
-                          onClick={() => Router.push('/update-commodity')}>
+                          onClick={()=>handleRoute(commodity)}>
                           <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>

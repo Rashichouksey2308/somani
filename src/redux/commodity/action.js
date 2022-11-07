@@ -139,7 +139,7 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getCommodity}${payload}`, {
+    Axios.get(`${API.corebaseUrl}${API.getCommodity}${payload || ''}`, {
       headers: headers,
     })
       .then((response) => {
@@ -241,7 +241,7 @@ export const UpdateCommodity = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.put(`${API.corebaseUrl}${API.getCommodity}`, payload.obj, {
+    Axios.put(`${API.corebaseUrl}${API.getCommodity}`, payload, {
       headers: headers,
     })
       .then((response) => {
@@ -249,10 +249,6 @@ export const UpdateCommodity = (payload) => async (dispatch, getState, api) => {
           dispatch(updateCommoditySuccess(response.data.data));
 
           let toastMessage = 'updated  SUCCESSFULLY';
-
-          if (payload.task === 'save') {
-            toastMessage = 'SAVED SUCCESSFULLY';
-          }
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {
               toastId: toastMessage,
