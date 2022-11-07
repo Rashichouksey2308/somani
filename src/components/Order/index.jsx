@@ -3,11 +3,8 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
-import { addPrefixOrSuffix } from 'utils/helper';
-import { CovertvaluefromtoCR } from '../../utils/helper';
-import { toast } from 'react-toastify';
 
-const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
+const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -20,41 +17,36 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
     let text = d.toISOString();
     saveOrderData(name, text);
   };
-   const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
-    const filterCommodity=(value)=>{
-    if(value==""){
-      setToShow([])
-      setToView(false)
-      return
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const filterCommodity = (value) => {
+    if (value == '') {
+      setToShow([]);
+      setToView(false);
+      return;
     }
-   let filterData = commodity.filter(o => {
-    return o.Commodity.toLowerCase().includes(value.toLowerCase())
-   });
-   console.log(filterData,"filterData")
+    let filterData = commodity.filter((o) => {
+      return o.Commodity.toLowerCase().includes(value.toLowerCase());
+    });
 
-   setToShow(filterData)
-     setToView(true)
 
-  }
-   const handleData=(name,value)=>{
-     saveOrderData(name,value)
-      setToView(false)
-  }
-  console.log(orderDetail?.transactionType, 'orderDetail');
+    setToShow(filterData);
+    setToView(true);
+  };
+  const handleData = (name, value) => {
+    saveOrderData(name, value);
+    setToView(false);
+  };
+
   return (
-    <div
-      className={`${styles.main} vessel_card card border_color border-bottom`}
-    >
+    <div className={`${styles.main} vessel_card card border_color border-bottom`}>
       <div
         className={`${styles.head_container} card-header align-items-center border_color head_container d-flex justify-content-between bg-transparent`}
       >
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>
-              Quantity :
-            </h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
             <div className="d-flex align-items-center position-relative">
               <select
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
@@ -66,11 +58,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                 <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
                 {/* <option selected>MT</option> */}
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
           </div>
 
@@ -88,18 +76,9 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                 <option value="Million">Million</option>
                 <option value="Lakh">Lakh</option>
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
-            <span
-              data-toggle="collapse"
-              data-target="#orderSummary"
-              aria-expanded="true"
-              aria-controls="orderSummary"
-            >
+            <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
               +
             </span>
           </div>
@@ -107,7 +86,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
       </div>
       <div
         id="orderSummary"
-        // className="collapse"
+       
         aria-labelledby="orderSummary"
       >
         <div className={`${styles.dashboard_form} card-body border_color`}>
@@ -122,9 +101,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   onChange={(e) => {
                     saveOrderData('transactionType', 'Import');
                   }}
-                  checked={
-                    orderDetail?.transactionType === 'Import' ? 'checked' : ''
-                  }
+                  checked={orderDetail?.transactionType === 'Import' ? 'checked' : ''}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -136,9 +113,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   onChange={(e) => {
                     saveOrderData('transactionType', 'Domestic');
                   }}
-                  checked={
-                    orderDetail?.transactionType === 'Domestic' ? 'checked' : ''
-                  }
+                  checked={orderDetail?.transactionType === 'Domestic' ? 'checked' : ''}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -157,40 +132,32 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                     name="commodity"
                     value={orderDetail?.commodity}
                     onChange={(e) => {
-                      filterCommodity(e.target.value)
+                      filterCommodity(e.target.value);
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                    {toShow.length>0 && toView &&  (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {toShow
-                      ? toShow?.map(
-                          (results, index) => (
-                            <li
-                              onClick={() => handleData("commodity",results.Commodity)}
-                              id={results._id}
-                              key={index}
-                              value={results.Commodity}
-                            >
-                              {results.Commodity}{' '}
-                            </li>
-                          ),
-                        )
-                      : ''}
-                  </ul>
-                </div>
-              )}
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  {toShow.length > 0 && toView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toShow
+                          ? toShow?.map((results, index) => (
+                              <li
+                                onClick={() => handleData('commodity', results.Commodity)}
+                                id={results._id}
+                                key={index}
+                                value={results.Commodity}
+                              >
+                                {results.Commodity}{' '}
+                              </li>
+                            ))
+                          : ''}
+                      </ul>
+                    </div>
+                  )}
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Commodity<strong className="text-danger">*</strong>
                   </Form.Label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </Form.Group>
 
@@ -201,12 +168,10 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   type="text"
                   name="quantity"
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.quantity
@@ -231,32 +196,18 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   type="text"
                   name="orderValue"
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.orderValue
                       ? orderDetail?.orderValue
-                      : Number(orderDetail?.orderValue).toLocaleString(
-                          'en-In',
-                          { maximumFractionDigits: 2 },
-                        ) +
-                        ` ${
-                          orderDetail?.unitOfValue == 'Crores'
-                            ? 'Cr'
-                            : orderDetail?.unitOfValue
-                        }`
+                      : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
+                        ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   orderDetail?.orderValue,
-                  //   orderDetail?.unitOfValue == 'Crores'
-                  //     ? 'Cr'
-                  //     : orderDetail?.unitOfValue,
-                  // )}
+                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -294,17 +245,11 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                     required
                   >
                     <option disabled>Select an option</option>
-                         {country.map((val,index)=>{
-                   return(
-                     <option value={`${val.Country}`}>
-                  {val.Country}
-                  </option>
-                   )
-                })}
+                    {country.map((val, index) => {
+                      return <option value={`${val.Country}`}>{val.Country}</option>;
+                    })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Country Of Origin<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -322,24 +267,19 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   type="text"
                   name="tolerance"
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.tolerance
                       ? orderDetail?.tolerance
-                      : Number(orderDetail?.tolerance)?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                          },
-                        ) + ' %'
+                      : Number(orderDetail?.tolerance)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        }) + ' %'
                   }
-                  // value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
+                 
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -362,9 +302,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </Form.Label>
                 </div>
@@ -387,17 +325,11 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Manufacturer / Mines name
                     {/* <strong className="text-danger">*</strong> */}
                   </Form.Label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </Form.Group>
 
@@ -412,23 +344,22 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                     }}
                     required
                   >
-                    <option >Select an option</option>
-                      {port.filter((val,index)=>{
-                  if(val.Country.toLowerCase()=="india"){
-                    return val
-                  }
-                }).map((val,index)=>{
-                   return(
-                     <option value={`${val.Port_Name},${val.Country}`}>
-                  {val.Port_Name},{val.Country}
-                  </option>
-                   )
-                })}
-                    
+                    <option>Select an option</option>
+                    {port
+                      .filter((val, index) => {
+                        if (val.Country.toLowerCase() == 'india') {
+                          return val;
+                        }
+                      })
+                      .map((val, index) => {
+                        return (
+                          <option value={`${val.Port_Name},${val.Country}`}>
+                            {val.Port_Name},{val.Country}
+                          </option>
+                        );
+                      })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Port Of Discharge<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -455,9 +386,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                     <option value="CIF">CIF</option>
                     <option value="FOB">FOB</option>
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     INCO Terms<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -476,11 +405,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
                   />
-                  <img
-                    className={`${styles.calanderIcon} img-fluid`}
-                    src="/static/caldericon.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                 </div>
               </Form.Group>
 
@@ -491,25 +416,8 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                  // onFocus={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: true }),
-                  //     e.target.type = 'text'
-                  // }}
-                  // onBlur={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: false }),
-                  //     e.target.type = 'text'
-                  //     if(e.target.value > 10){
-                  //       let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
-                  //          if(!toast.isActive(toastMessage)){
-                  //           toast.error(toastMessage, {toastId: toastMessage})
-                  //          }
-                  //        }
-                  //     }
-                  // }
-                  // value={
-                  //   isFieldInFocus.hsnCode ?
-                  //     orderDetail?.hsnCode :
-                  //     orderDetail?.hsnCode}
+                 
+                
                   defaultValue={orderDetail?.hsnCode}
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 />
@@ -518,9 +426,7 @@ const Index = ({ orderDetail, saveOrderData ,country,port,commodity}) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
-              {/* <div className={styles.button}>
-                <span>Submit</span>
-              </div> */}
+         
             </div>
           </Form>
         </div>

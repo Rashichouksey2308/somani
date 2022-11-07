@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Modal,
-  Row,
-  Col,
-  InputGroup,
-  DropdownButton,
-  Dropdown,
-  FormControl,
-  Form,
-} from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import styles from './index.module.scss';
 
 function index(props) {
@@ -26,20 +17,15 @@ function index(props) {
           id="contained-modal-title-vcenter"
           className={`${styles.title}  d-flex justify-content-between align-items-center`}
         >
-          <div className={`${styles.blue}`}>BL Details </div>
+          <div className={`${styles.blue}`}>BL Details</div>
           <div>
             <span>Commodity: </span>Iron{' '}
           </div>
-          <img src="/static/close-2.svg"></img>
+          <img src="/static/close-2.svg" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
-        <table
-          className={`${styles.table} table `}
-          cellPadding="0"
-          cellSpacing="0"
-          border="0"
-        >
+        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
           <tr className={`border_color`}>
             <th>BL NUMBER</th>
             <th>BL DATE</th>

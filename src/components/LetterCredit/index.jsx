@@ -1,15 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule } from 'redux/lcModule/action';
 import Filter from '../Filter';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import { SearchLeads } from 'redux/buyerProfile/action';
 
 function Index() {
@@ -58,14 +54,10 @@ function Index() {
 
   const handleSort = () => {
     if (sorting == -1) {
-      dispatch(
-        GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
+      dispatch(GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setSorting(1);
     } else if (sorting == 1) {
-      dispatch(
-        GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
+      dispatch(GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -76,14 +68,8 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
               <input
                 value={serachterm}
@@ -97,11 +83,7 @@ function Index() {
               <div className={styles.searchResults}>
                 <ul>
                   {searchedLeads.data.data.map((results, index) => (
-                    <li
-                      onClick={handleFilteredData}
-                      id={results._id}
-                      key={index}
-                    >
+                    <li onClick={handleFilteredData} id={results._id} key={index}>
                       {results.companyName} <span>{results.customerId}</span>
                     </li>
                   ))}
@@ -128,16 +110,11 @@ function Index() {
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
-          <div
-            className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-          >
+          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
             <h3 className="heading_card">Letter of Credit</h3>
-            <div
-              className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-            >
+            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
-                Showing Page {currentPage + 1} out of{' '}
-                {Math.ceil(lcModule?.totalCount / 10)}
+                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 10)}
               </span>
               <a
                 onClick={() => {
@@ -151,11 +128,7 @@ function Index() {
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
                 {' '}
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
               <a
                 onClick={() => {
@@ -166,22 +139,13 @@ function Index() {
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
             </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table
-                className={`${styles.table} table`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
+              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                 <thead>
                   <tr className="table_row">
                     <th>
@@ -203,17 +167,12 @@ function Index() {
                     lcModule?.data?.map((lc, index) => (
                       <tr key={index} className="table_row">
                         <td>{lc?.order?.orderId}</td>
-                        <td
-                          className={styles.buyerName}
-                          onClick={() => handleRoute(lc)}
-                        >
+                        <td className={styles.buyerName} onClick={() => handleRoute(lc)}>
                           {lc?.company?.companyName}
                         </td>
                         <td>RM-Sales</td>
                         <td>
-                          <span
-                            className={`${styles.status} ${styles.review}`}
-                          ></span>
+                          <span className={`${styles.status} ${styles.review}`}></span>
                           Pending
                         </td>
                       </tr>
@@ -227,4 +186,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

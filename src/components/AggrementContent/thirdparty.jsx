@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/ermsalt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
+
 function Index(props) {
   const [deliveryData, setDeliveryData] = useState('');
   const [monthOfLoadingCargo, setMonthOfLoadingCargo] = useState('');
@@ -19,6 +20,8 @@ function Index(props) {
       amount: '',
     },
   ]);
+
+  const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const onAddContact = () => {
     setListContact([
       ...listContact,
@@ -30,38 +33,57 @@ function Index(props) {
         amount: '',
       },
     ]);
+    setIsFieldInFocus([...isFieldInFocus, { amount: false }])
   };
   const handleDeleteContact = (index) => {
     setListContact([
       ...listContact.slice(0, index),
       ...listContact.slice(index + 1),
     ]);
+
+    setIsFieldInFocus([
+      ...isFieldInFocus.slice(0, index),
+      ...isFieldInFocus.slice(index + 1),
+    ])
   };
+
+
+
+  useEffect(() => {
+    let tempArray = []
+
+    listContact.forEach((item) => {
+      tempArray.push({ amount: false })
+    })
+    setIsFieldInFocus(tempArray)
+  }, [listContact])
+
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
-        console.log(props?.data, 'sadadsdasd1');
+
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
 
-        console.log('savd', savedData);
+
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
         setPaymentTerms(savedData?.paymentTerms);
+
         setListContact(
           savedData?.cheque?.length > 0
             ? savedData.cheque
             : [
-                {
-                  sNo: '',
-                  bankName: '',
-                  chequeNo: '',
-                  chequeDate: null,
-                  amount: '',
-                },
-              ],
+              {
+                sNo: '',
+                bankName: '',
+                chequeNo: '',
+                chequeDate: null,
+                amount: '',
+              },
+            ],
         );
       } else {
-        console.log(props?.data, 'sadadsdasd');
+
         setDeliveryData(props?.data?.deliveryTerm);
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
         setPaymentTerms(props?.data?.paymentTerms);
@@ -69,14 +91,14 @@ function Index(props) {
           props?.data?.cheque?.length > 0
             ? props.data.cheque
             : [
-                {
-                  sNo: '',
-                  bankName: '',
-                  chequeNo: '',
-                  chequeDate: null,
-                  amount: '',
-                },
-              ],
+              {
+                sNo: '',
+                bankName: '',
+                chequeNo: '',
+                chequeDate: null,
+                amount: '',
+              },
+            ],
         );
       }
     }
@@ -93,7 +115,7 @@ function Index(props) {
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log('this12');
+
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -113,11 +135,12 @@ function Index(props) {
     // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
   };
   const handleChangeInput = (name, value, index) => {
+
     let temp = [...listContact];
     temp[index][name] = value;
     setListContact([...temp]);
   };
-  console.log(deliveryData, 'deliveryData');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0 `}>
@@ -137,27 +160,17 @@ function Index(props) {
                   <option value="CIF	Cost Insurance Freight Incoterms 2000">
                     CIF Cost Insurance Freight Incoterms 2000
                   </option>
-                  <option
-                    value={`CFR	Cost & Freight Incoterms 2000`}
-                  >{`CFR	Cost & Freight Incoterms 2000`}</option>
+                  <option value={`CFR	Cost & Freight Incoterms 2000`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
                   <option value="DDP	Delivery Duties Paid Incoterms 2000">
                     DDP Delivery Duties Paid Incoterms 2000
                   </option>
                   <option value="">EXW Ex Works Incoterms 2000</option>
-                  <option value="FOB	Free on Board Incoterms 2000">
-                    FOB Free on Board Incoterms 2000
-                  </option>
+                  <option value="FOB	Free on Board Incoterms 2000">FOB Free on Board Incoterms 2000</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Delivery Terms <strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -172,24 +185,13 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate">
-                    {' '}
-                    Days from Vessel Discharge Date{' '}
-                  </option>
-                  <option value="Whicheverisearlier">
-                    Whichever is earlier
-                  </option>
+                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date </option>
+                  <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Payment Terms <strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -216,17 +218,11 @@ function Index(props) {
                   <option value="November">November</option>
                   <option value="December">December</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Month of loading of Cargo
                   <strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
           </div>
@@ -236,20 +232,13 @@ function Index(props) {
         <div
           className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
         >
-          <h3 className={`${styles.heading} mb-0`}>
-            Details of post-dated Cheque(s)-
-          </h3>
+          <h3 className={`${styles.heading} mb-0`}>Details of post-dated Cheque(s)-</h3>
         </div>
         <div>
           <div className={`${styles.datatable}`}>
             <div className={`${styles.table_scroll_outer}`}>
               <div className={`${styles.table_scroll_inner}`}>
-                <table
-                  className={`${styles.table}`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table}`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="10%">S NO.</th>
@@ -272,11 +261,7 @@ function Index(props) {
                               type="text"
                               value={val.sNo}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
                             />
                           </td>
@@ -287,11 +272,7 @@ function Index(props) {
                               type="text"
                               value={val.bankName}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
                             />
                           </td>
@@ -303,27 +284,20 @@ function Index(props) {
                               type="text"
                               value={val.chequeNo}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
-                              // readOnly={!saveContactTable}
+                            // readOnly={!saveContactTable}
                             />
                           </td>
-                          <td>
+                          <td style={{minWidth:'200px'}}>
                             <div className="d-flex align-items-center">
                               <DateCalender
+                            
                                 name="chequeDate"
                                 saveDate={(val, name, index) => {
                                   handleChangeInput(name, val, index);
                                 }}
-                                defaultDate={
-                                  val.chequeDate == null
-                                    ? null
-                                    : moment(val.chequeDate).toDate()
-                                }
+                                defaultDate={val.chequeDate == null ? null : moment(val.chequeDate).toDate()}
                                 // small={true}
                                 index={index}
                               />
@@ -336,22 +310,39 @@ function Index(props) {
                           </td>
                           <td>
                             <input
+                              // onFocus={(e) => {
+                              //   let tempArray = [...isFieldInFocus]
+                              //   tempArray[index].amount = true
+                              //   setIsFieldInFocus(tempArray),
+
+                              //     (e.target.type = 'number');
+                              // }}
+                              // onBlur={(e) => {
+                              //   let tempArray = [...isFieldInFocus]
+                              //   tempArray[index].amount = false
+                              //   setIsFieldInFocus(tempArray),
+
+                              //     (e.target.type = 'text');
+                              // }}
+                              onWheel={(event) => event.currentTarget.blur()}
+                              // value={
+                              //   isFieldInFocus[index].amount
+                              //     ? val.amount
+                              //     : `INR ` + Number(
+                              //       val.amount
+                              //     )?.toLocaleString('en-In', {
+                              //       maximumFractionDigits: 2,
+                              //     })
+                              // }
                               className="input"
                               name="amount"
-                              type="number"
+                              type="text"
                               value={val.amount}
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                                handleChangeInput(e.target.name, e.target.value, index);
                               }}
-                              // readOnly={!saveContactTable}
+                            // readOnly={!saveContactTable}
                             />
                           </td>
 

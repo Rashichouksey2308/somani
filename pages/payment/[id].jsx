@@ -1,31 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './payment.module.scss';
 import ReleaseOrder from '../../src/components/ReleaseOrder';
 import DeliveryOrder from '../../src/components/DeliveryOrder';
-import DeliveryPreview from '../../src/components/DeliveryPreview';
 import LiftingDetails from '../../src/components/LiftingDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
-import {
-  GetAllDelivery,
-  GetDelivery,
-  UpdateDelivery,
-} from '../../src/redux/release&DeliveryOrder/action';
-import {
-  GetAllLifting,
-  UpdateLiftingData,
-} from '../../src/redux/Lifting/action';
+import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
-import {
-  setPageName,
-  setDynamicName,
-  setPageTabName,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+
 function Index() {
   const dispatch = useDispatch();
 
@@ -85,8 +74,6 @@ function Index() {
     setLifting([...temp]);
   }, [allLiftingData]);
 
-
-
   useEffect(() => {
     getOrderData();
   }, [dispatch]);
@@ -100,18 +87,12 @@ function Index() {
   };
   useEffect(() => {
     if (_get(ReleaseOrderData, 'data[0].order.lifting', '') !== '') {
-      dispatch(
-        GetAllLifting(
-          `?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`,
-        ),
-      );
+      dispatch(GetAllLifting(`?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`));
     }
   }, [ReleaseOrderData]);
 
   const liftingData = _get(allLiftingData, 'data[0]', '');
   const [lifting, setLifting] = useState([]);
-
-
 
   const addNewLifting = (value) => {
     setLifting([
@@ -158,14 +139,12 @@ function Index() {
     setLifting([...tempArr]);
   };
   const handleChange = (name, value, index, index2) => {
-
     let tempArr = lifting;
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
           {
             if (i2 == index2) {
-
               val2[name] = value;
             }
           }
@@ -184,24 +163,20 @@ function Index() {
         break;
       }
       for (let j = 0; j <= lifting[i].detail.length - 1; j++) {
-        if (
-          lifting[i].detail[j]?.dateOfLifting == '' ||
-          lifting[i].detail[j]?.dateOfLifting == null
-        ) {
-          toastMessage = `please provide Date Of lifting Of lifting Details   ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.dateOfLifting == '' || lifting[i].detail[j]?.dateOfLifting == null) {
+          toastMessage = `please provide Date Of lifting Of lifting Details   ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.liftingQuant == '' ||
-          lifting[i].detail[j]?.liftingQuant == null
-        ) {
-          toastMessage = `please provide lifting Quantity Of lifting Details   ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.liftingQuant == '' || lifting[i].detail[j]?.liftingQuant == null) {
+          toastMessage = `please provide lifting Quantity Of lifting Details   ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
@@ -209,85 +184,70 @@ function Index() {
           }
         }
 
-        if (
-          lifting[i].detail[j]?.modeOfTransportation == '' ||
-          lifting[i].detail[j]?.modeOfTransportation == null
-        ) {
-          toastMessage = `please provide mode Of Transportation Of lifting Details  ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.modeOfTransportation == '' || lifting[i].detail[j]?.modeOfTransportation == null) {
+          toastMessage = `please provide mode Of Transportation Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.rrlrNumber == '' ||
-          lifting[i].detail[j]?.rrlrNumber == null
-        ) {
-          toastMessage = `please provide rr/lr Number  Of lifting Details  ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.rrlrNumber == '' || lifting[i].detail[j]?.rrlrNumber == null) {
+          toastMessage = `please provide rr/lr Number  Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.destination == '' ||
-          lifting[i].detail[j]?.destination == null
-        ) {
-          toastMessage = `please provide destination  Of lifting Details  ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.destination == '' || lifting[i].detail[j]?.destination == null) {
+          toastMessage = `please provide destination  Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.eWayBill == '' ||
-          lifting[i].detail[j]?.eWayBill == null
-        ) {
-          toastMessage = `please provide a eWay Bill  Of lifting Details  ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.eWayBill == '' || lifting[i].detail[j]?.eWayBill == null) {
+          toastMessage = `please provide a eWay Bill  Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.eWayBill == '' ||
-          lifting[i].detail[j]?.eWayBill == null
-        ) {
-          toastMessage = `please provide a eWay Bill   Of lifting Details ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.eWayBill == '' || lifting[i].detail[j]?.eWayBill == null) {
+          toastMessage = `please provide a eWay Bill   Of lifting Details ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.LRorRRDoc.originalName == '' ||
-          !lifting[i].detail[j]?.LRorRRDoc.originalName
-        ) {
-          toastMessage = `please upload ${lifting[i].detail[j]?.modeOfTransportation
-            }  document  Of Listing Details  ${j + 1} for delivery order no - ${lifting[i].deliveryOrder
-            }  `;
+        if (lifting[i].detail[j]?.LRorRRDoc.originalName == '' || !lifting[i].detail[j]?.LRorRRDoc.originalName) {
+          toastMessage = `please upload ${lifting[i].detail[j]?.modeOfTransportation}  document  Of Listing Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.eWayBillDoc.originalName == '' ||
-          !lifting[i].detail[j]?.eWayBillDoc.originalName
-        ) {
-          toastMessage = `please upload a eWay Bill  Of Listing Details  Of Listing Details  ${j + 1
-            } for delivery order no - ${lifting[i].deliveryOrder}  `;
+        if (lifting[i].detail[j]?.eWayBillDoc.originalName == '' || !lifting[i].detail[j]?.eWayBillDoc.originalName) {
+          toastMessage = `please upload a eWay Bill  Of Listing Details  Of Listing Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
@@ -305,7 +265,6 @@ function Index() {
       let tempArr = [];
       let temp2 = [];
       lifting.forEach((val, index) => {
-
         if (val.detail.modeOfTransportation == 'RR') {
           val.detail.map((val2, index2) => {
             temp2.push({
@@ -354,7 +313,6 @@ function Index() {
     }
   };
 
-
   const [deliveryOrder, setDeliveryOrder] = useState([
     {
       orderNumber: 1,
@@ -369,35 +327,31 @@ function Index() {
   useEffect(() => {
     let tempArr = [];
     if (_get(ReleaseOrderData, 'data[0].deliveryDetail', []).length > 0) {
-      _get(ReleaseOrderData, 'data[0].deliveryDetail', []).forEach(
-        (val, index) => {
-          tempArr.push({
-            orderNumber: val.orderNumber || 1,
-            unitOfMeasure: val.unitOfMeasure || 'MT',
-            isDelete: false,
-            Quantity: val.netQuantityReleased,
-            deliveryOrderNo: val.deliveryOrderNumber,
-            deliveryOrderDate: val.deliveryOrderDate,
-            status: val.deliveryStatus,
-          });
-        },
-      );
+      _get(ReleaseOrderData, 'data[0].deliveryDetail', []).forEach((val, index) => {
+        tempArr.push({
+          orderNumber: val.orderNumber || 1,
+          unitOfMeasure: val.unitOfMeasure || 'MT',
+          isDelete: false,
+          Quantity: val.netQuantityReleased,
+          deliveryOrderNo: val.deliveryOrderNumber,
+          deliveryOrderDate: val.deliveryOrderDate,
+          status: val.deliveryStatus,
+        });
+      });
 
       setDeliveryOrder(tempArr);
     }
     let tempArr2 = [];
     if (_get(ReleaseOrderData, 'data[0].releaseDetail', []).length > 0) {
-      _get(ReleaseOrderData, 'data[0].releaseDetail', []).forEach(
-        (val, index) => {
-          tempArr2.push({
-            orderNumber: val.orderNumber || 1,
-            releaseOrderDate: val.releaseOrderDate,
-            netQuantityReleased: val.netQuantityReleased,
-            unitOfMeasure: val.unitOfMeasure || 'MT',
-            document: val.document,
-          });
-        },
-      );
+      _get(ReleaseOrderData, 'data[0].releaseDetail', []).forEach((val, index) => {
+        tempArr2.push({
+          orderNumber: val.orderNumber || 1,
+          releaseOrderDate: val.releaseOrderDate,
+          netQuantityReleased: val.netQuantityReleased,
+          unitOfMeasure: val.unitOfMeasure || 'MT',
+          document: val.document,
+        });
+      });
 
       setReleaseDetail(tempArr2);
     }
@@ -422,10 +376,7 @@ function Index() {
     ]);
   };
   const deleteNewDelivery = (index) => {
-    setDeliveryOrder([
-      ...deliveryOrder.slice(0, index),
-      ...deliveryOrder.slice(index + 1),
-    ]);
+    setDeliveryOrder([...deliveryOrder.slice(0, index), ...deliveryOrder.slice(index + 1)]);
   };
   const [filteredDOArray, setFilteredDOArray] = useState([]);
   const [DOlimit, setDoLimit] = useState(0);
@@ -441,7 +392,6 @@ function Index() {
       limit = DOlimit - item.Quantity;
       setDoLimit(limit);
     });
-
   }, [filteredDOArray, deliveryOrder]);
 
   const onEdit = (index, value) => {
@@ -453,7 +403,6 @@ function Index() {
     });
     setDeliveryOrder([...tempArr]);
   };
-
 
   const generateDoNumber = (index) => {
     let orderDONumber = index < 10 ? `0${index}` : index;
@@ -473,7 +422,6 @@ function Index() {
       return accumulator + Number(object.boeDetails.invoiceQuantity);
     }, 0);
 
-
     deliveryOrder.forEach((item) => {
       boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
     });
@@ -482,7 +430,6 @@ function Index() {
   };
 
   const returnLiftingData = (number) => {
-
     let datainNeed = {};
     let data = _get(ReleaseOrderData, 'data[0].deliveryDetail', [{}]);
     data.forEach((item) => {
@@ -496,11 +443,9 @@ function Index() {
       if (item.deliveryOrder === number) {
         item.detail.forEach((item2) => {
           balaceQuantity = balaceQuantity - Number(item2.liftingQuant);
-
         });
         if (balaceQuantity < 0) {
-          let toastMessage =
-            'Lifting quantity cannot be greater than balance quantity';
+          let toastMessage = 'Lifting quantity cannot be greater than balance quantity';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
@@ -511,7 +456,6 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
-
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -529,7 +473,6 @@ function Index() {
           } else {
             let tempLimit = quantity;
             filteredDOArray.forEach((item, index) => {
-
               tempLimit = tempLimit - Number(item.Quantity);
             });
 
@@ -567,12 +510,8 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= deliveryOrder.length - 1; i++) {
-      if (
-        deliveryOrder[i]?.Quantity == '' ||
-        deliveryOrder[i]?.Quantity == null
-      ) {
-        toastMessage = `please provide quantity for delivery  order   ${i + 1
-          }  `;
+      if (deliveryOrder[i]?.Quantity == '' || deliveryOrder[i]?.Quantity == null) {
+        toastMessage = `please provide quantity for delivery  order   ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -628,7 +567,6 @@ function Index() {
         });
       });
 
-
       let payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
@@ -657,13 +595,10 @@ function Index() {
     });
 
     setLifting([...temp]);
-
   };
-
 
   // for setting default breadcrumb tab value //
   useEffect(() => {
-
     dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
   }, []);
 
@@ -671,9 +606,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -684,12 +617,11 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <span style={{ textTransform: 'capitalize' }}>
                 {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(
-                  0,
-                  8,
-                )}-${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(
-                  8,
-                )}`}
+                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+                  ReleaseOrderData,
+                  'data[0].order.orderId',
+                  '',
+                ).slice(8)}`}
               </span>
             </h1>
           </div>
@@ -697,8 +629,7 @@ function Index() {
             <li
               className={`${styles.navItem}  nav-item`}
               onClick={() => {
-                dispatch(setPageTabName('release')),
-                  dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
+                dispatch(setPageTabName('release')), dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
               }}
             >
               <a
@@ -735,12 +666,7 @@ function Index() {
                 <li
                   className={`${styles.navItem} nav-item`}
                   onClick={() =>
-                    dispatch(
-                      setPageTabName('lifting'),
-                      dispatch(
-                        getBreadcrumbValues({ upperTabs: 'Lifting Details' }),
-                      ),
-                    )
+                    dispatch(setPageTabName('lifting'), dispatch(getBreadcrumbValues({ upperTabs: 'Lifting Details' })))
                   }
                 >
                   <a
@@ -763,11 +689,7 @@ function Index() {
           <div className="row">
             <div className="col-md-12 p-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane show active fade"
-                  id="releaseOrder"
-                  role="tabpanel"
-                >
+                <div className="tab-pane show active fade" id="releaseOrder" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <ReleaseOrder
                       ReleaseOrderData={ReleaseOrderData}
@@ -777,11 +699,7 @@ function Index() {
                   </div>
                 </div>
 
-                <div
-                  className="tab-pane fade"
-                  id="deliveryOrder"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="deliveryOrder" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder
                       BalanceQuantity={BalanceQuantity}
@@ -799,11 +717,7 @@ function Index() {
                   </div>
                 </div>
 
-                <div
-                  className="tab-pane fade"
-                  id="liftingDetails"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="liftingDetails" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <LiftingDetails
                       returnLiftingData={returnLiftingData}
@@ -828,4 +742,5 @@ function Index() {
     </>
   );
 }
+
 export default Index;

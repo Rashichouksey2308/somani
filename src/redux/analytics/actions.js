@@ -1,13 +1,10 @@
-// import Cookies from 'js-cookie'
 import Axios from 'axios';
-import Router from 'next/router';
 import API from '../../utils/endpoints';
 import * as types from './actionType';
-import { toast } from 'react-toastify';
-// import history from '../../history'
+
 import Cookies from 'js-cookie';
-import { setAuthenticationCookie } from '../../utils/authentication';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+
 const errorMessage = {
   status: 400,
   message: 'Something went wrong',
@@ -19,30 +16,35 @@ function getOrderData(payload) {
     payload,
   };
 }
+
 function getLeadData(payload) {
   return {
     type: types.GET_LEAD_DATA,
     payload,
   };
 }
+
 function getCommodityData(payload) {
   return {
     type: types.GET_COMMODITY_DATA,
     payload,
   };
 }
+
 function getOriginData(payload) {
   return {
     type: types.GET_ORIGIN_DATA,
     payload,
   };
 }
+
 function getCustomerData(payload) {
   return {
     type: types.GET_CUSTOMER_DATA,
     payload,
   };
 }
+
 function getExposureData(payload) {
   return {
     type: types.GET_EXPOSURE_DATA,
@@ -53,57 +55,42 @@ function getExposureData(payload) {
 export const getAnalystData = () => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
-    let cookie = Cookies.get('SOMANI');
+    const cookie = Cookies.get('SOMANI');
 
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    // let response = await api.post(API.login, payload);
-    let orderSummary = await Axios.get(
-      `${API.corebaseUrl}${API.orderSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
-      },
-    );
-    let leadSummary = await Axios.get(`${API.corebaseUrl}${API.leadSummary}`, {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+
+    const orderSummary = await Axios.get(`${API.corebaseUrl}${API.orderSummary}`, {
       headers: {
         authorization: jwtAccessToken,
       },
     });
-    let commoditySummary = await Axios.get(
-      `${API.corebaseUrl}${API.commoditySummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    const leadSummary = await Axios.get(`${API.corebaseUrl}${API.leadSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    let originSummary = await Axios.get(
-      `${API.corebaseUrl}${API.originSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const commoditySummary = await Axios.get(`${API.corebaseUrl}${API.commoditySummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    let customerSummary = await Axios.get(
-      `${API.corebaseUrl}${API.customerSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const originSummary = await Axios.get(`${API.corebaseUrl}${API.originSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    let exposureSummary = await Axios.get(
-      `${API.corebaseUrl}${API.exposureSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const customerSummary = await Axios.get(`${API.corebaseUrl}${API.customerSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
+    });
+    const exposureSummary = await Axios.get(`${API.corebaseUrl}${API.exposureSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
+      },
+    });
 
     if (orderSummary.data.code == 200) {
       dispatch(getOrderData(orderSummary.data.data.data));
@@ -136,7 +123,5 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   } catch (error) {
     dispatch(setNotLoading());
-
-    // dispatch(loggingUserFailed(errorMessage))
   }
 };

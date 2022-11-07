@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
+
 function Index(props) {
   const [state, setState] = useState({
     focused: false,
@@ -8,20 +9,22 @@ function Index(props) {
     noClass: false,
     className: '',
   });
+
   useEffect(() => {
-    console.log(props.emails, 'props.emails');
     if (props?.emails?.length > 0) {
       setState({ ...state, emails: props.emails });
     }
   }, [props.emails]);
-  console.log(state.emails, 'zcdvxcv');
-  const emailInputRef = useRef(0);
+
+  const emailInputRef = useRef(null);
+ 
+
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
-    console.log(value,"e.currentTarget.value")
   };
+
   const findEmailAddress = (value, isEnter) => {
-    console.log("herher",value,isEnter)
+  
     let inputValue = '';
     const re = /[ ,;]/g;
     let validEmails = [];
@@ -33,7 +36,12 @@ function Index(props) {
           return false;
         }
       }
+      if(props.id == 'Existing Supplier(s)'){
+     
       validEmails.push(email);
+      }else{
+        validEmails.push(email)
+      }
       return true;
     };
 
@@ -42,17 +50,16 @@ function Index(props) {
         let splitData = value.split(re).filter((n) => {
           return n !== '' && n !== undefined && n !== null;
         });
-        console.log(splitData,"splitData")
+
         const setArr = new Set(splitData);
         let arr = [...setArr];
 
         do {
           addEmails('' + arr.shift());
-         
         } while (arr.length);
       } else {
         if (isEnter) {
-           addEmails(value);
+          addEmails(value);
         } else {
           inputValue = value;
         }
@@ -70,65 +77,50 @@ function Index(props) {
     if (isDisabled) {
       return;
     }
-    console.log(index, 'ondex');
+
     let temp = { ...state };
     temp.emails.splice(index, 1);
     setState({ ...temp });
-    // if (props.onChange) {
-    //       props.onChange(temp.emails);
-    // }
+   
   };
   const handleOnKeydown = (e) => {
-
-  
-    // switch (e.keyCode) {
-    //   case 13:
-
-    //   case 9: {
-    //     e.preventDefault();
-    //     break;
-    //   }
-    //   case 8: {
-    //     if (!e.currentTarget.value) {
-    //       // removeEmail(state.emails.length - 1, false);
-    //     }
-
-    //     break;
-    //   }
-    //   case 32: {
-    //       if (!e.currentTarget.value) {
-    //       // removeEmail(state.emails.length - 1, false);
-    //     }
-    //     break;
-    //   }
-    //   default:
-    // }
+   
   };
 
   const handleOnKeyup = (e) => {
-    console.log(e.keyCode, 'e.which');
     switch (e.keyCode) {
-      case 13: 
-               findEmailAddress(e.currentTarget.value, true)
+      case 13:
+        findEmailAddress(e.currentTarget.value, true);
+        if(props.id == 'Existing Supplier(s)'){
+        props.setRemoveInput(true);
+        setHandleFunc(false)
+        }
       case 9: {
         findEmailAddress(e.currentTarget.value, true);
         break;
       }
       case 32: {
-        
-        //  findEmailAddress(e.currentTarget.value);
-         e.preventDefault();
-        
+       
+        e.preventDefault();
+
         break;
       }
       default:
     }
   };
-  const handleOnChange = (e) => onChangeInputValue(e.currentTarget.value);
+
+  const[handeFunc,  setHandleFunc] = useState(false)
+
+  const handleOnChange = (e) => {
+    onChangeInputValue(e.currentTarget.value);
+    if(props.id == 'Existing Supplier(s)'){
+    props.handleSearch(e.currentTarget.value);
+    }
+  };
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
-    // findEmailAddress(e.currentTarget.value, true);
+   
   };
 
   const handleOnFocus = () =>
@@ -160,25 +152,53 @@ function Index(props) {
       ) : null}
       {state?.emails?.length > 0 &&
         state?.emails?.map((email, index) => {
-          return <>{props.getLabel(email, index, removeEmail)}</>;
+          return (
+            <>
+              <span
+                // className={email.status === 'Pending' && `${styles.pending}`}
+              >
+                
+                { props.id == 'Existing Supplier(s)' ?  props.getLabel(email, index, removeEmail) : props.getLabel(email, index, removeEmail) }
+              </span>
+            </>
+          );
         })}
       <input
         ref={emailInputRef}
         type="text"
         //   placeholder={props.placeholder}
-        value={state.inputValue}
+        value={ props.id == 'Existing Supplier(s)' ? handeFunc ? props.searchTerm : state.inputValue : state.inputValue}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={handleOnChange}
         onKeyDown={handleOnKeydown}
         onKeyUp={handleOnKeyup}
         className={`${styles.input_field}`}
-      />      
-      {/* <div className={`${styles.searchResults}`}>
-        <ul>
-          <li>ADN FIRE SAFETY PRIVATE LIMITED<span>IMH220000081</span></li>
-        </ul>
-      </div> */}
+      />
+      {props?.searchedSupplier &&
+        props.searchedSupplier?.data?.length > 0 &&
+        !props.removeInput &&
+        props.searchTerm && (
+          <div className={styles.searchResults}>
+            <ul>
+              {props.searchedSupplier
+                ? props?.searchedSupplier?.data?.map((results, index) => (
+                    <li
+                      onClick={() => {
+                        props.handleFilteredData(results);
+                        setHandleFunc(true)
+                      }}
+                      id={results._id}
+                      key={index}
+                      value={results}
+                    >
+                      {results?.supplierProfile?.supplierName}
+                    </li>
+                  ))
+                : ''}
+            </ul>
+          </div>
+        )}
     </div>
   );
 }

@@ -1,10 +1,12 @@
 @import '../../styles/Core/config';
+
 .tpi_popup {
   max-width: 1125px;
   padding: 30px 32px;
   border-radius: 6px !important;
   box-shadow: none;
   border: 1px solid #d2d7e5;
+
   h3 {
     font-size: 22px;
     color: #3687e8;
@@ -22,21 +24,27 @@
       font-size: 16px;
     }
   }
+
   img {
     width: 19px;
     margin: -15px -15px 0 0;
   }
+
   .table_container {
     margin-top: 30px;
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
           border: 2px solid #e2e2e2;
+
           th {
             font-size: 15px;
             color: #8492a6;
@@ -47,6 +55,7 @@
             vertical-align: middle;
             text-transform: uppercase;
             border: 2px solid #e2e2e2;
+
             .sort_img {
               width: 14px;
               height: 14px;
@@ -55,6 +64,7 @@
                 height: 12px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 14px;
               line-height: 1.2;
@@ -68,10 +78,11 @@
               padding: 12px 10px;
             }
           }
+
           tr {
             td {
               font-size: 19px;
-              //color: rgba(17, 17, 17, 0.7);
+           
               font-weight: 500;
               line-height: 24px;
               padding: 10px 20px;

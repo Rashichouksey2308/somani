@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ViewDocument } from 'redux/ViewDoc/action';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 function AddressComponent({
   Title,
@@ -20,19 +20,15 @@ function AddressComponent({
   path,
   communicationModeYes,
 }) {
-  console.log(communicationModeYes, ' ');
+
   const dispatch = useDispatch();
 
   return (
     <div className={`${styles.address_card} value background1 border_color`}>
       <div className="d-flex justify-content-between w-100">
         <div className="w-100">
-          <div
-            className={`${styles.address_values} w-100 d-flex justify-content-between`}
-          >
-            <div
-              className={`d-flex justify-content-between align-items-center`}
-            >
+          <div className={`${styles.address_values} w-100 d-flex justify-content-between`}>
+            <div className={`d-flex justify-content-between align-items-center`}>
               {communicationModeYes == true ? (
                 <Form.Check
                   className={styles.radio}
@@ -46,21 +42,21 @@ function AddressComponent({
               <h5 className={`mb-0`}>{Title}</h5>
             </div>
             <div>
-              {index !== 0 && (
+             
                 <img
                   className={`${styles.edit_image} ml-2 mr-3`}
                   src="/static/mode_edit.svg"
                   alt="edit"
                   onClick={() => {
-                    console.log('index', index);
+                  
                     editAddress(index);
                   }}
                 />
-              )}
+          
               {index !== 0 && (
                 <img
                   onClick={() => {
-                    // console.log('index', index)
+                  
                     deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"
@@ -92,11 +88,7 @@ function AddressComponent({
               </p>
               {path ? (
                 <span
-                  onClick={() =>
-                    dispatch(
-                      ViewDocument({ order: orderDetail?._id, path: path }),
-                    )
-                  }
+                  onClick={() => dispatch(ViewDocument({ order: orderDetail?._id, path: path }))}
                   className={styles.view_btn}
                   style={{ cursor: 'pointer' }}
                 >

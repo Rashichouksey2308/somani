@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
 
 function Index(props) {
@@ -20,7 +20,7 @@ function Index(props) {
     setWidth(evt.target.value.length);
     setState(evt.target.value);
   };
-  console.log(length, 'length');
+
   return (
     <>
       {textType == 'text' ? (
@@ -41,9 +41,7 @@ function Index(props) {
           onChange={(e) => {
             changeHandler(e);
             {
-              props.getValue
-                ? props?.getValue(e.target.name, e.target.value)
-                : '';
+              props.getValue ? props?.getValue(e.target.name, e.target.value) : '';
             }
           }}
           value={props.defaultValue ? props.defaultValue : state}

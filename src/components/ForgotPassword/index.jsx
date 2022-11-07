@@ -20,18 +20,19 @@ class ForgotPassword extends React.Component {
 
   handleChange = (e) => {
     e.preventDefault();
-    let state = { ...this.state };
+    const state = { ...this.state };
     state[e.target.name] = e.target.value;
     this.setState({ ...state });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
-    let state = this.state;
+    const state = this.state;
     this.props.actions.forgotPassword(state);
   };
 
   render() {
-    let { mobileNo } = this.state;
+    const { mobileNo } = this.state;
     return (
       <div className="backgroundImg d-flex justify-content-center align-items-center full-height">
         <Col sm={5}>

@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  FormGroup,
-  Input,
-  Label,
-  Form,
-} from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -71,19 +62,19 @@ const initialState = {
 };
 
 function BranchCreation(props) {
-  let { elements } = props;
+  const { elements } = props;
 
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
     if (props.page === 'create-branch') {
       setInitialState();
-      let queryParams = props.query;
+      const queryParams = props.query;
       if (queryParams === '') {
         history.push(`/dealer/list`);
       } else {
         const params = fetchQueryParams(props.query);
-        let id = params.dealerId;
+        const id = params.dealerId;
 
         if (props.dealerData !== null) {
           handleAutoFillDealerData();
@@ -95,12 +86,12 @@ function BranchCreation(props) {
         }
       }
     } else {
-      let queryParams = props.query;
+      const queryParams = props.query;
       if (queryParams === '') {
         history.push(`/branch/list`);
       } else {
         const params = fetchQueryParams(props.query);
-        let id = params.branchId;
+        const id = params.branchId;
         if (props.branchData !== null) {
           handleUpdateForm();
         } else {
@@ -155,7 +146,7 @@ function BranchCreation(props) {
 
   const handleChange = (e, id) => {
     if (id === 'phone') {
-      let value = e.target.value;
+      const value = e.target.value;
       if (value.length <= 14) {
         state.phone = e.target.value;
         setState({ ...state });
@@ -168,9 +159,7 @@ function BranchCreation(props) {
 
   const handleGoBack = () => {
     const params = fetchQueryParams(props.query);
-    history.push(
-      `/dealer/detail?dealerId=${params.dealerId}&tab=${params.tab}`,
-    );
+    history.push(`/dealer/detail?dealerId=${params.dealerId}&tab=${params.tab}`);
   };
 
   const hanldeGoBackForUpdate = () => {
@@ -184,7 +173,7 @@ function BranchCreation(props) {
   };
 
   const handleCountryChange = (e) => {
-    let parsedValue = JSON.parse(e.target.value);
+    const parsedValue = JSON.parse(e.target.value);
     if (e.target.value !== 'Select Country') {
       state.country = parsedValue.country;
       state.countryCode = parsedValue.locality.country;
@@ -196,39 +185,18 @@ function BranchCreation(props) {
     props.handleFetchBranchState(state.countryCode.toUpperCase());
   };
 
-  // const handleStateChange = (e) => {
-  //   let parsedValue = JSON.parse(e.target.value);
-  //   if (e.target.value !== "Select State") {
-  //     state.state = parsedValue.name;
-  //     state.stateCode = parsedValue.stateCode;
-  //     state.city = "";
-  //   }
-  //   setState({ ...state });
-  //   let data = {
-  //     countryCode: state.countryCode.toUpperCase(),
-  //     state: state.stateCode,
-  //   };
-  //   props.handleFetchBranchCity(data);
-  // };
 
-  // const handleCityChange = (e) => {
-  //   let parsedValue = JSON.parse(e.target.value);
-  //   if (e.target.value !== "Select City") {
-  //     state.city = parsedValue.name;
-  //   }
-  //   setState({ ...state });
-  // };
 
   const handleImageChange = (e) => {
     e.preventDefault();
-    let fileTypes = ['jpg', 'jpeg', 'png'];
+    const fileTypes = ['jpg', 'jpeg', 'png'];
     if (e.target.files[0]) {
-      let extension = e.target.files[0].name.split('.').pop().toLowerCase(), //file extension from input file
-        isSuccess = fileTypes.indexOf(extension) > -1;
+      const extension = e.target.files[0].name.split('.').pop().toLowerCase(); // file extension from input file
+      const isSuccess = fileTypes.indexOf(extension) > -1;
 
       if (isSuccess) {
-        let reader = new FileReader();
-        let file = e.target.files[0];
+        const reader = new FileReader();
+        const file = e.target.files[0];
 
         reader.onloadend = () => {
           saveImage(reader.result, file);
@@ -264,10 +232,10 @@ function BranchCreation(props) {
   };
 
   const handleAutoFillDealerData = () => {
-    let { dealerData } = props;
+    const { dealerData } = props;
 
     if (dealerData !== null) {
-      // console.log(dealerData)
+     
       state.storeManagerName = dealerData.storeManagerName;
       state.dealerName = dealerData.dealerName;
       state.dealerId = dealerData.dealerId;
@@ -300,7 +268,7 @@ function BranchCreation(props) {
   };
 
   const handleUpdateForm = () => {
-    let { branchData } = props;
+    const { branchData } = props;
     if (branchData !== null) {
       state.addressLine1 = branchData.addressLine1;
       state.addressLine2 = branchData.addressLine2;
@@ -328,12 +296,9 @@ function BranchCreation(props) {
       state.dealer_id = branchData.dealer !== null ? branchData.dealer._id : '';
       state.branchId = branchData._id;
       state.facebookUrl = branchData.facebookUrl;
-      state.dealerName =
-        branchData.dealer !== null ? branchData.dealer.dealerName : '';
-      state.dealerPrincipalName =
-        branchData.dealer !== null ? branchData.dealer.dealerPrincipalName : '';
-      state.dealerId =
-        branchData.dealer !== null ? branchData.dealer.dealerId : '';
+      state.dealerName = branchData.dealer !== null ? branchData.dealer.dealerName : '';
+      state.dealerPrincipalName = branchData.dealer !== null ? branchData.dealer.dealerPrincipalName : '';
+      state.dealerId = branchData.dealer !== null ? branchData.dealer.dealerId : '';
       state.branchCode = branchData.branchCode;
       state.instagramUrl = branchData.instagramUrl;
       state.image.preview = `${Config.imageBaseUrl}${branchData.primary_image}`;
@@ -345,39 +310,9 @@ function BranchCreation(props) {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    // let payload = {
-    //   addressLine1: state.addressLine1,
-    //   addressLine2: state.addressLine2,
-    //   addressLine3: state.addressLine3,
-    //   altPhone: state.altPhone,
-    //   businessHours: state.businessHours,
-    //   city: state.city,
-    //   country: state.country,
-    //   branchName: state.branchName,
-    //   branchPrincipalName: state.branchPrincipalName,
-    //   emailId: state.emailId,
-    //   landmark: state.landmark,
-    //   latitude: state.latitude,
-    //   locality: JSON.stringify(state.locality),
-    //   longitude: state.longitude,
-    //   phone: state.phone,
-    //   pincode: state.pincode,
-    //   branchDescription: state.description,
-    //   state: state.state,
-    //   storeManagerName: state.storeManagerName,
-    //   weeklyOff: state.weeklyOff,
-    //   websiteUrl: state.websiteUrl,
-    //   dealer: state.dealer_id,
-    //   dealerId: state.dealerId,
-    //   id: state.id,
-    //   tab: state.tab,
-    //   branchId: state.branchId,
-    //   facebookUrl: state.facebookUrl,
-    //   branchCode: state.branchCode,
-    //   instagramUrl: state.instagramUrl,
-    // };
+  
 
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('addressLine1', state.addressLine1);
     formData.append('addressLine2', state.addressLine2);
     formData.append('addressLine3', state.addressLine3);
@@ -408,7 +343,7 @@ function BranchCreation(props) {
     formData.append('instagramUrl', state.instagramUrl);
     formData.append('image', state.image.Image);
 
-    let data = {
+    const data = {
       formData: formData,
       tab: state.tab,
       id: state.dealer_id,
@@ -424,31 +359,13 @@ function BranchCreation(props) {
               props.handleUpdateBranch(data);
             }
           } else {
-            toast.error(
-              _.get(
-                elements,
-                'branchCreationElement.cityValidationElement',
-                'City cannot be empty',
-              ),
-            );
+            toast.error(_.get(elements, 'branchCreationElement.cityValidationElement', 'City cannot be empty'));
           }
         } else {
-          toast.error(
-            _.get(
-              elements,
-              'branchCreationElement.stateValidationElement',
-              'State cannot be empty',
-            ),
-          );
+          toast.error(_.get(elements, 'branchCreationElement.stateValidationElement', 'State cannot be empty'));
         }
       } else {
-        toast.error(
-          _.get(
-            elements,
-            'branchCreationElement.countryValidationElement',
-            'Country cannot be empty',
-          ),
-        );
+        toast.error(_.get(elements, 'branchCreationElement.countryValidationElement', 'Country cannot be empty'));
       }
     } else {
       toast.error(
@@ -461,7 +378,7 @@ function BranchCreation(props) {
     }
   };
 
-  // console.log(props.countriesBranch)
+ 
 
   return (
     <React.Fragment>
@@ -483,16 +400,8 @@ function BranchCreation(props) {
             <CartTitle
               title={
                 props.page !== 'update-branch'
-                  ? _.get(
-                      elements,
-                      'branchCreationElement.createHeadingElement',
-                      'Branch Creation',
-                    )
-                  : _.get(
-                      elements,
-                      'branchCreationElement.updateHeadingElement',
-                      'Branch Update',
-                    )
+                  ? _.get(elements, 'branchCreationElement.createHeadingElement', 'Branch Creation')
+                  : _.get(elements, 'branchCreationElement.updateHeadingElement', 'Branch Update')
               }
               iconClass={'hideexcel'}
               Name={'Search'}
@@ -509,11 +418,7 @@ function BranchCreation(props) {
                 <Col md="12">
                   <h3 className="title-bar secondary-title f-weight-bold mb-3 pb-2 themeColor">
                     <span>
-                      {_.get(
-                        elements,
-                        'branchCreationElement.subHeadingMainInformationElement',
-                        'MAIN INFORMATION',
-                      )}
+                      {_.get(elements, 'branchCreationElement.subHeadingMainInformationElement', 'MAIN INFORMATION')}
                     </span>
                   </h3>
                 </Col>
@@ -546,18 +451,14 @@ function BranchCreation(props) {
                               'Branch Name',
                             )}
                             customOnChange={(e) => handleChange(e)}
-                            customRequired={true}
+                            customRequired
                           />
                         </Col>
                         {/* <Col xl={8} lg={8} md={12} sm={12}>
                       <Row> */}
                         <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
                           <InputText
-                            labelName={_.get(
-                              elements,
-                              'branchCreationElement.emailLabel',
-                              'Email ID / Store ID*',
-                            )}
+                            labelName={_.get(elements, 'branchCreationElement.emailLabel', 'Email ID / Store ID*')}
                             inputType={'email'}
                             inputName={'emailId'}
                             InputClass={'my-2 inputText'}
@@ -568,16 +469,12 @@ function BranchCreation(props) {
                               'Email ID / Store ID',
                             )}
                             customOnChange={(e) => handleChange(e)}
-                            customRequired={true}
+                            customRequired
                           />
                         </Col>
                         <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
                           <InputText
-                            labelName={_.get(
-                              elements,
-                              'branchCreationElement.phoneNumberLabel',
-                              'Phone Number*',
-                            )}
+                            labelName={_.get(elements, 'branchCreationElement.phoneNumberLabel', 'Phone Number*')}
                             inputType={'tel'}
                             inputName={'phone'}
                             InputClass={'my-2 inputText'}
@@ -588,7 +485,7 @@ function BranchCreation(props) {
                             )}
                             customValue={state.phone}
                             customOnChange={(e) => handleChange(e, 'phone')}
-                            customRequired={true}
+                            customRequired
                           />
                         </Col>
                         <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
@@ -612,11 +509,7 @@ function BranchCreation(props) {
                         </Col>
                         <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
                           <Label className="inputLabel">
-                            {_.get(
-                              elements,
-                              'branchCreationElement.countryLabel',
-                              'Country*',
-                            )}
+                            {_.get(elements, 'branchCreationElement.countryLabel', 'Country*')}
                           </Label>
                           <FormGroup className=" confirmRiderSelect select_options">
                             <Input
@@ -627,23 +520,12 @@ function BranchCreation(props) {
                               placeholder="Select Country"
                             >
                               <option selected="true" disabled="disabled">
-                                {state.country !== ''
-                                  ? state.country
-                                  : 'Select Country'}
+                                {state.country !== '' ? state.country : 'Select Country'}
                               </option>
                               {props.countriesBranch
-                                .sort((a, b) =>
-                                  a.name > b.name
-                                    ? 1
-                                    : b.name > a.name
-                                    ? -1
-                                    : 0,
-                                )
+                                .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
                                 .map((item, index) => (
-                                  <option
-                                    key={index}
-                                    value={JSON.stringify(item)}
-                                  >
+                                  <option key={index} value={JSON.stringify(item)}>
                                     {item.country}
                                   </option>
                                 ))}
@@ -654,20 +536,12 @@ function BranchCreation(props) {
                         <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
                           <FormGroup className=" confirmRiderSelect select_options">
                             <InputText
-                              labelName={_.get(
-                                elements,
-                                'branchCreationElement.stateLabel',
-                                'State*',
-                              )}
+                              labelName={_.get(elements, 'branchCreationElement.stateLabel', 'State*')}
                               inputType={'text'}
                               inputName={'state'}
                               InputClass={'my-2 inputText'}
                               customValue={state.state}
-                              inputPlaceholder={_.get(
-                                elements,
-                                'branchCreationElement.stateLabel',
-                                'State',
-                              )}
+                              inputPlaceholder={_.get(elements, 'branchCreationElement.stateLabel', 'State')}
                               customOnChange={(e) => handleChange(e)}
                             />
 
@@ -703,20 +577,12 @@ function BranchCreation(props) {
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <FormGroup className="confirmRiderSelect select_options">
                     <InputText
-                      labelName={_.get(
-                        elements,
-                        'branchCreationElement.cityLabel',
-                        'City*',
-                      )}
+                      labelName={_.get(elements, 'branchCreationElement.cityLabel', 'City*')}
                       inputType={'text'}
                       inputName={'city'}
                       InputClass={'my-2 inputText'}
                       customValue={state.city}
-                      inputPlaceholder={_.get(
-                        elements,
-                        'branchCreationElement.cityLabel',
-                        'City',
-                      )}
+                      inputPlaceholder={_.get(elements, 'branchCreationElement.cityLabel', 'City')}
                       customOnChange={(e) => handleChange(e)}
                     />
 
@@ -738,59 +604,35 @@ function BranchCreation(props) {
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.landmarkLabel',
-                      'Landmark',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.landmarkLabel', 'Landmark')}
                     inputType={'text'}
                     inputName={'landmark'}
                     InputClass={'my-2 inputText'}
                     customValue={state.landmark}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.landmarkPlaceholder',
-                      'Landmark',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.landmarkPlaceholder', 'Landmark')}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.pinCodeLabel',
-                      'Pincode',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.pinCodeLabel', 'Pincode')}
                     inputType={'tel'}
                     inputName={'pincode'}
                     InputClass={'my-2 inputText'}
                     customValue={state.pincode}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.pinCodePlaceholder',
-                      'Pincode*',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.pinCodePlaceholder', 'Pincode*')}
                     customOnChange={(e) => handleChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <Label for="--">
-                    {_.get(
-                      elements,
-                      'branchCreationElement.addressLineOneLabel',
-                      'Address Line 1*',
-                    )}
+                    {_.get(elements, 'branchCreationElement.addressLineOneLabel', 'Address Line 1*')}
                   </Label>
                   <FormGroup>
                     <Input
                       type="textarea"
-                      placeholder={_.get(
-                        elements,
-                        'branchCreationElement.addressLineOnePlaceholder',
-                        'Address Line 1',
-                      )}
+                      placeholder={_.get(elements, 'branchCreationElement.addressLineOnePlaceholder', 'Address Line 1')}
                       name="addressLine1"
                       id="--"
                       className="my-2 inputText"
@@ -803,20 +645,12 @@ function BranchCreation(props) {
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <Label for="--">
                     {' '}
-                    {_.get(
-                      elements,
-                      'branchCreationElement.addressLineTwoLabel',
-                      'Address Line 2',
-                    )}
+                    {_.get(elements, 'branchCreationElement.addressLineTwoLabel', 'Address Line 2')}
                   </Label>
                   <FormGroup>
                     <Input
                       type="textarea"
-                      placeholder={_.get(
-                        elements,
-                        'branchCreationElement.addressLineTwoPlaceholder',
-                        'Address Line 2',
-                      )}
+                      placeholder={_.get(elements, 'branchCreationElement.addressLineTwoPlaceholder', 'Address Line 2')}
                       name="addressLine2"
                       id="--"
                       className="my-2 inputText"
@@ -828,11 +662,7 @@ function BranchCreation(props) {
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <Label for="--">
                     {' '}
-                    {_.get(
-                      elements,
-                      'branchCreationElement.addressLineThreeLabel',
-                      'Address Line 3',
-                    )}
+                    {_.get(elements, 'branchCreationElement.addressLineThreeLabel', 'Address Line 3')}
                   </Label>
                   <FormGroup>
                     <Input
@@ -855,11 +685,7 @@ function BranchCreation(props) {
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <Label for="--">
                     {' '}
-                    {_.get(
-                      elements,
-                      'branchCreationElement.descriptionLabelElement',
-                      'Description',
-                    )}
+                    {_.get(elements, 'branchCreationElement.descriptionLabelElement', 'Description')}
                   </Label>
                   <FormGroup>
                     <Input
@@ -879,42 +705,26 @@ function BranchCreation(props) {
                 </Col>
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.latitudeLabel',
-                      'Latitude*',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.latitudeLabel', 'Latitude*')}
                     inputType={'number'}
                     inputName={'latitude'}
                     InputClass={'my-2 inputText'}
                     customValue={state.latitude}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.latitudePlaceholder',
-                      'Latitude',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.latitudePlaceholder', 'Latitude')}
                     customOnChange={(e) => handleCoordinateChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.longitudeLabel',
-                      'Longitude*',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.longitudeLabel', 'Longitude*')}
                     inputType={'number'}
                     inputName={'longitude'}
                     InputClass={'my-2 inputText'}
                     customValue={state.longitude}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.longitudePlaceholder',
-                      'Longitude',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.longitudePlaceholder', 'Longitude')}
                     customOnChange={(e) => handleCoordinateChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
               </Row>
@@ -987,126 +797,78 @@ function BranchCreation(props) {
                     )}
                     customValue={state.storeManagerName}
                     customOnChange={(e) => handleChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.branchCodeLabel',
-                      'Branch Code',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.branchCodeLabel', 'Branch Code')}
                     inputType={'tel'}
                     inputName={'branchCode'}
                     InputClass={'my-2 inputText'}
                     customValue={state.branchCode}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.branchCodePlaceholder',
-                      'Branch Code',
-                    )}
-                    disabledType={true}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.branchCodePlaceholder', 'Branch Code')}
+                    disabledType
                   />
                 </Col>
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.webUrlLabel',
-                      'Website Page URL',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.webUrlLabel', 'Website Page URL')}
                     inputType={'text'}
                     inputName={'websiteUrl'}
                     InputClass={'my-2 inputText'}
                     customValue={state.websiteUrl}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.webUrlPlaceholder',
-                      'Website Page URL',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.webUrlPlaceholder', 'Website Page URL')}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.instagramUrlLabel',
-                      'Instagram URL',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.instagramUrlLabel', 'Instagram URL')}
                     inputType={'text'}
                     inputName={'instagramUrl'}
                     InputClass={'my-2 inputText'}
                     customValue={state.instagramUrl}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.instagramUrlPlaceholder',
-                      'Instagram URL',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.instagramUrlPlaceholder', 'Instagram URL')}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.facebookUrlLabel',
-                      'Facebook URL',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.facebookUrlLabel', 'Facebook URL')}
                     inputType={'text'}
                     inputName={'facebookUrl'}
                     InputClass={'my-2 inputText'}
                     customValue={state.facebookUrl}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.facebookUrlPlaceholder',
-                      'Facebook URL',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.facebookUrlPlaceholder', 'Facebook URL')}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <InputText
-                    labelName={_.get(
-                      elements,
-                      'branchCreationElement.weeklyOffLabel',
-                      'Weekly Off',
-                    )}
+                    labelName={_.get(elements, 'branchCreationElement.weeklyOffLabel', 'Weekly Off')}
                     inputType={'tel'}
                     inputName={'weeklyOff'}
                     InputClass={'my-2 inputText'}
                     customValue={state.weeklyOff}
-                    inputPlaceholder={_.get(
-                      elements,
-                      'branchCreationElement.weeklyOffPlaceholder',
-                      'Weekly Off',
-                    )}
+                    inputPlaceholder={_.get(elements, 'branchCreationElement.weeklyOffPlaceholder', 'Weekly Off')}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
                 <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
                   <Label className="inputLabel" for="--">
-                    {_.get(
-                      elements,
-                      'branchCreationElement.businessHourLabel',
-                      'Business Hours',
-                    )}
+                    {_.get(elements, 'branchCreationElement.businessHourLabel', 'Business Hours')}
                   </Label>
                   <FormGroup>
                     <Input
                       type="textarea"
-                      placeholder={_.get(
-                        elements,
-                        'branchCreationElement.businessHourPlaceholder',
-                        'Business Hours',
-                      )}
+                      placeholder={_.get(elements, 'branchCreationElement.businessHourPlaceholder', 'Business Hours')}
                       name="businessHours"
                       id="--"
                       value={state.businessHours}
@@ -1120,25 +882,13 @@ function BranchCreation(props) {
               <div className="d-flex justify-content-center justify-content-lg-end position-relative ">
                 <CustomButton
                   customType={'button'}
-                  name={_.get(
-                    elements,
-                    'branchCreationElement.backButtonElement',
-                    'Back',
-                  )}
+                  name={_.get(elements, 'branchCreationElement.backButtonElement', 'Back')}
                   customClass={'btn-outline-dark bg-none btnthemeColor'}
-                  customClick={
-                    props.page !== 'update-branch'
-                      ? () => handleGoBack()
-                      : () => hanldeGoBackForUpdate()
-                  }
+                  customClick={props.page !== 'update-branch' ? () => handleGoBack() : () => hanldeGoBackForUpdate()}
                 />
                 <CustomButton
                   customType={'submit'}
-                  name={_.get(
-                    elements,
-                    'branchCreationElement.submitButtonElement',
-                    'Submit',
-                  )}
+                  name={_.get(elements, 'branchCreationElement.submitButtonElement', 'Submit')}
                   customClass={'btn-outline-dark bg-none ml-2 btnthemeColor'}
                 />
               </div>

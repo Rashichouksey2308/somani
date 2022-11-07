@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
-import PreviewBar from '../PreviewBar';
 import Router from 'next/router';
-import { addPrefixOrSuffix, checkNan } from '../../utils/helper';
+import { checkNan } from '../../utils/helper';
 
 function Index({
   saveLcData,
@@ -29,9 +28,9 @@ function Index({
   editLcComments,
   editLcDocComments,
   name,
-  port
+  port,
 }) {
-  console.log(lcModuleData, 'lcCondition12234');
+
   const [editStren, setEditStren] = useState(false);
   const [edit, setEdit] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -54,7 +53,7 @@ function Index({
     let a = index;
     return `${a + 1}.`;
   };
- console.log(lcData?.drawee,"lcData?.drawee")
+
   return (
     <>
       {' '}
@@ -83,7 +82,7 @@ function Index({
             </div>
             <div
               id="lcApplication"
-              // className="collapse"
+         
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -108,9 +107,7 @@ function Index({
                             <option value="Revocable">Revocable</option>
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (40A) Form of Documentary Credit
                             <strong className="text-danger">*</strong>
                           </label>
@@ -132,9 +129,7 @@ function Index({
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (40E) Applicable Rules
                           {/* <strong className="text-danger">*</strong> */}
                         </label>
@@ -142,6 +137,7 @@ function Index({
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <DateCalender
+                            isRequired={true}
                             name="dateOfExpiry"
                             defaultDate={lcData?.dateOfExpiry}
                             saveDate={saveDate}
@@ -166,12 +162,7 @@ function Index({
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          (31D) Place Of Expiry
-                          <strong className="text-danger">*</strong>
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>(31D) Place Of Expiry</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
@@ -183,29 +174,18 @@ function Index({
                             value={
                               lcData?.lcIssuingBank
                                 ? lcData?.lcIssuingBank
-                                : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.lcOpeningBank
+                                : lcModuleData?.order?.termsheet?.transactionDetails?.lcOpeningBank
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="First Class European Bank">
-                              First Class European Bank
-                            </option>
-                            <option value="Reserve Bank of Spain">
-                              Reserve Bank of Spain
-                            </option>
-                            <option value="Zurcher Kantonal Bank,Zurich">
-                              Zurcher Kantonal Bank,Zurich
-                            </option>
+                            <option value="First Class European Bank">First Class European Bank</option>
+                            <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                            <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (51D) LC Issuing Bank
-                          </label>
+                          <label className={`${styles.label_heading} label_heading`}>(51D) LC Issuing Bank</label>
                           <img
                             className={`${styles.arrow}  image_arrow img-fluid`}
                             src="/static/inputDropDown.svg"
@@ -226,16 +206,10 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="Inod International Trading Fzco">
-                              Indo International Trading Fzco
-                            </option>
-                            <option value="Balaji Traders">
-                              Balaji Traders
-                            </option>
+                            <option value="Inod International Trading Fzco">Indo International Trading Fzco</option>
+                            <option value="Balaji Traders">Balaji Traders</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (50) Applicant
                             <strong className="text-danger">*</strong>
                           </label>
@@ -252,18 +226,12 @@ function Index({
                           required
                           type="text"
                           name="beneficiary"
-                          value={
-                            lcData?.beneficiary
-                              ? lcData?.beneficiary
-                              : lcModuleData?.order?.supplierName
-                          }
+                          value={lcData?.beneficiary ? lcData?.beneficiary : lcModuleData?.order?.supplierName}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (59) Beneficiary
                           <strong className="text-danger">*</strong>
                         </label>
@@ -291,29 +259,18 @@ function Index({
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
                               : `${lcModuleData?.order?.orderCurrency} ` +
-                                Number(
-                                  lcData?.currecyCodeAndAmountValue,
-                                ).toLocaleString(
-                                  lcModuleData?.order?.orderCurrency?.toLowerCase() ===
-                                    'inr'
-                                    ? 'en-In'
-                                    : undefined,
+                                Number(lcData?.currecyCodeAndAmountValue).toLocaleString(
+                                  lcModuleData?.order?.orderCurrency?.toLowerCase() === 'inr' ? 'en-In' : undefined,
                                   { maximumFractionDigits: 2 },
                                 )
                           }
-                          // defaultValue={lcData?.currecyCodeAndAmountValue}
-                          // value={addPrefixOrSuffix(
-                          //   lcData?.currecyCodeAndAmountValue,
-                          //   'USD',
-                          // )}
+                         
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (32B) Currency Code &amp; Amount
                           <strong className="text-danger">*</strong>
                         </label>
@@ -353,17 +310,12 @@ function Index({
                                 ) +
                                 ` %`
                           }
-                          // value={addPrefixOrSuffix(
-                          //   lcData?.tolerancePercentage,
-                          //   '%',
-                          // )}
+                         
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (39A) Tolerance (+/-) Percentage
                           <strong className="text-danger">*</strong>
                         </label>
@@ -381,15 +333,11 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">
-                              BNP PARIBAS PARIBAS _ BNPAFRPPS
-                            </option>
+                            <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
                             <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option>
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (41A) Credit Available With
                             <strong className="text-danger">*</strong>
                           </label>
@@ -413,19 +361,13 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="By Negotiation">
-                              By Negotiation
-                            </option>
+                            <option value="By Negotiation">By Negotiation</option>
                             <option value="By Payment">By Payment</option>
                             <option value="By Acceptance">By Acceptance</option>
-                            <option value="By Deffered Payment">
-                              By Deffered Payment
-                            </option>
+                            <option value="By Deffered Payment">By Deffered Payment</option>
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (41A) Credit Available By
                             <strong className="text-danger">*</strong>
                           </label>
@@ -438,12 +380,7 @@ function Index({
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <Row>
-                          <Col
-                            className={styles.small_box}
-                            xl={8}
-                            lg={6}
-                            md={12}
-                          >
+                          <Col className={styles.small_box} xl={8} lg={6} md={12}>
                             <div className="d-flex">
                               <select
                                 name="atSight"
@@ -460,9 +397,7 @@ function Index({
                                 <option value="SPECIFY">SPECIFY</option>
                               </select>
 
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 (42C) Draft At
                                 <strong className="text-danger">*</strong>
                               </label>
@@ -473,36 +408,21 @@ function Index({
                               />
                             </div>
                           </Col>
-                          <Col
-                            className={styles.small_box}
-                            xl={4}
-                            lg={6}
-                            md={12}
-                          >
+                          <Col className={styles.small_box} xl={4} lg={6} md={12}>
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
                               onWheel={(event) => event.currentTarget.blur()}
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
-                              disabled={
-                                lcData?.atSight == 'AT SIGHT' ||
-                                lcData?.atSight == undefined
-                                  ? true
-                                  : false
-                              }
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              disabled={lcData?.atSight == 'AT SIGHT' || lcData?.atSight == undefined ? true : false}
                               name="numberOfDays"
                               value={lcData?.numberOfDays}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               No. of Days
                               <strong className="text-danger">*</strong>
                             </label>
@@ -520,11 +440,7 @@ function Index({
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          (42A) Drawee
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>(42A) Drawee</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
@@ -537,11 +453,7 @@ function Index({
                             saveLcData(e.target.name, e.target.value);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          (42P) Deferred Payment
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>(42P) Deferred Payment</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
@@ -553,8 +465,7 @@ function Index({
                             value={
                               lcData?.partialShipment
                                 ? lcData?.partialShipment
-                                : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.partShipmentAllowed
+                                : lcModuleData?.order?.termsheet?.transactionDetails?.partShipmentAllowed
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -564,11 +475,9 @@ function Index({
 
                             <option value="Yes">Allowed</option>
                             <option value="No">Not Allowed</option>
-                             <option value="Conditional">Conditional</option>
+                            <option value="Conditional">Conditional</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (43P) Partial Shipment
                             <strong className="text-danger">*</strong>
                           </label>
@@ -595,9 +504,7 @@ function Index({
                             <option value="Allowed">Allowed</option>
                             <option value="Not Allowed">Not Allowed</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (43T) Transhipments
                             <strong className="text-danger">*</strong>
                           </label>
@@ -620,9 +527,7 @@ function Index({
                               saveLcData(e.target.name, e.target.value);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (44A) Place of taking in Charge
                             <strong className="text-danger">*</strong>
                           </label>
@@ -643,16 +548,13 @@ function Index({
                             value={
                               lcData?.portOfLoading
                                 ? lcData?.portOfLoading
-                                : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.loadPort
+                                : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort
                             }
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (44E) Port of Loading
                             <strong className="text-danger">*</strong>
                           </label>
@@ -668,31 +570,28 @@ function Index({
                             value={
                               lcData?.portOfDischarge
                                 ? lcData.portOfDischarge
-                                : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.portOfDischarge
+                                : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option selected >
-                              Select an option
-                            </option>
-                             
-                              {port.filter((val,index)=>{
-                            if(val.Country.toLowerCase()=="india"){
-                              return val
-                            }
-                          }).map((val,index)=>{
-                            return(
-                              <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
-                            </option>
-                            )
-                          })}
+                            <option selected>Select an option</option>
+
+                            {port
+                              .filter((val, index) => {
+                                if (val.Country.toLowerCase() == 'india') {
+                                  return val;
+                                }
+                              })
+                              .map((val, index) => {
+                                return (
+                                  <option value={`${val.Port_Name},${val.Country}`}>
+                                    {val.Port_Name},{val.Country}
+                                  </option>
+                                );
+                              })}
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (44F) Port of Discharge
                             <strong className="text-danger">*</strong>
                           </label>
@@ -730,9 +629,7 @@ function Index({
                           }}
                           style={{ height: '103px' }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (45A) Description Of The Goods
                           <strong className="text-danger">*</strong>
                         </label>
@@ -741,10 +638,7 @@ function Index({
                   </div>
                 </div>
                 {/* <hr className={styles.line}></hr> */}
-                <div
-                  className={`${styles.dashboard_form} border_color`}
-                  style={{ borderTop: '2px solid #CAD6E6' }}
-                >
+                <div className={`${styles.dashboard_form} border_color`} style={{ borderTop: '2px solid #CAD6E6' }}>
                   <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading} value`}>
                       46A DOCUMENT REQUIRED
@@ -772,9 +666,7 @@ function Index({
                         key={index}
                         className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                       >
-                        <div className={`${styles.number} mr-n3`}>
-                          {getSn(index)}
-                        </div>
+                        <div className={`${styles.number} mr-n3`}>{getSn(index)}</div>
                         <Form.Control
                           className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
@@ -819,10 +711,7 @@ function Index({
                     ))}
                   </div>
                 </div>
-                <div
-                  className={`${styles.dashboard_form} border_color`}
-                  style={{ borderTop: '2px solid #CAD6E6' }}
-                >
+                <div className={`${styles.dashboard_form} border_color`} style={{ borderTop: '2px solid #CAD6E6' }}>
                   <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading}  value`}>
                       47A ADDITIONAL CONDITIONS
@@ -873,26 +762,15 @@ function Index({
                       </div> */}
                         </div>
                       </div>
-                      <div
-                        className={`${styles.datatable} mb-5 ml-5 datatable `}
-                      >
+                      <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
-                            <table
-                              className={`${styles.table} table`}
-                              cellPadding="0"
-                              cellSpacing="0"
-                              border="0"
-                            >
+                            <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                               <tbody>
                                 <tr className="table_row">
                                   {excelFile &&
                                     excelFile.length > 0 &&
-                                    Object.keys(excelFile[0]).map(
-                                      (val, index) => (
-                                        <th key={index}>{val}</th>
-                                      ),
-                                    )}
+                                    Object.keys(excelFile[0]).map((val, index) => <th key={index}>{val}</th>)}
                                 </tr>
                                 {excelFile &&
                                   excelFile.length > 0 &&
@@ -914,9 +792,7 @@ function Index({
                         key={index}
                         className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                       >
-                        <div className={`${styles.number} mr-n3`}>
-                          {getSn(index + 1)}
-                        </div>
+                        <div className={`${styles.number} mr-n3`}>{getSn(index + 1)}</div>
                         <Form.Control
                           className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
@@ -962,10 +838,7 @@ function Index({
                   </div>
                 </div>
 
-                <div
-                  className={`${styles.dashboard_form} border_color`}
-                  style={{ borderTop: '2px solid #CAD6E6' }}
-                >
+                <div className={`${styles.dashboard_form} border_color`} style={{ borderTop: '2px solid #CAD6E6' }}>
                   <div className={styles.doc_card}>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body} p-0`}>
@@ -986,9 +859,7 @@ function Index({
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               (48) Presentation Period
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1006,18 +877,14 @@ function Index({
                                 <option selected disabled>
                                   Select an option
                                 </option>
-                                <option value="May Add">May Add </option>
+                                <option value="May Add">May Add</option>
                                 <option value="Confirm">Confirm</option>
 
                                 <option value="Without">Without</option>
-                                <option value="May add at beneficiary cost">
-                                  May add at beneficiary cost
-                                </option>
+                                <option value="May add at beneficiary cost">May add at beneficiary cost</option>
                               </select>
 
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 (49) Confirmation Instructions
                                 <strong className="text-danger">*</strong>
                               </label>
@@ -1065,13 +932,9 @@ function Index({
                                 <option value="Bnp Paribas Paribas - Bnpafrppxx">
                                   Bnp Paribas Paribas - Bnpafrppxx
                                 </option>
-                                <option value="Balaji Traders">
-                                  Balaji Traders
-                                </option>
+                                <option value="Balaji Traders">Balaji Traders</option>
                               </select>
-                              <label
-                                className={`${styles.labels} label_heading`}
-                              >
+                              <label className={`${styles.labels} label_heading`}>
                                 (53A) Reimbursing Bank
                                 {/* <strong className="text-danger">*</strong> */}
                               </label>
@@ -1098,13 +961,9 @@ function Index({
                                 <option value="Bnp Paribas Paribas - Bnpafrppxx">
                                   Bnp Paribas Paribas - Bnpafrppxx
                                 </option>
-                                <option value="Balaji Traders">
-                                  Balaji Traders
-                                </option>
+                                <option value="Balaji Traders">Balaji Traders</option>
                               </select>
-                              <label
-                                className={`${styles.labels} label_heading`}
-                              >
+                              <label className={`${styles.labels} label_heading`}>
                                 (57) Advise Through Bank
                                 <strong className="text-danger">*</strong>
                               </label>
@@ -1127,9 +986,7 @@ function Index({
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               (57A) Second Advising Bank, if Applicable
                             </label>
                           </Col>
@@ -1144,9 +1001,7 @@ function Index({
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               (58A) Requested Confirmation Party
                               {/*  */}
                             </label>
@@ -1167,9 +1022,7 @@ function Index({
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               (71B) Charges
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1190,11 +1043,8 @@ function Index({
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              (78) Instructions To Paying / Accepting /
-                              Negotiating Bank
+                            <label className={`${styles.label_heading} label_heading`}>
+                              (78) Instructions To Paying / Accepting / Negotiating Bank
                               <strong className="text-danger">*</strong>
                             </label>
                           </Col>
@@ -1211,9 +1061,7 @@ function Index({
                                 saveLcData(e.target.name, e.target.value);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               (72) Sender To Receiver Information
                             </label>
                           </Col>

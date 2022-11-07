@@ -1,8 +1,10 @@
 @import '../styles/Core/config';
+
 .dashboardTab {
   //background: #FFFFFF;
   //box-shadow: 0px 3px 12px #CAD0E2;
   border: 1px solid #d2d7e5;
+
   .tabHeader {
     padding: 30px;
     @include respond(lg-desktop) {
@@ -14,18 +16,22 @@
     @include respond(phone) {
       padding: 15px;
     }
+
     .title {
       font-size: 34px;
       font-weight: bold;
       line-height: 41px;
       margin: 0;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -36,6 +42,7 @@
       @include respond(phone) {
         font-size: 18px;
       }
+
       img {
         width: 13px;
         height: 21px;
@@ -46,6 +53,7 @@
         }
       }
     }
+
     .lastModified {
       font-size: 14px;
       color: rgba(40, 55, 86, 0.6);
@@ -56,6 +64,7 @@
         font-size: 12px;
         line-height: 1.2;
       }
+
       span {
         color: #283756;
         font-weight: bold;
@@ -67,6 +76,7 @@
     }
   }
 }
+
 .backgroundMain {
   //background: #F3F4F7 !important;
   .vessel_card {
@@ -77,6 +87,7 @@
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
+
       .head_container {
         min-height: 80px;
         padding: 0 35px !important;
@@ -84,6 +95,7 @@
         @include respond(lg-desktop) {
           min-height: 60px;
         }
+
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -104,6 +116,7 @@
             margin: 13px 0;
           }
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -121,8 +134,10 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px;
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -137,6 +152,7 @@
           line-height: 15px;
         }
       }
+
       .value {
         font-size: 20px;
         height: 60px;
@@ -147,6 +163,7 @@
           line-height: 1.3;
         }
       }
+
       .comment_field {
         height: 156px;
         // border: 2px solid #cad6e6;
@@ -163,6 +180,7 @@
           height: 120px;
         }
       }
+
       .comment_heading {
         // color: #111111;
         text-transform: capitalize;
@@ -174,6 +192,7 @@
           line-height: 1.3;
         }
       }
+
       .address_type {
         color: #3687e8;
         font-size: 20px;
@@ -195,6 +214,7 @@
           line-height: 1.3;
         }
       }
+
       .sub_heading {
         font-size: 20px;
         font-weight: bold;
@@ -205,6 +225,7 @@
           line-height: 1.3;
         }
       }
+
       .upload_button {
         border: 3px solid #3687e8;
         border-radius: 5px;
@@ -218,10 +239,12 @@
         height: 46px;
         background-color: transparent;
       }
+
       .form_group {
         margin-top: 42px;
         position: relative;
         margin-bottom: 10px;
+
         .search_image {
           margin-left: -40px;
           @include respond(lg-desktop) {
@@ -229,6 +252,7 @@
             margin-left: -30px;
           }
         }
+
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -246,6 +270,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -256,6 +281,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 14px;
             font-size: 14px;
@@ -263,9 +289,11 @@
             transform: translateY(-22px);
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -282,6 +310,7 @@
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -290,20 +319,24 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
             line-height: 1.3;
           }
         }
+
         .cursor_none {
           caret-color: transparent;
         }
       }
     }
+
     .search_container {
       //background: #F0F0F0;
       height: 62px;
+
       .dropDown {
         //background: #FFFFFF;
         border: 1px solid #0000001f;
@@ -324,6 +357,7 @@
     }
   }
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -348,6 +382,7 @@
     padding: 5px;
   }
 }
+
 .delete_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -385,6 +420,7 @@
     margin-left: -33px;
   }
 }
+
 .newAddressContainer {
   //margin: 19px 35px 41px !important;
   // background: #FFFFFF;
@@ -398,6 +434,7 @@
       // height: 60px;
       padding: 15px 25px !important;
     }
+
     span {
       font-size: 22px;
       color: #3687e8;
@@ -409,17 +446,21 @@
         line-height: 1.3;
       }
     }
+
     border-bottom: 2px solid #cad6e6;
   }
+
   .newAddressContent {
     padding: 15px 25px !important;
   }
+
   .add {
     background: #3687e8;
     border-radius: 5px;
     width: 220px;
     height: 48px;
     cursor: pointer;
+
     span {
       letter-spacing: 0px;
       color: #ffffff;
@@ -432,11 +473,13 @@
         line-height: 1.3;
       }
     }
+
     @include respond(lg-desktop) {
       width: 180px;
       height: 38px;
     }
   }
+
   .cancel {
     border: 2.5px solid #3687e8;
     border: 3px solid #3687e8;
@@ -444,6 +487,7 @@
     margin-left: 13px;
     margin-bottom: 2rem;
     cursor: pointer;
+
     span {
       letter-spacing: 0px;
       color: #3687e8;
@@ -456,12 +500,14 @@
         line-height: 1.3;
       }
     }
+
     @include respond(lg-desktop) {
       width: 180px;
       height: 38px;
     }
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -478,6 +524,7 @@
   appearance: none;
   // position: relative;
 }
+
 .add {
   width: 220px;
   height: 48px;
@@ -488,6 +535,7 @@
   justify-content: center;
   align-items: center;
   margin-left: 25px;
+
   span {
     font-size: 20px;
     line-height: 25px;
@@ -495,6 +543,7 @@
     color: #ffffff;
   }
 }
+
 .cancel {
   width: 220px;
   height: 48px;
@@ -504,6 +553,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   span {
     font-size: 20px;
     line-height: 25px;

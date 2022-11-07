@@ -1,12 +1,11 @@
 import Axios from 'axios';
-import Router from 'next/router';
 import API from '../../utils/endpoints';
 import * as types from './actions';
 import { toast } from 'react-toastify';
-// import history from '../../history'
+
 import Cookies from 'js-cookie';
-import { setAuthenticationCookie } from '../../utils/authentication';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+
 export function submitGeneric() {
   return {
     type: types.SUBMIT_GENERIC,
@@ -25,6 +24,7 @@ export function getGenericFailed(payload) {
     type: types.GET_GENERIC_FAILED,
   };
 }
+
 export function getGeneric() {
   return {
     type: types.GET_GENERIC,
@@ -44,82 +44,74 @@ export function submitGenericFailed(payload) {
   };
 }
 
-export const updateGenericData =
-  (payload, message) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
+export const updateGenericData = (payload, message) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
 
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    let headers = {
-      authorization: jwtAccessToken,
-      Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    try {
-      let response = await Axios.put(
-        `${API.corebaseUrl}${API.updateGeneric}`,
-        payload,
-        {
-          headers: headers,
-        },
-      );
-      if (response.data.code === 200) {
-        dispatch(submitGenericSuccess(response.data));
-        let toastMessage = message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-
-        dispatch(setNotLoading());
-        return response.data.timestamp;
-      } else {
-        dispatch(submitGenericFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-        return 500;
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateGeneric}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(submitGenericSuccess(response.data));
+      const toastMessage = message;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    } catch (error) {
-      dispatch(submitGenericFailed());
 
-      let toastMessage = 'PUT GENERIC API FAILED';
+      dispatch(setNotLoading());
+      return response.data.timestamp;
+    } else {
+      dispatch(submitGenericFailed(response.data.data));
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       dispatch(setNotLoading());
       return 500;
     }
-  };
+  } catch (error) {
+    dispatch(submitGenericFailed());
+
+    const toastMessage = 'PUT GENERIC API FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
 
 export const getGenericData = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
+  const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    let response = await Axios.get(
-      `${API.corebaseUrl}${API.updateGeneric}${payload ? payload : ''}`,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.get(`${API.corebaseUrl}${API.updateGeneric}${payload || ''}`, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(getGenericSuccess(response.data.data.data));
       dispatch(setNotLoading());
       return response.data.data;
     } else {
       dispatch(getGenericFailed(response.data.data));
-      let toastMessage = 'No Data Available';
+      const toastMessage = 'No Data Available';
       dispatch(setNotLoading());
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -128,7 +120,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getGenericFailed());
 
-    let toastMessage = 'PUT GENERIC API FAILED';
+    const toastMessage = 'PUT GENERIC API FAILED';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }

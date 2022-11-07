@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import DateCalender from '../../src/components/DateCalender';
 import InspectionDocument from '../../src/components/InspectionDocument';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { setPageName } from '../../src/redux/userData/action';
 import SaveBar from '../../src/components/SaveBar';
 import { Form } from 'react-bootstrap';
 
@@ -14,10 +14,15 @@ import Image from 'next/image';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc, UploadSupplierDoc } from 'redux/supplier/action';
+import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc } from 'redux/supplier/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
 import moment from 'moment';
+import Axios from 'axios';
+import API from 'utils/endpoints'
+import Cookies from 'js-cookie';
+import TermsheetPopUp from '../../src/components/TermsheetPopUp'
+import { ShareDocument } from 'redux/shareDoc/action';
 
 
 
@@ -25,17 +30,16 @@ function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
 
-  let id = sessionStorage.getItem('supplier')
+  let id = sessionStorage.getItem('supplier');
   useEffect(() => {
     if (id) {
       dispatch(GetSupplier(`?supplierId=${id}`))
     } else {
       dispatch(ClearSupplier())
     }
-  }, [id])
+  }, [id]);
 
-  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
-
+  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
 
 
@@ -54,8 +58,9 @@ function Index() {
     setDetail(supplierData?.shareHoldersDetails ?? [])
     setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? [])
     setBusinessArray(supplierData?.bussinessSummary ?? [])
-    setCommidity(supplierData?.commoditiesTraded ?? [])
+    setListCommodity(supplierData?.commoditiesTraded ?? [])
     setInfoArray(supplierData?.additionalInformation ?? [])
+    setdocs(supplierData?.extraDocument ?? [])
     if (_get(supplierData, 'document[0]', '') !== '') {
       setIncumbencyDoc(supplierData?.document[0])
     }
@@ -64,7 +69,7 @@ function Index() {
     }
 
   }, [supplierResponse])
-  console.log(supplierData, keyAddData, 'supplierResponse')
+ 
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
 
 
@@ -72,6 +77,19 @@ function Index() {
   const [saveContactTable, setContactTable] = useState(false);
   const [saveDirectorTable, setDirectorTable] = useState(false);
   const [saveCommodityTable, setCommodityTable] = useState(false);
+
+  const [open, setOpen] = useState(false)
+  const [sharedDoc, setSharedDoc] = useState({
+    company: '',
+    order: '',
+    path: '',
+    data: {
+      subject: 'this is subject',
+      text: 'this is text',
+      receiver: '',
+    },
+  });
+
 
   const [formData, setFormData] = useState({
     supplierName: '',
@@ -83,7 +101,7 @@ function Index() {
     status: "Active"
   });
 
-  console.log(formData, 'setFormData')
+
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -100,7 +118,7 @@ function Index() {
     emailId: '',
     action: false
   }]);
-  console.log(person, 'person')
+ 
 
   const [detail, setDetail] = useState([{
     shareHoldersName: '',
@@ -124,7 +142,7 @@ function Index() {
   }]);
 
 
-  const [info, setInfo] = useState("");
+  const [info, setInfo] = useState('');
   const [infoArray, setInfoArray] = useState([]);
 
   const [incumbencyDoc, setIncumbencyDoc] = useState(null)
@@ -136,35 +154,26 @@ function Index() {
 
   const [docs, setdocs] = useState([])
 
-  console.log(thirdParty, incumbencyDoc, _get(supplierData, 'document[0]', ''), 'incumbencyDoc')
+
 
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
   const handleDeletePersonContact = (index) => {
-    setPerson([
-      ...person.slice(0, index),
-      ...person.slice(index + 1),
-    ]);
+    setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
   };
   const handleDeleteDirector = (index) => {
-    setListDirector([
-      ...listDirector.slice(0, index),
-      ...listDirector.slice(index + 1),
-    ]);
+    setListDirector([...listDirector.slice(0, index), ...listDirector.slice(index + 1)]);
   };
   const handleCommodity = (index) => {
-    setListCommodity([
-      ...listCommodity.slice(0, index),
-      ...listCommodity.slice(index + 1),
-    ]);
+    setListCommodity([...listCommodity.slice(0, index), ...listCommodity.slice(index + 1)]);
   };
 
   const [listCommodity, setListCommodity] = useState([
     {
       hsnCode: '',
       commodity: '',
-      action: false
+      action: false,
     },
   ]);
 
@@ -175,9 +184,8 @@ function Index() {
       {
         hsnCode: '',
         commodity: '',
-        action: false
+        action: false,
       },
-
     ]);
   };
   const [listContact, setListContact] = useState([
@@ -196,7 +204,7 @@ function Index() {
         designation: '',
         contactNo: '',
         emailID: '',
-        action: false
+        action: false,
       },
     ]);
   };
@@ -206,7 +214,7 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
-      action: false
+      action: false,
     },
   ]);
   const onAddShare = () => {
@@ -217,7 +225,7 @@ function Index() {
         designation: '',
         contact: '',
         ownershipPercentage: '',
-        action: false
+        action: false,
       },
     ]);
   };
@@ -226,11 +234,10 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-
       action: false
     },
   ]);
-  console.log(listDirector, "listDirector")
+
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -239,21 +246,41 @@ function Index() {
         nationality: '',
         authorityToSign: false,
 
-        action: false
+        action: false,
       },
     ]);
   };
 
+
+  const handleShareDoc = async (doc) => {
+    if (emailValidation(sharedDoc.data.receiver)) {
+      let tempArr = { ...sharedDoc };
+      tempArr.company = documentsFetched.company;
+      tempArr.order = orderid;
+     
+      if (data?.code == 200) {
+        setClose(false);
+      }
+    } else {
+      let toastMessage = 'please provide a valid email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
+  };
+
+
+
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+   
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
-    // setStartDate(value, name)
+   
   };
 
   const saveQuotationData = (name, value) => {
-    // console.log(value, 'dhjsgfksjdghf')
+ 
 
     formData.incorporationDate = value;
     setFormData({
@@ -278,33 +305,30 @@ function Index() {
   };
 
   const onChangeHandler2 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...person]
-    console.log(newInput[index], "newInput[index]")
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setListShare([...newInput])
 
+    let newInput = [...person];
+   
+    newInput[index][name] = value;
+   
+    setListShare([...newInput]);
   };
-  console.log(person, "person")
+ 
   const onChangeHandler3 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...detail]
-    console.log(newInput[index], "newInput[index]")
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setDetail([...newInput])
 
+    let newInput = [...detail];
+   
+    newInput[index][name] = value;
+   
+    setDetail([...newInput]);
   };
-  console.log(listShare, "listShare")
-  const onChangeHandler4 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...listDirector]
-    console.log(newInput[index], "newInput[index]")
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setListDirector([...newInput])
 
+  const onChangeHandler4 = (name, value, index) => {
+
+    let newInput = [...listDirector];
+  
+    newInput[index][name] = value;
+   
+    setListDirector([...newInput]);
   };
 
   const onChangeHandler5 = (e) => {
@@ -313,32 +337,30 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
-    console.log(businessArray, 'businessArray')
-    let temp = [...businessArray]
-    // temp.push(business)
-    setBusinessArray([...temp, { business: business }])
+ 
+    let temp = [...businessArray];
+   
+    setBusinessArray([...temp, { businessSummary: business }])
     setBusiness('');
   };
 
   const onChangeHandler6 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
-    let newInput = [...listCommodity]
+   
+    let newInput = [...listCommodity];
 
     newInput[index][name] = value;
-    console.log(newInput, "newInput")
-    setListCommodity([...newInput])
-
+   
+    setListCommodity([...newInput]);
   };
-
 
   const onChangeHandler7 = (e) => {
     const { name, value } = e.target;
     setInfo(value);
   };
   const onChangeHandler7Array = (e) => {
-    let temp = [...infoArray]
-    // temp.push(info)
-    setInfoArray([...temp, { comment: info }])
+    let temp = [...infoArray];
+  
+    setInfoArray([...temp, { remarks: info }])
     setInfo('');
   };
 
@@ -347,10 +369,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= person.length - 1; i++) {
-      if (
-        person[i].name === '' ||
-        person[i].name === null
-      ) {
+      if (person[i].name === '' || person[i].name === null) {
         toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -358,21 +377,11 @@ function Index() {
           break;
         }
       }
+    
       if (
-        person[i].designation === '' ||
-        person[i].designation === null
-      ) {
-        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
-      if (
-        person[i].contact === '' ||
-        person[i].contact === null ||
-        person[i].contact.length !== 10
+        person[i]?.contact === '' ||
+        person[i]?.contact === null ||
+        person[i]?.contact?.length !== 10
 
       ) {
         toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
@@ -382,11 +391,7 @@ function Index() {
           break;
         }
       }
-      if (
-        person[i].emailId === '' ||
-        person[i].emailId === null ||
-        !emailValidation(person[i].emailId)
-      ) {
+      if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
         toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -402,10 +407,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= detail.length - 1; i++) {
-      if (
-        detail[i].shareHoldersName === '' ||
-        detail[i].shareHoldersName === null
-      ) {
+      if (detail[i].shareHoldersName === '' || detail[i].shareHoldersName === null) {
         toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -413,22 +415,11 @@ function Index() {
           break;
         }
       }
-      if (
-        detail[i].designation === '' ||
-        detail[i].designation === null
-      ) {
-        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
+    
       if (
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
         detail[i].ownershipPercentage >= 100
-
       ) {
         toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -445,10 +436,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= listDirector.length - 1; i++) {
-      if (
-        listDirector[i].name === '' ||
-        listDirector[i].name === null
-      ) {
+      if (listDirector[i].name === '' || listDirector[i].name === null) {
         toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -456,10 +444,7 @@ function Index() {
           break;
         }
       }
-      if (
-        listDirector[i].nationality === '' ||
-        listDirector[i].nationality === null
-      ) {
+      if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
         toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -467,17 +452,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null 
-      // ) {
-      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+    
     }
     return isOk;
   };
@@ -485,10 +460,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (
-        listCommodity[i].hsnCode === '' ||
-        listCommodity[i].hsnCode === null
-      ) {
+      if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
         toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -496,10 +468,7 @@ function Index() {
           break;
         }
       }
-      if (
-        listCommodity[i].commodity === '' ||
-        listCommodity[i].commodity === null
-      ) {
+      if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
         toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -507,21 +476,10 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null 
-      // ) {
-      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+     
     }
     return isOk;
   };
-
 
   const supplierValidtaion = () => {
     if (!formData.supplierName || formData.supplierName === '') {
@@ -529,29 +487,35 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!formData.constitution || formData.constitution === '') {
       let toastMessage = `please select a constitution`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!formData.incorporationDate || formData.incorporationDate === '') {
       let toastMessage = `please select a incorporation Date`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
       let toastMessage = `please provide a country Of Incorporation`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
+    } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
+      let toastMessage = `please provide a national Identification Number`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
     } else if (!contactPersonDetailsValidation()) {
-      return false
+      return false;
     } else if (!shareholdersDetailsValidation()) {
-      return false
+      return false;
     } else if (!directorsAndAuthorisedSignatoryValidation()) {
       return false
     }
@@ -573,15 +537,11 @@ function Index() {
     else {
       return true
     }
-
-  }
+  };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-
-      // let fd = new FormData();
-      // fd.append('document1', incumbencyDoc);
-      // fd.append('document2', thirdParty);
+     
 
 
       let apiData = {
@@ -591,23 +551,26 @@ function Index() {
         shareHoldersDetails: detail,
         directorsAndAuthorizedSignatory: listDirector,
         bussinessSummary: businessArray,
-        commoditiesTraded: commodity,
+        commoditiesTraded: listCommodity,
         additionalInformation: infoArray,
-        document1: incumbencyDoc,
-        document2: thirdParty
+        incumbencyCertificateDocument: incumbencyDoc,
+        thirdPartyCertificateDocument: thirdParty,
+        extraDocument: docs
       }
-
+    
       let fd = new FormData();
+      fd.append('supplierId', supplierData?._id)
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
+      fd.append('shareHoldersDetails', JSON.stringify(detail));
       fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
       fd.append('bussinessSummary', JSON.stringify(businessArray));
-      fd.append('commoditiesTraded', JSON.stringify(commodity));
+      fd.append('commoditiesTraded', JSON.stringify(listCommodity));
       fd.append('additionalInformation', JSON.stringify(infoArray));
-
-      fd.append('document1', incumbencyDoc);
-      fd.append('document2', thirdParty);
+      fd.append('incumbencyCertificateDocument', incumbencyDoc);
+      fd.append('thirdPartyCertificateDocument', thirdParty);
+      fd.append('extraDocument', JSON.stringify(docs));
 
 
       if (id) {
@@ -615,20 +578,19 @@ function Index() {
       } else {
         dispatch(CreateSupplier(fd))
       }
-      // console.log('apidata', apiData)
+      
     }
   };
 
   const handleSendForApproval = () => {
-
     sessionStorage.removeItem('supplier');
-    dispatch(ClearSupplier())
+    dispatch(ClearSupplier());
     let toastMessage = `request sent for approval`;
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
-    Router.push('/add-supplier')
-  }
+    Router.push('/add-supplier');
+  };
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -636,14 +598,11 @@ function Index() {
   });
   const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
-    setKeyAddData([
-      ...keyAddData.slice(0, index),
-      ...keyAddData.slice(index + 1),
-    ]);
+    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const addressValidtion = (data) => {
     const emailValidate = () => {
-      let isOk = true
+      let isOk = true;
       data.email.forEach((email, index) => {
         if (
           !String(email)
@@ -657,44 +616,28 @@ function Index() {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
           isOk = false;
-          return
+          return;
         }
-      })
-      console.log(isOk, 'keyAddressData')
-      return isOk
-    }
+      });
+
+      return isOk;
+    };
 
 
-
-    console.log(data, 'addressValidtion');
-    if (
-      data.address === null ||
-      data.address === '' ||
-      data.address === undefined
-    ) {
+    if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
       return false;
-    }
-    else if (
-      data.pinCode === null ||
-      data.pinCode === '' ||
-      data.pinCode === undefined
-    ) {
+    } else if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
       let toastMessage = 'Please add pin code';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    }
-    else if (
-      data.country === null ||
-      data.country === '' ||
-      data.country === undefined
-    ) {
+    } else if (data.country === null || data.country === '' || data.country === undefined) {
       let toastMessage = 'Please add country';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -718,10 +661,7 @@ function Index() {
       return false;
     } else {
       return true;
-
     }
-
-
   };
   const [showAddress, setShowAddress] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
@@ -740,13 +680,11 @@ function Index() {
       number: '',
     },
     pinCode: '',
-
   });
   const [keyAddressData, setKeyAddressData] = useState({
-
     email: [''],
     address: '',
-    country: "",
+    country: '',
     contact: {
       phoneNumberCallingCode: '+91',
       alternatePhoneNumberCallingCode: '+91',
@@ -756,12 +694,12 @@ function Index() {
     pinCode: null,
   });
 
-  console.log(keyAddressData, 'keyAddressData')
+
   const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-    console.log(keyAddData, 'keyAddData');
+
     let tempArr = keyAddData;
     setEditData({
       email: tempArr[index].email,
@@ -773,7 +711,6 @@ function Index() {
         alternatePhoneNumber: tempArr[index].contact.alternatePhoneNumber,
       },
       pinCode: tempArr[index].pinCode,
-
     });
   };
   const keyAddDataArr = (keyAddressData) => {
@@ -785,12 +722,9 @@ function Index() {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
       setKeyAddressData({
-
-
-
         email: [''],
         address: '',
-        country: "",
+        country: '',
         contact: {
           phoneNumberCallingCode: '+91',
           alternatePhoneNumberCallingCode: '+91',
@@ -798,48 +732,61 @@ function Index() {
           alternatePhoneNumber: null,
         },
         pinCode: null,
-
       });
     }
   };
 
   const handleChange = (value, name, index) => {
-
     const newInput = { ...keyAddressData };
 
-
-
-
-    let namesplit = name.split('.')
-    console.log(name, namesplit, value, "name, value")
-
+    let namesplit = name.split('.');
 
 
     if (name === 'emailId') {
-      newInput.email[index] = value
-    }
-    else if (namesplit.length > 1) {
+      newInput.email[index] = value;
+    } else if (namesplit.length > 1) {
       newInput[namesplit[0]][namesplit[1]] = value;
     } else {
       newInput[name] = value;
-
     }
 
-    // console.log(newInput)
+
     setKeyAddressData(newInput);
+  };
+  const docUploader = async (payload) => {
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    try {
+      Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+     
+          setdocs([...docs, response.data.data])
+        } else {
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+        }
+      });
+    } catch (error) {
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
   };
 
 
-  const uploadDocumentHandler = (e) => {
-    if (newDoc?.document) {
-      let tempArr = [...docs]
-      tempArr.push(newDoc.document)
-      setdocs(tempArr)
 
+  const uploadDocumentHandler = async (e) => {
+    if (newDoc?.document) {
       let fd = new FormData();
-      fd.append('supplierId', JSON.stringify(supplierData._id));
       fd.append('document', newDoc.document);
-      dispatch(UploadSupplierDoc(fd))
+      docUploader(fd)
     } else {
       let toastMessage = 'please upload a document first';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -847,35 +794,30 @@ function Index() {
       }
     }
   }
-
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
-    setdocs(tempArray)
+    
 
-    // let payload = {
-    //   supplierId: supplierData._id,
-    //   path: path
-    // }
-
-
-    // dispatch(DeleteSupplierDoc(payload))
+    let payload = {
+      supplierId: supplierData._id,
+      path: document?.path
+    }
+    dispatch(DeleteSupplierDoc(payload))
   }
 
 
 
   return (
     <>
-      <div className={`${styles.dashboardTab} w-100`}>
+      <div className={`${styles.dashboardTab}`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
+                onClick={() => Router.push('/add-supplier')}
+                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -884,274 +826,322 @@ function Index() {
           </div>
         </div>
 
-        <div className={`${styles.backgroundMain} container-fluid`}>
-          <div className={`${styles.vessel_card} border_color`}>
+        <div className={`${styles.backgroundMain}`}>
+          <div className={`${styles.main} vessel_card card border_color`}
+          >
             <div
-              className={`${styles.main} vessel_card mt-4 card border_color`}
+              className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
+              style={{ cursor: 'default' }}
             >
-              <div
-                className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
-                style={{ cursor: 'default' }}
-              >
-                <h3 className={`${styles.heading}`}>Supplier Profile</h3>
+              <h3 className={`${styles.heading}`}>Supplier Profile</h3>
 
-                <div className="d-flex align-items-center">
-                  <label className={`${styles.dropDown_label} text`}>
-                    Status:
-                  </label>
-                  <div className="position-relative">
-                    <select
-                      className={`${styles.dropDown} ${styles.customSelect} input`}
-                      style={{ marginRight: '5px' }}
-                      name="status"
-                      onChange={onChangeHandler}
-                    >
-                      <>
-                        {' '}
-                        <option>Select an option</option>
-                        <option value='Active'>Active</option>
-                        <option value='InActive'>Not active</option>
-                      </>
-                    </select>
-                    <img
-                      className={`${styles.arrow2} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-
-                  <span
-                    className="ml-4"
-                    data-toggle="collapse"
-                    data-target="#supplierProfile"
-                    aria-expanded="true"
-                    aria-controls="supplierProfile"
-                    style={{ cursor: 'pointer' }}
+              <div className="d-flex align-items-center">
+                <label className={`${styles.dropDown_label} text`}>
+                  Status:
+                </label>
+                <div className="position-relative">
+                  <select
+                    className={`${styles.dropDown} ${styles.customSelect} input`}
+                    style={{ marginRight: '5px' }}
+                    name="status"
+                    onChange={onChangeHandler}
                   >
-                    +
-                  </span>
+                    <>
+                      {' '}
+                      <option>Select an option</option>
+                      <option value='Active'>Active</option>
+                      <option value='InActive'>Not active</option>
+                    </>
+                  </select>
+                  <img
+                    className={`${styles.arrow2} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
                 </div>
+
+                <span
+                  className="ml-4"
+                  data-toggle="collapse"
+                  data-target="#supplierProfile"
+                  aria-expanded="true"
+                  aria-controls="supplierProfile"
+                  style={{ cursor: 'pointer' }}
+                >
+                  +
+                </span>
               </div>
-              <div
-                id="supplierProfile"
-                //className="collapse"
-                aria-labelledby="supplierProfile"
-                data-parent="#supplierProfile"
-              >
-                <div className={`${styles.dashboard_form} mt-1 card-body`}>
-                  <div className="row">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <div className="d-flex">
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                          onChange={onChangeHandler}
-                          name="supplierName"
-                          value={formData?.supplierName}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Supplier Name
-                          <strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.search_image} img-fluid`}
-                          src="/static/search-grey.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <div className="d-flex">
-                        <select
-                          onChange={onChangeHandler}
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          required
-                          name="constitution"
-                          value={formData?.constitution}
-                        >
-                          <option>Select an option</option>
-                          <option value="India">Private Limited</option>
-                          <option value="America">ABC</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Constitution<strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <div className="d-flex">
-                        <DateCalender
-                          defaultDate={formData?.incorporationDate ?? ''}
-                          saveDate={saveDate}
-                          saveQuotationData={saveQuotationData}
-                          labelName="Incorporation Date"
-                          onChange={onChangeHandler}
-                        />
-                        <img
-                          className={`${styles.calanderIcon} image_arrow img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <div className="d-flex">
-                        <select
-                          onChange={onChangeHandler}
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          name="countryOfIncorporation"
-                          value={formData?.countryOfIncorporation}
-                        >
-                          <option>Select an option</option>
-                          <option value="India">India</option>
-                          <option value="America">USA</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Country of Incorporation
-                          <strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+            </div>
+            <div
+              id="supplierProfile"
+           
+              aria-labelledby="supplierProfile"
+              data-parent="#supplierProfile"
+            >
+              <div className={`${styles.dashboard_form} mt-1 card-body border_color`}>
+                <div className="row">
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
                       <input
-                        onChange={onChangeHandler}
-                        className={`${styles.input_field} input form-control`}
-                        type="number"
-                        onWheel={(event) => event.currentTarget.blur()}
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
-                        required
-                        name="nationalIdentificationNumber"
-                        value={formData?.nationalIdentificationNumber}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        National Identification No. / Commercial Registry No.
-                        <strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        onChange={onChangeHandler}
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
-                        name="website"
-                        value={formData?.website}
+                        onChange={onChangeHandler}
+                        name="supplierName"
+                        value={formData?.supplierName}
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Website
+                        Supplier Name
+                        <strong className="text-danger">*</strong>
                       </label>
+                      <img
+                        className={`${styles.search_image} img-fluid`}
+                        src="/static/search-grey.svg"
+                        alt="Search"
+                      />
                     </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        onChange={onChangeHandler}
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        required
+                        name="constitution"
+                        value={formData?.constitution}
+                      >
+                        <option>Select an option</option>
+                        <option value="India">Private Limited</option>
+                        <option value="America">ABC</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Constitution<strong className="text-danger">*</strong>
+                      </label>
+                      <img
+                        className={`${styles.arrow} image_arrow img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <DateCalender
+                        defaultDate={formData?.incorporationDate ?? ''}
+                        saveDate={saveDate}
+                        saveQuotationData={saveQuotationData}
+                        labelName="Incorporation Date"
+                        onChange={onChangeHandler}
+                      />
+                      <img
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        onChange={onChangeHandler}
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        name="countryOfIncorporation"
+                        value={formData?.countryOfIncorporation}
+                      >
+                        <option>Select an option</option>
+                        <option value="India">India</option>
+                        <option value="America">USA</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Country of Incorporation
+                        <strong className="text-danger">*</strong>
+                      </label>
+                      <img
+                        className={`${styles.arrow} image_arrow img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      onChange={onChangeHandler}
+                      className={`${styles.input_field} input form-control`}
+                      type="number"
+                      onWheel={(event) => event.currentTarget.blur()}
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
+                      required
+                      name="nationalIdentificationNumber"
+                      value={formData?.nationalIdentificationNumber}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                    >
+                      National Identification No. / Commercial Registry No.
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      onChange={onChangeHandler}
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                      required
+                      name="website"
+                      value={formData?.website}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                    >
+                      Website
+                    </label>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div className={`${styles.main} vessel_card card border_color`}>
+            <div
+              className={`${styles.head_container} card-header align-items-center border_color d-flex justify-content-between bg-transparent`}
+              data-toggle="collapse"
+              data-target="#keyAddress"
+              aria-expanded="true"
+              aria-controls="keyAddress"
+            >
+              <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
+              <span>+</span>
+            </div>
+            <div
+              id="keyAddress"
+              className="collapse"
+              aria-labelledby="keyAddress"
+            >
+              <div className={`${styles.dashboard_form} card-body border_color`}>
+                <div className="d-flex align-items-center justify-content-between">
 
-            <div className={`${styles.main} vessel_card mt-4 card border_color`}>
-              <div
-                className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
-                data-toggle="collapse"
-                data-target="#keyAddress"
-                aria-expanded="true"
-                aria-controls="keyAddress"
-              >
-                <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
-                <span>+</span>
-              </div>
-              <div
-                id="keyAddress"
-                className="collapse"
-                aria-labelledby="keyAddress"
-              >
-                <div className={`${styles.dashboard_form} card-body`}>
-                  <div className="d-flex justify-content-between">
-                    {keyAddData?.map((address, index) => {
+                  {keyAddData?.map((address, index) => {
 
-                      return (
-                        <>
-                          <AddressComponent
-                            index={index}
-                            Title={address?.addressType}
-                            address={address?.address}
-                            number={address?.contact?.phoneNumber}
-                            callingCode={address?.contact?.phoneNumberCallingCode}
-                            alterNumber={address?.contact?.alternatePhoneNumber}
-                            alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
-                            country={address?.country}
-                            email={address?.email}
-                            deleteComponent={deleteComponent}
-                            editAddress={editAddress}
-                            pinCode={address.pinCode}
-                            // orderDetail={orderDetail}
-                            path={''}
+                    return (
+                      <>
+                        <AddressComponent
+                          index={index}
+                          Title={address?.addressType}
+                          address={address?.address}
+                          number={address?.contact?.phoneNumber}
+                          callingCode={address?.contact?.phoneNumberCallingCode}
+                          alterNumber={address?.contact?.alternatePhoneNumber}
+                          alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
+                          country={address?.country}
+                          email={address?.email}
+                          deleteComponent={deleteComponent}
+                          editAddress={editAddress}
+                          pinCode={address.pinCode}
+                     
+                          path={''}
 
-                          />
-                        </>
-                      );
-                    })}
+                        />
+                      </>
+                    );
+                  })}
 
+                </div>
+                <div
+                  className={`${styles.address_card} mt-3 pb-5 value background1`}
+                >
+                  <div
+                    className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
+                  >
+                    <h3
+                      className={`${styles.heading}`}
+                      style={{ textTransform: 'none' }}
+                    >
+                      Add a new address
+                    </h3>
                   </div>
                   <div
-                    className={`${styles.address_card} mt-3 pb-5 value background1`}
+                    className={`${styles.dashboard_form} card-body border_color`}
                   >
-                    <div
-                      className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
-                    >
-                      <h3
-                        className={`${styles.heading}`}
-                        style={{ textTransform: 'none' }}
+                    <div className="row">
+                      <div
+                        className={`${styles.form_group} col-md-12 col-sm-6`}
                       >
-                        Add a new address
-                      </h3>
-                    </div>
-                    <div
-                      className={`${styles.dashboard_form} card-body border_color`}
-                    >
-                      <div className="row">
-                        <div
-                          className={`${styles.form_group} col-md-12 col-sm-6`}
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+
+                          name="address"
+                          value={keyAddressData?.address}
+                          onChange={(e) => {
+                            handleChange(e.target.value, e.target.name)
+                          }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
                         >
+                          Address
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-md-4 col-sm-4`}
+                      >
+                        <div className="d-flex">
                           <input
                             className={`${styles.input_field} input form-control`}
-                            type="text"
+                            required
+                            type="number"
+                            name="pinCode"
+                            value={keyAddressData?.pinCode}
+                            onWheel={(e) => e.target.blur()}
+                            onChange={(e) => {
+                              handleChange(e.target.value, e.target.name);
+                            }}
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Pin Code
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.search_image} img-fluid`}
+                            src="/static/search-grey.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>
 
-                            name="address"
-                            value={keyAddressData?.address}
+                      <div
+                        className={`${styles.form_group} col-md-4 col-sm-4`}
+                      >
+                        <div className="d-flex">
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="text"
+                            name="country"
+                            value={keyAddressData?.country}
                             onChange={(e) => {
                               handleChange(e.target.value, e.target.name)
                             }}
@@ -1159,167 +1149,118 @@ function Index() {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Address
+                            Country
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.search_image} img-fluid`}
+                            src="/static/search-grey.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
+                      >
+                        <div className={`${styles.phone_card}`}>
+                          <select
+                            name="contact.phoneNumberCallingCode"
+                            id="Code"
+                            className={`${styles.code_phone} input border-right-0`}
+                            value={keyAddressData.contact.phoneNumberCallingCode}
+                            onChange={(e) => {
+                              handleChange(e.target.value, e.target.name)
+                            }}
+                          >
+                            <option value='+91'>+91</option>
+                            <option value='+1'>+1</option>
+                            <option value='+92'>+92</option>
+                            <option value='+95'>+95</option>
+                            <option value='+24'>+24</option>
+                          </select>
+                          <input
+                            type="tel"
+                            id="textNumber"
+                            name="contact.phoneNumber"
+                            value={keyAddressData?.phoneNumber}
+                            className={`${styles.input_field}  input form-control border-left-0`}
+                            onChange={(e) => {
+                              handleChange(e.target.value, e.target.name)
+                            }}
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                            id="textNumber"
+                          >
+                            Phone Number
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-4`}
-                        >
-                          <div className="d-flex">
-                            <input
-                              className={`${styles.input_field} input form-control`}
-                              required
-                              type="text"
-                              name="pinCode"
-                              value={keyAddressData?.pinCode}
-                              onChange={(e) => {
-                                handleChange(e.target.value, e.target.name)
-                              }}
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Pin Code
-                              <strong className="text-danger">*</strong>
-                            </label>
-                            <img
-                              className={`${styles.search_image} img-fluid`}
-                              src="/static/search-grey.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
+                      >
+                        <div className={`${styles.phone_card}`}>
+                          <select
+                            name="contact.alternatePhoneNumberCallingCode"
+                            id="Code"
+                            className={`${styles.code_phone} input border-right-0`}
+                            value={keyAddressData.contact.alternatePhoneNumberCallingCode}
 
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-4`}
-                        >
-                          <div className="d-flex">
-                            <input
-                              className={`${styles.input_field} input form-control`}
-                              required
-                              type="text"
-                              name="country"
-                              value={keyAddressData?.country}
-                              onChange={(e) => {
-                                handleChange(e.target.value, e.target.name)
-                              }}
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Country
-                              <strong className="text-danger">*</strong>
-                            </label>
-                            <img
-                              className={`${styles.search_image} img-fluid`}
-                              src="/static/search-grey.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </div>
-
-                        <div
-                          className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                        >
-                          <div className={`${styles.phone_card}`}>
-                            <select
-                              name="contact.phoneNumberCallingCode"
-                              id="Code"
-                              className={`${styles.code_phone} input border-right-0`}
-                              value={keyAddressData.contact.phoneNumberCallingCode}
-                              onChange={(e) => {
-                                handleChange(e.target.value, e.target.name)
-                              }}
-                            >
-                              <option value='+91'>+91</option>
-                              <option value='+1'>+1</option>
-                              <option value='+92'>+92</option>
-                              <option value='+95'>+95</option>
-                              <option value='+24'>+24</option>
-                            </select>
-                            <input
-                              type="tel"
-                              id="textNumber"
-                              name="contact.phoneNumber"
-                              value={keyAddressData?.phoneNumber}
-                              className={`${styles.input_field}  input form-control border-left-0`}
-                              onChange={(e) => {
-                                handleChange(e.target.value, e.target.name)
-                              }}
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                              id="textNumber"
-                            >
-                              Phone Number
-                              <strong className="text-danger">*</strong>
-                            </label>
-                          </div>
-                        </div>
-                        <div
-                          className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                        >
-                          <div className={`${styles.phone_card}`}>
-                            <select
-                              name="contact.alternatePhoneNumberCallingCode"
-                              id="Code"
-                              className={`${styles.code_phone} input border-right-0`}
-                              value={keyAddressData.contact.alternatePhoneNumberCallingCode}
-
-                              onChange={(e) => {
-                                handleChange(e.target.value, e.target.name)
-                              }}
-                            >
-                              {' '}
-                              <option value='+91'>+91</option>
-                              <option value='+1'>+1</option>
-                              <option value='+92'>+92</option>
-                              <option value='+95'>+95</option>
-                              <option value='+24'>+24</option>
-                            </select>
-                            <input
-                              type="tel"
-                              id="textNumber"
-                              name="contact.alternatePhoneNumber"
-                              value={keyAddressData?.alternatePhoneNumber}
-                              className={`${styles.input_field} input form-control border-left-0`}
-                              onChange={(e) => {
-                                handleChange(e.target.value, e.target.name)
-                              }}
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                              id="textNumber"
-                            >
-                              Alternate Phone Number
-                            </label>
-                          </div>
-                        </div>
-                        {keyAddressData.email.map((email, index) => (
-                          <div
-                            className={`${styles.form_group} col-md-4 col-sm-6`}
+                            onChange={(e) => {
+                              handleChange(e.target.value, e.target.name)
+                            }}
                           >
-                            <div className="d-flex">
-                              <input
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                type="text"
-                                name="emailId"
-                                value={email}
+                            {' '}
+                            <option value='+91'>+91</option>
+                            <option value='+1'>+1</option>
+                            <option value='+92'>+92</option>
+                            <option value='+95'>+95</option>
+                            <option value='+24'>+24</option>
+                          </select>
+                          <input
+                            type="tel"
+                            id="textNumber"
+                            name="contact.alternatePhoneNumber"
+                            value={keyAddressData?.alternatePhoneNumber}
+                            className={`${styles.input_field} input form-control border-left-0`}
+                            onChange={(e) => {
+                              handleChange(e.target.value, e.target.name)
+                            }}
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                            id="textNumber"
+                          >
+                            Alternate Phone Number
+                          </label>
+                        </div>
+                      </div>
+                      {keyAddressData.email.map((email, index) => (
+                        <div
+                          className={`${styles.form_group} col-md-4 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              name="emailId"
+                              value={email}
 
-                                onChange={(e) => {
-                                  handleChange(e.target.value, e.target.name, index)
-                                }}
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Email ID
-                                <strong className="text-danger">*</strong>
-                              </label>
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name, index)
+                              }}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Email ID
+                              <strong className="text-danger">*</strong>
+                            </label>
 
-                            </div>
+
                             <img
                               onClick={() => setKeyAddressData((prev) => {
                                 return { ...prev, email: [...prev.email, ''] }
@@ -1330,33 +1271,30 @@ function Index() {
                             />
 
                           </div>
-                        ))}
-                      </div>
-                      <button
-                        className={`${styles.add_btn}`}
-                        onClick={() => handleClick()}
-                      >
-                        Add
-                      </button>
+                        </div>
+                      ))}
                     </div>
-
+                    <button
+                      className={`${styles.add_btn}`}
+                      onClick={() => handleClick()}
+                    >
+                      Add
+                    </button>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
-
-          <div className={`${styles.main} vessel_card mr-2 ml-2 mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
-              className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
+              className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#keyContact"
               aria-expanded="true"
               aria-controls="keyContact"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Contact Person Details
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Contact Person Details</h3>
               <span>+</span>
             </div>
             <div
@@ -1365,15 +1303,10 @@ function Index() {
               aria-labelledby="keyContact"
               data-parent="#keyContact"
             >
-              <div className={`${styles.datatable} card-body datatable`}>
+              <div className={`${styles.datatable} border_color card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1381,8 +1314,7 @@ function Index() {
                           </th>
                           <th>DESIGNATION</th>
                           <th>
-                            CONTACT NO.{' '}
-                            <strong className="text-danger">*</strong>
+                            CONTACT NO. <strong className="text-danger">*</strong>
                           </th>
                           <th>
                             EMAIL ID <strong className="text-danger">*</strong>
@@ -1402,7 +1334,7 @@ function Index() {
                                   value={val?.name}
                                   type="text"
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                   readOnly={!val.action}
                                 />
@@ -1415,7 +1347,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1426,16 +1358,11 @@ function Index() {
                                   name="contact"
                                   value={val?.contact}
                                   type="number"
-                                  onWheel={(event) =>
-                                    event.currentTarget.blur()
-                                  }
+                                  onWheel={(event) => event.currentTarget.blur()}
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
-                                  onKeyDown={(evt) =>
-                                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                                    evt.preventDefault()
-                                  }
+                                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                   readOnly={!val.action}
                                 />
                               </td>
@@ -1447,23 +1374,23 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
-                              {console.log('data55', val)}
+                      
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          console.log("herer1")
-                                          onChangeHandler2("action", true, index)
-                                          // setContactTable(true);
+                          
+                                          onChangeHandler2('action', true, index);
+                                  
                                         }}
                                       />
                                     </>
@@ -1471,12 +1398,12 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          console.log("herer2")
-                                          onChangeHandler2("action", false, index)
-                                          // setContactTable(false);
+                                   
+                                          onChangeHandler2('action', false, index);
+                                        
                                         }}
                                       />
                                     </>
@@ -1484,7 +1411,7 @@ function Index() {
 
                                   <img
                                     src="/static/delete 2.svg"
-                                    className="img-fluid"
+                                    className={`${styles.delete_image} border-0 p-0`}
                                     alt="delete"
                                     onClick={() => handleDeletePersonContact(index)}
                                   />
@@ -1508,10 +1435,9 @@ function Index() {
               </div>
             </div>
           </div>
-
-          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
-              className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
+              className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#shareHolding"
               aria-expanded="true"
@@ -1526,15 +1452,10 @@ function Index() {
               aria-labelledby="shareHolding"
               data-parent="#shareHolding"
             >
-              <div className={`${styles.datatable} card-body datatable`}>
+              <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>SHAREHOLDER NAME</th>
@@ -1556,7 +1477,7 @@ function Index() {
                                     value={val?.shareHoldersName}
                                     type="text"
                                     onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1568,7 +1489,7 @@ function Index() {
                                     value={val?.designation}
                                     type="text"
                                     onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1580,15 +1501,10 @@ function Index() {
                                     name="ownershipPercentage"
                                     value={val?.ownershipPercentage}
                                     type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1600,10 +1516,10 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/mode_edit.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="edit"
                                           onClick={(e) => {
-                                            onChangeHandler3("action", true, index)
+                                            onChangeHandler3('action', true, index);
                                           }}
                                         />
                                       </>
@@ -1611,17 +1527,17 @@ function Index() {
                                       <>
                                         <img
                                           src="/static/save-3.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          className={`${styles.edit_image} mr-3`}
                                           alt="save"
                                           onClick={(e) => {
-                                            onChangeHandler3("action", false, index)
+                                            onChangeHandler3('action', false, index);
                                           }}
                                         />
                                       </>
                                     )}
                                     <img
                                       src="/static/delete 2.svg"
-                                      className="img-fluid"
+                                      className={`${styles.delete_image} border-0 p-0`}
                                       alt="delete"
                                       onClick={() => handleShareDelete(index)}
                                     />
@@ -1641,23 +1557,20 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
-              className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
+              className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#director"
               aria-expanded="true"
               aria-controls="director"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Directors and Authorised Signatory
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Directors and Authorised Signatory</h3>
               <span>+</span>
             </div>
             <div
@@ -1666,15 +1579,10 @@ function Index() {
               aria-labelledby="director"
               data-parent="#director"
             >
-              <div className={`${styles.datatable} card-body datatable`}>
+              <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1704,7 +1612,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index)
+                                    onChangeHandler4(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1716,19 +1624,19 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index)
+                                    onChangeHandler4(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
                               <td>
                                 <input
-                                  name="authorityToSign"
-                                  checked={val?.authorityToSign}
+                                  name="authoriztyToSign"
+                                  checked={val?.authoriztyToSign}
                                   className={`${styles.checkBox}`}
                                   type="checkbox"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, !val?.authorityToSign, index)
+                                    onChangeHandler4(e.target.name, !val?.authoriztyToSign, index)
                                   }}
                                 />
                               </td>
@@ -1739,10 +1647,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          onChangeHandler4("action", true, index)
+                                          onChangeHandler4('action', true, index);
                                         }}
                                       />
                                     </>
@@ -1750,17 +1658,17 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          onChangeHandler4("action", false, index)
+                                          onChangeHandler4('action', false, index);
                                         }}
                                       />
                                     </>
                                   )}
                                   <img
                                     src="/static/delete 2.svg"
-                                    className="img-fluid"
+                                    className={`${styles.delete_image} border-0 p-0`}
                                     alt="delete"
                                     onClick={() => handleDeleteDirector(index)}
                                   />
@@ -1779,14 +1687,14 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
-              className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
+              className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#businessSummary"
               aria-expanded="true"
@@ -1801,24 +1709,24 @@ function Index() {
               aria-labelledby="businessSummary"
               data-parent="#businessSummary"
             >
-              <div className={`${styles.dashboard_form} mr-3`}>
+              <div className={`${styles.dashboard_form} mr-3 card-body border_color`}>
 
 
-                <div className="d-flex mt-4 pb-4 ml-4">
+                <div className="d-flex pb-4 ml-4 position-relative">
                   <input
                     as="textarea"
                     rows={3}
                     placeholder=""
-                    className={`${styles.comment_field} mr-n5 form-control`}
+                    className={`${styles.comment_field} input form-control`}
                     onChange={onChangeHandler5}
                     name="businessSummary"
                     value={business}
                   />
-                  <label className={`${styles.label_textarea} label_heading text`}>
-                    Business Summary
-                  </label>
+                  <label className={`${styles.label_textarea} label_heading text`}>Business Summary</label>
                   <img
-                    onClick={(e) => { addToBusinessArray() }}
+                    onClick={(e) => {
+                      addToBusinessArray();
+                    }}
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
@@ -1826,15 +1734,15 @@ function Index() {
                 </div>
                 <ol>
                   {businessArray?.map((val, index) => {
-                    return <li>{val?.business}</li>
+                    return <li>{val?.businessSummary}</li>
                   })}
                 </ol>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
-              className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
+              className={`${styles.head_container} border_color card-header align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#commodity"
               aria-expanded="true"
@@ -1849,15 +1757,10 @@ function Index() {
               aria-labelledby="commodity"
               data-parent="#commodity"
             >
-              <div className={`${styles.datatable} card-body datatable`}>
+              <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1884,7 +1787,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index)
+                                    onChangeHandler6(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1896,11 +1799,11 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index)
+                                    onChangeHandler6(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
-                              {console.log('data99', commodity)}
+             
 
                               <td className="text-right">
                                 <div>
@@ -1908,10 +1811,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          onChangeHandler6("action", true, index)
+                                          onChangeHandler6('action', true, index);
                                         }}
                                       />
                                     </>
@@ -1919,10 +1822,10 @@ function Index() {
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          onChangeHandler6("action", false, index)
+                                          onChangeHandler6('action', false, index);
                                         }}
                                       />
                                     </>
@@ -1930,7 +1833,7 @@ function Index() {
 
                                   <img
                                     src="/static/delete 2.svg"
-                                    className="img-fluid"
+                                    className={`${styles.delete_image} border-0 p-0`}
                                     alt="delete"
                                     onClick={() => handleCommodity(index)}
                                   />
@@ -1949,22 +1852,20 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card card border_color `}>
             <div
-              className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
+              className={`${styles.head_container} card-header border_color align-items-center d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#additional"
               aria-expanded="true"
               aria-controls="additional"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Additional Information
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Additional Information</h3>
               <span>+</span>
             </div>
             <div
@@ -1973,64 +1874,42 @@ function Index() {
               aria-labelledby="additional"
               data-parent="#additional"
             >
-              <div className={`${styles.dashboard_form} vessel_card mr-3`}>
-                {/* <div className={`${styles.comment_para} d-flex `}>
-                  <Form.Control
-                    className={`${styles.comment}`}
-                    as="textarea"
-                    rows={3}
-                  />
+              <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
+             
 
-                  <div className="ml-3">
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
-                      alt="edit"
-                      // onClick={(e) => {
-                      //   setEditProfile(!editProfile)
-                      // }}
-                    />
-                    <img
-                      src="/static/delete 2.svg"
-                      className="img-fluid"
-                      alt="delete"
-                    />
-                  </div>
-                </div> */}
-
-                <div className="d-flex mt-4 pb-4">
+                <div className="d-flex mt-4 pb-4 position-relative">
                   <input
                     as="textarea"
                     rows={3}
                     placeholder=""
                     name="remarks"
                     value={info}
-                    className={`${styles.comment_field} form-control`}
+                    className={`${styles.comment_field} input form-control`}
                     onChange={onChangeHandler7}
                   />
-                  <label className={`${styles.label_textarea} label_heading text`}>
-                    Remarks
-                  </label>
+                  <label className={`${styles.label_textarea} label_heading text`}>Remarks</label>
 
                   <img
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
                     onClick={(e) => {
-                      onChangeHandler7Array()
+                      onChangeHandler7Array();
                     }}
                   />
                 </div>
-                {infoArray?.length > 0 && infoArray?.map((val, index) => {
-                  return <li>{val.comment}</li>
-                })}
+                <ol>
+                  {infoArray?.length > 0 && infoArray?.map((val, index) => {
+                    return <li>{val?.remarks}</li>
+
+                  })}
+                </ol>
               </div>
             </div>
           </div>
-
-          <div className="mt-4 ml-2 mr-2 mb-5">
+          <div className="ml-2 mr-2">
             <div
-              className={`${styles.upload_main} vessel_card border_color upload_main`}
+              className={`${styles.upload_main} vessel_card card border_color upload_main`}
             >
               <div
                 className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`}
@@ -2095,11 +1974,35 @@ function Index() {
                             </td>
 
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
+                              {incumbencyDoc?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.xls') ||
+                                incumbencyDoc?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : incumbencyDoc?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.doc') ||
+                                incumbencyDoc?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {incumbencyDoc && incumbencyDoc?.lastModifiedDate
@@ -2146,11 +2049,35 @@ function Index() {
                             </td>
 
                             <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
+                              {thirdParty?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.xls') ||
+                                thirdParty?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : thirdParty?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.doc') ||
+                                thirdParty?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {thirdParty && thirdParty?.lastModifiedDate
@@ -2194,7 +2121,7 @@ function Index() {
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.dashboard_form} card-body rounded-0`}>
+                <div className={`${styles.dashboard_form} card-body rounded-0 border-0`}>
                   <Form>
                     <div className="row align-items-center pb-4">
                       <div
@@ -2244,9 +2171,9 @@ function Index() {
                           <div className="d-flex">
                             <select
                               className={`${styles.value} ${styles.customSelect} input form-control`}
-                              // value={manualDocModule ? newDoc.name : 'others'}
+                            
                               id="name"
-                            // onChange={(e) => handleNewDocModule(e)}
+                          
                             >
                               <option value="others">Others</option>
                             </select>
@@ -2269,7 +2196,7 @@ function Index() {
                             className={`${styles.value} input form-control`}
                             type="text"
                             required
-                          // disabled={manualDocModule}
+                         
                           />
                           <Form.Label className={`${styles.label} label_heading`}>
                             Please Specify Document Name
@@ -2279,7 +2206,7 @@ function Index() {
                           <button
                             onClick={(e) => uploadDocumentHandler(e)}
                             className={`${styles.upload_button} btn`}
-                          // disabled={!editInput}
+                         
                           >
                             Upload
                           </button>
@@ -2295,34 +2222,7 @@ function Index() {
                       <div
                         className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-end align-items-center`}
                       >
-                        {/* <div className="d-flex align-items-center">
-                          <select
-                            onChange={(e) => setModuleSelected(e.target.value)}
-                            className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            <option value="LeadOnboarding&OrderApproval">
-                              Lead Onboarding &amp; Order Approval
-                            </option>
-                            <option value="Agreements&Insurance&LC&Opening">
-                              Agreements, Insurance &amp; LC Opening
-                            </option>
-                            <option value="Loading-Transit-Unloading">
-                              Loading-Transit-Unloading
-                            </option>
-                            <option value="CustomClearanceAndWarehousing">
-                              Custom Clearance And Warehousing
-                            </option>
-                            <option value="Others">Others</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow2} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div> */}
+
                         <div
                           className={`d-flex align-items-center ${styles.searchBarContainer} `}
                         >
@@ -2385,19 +2285,19 @@ function Index() {
                         <tbody>
                           {docs &&
                             docs?.map((document, index) => {
-                              if (document.deleted) {
+                              if (document?.deleted) {
                                 return null;
                               } else {
                                 return (
                                   <tr key={index} className="uploadRowTable">
                                     <td className={`${styles.doc_name}`}>
-                                      {document?.name ? document?.name : document?.originalName}
+                                      {document?.originalName}
                                     </td>
                                     <td>
-                                      {document.name
+                                      {document?.originalName
                                         ?.toLowerCase()
                                         ?.endsWith('.xls') ||
-                                        document.name
+                                        document?.originalName
                                           .toLowerCase()
                                           .endsWith('.xlsx') ? (
                                         <img
@@ -2405,10 +2305,10 @@ function Index() {
                                           className="img-fluid"
                                           alt="Pdf"
                                         />
-                                      ) : document.name
+                                      ) : document?.originalName
                                         .toLowerCase()
                                         .endsWith('.doc') ||
-                                        document.name
+                                        document?.originalName
                                           .toLowerCase()
                                           .endsWith('.docx') ? (
                                         <img
@@ -2424,7 +2324,7 @@ function Index() {
                                         />
                                       )}
                                     </td>
-                                    <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
+                                    <td className={styles.doc_row}>{moment(document?.date).format('DD-MM-YYYY, h:mm A')}</td>
                                     <td className={styles.doc_row}>
                                       {document?.uploadedBy?.fName}{' '}
                                       {document?.uploadedBy?.lName}
@@ -2438,7 +2338,7 @@ function Index() {
                                     <td colSpan="2">
                                       <img
                                         onClick={(e) => {
-                                          deleteDocumentHandler(document, index)
+                                          deleteDocumentHandler({document, index})
                                         }}
                                         src="/static/delete.svg"
                                         className={`${styles.delete_image} mr-3`}
@@ -2449,7 +2349,7 @@ function Index() {
                                         className="mr-3"
                                         alt="Share"
                                         onClick={() => {
-                                          openbar();
+                                          setOpen(true);
                                           setSharedDoc({ ...sharedDoc, path: document.path })
 
                                         }}
@@ -2525,54 +2425,27 @@ function Index() {
                                 return null
                               }
                             })}
-                          {/* <tr className="table_row">
-                            <td className={styles.doc_name}>Container No. List</td>
-                            <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
-                            </td>
-                            <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td className={styles.doc_row}>Buyer</td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
-                              Verified
-                            </td>
-                            <td colSpan="2">
-                              <img
-                                src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
-                                alt="Bin"
-                              />
-                              <img
-                                src="/static/upload.svg"
-                                className="img-fluid mr-3"
-                                alt="Share"
-                              />
-                              <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
-                                alt="Share"
-                              />
-                            </td>
-                          </tr> */}
+
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}  */}
+              {open ? <TermsheetPopUp close={() => setOpen(false)} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
+        <SaveBar
+          rightBtn="Send for Approval"
+          handleSave={handleSave}
+          rightBtnClick={() => {
+            handleSendForApproval();
+          }}
+        />
       </div>
     </>
   );
 }
+
 export default Index;

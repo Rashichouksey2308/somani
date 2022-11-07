@@ -1,9 +1,11 @@
 .wrapper {
   color: #3687e8;
   width: 100%;
+
   .head {
     justify-content: center !important;
     position: relative;
+
     img {
       position: absolute;
       top: 20%;
@@ -12,9 +14,11 @@
       transform: translate(50%, 50%);
     }
   }
+
   .body {
     div {
       width: 100%;
+
       .left {
         padding: 60px;
         width: 100%;
@@ -23,6 +27,7 @@
         align-items: center;
         display: flex;
         flex-direction: column;
+
         button {
           border-color: #ced4da;
           border-top-right-radius: 0px;
@@ -30,12 +35,14 @@
           color: #3687e8;
           border-right: none;
         }
+
         input {
           border-left: none;
           border-radius: 0rem !important;
           border-top-right-radius: 0.25rem;
           border-bottom-right-radius: 0.25rem;
         }
+
         .button {
           height: 46px;
           font-size: 20px;
@@ -44,6 +51,7 @@
           color: #3687e8;
           border: 3px solid #3687e8;
           border-radius: 5px;
+
           span {
             display: flex;
             justify-content: center;
@@ -51,6 +59,7 @@
           }
         }
       }
+
       .right {
         width: 100%;
         padding: 60px;
@@ -58,6 +67,7 @@
         align-items: center;
         display: flex;
         flex-direction: column;
+
         .button {
           height: 46px;
           font-size: 20px;
@@ -66,6 +76,7 @@
           color: #3687e8;
           border: 3px solid #3687e8;
           border-radius: 5px;
+
           span {
             display: flex;
             justify-content: center;
@@ -76,11 +87,13 @@
     }
   }
 }
+
 .backdrop {
   backdrop-filter: blur(33px);
   opacity: 0.95 !important;
   background-color: #9d9d9d !important;
 }
+
 .dropDown {
   color: #495057;
   color: #495057;

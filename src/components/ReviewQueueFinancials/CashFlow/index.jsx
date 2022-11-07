@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import styles from '../index.module.scss';
 import moment from 'moment';
 import _get from 'lodash/get';
-import { checkNan, convertValue } from '../../../utils/helper';
+import { convertValue } from '../../../utils/helper';
 
 function Index({ cashData, rtrnChartIndiaction }) {
   const [unit, setUnit] = useState(10000000);
-  // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
+  
 
   const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {});
 
@@ -21,31 +21,15 @@ function Index({ cashData, rtrnChartIndiaction }) {
 
   const lastYearBalanceData = _get(cashData, 'financial.balanceSheet[2]', {});
 
-  const latestIncomeStatement = _get(
-    cashData,
-    'financial.incomeStatement[0]',
-    {},
-  );
+  const latestIncomeStatement = _get(cashData, 'financial.incomeStatement[0]', {});
 
-  const previousIncomeStatement = _get(
-    cashData,
-    'financial.incomeStatement[1]',
-    {},
-  );
+  const previousIncomeStatement = _get(cashData, 'financial.incomeStatement[1]', {});
 
-  const lastYearIncomeStatement = _get(
-    cashData,
-    'financial.incomeStatement[2]',
-    {},
-  );
+  const lastYearIncomeStatement = _get(cashData, 'financial.incomeStatement[2]', {});
 
-  const yearArray = _get(cashData, 'financial.other.financialYears', [
-    '',
-    '',
-    '',
-  ]);
+  const yearArray = _get(cashData, 'financial.other.financialYears', ['', '', '']);
 
-  console.log(cashData, 'lastYearData');
+
 
   return (
     <>
@@ -64,11 +48,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -86,17 +66,10 @@ function Index({ cashData, rtrnChartIndiaction }) {
           aria-labelledby="cashFlowStatement"
           data-parent="#FinancialsAccordion"
         >
-          <div
-            className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}
-          >
+          <div className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="50%"></th>
@@ -104,47 +77,33 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${
-                            latestYearData?.financialEndDate ? '#3687e8' : 'red'
-                          }`,
+                          color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                         }}
                       >
                         {latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${
-                            previousYearData?.financialEndDate
-                              ? '#3687e8'
-                              : 'red'
-                          }`,
+                          color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                         }}
                       >
                         {previousYearData?.financialEndDate
-                          ? moment(previousYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : 'MAR-' + yearArray[1].slice(5, 7)}
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${
-                            lastYearData?.financialEndDate ? '#3687e8' : 'red'
-                          }`,
+                          color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                         }}
                       >
                         {lastYearData?.financialEndDate
-                          ? moment(lastYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
+                          ? moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                           : 'MAR-' + yearArray[2].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
@@ -175,8 +134,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInOperatingActivities?.toLocaleString()
                         } */}
                         {convertValue(
-                          previousYearData
-                            ?.cashFlowsFromUsedInOperatingActivities
+                          previousYearData?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -190,8 +148,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInOperatingActivities?.toLocaleString()
                         } */}
                         {convertValue(
-                          lastYearData?.cashFlowsFromUsedInOperatingActivities
-                            ?.cashFlowsFromUsedInOperatingActivities,
+                          lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -202,11 +159,9 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
-                          previousYearData
-                            ?.cashFlowsFromUsedInOperatingActivities
+                          previousYearData?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
-                          lastYearData?.cashFlowsFromUsedInOperatingActivities
-                            ?.cashFlowsFromUsedInOperatingActivities,
+                          lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities,
                         )}
                       </td>
                     </tr>
@@ -233,8 +188,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInInvestingActivities?.toLocaleString()
                         } */}
                         {convertValue(
-                          previousYearData
-                            ?.cashFlowsFromUsedInInvestingActivities
+                          previousYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -248,8 +202,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInInvestingActivities?.toLocaleString()
                         } */}
                         {convertValue(
-                          lastYearData?.cashFlowsFromUsedInInvestingActivities
-                            ?.cashFlowsFromUsedInInvestingActivities,
+                          lastYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -260,11 +213,9 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
-                          previousYearData
-                            ?.cashFlowsFromUsedInInvestingActivities
+                          previousYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
-                          lastYearData?.cashFlowsFromUsedInInvestingActivities
-                            ?.cashFlowsFromUsedInInvestingActivities,
+                          lastYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities,
                         )}
                       </td>
                     </tr>
@@ -291,8 +242,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInFinancingActivities?.toLocaleString()
                         } */}
                         {convertValue(
-                          previousYearData
-                            ?.cashFlowsFromUsedInFinancingActivities
+                          previousYearData?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -306,8 +256,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInFinancingActivities?.toLocaleString()
                         } */}
                         {convertValue(
-                          lastYearData?.cashFlowsFromUsedInFinancingActivities
-                            ?.cashFlowsFromUsedInFinancingActivities,
+                          lastYearData?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -318,11 +267,9 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
-                          previousYearData
-                            ?.cashFlowsFromUsedInFinancingActivities
+                          previousYearData?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
-                          lastYearData?.cashFlowsFromUsedInFinancingActivities
-                            ?.cashFlowsFromUsedInFinancingActivities,
+                          lastYearData?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities,
                         )}
                       </td>
                     </tr>
@@ -335,8 +282,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.increaseDecreaseInCashAndCashEquivalents?.toLocaleString()
                         } */}
                         {convertValue(
-                          latestYearData
-                            ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          latestYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -352,8 +298,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         } */}
 
                         {convertValue(
-                          previousYearData
-                            ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          previousYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -368,8 +313,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.increaseDecreaseInCashAndCashEquivalents?.toLocaleString()
                         } */}
                         {convertValue(
-                          lastYearData
-                            ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          lastYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -379,14 +323,11 @@ function Index({ cashData, rtrnChartIndiaction }) {
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
-                          latestYearData
-                            ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          latestYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
-                          previousYearData
-                            ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          previousYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
-                          lastYearData
-                            ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          lastYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                         )}
                       </td>
@@ -397,8 +338,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {/* {convertValue(((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - */}
                         {convertValue(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                            latestYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                            latestYearData?.previous?.propertyPlantAndEquipment +
                             latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -409,10 +349,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {convertValue(((previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - */}
                         {convertValue(
-                          previousBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
-                            previousYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                          previousBalanceData?.assets?.propertyPlantAndEquipment -
+                            previousYearData?.previous?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -423,8 +361,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {convertValue(((lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - */}
                         {convertValue(
-                          lastYearBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
+                          lastYearBalanceData?.assets?.propertyPlantAndEquipment -
                             lastYearData?.previous?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
@@ -436,16 +373,12 @@ function Index({ cashData, rtrnChartIndiaction }) {
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                            latestYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                            latestYearData?.previous?.propertyPlantAndEquipment +
                             latestIncomeStatement?.expenses?.deprcnAmort,
-                          previousBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
-                            previousYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                          previousBalanceData?.assets?.propertyPlantAndEquipment -
+                            previousYearData?.previous?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
-                          lastYearBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
+                          lastYearBalanceData?.assets?.propertyPlantAndEquipment -
                             lastYearData?.previous?.propertyPlantAndEquipment +
                             lastYearIncomeStatement?.expenses?.deprcnAmort,
                         )}
@@ -459,8 +392,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                            latestYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                            latestYearData?.previous?.propertyPlantAndEquipment +
                             latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -473,10 +405,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           ((previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort), true
                         )} */}
                         {convertValue(
-                          previousBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
-                            previousYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                          previousBalanceData?.assets?.propertyPlantAndEquipment -
+                            previousYearData?.previous?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
@@ -489,8 +419,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           ((lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort), true
                         )} */}
                         {convertValue(
-                          lastYearBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
+                          lastYearBalanceData?.assets?.propertyPlantAndEquipment -
                             lastYearData?.previous?.propertyPlantAndEquipment +
                             lastYearIncomeStatement?.expenses?.deprcnAmort,
                           unit,
@@ -502,16 +431,12 @@ function Index({ cashData, rtrnChartIndiaction }) {
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                            latestYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                            latestYearData?.previous?.propertyPlantAndEquipment +
                             latestIncomeStatement?.expenses?.deprcnAmort,
-                          previousBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
-                            previousYearData?.previous
-                              ?.propertyPlantAndEquipment +
+                          previousBalanceData?.assets?.propertyPlantAndEquipment -
+                            previousYearData?.previous?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
-                          lastYearBalanceData?.assets
-                            ?.propertyPlantAndEquipment -
+                          lastYearBalanceData?.assets?.propertyPlantAndEquipment -
                             lastYearData?.previous?.propertyPlantAndEquipment +
                             lastYearIncomeStatement?.expenses?.deprcnAmort,
                         )}

@@ -23,17 +23,13 @@ const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
         {/* <p className={`${styles.term_para} term_para`}></p> */}
       </div>
       <div className={styles.btn_container}>
-        <button
-          className={`${styles.cancel_btn} cancel_btn`}
-          onClick={() => router.push('/leads')}
-        >
+        <button className={`${styles.cancel_btn} cancel_btn`} onClick={() => router.push('/leads')}>
           Cancel
         </button>
         <button
           className={`${styles.submit_btn} submit_btn`}
           disabled={creatingBuyer}
           onClick={() => {
-          
             submitData();
           }}
         >

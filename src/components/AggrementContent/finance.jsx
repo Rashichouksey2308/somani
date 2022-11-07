@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+
 let finance = {
   name: '',
   branchName: '',
 };
+
 function Index(props) {
   const [financeData, setFinanceData] = useState(finance);
   useEffect(() => {
@@ -50,7 +52,7 @@ function Index(props) {
     newInput[name] = value;
     setFinanceData(newInput);
   };
-  console.log(financeData, 'dsad');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -69,16 +71,10 @@ function Index(props) {
                   <option>Select an option</option>
                   <option value="Ing Bank N.V">Ing Bank N.V</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Name<strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -94,9 +90,7 @@ function Index(props) {
                   <option>Select an option</option>
                   <option value="Amsterdam">Amsterdam</option>
                 </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Branch<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img

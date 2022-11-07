@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
+
 function Index(props) {
   const [excelData, setExcelData] = useState(null);
   const [excelFile, setExcelFile] = useState(null);
@@ -11,7 +11,7 @@ function Index(props) {
   const [value, setValue] = useState('');
   const [editField, setEditField] = useState(false);
   const [doc, setdoc] = useState({ attachDoc: '' });
-  console.log(excelData, 'excelData', excelFile);
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
       let temp = [];
@@ -40,15 +40,12 @@ function Index(props) {
     // setSupplierState({...supplierState,multiParty:props.multiPart})
   }, [props.saveData, props.submitData]);
   const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Product')) {
-        console.log('herer23123');
+
 
         let savedData = JSON.parse(sessionStorage.getItem('Product'));
         let temp = [];
@@ -71,7 +68,7 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          console.log(obj.action, 'obj.action');
+
           return { ...obj, action: !obj.action };
         }
 
@@ -100,18 +97,17 @@ function Index(props) {
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
-      console.log(selectedFile.type, 'test');
+      
       let reader = new FileReader();
       reader.readAsArrayBuffer(selectedFile);
       reader.onload = (e) => {
         setExcelData(e.target.result);
       };
     } else {
-      console.log('please select file');
+     
     }
   };
-  console.log(excelData, 'test1234', excelFile);
-  console.log(excelFile, 'file');
+  
 
   useEffect(() => {
     if (excelData !== null) {
@@ -119,7 +115,7 @@ function Index(props) {
       const workSheetName = workbook.SheetNames[0];
       const workSheet = workbook.Sheets[workSheetName];
       const data = XLSX.utils.sheet_to_json(workSheet);
-      console.log(data, '11');
+
       setExcelFile(data);
     }
   }, [excelData]);
@@ -148,9 +144,7 @@ function Index(props) {
               }}
             ></img>
           </div>
-          <div
-            className={`${styles.button_container} d-flex justify-content-start  align-items-center `}
-          >
+          <div className={`${styles.button_container} d-flex justify-content-start  align-items-center `}>
             {doc.attachDoc == '' ? (
               <div className={styles.uploadBtnWrapper}>
                 <input
@@ -164,14 +158,10 @@ function Index(props) {
                   // }}
                   onChange={handleFile}
                 />
-                <button className={`${styles.button_upload2} btn`}>
-                  Upload Specifications
-                </button>
+                <button className={`${styles.button_upload2} btn`}>Upload Specifications</button>
               </div>
             ) : (
-              <div
-                className={`${styles.certificate} text1 d-flex justify-content-between`}
-              >
+              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                 <span>{doc.attachDoc}</span>
                 <img
                   className={`${styles.close_image}  image_arrow`}
@@ -183,8 +173,8 @@ function Index(props) {
             )}
             <div className={`${styles.file_text}`}>
               <span>
-                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES
-                ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
+                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX
+                FILE SIZE UP TO 50 MB
               </span>
             </div>
             {excelFile?.length > 0 ? (
@@ -207,9 +197,7 @@ function Index(props) {
                   <tr>
                     {excelFile &&
                       excelFile.length > 0 &&
-                      Object.keys(excelFile[0]).map((val, index) => (
-                        <th key={index}>{val}</th>
-                      ))}
+                      Object.keys(excelFile[0]).map((val, index) => <th key={index}>{val}</th>)}
                   </tr>
                   {excelFile &&
                     excelFile.length > 0 &&
@@ -230,9 +218,7 @@ function Index(props) {
             addressList.map((val, index) => {
               return (
                 <>
-                  <div
-                    className={`d-flex justify-content-between align-items-center ${styles.comment}`}
-                  >
+                  <div className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
                     <textarea
                       required
                       rows="4"
@@ -245,9 +231,7 @@ function Index(props) {
                       className="input"
                       readOnly={val.action}
                     />
-                    <div
-                      className={`d-flex justify-content-evenly align-items-center`}
-                    >
+                    <div className={`d-flex justify-content-evenly align-items-center`}>
                       {val.action ? (
                         <img
                           className={`${styles.image} ml-4 mr-3`}

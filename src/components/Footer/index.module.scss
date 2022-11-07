@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .main_container {
   height: 42px;
   background: #ffffff;
@@ -24,6 +25,7 @@
   @include respond(phone) {
     height: auto;
   }
+
   div {
     height: 100%;
     width: 100%;
@@ -31,6 +33,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     span {
       height: 19px;
       color: #283756;
@@ -51,14 +54,17 @@
         display: block;
       }
     }
+
     @include respond(phone) {
       display: block;
     }
   }
 }
+
 .no_sidebar {
   margin-left: 102px !important;
 }
+
 .no_sidebar_mobile {
   margin-left: 0px !important;
 }

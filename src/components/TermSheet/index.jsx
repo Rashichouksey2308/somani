@@ -7,23 +7,17 @@ import OtherTerms from '../OtherTerms';
 import UploadOther from '../UploadOther';
 import ApproveBar from '../ApproveBar';
 import { useDispatch, useSelector } from 'react-redux';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action';
-import { settingSidebar } from 'redux/breadcrumb/action';
-import { useRouter } from 'next/router';
-import { data } from 'jquery';
 import _get from 'lodash/get';
-import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
+import { removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import Loader from '../Loader/index';
-import { getPorts,getCountries,getCommodities,getCurrency } from '../../redux/masters/action';
+import { getCommodities, getCountries, getCurrency, getPorts } from '../../redux/masters/action';
+
 const Index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,7 +27,7 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState([]);
   const [order, setOrder] = useState('');
- 
+
   let sheetData = _get(termsheet, 'data[0]', {});
   useEffect(() => {
     let Id = sessionStorage.getItem('termID');
@@ -45,12 +39,11 @@ const Index = () => {
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice);
 
-  
-    useEffect(() => {
-    dispatch(getCountries())
+  useEffect(() => {
+    dispatch(getCountries());
     dispatch(getPorts());
-    dispatch(getCommodities())
-    dispatch(getCurrency())
+    dispatch(getCommodities());
+    dispatch(getCurrency());
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
@@ -61,11 +54,7 @@ const Index = () => {
       dispatch(setPageName('termsheet'));
       dispatch(setDynamicName(sheetData?.company?.companyName));
       dispatch(
-        setDynamicOrder(
-          sheetData?.order?.orderId
-            ? sheetData?.order?.orderId
-            : sheetData?.order?.applicationId,
-        ),
+        setDynamicOrder(sheetData?.order?.orderId ? sheetData?.order?.orderId : sheetData?.order?.applicationId),
       );
       termsheet &&
         termsheet?.data?.map((sheet) =>
@@ -76,71 +65,50 @@ const Index = () => {
               orderCurrency: sheet?.order?.orderCurrency || 'USD',
               quantity: sheet?.order?.quantity,
               perUnitPrice:
-                sheet?.order?.perUnitPrice ||
-                Number(
-                  sheet?.order?.orderValue / sheet?.order.quantity,
-                ).toFixed(2) ||
-                '',
+                sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue / sheet?.order.quantity).toFixed(2) || '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
-              // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+           
               typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
-              marginMoney: sheet?.transactionDetails?.marginMoney
-                ? sheet?.transactionDetails?.marginMoney
-                : 10,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+              marginMoney: sheet?.transactionDetails?.marginMoney ? sheet?.transactionDetails?.marginMoney : 10,
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || 'First Class European Bank',
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
-              loadPort:
-                sheet?.transactionDetails?.loadPort ??
-                sheet?.order?.shipmentDetail?.portOfLoading,
+              loadPort: sheet?.transactionDetails?.loadPort ?? sheet?.order?.shipmentDetail?.portOfLoading,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin
                 ? sheet?.transactionDetails?.countryOfOrigin
                 : sheet?.order?.countryOfOrigin,
-              shipmentType:
-                sheet?.transactionDetails?.shipmentType ??
-                sheet?.order?.shipmentDetail?.shipmentType,
+              shipmentType: sheet?.transactionDetails?.shipmentType ?? sheet?.order?.shipmentDetail?.shipmentType,
 
-              partShipmentAllowed:
-                sheet?.transactionDetails?.partShipmentAllowed,
+              partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
               portOfDischarge: sheet?.transactionDetails?.portOfDischarge
                 ? sheet?.transactionDetails?.portOfDischarge
                 : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
-              thirdPartyInspectionReq:
-                sheet?.transactionDetails?.thirdPartyInspectionReq,
+              thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate:
-                sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
             },
             commercials: {
-              tradeMarginPercentage:
-                sheet?.commercials?.tradeMarginPercentage || 2.25,
+              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage || 2.25,
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-              lcOpeningChargesUnit:
-                sheet?.commercials?.lcOpeningChargesUnit || 1500,
-              lcOpeningChargesPercentage:
-                sheet?.commercials?.lcOpeningChargesPercentage || 1.5,
-              usanceInterestPercetage:
-                sheet?.commercials?.usanceInterestPercetage || 4,
-              overDueInterestPerMonth:
-                sheet?.commercials?.overDueInterestPerMonth || 1.5,
-              exchangeFluctuation:
-                sheet?.commercials?.exchangeFluctuation || 'On Buyers A/C',
+              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit || 1500,
+              lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage || 1.5,
+              usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage || 4,
+              overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth || 1.5,
+              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation || 'On Buyers A/C',
               forexHedging: sheet?.commercials?.forexHedging,
-              otherTermsAndConditions:
-                sheet?.commercials?.otherTermsAndConditions ||
-                'As per the Agreements',
+              otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions || 'As per the Agreements',
               version: sheet?.commercials?.version || '1',
             },
           }),
@@ -152,133 +120,68 @@ const Index = () => {
     {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
-          
           setOtherTermConditions({
             buyer: {
-              bank:
-                sheet?.otherTermsAndConditions?.buyer?.bank ||
-                'Indo German International Private Limited (IGPL)',
+              bank: sheet?.otherTermsAndConditions?.buyer?.bank || 'Indo German International Private Limited (IGPL)',
             },
             chaOrstevedoringCharges: {
-              customClearingCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.customClearingCharges,
-              wharfaceCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.wharfaceCharges,
-              pollutionCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.pollutionCharges,
-              royalyAndPenaltyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.royalyAndPenaltyCharges,
+              customClearingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customClearingCharges,
+              wharfaceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wharfaceCharges,
+              pollutionCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.pollutionCharges,
+              royalyAndPenaltyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges,
               tarpaulinCoverageCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.tarpaulinCoverageCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges,
               wheighmentAndWeighmentSurveyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.wheighmentAndWeighmentSurveyCharges,
-              draughtSurveyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.draughtSurveyCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges,
+              draughtSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.draughtSurveyCharges,
               boatingWhileDraughtSurveyCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.boatingWhileDraughtSurveyCharges,
-              hmcCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.hmcCharges,
-              securityCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.securityCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges,
+              hmcCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.hmcCharges,
+              securityCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.securityCharges,
               piotRentalAndStorageCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.piotRentalAndStorageCharges,
-              bondingOfCargoCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.bondingOfCargoCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges,
+              bondingOfCargoCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges,
               exBondDocumentationCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.exBondDocumentationCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges,
               transferOfOwnershipCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.transferOfOwnershipCharges,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges,
               customsBondOfficerOvertimeCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.customsBondOfficerOvertimeCharges,
-              grabHireCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.grabHireCharges,
-              craneHireCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.craneHireCharges,
-              handlingLosses:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.handlingLosses,
-              insuranceCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.insuranceCharges,
-              waterSprinklingCharges:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-                  ?.waterSprinklingCharges,
-              others:
-                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others,
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges,
+              grabHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.grabHireCharges,
+              craneHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.craneHireCharges,
+              handlingLosses: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.handlingLosses,
+              insuranceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.insuranceCharges,
+              waterSprinklingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.waterSprinklingCharges,
+              others: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others,
             },
             lcOpeningCharges: {
-              lcOpeningCharges:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.lcOpeningCharges,
-              lcAmendmentCost:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.lcAmendmentCost,
+              lcOpeningCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcOpeningCharges,
+              lcAmendmentCost: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcAmendmentCost,
               cmaFeesIncludingSupervisionAndSurvey:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.cmaFeesIncludingSupervisionAndSurvey,
-              bankDoIssuanceCharges:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.bankDoIssuanceCharges,
-              remmittanceCharges:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.remmittanceCharges,
-              usanceInterest:
-                sheet?.otherTermsAndConditions?.lcOpeningCharges
-                  ?.usanceInterest,
+                sheet?.otherTermsAndConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey,
+              bankDoIssuanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.bankDoIssuanceCharges,
+              remmittanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.remmittanceCharges,
+              usanceInterest: sheet?.otherTermsAndConditions?.lcOpeningCharges?.usanceInterest,
             },
             otherCharges: {
               demurrageOrDetentionChargesOfVessel:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.demurrageOrDetentionChargesOfVessel,
-              transportationCharges:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.transportationCharges,
-              wagonHaulageCharges:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.wagonHaulageCharges,
-              thirdPartyInspectionCharges:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.thirdPartyInspectionCharges,
-              hedgingCharges:
-                sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
+                sheet?.otherTermsAndConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel,
+              transportationCharges: sheet?.otherTermsAndConditions?.otherCharges?.transportationCharges,
+              wagonHaulageCharges: sheet?.otherTermsAndConditions?.otherCharges?.wagonHaulageCharges,
+              thirdPartyInspectionCharges: sheet?.otherTermsAndConditions?.otherCharges?.thirdPartyInspectionCharges,
+              hedgingCharges: sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
               anyOtherCostIncurredOnBehalfOfBuyer:
-                sheet?.otherTermsAndConditions?.otherCharges
-                  ?.anyOtherCostIncurredOnBehalfOfBuyer,
+                sheet?.otherTermsAndConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer,
             },
             dutyAndTaxes: {
-              customsDutyWithAllGovtCess:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.customsDutyWithAllGovtCess,
-              igstWithCess:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
-              cimsCharges:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
-              taxCollectedatSource:
-                sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.taxCollectedatSource || true,
+              customsDutyWithAllGovtCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess,
+              igstWithCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
+              cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
+              taxCollectedatSource: sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource || true,
             },
             insurance: {
-              marineInsurance:
-                sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
-              storageInsurance:
-                sheet?.otherTermsAndConditions?.insurance?.storageInsurance,
+              marineInsurance: sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
+              storageInsurance: sheet?.otherTermsAndConditions?.insurance?.storageInsurance,
             },
           });
         });
@@ -286,24 +189,21 @@ const Index = () => {
   }, [termsheet]);
 
   useEffect(() => {
-    let comments = JSON.parse(
-      JSON.stringify(_get(termsheet, 'data[0].additionalComments', [{}])),
-    );
-    
+    let comments = JSON.parse(JSON.stringify(_get(termsheet, 'data[0].additionalComments', [{}])));
+
     setAdditionalComments([...comments]);
   }, [termsheet]);
 
   const onChangeCommodityDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    
+
     setTermsheetDetails((prev) => ({
       ...prev,
       commodityDetails: { ...prev.commodityDetails, [Key]: value },
     }));
   };
-   const onChangeCommodityDetails2 = (name,value) => {
-   
+  const onChangeCommodityDetails2 = (name, value) => {
     setTermsheetDetails((prev) => ({
       ...prev,
       commodityDetails: { ...prev.commodityDetails, [name]: value },
@@ -313,7 +213,7 @@ const Index = () => {
   const onChangeTransactionDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    
+
     setTermsheetDetails((prev) => ({
       ...prev,
       transactionDetails: { ...prev.transactionDetails, [Key]: value },
@@ -323,7 +223,7 @@ const Index = () => {
   const onChangePaymentDueDate = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-   
+
     setTermsheetDetails((prev) => ({
       ...prev,
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
@@ -390,19 +290,12 @@ const Index = () => {
   const changePayment = () => {};
 
   const handleSave = async () => {
-    
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
-      termsheetDetails.commodityDetails.perUnitPrice,
-    );
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(
-      termsheetDetails.commodityDetails.quantity,
-    );
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(
-      termsheetDetails.transactionDetails.marginMoney,
-    );
+    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
+    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
+    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
     tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
       termsheetDetails.commercials.tradeMarginPercentage,
     );
@@ -415,14 +308,11 @@ const Index = () => {
     tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
       termsheetDetails.commercials.usanceInterestPercetage,
     );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(
-      termsheetDetails.commodityDetails.tolerance,
-    );
+    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
-    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-  
+   
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -444,17 +334,14 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commodityDetails.quantity == '' ||
-      termsheetDetails.commodityDetails.quantity == undefined
-    ) {
+    if (termsheetDetails.commodityDetails.quantity == '' || termsheetDetails.commodityDetails.quantity == undefined) {
       let toastMessage = 'Please add quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
     }
-   
+
     if (
       termsheetDetails.commodityDetails.perUnitPrice == '' ||
       termsheetDetails.commodityDetails.perUnitPrice?.toString() == 'NaN' ||
@@ -466,20 +353,14 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commodityDetails.commodity == '' ||
-      termsheetDetails.commodityDetails.commodity == undefined
-    ) {
+    if (termsheetDetails.commodityDetails.commodity == '' || termsheetDetails.commodityDetails.commodity == undefined) {
       let toastMessage = 'Please add commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
     }
-    if (
-      termsheetDetails.commodityDetails.tolerance == '' ||
-      termsheetDetails.commodityDetails.tolerance == undefined
-    ) {
+    if (termsheetDetails.commodityDetails.tolerance == '' || termsheetDetails.commodityDetails.tolerance == undefined) {
       let toastMessage = 'Please add tolerance';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -487,21 +368,10 @@ const Index = () => {
       return;
     }
 
-    // transaction
-
-    // if (
-    //     termsheetDetails.transactionDetails.typeOfPort == '' ||
-    //     termsheetDetails.transactionDetails.typeOfPort == undefined
-    //   ) {
-    //     let toastMessage = 'Please add typeOfPort '
-    //     if (!toast.isActive(toastMessage.toUpperCase())) {
-    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     }
-    //     return
-    //   }
+ 
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue)    ||
+      isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       let toastMessage = 'Please add lc Value ';
@@ -510,16 +380,7 @@ const Index = () => {
       }
       return;
     }
-    //  if (
-    //     termsheetDetails.transactionDetails.lcCurrency == '' ||
-    //     termsheetDetails.transactionDetails.lcCurrency == undefined
-    //   ) {
-    //     let toastMessage = 'Please add lc Currency '
-    //     if (!toast.isActive(toastMessage.toUpperCase())) {
-    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     }
-    //     return
-    //   }
+
     if (
       termsheetDetails.transactionDetails.marginMoney == '' ||
       termsheetDetails.transactionDetails.marginMoney == undefined
@@ -610,9 +471,7 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined
-    ) {
+    if (termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined) {
       let toastMessage = 'Please add third Party InspectionReq';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -630,8 +489,7 @@ const Index = () => {
       return;
     }
     if (
-      termsheetDetails.transactionDetails.portOfDischarge ==
-        'Select an option' ||
+      termsheetDetails.transactionDetails.portOfDischarge == 'Select an option' ||
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -652,10 +510,7 @@ const Index = () => {
       return;
     }
 
-    if (
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromBLDate'
-    ) {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate') {
       if (
         termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
         termsheetDetails.paymentDueDate.daysFromBlDate == undefined
@@ -668,10 +523,7 @@ const Index = () => {
       }
     }
 
-    if (
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromVesselDischargeDate'
-    ) {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
       if (
         termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
         termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
@@ -684,10 +536,7 @@ const Index = () => {
       }
     }
 
-    if (
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'Whicheverisearlier'
-    ) {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier') {
       if (
         termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
         termsheetDetails.paymentDueDate.daysFromBlDate == undefined
@@ -721,26 +570,7 @@ const Index = () => {
       }
       return;
     }
-    //  if (
-    //   termsheetDetails.commercials.lcOpeningValue == '' ||
-    //   termsheetDetails.commercials.lcOpeningValue == undefined
-    // ) {
-    //   let toastMessage = 'Please add lc Opening Value '
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
-    //    if (
-    //   termsheetDetails.commercials.lcOpeningCurrency == '' ||
-    //   termsheetDetails.commercials.lcOpeningCurrency == undefined
-    // ) {
-    //   let toastMessage = 'Please add lc Opening Currency '
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+  
     if (
       termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
       termsheetDetails.commercials.lcOpeningChargesUnit == undefined
@@ -751,7 +581,7 @@ const Index = () => {
       }
       return;
     }
-   
+
     if (termsheetDetails.commercials.lcOpeningChargesPercentage == undefined) {
       let toastMessage = 'Please add lc Opening Charges Percentage ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -789,10 +619,7 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commercials.forexHedging == '' ||
-      termsheetDetails.commercials.forexHedging == undefined
-    ) {
+    if (termsheetDetails.commercials.forexHedging == '' || termsheetDetails.commercials.forexHedging == undefined) {
       let toastMessage = 'Please Select  forex Hedging ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -809,20 +636,14 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commercials.version == '' ||
-      termsheetDetails.commercials.version == undefined
-    ) {
+    if (termsheetDetails.commercials.version == '' || termsheetDetails.commercials.version == undefined) {
       let toastMessage = 'Please add version ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
     }
-    if (
-      otherTermsAndConditions.buyer.bank === '' ||
-      otherTermsAndConditions.buyer.bank == undefined
-    ) {
+    if (otherTermsAndConditions.buyer.bank === '' || otherTermsAndConditions.buyer.bank == undefined) {
       let toastMessage = 'please select a Bank in other Terms and Conditions';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -837,7 +658,6 @@ const Index = () => {
     };
 
     dispatch(updateTermsheet({ UpdatedTermsheet }));
-  
   };
 
   const handleChange = (name, value) => {
@@ -847,30 +667,13 @@ const Index = () => {
 
   const handlePreview = () => {
     let toastMessage = 'PLEASE SAVE TERMSHEET FIRST';
-    // const commercialTerms = _get(termsheet, 'data[0].commercials', false)
-    // const transactional = _get(termsheet, 'data[0].transactionDetails', false)
-    // const paymentDueDate = _get(termsheet, 'data[0].paymentDueDate', false)
-    // if (commercialTerms || transactional || paymentDueDate) {
-    //  dispatch(GetTermsheet({companyId: sheet.company._id}))
-
-    // } else {
-    //   let toastMessage = 'please save termsheet First'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
+    
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
-      termsheetDetails.commodityDetails.perUnitPrice,
-    );
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(
-      termsheetDetails.commodityDetails.quantity,
-    );
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(
-      termsheetDetails.transactionDetails.marginMoney,
-    );
+    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
+    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
+    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
     tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
       termsheetDetails.commercials.tradeMarginPercentage,
     );
@@ -883,14 +686,11 @@ const Index = () => {
     tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
       termsheetDetails.commercials.usanceInterestPercetage,
     );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(
-      termsheetDetails.commodityDetails.tolerance,
-    );
+    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
-    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-   
+ 
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -910,10 +710,7 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commodityDetails.quantity == '' ||
-      termsheetDetails.commodityDetails.quantity == undefined
-    ) {
+    if (termsheetDetails.commodityDetails.quantity == '' || termsheetDetails.commodityDetails.quantity == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -929,19 +726,13 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commodityDetails.commodity == '' ||
-      termsheetDetails.commodityDetails.commodity == undefined
-    ) {
+    if (termsheetDetails.commodityDetails.commodity == '' || termsheetDetails.commodityDetails.commodity == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
     }
-    if (
-      termsheetDetails.commodityDetails.tolerance == '' ||
-      termsheetDetails.commodityDetails.tolerance == undefined
-    ) {
+    if (termsheetDetails.commodityDetails.tolerance == '' || termsheetDetails.commodityDetails.tolerance == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -949,7 +740,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-          isNaN(termsheetDetails.transactionDetails.lcValue)||
+      isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1038,9 +829,7 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined
-    ) {
+    if (termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1056,8 +845,7 @@ const Index = () => {
       return;
     }
     if (
-      termsheetDetails.transactionDetails.portOfDischarge ==
-        'Select an option' ||
+      termsheetDetails.transactionDetails.portOfDischarge == 'Select an option' ||
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -1076,10 +864,7 @@ const Index = () => {
       return;
     }
 
-    if (
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromBLDate'
-    ) {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate') {
       if (
         termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
         termsheetDetails.paymentDueDate.daysFromBlDate == undefined
@@ -1091,10 +876,7 @@ const Index = () => {
       }
     }
 
-    if (
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromVesselDischargeDate'
-    ) {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
       if (
         termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
         termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
@@ -1106,10 +888,7 @@ const Index = () => {
       }
     }
 
-    if (
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'Whicheverisearlier'
-    ) {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier') {
       if (
         termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
         termsheetDetails.paymentDueDate.daysFromBlDate == undefined
@@ -1182,10 +961,7 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commercials.forexHedging == '' ||
-      termsheetDetails.commercials.forexHedging == undefined
-    ) {
+    if (termsheetDetails.commercials.forexHedging == '' || termsheetDetails.commercials.forexHedging == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1200,19 +976,13 @@ const Index = () => {
       }
       return;
     }
-    if (
-      termsheetDetails.commercials.version == '' ||
-      termsheetDetails.commercials.version == undefined
-    ) {
+    if (termsheetDetails.commercials.version == '' || termsheetDetails.commercials.version == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
     }
-    if (
-      otherTermsAndConditions.buyer.bank === '' ||
-      otherTermsAndConditions.buyer.bank == undefined
-    ) {
+    if (otherTermsAndConditions.buyer.bank === '' || otherTermsAndConditions.buyer.bank == undefined) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1232,7 +1002,6 @@ const Index = () => {
   };
 
   const addCommentHandler = (commentType, comment) => {
-  
     const newComment = {
       additionalCommentType: commentType,
       comment: comment,
@@ -1255,9 +1024,7 @@ const Index = () => {
         <>
           {' '}
           <div className="container-fluid px-0">
-            <div
-              className={`${styles.card} tabHeader border-bottom-0 shadow-none`}
-            >
+            <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
               <div className={`${styles.head_header} align-items-center`}>
                 <img
                   className={`${styles.arrow} img-fluid image_arrow mr-2`}
@@ -1265,90 +1032,47 @@ const Index = () => {
                   alt="arrow"
                   onClick={() => Router.push('/termsheet/order-list')}
                 />
-                <h1 className={`${styles.heading} heading`}>
-                  {_get(termsheet, 'data[0].company.companyName', '')}
-                </h1>
+                <h1 className={`${styles.heading} heading`}>{_get(termsheet, 'data[0].company.companyName', '')}</h1>
               </div>
               <div className="">
                 {termsheet &&
                   termsheet?.data?.map((sheet, index) => (
-                    <div
-                      key={index}
-                      className={`${styles.card_body} border_color border card-body container-fluid`}
-                    >
+                    <div key={index} className={`${styles.card_body} border_color border card-body container-fluid`}>
                       <div className="row">
-                        <div
-                          className={`${styles.form_group} col-md-2 col-sm-4`}
-                        >
-                          <h3 className={`${styles.label} label_heading`}>
-                            Customer ID
-                          </h3>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                          <h3 className={`${styles.label} label_heading`}>Customer ID</h3>
                           <p className={`${styles.value} accordion_Text`}>
-                            {sheet?.company?.customerId
-                              ? sheet.company.customerId
-                              : sheet.company.temporaryCustomerId}
+                            {sheet?.company?.customerId ? sheet.company.customerId : sheet.company.temporaryCustomerId}
                           </p>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-2 col-sm-4`}
-                        >
-                          <h3 className={`${styles.label} label_heading`}>
-                            Buyer Name
-                          </h3>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                          <h3 className={`${styles.label} label_heading`}>Buyer Name</h3>
+                          <p className={`${styles.value} accordion_Text`}>{sheet?.company?.companyName}</p>
+                        </div>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                          <h3 className={`${styles.label} label_heading`}>Created On</h3>
                           <p className={`${styles.value} accordion_Text`}>
-                            {sheet?.company?.companyName}
+                            {moment((sheet?.company?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
                           </p>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-2 col-sm-4`}
-                        >
-                          <h3 className={`${styles.label} label_heading`}>
-                            Created On
-                          </h3>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                          <h3 className={`${styles.label} label_heading`}>Last Modified</h3>
                           <p className={`${styles.value} accordion_Text`}>
-                            {moment(
-                              (sheet?.company?.createdAt).slice(0, 10),
-                              'YYYY-MM-DD',
-                              true,
-                            ).format('DD-MM-YYYY')}
+                            {moment((sheet?.company?.updatedAt).slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
                           </p>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-2 col-sm-4`}
-                        >
-                          <h3 className={`${styles.label} label_heading`}>
-                            Last Modified
-                          </h3>
-                          <p className={`${styles.value} accordion_Text`}>
-                            {moment(
-                              (sheet?.company?.updatedAt).slice(0, 10),
-                              'YYYY-MM-DD',
-                              true,
-                            ).format('DD-MM-YYYY')}
-                          </p>
-                        </div>
-                        <div
-                          className={`${styles.form_group} col-md-2 col-sm-4`}
-                        >
-                          <h3 className={`${styles.label} label_heading`}>
-                            Approved Date
-                          </h3>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                          <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
                           <p className={`${styles.value} accordion_Text`}>
                             {sheet?.order?.cam?.approvedAt
-                              ? moment(
-                                  sheet?.order?.cam?.approvedAt?.slice(0, 10),
-                                  'YYYY-MM-DD',
-                                  true,
-                                ).format('DD-MM-YYYY')
+                              ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format(
+                                  'DD-MM-YYYY',
+                                )
                               : ''}
                           </p>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-2 col-sm-4`}
-                        >
-                          <h3 className={`${styles.label} label_heading`}>
-                            Status{' '}
-                          </h3>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                          <h3 className={`${styles.label} label_heading`}>Status </h3>
                           <p className={`${styles.value} accordion_Text`}>
                             <span className={`${styles.status}`}></span>
                             {sheet?.order?.cam?.status}
@@ -1390,19 +1114,11 @@ const Index = () => {
                   termsheet={termsheet}
                   termsheetDetails={termsheetDetails}
                 />
-                <UploadOther
-                  module="LeadOnboarding&OrderApproval"
-                  orderid={OrdID}
-                />
+                <UploadOther module="LeadOnboarding&OrderApproval" orderid={OrdID} />
               </div>
             </div>
           </div>
-          <ApproveBar
-            handleReject={handleSave}
-            handleApprove={handlePreview}
-            button={'Save'}
-            button2={'Preview'}
-          />
+          <ApproveBar handleReject={handleSave} handleApprove={handlePreview} button={'Save'} button2={'Preview'} />
         </>
       )}
     </>

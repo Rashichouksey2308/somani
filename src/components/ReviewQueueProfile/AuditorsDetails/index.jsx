@@ -4,18 +4,14 @@ import moment from 'moment';
 import _get from 'lodash/get';
 
 function Index({ auditorsDetails, companyData }) {
-  console.log(companyData, 'auditorsDetails');
+
   const latestYearData = auditorsDetails && auditorsDetails[0];
 
   const previousYearData = auditorsDetails && auditorsDetails[1];
 
   const lastYearData = auditorsDetails && auditorsDetails[2];
 
-  const yearArray = _get(companyData, 'profile.other.financialYears', [
-    '',
-    '',
-    '',
-  ]);
+  const yearArray = _get(companyData, 'profile.other.financialYears', ['', '', '']);
 
   return (
     <div className={`${styles.card} card border_color border-bottom`}>
@@ -29,66 +25,42 @@ function Index({ auditorsDetails, companyData }) {
         <h2 className="mb-0">Auditor's Details</h2>
         <span>+</span>
       </div>
-      <div
-        id="AuditorsDetails"
-        className="collapse"
-        aria-labelledby="AuditorsDetails"
-        data-parent="#profileAccordion"
-      >
-        <div
-          className={`${styles.cardBody} ${styles.noBorderTable} card-body border_color`}
-        >
+      <div id="AuditorsDetails" className="collapse" aria-labelledby="AuditorsDetails" data-parent="#profileAccordion">
+        <div className={`${styles.cardBody} ${styles.noBorderTable} card-body border_color`}>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table
-                className={`${styles.table} table border_color`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
+              <table className={`${styles.table} table border_color`} cellPadding="0" cellSpacing="0" border="0">
                 <thead>
                   <tr>
                     <th width="25%"></th>
                     <th
                       width="25%"
                       style={{
-                        color: `${
-                          latestYearData?.financialEndDate ? '#3687e8' : 'red'
-                        }`,
+                        color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                       }}
                     >
                       {latestYearData?.financialEndDate
-                        ? moment(latestYearData?.financialEndDate)
-                            .format('MMM-YY')
-                            .toUpperCase()
+                        ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                         : 'MAR-' + yearArray[0].slice(5, 7)}
                     </th>
                     <th
                       width="25%"
                       style={{
-                        color: `${
-                          previousYearData?.financialEndDate ? '#3687e8' : 'red'
-                        }`,
+                        color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                       }}
                     >
                       {previousYearData?.financialEndDate
-                        ? moment(previousYearData?.financialEndDate)
-                            .format('MMM-YY')
-                            .toUpperCase()
+                        ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                         : 'MAR-' + yearArray[1].slice(5, 7)}
                     </th>
                     <th
                       width="25%"
                       style={{
-                        color: `${
-                          lastYearData?.financialEndDate ? '#3687e8' : 'red'
-                        }`,
+                        color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}`,
                       }}
                     >
                       {lastYearData?.financialEndDate
-                        ? moment(lastYearData?.financialEndDate)
-                            .format('MMM-YY')
-                            .toUpperCase()
+                        ? moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()
                         : 'MAR-' + yearArray[2].slice(5, 7)}
                     </th>
                   </tr>
@@ -110,26 +82,21 @@ function Index({ auditorsDetails, companyData }) {
                     <td>Change in Auditor</td>
                     <td
                       className={`${
-                        latestYearData?.regstrnNum?.trim() ===
-                        previousYearData?.regstrnNum?.trim()
+                        latestYearData?.regstrnNum?.trim() === previousYearData?.regstrnNum?.trim()
                           ? null
                           : styles.danger
                       }`}
                     >
                       {latestYearData?.regstrnNum
-                        ? latestYearData?.regstrnNum?.trim() ===
-                          previousYearData?.regstrnNum?.trim()
+                        ? latestYearData?.regstrnNum?.trim() === previousYearData?.regstrnNum?.trim()
                           ? 'No'
                           : 'Yes'
                         : ''}
                       {`${
                         latestYearData?.regstrnNum
-                          ? latestYearData?.regstrnNum?.trim() !==
-                            previousYearData?.regstrnNum?.trim()
+                          ? latestYearData?.regstrnNum?.trim() !== previousYearData?.regstrnNum?.trim()
                             ? latestYearData?.financialEndDate
-                              ? moment(latestYearData?.financialEndDate).format(
-                                  'YYYY',
-                                )
+                              ? moment(latestYearData?.financialEndDate).format('YYYY')
                               : ''
                             : ''
                           : ''
@@ -139,28 +106,23 @@ function Index({ auditorsDetails, companyData }) {
                     <td
                       className={`${
                         previousYearData?.regstrnNum
-                          ? previousYearData?.regstrnNum?.trim() ===
-                            lastYearData?.regstrnNum?.trim()
+                          ? previousYearData?.regstrnNum?.trim() === lastYearData?.regstrnNum?.trim()
                             ? null
                             : styles.danger
                           : null
                       }`}
                     >
                       {previousYearData?.regstrnNum
-                        ? previousYearData?.regstrnNum?.trim() ===
-                          lastYearData?.regstrnNum?.trim()
+                        ? previousYearData?.regstrnNum?.trim() === lastYearData?.regstrnNum?.trim()
                           ? 'No'
                           : 'Yes'
                         : ''}
                       {` ${
                         previousYearData?.regstrnNum
-                          ? previousYearData?.regstrnNum?.trim() !==
-                            lastYearData?.regstrnNum?.trim()
+                          ? previousYearData?.regstrnNum?.trim() !== lastYearData?.regstrnNum?.trim()
                             ? `${
                                 previousYearData?.financialEndDate
-                                  ? moment(
-                                      previousYearData?.financialEndDate,
-                                    ).format('YYYY')
+                                  ? moment(previousYearData?.financialEndDate).format('YYYY')
                                   : ''
                               }`
                             : ''
@@ -170,18 +132,14 @@ function Index({ auditorsDetails, companyData }) {
 
                     <td
                       className={`${
-                        previousYearData?.regstrnNum?.trim() ===
-                        previousYearData?.regstrnNum?.trim()
+                        previousYearData?.regstrnNum?.trim() === previousYearData?.regstrnNum?.trim()
                           ? null
                           : styles.danger
                       }`}
                     >
                       {`${
-                        previousYearData?.regstrnNum?.trim() !==
-                        previousYearData?.regstrnNum?.trim()
-                          ? moment(lastYearData?.financialEndDate).format(
-                              'YYYY',
-                            )
+                        previousYearData?.regstrnNum?.trim() !== previousYearData?.regstrnNum?.trim()
+                          ? moment(lastYearData?.financialEndDate).format('YYYY')
                           : ''
                       }`}
                     </td>

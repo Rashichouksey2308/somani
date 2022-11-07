@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .leads {
   border-radius: 6px;
   margin-bottom: 26px;
@@ -6,6 +7,7 @@
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .tableFilter {
     min-height: 80px;
     padding: 0 40px 0 35px;
@@ -16,6 +18,7 @@
       padding-left: 15px;
       padding-right: 15px;
     }
+
     h3 {
       font-size: 22px;
       color: #3687e8;
@@ -35,6 +38,7 @@
         margin: 13px 0;
       }
     }
+
     .pageList {
       width: 116px;
       height: 38px;
@@ -44,6 +48,7 @@
         width: 90px;
         height: 34px;
       }
+
       span {
         font-size: 18px;
         color: #3687e8;
@@ -60,17 +65,21 @@
       }
     }
   }
+
   .scrollouter {
     width: 100%;
     display: table;
     table-layout: fixed;
+
     .scrollInner {
       display: table-cell;
       overflow-x: auto;
+
       .table {
         width: 100%;
+
         thead {
-          //background: #FAFAFB;
+        
           th {
             font-size: 15px;
             font-weight: bold;
@@ -78,13 +87,14 @@
             padding: 24px 15px;
             white-space: nowrap;
             text-transform: uppercase;
-            // border-top: 2px solid #f2f5f9;
+          
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 14px;
               line-height: 1.2;
@@ -98,6 +108,7 @@
             }
           }
         }
+
         tbody {
           td {
             font-size: 19px;
@@ -106,6 +117,7 @@
             padding: 24px 15px;
             border-top: none;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
               font-weight: bold;
@@ -113,11 +125,13 @@
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
               padding: 17px 10px;
             }
+
             .status {
               width: 15px;
               height: 15px;
@@ -126,47 +140,53 @@
               display: inline-block;
               vertical-align: middle;
             }
+
             .approved {
               background: #26dd73;
             }
+
             .rejected {
               background: #ed714c;
             }
+
             .review {
               background: #ffce00;
             }
+
             .dropDown {
               font-size: 20px;
-              // color: #111111;
+          
               line-height: 25px;
               width: 100%;
               min-width: 180px !important;
               height: 37px !important;
               border-radius: 4px !important;
-              // background: #c3c3c31f;
+             
               letter-spacing: 0.19px;
               padding: 0 30px 0 15px;
               outline: none;
-              // border: 1px solid #0000001f !important;
+        
               @include respond(lg-desktop) {
                 font-size: 16px;
                 line-height: 1.3;
                 height: 30px !important;
               }
             }
+
             .input {
               font-size: 20px;
-              //color: #111111;
+            
               line-height: 25px;
               width: 180px !important;
               height: 37px !important;
               border-radius: 4px !important;
-              //background: #c3c3c31f;
+            
               letter-spacing: 0.19px;
               outline: none;
               box-shadow: none;
-              //border: 1px solid #0000001f !important;
+          
             }
+
             .checkBox {
               transform: scale(1.5);
               margin-left: 20px;
@@ -174,12 +194,14 @@
                 transform: scale(1.2);
               }
             }
+
             .tick {
               display: flex;
               align-items: center;
               justify-content: center;
               width: 100%;
               height: 100%;
+
               img {
                 width: 25px;
                 height: 19px;
@@ -194,6 +216,7 @@
       }
     }
   }
+
   .remarks {
     display: flex;
     align-items: flex-start;
@@ -204,6 +227,7 @@
       padding-left: 15px;
       padding-right: 15px;
     }
+
     .remarksName {
       width: 25%;
       font-size: 19px;
@@ -220,12 +244,12 @@
         width: 100%;
       }
     }
+
     textarea {
       width: 68%;
       box-shadow: none;
       border-radius: 4px;
-      // background: #c3c3c31f;
-      // border: 1px solid #0000001f;
+     
       @include respond(md-desktop) {
         width: 100%;
       }
@@ -238,6 +262,7 @@
     }
   }
 }
+
 img {
   &.arrow2 {
     width: 13px !important;
@@ -246,18 +271,22 @@ img {
     pointer-events: none;
   }
 }
+
 .customSelect {
   appearance: none;
-  // position: relative;
+
 }
+
 .view_btn {
   padding-top: 3px;
   color: #3687e8;
   margin-left: 1rem;
   text-decoration: underline;
 }
+
 .calender {
   position: relative;
+
   img {
     top: 0.3rem;
     position: absolute;

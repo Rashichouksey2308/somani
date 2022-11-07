@@ -59,20 +59,13 @@ function CompanyReducer(state = initialState, action) {
         updatingCompany: false,
       };
 
-    // case types.GET_CASE_DETAILS:
-    //   return {
-    //     ...state,
-    //   }
+  
     case types.GET_CASE_DETAILS_SUCCESS:
       return {
         ...state,
         caseDetails: action.payload,
       };
-    // case types.GET_CASE_DETAILS_FAILED:
-    //   return {
-    //     ...state,
-    //     updatingCompany: false,
-    //   }
+    
 
     default:
       return state;

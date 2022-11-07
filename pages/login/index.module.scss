@@ -1,10 +1,13 @@
 @import '../../src/components/styles/Core/config';
+
 .login {
   .loginBanner {
     position: relative;
+
     img {
       object-fit: cover;
     }
+
     .pattern {
       top: -30px;
       left: -30px;
@@ -13,6 +16,7 @@
       max-width: 648px;
       position: absolute;
     }
+
     .caption {
       left: 50%;
       width: 70%;
@@ -24,6 +28,7 @@
       position: absolute;
       transform: translateX(-50%);
     }
+
     &::after {
       top: 0;
       left: 0;
@@ -34,12 +39,15 @@
       background: rgba(10, 61, 122, 0.66);
     }
   }
+
   .loginForm {
     width: 60%;
+
     .form {
       .logo {
         margin-bottom: 112px;
       }
+
       .title {
         font-size: 34px;
         color: #111111;
@@ -47,6 +55,7 @@
         font-weight: bold;
         margin: 0 0 9px;
       }
+
       p {
         font-size: 18px;
         color: #667085;
@@ -54,10 +63,12 @@
         font-weight: normal;
         margin-bottom: 2rem;
       }
+
       .labelFloat {
         padding-top: 13px;
         position: relative;
         margin: 30px 0 20px;
+
         label {
           top: 22px;
           left: 30px;
@@ -74,6 +85,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -84,6 +96,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -91,6 +104,7 @@
             transform: translateY(-22px);
           }
         }
+
         .formControl {
           font-size: 20px;
           color: #111111;
@@ -106,9 +120,11 @@
           background: #c3c3c31f;
           padding: 13px 30px 13px 17px;
           border: 1px solid #0000001f;
+
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               background: #ffffff;
@@ -118,18 +134,21 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
             line-height: 1.3;
           }
         }
+
         img {
           top: 50%;
           right: 14px;
           position: absolute;
           transform: translateY(-50%);
         }
+
         .signin {
           font-size: 18px;
           color: #ffffff;
@@ -141,11 +160,13 @@
           border-radius: 5px;
           background: #3687e8;
           box-sizing: border-box;
+
           &:focus {
             box-shadow: none;
           }
         }
       }
+
       .password {
         label {
           top: 20px;
@@ -154,18 +175,21 @@
             top: 15px;
           }
         }
+
         .formControl {
           &:invalid + label {
             background: none;
           }
         }
       }
+
       .remember {
         label {
           font-size: 14px;
           color: #344054;
           line-height: 1;
         }
+
         .forgotPassword {
           font-size: 18px;
           color: #3687e8;
@@ -173,12 +197,15 @@
         }
       }
     }
+
     .loginForm {
       width: 60%;
+
       .form {
         .logo {
           margin-bottom: 112px;
         }
+
         .title {
           font-size: 34px;
           color: #111111;
@@ -186,6 +213,7 @@
           font-weight: bold;
           margin: 0 0 9px;
         }
+
         p {
           font-size: 18px;
           color: #667085;
@@ -193,10 +221,12 @@
           font-weight: normal;
           margin-bottom: 2rem;
         }
+
         .labelFloat {
           padding-top: 13px;
           position: relative;
           margin: 30px 0 20px;
+
           label {
             top: 22px;
             left: 30px;
@@ -213,6 +243,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
             &::before {
               top: 51%;
               left: 0;
@@ -223,6 +254,7 @@
               position: absolute;
               transform: translateY(-50%);
             }
+
             @include respond(lg-desktop) {
               top: 15px;
               font-size: 14px;
@@ -230,6 +262,7 @@
               transform: translateY(-22px);
             }
           }
+
           .formControl {
             font-size: 20px;
             color: #111111;
@@ -245,9 +278,11 @@
             background: #c3c3c31f;
             padding: 13px 30px 13px 17px;
             border: 1px solid #0000001f;
+
             &:invalid + label {
               transform: translateY(0);
             }
+
             &:focus {
               & + label {
                 transform: translateY(-30px);
@@ -257,18 +292,21 @@
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 45px;
               font-size: 15px;
               line-height: 1.3;
             }
           }
+
           img {
             top: 50%;
             right: 14px;
             position: absolute;
             transform: translateY(-50%);
           }
+
           .signin {
             font-size: 18px;
             color: #ffffff;
@@ -280,11 +318,13 @@
             border-radius: 5px;
             background: #3687e8;
             box-sizing: border-box;
+
             &:focus {
               box-shadow: none;
             }
           }
         }
+
         .password {
           label {
             top: 20px;
@@ -293,18 +333,21 @@
               top: 15px;
             }
           }
+
           .formControl {
             &:invalid + label {
               text-shadow: none;
             }
           }
         }
+
         .remember {
           label {
             font-size: 14px;
             color: #344054;
             line-height: 1;
           }
+
           .forgotPassword {
             font-size: 18px;
             color: #3687e8;
@@ -313,6 +356,7 @@
         }
       }
     }
+
     .footerLinks {
       right: 5%;
       bottom: 2rem;
@@ -320,9 +364,11 @@
       padding: 0;
       list-style: none;
       position: absolute;
+
       li {
         margin: 0 8px;
         display: inline-block;
+
         a {
           font-size: 14px;
           font-weight: bold;

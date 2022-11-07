@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ChangeCurrency } from '../../redux/userData/action';
-import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import { GetPanGst } from 'redux/GetPanGst/action';
 import { GetGst } from 'redux/registerBuyer/action';
 
@@ -25,7 +24,7 @@ const Index = ({
 }) => {
   const { gstList } = useSelector((state) => state.buyer);
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan);
-  console.log(gettingCompanyPanResponse, 'GETTING COMPANY PAN');
+
 
   const dispatch = useDispatch();
 
@@ -74,7 +73,7 @@ const Index = ({
             list="tickmarks"
             value={slider}
             onChange={(e) => {
-              console.log(Number(e.target.value), 'sadaasd');
+             
               saveCompanyData(e.target.name, Number(e.target.value));
               if (Number(e.target.value == 100)) {
                 setSliderType(1);
@@ -100,11 +99,7 @@ const Index = ({
             {/* <option value="200" label="200"></option> */}
             {/* <option value="1000" label="1000"></option> */}
           </datalist>
-          <div
-            className={`${styles.more_label} d-flex justify-content-end mr-n2`}
-          >
-            or more
-          </div>
+          <div className={`${styles.more_label} d-flex justify-content-end mr-n2`}>or more</div>
         </div>
       );
     }
@@ -124,7 +119,6 @@ const Index = ({
     if (compPan !== '') {
       const newInput = { ...companyDetails };
       newInput.companyPan = compPan;
-      console.log(newInput, 'new input');
       setCompanyDetails(newInput);
       // dispatch(GetGst(compPan))
     }
@@ -157,16 +151,10 @@ const Index = ({
       <div className={`${styles.main} border_color`}>
         <form id="CompanyDetailsForm">
           <div className="d-flex justify-content-between align-items-center">
-            <div className={`${styles.heading} heading_card_switch_blue`}>
-              Company Profile
-            </div>
+            <div className={`${styles.heading} heading_card_switch_blue`}>Company Profile</div>
             <div className="mr-n5 d-flex">
-              <div
-                className={`${styles.unit_container} d-flex align-items-center`}
-              >
-                <h5 className={`${styles.unit_label} accordion_Text`}>
-                  Quantity :
-                </h5>
+              <div className={`${styles.unit_container} d-flex align-items-center`}>
+                <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
                 <select
                   className={`${styles.options} card_main accordion_DropDown input`}
                   name="unitOfQuantity"
@@ -180,12 +168,8 @@ const Index = ({
                 </select>
               </div>
 
-              <div
-                className={`${styles.unit_container} d-flex align-items-center`}
-              >
-                <h5 className={`${styles.unit_label} accordion_Text`}>
-                  Unit :
-                </h5>
+              <div className={`${styles.unit_container} d-flex align-items-center`}>
+                <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
                 <select
                   className={`${styles.options} card_main accordion_DropDown input`}
                   name="unitOfValue"
@@ -218,9 +202,7 @@ const Index = ({
                   label="Import"
                   name="group1"
                   type={type}
-                  checked={
-                    orderDetails.transactionType == 'Import' ? 'checked' : ''
-                  }
+                  checked={orderDetails.transactionType == 'Import' ? 'checked' : ''}
                   id={`inline-${type}-1`}
                 />
                 <Form.Check
@@ -230,9 +212,7 @@ const Index = ({
                   name="group1"
                   onChange={() => saveOrderData('transactionType', 'Domestic')}
                   type={type}
-                  checked={
-                    orderDetails.transactionType == 'Domestic' ? 'checked' : ''
-                  }
+                  checked={orderDetails.transactionType == 'Domestic' ? 'checked' : ''}
                   id={`inline-${type}-2`}
                 />
               </div>
@@ -264,10 +244,7 @@ const Index = ({
                 className={`${styles.input_field} input form-control`}
                 required
               />
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="textInput"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Company PAN<strong className="text-danger">*</strong>
               </label>
             </div>
@@ -291,28 +268,18 @@ const Index = ({
                 <div className={styles.searchResults}>
                   <ul>
                     {gettingCompanyPanResponse
-                      ? gettingCompanyPanResponse?.companyRes?.map(
-                          (results, index) => (
-                            <li
-                              onClick={() => handleFilteredData(results)}
-                              id={results._id}
-                              key={index}
-                              value={results}
-                            >
-                              {results.name}{' '}
-                            </li>
-                          ),
-                        )
+                      ? gettingCompanyPanResponse?.companyRes?.map((results, index) => (
+                          <li onClick={() => handleFilteredData(results)} id={results._id} key={index} value={results}>
+                            {results.name}{' '}
+                          </li>
+                        ))
                       : ''}
                   </ul>
                 </div>
               )}
 
               {/* <Filter/> */}
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="textInput"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Company Name<strong className="text-danger">*</strong>
               </label>
             </div>
@@ -340,17 +307,10 @@ const Index = ({
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option> */}
                 </select>
-                <label
-                  className={`${styles.label_heading} label_heading`}
-                  id="drop"
-                >
+                <label className={`${styles.label_heading} label_heading`} id="drop">
                   GST<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -369,23 +329,14 @@ const Index = ({
                   {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
                 </select>
-                <label
-                  className={`${styles.label_heading} label_heading`}
-                  id="textInput"
-                >
+                <label className={`${styles.label_heading} label_heading`} id="textInput">
                   Type Of Business<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
 
-            <div
-              className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
-            >
+            <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
                 <select
                   name="callingCode"
@@ -422,10 +373,7 @@ const Index = ({
                   className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
-                <label
-                  className={`${styles.label_heading} label_heading`}
-                  id="textNumber"
-                >
+                <label className={`${styles.label_heading} label_heading`} id="textNumber">
                   Phone Number<strong className="text-danger">*</strong>
                 </label>
               </div>
@@ -453,35 +401,23 @@ const Index = ({
                 className={`${styles.input_field} input form-control`}
                 required
               />
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="textInput"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Email ID<strong className="text-danger">*</strong>
               </label>
             </div>
             <div className={`${styles.each_input} col-md-6 col-lg-4 col-sm-6`}>
-              <div
-                className={`${styles.turnover_input} d-flex align-items-center justify-content-start`}
-              >
-                <div
-                  className={`${styles.sub_heading} label_heading label-heading`}
-                >
+              <div className={`${styles.turnover_input} d-flex align-items-center justify-content-start`}>
+                <div className={`${styles.sub_heading} label_heading label-heading`}>
                   Turn Over (in Crores)
                   <strong className="text-danger">*</strong>
                 </div>
                 <input
                   className={`${styles.input_container} form-control input`}
                   type="text"
-                  onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                    evt.preventDefault()
-                  }
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   value={getvalue()}
                   onFocus={(e) => {
-                    e.target.type === 'number',
-                      setIsSliderOnFocus(true),
-                      setSliderWithCr('');
+                    e.target.type === 'number', setIsSliderOnFocus(true), setSliderWithCr('');
                   }}
                   onBlur={(e) => {
                     e.target.type === 'text', setIsSliderOnFocus(false);
@@ -489,7 +425,7 @@ const Index = ({
                   // max={100}
                   name="turnOver"
                   onChange={(e) => {
-                    console.log(e.target.value, 'e.target.value');
+                  
                     setSlider(Number(e.target.value));
                     saveCompanyData(e.target.name, Number(e.target.value));
                     getSlider();
@@ -504,10 +440,7 @@ const Index = ({
               </div>
               {getSlider()}
             </div>
-            <div
-              className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`}
-              style={{ marginTop: -1 }}
-            >
+            <div className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`} style={{ marginTop: -1 }}>
               <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
                 <div className={`${styles.sub_heading} label_heading`}>
                   Communication Mode<strong className="text-danger">*</strong>
@@ -518,10 +451,10 @@ const Index = ({
                       <Form.Check
                         className={`${styles.radio} radio`}
                         inline
-                        // defaultChecked={true}
+                        
                         label="Email ID"
                         onChange={(e) =>
-                          // saveCompanyData('communicationMode', 'Email')
+                        
                           handleCommunication(e)
                         }
                         name="Email"
@@ -534,7 +467,7 @@ const Index = ({
                         label="SMS"
                         name="SMS"
                         onChange={(e) =>
-                          // saveCompanyData('communicationMode', 'SMS')
+                        
                           handleCommunication(e)
                         }
                         type={type}
@@ -546,12 +479,12 @@ const Index = ({
                         inline
                         label="Whatsapp"
                         onChange={(e) => {
-                          console.log(e, 'this is e');
-                          // saveCompanyData('communicationMode', 'Whatsapp')
+                     
+                        
                           handleCommunication(e);
                         }}
                         name="Whatsapp"
-                        // type={type}
+                       
                         id={`inline-${type}-2`}
                       />
                     </div>
@@ -560,9 +493,7 @@ const Index = ({
               </div>
             </div>
 
-            <div
-              className={`${styles.each_input} ${styles.phone}  col-lg-4  col-md-6 col-sm-6`}
-            >
+            <div className={`${styles.each_input} ${styles.phone}  col-lg-4  col-md-6 col-sm-6`}>
               <div className={styles.phone_card}>
                 <select
                   name="callingCode"
@@ -584,20 +515,14 @@ const Index = ({
                       // saveCompanyData(e.target.name, e.target.value)
                       whatsappFunction(e);
                       //green tick
-                      console.log('is it validating?');
-                    } else {
-                      //red mark
-                      console.log('phone formaat invalid');
+                    
                     }
                   }}
                   id="textNumber"
                   className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
-                <label
-                  className={`${styles.label_heading} label_heading`}
-                  id="drop"
-                >
+                <label className={`${styles.label_heading} label_heading`} id="drop">
                   Whatsapp Number(Optional)
                 </label>
               </div>

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart, ArcElement, registerables } from 'chart.js';
-import _get from 'lodash/get';
+import { ArcElement, Chart } from 'chart.js';
 
 function Index({ customerSummary }) {
   Chart.register(ArcElement);
@@ -14,7 +13,7 @@ function Index({ customerSummary }) {
     { name: 'Tradex India Corporation', value: '45', color: '#2884DE' },
     { name: 'Metalco India', value: '34', color: '#FFCE00' },
   ];
-  console.log(customerSummary, 'sssssss');
+
   const [data, setData] = useState({
     labels: [],
     datasets: [
@@ -22,13 +21,7 @@ function Index({ customerSummary }) {
         label: '',
         data: [],
 
-        backgroundColor: [
-          '#9675CE',
-          '#4CAF50',
-          '#EA3F3F',
-          '#2884DE',
-          '#FFCE00',
-        ],
+        backgroundColor: ['#9675CE', '#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
       },
     ],
   });
@@ -38,7 +31,7 @@ function Index({ customerSummary }) {
 
     if (customerSummary?.length > 0) {
       customerSummary.forEach((val, index) => {
-        console.log(val.total, 'qqqqqqq');
+    
         tempData.push(val?.company[0]?.companyName);
         tempPoint.push(val.total);
       });
@@ -49,37 +42,15 @@ function Index({ customerSummary }) {
             label: '',
             data: tempPoint,
 
-            backgroundColor: [
-              '#9675CE',
-              '#4CAF50',
-              '#EA3F3F',
-              '#2884DE',
-              '#FFCE00',
-            ],
+            backgroundColor: ['#9675CE', '#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
           },
         ],
       });
     }
-    console.log(tempData, tempPoint, 'ssssss');
+   
   }, [customerSummary]);
-  console.log(data, 'datadatadata');
-  // const data = {
-  //   labels: [
-  //     'Sail',
-  //     'Jindal Grou',
-  //     'SR Steel',
-  //     'Tradex India Corporation',
-  //     'Metalco India',
-  //   ],
-  //   datasets: [
-  //     {
-  //       label: '',
-  //       data: [25, 24, 25, 25, 3],
 
-  //       backgroundColor: ["#9675CE",'#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
-  //     },
-  //   ],
-  // }
+
   const options = {
     elements: {
       arc: {
@@ -100,46 +71,10 @@ function Index({ customerSummary }) {
     responsive: false,
     cutout: 55,
   };
-  //   const options = {
-  //        elements: {
-  //       arc: {
-  //           borderWidth: 0
-  //       }
-  //   }
-  // ,
-  //     plugins: {
-  //       title: {
-  //         display: false,
-  //         text: 'Doughnut Chart',
-  //         color: 'blue',
-
-  //         font: {
-  //           size: 34,
-  //         },
-  //         padding: {
-  //           top: 30,
-  //           bottom: 30,
-  //         },
-
-  //         animation: {
-  //           animateScale: true,
-  //         },
-  //         legend: {
-  //         display: false
-  //       }
-  //       },
-
-  //     },
-  //      responsive: false,
-  //      cutout: 55
-
-  //   }
 
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header}  border_color  heading_card`}>
-        Top 5 Customers
-      </Card.Header>
+      <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
       <Card.Body className={`${styles.body} row no-gutters`}>
         <div className={`${styles.name} col-sm-7`}>
           {customerSummary?.length > 0 &&
@@ -147,14 +82,9 @@ function Index({ customerSummary }) {
               return (
                 <div key={index} className={styles.name_wrapper}>
                   <div>
-                    <div
-                      className={styles.round}
-                      style={{ backgroundColor: `${tempArr[index].color}` }}
-                    ></div>
+                    <div className={styles.round} style={{ backgroundColor: `${tempArr[index].color}` }}></div>
                   </div>
-                  <span className={` heading`}>
-                    {val?.company[0]?.companyName}
-                  </span>
+                  <span className={` heading`}>{val?.company[0]?.companyName}</span>
                 </div>
               );
             })}

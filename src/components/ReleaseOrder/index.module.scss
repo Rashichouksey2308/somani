@@ -71,6 +71,7 @@
         @include respond(lg-desktop) {
           min-height: 60px;
         }
+
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -136,6 +137,7 @@
 
     .dashboard_form {
       padding: 20px 35px 25px 40px;
+
       .form_heading {
         font-size: 22px;
         line-height: 27px;
@@ -153,10 +155,12 @@
           line-height: 15px;
         }
       }
+
       .table_scroll_outer {
         width: 100%;
         display: table;
         table-layout: fixed;
+
         .table_scroll_inner {
           display: table-cell;
           overflow-x: auto;
@@ -170,7 +174,7 @@
             font-weight: 500;
 
             span {
-              // color: #111111;
+            
               font-size: 20px;
               line-height: 23px;
               font-weight: 500;
@@ -184,7 +188,7 @@
           }
 
           .bill_landing {
-            //background: #FFFFFF;
+          
             border: 2px solid #cad6e6;
             border-radius: 9px;
 
@@ -319,14 +323,15 @@
           margin-top: 40px;
           position: relative;
           margin-bottom: 10px;
-            align-self: center;
+          align-self: center;
+
           .search_image {
             margin-left: -40px;
           }
 
           .toggle_label {
             letter-spacing: 0.19px;
-            //color: #111111;
+          
             font-size: 20px;
             line-height: 25px;
 
@@ -356,6 +361,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
             &::before {
               top: 51%;
               left: 0;
@@ -366,6 +372,7 @@
               position: absolute;
               transform: translateY(-50%);
             }
+
             @include respond(lg-desktop) {
               top: 14px;
               font-size: 14px;
@@ -373,9 +380,11 @@
               transform: translateY(-22px);
             }
           }
+
           .line {
             border: 3px solid #d9dde8;
           }
+
           .input_field {
             font-size: 20px;
             height: 60px;
@@ -388,10 +397,11 @@
             white-space: nowrap;
             letter-spacing: 0.19px;
             padding: 13px 30px 13px 17px;
-            // border: 1px solid #0000001f;
+           
             &:invalid + label {
               transform: translateY(0);
             }
+
             &:focus {
               & + label {
                 transform: translateY(-30px);
@@ -400,6 +410,7 @@
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 45px;
               font-size: 15px;
@@ -451,6 +462,7 @@
               height: 12px;
             }
           }
+
           @include respond(lg-desktop) {
             height: 50px;
             font-size: 14px;
@@ -522,13 +534,16 @@
   margin-bottom: 1rem;
   border-radius: 6px !important;
 }
+
 .upload_main {
   border-radius: 6px;
   margin-bottom: 26px;
+
   .head_container {
     cursor: pointer;
     padding: 25px 35px !important;
     height: 80px;
+
     .heading {
       font-size: 22px;
       font-weight: bold;
@@ -539,6 +554,7 @@
         font-size: $font_size_mobile_accordion;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -555,6 +571,7 @@
       }
     }
   }
+
   .dashboard_form {
     border-top: 2px solid #cad6e6;
 
@@ -562,17 +579,20 @@
     @include respond(phone) {
       padding: 25px 20px 20px;
     }
+
     .drop_container {
       background-color: #c3c3c31f;
       border: 1px dashed #00000045;
       border-radius: 4px;
       height: 284px;
       line-height: 1;
+
       .upload_image {
         width: 83px;
         height: 83px;
         line-height: 83px;
       }
+
       .drop_para {
         font-size: 19px;
         line-height: 24px;
@@ -586,6 +606,7 @@
         @include respond(phone) {
           font-size: 12px;
         }
+
         a {
           text-decoration: underline;
           font-size: 19px;
@@ -602,6 +623,7 @@
         }
       }
     }
+
     .upload_button {
       border: 3px solid #3687e8;
       border-radius: 5px;
@@ -625,10 +647,12 @@
         width: 100%;
       }
     }
+
     .form_group {
       position: relative;
       margin-bottom: 40px;
       margin-top: 20px;
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -648,6 +672,7 @@
           font-size: $font_size_mobile_input_label;
         }
       }
+
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -669,10 +694,12 @@
         }
       }
     }
+
     .uploadBtnWrapper {
       overflow: hidden;
       position: relative;
       display: inline-block;
+
       input {
         top: 0;
         left: 0;
@@ -682,20 +709,25 @@
         cursor: pointer;
         position: absolute;
       }
+
       @include respond(phone) {
         width: 100%;
       }
     }
   }
+
   .table_container {
     background-color: #fafafb;
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
           th {
             font-size: 15px;
@@ -709,6 +741,7 @@
             border-top: 2px solid #f2f5f9;
             border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
 
@@ -716,6 +749,7 @@
                 padding-left: 15px;
               }
             }
+
             img {
               &.sort_image {
                 width: 14px;
@@ -741,6 +775,7 @@
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -753,10 +788,12 @@
               font-size: 12px;
             }
           }
+
           tr {
             &:last-child {
               border-bottom: none;
             }
+
             td {
               font-size: 19px;
               font-weight: 500;
@@ -767,12 +804,14 @@
               border-bottom: 2px solid #f2f5f9;
               white-space: nowrap;
               white-space: nowrap;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
               }
+
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -782,6 +821,7 @@
                 font-size: 14px;
                 padding: 10px;
               }
+
               .actionContainer {
                 @include respond(phone) {
                   display: flex;
@@ -792,6 +832,7 @@
               }
             }
           }
+
           .module {
             background: #8492a6;
             font-size: 15px;
@@ -812,6 +853,7 @@
               font-size: 11px;
             }
           }
+
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -828,6 +870,7 @@
               font-size: 14px;
             }
           }
+
           .doc_row {
             font-size: 19px;
             line-height: 24px;
@@ -843,6 +886,7 @@
               font-size: 12px;
             }
           }
+
           .status {
             width: 15px;
             height: 15px;
@@ -859,9 +903,11 @@
               height: 10px;
             }
           }
+
           .approved {
             background: #26dd73;
           }
+
           .rejected {
             background: #ff9d00;
           }
@@ -869,11 +915,13 @@
       }
     }
   }
+
   .search_container {
-    //background: #F0F0F0;
+
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
+
     .dropDown {
       background: #ffffff;
       border: 1px solid #0000001f;
@@ -888,8 +936,10 @@
       height: 40px;
       box-shadow: none;
     }
+
     .searchBarContainer {
       position: relative;
+
       .searchBar {
         width: 337px;
         height: 40px;
@@ -899,6 +949,7 @@
         border-radius: 1.1rem;
         box-shadow: none;
       }
+
       .searchImage {
         position: absolute;
         margin-left: 30px;
@@ -906,15 +957,17 @@
     }
   }
 }
+
 .certificate {
   width: 100%;
   font-size: 20px;
   letter-spacing: 0.19px;
-  // color: #111111;
+
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
+
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -922,11 +975,13 @@
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
   }
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -950,16 +1005,19 @@
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
+
 .customSelect {
   appearance: none;
-  // position: relative;
+
 }
+
 .theme {
   margin-right: 40px;
 
@@ -1010,6 +1068,7 @@
     }
   }
 }
+
 .wrapper {
   border-radius: 6px;
 
@@ -1047,6 +1106,7 @@
       top: -0.2rem;
     }
   }
+
   .body {
     padding: 0rem !important;
 
@@ -1070,16 +1130,19 @@
             padding-left: 35px;
           }
         }
+
         td {
           border-bottom: 2px solid #f2f5f9 !important;
           vertical-align: revert;
           font-weight: 500;
           font-size: 19px;
           line-height: 24px;
+
           &:first-child {
             padding-left: 35px;
           }
         }
+
         &:first-child {
           td {
             border-bottom: none !important;
@@ -1087,6 +1150,7 @@
         }
       }
     }
+
     div {
       font-size: 20px;
       font-weight: 25px;
@@ -1108,6 +1172,7 @@
     }
   }
 }
+
 .switch {
   position: relative;
   display: inline-block;
@@ -1240,6 +1305,7 @@ input:checked + .slider:before {
     height: 25px;
   }
 }
+
 .add_image {
   width: 36px;
   height: 36px;
@@ -1251,6 +1317,7 @@ input:checked + .slider:before {
     height: 25px;
   }
 }
+
 .doc_field {
   background: #c3c3c31f;
   border-radius: 4px;
@@ -1260,8 +1327,9 @@ input:checked + .slider:before {
   color: #111111;
   border: none;
   padding: 5px 0px 5px 15px;
-  //width: 299px;
+ 
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
@@ -1301,15 +1369,16 @@ input:checked + .slider:before {
 
     @include respond(sm-desktop) {
       font-size: 14px;
-      //padding: 4px 25px;
+    
     }
 
     @include respond(phone) {
       font-size: 12px;
-      //padding: 0px 15px;
+    
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -1323,18 +1392,20 @@ input:checked + .slider:before {
     margin-left: -33px;
   }
 }
+
 .close_image {
   margin-left: -30px;
 
   @include respond(phone) {
   }
 }
+
 .certificate {
   width: 100%;
   max-width: 234px;
   font-size: 20px;
   letter-spacing: 0.19px;
-  // color: #111111;
+
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
@@ -1344,6 +1415,7 @@ input:checked + .slider:before {
     max-width: 160px;
     line-height: 1.3;
   }
+
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -1351,6 +1423,7 @@ input:checked + .slider:before {
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
@@ -1359,6 +1432,7 @@ input:checked + .slider:before {
     }
   }
 }
+
 .certificate2 {
   display: flex;
   justify-content: space-around;
@@ -1371,11 +1445,13 @@ input:checked + .slider:before {
   padding: 8px;
   margin: 7px 0;
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
   display: block;
   line-height: 60px;
+
   input {
     top: 0;
     left: 0;
@@ -1385,14 +1461,16 @@ input:checked + .slider:before {
     cursor: pointer;
     position: absolute;
   }
+
   @include respond(lg-desktop) {
     line-height: initial;
   }
 }
+
 .button_upload {
   min-width: 160px;
   width: 234px;
-  // width: 100%;
+
   height: 36px;
   border: 3px solid #3687e8;
   border-radius: 5px;
@@ -1404,7 +1482,7 @@ input:checked + .slider:before {
   line-height: 23px;
   text-transform: capitalize;
   @include respond(lg-desktop) {
-    // min-width: 160px;
+    
     font-size: 15px;
     line-height: 1.3;
     width: 90px;

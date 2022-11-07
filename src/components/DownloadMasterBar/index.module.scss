@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .root {
   left: 0;
   right: 0;
@@ -33,6 +34,92 @@
   @include respond(phone) {
     bottom: 55px;
     height: auto;
+  }
+  .sub_heading {
+    color: #00000080;
+    font-size: 16px;
+    line-height: 17px;
+    font-weight: 500;
+    padding: 10px 0 15px;
+    letter-spacing: 0.53px;
+    @include respond(phone) {
+      font-size: $font_size_mobile_input_label;
+    }
+  }
+  .radio_form {
+    //padding-top: 30px;
+    .radio_group {
+      display: flex;
+      @include respond(phone) {
+        justify-content: space-between;
+      }
+      .radio {
+        font-size: 20px;
+        color: #111111;
+        letter-spacing: 0.19px;
+        line-height: 25px;
+        padding-right: 38px;
+        font-weight: normal !important;
+        @include respond(lg-desktop) {
+          padding-right: 15px;
+        }
+        input {
+          width: 15px;
+          height: 15px;
+          margin-right: 12px;
+          transform: scale(1.3);
+          @include respond(lg-desktop) {
+            width: 13px;
+            height: 13px;
+          }
+          // @include respond(sm-desktop) {
+          //     font-size: 14px;
+          //     padding-right: 0px;
+          // }
+          // @include respond(phone) {
+          //     font-size: 12px;
+          // }
+        }
+        // @include respond(xl-desktop) {
+        //     padding-right: 0px;
+
+        // }
+        @include respond(lg-desktop) {
+          // padding-right: 0px;
+          font-size: $font_size_mobile_input_label;
+        }
+        @include respond(md-desktop) {
+          font-size: 19px;
+          padding-right: 0px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 19px;
+          padding-right: 0px;
+        }
+        @include respond(phone) {
+          font-size: 15px;
+          padding-right: 0px;
+        }
+        label {
+          white-space: nowrap;
+          @include respond(lg-desktop) {
+            padding-right: 0px;
+            font-size: $font_size_mobile_input_label;
+          }
+          @include respond(md-desktop) {
+            font-size: 14px;
+            padding-right: 0px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 14px;
+            padding-right: 0px;
+          }
+          @include respond(phone) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
   }
   .btn_file {
     width: 284px;

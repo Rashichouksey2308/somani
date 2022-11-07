@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Row, Col, Container, Card } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import LCAmendBar from '../LCAmendBar';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,7 @@ function Index() {
       },
     ]);
   };
-  // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -209,12 +209,7 @@ function Index() {
               >
                 <tr>
                   <td valign="top" align="left">
-                    <table
-                      width="100%"
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                       <tbody>
                         <tr>
                           <td
@@ -222,8 +217,7 @@ function Index() {
                             align="left"
                             style={{
                               borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -255,8 +249,7 @@ function Index() {
                             width="60%"
                             align="left"
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -278,8 +271,7 @@ function Index() {
                             align="left"
                             style={{
                               borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -310,8 +302,7 @@ function Index() {
                           <td
                             align="left"
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -333,8 +324,7 @@ function Index() {
                             align="left"
                             style={{
                               borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -365,8 +355,7 @@ function Index() {
                           <td
                             align="left"
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -379,9 +368,7 @@ function Index() {
                                 marginBottom: '0',
                               }}
                             >
-                              {moment(
-                                lcModuleData?.lcApplication?.dateOfExpiry,
-                              ).format('DD-MM-YYYY')}
+                              {moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
                             </p>
                           </td>
                         </tr>
@@ -390,8 +377,7 @@ function Index() {
                             align="left"
                             style={{
                               borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -422,8 +408,7 @@ function Index() {
                           <td
                             align="left"
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -508,9 +493,7 @@ function Index() {
 
   return (
     <>
-      <div
-        className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}
-      >
+      <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
@@ -522,14 +505,9 @@ function Index() {
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div>
-        <div
-          className={`${styles.term_container} previewCard border_color container-fluid`}
-        >
+        <div className={`${styles.term_container} previewCard border_color container-fluid`}>
           <Row className={`h-50`}>
-            <Col
-              sm={12}
-              className={`d-flex justify-content-center align-items-center`}
-            >
+            <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
               <h3>AMENDED LETTER OF CREDIT</h3>
             </Col>
           </Row>
@@ -545,16 +523,10 @@ function Index() {
             </div>
             <div className="text-right">
               <div className={styles.sub_heading}>
-                Documentary Credit Number:{' '}
-                <span>
-                  {lcModuleData?.lcApplication?.documentaryCreditNumber}
-                </span>
+                Documentary Credit Number: <span>{lcModuleData?.lcApplication?.documentaryCreditNumber}</span>
               </div>
               <div className={styles.sub_heading}>
-                Date:{' '}
-                <span>
-                  {moment(lcModuleData?.createdAt).format('DD.MM.yyy')}
-                </span>
+                Date: <span>{moment(lcModuleData?.createdAt).format('DD.MM.yyy')}</span>
               </div>
             </div>
           </div>
@@ -564,21 +536,13 @@ function Index() {
           <div className={`${styles.datatable} datatable`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} mb-0 table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
                   <tbody>
                     <tr className="table_row">
                       <td width="40%">
-                        40A &nbsp; &nbsp;{' '}
-                        <span>FORM OF DOCUMENTARY CREDIT</span>
+                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
                       </td>
-                      <td>
-                        {lcModuleData?.lcApplication?.formOfDocumentaryCredit}
-                      </td>
+                      <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
@@ -590,11 +554,7 @@ function Index() {
                       <td width="40%">
                         31D &nbsp; &nbsp; <span>DATE OF EXPIRY</span>
                       </td>
-                      <td>
-                        {moment(
-                          lcModuleData?.lcApplication?.dateOfExpiry,
-                        ).format('DD-MM-yyy')}
-                      </td>
+                      <td>{moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-yyy')}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
@@ -615,16 +575,9 @@ function Index() {
           </div>
         </Card>
       </div>
-      <LCAmendBar
-        download={exportPDF}
-        openbar={handlePopup}
-        barName="LC Amendment Draft"
-      />
+      <LCAmendBar download={exportPDF} openbar={handlePopup} barName="LC Amendment Draft" />
 
-      <Modal
-        show={show}
-        className={`${styles.share_lc} vessel_card card share_lc`}
-      >
+      <Modal show={show} className={`${styles.share_lc} vessel_card card share_lc`}>
         <Modal.Body className={`${styles.card_body} card-body`}>
           <form>
             <ul
@@ -668,43 +621,19 @@ function Index() {
               >
                 <h3>Share as</h3>
                 <div className="d-flex align-items-center justify-content-between">
-                  <div
-                    className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
-                  >
-                    <img
-                      src="/static/pdf-icon.png"
-                      width={`55px`}
-                      alt="PDF"
-                      className="img-fluid"
-                    />
+                  <div className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}>
+                    <img src="/static/pdf-icon.png" width={`55px`} alt="PDF" className="img-fluid" />
                     <label for="lc_document">
                       LC Document.pdf<span>128kb</span>
                     </label>
-                    <input
-                      type="checkbox"
-                      className="ml-auto"
-                      id="lc_document"
-                      value="LC Document"
-                    />
+                    <input type="checkbox" className="ml-auto" id="lc_document" value="LC Document" />
                   </div>
-                  <div
-                    className={`${styles.word_document} ${styles.box} d-flex align-items-center`}
-                  >
-                    <img
-                      src="/static/doc-icon.png"
-                      width={`55px`}
-                      alt="DOC"
-                      className="img-fluid"
-                    />
+                  <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
+                    <img src="/static/doc-icon.png" width={`55px`} alt="DOC" className="img-fluid" />
                     <label for="word_document">
                       word document.doc<span>128kb</span>
                     </label>
-                    <input
-                      type="checkbox"
-                      className="ml-auto"
-                      id="word_document"
-                      value="word document"
-                    />
+                    <input type="checkbox" className="ml-auto" id="word_document" value="word document" />
                   </div>
                 </div>
                 <ul
@@ -722,12 +651,7 @@ function Index() {
                       aria-controls="emailAddress"
                       aria-selected="true"
                     >
-                      <img
-                        src="/static/email-icon.png"
-                        width={`32px`}
-                        className="img-fluid"
-                        alt="Email Address"
-                      />
+                      <img src="/static/email-icon.png" width={`32px`} className="img-fluid" alt="Email Address" />
                       Email Address
                     </a>
                   </li>
@@ -741,20 +665,12 @@ function Index() {
                       aria-controls="whatsApp"
                       aria-selected="false"
                     >
-                      <img
-                        src="/static/icons8-whatsapp.svg"
-                        width={`27px`}
-                        className="img-fluid"
-                        alt="WhatsApp"
-                      />
+                      <img src="/static/icons8-whatsapp.svg" width={`27px`} className="img-fluid" alt="WhatsApp" />
                       WhatsApp
                     </a>
                   </li>
                 </ul>
-                <div
-                  className={`${styles.tab_content} tab-content`}
-                  id="shareVia"
-                >
+                <div className={`${styles.tab_content} tab-content`} id="shareVia">
                   <div
                     className="tab-pane fade show active"
                     id="emailAddress"
@@ -762,10 +678,7 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     {emailAdd.map((val, index) => (
-                      <div
-                        key={index}
-                        className={`${styles.each_input} form-group`}
-                      >
+                      <div key={index} className={`${styles.each_input} form-group`}>
                         <div className="d-flex">
                           <select
                             id="email"
@@ -773,9 +686,7 @@ function Index() {
                             className={`${styles.formControl} ${styles.customSelect} input form-control`}
                             selected
                           >
-                            <option value="javanika.seth@hdfcbank.com">
-                              javanika.seth@hdfcbank.com
-                            </option>
+                            <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
@@ -803,30 +714,16 @@ function Index() {
                       Add more rows
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button
-                        onClick={handleClose}
-                        type="button"
-                        className={`${styles.close} ${styles.btn} btn w-50`}
-                      >
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
                         Close
                       </button>
-                      <button
-                        type="button"
-                        className={`${styles.submit} ${styles.btn} btn w-50`}
-                      >
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
                         Share
                       </button>
                     </div>
                   </div>
-                  <div
-                    className="tab-pane fade"
-                    id="whatsApp"
-                    role="tabpanel"
-                    aria-labelledby="whatsapp"
-                  >
-                    <div
-                      className={`${styles.each_input} ${styles.phone} form-group`}
-                    >
+                  <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
+                    <div className={`${styles.each_input} ${styles.phone} form-group`}>
                       <div className={styles.phone_card}>
                         <select
                           name="callingCode"
@@ -846,10 +743,7 @@ function Index() {
                           className={`${styles.formControl} input form-control border-left-0`}
                           required
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                          id="textNumber"
-                        >
+                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
                           Phone Number
                           <strong className="text-danger">*</strong>
                         </label>
@@ -871,84 +765,39 @@ function Index() {
                       Add more rows
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button
-                        onClick={handleClose}
-                        type="button"
-                        className={`${styles.close} ${styles.btn} btn w-50`}
-                      >
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
                         Close
                       </button>
-                      <button
-                        onClick={handleClose}
-                        type="button"
-                        className={`${styles.submit} ${styles.btn} btn w-50`}
-                      >
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
                         Share
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                className="tab-pane fade"
-                id="downloadLCDraft"
-                role="tabpanel"
-                aria-labelledby="download-LC-draft"
-              >
+              <div className="tab-pane fade" id="downloadLCDraft" role="tabpanel" aria-labelledby="download-LC-draft">
                 <h3>Download as</h3>
                 <div className="d-flex align-items-center justify-content-between">
-                  <div
-                    className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
-                  >
-                    <img
-                      src="/static/pdf-icon.png"
-                      width={`55px`}
-                      alt="PDF"
-                      className="img-fluid"
-                    />
+                  <div className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}>
+                    <img src="/static/pdf-icon.png" width={`55px`} alt="PDF" className="img-fluid" />
                     <label for="lc_document">
                       LC Document.pdf<span>128kb</span>
                     </label>
-                    <input
-                      type="checkbox"
-                      className="ml-auto"
-                      id="lc_document"
-                      value="LC Document"
-                    />
+                    <input type="checkbox" className="ml-auto" id="lc_document" value="LC Document" />
                   </div>
-                  <div
-                    className={`${styles.word_document} ${styles.box} d-flex align-items-center`}
-                  >
-                    <img
-                      src="/static/doc-icon.png"
-                      width={`55px`}
-                      alt="DOC"
-                      className="img-fluid"
-                    />
+                  <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
+                    <img src="/static/doc-icon.png" width={`55px`} alt="DOC" className="img-fluid" />
                     <label for="word_document">
                       word document.doc<span>128kb</span>
                     </label>
-                    <input
-                      type="checkbox"
-                      className="ml-auto"
-                      id="word_document"
-                      value="word document"
-                    />
+                    <input type="checkbox" className="ml-auto" id="word_document" value="word document" />
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button
-                    onClick={handleClose}
-                    type="button"
-                    className={`${styles.close} ${styles.btn} btn w-50`}
-                  >
+                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
                     Close
                   </button>
-                  <button
-                    onClick={handleClose}
-                    type="button"
-                    className={`${styles.submit} ${styles.btn} btn w-50`}
-                  >
+                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
                     Download
                   </button>
                 </div>

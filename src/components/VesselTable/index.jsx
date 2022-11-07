@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { useRouter } from 'next/router';
-import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
+import Router, { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetOrders } from '../../redux/registerBuyer/action';
-import Filter from '../Filter';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import _get from 'lodash/get';
 
 function Index() {
   const { singleOrder } = useSelector((state) => state.buyer);
-;
+
   const [edit, setEdit] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id1 = sessionStorage.getItem('VesselCompany');
+    const id1 = sessionStorage.getItem('VesselCompany');
     dispatch(GetOrders(`?company=${id1}`));
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(setPageName('vessel'));
-    dispatch(
-      setDynamicName(
-        _get(singleOrder, 'data[0].company.companyName', 'Company Name'),
-      ),
-    );
+    dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', 'Company Name')));
     dispatch(setDynamicOrder(null));
   }, [singleOrder]);
 
@@ -47,9 +37,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>
-              {_get(singleOrder, 'data[0].company.companyName', 'Company Name')}
-            </h1>
+            <h1 className={styles.heading}>{_get(singleOrder, 'data[0].company.companyName', 'Company Name')}</h1>
           </div>
           {/* <div className={styles.search}>
             <div className="input-group">
@@ -82,54 +70,26 @@ function Index() {
         </div>
 
         <div className={`${styles.datatable} card datatable border-color`}>
-          <div
-            className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
-          >
+          <div className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}>
             <h3 className="heading_card">All Orders</h3>
-            <div
-              className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-            >
+            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>Showing Page 1 out of 10</span>
-              <a
-                href="#"
-                className={`${styles.arrow} ${styles.leftArrow} arrow`}
-              >
+              <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
                 {' '}
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
-              <a
-                href="#"
-                className={`${styles.arrow} ${styles.rightArrow} arrow`}
-              >
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
+              <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
             </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table
-                className={`${styles.table} table`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
+              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                 <thead>
                   <tr className="table_row">
                     <th>
-                      ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />{' '}
+                      ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />{' '}
                     </th>
                     <th>COMMODITY</th>
                     <th>SHIPMENT TYPE</th>
@@ -151,9 +111,7 @@ function Index() {
                     <td>Bulk</td>
                     <td>22-02-2022</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
+                      <span className={`${styles.status} ${styles.review}`} />
                       Pending
                     </td>
 
@@ -193,9 +151,7 @@ function Index() {
                     <td>Bulk</td>
                     <td>22-02-2022</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
+                      <span className={`${styles.status} ${styles.review}`} />
                       Pending
                     </td>
                   </tr>
@@ -212,9 +168,7 @@ function Index() {
                     <td>Liner</td>
                     <td>22-02-2022</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
+                      <span className={`${styles.status} ${styles.approved}`} />
                       Approved
                     </td>
                   </tr>
@@ -227,4 +181,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

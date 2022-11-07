@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import CompanyDetails from '../CompanyDetails';
 import OrderDetails from '../OrderDetails';
@@ -8,62 +8,37 @@ import Documents from '../Documents';
 import Terms from '../Terms';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action';
+import { CreateBuyer, GetGst } from 'redux/registerBuyer/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { handleCurrencyOrder } from 'utils/helper';
-import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
-import { debounce } from 'lodash';
-import { getPorts,getCountries,getCommodities,getDocuments } from '../../redux/masters/action';
+import { removePrefixOrSuffix } from '../../utils/helper';
+import { getCommodities, getCountries, getDocuments, getPorts } from '../../redux/masters/action';
+
 function Index() {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      // console.log('this')
+    if (localStorage.getItem('darkMode') == 'true' || localStorage.getItem('darkMode') == true) {
+
       setDarkMode(true);
     } else {
-      // console.log('this2')
+
       setDarkMode(false);
     }
   }, []);
-    useEffect(() => {
-    dispatch(getCountries())
+  useEffect(() => {
+    dispatch(getCountries());
     dispatch(getPorts());
-    dispatch(getCommodities())
-    dispatch(getDocuments())
+    dispatch(getCommodities());
+    dispatch(getDocuments());
   }, []);
   const { createdBuyerResponse } = useSelector((state) => state.buyer);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
-  console.log(getCountriesMasterData,"getCountriesMasterData")
-  // useEffect(() => {
-  //   if (createdBuyerResponse) {
-  //     Router.push('/order-list')
-  //     // sessionStorage.setItem('orderID1', createdBuyerResponse.orderRes._id)
-  //     // sessionStorage.setItem('company', createdBuyerResponse.orderRes.company)
-  //     // // console.log(' before go to get document')
-  //     // // sessionStorage.setItem('company', buyer.company._id)
-  //     // if (createdBuyerResponse.queue === 'CreditQueue') {
-  //     //   // dispatch(GetAllOrders({ orderId: buyer._id }))
-  //     //   //dispatch(GetDocuments({order: buyer._id}))
-  //     //   dispatch(GetCompanyDetails({ company: createdBuyerResponse.orderRes.company }))
-  //     //   Router.push('/review')
-  //     //   dispatch(PlaceNewOrderRouted())
 
-  //     // }
-  //     // if (createdBuyerResponse.queue === 'ReviewQueue') {
-  //     //   dispatch(GetBuyer({ companyId: createdBuyerResponse.orderRes.company, orderId: createdBuyerResponse.orderRes._id }))
-  //     //   Router.push('/review/id')
-  //     //   dispatch(PlaceNewOrderRouted())
-
-  //     // }
-  //   }
-  // }, [createdBuyerResponse])
+  
 
   const { gstList } = useSelector((state) => state.buyer);
 
@@ -156,7 +131,7 @@ function Index() {
     ExpectedDateOfShipment: null,
     incoTerm: '',
   });
-  // console.log(orderDetails, "orderDetailjdefhk")
+
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails };
@@ -173,10 +148,7 @@ function Index() {
 
   const handleCurrOrder = () => {
     const newInput = { ...orderDetails };
-    let curr = handleCurrencyOrder(
-      orderDetails.orderCurrency,
-      orderDetails.orderValue,
-    );
+    let curr = handleCurrencyOrder(orderDetails.orderCurrency, orderDetails.orderValue);
     newInput.orderValue = curr;
     setOrderDetails(newInput);
   };
@@ -211,10 +183,9 @@ function Index() {
   const chanegTermsCheck = () => {
     setTermsCheck(!termsCheck);
   };
-  // console.log(companyDetails.transactionType,"trans")
+
   const submitData = () => {
-    //  console.log("submit1")
-    // handleCurrOrder()
+   
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -269,13 +240,7 @@ function Index() {
       }
       return;
     }
-    // else if (isNaN(orderDetails.quantity)) {
-    //   let toastMessage = 'Please Fill A valid quantity'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+   
     else if (
       Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0 ||
       orderDetails.orderValue === null ||
@@ -288,13 +253,7 @@ function Index() {
       return;
     }
 
-    // else if (orderDetails.supplierName.trim() === '') {
-    //   let toastMessage = 'Please Fill A valid Supplier Name'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+   
     else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -320,14 +279,9 @@ function Index() {
       }
       return;
     }
-    //  else if (!documents.document1 && !documents.document1) {
-    //   let toastMessage = 'Please Check Document Upload'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
+   
     else {
-      //  console.log("submit3")
+ 
       let docTypeArr = [];
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument);
@@ -335,12 +289,8 @@ function Index() {
       let sendOrder = { ...orderDetails };
       let sendOrder1 = { ...companyDetails };
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity));
-      sendOrder.orderValue = Number(
-        removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
-      );
-      sendOrder1.turnOver = Number(
-        removePrefixOrSuffix(companyDetails.turnOver) * 10000000,
-      );
+      sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000);
+      sendOrder1.turnOver = Number(removePrefixOrSuffix(companyDetails.turnOver) * 10000000);
 
       const fd = new FormData();
       fd.append('companyProfile', JSON.stringify(sendOrder1));
@@ -348,37 +298,35 @@ function Index() {
       fd.append('documentType', JSON.stringify(docTypeArr));
 
       documents.forEach((val, index) => {
-        // console.log(val.attachDoc,"doc")
+      
         fd.append(`documents`, val.attachDoc);
       });
 
-      // fd.append('documents', documents.document2)
+    
       fd.append('gstList', JSON.stringify(gstListData));
-      // console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
+     
 
       dispatch(CreateBuyer(fd));
     }
   };
-  // console.log(companyDetails, 'this is payload2')
+
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset();
     document.getElementById('OrderDetailsForm').reset();
     document.getElementById('documents').reset();
     document.getElementById('companyInput').value = '';
 
-    // document.querySelector(companyInput).value = ''
+   
   };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      // console.log(companyDetails.companyName, "companyName")
+      
     }, 3000);
     return () => clearTimeout(delayDebounceFn);
   }, [companyDetails.companyName]);
 
-  const [documents, setDocuments] = useState([
-    { typeOfDocument: '', attachDoc: '' },
-  ]);
+  const [documents, setDocuments] = useState([{ typeOfDocument: '', attachDoc: '' }]);
 
   const onAddDoc = (index) => {
     setDocuments([
@@ -433,10 +381,7 @@ function Index() {
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>
         <div className={`${styles.head_header} align-items-center`}>
-          <div
-            onClick={() => Router.push('/leads')}
-            style={{ cursor: 'pointer' }}
-          >
+          <div onClick={() => Router.push('/leads')} style={{ cursor: 'pointer' }}>
             <img
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -446,10 +391,7 @@ function Index() {
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button
-            onClick={clearData}
-            className={`${styles.clear_btn} clear_btn`}
-          >
+          <button onClick={clearData} className={`${styles.clear_btn} clear_btn`}>
             Clear All
           </button>
         </div>
@@ -489,7 +431,6 @@ function Index() {
           removeDoc={removeDoc}
           addTypeOfDoc={addTypeOfDoc}
           documentApi={getDocumentsMasterData}
-         
         />
         <Terms
           chanegTermsCheck={chanegTermsCheck}
@@ -501,4 +442,5 @@ function Index() {
     </Card>
   );
 }
+
 export default Index;

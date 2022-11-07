@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ViewDocument } from 'redux/ViewDoc/action';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
 
 function AddressComponent({
   index,
@@ -19,16 +17,13 @@ function AddressComponent({
   editAddress,
   pinCode,
 }) {
-
   const dispatch = useDispatch();
 
   return (
     <div className={`${styles.address_card} value background1 border_color`}>
       <div className="d-flex justify-content-between w-100">
         <div className="w-100">
-          <div
-            className={`${styles.address_values} w-100 d-flex justify-content-between`}
-          >
+       
             {/* <div
               className={`d-flex justify-content-between align-items-center`}
             >
@@ -44,30 +39,29 @@ function AddressComponent({
 
               <h5 className={`mb-0`}>{Title}</h5>
             </div> */}
-            <div>
+            <div className='text-right'>
                 <img
                   className={`${styles.edit_image} ml-2 mr-3`}
                   src="/static/mode_edit.svg"
                   alt="edit"
                   onClick={() => {
-                    console.log('index', index);
+                  
                     editAddress(index);
                   }}
                 />
                 <img
                   onClick={() => {
-                    // console.log('index', index)
+                  
                     deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"
                   className={`${styles.delete_image}`}
                   alt="delete"
                 />
-              
-            </div>
+      
           </div>
           <div className={`${styles.address_values}`}>
-            <p className="pt-3">{address} {', '} {country} {', '} {pinCode}</p>
+            <p className="">{address} {', '} {country} {', '} {pinCode}</p>
             {/* <p className="pt-3">{}</p>
             <p className="pt-3">{pinCode}</p> */}
             <p className="pt-3">

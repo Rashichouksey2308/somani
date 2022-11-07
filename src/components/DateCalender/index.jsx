@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './index.module.scss';
@@ -21,7 +21,7 @@ const Index = ({
   ref,
   noDate,
 }) => {
-  console.log(reset, 'resetReview');
+
   const [startDate, setStartDate] = useState(null);
   const [lastDate, setlastDate] = useState(null);
   const [maxDate1, setMaxDate] = useState(null);
@@ -33,7 +33,7 @@ const Index = ({
       setlastDate(null);
     } else {
       if (startFrom) {
-        console.log('in start DAte');
+
         setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
       } else {
         setlastDate(new Date());
@@ -45,8 +45,7 @@ const Index = ({
       setMaxDate(moment(maxDate, 'DD-MM-YYYY').toDate());
     }
   }, [maxDate]);
-  console.log(startFrom, 'startFrom');
-  console.log(maxDate1, 'maxDate', labelName);
+ 
 
   useEffect(() => {
     if (reset) {
@@ -54,8 +53,8 @@ const Index = ({
     }
   }, [reset]);
 
-  console.log('sdasdasda', defaultDate);
-  // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
+
+  
   return (
     <>
       <div className="vessel_card w-100">
@@ -74,9 +73,7 @@ const Index = ({
             e.preventDefault();
           }}
           portalId="root-portal"
-          className={`${styles.input_field} input form-control ${
-            small ? styles.input_small : ''
-          }`}
+          className={`${styles.input_field} input form-control ${small ? styles.input_small : ''}`}
           onChange={(startDate) => {
             setStartDate(startDate);
             saveDate(startDate, name, index);
@@ -93,8 +90,7 @@ const Index = ({
           <label className={`${styles.label_heading} label_heading`}>
             {labelName}
 
-            { !isRequired ? <strong className="text-danger">*</strong>  : ''
-}
+            {!isRequired ? <strong className="text-danger">*</strong> : ''}
           </label>
         ) : null}
       </div>

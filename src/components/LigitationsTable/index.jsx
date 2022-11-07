@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import _get from 'lodash/get';
-import { useDispatch } from 'react-redux';
+import { Col, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+
 import { GetCaseDetails } from '../../redux/companyDetail/action';
+import _get from 'lodash/get';
+import styles from './index.module.scss';
+import { useDispatch } from 'react-redux';
 
 function index({ data, Heading, val, totalData }) {
   const dispatch = useDispatch();
@@ -26,11 +27,11 @@ function index({ data, Heading, val, totalData }) {
       setCount({ pending: pending, disposed: disposed });
     }
   }, [totalData]);
-  const casePreviewHandler =  (cinNo) => {
-   dispatch(GetCaseDetails({ cin: cinNo }));
+  const casePreviewHandler = (cinNo) => {
+    dispatch(GetCaseDetails({ cin: cinNo }));
   };
   const totalNumberOfCases = data?.length;
-  //const pendingCases = data.filter((e)=> e.)
+  
   return (
     <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
@@ -48,19 +49,13 @@ function index({ data, Heading, val, totalData }) {
             <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
                 <span className={``}>Pending Case</span>
-                <span className={`${styles.lower} sub_heading`}>
-                  {count?.pending}
-                </span>
+                <span className={`${styles.lower} sub_heading`}>{count?.pending}</span>
               </div>
             </Col>
             <Col md={2} sm={2}>
-              <div
-                className={`${styles.head}  mb-0 d-flex align-items-center `}
-              >
+              <div className={`${styles.head}  mb-0 d-flex align-items-center `}>
                 <span>Disposed case</span>
-                <span className={`${styles.lower} sub_heading`}>
-                  {count?.disposed}
-                </span>
+                <span className={`${styles.lower} sub_heading`}>{count?.disposed}</span>
               </div>
             </Col>
             <Col md={3} sm={2}>
@@ -71,14 +66,10 @@ function index({ data, Heading, val, totalData }) {
                     <div
                       className={styles.fill}
                       style={{
-                        width: `${(count?.pending / Number(totalData?.cases?.length)) *
-                          100
-                          }%`,
+                        width: `${(count?.pending / Number(totalData?.cases?.length)) * 100}%`,
                       }}
                     ></div>
-                    <span className={`sub_heading`}>
-                      {totalData?.cases?.length}
-                    </span>
+                    <span className={`sub_heading`}>{totalData?.cases?.length}</span>
                   </div>
                 </div>
               </div>
@@ -92,19 +83,9 @@ function index({ data, Heading, val, totalData }) {
             </Col>
           </Row>
         </div>
-        <div
-          id={`${val}`}
-          className="collapse"
-          aria-labelledby={`${val}`}
-          data-parent="#profileAccordion"
-        >
+        <div id={`${val}`} className="collapse" aria-labelledby={`${val}`} data-parent="#profileAccordion">
           <div className={` ${styles.cardBody_Tribunals} card-body`}>
-            <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
+            <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
               <thead>
                 <tr>
                   <th className="">S.NO</th>
@@ -126,12 +107,8 @@ function index({ data, Heading, val, totalData }) {
                       <td className="">{courtCase?.caseNumber}</td>
                       <td className="">{courtCase?.caseType}</td>
                       <td className="">{courtCase?.section}</td>
-                      <td className="">
-                        {_get(courtCase, 'petitioner[0]', '')}
-                      </td>
-                      <td className="">
-                        {_get(courtCase, 'respondent[0]', '')}
-                      </td>
+                      <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
+                      <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
                       <td className="text-center">
                         <img
                           src="./static/blue-eye.svg"

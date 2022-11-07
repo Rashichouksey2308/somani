@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import { loginUser } from 'redux/authentication/actions';
-
-import Cookies from 'js-cookie';
 
 function Index(props) {
   const dispatch = useDispatch();
@@ -16,7 +14,7 @@ function Index(props) {
     if (loggingoutUser) {
       props.login();
     } else {
-      //display error msg
+    
     }
   }, [loggingoutUser]);
   const [loginDetails, setLoginDetails] = useState({
@@ -36,11 +34,11 @@ function Index(props) {
   };
 
   const onSubmitHandler = async (e) => {
-    //e.preventDefault();
 
-    const encodedString = Buffer.from(
-      `${loginDetails.email.trim()}:${loginDetails.password.trim()}`,
-    ).toString('base64');
+
+    const encodedString = Buffer.from(`${loginDetails.email.trim()}:${loginDetails.password.trim()}`).toString(
+      'base64',
+    );
     await dispatch(
       loginUser({
         credentials: encodedString,
@@ -67,17 +65,9 @@ function Index(props) {
       <div className={`${styles.login}`}>
         <div className="row no-gutters">
           <div className={`${styles.loginBanner} col-sm-4 col-md-5`}>
-            <img
-              src="/static/login.png"
-              alt="Login Banner"
-              className="img-fluid"
-            />
+            <img src="/static/login.png" alt="Login Banner" className="img-fluid" />
             <div className={styles.pattern}>
-              <img
-                src="/static/login-pattern.png"
-                alt="banner pattern"
-                className="img-fluid"
-              />
+              <img src="/static/login-pattern.png" alt="banner pattern" className="img-fluid" />
             </div>
             <div className={styles.caption}>{``}</div>
           </div>
@@ -86,22 +76,12 @@ function Index(props) {
           <div
             className={`${styles.loginForm} card d-flex col-sm-8 col-md-7 align-items-center justify-content-around`}
           >
-            <img
-              src="/static/login-form-bg.png"
-              alt="login form bg"
-              className="img-fluid"
-            />
+            <img src="/static/login-form-bg.png" alt="login form bg" className="img-fluid" />
             <form className={styles.form}>
               <div className={styles.logo}>
-                <img
-                  src="/static/login-logo.svg"
-                  alt="login logo"
-                  className="img-fluid"
-                />
+                <img src="/static/login-logo.svg" alt="login logo" className="img-fluid" />
               </div>
-              <h1 className={`${styles.title} heading_card`}>
-                Welcome To Your Account
-              </h1>
+              <h1 className={`${styles.title} heading_card`}>Welcome To Your Account</h1>
               <p className={`para`}>To continue, log in to Simport</p>
               <div className={`${styles.labelFloat} form-group`}>
                 <input
@@ -116,9 +96,7 @@ function Index(props) {
                   Email
                 </label>
               </div>
-              <div
-                className={`${styles.labelFloat} ${styles.password} form-group`}
-              >
+              <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                 <div className="input-group align-items-center" id="password">
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -142,12 +120,7 @@ function Index(props) {
               </div>
               <div className={`${styles.remember} form-group`}>
                 <div className="input-group align-items-center">
-                  <input
-                    type="checkbox"
-                    id="remember"
-                    name="remember"
-                    value="Remember for 30 days"
-                  />
+                  <input type="checkbox" id="remember" name="remember" value="Remember for 30 days" />
                   <label htmlFor="remember" className="mb-0 para">
                     Remember for 30 days
                   </label>
@@ -176,9 +149,7 @@ function Index(props) {
                         <li  ><a  className={`para`} href='#'>Privacy</a></li>
                         <li  ><a  className={`para`} href='#'>Terms</a></li>
                     </ul> */}
-            <div className={styles.footer}>
-              &copy; 2022 Simport. All Rights Reserved.
-            </div>
+            <div className={styles.footer}>&copy; 2022 Simport. All Rights Reserved.</div>
           </div>
         </div>
       </div>
