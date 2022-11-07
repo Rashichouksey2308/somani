@@ -114,13 +114,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const onSaveDischarge = () => {
-    console.log(1,"a")
+    console.log(1, 'a');
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-       console.log(1,"a")
+      console.log(1, 'a');
       return;
     }
 
@@ -129,7 +129,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-       console.log(2,"a")
+      console.log(2, 'a');
       return;
     }
 
@@ -142,78 +142,71 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        console.log(3,"a")
+        console.log(3, 'a');
         return;
       }
-    } 
-     if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
+    }
+    if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      console.log(3,"a")
+      console.log(3, 'a');
       return;
-    } 
+    }
     if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (
-      dischargeOfCargo.dischargeOfCargo.dischargeStartDate <
-      dischargeOfCargo.dischargeOfCargo.vesselArrivaldate
-    ) {
+    }
+    if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate < dischargeOfCargo.dischargeOfCargo.vesselArrivaldate) {
       let toastMessage = 'discharge Start Date Cannot Be Before Vessel Arrival Date';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (
-      dischargeOfCargo.dischargeOfCargo.dischargeEndDate <
-      dischargeOfCargo.dischargeOfCargo.dischargeStartDate
-    ) {
+    }
+    if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate < dischargeOfCargo.dischargeOfCargo.dischargeStartDate) {
       let toastMessage = 'discharge End Date Cannot Be Before Discharge Start Date ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
+    }
+    if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-     if (dischargeOfCargo.document1 === null) {
+    }
+    if (dischargeOfCargo.document1 === null) {
       let toastMessage = 'Statement Of Facts must be uploaded';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
+    }
     if (dischargeOfCargo.document2 === null) {
       let toastMessage = 'Draft Survey Report must be uploaded ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
-    } 
-      let fd = new FormData();
-      fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
-      fd.append('customClearanceId', customData._id);
-      fd.append('document1', dischargeOfCargo.document1);
-      fd.append('document2', dischargeOfCargo.document2);
+    }
+    let fd = new FormData();
+    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
+    fd.append('customClearanceId', customData._id);
+    fd.append('document1', dischargeOfCargo.document1);
+    fd.append('document2', dischargeOfCargo.document2);
 
-      let task = 'submit';
-      dispatch(UpdateCustomClearance({ fd, task }));
-      let id = sessionStorage.getItem('customId');
-      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
-      setComponentId(componentId + 1);
-    
+    let task = 'submit';
+    dispatch(UpdateCustomClearance({ fd, task }));
+    let id = sessionStorage.getItem('customId');
+    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
+    setComponentId(componentId + 1);
   };
 
   const handleSave = () => {
@@ -639,17 +632,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         {bl?.blQuantity ? Number(bl.containerDetails.numberOfContainers)?.toLocaleString('en-In') : ''}{' '}
                         {/* {customData?.order?.unitOfQuantity} */}
                       </td>
-                    
-                      )}
-                      <td>
-                        {bl?.blQuantity
-                          ? Number(bl?.blQuantity)?.toLocaleString('en-In')
-                          : ''}{' '}
-                        {customData?.order?.unitOfQuantity}
-                      </td>
-                    </tr>
-                  ),
-                )}
+                    )}
+                    <td>
+                      {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
+                      {customData?.order?.unitOfQuantity}
+                    </td>
+                  </tr>
+                ))}
               </table>
             </div>
           </div>

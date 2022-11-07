@@ -160,7 +160,6 @@ function index() {
       toPrint = QuadripartiteAgreementPreview(data);
       name = 'QPA.pdf';
     }
-
     if (preview == 'TPASELLER') {
       toPrint = TPASellerPreview(data);
       name = 'TPA(Seller).pdf';

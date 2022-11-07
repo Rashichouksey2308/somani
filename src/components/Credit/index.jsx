@@ -34,7 +34,6 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
- 
   const dispatch = useDispatch();
 
   const [saveTable, setSaveTable] = useState(false);
@@ -99,7 +98,7 @@ const index = ({
     newInput.GSTIN_document.date = gstDocument.date;
     setKeyAddressData(newInput);
   }, [gstDocument]);
- 
+
   const removeDoc = () => {
     const newInput = { ...keyAddressData };
     newInput.GSTIN_document.name = undefined;
@@ -124,12 +123,8 @@ const index = ({
     ]);
   };
 
-
-
   const handleDebtChange = (name, value, index) => {
     let tempArr = [...debtData];
-
- 
 
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -140,10 +135,9 @@ const index = ({
         }
       }
     });
- 
+
     setDebtData([...tempArr]);
   };
- 
 
   const onDebtSave = () => {
     addDebtArr(debt);
@@ -165,9 +159,7 @@ const index = ({
 
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const unique = [
-      ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
-    ];
+    const unique = [...new Set(filtered.map((item) => item.nameOfChargeHolder))];
 
     return unique;
   };
@@ -183,7 +175,6 @@ const index = ({
     name: '',
   });
 
-
   useEffect(() => {
     setKeyPersonData(personData);
   }, [personData]);
@@ -194,11 +185,10 @@ const index = ({
     const newInput = [...keyPersonData];
 
     if (e.target.value == 'addnew') {
-     
       newInput[key].addnew = true;
       newInput[key].name = '';
       newInput[key].email = '';
-     
+
       setKeyPersonData([...newInput]);
       return;
     }
@@ -209,9 +199,8 @@ const index = ({
     }
     setKeyPersonData([...newInput]);
   };
- 
+
   const onKeyPersonSave = () => {
-    
     addPersonArr(keyPersonData);
     //console.log(keyPersonData, 'This is person data')
   };
@@ -243,12 +232,7 @@ const index = ({
   };
 
   const addressValidtion = (data) => {
-  
-    if (
-      data.addressType === null ||
-      data.addressType === '' ||
-      data.addressType === undefined
-    ) {
+    if (data.addressType === null || data.addressType === '' || data.addressType === undefined) {
       let toastMessage = 'Please Select addresss Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -313,7 +297,7 @@ const index = ({
 
       return false;
     }
-  
+
     if (data.contact.number.length < 10 || data.contact.number.length > 10) {
       let toastMessage = 'Please add valid number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -397,7 +381,7 @@ const index = ({
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-  
+
     let tempArr = keyAddData;
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -426,7 +410,6 @@ const index = ({
   const [infoCircle, setInfoCircle] = useState(false);
   const handleInfo = (e) => {
     setInfoCircle(!infoCircle);
- 
   };
   const [emails, setemails] = useState([]);
   useEffect(() => {
@@ -443,7 +426,6 @@ const index = ({
     }
   }, [creditDetail?.existingSuppliers]);
 
- 
   const removeEmailParent = (index) => {
     let temp = [...emails];
     temp.splice(index, 1);
@@ -452,35 +434,33 @@ const index = ({
   const removeExSupplierParent = (index) => {
     let temp = [...exSupplier];
     temp.splice(index, 1);
-    
+
     setexSupplier([...temp]);
   };
 
-  const {searchedSupplier} = useSelector((state)=>state.supplier)
- 
+  const { searchedSupplier } = useSelector((state) => state.supplier);
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [removeInput, setRemoveInput] = useState(false) 
-  
+  const [removeInput, setRemoveInput] = useState(false);
+
   const handleSearch = (e) => {
-    setRemoveInput(false)
+    setRemoveInput(false);
     const query = e;
     // const query = `${e.target.value}`;
     setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchSupplier( query ));
+      dispatch(SearchSupplier(query));
     }
   };
 
   const handleFilteredData = (results) => {
-   
-      let temp = [...exSupplier];
-      temp.push({name: results?.supplierProfile?.supplierName, status: results?.status });
-      // temp.push(results?.supplierProfile?.supplierName);
-      setexSupplier([...temp]);
-      setSearchTerm('')
-    
+    let temp = [...exSupplier];
+    temp.push({ name: results?.supplierProfile?.supplierName, status: results?.status });
+    // temp.push(results?.supplierProfile?.supplierName);
+    setexSupplier([...temp]);
+    setSearchTerm('');
   };
- 
+
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -763,7 +743,6 @@ const index = ({
                     alt="Search"
                   />
                 </div>
-                
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -805,7 +784,7 @@ const index = ({
                     searchedSupplier={searchedSupplier}
                     onChange={(_emails) => {
                       // handleSearch(_emails)
-                  
+
                       let temp = [...exSupplier];
                       temp.push(_emails[0]);
                       setexSupplier([...temp]);
@@ -896,7 +875,6 @@ const index = ({
                       ? creditDetail?.AvgMonthlyElectricityBill
                       : 'INR ' + checkNan(Number(creditDetail?.AvgMonthlyElectricityBill))?.toLocaleString()
                   }
-                 
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -913,7 +891,6 @@ const index = ({
                     placeholder="Existing CHA(s)"
                     emails={emails}
                     onChange={(_emails) => {
-                     
                       let temp = [...emails];
                       temp.push(_emails[0]);
                       setemails([...temp]);
@@ -935,7 +912,6 @@ const index = ({
                       );
                     }}
                   ></MultiSelect>
-                  
                 </div>
               </div>
             </div>
@@ -981,11 +957,10 @@ const index = ({
                       saveSupplierData(e.target.name, e.target.value);
                     }}
                   ></input>
-                
+
                   <label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
-                 
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1096,7 +1071,6 @@ const index = ({
                     alt="Search"
                   />
                 </div>
-               
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -1285,7 +1259,6 @@ const index = ({
                                     </>
                                   ) : (
                                     <>
-                                      
                                       <select
                                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                         name="name"
@@ -2104,7 +2077,6 @@ const index = ({
                               </>
                             ))}
                           </select>
-                         
                         </td>
                         <td>
                           <select

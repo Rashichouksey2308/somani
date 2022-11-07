@@ -49,7 +49,7 @@ function Index() {
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
-                >
+              >
                 <tr>
                   <td valign="top" align="left">
                     <table width="100%" cellPadding="0" cellSpacing="0" border="0">
@@ -132,15 +132,9 @@ function Index() {
                             >
                               To:
                             </span>
-                          {_get(transitDetails, 'data[0].order.generic.seller.name')}
-                           {_get(
-                          transitDetails,
-                          'data[0].order.generic.seller.addresses[0].fullAddress',
-                        )}
-                         {_get(
-                          transitDetails,
-                          'data[0].order.generic.seller.addresses[0].city',
-                        )}
+                            {_get(transitDetails, 'data[0].order.generic.seller.name')}
+                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
+                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')}
                             <br />
                             {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')}
                             <br />
@@ -164,7 +158,8 @@ function Index() {
                           </td>
                         </tr>
                         <tr>
-                          <td valign='top'
+                          <td
+                            valign="top"
                             colSpan={2}
                             align="left"
                             style={{
@@ -179,11 +174,7 @@ function Index() {
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>Ship: </span>
-                           {_get(
-                          transitDetails,
-                          'data[0].BL.billOfLanding[0].vesselName',
-                          '',
-                          ).toUpperCase()}
+                            {_get(transitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>Voyage: </span>
@@ -201,35 +192,26 @@ function Index() {
                             <br />
                             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
-                                <td align='left' width="13%">
+                                <td align="left" width="13%">
                                   <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading:</span>
                                 </td>
-                                <td align='left' width="87%">
+                                <td align="left" width="87%">
                                   <div>
-                                    {_get(
-                                      transitDetails,
-                                      'data[0].LOI.billOfLanding',
-                                      [],
-                                    ).map((val, index) => {
+                                    {_get(transitDetails, 'data[0].LOI.billOfLanding', []).map((val, index) => {
                                       return (
                                         <>
-                                        <span>
-                                          {' '}
-                                          {val.blnumber} Dated {val.date},{' '}
-                                          {_get(
-                                            transitDetails,
-                                            'data[0].order.portOfDischarge',
-                                            '',
-                                          ).toUpperCase()}{' '}
-                                        </span>
-                                        
+                                          <span>
+                                            {' '}
+                                            {val.blnumber} Dated {val.date},{' '}
+                                            {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
+                                          </span>
                                         </>
                                       );
                                     })}
                                   </div>
                                 </td>
                               </tr>
-                            </table>                            
+                            </table>
                           </td>
                         </tr>
                         <tr>
@@ -412,11 +394,12 @@ function Index() {
                   </td>
                 </tr>
               </table>
-              <br/><br/>
+              <br />
+              <br />
             </td>
           </tr>
           <tr>
-            <td valign='top'>
+            <td valign="top">
               <table
                 width="100%"
                 bgColor="#FFFFFF"
@@ -430,15 +413,10 @@ function Index() {
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
-                >
+              >
                 <tr>
                   <td valign="top" align="left">
-                    <table
-                      width="100%"
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                       <tbody>
                         <tr>
                           <table width="100%" cellPadding="0" cellSpacing="0" border="0">
@@ -582,12 +560,7 @@ function Index() {
                             <br />
                             <br />
                             <br />
-                            <table
-                              width="100%"
-                              cellPadding="0"
-                              cellSpacing="0"
-                              border="0"
-                            >
+                            <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
                                 <td
                                   align="center"

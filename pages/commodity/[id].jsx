@@ -2,20 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styles from './commodity.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddCommodity from '../../src/components/AddCommodity'
+import AddCommodity from '../../src/components/AddCommodity';
 
 function Index() {
   return (
     <Card className={`${styles.card} container-fluid`}>
       <div className="m-2">
-        <Card.Header
-          className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}
-        >
+        <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div
-              onClick={() => Router.push('/masters/users')}
-              style={{ cursor: 'pointer' }}
-            >
+            <div onClick={() => Router.push('/masters/users')} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
@@ -33,8 +28,8 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-     <AddCommodity/>
-     </div>
+        <AddCommodity />
+      </div>
     </Card>
   );
 }
