@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
+import * as types from './actionType'
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 
 function getCommodity() {

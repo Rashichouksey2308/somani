@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,11 +6,30 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Image from 'next/image';
 import Router from 'next/router';
+import {GetAllCommodity} from '../../src/redux/commodity/action' 
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 const index = () => {
+
   const dispatch = useDispatch();
+
   const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
   const { searchedLeads } = useSelector((state) => state.order);
+  
+  const {allCommodity} = useSelector((state)=> state.commodity)
+  console.log(allCommodity, 'ALL COMMODITY')
+
+  useEffect(() => {
+    dispatch(GetAllCommodity(`?page=${currentPage}&limit=${10}`));
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    dispatch(setPageName('commodity'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  });
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -19,10 +38,11 @@ const index = () => {
       dispatch(SearchLeads(query));
     }
   };
+
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+    dispatch(GetAllCommodity(`?company=${id}`));
   };
 
   return (
@@ -90,11 +110,32 @@ const index = () => {
                 </div>
 
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                  <span>Showing Page 1 out of 10</span>
-                  <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
+                <span>
+                    Showing Page {currentPage + 1} out of {Math.ceil(allCommodity?.totalCount / 7)}
+                  </span>
+                  <a
+                    onClick={() => {
+                      if (currentPage === 0) {
+                        return;
+                      } else {
+                        setCurrentPage((prevState) => prevState - 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                  >
+                    {' '}
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
-                  <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+                  <a
+                    onClick={() => {
+                      if (currentPage + 1 < Math.ceil(allCommodity?.totalCount / 7)) {
+                        setCurrentPage((prevState) => prevState + 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                  >
                     <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
@@ -150,7 +191,23 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className={`${styles.table_row} table_row17`}>
+                    {allCommodity && allCommodity?.data?.map((commodity, index) => <tr key={index} className={`${styles.table_row} table_row17`}>
+                      <td className={styles.buyerName}>{commodity.Commodity}</td>
+                      <td>{commodity.Chapter_Name}</td>
+
+                      <td>{commodity.Chapter_Code}</td>
+                      <td>
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
+                        <span className="m-3">{commodity?.Approved_Commodity}</span>
+                      </td>
+                      <td>
+                        {' '}
+                        <div className={`${styles.edit_image} img-fluid`}>
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
+                        </div>
+                      </td>
+                    </tr>)}
+                    {/* <tr className={`${styles.table_row} table_row17`}>
                       <td className={styles.buyerName}>Ferro-Alloys</td>
                       <td>Iron & Steel</td>
 
@@ -178,23 +235,7 @@ const index = () => {
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
+                          <Image height="40px" width="40px" src="/static/mode_edi.t.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -245,14 +286,14 @@ const index = () => {
                           <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <div className={`${styles.total_count}`}>
-            Total Count: <span>280</span>
+            Total Count: <span>{allCommodity?.totalCount}</span>
           </div>
         </div>
         {/* <div className="d-flex justify-content-end mt-5 mb-4">
