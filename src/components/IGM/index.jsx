@@ -39,7 +39,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const [shipmentType, setShipmentType] = useState(true);
 
-  const [startBlDate, setBlDate] = useState(null);
+  const [startblDate, setblDate] = useState(null);
 
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -78,7 +78,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
-    BlDate: new Date(),
+    blDate: new Date(),
     quantity: '',
   });
 
@@ -122,7 +122,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       blNumber: [
         {
           blNumber: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blNumber ?? '',
-          BlDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate ?? '').format('DD-MM-YYYY'),
+          blDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate ?? '').format('DD-MM-YYYY'),
           quantity: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blQuantity ?? '',
           noOfContainers: 0,
         },
@@ -190,7 +190,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
     newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
-      BlDate: new Date(),
+      blDate: new Date(),
       quantity: '',
     });
     setIgmList(newIgmList);
@@ -275,8 +275,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           blNumber: [
             {
               blNumber: _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, ''),
-              BlDate: moment(_get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`, '')).format('DD-MM-YYYY'),
-              quantity: _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`, ''),
+              blDate: moment(_get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`, '')).format('DD-MM-YYYY'),
+              blQuantity: _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`, ''),
               noOfContainers: 0,
             },
           ],
@@ -297,13 +297,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         return item.blNumber === value;
       });
 
-    
+
       let tempArray = { ...igmList };
+
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity;
       tempArray.igmDetails[index].blNumber[index2].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
-      setIgmList(tempArray);
+      setIgmList({...tempArray});
     }
   };
 
@@ -673,6 +674,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   </div>
                   <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
+                 
                     {item?.blNumber?.length> 0 && item.blNumber.map((blEntry, index2) => {
                       return (
                         <>
@@ -716,8 +718,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   BL Date <strong className="text-danger ml-n1">*</strong>
                                 </div>
                                 <span className={styles.value}>
-                                  {blEntry?.BlDate
-                                    ? moment(blEntry?.BlDate,"DD-MM-YYYY").format(
+                                  {blEntry?.blDate
+                                    ? moment(blEntry?.blDate,"DD-MM-YYYY").format(
                                       'DD-MM-YYYY',
                                     )
                                     : ''}
@@ -728,7 +730,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   BL Quantity <strong className="text-danger ml-n1">*</strong>
                                 </div>
                                 <span className={styles.value}>
-                                  <span className="mr-2">{blEntry?.quantity} </span>
+                                
+                                  <span className="mr-2">{ blEntry.blQuantity} </span>
                                   {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                 </span>
                               </div>
@@ -767,8 +770,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       BL Date <strong className="text-danger ml-n1">*</strong>
                                     </div>
                                     <span className={styles.value}>
-                                      {blEntry?.BlDate
-                                        ? moment(blEntry?.BlDate ,"DD-MM-YYYY").format(
+                                      {blEntry?.blDate
+                                        ? moment(blEntry?.blDate ,"DD-MM-YYYY").format(
                                           'DD-MM-YYYY',
                                         )
                                         : ''}
@@ -792,7 +795,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      <span className="mr-2">{blEntry?.quantity}</span>
+                                      
+                                      <span className="mr-2">{blEntry?.blQuantity}</span>
                                       {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                     </span>
                                   </div>

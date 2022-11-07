@@ -138,7 +138,7 @@ export const removePrefixOrSuffix = (unitOfValue) => {
  * @param [number=2] - The number of decimal places to round to.
  */
 export const checkNan = (unitOfValue, type = false, number = 2) => {
-  if (isNaN(unitOfValue)) return '';
+  if (Number.isNaN(unitOfValue)) return '';
   if (type === 'no') return Number(unitOfValue)?.toFixed(2);
   if (!type) {
     return Number(unitOfValue)?.toLocaleString('en-IN', {
