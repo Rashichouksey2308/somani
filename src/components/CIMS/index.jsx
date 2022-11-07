@@ -44,7 +44,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           circNumber: '',
           circDate: '',
           cimsCharges: '',
-          paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
+          paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
         },
@@ -124,7 +124,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         circNumber: '',
         circDate: '',
         cimsCharges: '',
-        paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
+        paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
         document1: null,
         document2: null,
       },
@@ -403,11 +403,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option checked>Select an option</option>
-                        <option value={'Indo German International Private Limited (IGPL)'}>
-                          Indo German International Private Limited (IGPL)
+                        <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
+                          INDO GERMAN INTERNATIONAL PRIVATE LIMITED 
                         </option>
-                        <option value={'Emergent Industrial Solutions Limited (EISL)'}>
-                          Emergent Industrial Solutions Limited (EISL)
+                        <option value={'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'}>
+                          EMERGENT INDUSTRIAL SOLUTIONS LIMITED 
                         </option>
 
                         <option value="Buyer">Buyer</option>
