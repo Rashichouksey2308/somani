@@ -9,8 +9,8 @@ import { UploadDocument } from '../UploadDocument';
 import Router from 'next/router';
 import Image from 'next/image';
 
-function Index() {
- 
+function Index({isUpdate}) {
+
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -112,6 +112,7 @@ function Index() {
             </div>
           </div>
         </div>
+        { !isUpdate ? 
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
        
@@ -122,7 +123,13 @@ function Index() {
          
           </div>
         </div>
-
+        :
+        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+          <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
+            <button className={`${styles.approve} ml-3`}>Update</button>
+          </div>
+        </div>
+}
         <div className='d-flex justify-content-end mb-5'
         style={{marginTop:'35px'}}>
           <div className={`${styles.footer_heading} mr-5`}>Created By <span>Balakrishna SGF001</span></div>
