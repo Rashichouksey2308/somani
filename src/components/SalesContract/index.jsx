@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styles from './index.module.scss';
+import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import GrowInput from '../GrowInput';
+import styles from './index.module.scss';
 
 function Index() {
   const [active, setActive] = useState('Seller');

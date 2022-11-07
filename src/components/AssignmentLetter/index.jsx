@@ -1,4 +1,4 @@
-import AssignmentSupplier from '@/templates/AssignmentSupplier';
+import AssignmentSupplier from '@/templates/AssignmentLetter';
 import _get from 'lodash/get';
 import moment from 'moment';
 import Router from 'next/router';

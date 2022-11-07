@@ -1,7 +1,7 @@
 import styles from '@/components/AssignmentLetter/index.module.scss';
 import { Col, Row } from 'react-bootstrap';
 
-export default function AssignmentSupplier(data) {
+export default function AssignmentLetter(data) {
   return (
     <>
       <div className="card-body">

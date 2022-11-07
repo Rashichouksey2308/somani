@@ -3,14 +3,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Contract from '../../src/components/A2S_Sales_Contract';
+import AssignmentLetter from '../../src/components/AssignmentLetter';
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import QPA from '../../src/components/QPA';
 import TPAIGI from '../../src/components/TPAIGI';
 import TPASeller from '../../src/components/TPASeller';
 import styles from './index.module.scss';
-
-import AssignmentLetter from '../../src/components/AssignmentLetter';
 
 function Index() {
   const [preview, setPreview] = useState('');

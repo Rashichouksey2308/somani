@@ -1,4 +1,4 @@
-import TripartiteAgreement from '@/templates/TripartiteAgreement';
+import TPASeller from '@/templates/TPASellerTemp';
 import _get from 'lodash/get';
 import moment from 'moment';
 import Router from 'next/router';
@@ -144,7 +144,7 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {TripartiteAgreement(data, props.preview)}
+        {TPASeller(data, props.preview)}
         {props.preview !== 'TPASELLER' ? (
           <>
             <div

@@ -1,4 +1,5 @@
 import jsPDF from 'jspdf';
+import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -9,9 +10,12 @@ import DownloadBar from '../../../src/components/DownloadBar';
 import QPA from '../../../src/components/QPA';
 import TPAIGI from '../../../src/components/TPAIGI';
 import TPASeller from '../../../src/components/TPASeller';
+import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
+import IGIAgreementPreview from '../../../src/templates/IGIAgreementPreview';
+import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
+import SalesContractPreview from '../../../src/templates/SalesContractPreview';
+import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 
-import _get from 'lodash/get';
-import { igiPrint, letterPrint, qpaPrint, sellerPrint, toPdf } from '../../../src/utils/agreementTemplate';
 function index() {
   const [data, setData] = useState({
     seller: '',
@@ -143,29 +147,30 @@ function index() {
       });
     }
   }, []);
+
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
-    let toPrint = toPdf(data);
+    let toPrint = SalesContractPreview(data);
     let name = 'SalesAgreement';
     if (preview == 'Sales') {
-      toPrint = toPdf(data);
+      toPrint = SalesContractPreview(data);
       name = 'SalesAgreement.pdf';
     }
     if (preview == 'QPA') {
-      toPrint = qpaPrint(data);
+      toPrint = QuadripartiteAgreementPreview(data);
       name = 'QPA.pdf';
     }
 
     if (preview == 'TPASELLER') {
-      toPrint = sellerPrint(data);
+      toPrint = TPASellerPreview(data);
       name = 'TPA(Seller).pdf';
     }
     if (preview == 'TPAIGI') {
-      toPrint = igiPrint(data);
+      toPrint = IGIAgreementPreview(data);
       name = 'TPA(CAM).pdf';
     }
     if (preview == 'LETTER') {
-      toPrint = letterPrint(data);
+      toPrint = AssignmentLetterPreview(data);
       name = 'AssignmentLetter.pdf';
     }
     doc.html(ReactDOMServer.renderToString(toPrint), {

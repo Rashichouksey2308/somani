@@ -1,7 +1,7 @@
 import styles from '@/components/TPASeller/index.module.scss';
 import { Col, Row } from 'react-bootstrap';
 
-export default function TripartiteAgreement(data) {
+export default function TPASeller(data) {
   return (
     <>
       <div className="card-body">
