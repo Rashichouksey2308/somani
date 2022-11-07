@@ -13,7 +13,7 @@ function Index() {
         >
           <div className={`${styles.head_header} align-items-center`}>
             <div
-              onClick={() => Router.push('/masters/users')}
+              onClick={() => Router.push('/commodity')}
               style={{ cursor: 'pointer' }}
             >
               <img
