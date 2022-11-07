@@ -2145,7 +2145,7 @@ export default function Index({ addButton }) {
                     {excelFile &&
                       excelFile.length > 0 &&
                       excelFile.map((item, index) => (
-                        <tr>
+                        <tr key={index}>
                           {Object.values(item).map((value, id) => (
                             <td key={id}>{value}</td>
                           ))}
