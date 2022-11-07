@@ -6,8 +6,8 @@ import InternalCompanies from '../../src/components/InternalCompanies';
 
 function Index() {
   return (
-    <Card className={`${styles.card} container-fluid`}>
-      <div className="m-2">
+    <div className="container-fluid p-0 border-0">
+    <Card className={`${styles.card}`}>
         <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => Router.push('/internal-companies')} style={{ cursor: 'pointer' }}>
@@ -29,8 +29,9 @@ function Index() {
           </div>
         </Card.Header>
        <InternalCompanies/>
-      </div>
+      
     </Card>
+    </div>
   );
 }
 
