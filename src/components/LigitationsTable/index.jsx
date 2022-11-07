@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
 import { Col, Row } from 'react-bootstrap';
-import _get from 'lodash/get';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+
 import { GetCaseDetails } from '../../redux/companyDetail/action';
+import _get from 'lodash/get';
+import styles from './index.module.scss';
+import { useDispatch } from 'react-redux';
 
 function index({ data, Heading, val, totalData }) {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function index({ data, Heading, val, totalData }) {
     dispatch(GetCaseDetails({ cin: cinNo }));
   };
   const totalNumberOfCases = data?.length;
-  /
+  
   return (
     <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>

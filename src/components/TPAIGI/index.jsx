@@ -654,7 +654,7 @@ const tpaSeller = (data, preview) => {
               {data?.cmaAuthorized?.length > 0 &&
                 data?.cmaAuthorized?.map((val, index) => {
                   return (
-                    <li>
+                    <li key={index}>
                       <p className='mb-0'>
                         Name- <span>{val.name}</span>
                       </p>

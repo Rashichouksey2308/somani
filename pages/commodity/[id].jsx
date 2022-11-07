@@ -6,14 +6,14 @@ import AddCommodity from '../../src/components/AddCommodity'
 
 function Index() {
   return (
-    <Card className={`${styles.card} container-fluid`}>
-      <div className="m-2">
+    <div className="container-fluid p-0 border-0">
+    <Card className={`${styles.card}`}>
         <Card.Header
           className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}
         >
           <div className={`${styles.head_header} align-items-center`}>
             <div
-              onClick={() => Router.push('/masters/users')}
+              onClick={() => Router.push('/commodity')}
               style={{ cursor: 'pointer' }}
             >
               <img
@@ -34,8 +34,9 @@ function Index() {
           </div>
         </Card.Header>
      <AddCommodity/>
-     </div>
+    
     </Card>
+    </div>
   );
 }
 

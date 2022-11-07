@@ -371,7 +371,7 @@ const Index = () => {
  
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       let toastMessage = 'Please add lc Value ';
@@ -740,7 +740,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       if (!toast.isActive(toastMessage.toUpperCase())) {

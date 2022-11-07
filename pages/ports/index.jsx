@@ -45,7 +45,7 @@ const index = () => {
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={`${styles.head_header} mr-3 align-items-center`}>
+            <div className={`${styles.head_header} align-items-center`}>
               <img
                 className={`${styles.arrow} image_arrow mr-3 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
@@ -83,7 +83,7 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
-              
+              onClick={() => Router.push('/ports/id')}
             >
              
               <span className="ml-1 mr-2">Add</span>
