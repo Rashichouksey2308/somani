@@ -7,30 +7,31 @@ const initialState = {
   Commodity: null,
   updatingCommodity: false,
   updateCommodityResponse: false,
+  creatingCommodity: false,
+  createdCommodity: null,
 };
 
 function CommodityReducer(state = initialState, action) {
   switch (action.type) {
-
     case types.GET_ALL_COMMODITY:
       return {
         ...state,
         gettingAllCommodity: true,
-      }
+      };
 
     case types.GET_ALL_COMMODITY_SUCCESS:
       return {
         ...state,
         gettingAllCommodity: false,
         allCommodity: action.payload,
-      }
+      };
 
     case types.GET_ALL_COMMODITY_FAILED:
       return {
         ...state,
         gettingAllCommodity: false,
-        allCommodity: null
-      }
+        allCommodity: null,
+      };
 
     case types.GET_COMMODITY:
       return {
@@ -68,6 +69,25 @@ function CommodityReducer(state = initialState, action) {
         ...state,
         updatingCommodity: false,
         updateCommodityResponse: null,
+      };
+
+    case types.CREATE_COMMODITY:
+      return {
+        ...state,
+        creatingCommodity: true,
+        createdCommodity: null,
+      };
+    case types.CREATE_COMMODITY_SUCCESS:
+      return {
+        ...state,
+        creatingCommodity: false,
+        createdCommodity: action.payload,
+      };
+    case types.CREATE_COMMODITY_FAILED:
+      return {
+        ...state,
+        creatingCommodity: false,
+        createdCommodity: null,
       };
 
     default:
