@@ -58,7 +58,7 @@ function Index() {
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-      applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
+      applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
       lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
@@ -171,7 +171,7 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'partialShipment') {
+    } else if (e.target.value == 'partialShipment' || e.target.value == 'transhipments') {
       setFieldType('drop');
     } else {
       setFieldType('');
@@ -322,7 +322,7 @@ function Index() {
   const getValue = (value, toCheck) => {
 
 
-    if (toCheck == '(32D) Place Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+    if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
     } else if (toCheck == '(43P) Partial Shipment') {
       if (value == 'Yes') {
@@ -704,8 +704,8 @@ function Index() {
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>{getValue(arr.existingValue, arr.dropDownValue)}</td>
-                                        <td>{getValue(arr.newValue, arr.dropDownValue)}</td>
+                                        <td>{arr.dropDownValue === '(32B) Currency Code & Amount' ? `${lcModuleData?.order?.orderCurrency} ` :  ''}{ arr.dropDownValue === '(39A) Tolerance (+/-) Percentage' ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %` : getValue(arr.existingValue, arr.dropDownValue) }</td>
+                                        <td>{arr.dropDownValue === '(32B) Currency Code & Amount' ? `${lcModuleData?.order?.orderCurrency} ` : ''}{ arr.dropDownValue === '(39A) Tolerance (+/-) Percentage' ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : getValue(arr.newValue, arr.dropDownValue) }</td>
                                         <td>
                                           {/* <img
                                             src="/static/mode_edit.svg"
