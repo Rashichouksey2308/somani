@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import SavePreviewBar from '../SavePreviewBar';
+import jsPDF from 'jspdf';
+import _get from 'lodash/get';
+import moment from 'moment/moment';
+import Router from 'next/router';
+import { useEffect, useState } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { useDispatch } from 'react-redux';
 import { GetTransitDetails } from '../../../redux/TransitDetails/action';
-import _get from 'lodash/get';
-import Router from 'next/router';
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-import moment from 'moment/moment';
+import SavePreviewBar from '../SavePreviewBar';
+import styles from './index.module.scss';
 
 function Index() {
   const [transitDetails, setTransitDetails] = useState();
