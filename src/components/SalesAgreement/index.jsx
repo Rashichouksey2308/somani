@@ -1780,7 +1780,7 @@ function Index(props) {
       }
     }
     if (key == 'Delivery Terms') {
-    
+      console.log(data.listContact,"data.listContact")
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {

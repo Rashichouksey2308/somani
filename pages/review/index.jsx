@@ -5382,7 +5382,7 @@ function Index() {
                           {top5Customers.datasets &&
                             top5Customers?.datasets[0]?.data?.map((val, index) => {
                               return (
-                                <tr>
+                                <tr key={index}>
                                   <td width="5%" align="left">
                                     <span
                                       style={{
@@ -5470,7 +5470,7 @@ function Index() {
                           {top5Suppliers.datasets &&
                             top5Customers?.datasets[0]?.data?.map((val, index) => {
                               return (
-                                <tr>
+                                <tr key={index}>
                                   <td width="5%" align="left">
                                     <span
                                       style={{
