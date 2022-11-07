@@ -10,7 +10,7 @@ import moment from 'moment';
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
 
-import {toPdf,letterPrint,igiPrint,sellerPrint,qpaPrint} from '../../../src/utils/agreementTemplate'
+import {toPdf,letterPrint,igiPrint,sellerPrint,qpaPrint,associateshipPrint} from '../../../src/utils/agreementTemplate'
 import _get from 'lodash/get';
 function index() {
   
@@ -61,6 +61,16 @@ function index() {
        if(data2=="TPASELLER"){
         toCheck="TPA (Seller)"
       }
+       if(data2=="ASSO"){
+        toCheck="Associateship Agreement"
+      }
+        if(data2=="UNDERTAKING1"){
+        toCheck="Associateship Agreement"
+      }
+        if(data2=="UNDERTAKING2"){
+        toCheck="Associateship Agreement"
+      }
+
       let exe;
       let dat = '';
        let dateOfContract =''
@@ -162,6 +172,7 @@ function index() {
             data,
             'CMA.addresses[0]',
             {},
+            
           ),
             
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
@@ -169,11 +180,21 @@ function index() {
           storagePlot:
           data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
-           priceOfGoods: data?.order?.perUnitPrice,
-           dateOfContract:dateOfContract,
-           designatedStorageArea:data?.CMA?.designatedStorageArea,
-           supplier: data?.supplier?.name,
-            endBuyer: data.company.companyName,
+          priceOfGoods: data?.order?.perUnitPrice,
+          dateOfContract:dateOfContract,
+          designatedStorageArea:data?.CMA?.designatedStorageArea,
+          supplier: data?.supplier?.name,
+          endBuyer: data.company.companyName,
+          priceOfGoods: data?.order?.perUnitPrice,
+          commodityDetails:data?.order?.commodity,
+          unitPrice: data.order?.perUnitPrice,
+          tradeMargin:data.order?.termsheet?.commercials?.tradeMarginPercentage,
+          deliveryTerm:data.deliveryTerms.deliveryTerm,
+          totalPrice:data?.order?.marginMoney?.calculation?.totalOrderValue,
+          advanceMoney:data?.order?.marginMoney?.calculation?.marginMoney,
+          orderValueCurrency:data?.order?.marginMoney?.calculation?.orderValueCurrency,
+          paymentTerm:data.deliveryTerms.paymentTerms,
+          cheque:data.deliveryTerms?.cheque || []
       });
     }
   }, []);
@@ -190,15 +211,18 @@ function index() {
       toPrint=qpaPrint(data)
        name ="QPA.pdf"
     }
-    // if(preview=="ASSO"){
-    //   toPrint=associateshipPrint(data)
-    // }
-    //  if(preview=="UNDERTAKING1"){
-    //   toPrint=undertakingPrint(data)
-    // }
-    //  if(preview=="UNDERTAKING2"){
-    //   toPrint=undertaking2Print(data)
-    // }
+    if(preview=="ASSO"){
+      toPrint=associateshipPrint(data)
+      name ="Associateship.pdf"
+    }
+     if(preview=="UNDERTAKING1"){
+      toPrint=undertakingPrint(data)
+      name ="Undertaking1.pdf"
+    }
+    if(preview=="UNDERTAKING1"){
+      toPrint=undertaking2Print(data)
+      name ="Undertaking2.pdf"
+    }
     if(preview=="TPASELLER"){
       toPrint=sellerPrint(data)
       name="TPA(Seller).pdf"
@@ -245,7 +269,13 @@ function index() {
 
 export default index;
 
+export const undertaking1Pdf = (data) => {
+  return (
+    <>
+    </>
+  )
 
+}
 
 
 
