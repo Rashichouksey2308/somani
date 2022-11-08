@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './internal.module.scss';
+import styles from './port.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import InternalCompanies from '../../src/components/InternalCompanies';
+import Ports from '../../src/components/Ports';
 
 function Index() {
   return (
@@ -10,14 +10,14 @@ function Index() {
       <div className="m-2">
         <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/internal-companies')} style={{ cursor: 'pointer' }}>
+            <div onClick={() => Router.push('/ports')} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
             </div>
-            <h1 className={styles.heading}>Internal Companies</h1>
+            <h1 className={styles.heading}>Ports</h1>
           </div>
           <div className="d-flex align-items-center">
             <div className={`${styles.lastModified} text `}>
@@ -28,7 +28,7 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-       <InternalCompanies/>
+       <Ports/>
       </div>
     </Card>
   );

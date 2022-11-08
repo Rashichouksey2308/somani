@@ -183,7 +183,7 @@ const Index = ({
                     Select
                   </option>
                   {currency.map((val, index) => {
-                    return <option value={`${val.Currency}`}>{val.Currency}</option>;
+                    return <option key={index} value={`${val.Currency}`}>{val.Currency}</option>;
                   })}
                   {/* <option value="USD">USD</option>
                   <option value="INR">INR</option>
@@ -422,7 +422,7 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option value={`${val.Port_Name},${val.Country}`}>
+                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
                           {val.Port_Name},{val.Country}
                         </option>
                       );
@@ -445,7 +445,7 @@ const Index = ({
                 >
                   <option selected>Select an option</option>
                   {country.map((val, index) => {
-                    return <option value={`${val.Country}`}>{val.Country}</option>;
+                    return <option key={index} value={`${val.Country}`}>{val.Country}</option>;
                   })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -525,7 +525,7 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option value={`${val.Port_Name},${val.Country}`}>
+                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
                           {val.Port_Name},{val.Country}
                         </option>
                       );

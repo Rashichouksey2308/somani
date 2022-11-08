@@ -83,7 +83,7 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
-              
+              onClick={() => Router.push('/ports/id')}
             >
              
               <span className="ml-1 mr-2">Add</span>

@@ -122,13 +122,13 @@ function Index() {
           route: '/masters/users',
         },
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
-        { name: 'Vendors', image: '/static/vendors.svg', route: '' },
+        { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',
           route: '',
         },
-        { name: 'Commodity', image: '/static/commodity.svg', route: '' },
+        { name: 'Commodity', image: '/static/commodity.svg', route: '/commodity' },
         { name: 'GL', image: '/static/gl.svg', route: '' },
         { name: 'Others', image: '/static/others.svg', route: '' },
         {

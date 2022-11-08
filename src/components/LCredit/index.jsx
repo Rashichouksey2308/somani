@@ -601,7 +601,7 @@ function Index() {
                                               onChange={(e) => dropDownChange(e)}
                                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                             >
-                                              <option selected>Select an option</option>
+                                              <option value='' >Select an option</option>
                                               <option value="shipmentForm">(44A) Shipment From</option>
                                               <option value="applicableRules">(40E) Application Rules</option>
                                               <option value="placeOfExpiry">(32D) Place Of Expiry</option>
