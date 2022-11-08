@@ -1,15 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-<<<<<<< Updated upstream
 import React from 'react';
 import styles from './index.module.scss';
 
 function Index() {
-=======
-import React from 'react'
-import styles from './index.module.scss'
-
-function Index () {
->>>>>>> Stashed changes
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
       <div className={`${styles.content_container}`}>
@@ -147,14 +140,7 @@ function Index () {
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
   );
 }
 
 export default Index;
-=======
-  )
-}
-
-export default Index
->>>>>>> Stashed changes

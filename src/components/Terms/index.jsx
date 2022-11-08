@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React from 'react';
 import styles from './index.module.scss';
 import { useRouter } from 'next/router';
@@ -7,32 +6,15 @@ import { useSelector } from 'react-redux';
 const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
   const { creatingBuyer } = useSelector((state) => state.buyer);
   const router = useRouter();
-=======
-import React from 'react'
-import styles from './index.module.scss'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
-
-const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
-  const { creatingBuyer } = useSelector((state) => state.buyer)
-  const router = useRouter()
->>>>>>> Stashed changes
   return (
     <div className={`${darkMode ? styles.mainDark : styles.main} `}>
       <div className={`${styles.term_container} align-items-start`}>
         <input
           className={`${styles.check_box} mt-2`}
-<<<<<<< Updated upstream
           type="checkbox"
           checked={termsCheck}
           onChange={chanegTermsCheck}
           name="check1"
-=======
-          type='checkbox'
-          checked={termsCheck}
-          onChange={chanegTermsCheck}
-          name='check1'
->>>>>>> Stashed changes
         />
 
         <label className={`${styles.term_para} term_para`}>
@@ -48,23 +30,13 @@ const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
           className={`${styles.submit_btn} submit_btn`}
           disabled={creatingBuyer}
           onClick={() => {
-<<<<<<< Updated upstream
             submitData();
-=======
-            submitData()
->>>>>>> Stashed changes
           }}
         >
           Submit
         </button>
       </div>
     </div>
-<<<<<<< Updated upstream
   );
 };
 export default Index;
-=======
-  )
-}
-export default Index
->>>>>>> Stashed changes

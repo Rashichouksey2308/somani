@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-<<<<<<< Updated upstream
 import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
@@ -41,67 +40,19 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
       setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
   };
-=======
-import React, { useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap'
-import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
-import moment from 'moment'
-
-const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
-  const [expShipment, setExpectedShipment] = useState(null)
-  const [maxdate, setmaxDate] = useState(null)
-  useEffect(() => {
-    if (expectedShipment) {
-      const date = moment(expectedShipment).add(1, 'days').toDate()
-      setExpectedShipment(moment(date).format('DD-MM-YYYY'))
-    }
-  }, [expectedShipment])
-  useEffect(() => {
-    if (expectedShipment) {
-      setmaxDate(moment(expectedShipment).format('DD-MM-YYYY'))
-    }
-  }, [expectedShipment])
-
-  const saveDate = (value, name) => {
-    const d = new Date(value)
-    const text = d.toISOString()
-    saveShipmentData(name, text)
-  }
-  const [dateStartFrom, setDateStartFrom] = useState({
-    laycan: '',
-    eta: ''
-  })
-  const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY')
-    if (name == 'loadPort.fromDate') {
-      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
-    } else {
-      setDateStartFrom({ ...dateStartFrom, eta: new_date })
-    }
-  }
->>>>>>> Stashed changes
 
   return (
     <div className={`${styles.main} vessel_card border_color card`}>
       <div
         className={`${styles.head_container} d-flex align-items-center card-header border_color justify-content-between`}
-<<<<<<< Updated upstream
         data-toggle="collapse"
         data-target="#shipmentDetails"
         aria-expanded="true"
         aria-controls="shipmentDetails"
-=======
-        data-toggle='collapse'
-        data-target='#shipmentDetails'
-        aria-expanded='true'
-        aria-controls='shipmentDetails'
->>>>>>> Stashed changes
       >
         <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
         <span>+</span>
       </div>
-<<<<<<< Updated upstream
       <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails">
         <div className={`${styles.dashboard_form} card-body`}>
           <Form id="ShipmentDetailsForm">
@@ -127,39 +78,11 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
-=======
-      <div id='shipmentDetails' className='collapse' aria-labelledby='shipmentDetails'>
-        <div className={`${styles.dashboard_form} card-body`}>
-          <Form id='ShipmentDetailsForm'>
-            <div className='row'>
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className='d-flex'>
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                    name='shipmentType'
-                    required
-                    onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option>Select an option</option>
-                    <option value='Liner'>Liner</option>
-                    <option value='Bulk'>Bulk</option>
-                  </select>
-                  <Form.Label className={`${styles.label_heading} label_heading`}>
-                    Shipment Type<strong className='text-danger'>*</strong>
-                  </Form.Label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src='/static/inputDropDown.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
-<<<<<<< Updated upstream
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
@@ -174,22 +97,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
-=======
-                <div className='d-flex'>
-                  <DateCalender
-                    dateFormat={'dd-MM-yyyy'}
-                    value={shipment.ETAofDischarge.fromDate}
-                    name='loadPort.fromDate'
-                    saveDate={saveDate}
-                    setStartDateFrom={setStartDate}
-                    maxDate={maxdate}
-                    labelName='Laycan at Load Port from'
-                  />
-                  <img
-                    className={`${styles.calanderIcon} image_arrow img-fluid`}
-                    src='/static/caldericon.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
                 {/* <Form.Control
@@ -207,7 +114,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </Form.Label> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
-<<<<<<< Updated upstream
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
@@ -222,22 +128,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
-=======
-                <div className='d-flex'>
-                  <DateCalender
-                    dateFormat={'dd-MM-yyyy'}
-                    value={shipment.ETAofDischarge.toDate}
-                    name='loadPort.toDate'
-                    saveDate={saveDate}
-                    startFrom={dateStartFrom.laycan}
-                    maxDate={maxdate}
-                    labelName='Laycan at Load Port to'
-                  />
-                  <img
-                    className={`${styles.calanderIcon} image_arrow img-fluid`}
-                    src='/static/caldericon.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
                 {/* <Form.Control
@@ -254,32 +144,18 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </Form.Label> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-<<<<<<< Updated upstream
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
                     name="lastDateOfShipment"
                     saveDate={saveDate}
                     labelName="Last date of shipment"
-=======
-                <div className='d-flex'>
-                  <DateCalender
-                    dateFormat={'dd-MM-yyyy'}
-                    name='lastDateOfShipment'
-                    saveDate={saveDate}
-                    labelName='Last date of shipment'
->>>>>>> Stashed changes
                     startFrom={expShipment}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
-<<<<<<< Updated upstream
                     src="/static/caldericon.svg"
                     alt="Search"
-=======
-                    src='/static/caldericon.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
 
@@ -298,7 +174,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
-<<<<<<< Updated upstream
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.fromDate"
@@ -306,15 +181,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="ETA at Discharge Port from"
-=======
-                <div className='d-flex'>
-                  <DateCalender
-                    name='ETAofDischarge.fromDate'
-                    dateFormat={'dd-MM-yyyy'}
-                    saveDate={saveDate}
-                    setStartDateFrom={setStartDate}
-                    labelName='ETA at Discharge Port from'
->>>>>>> Stashed changes
                     startFrom={
                       shipment.loadPort.toDate
                         ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY')
@@ -324,13 +190,8 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
-<<<<<<< Updated upstream
                     src="/static/caldericon.svg"
                     alt="Search"
-=======
-                    src='/static/caldericon.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
                 {/* <div>
@@ -351,21 +212,12 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </div> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
-<<<<<<< Updated upstream
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.toDate"
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
-=======
-                <div className='d-flex'>
-                  <DateCalender
-                    name='ETAofDischarge.toDate'
-                    dateFormat={'dd-MM-yyyy'}
-                    saveDate={saveDate}
-                    labelName='ETA at Discharge Port to'
->>>>>>> Stashed changes
                     startFrom={dateStartFrom.eta}
                     maxDate={
                       shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
@@ -373,13 +225,8 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
-<<<<<<< Updated upstream
                     src="/static/caldericon.svg"
                     alt="Search"
-=======
-                    src='/static/caldericon.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
                 {/* <div>
@@ -400,7 +247,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </div> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-<<<<<<< Updated upstream
                 <div className="d-flex">
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
@@ -414,21 +260,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                       .filter((val, index) => {
                         if (val.Country.toLowerCase() !== 'india') {
                           return val;
-=======
-                <div className='d-flex'>
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                    name='portOfLoading'
-                    onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option value=''>Select an option</option>
-                    {port
-                      .filter((val, index) => {
-                        if (val.Country.toLowerCase() !== 'india') {
-                          return val
->>>>>>> Stashed changes
                         }
                       })
                       .map((val, index) => {
@@ -436,7 +267,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                           <option value={`${val.Port_Name},${val.Country}`}>
                             {val.Port_Name},{val.Country}
                           </option>
-<<<<<<< Updated upstream
                         );
                       })}
                   </select>
@@ -447,18 +277,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
-=======
-                        )
-                      })}
-                  </select>
-                  <Form.Label className={`${styles.label_heading} label_heading`}>
-                    Port of Loading<strong className='text-danger'>*</strong>
-                  </Form.Label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src='/static/inputDropDown.svg'
-                    alt='Search'
->>>>>>> Stashed changes
                   />
                 </div>
               </Form.Group>
@@ -468,14 +286,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
   );
 };
 
 export default index;
-=======
-  )
-}
-
-export default index
->>>>>>> Stashed changes

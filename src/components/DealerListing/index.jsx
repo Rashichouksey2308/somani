@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React, { Component } from 'react';
 import { Card, CardBody, Col, Collapse, Form, FormGroup, Input, Row } from 'reactstrap';
 import history from '../../history';
@@ -16,25 +15,6 @@ const _ = { get };
 export default class DealerListing extends Component {
   constructor(props) {
     super(props);
-=======
-import React, { Component } from 'react'
-import { Card, CardBody, Col, Collapse, Form, FormGroup, Input, Row } from 'reactstrap'
-import history from '../../history'
-import InputText from '../InputText'
-import CustomButton from '../CustomButton'
-import CartTitle from '../CartTitle'
-import Loader from '../Loader'
-import MaterialTable from 'material-table'
-
-import '../../assets/scss/components/MeterialTable/index.scss'
-import get from 'lodash/get'
-
-const _ = { get }
-
-export default class DealerListing extends Component {
-  constructor (props) {
-    super(props)
->>>>>>> Stashed changes
     this.state = {
       toggleActive: false,
       country: '',
@@ -47,21 +27,12 @@ export default class DealerListing extends Component {
       dealerId: '',
       dealerEmail: '',
       dealerPhone: '',
-<<<<<<< Updated upstream
       pageSize: 10,
     };
   }
 
   componentDidMount() {
     const state = this.state;
-=======
-      pageSize: 10
-    }
-  }
-
-  componentDidMount () {
-    const state = this.state
->>>>>>> Stashed changes
     const data = {
       page: state.page,
       country: state.countryCode,
@@ -70,7 +41,6 @@ export default class DealerListing extends Component {
       emailId: state.dealerId,
       phone: state.dealerEmail,
       dealerId: state.dealerPhone,
-<<<<<<< Updated upstream
       limit: state.count,
     };
     this.props.handleFetchDealer(data);
@@ -82,24 +52,10 @@ export default class DealerListing extends Component {
 
       state.page = Math.ceil(this.props.dealers.length / this.state.count);
       this.setState({ ...state });
-=======
-      limit: state.count
-    }
-    this.props.handleFetchDealer(data)
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    if (prevProps.dealers.length !== this.props.dealers.length) {
-      const state = this.state
-
-      state.page = Math.ceil(this.props.dealers.length / this.state.count)
-      this.setState({ ...state })
->>>>>>> Stashed changes
     }
   }
 
   handleOnChangePageSize = (count) => {
-<<<<<<< Updated upstream
     const state = this.state;
     state.pageSize = count;
     this.setState({ ...state });
@@ -113,36 +69,14 @@ export default class DealerListing extends Component {
 
   handleOnPageChange = (e, page) => {
     const totalPages = this.props.dealers.length / this.state.pageSize;
-=======
-    const state = this.state
-    state.pageSize = count
-    this.setState({ ...state })
-  };
-
-  handleToggle = (e) => {
-    const state = this.state
-    state.toggleActive = !state.toggleActive
-    this.setState({ ...state })
-  };
-
-  handleOnPageChange = (e, page) => {
-    const totalPages = this.props.dealers.length / this.state.pageSize
->>>>>>> Stashed changes
     const fetchNextData =
       e >= totalPages - 2 &&
       this.props.dealers.length !== 0 &&
       this.props.dealerStatus === false &&
-<<<<<<< Updated upstream
       this.props.dealers.length < this.props.dealerCount;
 
     if (fetchNextData === true) {
       const state = this.state;
-=======
-      this.props.dealers.length < this.props.dealerCount
-
-    if (fetchNextData === true) {
-      const state = this.state
->>>>>>> Stashed changes
       const data = {
         page: state.page,
         country: state.countryCode,
@@ -151,20 +85,13 @@ export default class DealerListing extends Component {
         emailId: state.dealerId,
         phone: state.dealerEmail,
         dealerId: state.dealerPhone,
-<<<<<<< Updated upstream
         limit: state.count,
       };
       this.props.handleFetchDealer(data);
-=======
-        limit: state.count
-      }
-      this.props.handleFetchDealer(data)
->>>>>>> Stashed changes
     }
   };
 
   handleFilterChange = (e) => {
-<<<<<<< Updated upstream
     const state = this.state;
     state[e.target.name] = e.target.value;
     this.setState({ ...state });
@@ -216,59 +143,6 @@ export default class DealerListing extends Component {
     e.preventDefault();
 
     const state = this.state;
-=======
-    const state = this.state
-    state[e.target.name] = e.target.value
-    this.setState({ ...state })
-  };
-
-  handleCountryChange = (e) => {
-    const state = this.state
-    const parsedValue = JSON.parse(e.target.value)
-    if (e.target.value !== 'Select Country') {
-      state.countryCode = parsedValue.locality.country
-      state.country = parsedValue.country
-      state.state = ''
-      state.city = ''
-    }
-    this.setState({ ...state })
-    this.props.handleFetchState(state.countryCode)
-  };
-
-  handleStateChange = (e) => {
-    const state = this.state
-    const parsedValue = JSON.parse(e.target.value)
-    if (e.target.value !== 'Select Country') {
-      state.state = parsedValue
-      state.city = ''
-    }
-    this.setState({ ...state })
-    const data = {
-      countryCode: state.countryCode,
-      state: state.state
-    }
-    this.props.handleFetchCity(data)
-  };
-
-  handleCityChange = (e) => {
-    const state = this.state
-    const parsedValue = JSON.parse(e.target.value)
-    if (e.target.value !== 'Select Country') {
-      state.city = parsedValue.cityName
-    }
-    this.setState({ ...state })
-  };
-
-  handleRowData = (rowData) => {
-    history.push(`/dealer/detail?dealerId=${rowData._id}&tab=detail`)
-    this.props.handleSelectedRowData(rowData)
-  };
-
-  handleSubmitFilter = (e) => {
-    e.preventDefault()
-
-    const state = this.state
->>>>>>> Stashed changes
 
     const data = {
       page: 0,
@@ -278,13 +152,8 @@ export default class DealerListing extends Component {
       emailId: state.dealerEmail.toLowerCase().trim(),
       phone: state.dealerPhone.trim(),
       dealerId: state.dealerId.trim(),
-<<<<<<< Updated upstream
       limit: state.count,
     };
-=======
-      limit: state.count
-    }
->>>>>>> Stashed changes
 
     if (
       state.countryCode !== '' ||
@@ -294,18 +163,12 @@ export default class DealerListing extends Component {
       state.dealerPhone !== '' ||
       state.dealerId !== ''
     ) {
-<<<<<<< Updated upstream
       this.props.handleFetchDealer(data);
       this.props.handleClearPreviousReducersForDealer();
-=======
-      this.props.handleFetchDealer(data)
-      this.props.handleClearPreviousReducersForDealer()
->>>>>>> Stashed changes
     }
   };
 
   handleClearFilter = () => {
-<<<<<<< Updated upstream
     const state = this.state;
     state.page = 0;
     state.country = '';
@@ -317,19 +180,6 @@ export default class DealerListing extends Component {
     state.dealerId = '';
     state.count = 100;
     this.setState({ ...state });
-=======
-    const state = this.state
-    state.page = 0
-    state.country = ''
-    state.countryCode = ''
-    state.state = ''
-    state.city = ''
-    state.dealerEmail = ''
-    state.dealerPhone = ''
-    state.dealerId = ''
-    state.count = 100
-    this.setState({ ...state })
->>>>>>> Stashed changes
     const data = {
       page: 0,
       country: '',
@@ -338,7 +188,6 @@ export default class DealerListing extends Component {
       emailId: '',
       phone: '',
       dealerId: '',
-<<<<<<< Updated upstream
       limit: 100,
     };
     this.props.handleFetchDealer(data);
@@ -349,18 +198,6 @@ export default class DealerListing extends Component {
     const { elements } = this.props;
     return (
       <div className="hideSearch">
-=======
-      limit: 100
-    }
-    this.props.handleFetchDealer(data)
-    this.props.handleClearPreviousReducersForDealer()
-  };
-
-  render () {
-    const { elements } = this.props
-    return (
-      <div className='hideSearch'>
->>>>>>> Stashed changes
         {this.props.dealerStatus !== false ? <Loader /> : null}
 
         <Form onSubmit={this.handleSubmitFilter}>
@@ -377,7 +214,6 @@ export default class DealerListing extends Component {
             </Col>
             <Col sm={12}>
               <Collapse isOpen={this.state.toggleActive}>
-<<<<<<< Updated upstream
                 <Card className="mb-3">
                   <CardBody>
                     <Row>
@@ -387,17 +223,6 @@ export default class DealerListing extends Component {
                             type="select"
                             name="City"
                             className="w-100 customeSelectBtn"
-=======
-                <Card className='mb-3'>
-                  <CardBody>
-                    <Row>
-                      <Col xl={4} lg={4} md={6} sm={6}>
-                        <FormGroup className=' confirmRiderSelect select_options'>
-                          <Input
-                            type='select'
-                            name='City'
-                            className='w-100 customeSelectBtn'
->>>>>>> Stashed changes
                             onChange={this.handleCountryChange}
                             value={this.state.country}
                           >
@@ -413,19 +238,11 @@ export default class DealerListing extends Component {
                         </FormGroup>
                       </Col>
                       <Col xl={4} lg={4} md={6} sm={6}>
-<<<<<<< Updated upstream
                         <FormGroup className=" confirmRiderSelect select_options">
                           <Input
                             type="select"
                             name="branchType"
                             className="w-100 customeSelectBtn"
-=======
-                        <FormGroup className=' confirmRiderSelect select_options'>
-                          <Input
-                            type='select'
-                            name='branchType'
-                            className='w-100 customeSelectBtn'
->>>>>>> Stashed changes
                             onChange={this.handleStateChange}
                             value={this.state.state}
                           >
@@ -441,19 +258,11 @@ export default class DealerListing extends Component {
                         </FormGroup>
                       </Col>
                       <Col xl={4} lg={4} md={6} sm={6}>
-<<<<<<< Updated upstream
                         <FormGroup className=" confirmRiderSelect select_options">
                           <Input
                             type="select"
                             name="branchType"
                             className="w-100 customeSelectBtn"
-=======
-                        <FormGroup className=' confirmRiderSelect select_options'>
-                          <Input
-                            type='select'
-                            name='branchType'
-                            className='w-100 customeSelectBtn'
->>>>>>> Stashed changes
                             onChange={this.handleCityChange}
                             value={this.state.city}
                           >
@@ -480,11 +289,7 @@ export default class DealerListing extends Component {
                           inputPlaceholder={_.get(
                             elements,
                             'dealersListingFilterElements.dealerIdPlaceholder',
-<<<<<<< Updated upstream
                             'Dealer Id',
-=======
-                            'Dealer Id'
->>>>>>> Stashed changes
                           )}
                           customOnChange={(e) => this.handleFilterChange(e)}
                         />
@@ -500,11 +305,7 @@ export default class DealerListing extends Component {
                           customOnChange={(e) => this.handleFilterChange(e)}
                         />
                       </Col>
-<<<<<<< Updated upstream
                       <Col xl={4} lg={4} md={6} sm={6} className="mb-3 mb-lg-0">
-=======
-                      <Col xl={4} lg={4} md={6} sm={6} className='mb-3 mb-lg-0'>
->>>>>>> Stashed changes
                         <InputText
                           labelName={_.get(elements, 'dealersListingFilterElements.mobileLabel', 'Phone')}
                           inputType={'number'}
@@ -516,11 +317,7 @@ export default class DealerListing extends Component {
                         />
                       </Col>
                     </Row>
-<<<<<<< Updated upstream
                     <div className="d-flex justify-content-center justify-content-lg-end position-relative ">
-=======
-                    <div className='d-flex justify-content-center justify-content-lg-end position-relative '>
->>>>>>> Stashed changes
                       <CustomButton
                         customType={'submit'}
                         name={_.get(elements, 'dealersListingFilterElements.searchButtonElement', 'Search')}
@@ -561,7 +358,6 @@ export default class DealerListing extends Component {
         </Form>
 
         <Row>
-<<<<<<< Updated upstream
           <Col sm="12">
             <div className="custom-m-table">
               <MaterialTable
@@ -582,34 +378,11 @@ export default class DealerListing extends Component {
                   {
                     title: _.get(elements, 'dealerListTableElement.phoneElement', 'Phone'),
                     field: 'phone',
-=======
-          <Col sm='12'>
-            <div className='custom-m-table'>
-              <MaterialTable
-                title=''
-                columns={[
-                  {
-                    title: _.get(elements, 'dealerListTableElement.dealerIdElement', 'Dealer Id'),
-                    field: 'dealerId'
-                  },
-                  {
-                    title: _.get(elements, 'dealerListTableElement.nameElement', 'Name'),
-                    field: 'dealerName'
-                  },
-                  {
-                    title: _.get(elements, 'dealerListTableElement.emailElement', 'Email'),
-                    field: 'emailId'
-                  },
-                  {
-                    title: _.get(elements, 'dealerListTableElement.phoneElement', 'Phone'),
-                    field: 'phone'
->>>>>>> Stashed changes
                   },
                   {
                     title: _.get(
                       elements,
                       'dealerListTableElement.clubCoordinatorNameElement',
-<<<<<<< Updated upstream
                       "Club Coordinator's Name",
                     ),
                     field: 'storeManagerName',
@@ -626,24 +399,6 @@ export default class DealerListing extends Component {
                     title: _.get(elements, 'dealerListTableElement.cityElement', 'City'),
                     field: 'city',
                   },
-=======
-                      "Club Coordinator's Name"
-                    ),
-                    field: 'storeManagerName'
-                  },
-                  {
-                    title: _.get(elements, 'dealerListTableElement.countryElement', 'Country'),
-                    field: 'country'
-                  },
-                  {
-                    title: _.get(elements, 'dealerListTableElement.stateElement', 'State'),
-                    field: 'state'
-                  },
-                  {
-                    title: _.get(elements, 'dealerListTableElement.cityElement', 'City'),
-                    field: 'city'
-                  }
->>>>>>> Stashed changes
                 ]}
                 data={this.props.dealers}
                 options={{
@@ -654,23 +409,14 @@ export default class DealerListing extends Component {
                   pageSize: this.state.pageSize,
                   paginationType: 'stepped',
                   initialPage: 1,
-<<<<<<< Updated upstream
                   showFirstLastPageButtons: false,
-=======
-                  showFirstLastPageButtons: false
->>>>>>> Stashed changes
                 }}
                 actions={[
                   {
                     icon: 'assignment_ind',
                     tooltip: 'Detail Page',
-<<<<<<< Updated upstream
                     onClick: (event, rowData) => this.handleRowData(rowData),
                   },
-=======
-                    onClick: (event, rowData) => this.handleRowData(rowData)
-                  }
->>>>>>> Stashed changes
                 ]}
                 onChangeRowsPerPage={(e) => this.handleOnChangePageSize(e)}
                 onChangePage={(e, page) => this.handleOnPageChange(e, page)}
@@ -680,29 +426,17 @@ export default class DealerListing extends Component {
                       <h6>
                         {_.get(elements, 'dealerListTableElement.noRecordsFoundElement', 'No records to display')}
                       </h6>
-<<<<<<< Updated upstream
                     ),
                   },
                   header: {
                     actions: _.get(elements, 'dealerListTableElement.actionsElement', 'Actions'),
                   },
-=======
-                    )
-                  },
-                  header: {
-                    actions: _.get(elements, 'dealerListTableElement.actionsElement', 'Actions')
-                  }
->>>>>>> Stashed changes
                 }}
               />
             </div>
           </Col>
         </Row>
       </div>
-<<<<<<< Updated upstream
     );
-=======
-    )
->>>>>>> Stashed changes
   }
 }

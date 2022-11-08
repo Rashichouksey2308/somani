@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
 export const GET_MCA_REPORT = 'GET_MCA_REPORT';
 export const GET_MCA_REPORT_SUCCESS = 'GET_MCA_REPORT_SUCCESS';
 export const GET_MCA_REPORT_FAILURE = 'GET_COUNTRIES_MASTERS_FAILURE';
-=======
-export const GET_MCA_REPORT = 'GET_MCA_REPORT'
-export const GET_MCA_REPORT_SUCCESS = 'GET_MCA_REPORT_SUCCESS'
-export const GET_MCA_REPORT_FAILURE = 'GET_COUNTRIES_MASTERS_FAILURE'
->>>>>>> Stashed changes
