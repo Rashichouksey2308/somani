@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
 import _get from 'lodash/get';
 
-function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handleEditRoute }) {
+function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -80,20 +80,11 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
                 <th>COMMODITY</th>
                 <th>VESSEL NAME</th>
                 <th>{pageType}</th>
-                {/* {isVesselHeader ? (
-                  <th>VESSEL NAME</th>
-                ) : (
-                  <th>INSURANCE TYPE</th>
-                )} */}
                 <th>{dateHeading}</th>
-
-                {isStatus ? (
-                  <th>
-                    STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
-                  </th>
-                ) : (
-                  <th>PAYMENT STATUS</th>
-                )}
+                {isStatus ? (<th>
+                  STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
+                </th>
+                ) : (<th>PAYMENT STATUS</th>)}
                 <th>ACTION</th>
               </tr>
             </thead>
@@ -123,162 +114,6 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
                     </td>
                   </tr>
                 ))}
-              {/* <tr className="table_row">
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute()
-                  }}
-                >
-                  Ramakrishna Traders
-                </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
-                <td>
-                  <span className={`${styles.status} ${styles.review}`}></span>
-                  On-Hold
-                </td>
-                <td>
-                  <img
-                    className={`${styles.edit_image} mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-                  />
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute()
-                  }}
-                >
-                  Ramakrishna Traders
-                </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
-                <td>
-                  <span className={`${styles.status} ${styles.review}`}></span>
-                  On-Hold
-                </td>
-                <td>
-                  <img
-                    className={`${styles.edit_image} mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-                  />
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute()
-                  }}
-                >
-                  Ramakrishna Traders
-                </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
-                <td>
-                  <span className={`${styles.status} ${styles.review}`}></span>
-                  On-Hold
-                </td>
-                <td>
-                  <img
-                    className={`${styles.edit_image} mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-                  />
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute()
-                  }}
-                >
-                  Ramakrishna Traders
-                </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Approved
-                </td>
-                <td>
-                  <img
-                    className={`${styles.edit_image} mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-                  />
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute()
-                  }}
-                >
-                  Ramakrishna Traders
-                </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Approved
-                </td>
-                <td>
-                  <img
-                    className={`${styles.edit_image} mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-                  />
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute()
-                  }}
-                >
-                  Ramakrishna Traders
-                </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.rejected}`}
-                  ></span>
-                  Rejected
-                </td>
-                <td>
-                  <img
-                    className={`${styles.edit_image} mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-                  />
-                </td>
-              </tr> */}
             </tbody>
           </table>
         </div>

@@ -10,6 +10,15 @@ export const returnAuthToken = () => {
   return jwtAccessToken
 }
 
+export const returnDocFormat = (name) => {
+  if (name?.toLowerCase()?.endsWith('.xls') || name?.toLowerCase()?.endsWith('.xlsx')) {
+    return <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+  } else if (name?.toLowerCase()?.endsWith('.doc') || name?.toLowerCase()?.endsWith('.docx')) {
+    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+  } else {
+    return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+  }
+}
 /**
  * It takes a number, and returns a string with the number formatted with commas
  * @param number - The number you want to format.

@@ -80,19 +80,10 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       setArrivalDate(value);
     }
   };
-
   const onChangeDischargeOfCargo = (name, text) => {
     let newData = { ...dischargeOfCargo };
     newData.dischargeOfCargo[name] = text;
     setDischargeOfCargo(newData);
-  };
-  const uploadDoc1 = async (e) => {
-    let name = e.target.id;
-    let docs = await uploadDoc(e);
-
-    let newInput = { ...dischargeOfCargo };
-    newInput[name] = docs;
-    setBillOfEntryData(newInput);
   };
 
   const onSaveDocument = async (e) => {
