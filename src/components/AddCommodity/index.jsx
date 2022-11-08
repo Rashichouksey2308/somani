@@ -8,9 +8,40 @@ import { Card } from 'react-bootstrap';
 import { UploadDocument } from '../UploadDocument';
 import Router from 'next/router';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { CreateCommodity } from 'redux/commodity/action';
 
-function Index({isUpdate}) {
+function Index() {
 
+  const dispatch = useDispatch()
+
+  const [commodityData, setCommodityData] = useState({
+    Commodity: '',
+    Chapter_Name: '',
+    Chapter_Code: '',
+    Approved_Commodity: '',
+    Approved_Date: ''
+  })
+
+  const saveCommodityData = (name, value) => {
+    const newInput = { ...commodityData }
+    newInput[name] = value
+    setCommodityData(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveCommodityData(name, text);
+  };
+
+  const handleCreate = () => {
+    let data = {...commodityData}
+    dispatch(CreateCommodity(data))
+  }
+
+
+ 
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -31,7 +62,8 @@ function Index({isUpdate}) {
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
-                  name="supplierName"
+                  name="Commodity"
+                  onChange={ (e) => saveCommodityData(e.target.name, e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity  <strong className="text-danger">*</strong>
@@ -45,7 +77,8 @@ function Index({isUpdate}) {
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
-                  name="supplierName"
+                  name="Chapter_Name"
+                  onChange={ (e) => saveCommodityData(e.target.name, e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                 Chapter Name  <strong className="text-danger">*</strong>
@@ -58,7 +91,8 @@ function Index({isUpdate}) {
                   className={`${styles.input_field} border_color input form-control`}
                   type="number"
                   required
-                  name="supplierName"
+                  name="Chapter_Code"
+                  onChange={ (e) => saveCommodityData(e.target.name, e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                 Chapter Code  <strong className="text-danger">*</strong>
@@ -74,7 +108,7 @@ function Index({isUpdate}) {
                           <Form.Check
                             className={styles.radio}
                             inline
-                            defaultChecked
+                            onChange={ (e) => saveCommodityData('Approved_Commodity', 'Yes')}
                             label="Yes"
                             name="group1"
                             type={type}
@@ -84,6 +118,7 @@ function Index({isUpdate}) {
                             className={styles.radio}
                             inline
                             label="No"
+                            onChange={ (e) => saveCommodityData('Approved_Commodity', 'No')}
                             name="group1"
                             type={type}
                             id={`inline-${type}-2`}
@@ -96,7 +131,7 @@ function Index({isUpdate}) {
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Approved Date " />
+                  <DateCalender name='Approved_Date' saveDate={saveDate} labelName="Approved Date " />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -112,23 +147,24 @@ function Index({isUpdate}) {
             </div>
           </div>
         </div>
-        { !isUpdate ? 
+        { 
+        // !isUpdate ? 
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
        
-                <button className={`${styles.approve} ml-3`}>
+                <button onClick={handleCreate} className={`${styles.approve} ml-3`}>
                  Send for Approval
                 </button>
              
          
           </div>
         </div>
-        :
-        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
-          <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
-            <button className={`${styles.approve} ml-3`}>Update</button>
-          </div>
-        </div>
+        // :
+        // <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        //   <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
+        //     <button className={`${styles.approve} ml-3`}>Update</button>
+        //   </div>
+        // </div>
 }
         <div className='d-flex justify-content-end mb-5'
         style={{marginTop:'35px'}}>

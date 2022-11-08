@@ -2,9 +2,24 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddCommodity from '../../src/components/AddCommodity'
+import UpdateCommodity from '../../src/components/UpdateCommodity'
+import { GetCommodity } from '../../src/redux/commodity/action';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import _get from 'lodash/get'
 
 function Index() {
+
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    let id = sessionStorage.getItem('commodityId')
+    dispatch(GetCommodity(`?commodityId=${id}`))
+  }, [dispatch])
+
+  const { Commodity } = useSelector((state) => state.commodity);
+  
+
   return (
     <div className="container-fluid p-0 border-0">
     <Card className={`${styles.card}`}>
@@ -22,7 +37,7 @@ function Index() {
                 alt="ArrowRight"
               />
             </div>
-            <h1 className={styles.heading}>BalKrishnan Traders-0011</h1>
+            <h1 className={styles.heading}>{_get(Commodity, 'data[0].Commodity', '')}</h1>
           </div>
           <div className="d-flex align-items-center">
             <div className={`${styles.lastModified} text `}>
@@ -33,7 +48,7 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-     <AddCommodity isUpdate={true}/>
+     <UpdateCommodity />
     
     </Card>
     </div>
