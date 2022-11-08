@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 
 function Index({ TransitDetails }) {
-
   const dispatch = useDispatch();
   let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
@@ -81,8 +80,6 @@ function Index({ TransitDetails }) {
       setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } });
     } else {
       if (e.target.value.toLowerCase() === 'bhawana jain') {
-       
-
         setLOI({
           ...loi,
           authorizedSignatory: {
@@ -92,7 +89,6 @@ function Index({ TransitDetails }) {
         });
       }
       if (e.target.value.toLowerCase() === 'vipin kumar') {
-       
         setLOI({
           ...loi,
           authorizedSignatory: {
@@ -102,7 +98,6 @@ function Index({ TransitDetails }) {
         });
       }
       if (e.target.value.toLowerCase() === 'devesh jain') {
-      
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -114,7 +109,6 @@ function Index({ TransitDetails }) {
         });
       }
       if (e.target.value.toLowerCase() === 'fatima yannoulis') {
-     
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -126,12 +120,9 @@ function Index({ TransitDetails }) {
         });
       }
     }
-
-  
   };
 
   const BolDropDown = (e, index) => {
-  
     let temp = [...billsofLanding];
 
     let text = e.target.value;
@@ -142,7 +133,7 @@ function Index({ TransitDetails }) {
     } else {
       thenum = Number(Number(thenum) - 1);
     }
-    
+
     temp[index].blnumber = e.target.value;
 
     temp[index].date = moment(_get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[thenum].blDate).format(
@@ -189,13 +180,12 @@ function Index({ TransitDetails }) {
     // const billOfLanding = [...bolList]
     const LOI = { ...loi };
     LOI.billOfLanding = billsofLanding;
-  
+
     let fd = new FormData();
     fd.append('loi', JSON.stringify(LOI));
     fd.append('transitId', transId._id);
     let task = 'submit';
     dispatch(UpdateTransitDetails({ fd, task }));
-
 
     Router.push('/loi-preview');
   };

@@ -192,18 +192,14 @@ function Index() {
                     </td>
                     <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
-                        marginData?.order?.tolerance
-                          ? Number(marginData?.order?.tolerance)
-                          : 0,
+                        marginData?.order?.tolerance ? Number(marginData?.order?.tolerance) : 0,
                         '%',
                         '',
                       )}
                     </td>
                     <td>
                       {addPrefixOrSuffix(
-                        marginData?.order?.tolerance
-                          ? Number(marginData?.order?.tolerance)
-                          : 0,
+                        marginData?.order?.tolerance ? Number(marginData?.order?.tolerance) : 0,
                         '%',
                         '',
                       )}
@@ -621,9 +617,7 @@ function Index() {
         exportPDF={exportPDF}
         leftButtonTitle={'Revised Margin Money'}
         rightButtonTitle={'Send to Buyer'}
-        openbar={() => {
-          
-        }}
+        openbar={() => {}}
       />
     </>
   );

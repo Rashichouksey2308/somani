@@ -147,7 +147,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       fd.append('document', newDoc.document);
       fd.append('module', newDoc.module);
       fd.append('order', orderid);
-     
+
       fd.append('name', newDoc.name);
 
       dispatch(AddingDocument(fd));
@@ -221,7 +221,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
-                  
                     <div className={`${styles.certificate} text1 d-inline-flex justify-content-between`}>
                       <span>{newDoc?.document?.name}</span>
                       <img
@@ -232,7 +231,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       />{' '}
                     </div>
                   ) : (
-                  
                     <p className={styles.drop_para}>
                       Drop Files here or
                       <br />
@@ -268,18 +266,18 @@ const Index = ({ orderid, module, isDocumentName }) => {
                           </option>
                           <option value="Certificate of Incorporation">Certificate of Incorporation</option>
                           <option value="IEC Certificate">IEC Certificate</option>
-                          <option value="Business Registration Certificate ">Business Registration Certificate </option>
+                          <option value="Business Registration Certificate ">Business Registration Certificate</option>
                           <option value="PAN Card">PAN Card</option>
                           <option value="GST Certificate">GST Certificate</option>
                           <option value="Bank Reference Letter">Bank Reference Letter</option>
-                          <option value="Financial Year ">Financial Year </option>
+                          <option value="Financial Year ">Financial Year</option>
                         </>
                       ) : module === 'Loading-Transit-Unloading' ? (
                         <>
                           <option value="" disabled>
                             Select an option
                           </option>
-                          <option value="Certificate Of Origin">Certificate of Origin </option>
+                          <option value="Certificate Of Origin">Certificate of Origin</option>
                           <option value="Certificate Of Quality"> Certificate of Quality</option>
                           <option value="Certificate Of Weight "> Certificate of Weight</option>
                           <option value="Plot Inspection Report"> Plot Inspection Report</option>

@@ -37,7 +37,7 @@
   .search {
     width: 492px;
     position: relative;
-  
+
     @include respond(lg-desktop) {
       width: 400px;
     }
@@ -85,7 +85,7 @@
       box-shadow: none !important;
       padding-left: 65px !important;
       border-radius: 24px !important;
-     
+
       @include respond(lg-desktop) {
         font-size: 16px !important;
         line-height: 1.3 !important;
@@ -212,14 +212,14 @@
     border: none;
     border-radius: 5px;
     background: #3687e8;
- 
+
     text-transform: capitalize;
   }
 
   .datatable {
     border-radius: 6px;
     border: 1px solid #d2d7e5;
-  
+
     margin-bottom: 25px;
 
     .tableFilter {
@@ -353,7 +353,7 @@
               line-height: 24px;
               padding: 24px 15px;
               border-top: none;
-             
+
               &:first-child {
                 padding-left: 35px;
               }
@@ -443,7 +443,7 @@ img {
   height: 27px;
   outline: none;
   letter-spacing: 0.17px;
- 
+
   padding: 0 20px 0 15px;
   width: 68px;
   height: 36px;
@@ -462,5 +462,4 @@ img {
 
 .customSelect {
   appearance: none;
- 
 }

@@ -156,7 +156,6 @@ function Index({ chargesData }) {
                           <td className="text-center">{charges.dateOfSatisfactionOfChargeInFull}</td>
                         </tr>
                       ))}
-                  
                   </tbody>
                 </table>
               </div>

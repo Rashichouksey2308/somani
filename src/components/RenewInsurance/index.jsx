@@ -44,7 +44,6 @@ const Index = () => {
   };
 
   const saveDate = (value, name) => {
-   
     const d = new Date(value);
     let text = d.toISOString();
     saveMarineData(name, text);
@@ -62,7 +61,6 @@ const Index = () => {
   });
 
   const saveStorageDate = (value, name) => {
-
     const d = new Date(value);
     let text = d.toISOString();
     setStorageData(name, text);
@@ -82,7 +80,7 @@ const Index = () => {
   const uploadDocument2 = (e) => {
     const newUploadDoc = { ...insuranceDocument };
     newUploadDoc.storagePolicyDocument = e.target.files[0];
-   
+
     setInsuranceDocument(newUploadDoc);
   };
   const uploadDocument1 = (e) => {
@@ -207,12 +205,7 @@ const Index = () => {
             </div>
             {insuranceType == false ? (
               <>
-                <div
-                  id="storageInsurance"
-                
-                  aria-labelledby="storageInsurance"
-                  data-parent="#storageInsurance"
-                >
+                <div id="storageInsurance" aria-labelledby="storageInsurance" data-parent="#storageInsurance">
                   <div className={` ${styles.cardBody} card-body  border_color`}>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
@@ -334,13 +327,10 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-             
               </>
             ) : (
               <>
-                <div id="storageInsurance" 
-                
-                aria-labelledby="storageInsurance">
+                <div id="storageInsurance" aria-labelledby="storageInsurance">
                   <div className={` ${styles.cardBody} card-body  border_color`}>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>

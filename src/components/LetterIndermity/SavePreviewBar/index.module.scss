@@ -53,6 +53,7 @@
       width: 160px;
       font-size: 12px;
     }
+
     img {
       margin-left: 0.5rem;
       @include respond(lg-desktop) {
@@ -172,6 +173,7 @@
         font-size: 12px;
       }
     }
+
     @include respond(lg-desktop) {
       width: 200px;
       height: 38px;

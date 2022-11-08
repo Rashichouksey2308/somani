@@ -54,7 +54,6 @@ function Index(props) {
 
   useEffect(() => {
     if (window) {
- 
       if (sessionStorage.getItem('Cha')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
@@ -137,7 +136,7 @@ function Index(props) {
           }
         });
         let pincode = add[add.length - 1].split('-');
-     
+
         setAddressList([
           ...addressList,
           {
@@ -181,7 +180,6 @@ function Index(props) {
     },
   ];
   const removeDoc = (index) => {
-
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -243,8 +241,6 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -312,7 +308,6 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-      
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -454,11 +449,9 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-   
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-           
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -883,8 +876,6 @@ function Index(props) {
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
-
-                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -915,8 +906,6 @@ function Index(props) {
                                             {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
-
-                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}

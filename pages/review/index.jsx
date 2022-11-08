@@ -457,7 +457,6 @@ function Index() {
   }, [orderList]);
 
   const handleProductSave = (chas, exsupp) => {
-
     if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -624,8 +623,6 @@ function Index() {
 
   const [personData, setPersonData] = useState([]);
 
- 
-
   useEffect(() => {
     let groupExposureArr = [];
     orderList?.company?.groupExposureDetail?.forEach((element) => {
@@ -765,9 +762,9 @@ function Index() {
         if (i == index) {
           return newData;
         }
-      
-        return obj
-      })
+
+        return obj;
+      });
 
       return newState;
     });
@@ -1196,7 +1193,6 @@ function Index() {
         }
       }
     } else {
- 
       dispatch(
         McaReportFetch({
           company: orderList.company._id,
@@ -7480,10 +7476,8 @@ function Index() {
       dispatch(
         ViewDocument({
           path: path,
-       
         }),
-      )
-    
+      );
     }
   };
 
@@ -7557,7 +7551,6 @@ function Index() {
       relevence: 0,
     };
 
-   
     companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
       if (val.caseStatus == 'Disposed') {
@@ -7904,8 +7897,6 @@ function Index() {
       ),
       {
         callback: function (doc) {
-        
-
           doc.save('CAM.pdf');
         },
         margin: [20, 20, 20, 30],
@@ -7913,7 +7904,7 @@ function Index() {
           scale: 0.33, //this was my solution, you have to adjust to your size
           width: 1000, //for some reason width does nothing
         },
-       
+
         autoPaging: 'text',
       },
     );
@@ -8177,12 +8168,7 @@ function Index() {
                         +
                       </span>
                     </div>
-                    <div
-                      id="compliance"
-                    
-                      aria-labelledby="compliance"
-                      data-parent="#profileAccordion"
-                    >
+                    <div id="compliance" aria-labelledby="compliance" data-parent="#profileAccordion">
                       <div className={` ${styles.cardBody_compliance} card-body p-0 border_color`}>
                         <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
@@ -8535,8 +8521,7 @@ function Index() {
                                 value={'high'}
                                 id={'high'}
                                 onChange={() => {
-                                  changeRisk('high')
-                                 
+                                  changeRisk('high');
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -8553,8 +8538,7 @@ function Index() {
                                 value={'medium'}
                                 id={'medium'}
                                 onChange={() => {
-                                  changeRisk('medium')
-                                  
+                                  changeRisk('medium');
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -8570,8 +8554,7 @@ function Index() {
                                 value={'Relevance'}
                                 id={'Relevance'}
                                 onChange={() => {
-                                  changeRisk('relevance')
-                                 
+                                  changeRisk('relevance');
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -8580,8 +8563,6 @@ function Index() {
                               </span>
                             </label>
                           </div>
-
-                        
                         </div>
 
                         <div>{ligitations(Supreme, District, High, Tribunal, companyData)}</div>

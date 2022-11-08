@@ -142,11 +142,7 @@ function Index() {
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {(
-                        marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance
-                          : 0
-                      )} %
+                      {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
                     </td>
                   </tr>
                   <tr>

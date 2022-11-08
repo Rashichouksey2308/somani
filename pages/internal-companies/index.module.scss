@@ -33,6 +33,7 @@
       font-size: 24px;
     }
   }
+
   .head_header {
     height: 48px;
     display: flex;
@@ -82,6 +83,7 @@
       }
     }
   }
+
   .search {
     width: 492px;
     position: relative;
@@ -271,10 +273,7 @@
       line-height: 0.9;
     }
   }
-
-  
 }
-
 
 img {
   &.arrow2 {
@@ -291,6 +290,7 @@ img {
   @include respond(lg-desktop) {
     font-size: 22px;
   }
+
   & + span {
     @include respond(lg-desktop) {
       font-size: 16px;

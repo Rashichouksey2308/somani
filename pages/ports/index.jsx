@@ -4,10 +4,8 @@ import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
-import Image from 'next/image';
 import Router from 'next/router';
 import { GetAllSupplier } from 'redux/supplier/action';
-import moment from 'moment';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 
 const index = () => {
@@ -86,28 +84,24 @@ const index = () => {
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
               onClick={() => Router.push('/ports/id')}
             >
-             
               <span className="ml-1 mr-2">Add</span>
             </button>
           </div>
 
           {/*UserTable*/}
-          <MasterTableQueue tableName='Ports'
-         header1='PORT NAME'
-         header2='COUNTRY'
-         header3='STATE'
-         header='APPROVED DATE'
-         header4='APPROVED'
-        isHeader={true}
-        isDate={true}
-         />
-         
+          <MasterTableQueue
+            tableName="Ports"
+            header1="PORT NAME"
+            header2="COUNTRY"
+            header3="STATE"
+            header="APPROVED DATE"
+            header4="APPROVED"
+            isHeader={true}
+            isDate={true}
+          />
         </div>
-       
       </div>
-      <DownloadMasterBar 
-      downloadFormat={true}
-      btnName="Download" />
+      <DownloadMasterBar downloadFormat={true} btnName="Download" />
     </>
   );
 };

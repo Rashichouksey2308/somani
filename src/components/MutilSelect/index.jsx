@@ -17,7 +17,6 @@ function Index(props) {
   }, [props.emails]);
 
   const emailInputRef = useRef(null);
- 
 
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
@@ -35,11 +34,10 @@ function Index(props) {
           return false;
         }
       }
-      if(props.id == 'Existing Supplier(s)'){
-     
-      validEmails.push(email);
-      }else{
-        validEmails.push(email)
+      if (props.id == 'Existing Supplier(s)') {
+        validEmails.push(email);
+      } else {
+        validEmails.push(email);
       }
       return true;
     };
@@ -80,26 +78,22 @@ function Index(props) {
     let temp = { ...state };
     temp.emails.splice(index, 1);
     setState({ ...temp });
-   
   };
-  const handleOnKeydown = (e) => {
-   
-  };
+  const handleOnKeydown = (e) => {};
 
   const handleOnKeyup = (e) => {
     switch (e.keyCode) {
       case 13:
         findEmailAddress(e.currentTarget.value, true);
-        if(props.id == 'Existing Supplier(s)'){
-        props.setRemoveInput(true);
-        setHandleFunc(false)
+        if (props.id == 'Existing Supplier(s)') {
+          props.setRemoveInput(true);
+          setHandleFunc(false);
         }
       case 9: {
         findEmailAddress(e.currentTarget.value, true);
         break;
       }
       case 32: {
-       
         e.preventDefault();
 
         break;
@@ -112,14 +106,13 @@ function Index(props) {
 
   const handleOnChange = (e) => {
     onChangeInputValue(e.currentTarget.value);
-    if(props.id == 'Existing Supplier(s)'){
-    props.handleSearch(e.currentTarget.value);
+    if (props.id == 'Existing Supplier(s)') {
+      props.handleSearch(e.currentTarget.value);
     }
   };
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
-   
   };
 
   const handleOnFocus = () =>
@@ -148,10 +141,11 @@ function Index(props) {
           return (
             <>
               <span
-                // className={email.status === 'Pending' && `${styles.pending}`}
+              // className={email.status === 'Pending' && `${styles.pending}`}
               >
-                
-                { props.id == 'Existing Supplier(s)' ?  props.getLabel(email, index, removeEmail) : props.getLabel(email, index, removeEmail) }
+                {props.id == 'Existing Supplier(s)'
+                  ? props.getLabel(email, index, removeEmail)
+                  : props.getLabel(email, index, removeEmail)}
               </span>
             </>
           );
@@ -160,7 +154,9 @@ function Index(props) {
         ref={emailInputRef}
         type="text"
         //   placeholder={props.placeholder}
-        value={ props.id == 'Existing Supplier(s)' ? handeFunc ? props.searchTerm : state.inputValue : state.inputValue}
+        value={
+          props.id == 'Existing Supplier(s)' ? (handeFunc ? props.searchTerm : state.inputValue) : state.inputValue
+        }
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={handleOnChange}

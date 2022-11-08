@@ -32,8 +32,6 @@ export default function Index({ inspectionData }) {
     });
   }, [inspectionData]);
 
-  
-
   const savePlotInspectionData = (name, value) => {
     let newInput = { ...plotInspectionData };
     newInput[name] = value;
@@ -60,7 +58,6 @@ export default function Index({ inspectionData }) {
   };
 
   const handleSubmit = async () => {
-
     if (plotInspectionData.plotInspectionDate == '') {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
@@ -76,7 +73,6 @@ export default function Index({ inspectionData }) {
       fd.append('inspectionId', inspectionData?._id);
       let task = 'submit';
 
-  
       let code = await dispatch(UpdateInspection({ fd, task }));
       if (code == 200) {
         sessionStorage.setItem('transId', _get(inspectionData, 'order.transit', ''));
@@ -96,8 +92,6 @@ export default function Index({ inspectionData }) {
     fd.append('inspectionId', inspectionData?._id);
 
     let task = 'save';
-
-
 
     dispatch(UpdateInspection({ fd, task }));
   };

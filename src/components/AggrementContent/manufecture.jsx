@@ -23,7 +23,6 @@ let supplier = {
 };
 
 function Index(props) {
-
   const dispatch = useDispatch();
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [supplierState, setSupplierState] = useState(supplier);
@@ -56,7 +55,7 @@ function Index(props) {
   const [addressEditType, setAddressEditType] = useState('Registered');
   const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
   let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
- 
+
   //multiParty
   const [multiList, setMultiList] = useState([]);
   const [newMultiAddress, setNewMultiAddress] = useState({
@@ -105,8 +104,6 @@ function Index(props) {
     },
   ];
 
-
-
   useEffect(() => {
     if (props.saveData == true && props.active == 'Supplier') {
       let data = {
@@ -133,8 +130,6 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Supplier')) {
-  
-
         let savedData = JSON.parse(sessionStorage.getItem('Supplier'));
         let supplier = {
           name: savedData.name || props?.order?.supplierName,
@@ -181,8 +176,7 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
-      
-      
+
         if (props.data?.authorisedSignatoryDetails.length > 0) {
           let tempArr = props.data?.authorisedSignatoryDetails;
           let optionArray = [...options];
@@ -209,8 +203,6 @@ function Index(props) {
             },
           ]);
         }
-
-       
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
         setAddressList(props.data?.addresses);
@@ -252,8 +244,6 @@ function Index(props) {
     //  setRemovedOption(value.name)
   };
   const onEditRemove = (index, value) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -321,7 +311,6 @@ function Index(props) {
   };
 
   const removeDoc = (index) => {
-
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -392,7 +381,6 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -541,11 +529,9 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
- 
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -636,7 +622,6 @@ function Index(props) {
     setMultiList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == toEditIndex) {
-
           return MultiEditAddress;
         }
         // 👇️ otherwise return object as is
@@ -749,7 +734,7 @@ function Index(props) {
                   if (temp == '_') {
                     temp = '';
                   }
-               
+
                   handleInput(e.target.name, temp, 'bankName');
                 }}
               />
@@ -1156,8 +1141,6 @@ function Index(props) {
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
-
-                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1188,8 +1171,6 @@ function Index(props) {
                                             {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
-
-                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1664,7 +1645,6 @@ const editData = (
   toShow,
   toView,
 ) => {
-
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>

@@ -5,7 +5,6 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
 import Router from 'next/router';
 import { GetAllSupplier } from 'redux/supplier/action';
-import moment from 'moment';
 
 const index = ({ tableName, header1, header2, header3, header4, isHeader, header, isDate }) => {
   const dispatch = useDispatch();
@@ -64,7 +63,6 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return;
                   } else {
                     setCurrentPage((prevState) => prevState - 1);
                   }
@@ -157,7 +155,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
                   <td>IGPL</td>
                   <td>India</td>
                   {isDate ? <td>22-02-2022</td> : ''}
-                  
+
                   <td>
                     <img src="/static/active.svg" className="img-fluid" alt="active" />
                     <span className="m-3">Approved</span>

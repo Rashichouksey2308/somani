@@ -3,7 +3,6 @@ import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 
 function Index({ data }) {
-  
   let tempArr = [
     { name: 'Iron', val: '1,837', val2: 1837, percentage: `100%` },
     { name: 'Steel', val: '1,341', val2: 1837, percentage: `80%` },
