@@ -269,7 +269,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading())
       } else {
         dispatch(addingDocumentsFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        const toastMessage = response.data.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
