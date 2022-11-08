@@ -96,7 +96,7 @@ const index = () => {
          header1='COMPANY NAME'
          header2='SHORT NAME'
          header3='COUNTRY'
-         header4='STATUS'
+         header4='STATUS'         
          />
       </div>
       </div>

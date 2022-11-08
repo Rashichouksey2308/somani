@@ -7,7 +7,7 @@ import Router from 'next/router';
 import { GetAllSupplier } from 'redux/supplier/action';
 import moment from 'moment';
 
-const index = ({tableName, header1, header2, header3, header4, isHeader, header}) => {
+const index = ({ tableName, header1, header2, header3, header4, isHeader, header, isDate }) => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -105,7 +105,7 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                   </th>
 
                   <th className={`${styles.table_heading} table_heading`}>
-                  {header2}{' '}
+                    {header2}{' '}
                     <Image
                       width="9px"
                       height="14px"
@@ -115,7 +115,7 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                     />
                   </th>
                   <th className={`${styles.table_heading} table_heading`}>
-                  {header3}{' '}
+                    {header3}{' '}
                     <Image
                       width="9px"
                       height="14px"
@@ -124,21 +124,22 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                       alt="Sort icon"
                     />
                   </th>
-{isHeader ? 
+                  {isHeader ? (
+                    <th className={`${styles.table_heading} table_heading`}>
+                      {header}{' '}
+                      <Image
+                        width="9px"
+                        height="14px"
+                        className={`${styles.sort_img}`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                  ) : (
+                    ''
+                  )}
                   <th className={`${styles.table_heading} table_heading`}>
-                    {header}{' '}
-                    <Image
-                      width="9px"
-                      height="14px"
-                      className={`${styles.sort_img}`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    /></th>
-                    : ''
-
-         }         
-         <th className={`${styles.table_heading} table_heading`}>
-                  {header4}{' '}
+                    {header4}{' '}
                     <Image
                       width="9px"
                       height="14px"
@@ -155,7 +156,8 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                   <td className={styles.buyerName}>Indo German Private Limited</td>
                   <td>IGPL</td>
                   <td>India</td>
-                  <td>22-02-2022</td>
+                  {isDate ? <td>22-02-2022</td> : ''}
+                  
                   <td>
                     <img src="/static/active.svg" className="img-fluid" alt="active" />
                     <span className="m-3">Approved</span>

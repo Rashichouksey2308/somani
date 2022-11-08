@@ -73,8 +73,8 @@ const index = () => {
           <MasterTableQueue tableName='Vendor Management'
          header1='VENDOR TYPE'
          header2='VENDOR NAME'
-         header3='ACTIVATION DATE'
-         header='COUNTRY'
+         header3='COUNTRY'
+         header='ACTIVATION DATE'
          header4='STATUS'
          isDate={true}
          isHeader={true}
