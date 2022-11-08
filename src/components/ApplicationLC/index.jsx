@@ -71,7 +71,6 @@ function Index() {
       callback: function (doc) {
         doc.save('ApplicationLC.pdf');
       },
-      // margin:margins,
       autoPaging: 'text',
     });
   };

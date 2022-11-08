@@ -442,7 +442,35 @@ function Index(props) {
       }
     }
   }, []);
-
+let masterList = [
+    {
+      name: 'Bhawana Jain',
+      designation: 'Vice President (Finance & Accounts)',
+      email: 'bhawanajain@somanigroup.com',
+      phoneNo: '',
+    },
+    {
+      name: 'Vipin Kumar',
+      designation: 'Manager Accounts',
+      email: 'vipinrajput@somanigroup.com',
+      phoneNo: '',
+    },
+    {
+      name: 'Devesh Jain',
+      designation: 'Director',
+      email: 'devesh@indointertrade.ch',
+      phoneNo: '',
+    },
+    {
+      name: 'Fatima Yannoulis',
+      designation: 'Chief Financial Officer',
+      email: 'fatima@indointertrade.ch',
+      phoneNo: '',
+    },
+  ];
+  const gettingPins=(value)=>{
+   dispatch(getPincodes(value));
+ }
   const showContent = (active) => {
     if (active == 'Buyer') {
       return (
@@ -457,6 +485,8 @@ function Index(props) {
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
           internal={getInternalCompaniesMasterData}
+          masterList={masterList}
+
         />
       );
     }
@@ -476,6 +506,8 @@ function Index(props) {
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+          masterList={masterList}
+        
         />
       );
     }
@@ -490,6 +522,8 @@ function Index(props) {
           data={props?.genericData?.seller}
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
+          masterList={masterList}
+          
         />
       );
     }
@@ -505,6 +539,8 @@ function Index(props) {
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
           vendor={getVendorsMasterData[3]}
+          masterList={masterList}
+          
         />
       );
     }
@@ -521,6 +557,8 @@ function Index(props) {
           uploadDoc={uploadDoc}
           termsheet={props?.genericData?.order?.termsheet}
           vendor={getVendorsMasterData[1]}
+          masterList={masterList}
+          
         />
       );
     }
@@ -539,6 +577,9 @@ function Index(props) {
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
           addressValidation2={addressValidation2}
+          masterList={masterList}
+          gettingPins={gettingPins}
+          
         />
       );
     }
@@ -551,6 +592,7 @@ function Index(props) {
           updateData={updateData}
           active={active}
           data={props?.genericData?.shippingLine}
+          
         />
       );
     }
@@ -579,6 +621,8 @@ function Index(props) {
           addressValidation={addressValidation}
           sameAsCHA={sameAsCHA}
           vendor={getVendorsMasterData[4]}
+          masterList={masterList}
+          
         />
       );
     }
