@@ -211,12 +211,13 @@ function Index() {
   const [invoiceData, setInvoiceData] = useState({});
   const [branchOptions, setBranchOptions] = useState([]);
 
-  const saveData = (name, value, name2, value2, value3) => {
+  const saveData = (name, value, name2, value2, value3,value4) => {
   
     const newInput = { ...invoiceData };
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
+     newInput.accountNo = value4;
 
     setInvoiceData({ ...newInput });
   };
@@ -269,6 +270,7 @@ function Index() {
 
     setBranchOptions([...filter]);
   };
+  console.log(branchOptions,"setBranchOptions")
   useEffect(() => {
     dropDownChange("name",marginData?.invoiceDetail?.importerName? marginData?.invoiceDetail?.importerName:  marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
             ?.toUpperCase()
@@ -4425,7 +4427,7 @@ function Index() {
                                     marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
                                     '%',
                                     '',
-                                  )?.toLocaleString('en-In')}
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -5153,23 +5155,19 @@ function Index() {
                                   required
                                   value={invoiceData?.bankName}
                                   onChange={(e) => {
-                                    saveInvoiceData(e.target.name, e.target.value);
-                                    let filter = getBanksMasterData.filter(
-                                      (val, index) => {
-                                        if (val.name == e.target.value) {
-                                          return val;
-                                        }
-                                      },
-                                    );
-
-                                    dispatch(getBranches(filter[0].code));
+                                  saveInvoiceData(e.target.name, e.target.value);
+                                  
                                   }}
                                 >
                                   <option>Select an option</option>
-                                  {getBanksMasterData.map((val, index) => {
+                                  {branchOptions.filter((val,index)=>{
+                                    if(val.Bank_Name){
+                                      return val
+                                    }
+                                  }).map((val, index) => {
                                     return (
-                                      <option value={`${val.name}`}>
-                                        {val.name}
+                                      <option value={`${val.Bank_Name}`}>
+                                        {val.Bank_Name}
                                       </option>
                                     );
                                   })}
@@ -5199,30 +5197,38 @@ function Index() {
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
-                                    let filter = getBranchesMasterData.filter(
+                                    let filter = branchOptions.filter(
                                       (val, index) => {
-                                        if (val.BRANCH == e.target.value) {
+                                        if (val.Branch_Type == e.target.value) {
                                           return val;
                                         }
                                       },
                                     );
-
+                                    console.log(filter[0].Branch_Address,"filter")
                                     saveData(
                                       'branchAddress',
-                                      filter[0].ADDRESS,
+                                      filter[0].Branch_Address==undefined?"":  filter[0].Branch_Address,
                                       'IFSCcode',
-                                      filter[0].IFSC,
+                                      filter[0].IFSC==undefined?"":filter[0].IFSC,
                                       e.target.value,
-                                    );
+                                      filter[0].Account_No==undefined?"":filter[0].Account_No
+
+                                    )
 
                                   }}
                                 >
                                  
                                   <option selected>Select an option</option>
-                                  {getBranchesMasterData.map((val, index) => {
+                                  {branchOptions.filter(
+                                      (val, index) => {
+                                        if (val.Branch_Type) {
+                                          return val;
+                                        }
+                                      }
+                                    ).map((val, index) => {
                                     return (
-                                      <option value={`${val.BRANCH}`}>
-                                        {val.BRANCH}
+                                      <option value={`${val.Branch_Type}`}>
+                                        {val.Branch_Type}
                                       </option>
                                     );
                                   })}
