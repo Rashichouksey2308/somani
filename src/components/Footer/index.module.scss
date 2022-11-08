@@ -15,6 +15,7 @@
   bottom: 0;
   position: fixed;
   margin-left: 345px;
+  // transform: scale(0.7);
   @include respond(lg-desktop) {
     margin-left: 20%;
     height: 35px;
@@ -33,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    // transform: scale(0.7);
 
     span {
       height: 19px;
@@ -42,7 +44,8 @@
       line-height: 19px;
       margin-left: 1rem;
       opacity: 0.6;
-      margin-right: 1rem;
+      // margin-right: 1rem;
+      transform: scale(0.8);
       @include respond(lg-desktop) {
         font-size: 14px;
         line-height: 1.3;

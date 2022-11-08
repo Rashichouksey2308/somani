@@ -139,7 +139,7 @@ export default {
   getCommodity: '/commodity',
 
   //ALL MASTER URL's
-  masterBaseUrl:'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
+  masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
   portsMaster: 'ports.json',
   commoditiesMaster: 'commodity.json',

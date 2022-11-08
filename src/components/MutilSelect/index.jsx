@@ -24,7 +24,6 @@ function Index(props) {
   };
 
   const findEmailAddress = (value, isEnter) => {
-  
     let inputValue = '';
     const re = /[ ,;]/g;
     let validEmails = [];
@@ -109,7 +108,7 @@ function Index(props) {
     }
   };
 
-  const[handeFunc,  setHandleFunc] = useState(false)
+  const [handeFunc, setHandleFunc] = useState(false);
 
   const handleOnChange = (e) => {
     onChangeInputValue(e.currentTarget.value);
@@ -131,11 +130,9 @@ function Index(props) {
 
   return (
     <div
-      className={`${state.className} react_multi_email input ${
-        state.noClass ? '' : `${styles.react_multi_email}`
-      } ${state.focused ? 'focused' : ''} ${
-        state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''
-      }`}
+      className={`${state.className} react_multi_email input ${state.noClass ? '' : `${styles.react_multi_email}`} ${
+        state.focused ? 'focused' : ''
+      } ${state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''}`}
       // style={style}
       onClick={() => {
         if (emailInputRef.current) {
@@ -144,11 +141,7 @@ function Index(props) {
       }}
     >
       {props.placeholder ? (
-        <span
-          className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}
-        >
-          {props.placeholder}
-        </span>
+        <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span>
       ) : null}
       {state?.emails?.length > 0 &&
         state?.emails?.map((email, index) => {
@@ -175,30 +168,27 @@ function Index(props) {
         onKeyUp={handleOnKeyup}
         className={`${styles.input_field}`}
       />
-      {props?.searchedSupplier &&
-        props.searchedSupplier?.data?.length > 0 &&
-        !props.removeInput &&
-        props.searchTerm && (
-          <div className={styles.searchResults}>
-            <ul>
-              {props.searchedSupplier
-                ? props?.searchedSupplier?.data?.map((results, index) => (
-                    <li
-                      onClick={() => {
-                        props.handleFilteredData(results);
-                        setHandleFunc(true)
-                      }}
-                      id={results._id}
-                      key={index}
-                      value={results}
-                    >
-                      {results?.supplierProfile?.supplierName}
-                    </li>
-                  ))
-                : ''}
-            </ul>
-          </div>
-        )}
+      {props?.searchedSupplier && props.searchedSupplier?.data?.length > 0 && !props.removeInput && props.searchTerm && (
+        <div className={styles.searchResults}>
+          <ul>
+            {props.searchedSupplier
+              ? props?.searchedSupplier?.data?.map((results, index) => (
+                  <li
+                    onClick={() => {
+                      props.handleFilteredData(results);
+                      setHandleFunc(true);
+                    }}
+                    id={results._id}
+                    key={index}
+                    value={results}
+                  >
+                    {results?.supplierProfile?.supplierName}
+                  </li>
+                ))
+              : ''}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

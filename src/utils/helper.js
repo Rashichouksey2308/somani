@@ -128,7 +128,8 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
  */
 
 export const removePrefixOrSuffix = (unitOfValue) => {
-  return Number(unitOfValue?.toString().replace(/\D+/g, ''));
+  const value = String(unitOfValue).replace(/\D+/g, '');
+  return Number(value);
 };
 
 /**
@@ -138,7 +139,7 @@ export const removePrefixOrSuffix = (unitOfValue) => {
  * @param [number=2] - The number of decimal places to round to.
  */
 export const checkNan = (unitOfValue, type = false, number = 2) => {
-  if (Number.isNaN(unitOfValue)) return '';
+  if (isNaN(unitOfValue)) return '';
   if (type === 'no') return Number(unitOfValue)?.toFixed(2);
   if (!type) {
     return Number(unitOfValue)?.toLocaleString('en-IN', {

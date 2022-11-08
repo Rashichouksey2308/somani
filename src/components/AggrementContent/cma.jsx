@@ -163,32 +163,30 @@ function Index(props) {
           }
         }
         if (a == false) {
-          
-          let add = props?.vendor?.field23.split(",")
-          let newAddress=[]
-          if(add?.length > 0) {
-
-         
-          add.forEach((val,index)=>{
-            if(index<4){
-              newAddress.push(val)
-            }
-          });
-          let pincode = add[5].split('-');
-      
-          setAddressList([
-            ...addressList,
-            {
-              addressType: 'Registered',
-              fullAddress: newAddress.join(),
-              pinCode: pincode[1],
-              country: 'India',
-              gstin: '',
-              state: pincode[0],
-              city: add[4],
-            },
-          ]);
-           }
+        
+          let add = props?.vendor?.field23.split(',');
+          let newAddress = [];
+          if (add?.length > 0) {
+            add.forEach((val, index) => {
+              if (index < 4) {
+                newAddress.push(val);
+              }
+            });
+            let pincode = add[5].split('-');
+           
+            setAddressList([
+              ...addressList,
+              {
+                addressType: 'Registered',
+                fullAddress: newAddress.join(),
+                pinCode: pincode[1],
+                country: 'India',
+                gstin: '',
+                state: pincode[0],
+                city: add[4],
+              },
+            ]);
+          }
         }
         if (props.data?.addresses.length > 0) {
         }

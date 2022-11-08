@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Col, Row } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
+import AssociateShipAgreement from '@/templates/AssociateShipAgreement';
+import UnderTaking_1 from '@/templates/UnderTaking_1';
+import UnderTaking_2 from '@/templates/UnderTaking_2';
 import _get from 'lodash/get';
 import moment from 'moment';
-import Router from 'next/router';
+import { useEffect, useState } from 'react';
+import styles from './index.module.scss';
 
 function Index(props) {
 
@@ -69,7 +69,7 @@ function Index(props) {
           lastDate: data?.lastDate,
           terms: data?.terms,
           addComm: data?.addComm,
-         
+
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
@@ -151,12 +151,7 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: data?.comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -166,11 +161,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           buyerEmail: '',
           supplierEmail: '',
@@ -185,23 +176,11 @@ function Index(props) {
             ,""
           ),
           associateBuyerGst: data?.associateBuyer?.gstin,
-          associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
-          associateBuyerAuthorized: _get(
-            data,
-            'buyer.authorisedSignatoryDetails',
-            [],
-                    ),
+          associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
+          associateBuyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           stevedore: data?.stevedore?.name,
-          stevedoreAddress: _get(
-            data,
-            'stevedore.addresses[0]',
-            {},
-          ),
-          stevedoreAuthorized: _get(
-            data,
-            'stevedore.authorisedSignatoryDetails',
-            [],
-          ),
+          stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
+          stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
           cma: data?.CMA?.name,
            cmaAddress:_get(data, 'CMA.addresses[0]', {}),
            
@@ -1290,55 +1269,31 @@ function Index(props) {
                   className={`mb-0 mr-4 ${active == 'none' ? styles.underLine : null}`}
                   onClick={() => setActive('none')}
                 >
-                  {' '}
                   Agreement
                 </h2>
                 <h2
                   className={`mb-0 mr-4 ${active == 'one' ? styles.underLine : null}`}
                   onClick={() => setActive('one')}
                 >
-                  {' '}
                   Undertaking 1
                 </h2>
                 <h2 className={`mb-0  ${active == 'tow' ? styles.underLine : null}`} onClick={() => setActive('tow')}>
-                  {' '}
                   Undertaking 2
                 </h2>
               </div>
-
-              {/* <div
-                      className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
-                    >
-                    
-                      <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
-                        {' '}
-                        <img
-                          src="/static/keyboard_arrow_right-3.svg"
-                          alt="arrow right"
-                          className="img-fluid"
-                        />
-                      </a>
-                      <a href="#" className={`${styles.arrow} ${`rightArrow`}`}>
-                        <img
-                          src="/static/keyboard_arrow_right-3.svg"
-                          alt="arrow right"
-                          className={`${styles.image_reverse} img-fluid`}
-                        />
-                      </a>
-                    </div> */}
             </div>
           ) : null}
           {props.preview == ''
             ? active == 'none'
-              ? associateShip(data, props.preview, props.setPreviewValue)
+              ? AssociateShipAgreement(data, props.preview, props.setPreviewValue)
               : active == 'one'
-              ? underTaking1(data, props.preview, props.setPreviewValue)
-              : underTaking2(data, props.preview, props.setPreviewValue)
+              ? UnderTaking_1(data, props.preview, props.setPreviewValue)
+              : UnderTaking_2(data, props.preview, props.setPreviewValue)
             : props.type == 'ASSO'
-            ? associateShip(data, props.preview, props.setPreviewValue)
+            ? AssociateShipAgreement(data, props.preview, props.setPreviewValue)
             : props.type == 'UNDERTAKING1'
-            ? underTaking1(data, props.preview, props.setPreviewValue)
-            : underTaking2(data, props.preview, props.setPreviewValue)}
+            ? UnderTaking_1(data, props.preview, props.setPreviewValue)
+            : UnderTaking_2(data, props.preview, props.setPreviewValue)}
         </div>
       </div>
     </>

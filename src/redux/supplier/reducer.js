@@ -11,7 +11,6 @@ const initialState = {
   allSupplierResponse: null,
   searchingSupplier: false,
   searchedSupplier: null,
-
 };
 
 function SupplierReducer(state = initialState, action) {
@@ -96,23 +95,23 @@ function SupplierReducer(state = initialState, action) {
         supplierResponse: null,
       };
 
-      case types.SEARCH_SUPPLIER:
-        return {
-          ...state,
-          searchingSupplier: true,
-        };
-      case types.SEARCH_SUPPLIER_SUCCESSFULL:
-        return {
-          ...state,
-          searchingSupplier: false,
-          searchedSupplier: action.payload,
-        };
-      case types.SEARCH_SUPPLIER_FAILED:
-        return {
-          ...state,
-          searchingSupplier: false,
-          searchedSupplier: null,
-        };
+    case types.SEARCH_SUPPLIER:
+      return {
+        ...state,
+        searchingSupplier: true,
+      };
+    case types.SEARCH_SUPPLIER_SUCCESSFULL:
+      return {
+        ...state,
+        searchingSupplier: false,
+        searchedSupplier: action.payload,
+      };
+    case types.SEARCH_SUPPLIER_FAILED:
+      return {
+        ...state,
+        searchingSupplier: false,
+        searchedSupplier: null,
+      };
 
     default:
       return state;

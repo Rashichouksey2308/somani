@@ -335,9 +335,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label className={`${styles.label_heading} label_heading`}>
-                    Manufacturer / Mines name
-                  </Form.Label>
+                  <Form.Label className={`${styles.label_heading} label_heading`}>Manufacturer / Mines name</Form.Label>
                   {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
