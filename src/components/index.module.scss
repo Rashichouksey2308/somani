@@ -1,0 +1,85 @@
+@import '../components/styles/Core/config';
+
+.root_Container {
+  // width:100vw;
+  // height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  .navContainer {
+    width: 100%;
+    height: 62px;
+    @include respond(lg-desktop) {
+      height: 70px;
+    }
+    @include respond(md-desktop) {
+      height: 67px;
+    }
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .sidebarContainer {
+      height: 100%;
+      width: 330px;
+      height: 100vh;
+      position: fixed;
+      z-index: 10;
+      @include respond(lg-desktop) {
+        width: 20%;
+      }
+      // @include respond(md-desktop) {
+      //     display: none;
+      // }
+    }
+
+    .mainView_Container {
+      flex-grow: 1;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      margin-left: 345px;
+      @include respond(lg-desktop) {
+        margin-left: 20%;
+      }
+      @include respond(md-desktop) {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.no_sidebar {
+  margin-left: 102px !important;
+}
+
+.no_sidebar_mobile {
+  margin-left: 0px !important;
+}
+
+.collapse_sidebar_mobile {
+}
+
+.collapse_sidebar {
+  width: 102px !important;
+  height: 100vh;
+  @include respond(lg-desktop) {
+    width: 102px !important;
+  }
+}
+
+.sidebarContainer_mobile {
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+}

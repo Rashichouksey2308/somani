@@ -1,0 +1,1493 @@
+@import '../styles/Core/config';
+
+.backgroundMain {
+  .vessel_card {
+    border-radius: 6px;
+
+    .order_card {
+      margin-top: 72px;
+      background: #f3f4f7;
+      padding: 24px 36px;
+    }
+
+    h2 {
+      font-size: 22px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 27px;
+      @include respond(md-desktop) {
+        font-size: 22px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 15px;
+      }
+    }
+
+    .radio_form {
+      padding: 26px 0px 20px 50px;
+
+      .radio_group {
+        display: flex;
+
+        .radio {
+          font-size: 20px;
+          color: #111111;
+          letter-spacing: 0.19px;
+          // padding-right: 10px;
+          @include respond(md-desktop) {
+            font-size: 18px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+          }
+
+          input {
+            transform: scale(1.5);
+          }
+
+          label {
+            padding-left: 15px;
+          }
+        }
+      }
+    }
+
+    .main {
+      border-radius: 6px;
+      margin-bottom: 26px;
+
+      .add_btn {
+        color: #3687e8;
+        text-transform: capitalize;
+        border: 3px solid #3687e8;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 23px;
+        background-color: transparent;
+        margin: 0 15px 0 30px;
+        width: 97px;
+        height: 38px;
+        white-space: nowrap;
+        @include respond(md-desktop) {
+          font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          width: 60px;
+          height: 35px;
+          text-align: center;
+        }
+
+        .add_sign {
+          font-size: 24px;
+          font-weight: bold;
+          line-height: 27px;
+          margin-right: 5px;
+          @include respond(md-desktop) {
+            font-size: 22px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .head_container {
+        min-height: 80px;
+        padding: 0 35px !important;
+        border-bottom: 2px solid #cad6e6;
+        @include respond(lg-desktop) {
+          min-height: 60px;
+        }
+
+        .heading {
+          color: #3687e8;
+          font-weight: bold;
+          font-size: 22px;
+          text-transform: capitalize;
+          line-height: 27px;
+          margin: 0;
+          @include respond(lg-desktop) {
+            font-size: 20px;
+            line-height: 1.3;
+          }
+          @include respond(sm-desktop) {
+            font-size: 18px;
+            margin: 20px 0;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+            margin: 13px 0;
+          }
+        }
+
+        span {
+          font-size: 45px;
+          color: #3687e8;
+          font-weight: normal;
+          line-height: 20px;
+          @include respond(lg-desktop) {
+            font-size: 35px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 32px;
+          }
+          @include respond(phone) {
+            font-size: 30px;
+          }
+        }
+      }
+    }
+
+    .dashboard_form {
+      padding: 20px 35px 25px 40px;
+
+      .dropDown {
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: 500;
+        padding: 5px 18px;
+        width: 143px;
+        background: #c3c3c31f 0% 0% no-repeat padding-box;
+        border-radius: 4px;
+        @include respond(sm-desktop) {
+          font-size: 18px;
+        }
+        @include respond(phone) {
+          font-size: 17px;
+        }
+      }
+
+      .dropDown_label {
+        letter-spacing: 0.53px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 17px;
+        padding-top: 20px;
+        padding-right: 10px;
+      }
+
+      .bill_landing {
+        //background: #FFFFFF;
+        box-shadow: 0px 3px 6px #cad0e2;
+        border: 1px solid #d2d7e5;
+
+        .vessel_card {
+          padding: 0 35px;
+
+          .card_sub_heading {
+            font-size: 20px;
+            line-height: 25px;
+            font-weight: bold;
+            @include respond(sm-desktop) {
+              font-size: 18px;
+            }
+            @include respond(phone) {
+              font-size: 16px;
+            }
+          }
+
+          .view_btn {
+            font-size: 19px;
+            line-height: 25px;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #3687e8;
+            display: flex;
+            justify-content: center;
+            margin-left: 30px;
+          }
+        }
+
+        .add_row {
+          text-align: center;
+          font-size: 18px;
+          line-height: 23px;
+          font-weight: bold;
+          color: #3687e8;
+          cursor: pointer;
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+          }
+
+          span {
+            font-size: 28px;
+            line-height: 0.7;
+            margin-right: 15px;
+          }
+        }
+
+        .table_scroll_outer {
+          width: 100%;
+          display: table;
+          table-layout: fixed;
+
+          .table_scroll_inner {
+            display: table-cell;
+            overflow-x: auto;
+
+            .table {
+              margin-bottom: 0px;
+
+              th {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                border: none !important;
+                line-height: 18px;
+                padding: 20px 15px;
+                vertical-align: middle;
+                text-transform: uppercase;
+                white-space: nowrap;
+
+                &:first-child {
+                  padding-left: 35px;
+                  @include respond(md-desktop) {
+                    padding-left: 15px;
+                  }
+                }
+
+                .sort_img {
+                  width: 14px;
+                  height: 14px;
+                  @include respond(lg-desktop) {
+                    width: 12px;
+                    height: 12px;
+                  }
+                }
+
+                @include respond(lg-desktop) {
+                  height: 50px;
+                  font-size: 14px;
+                  line-height: 1.2;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 13px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
+              }
+
+              tr {
+                //border-bottom: 1px solid #d2d7e5;
+                &:last-child {
+                  border-bottom: none;
+                }
+
+                td {
+                  font-size: 19px;
+                  font-weight: 500;
+                  line-height: 24px;
+                  padding: 24px 15px;
+                  vertical-align: middle;
+                  white-space: nowrap;
+
+                  &:first-child {
+                    padding-left: 35px;
+                    @include respond(md-desktop) {
+                      padding-left: 15px;
+                    }
+                  }
+
+                  @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                    padding: 17px 10px;
+                  }
+                  @include respond(phone) {
+                    font-size: 14px;
+                    padding: 10px;
+                  }
+
+                  .upload_btn {
+                    text-align: center;
+                    color: #3687e8;
+                    border: 3px solid #3687e8;
+                    font-size: 18px;
+                    line-height: 23px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    background: transparent;
+                    text-transform: capitalize;
+                    padding: 8px 30px;
+                    @include respond(md-desktop) {
+                      font-size: 16px;
+                    }
+                    @include respond(sm-desktop) {
+                      font-size: 14px;
+                      padding: 4px 25px;
+                    }
+                    @include respond(phone) {
+                      font-size: 12px;
+                      padding: 0 15px;
+                    }
+                  }
+
+                  .edit_image {
+                    background: #c3c3c31f;
+                    border: 1px solid #0000001f;
+                    border-radius: 4px;
+                    padding: 10px 9px 10px 9px;
+                    cursor: pointer;
+                    @include respond(md-desktop) {
+                      height: 30px;
+                      padding: 7px;
+                    }
+                    @include respond(sm-desktop) {
+                      height: 28px;
+                      padding: 6px;
+                    }
+                    @include respond(phone) {
+                      height: 25px;
+                      padding: 5px;
+                    }
+                  }
+
+                  .dutyDropdown {
+                    width: 125px;
+                    height: 36px;
+                    // border: 1px solid var(--unnamed-color-0000001f);
+                    // background: #c3c3c31f;
+                    // border: 1px solid #0000001f;
+                    border-radius: 4px;
+                    // color: #111111;
+                    font-size: 19px;
+                    line-height: 24px;
+                    font-weight: 500;
+                    opacity: 0.7;
+                  }
+                }
+              }
+
+              span {
+                margin-left: 20px;
+                text-decoration: underline;
+                color: #3687e8;
+                font-weight: bold;
+                line-height: 25px;
+                font-size: 20px;
+              }
+
+              .input_field {
+                // background: #c3c3c31f;
+                border-radius: 4px;
+                font-size: 20px;
+                line-height: 25px;
+                letter-spacing: 0.19px;
+                // color: #111111;
+                border: none;
+                padding: 5px 0 5px 15px;
+                width: 299px;
+                @include respond(sm-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(phone) {
+                  font-size: 16px;
+                }
+              }
+
+              .doc_name {
+                font-weight: bold;
+                line-height: 25px;
+                font-size: 20px;
+                text-transform: capitalize;
+                padding-left: 35px;
+                color: #3687e8;
+                @include respond(md-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                }
+              }
+
+              .doc_row {
+                font-size: 19px;
+                line-height: 24px;
+                opacity: 0.7;
+                font-weight: 500;
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .form_heading {
+        font-size: 22px;
+        line-height: 27px;
+        font-weight: bold;
+        text-transform: capitalize;
+
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+
+        @include respond(sm-desktop) {
+          font-size: 16px;
+          line-height: 20px;
+        }
+
+        @include respond(phone) {
+          font-size: 14px;
+          line-height: 15px;
+        }
+      }
+
+      .total_quantity {
+        letter-spacing: 0.53px;
+        color: #00000080;
+        font-size: 16px;
+        line-height: 17px;
+        font-weight: 500;
+
+        span {
+          // color: #111111;
+          font-size: 20px;
+          line-height: 23px;
+          font-weight: 500;
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .bill_landing {
+        //background: #FFFFFF;
+        // border: 2px solid #cad6e6;
+        border: 1px solid #d2d7e5;
+        border-radius: 9px;
+
+        .vessel_card {
+          padding: 0 35px;
+          min-height: 78px;
+
+          .add_btn {
+            color: #3687e8;
+            text-transform: capitalize;
+            border: 3px solid #3687e8;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 23px;
+            background-color: transparent;
+            margin: 0 80px 0 30px;
+            width: 92px;
+            height: 38px;
+            @include respond(md-desktop) {
+              font-size: 16px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 14px;
+            }
+            @include respond(phone) {
+              font-size: 12px;
+              width: 50px;
+              height: 26px;
+              text-align: center;
+              border-radius: 3px;
+            }
+          }
+        }
+
+        .table_scroll_outer {
+          width: 100%;
+          display: table;
+          table-layout: fixed;
+
+          .table_scroll_inner {
+            display: table-cell;
+            overflow-x: auto;
+
+            .table {
+              margin-bottom: 0px;
+
+              th {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                border: none !important;
+                line-height: 18px;
+                padding: 20px 15px;
+                vertical-align: middle;
+                text-transform: uppercase;
+                white-space: nowrap;
+
+                &:first-child {
+                  padding-left: 35px;
+                  @include respond(md-desktop) {
+                    padding-left: 15px;
+                  }
+                }
+
+                .sort_img {
+                  width: 14px;
+                  height: 14px;
+                  @include respond(lg-desktop) {
+                    width: 12px;
+                    height: 12px;
+                  }
+                }
+
+                @include respond(lg-desktop) {
+                  height: 50px;
+                  font-size: 14px;
+                  line-height: 1.2;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 13px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
+              }
+
+              tr {
+                &:last-child {
+                  border-bottom: none;
+                }
+
+                td {
+                  font-size: 19px;
+                  font-weight: 500;
+                  line-height: 24px;
+                  padding: 15px;
+                  border-top: none;
+                  vertical-align: middle;
+                  white-space: nowrap;
+                  @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                    padding: 17px 10px;
+                  }
+                  @include respond(phone) {
+                    font-size: 14px;
+                    padding: 10px;
+                  }
+
+                  .upload_btn {
+                    text-align: center;
+                    color: #3687e8;
+                    border: 3px solid #3687e8;
+                    font-size: 18px;
+                    line-height: 23px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    background: transparent;
+                    text-transform: capitalize;
+                    padding: 8px 30px 8px 30px;
+                    @include respond(md-desktop) {
+                      font-size: 16px;
+                    }
+                    @include respond(sm-desktop) {
+                      font-size: 14px;
+                      padding: 4px 25px 4px 25px;
+                    }
+                    @include respond(phone) {
+                      font-size: 12px;
+                      padding: 0px 15px 0 15px;
+                    }
+                  }
+                }
+              }
+
+              span {
+                margin-left: 20px;
+                text-decoration: underline;
+                color: #3687e8;
+                font-weight: bold;
+                line-height: 25px;
+                font-size: 20px;
+              }
+
+              .input_field {
+                background: #c3c3c31f;
+                border-radius: 4px;
+                font-size: 20px;
+                line-height: 25px;
+                letter-spacing: 0.19px;
+                color: #111111;
+                border: none;
+                padding: 5px 0px 5px 15px;
+                width: 299px;
+                @include respond(sm-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(phone) {
+                  font-size: 16px;
+                }
+              }
+
+              .doc_name {
+                font-weight: bold;
+                line-height: 25px;
+                font-size: 20px;
+                text-transform: capitalize;
+                padding-left: 35px;
+                @include respond(md-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                }
+              }
+
+              .doc_row {
+                font-size: 19px;
+                line-height: 24px;
+                opacity: 0.7;
+                font-weight: 500;
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .eta_heading {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: bold;
+      }
+
+      .previewImg {
+        background: #c3c3c31f;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+      }
+
+      .label {
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 17px;
+        top: 26px;
+        font-weight: 500;
+        left: 30px;
+        margin-bottom: 15px;
+        //color: #00000080;
+        @include respond(sm-desktop) {
+          font-size: 15px;
+        }
+        @include respond(phone) {
+          font-size: 13px;
+        }
+      }
+
+      .value {
+        font-size: 20px;
+        height: 60px;
+        line-height: 25px;
+        font-weight: 500;
+        @include respond(sm-desktop) {
+          font-size: 18px;
+        }
+        @include respond(phone) {
+          font-size: 16px;
+        }
+      }
+
+      .upload_button {
+        border: 3px solid #3687e8;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 25px;
+        color: #3687e8;
+        font-weight: bold;
+        text-transform: capitalize;
+        width: 220px;
+        height: 46px;
+        background-color: transparent;
+      }
+
+      .form_group {
+        margin-top: 44px;
+        position: relative;
+        margin-bottom: 12px;
+
+        .search_image {
+          margin-left: -40px;
+        }
+
+        .toggle_label {
+          letter-spacing: 0.19px;
+          //color: #111111;
+          font-size: 20px;
+          line-height: 25px;
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+
+          @include respond(phone) {
+            font-size: 12px;
+          }
+        }
+
+        .upload_btn {
+          text-align: center;
+          color: #3687e8;
+          text-transform: capitalize;
+          border: 3px solid #3687e8;
+          border-radius: 5px;
+          width: 184px;
+          height: 48px;
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 25px;
+          background-color: transparent;
+          white-space: nowrap;
+          @include respond(md-desktop) {
+            font-size: 18px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 16px;
+            width: 150px;
+            height: 38px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+            width: 120px;
+            height: 30px;
+          }
+        }
+
+        .upload_text {
+          color: #8492a6;
+          text-transform: uppercase;
+          font-size: 13px;
+          line-height: 24px;
+          font-weight: bold;
+          margin-left: 20px;
+          white-space: nowrap;
+
+          @include respond(sm-desktop) {
+            font-size: 12px;
+          }
+          @include respond(phone) {
+            font-size: 10px;
+          }
+        }
+
+        .label_heading {
+          font-size: 16px;
+          letter-spacing: 0.53px;
+          line-height: 17px;
+          top: 22px;
+          left: 30px;
+          margin-bottom: 0;
+          position: absolute;
+          pointer-events: none;
+          box-sizing: border-box;
+          transform: translateY(-30px);
+          transition: 0.3s all ease-in-out;
+          z-index: 0;
+          max-width: 77%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &::before {
+            top: 51%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            content: '';
+            z-index: -1;
+            position: absolute;
+            transform: translateY(-50%);
+          }
+
+          @include respond(lg-desktop) {
+            top: 15px;
+            font-size: 14px;
+            line-height: 15px;
+            transform: translateY(-22px);
+          }
+          @include respond(phone) {
+            font-size: 13px;
+          }
+        }
+
+        .line {
+          border: 3px solid #d9dde8;
+        }
+
+        .input_field {
+          font-size: 20px;
+          height: 60px;
+          outline: none;
+          line-height: 25px;
+          box-shadow: none;
+          border-radius: 4px;
+          position: relative;
+          box-sizing: border-box;
+          white-space: nowrap;
+          letter-spacing: 0.19px;
+          padding: 13px 30px 13px 17px;
+          // border: 1px solid #0000001f;
+          &:invalid + label {
+            transform: translateY(0);
+          }
+
+          &:focus {
+            & + label {
+              transform: translateY(-30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-22px);
+              }
+            }
+          }
+
+          @include respond(lg-desktop) {
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+
+    .table_scroll_outer {
+      width: 100%;
+      display: table;
+      table-layout: fixed;
+
+      .table_scroll_inner {
+        display: table-cell;
+        overflow-x: auto;
+
+        .table {
+          margin-bottom: 0px;
+
+          border-top: 2px solid #cad6e6;
+
+          th {
+            font-size: 15px;
+            color: #8492a6;
+            font-weight: bold;
+            border: none !important;
+            line-height: 18px;
+            padding: 20px 15px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            white-space: nowrap;
+
+            &:first-child {
+              padding-left: 35px;
+              @include respond(md-desktop) {
+                padding-left: 15px;
+              }
+            }
+
+            .sort_img {
+              width: 14px;
+              height: 14px;
+              @include respond(lg-desktop) {
+                width: 12px;
+                height: 12px;
+              }
+            }
+
+            @include respond(lg-desktop) {
+              height: 50px;
+              font-size: 14px;
+              line-height: 1.2;
+            }
+            @include respond(sm-desktop) {
+              font-size: 13px;
+            }
+            @include respond(phone) {
+              font-size: 12px;
+            }
+          }
+
+          tr {
+            &:last-child {
+              border-bottom: none;
+            }
+
+            td {
+              font-size: 19px;
+              font-weight: 500;
+              line-height: 24px;
+              padding: 24px 15px;
+              border-top: none;
+              vertical-align: middle;
+              white-space: nowrap;
+
+              &:first-child {
+                padding-left: 35px;
+                @include respond(md-desktop) {
+                  padding-left: 15px;
+                }
+              }
+
+              @include respond(lg-desktop) {
+                font-size: 15px;
+                line-height: 1.3;
+                padding: 17px 10px;
+              }
+              @include respond(phone) {
+                font-size: 14px;
+                padding: 10px;
+              }
+
+              .upload_btn {
+                text-align: center;
+                color: #3687e8;
+                border: 3px solid #3687e8;
+                font-size: 18px;
+                line-height: 23px;
+                font-weight: bold;
+                border-radius: 5px;
+                background: transparent;
+                text-transform: capitalize;
+                padding: 8px 30px;
+                @include respond(md-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 14px;
+                  padding: 4px 25px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                  padding: 0 15px;
+                }
+              }
+            }
+          }
+
+          span {
+            margin-left: 20px;
+            text-decoration: underline;
+            color: #3687e8;
+            font-weight: bold;
+            line-height: 25px;
+            font-size: 20px;
+          }
+
+          .input_field {
+            background: #c3c3c31f;
+            border-radius: 4px;
+            font-size: 20px;
+            line-height: 25px;
+            letter-spacing: 0.19px;
+            color: #111111;
+            border: none;
+            padding: 5px 0 5px 15px;
+            width: 299px;
+            @include respond(sm-desktop) {
+              font-size: 18px;
+            }
+            @include respond(phone) {
+              font-size: 16px;
+            }
+          }
+
+          .delete_image {
+            background: #c3c3c31f;
+            border: 1px solid #0000001f;
+            border-radius: 4px;
+            padding: 6px;
+            width: 40px;
+            height: 40px;
+            @include respond(md-desktop) {
+              height: 30px;
+            }
+            @include respond(sm-desktop) {
+              height: 28px;
+            }
+            @include respond(phone) {
+              height: 25px;
+            }
+          }
+
+          .doc_row {
+            font-size: 19px;
+            line-height: 24px;
+            opacity: 0.7;
+            font-weight: 500;
+            @include respond(md-desktop) {
+              font-size: 17px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 15px;
+            }
+            @include respond(phone) {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    margin-bottom: 26px;
+    border-radius: 6px !important;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  display: inline-block;
+
+  .info_circle {
+    margin-left: 310px;
+    margin-top: -94px;
+    margin-right: 50px;
+    @include respond(lg-desktop) {
+      width: 17px;
+    }
+    @include respond(sm-desktop) {
+      margin-left: 230px;
+      margin-top: -130px;
+    }
+    @include respond(phone) {
+      margin-left: 270px;
+      margin-top: -115px;
+      //margin-right: 50px;
+    }
+  }
+
+  .tooltiptext {
+    font-size: 13px !important;
+    color: #000000;
+    line-height: 16px !important;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    right: 40px;
+    top: -82px;
+    margin-left: -100px;
+    opacity: 0;
+    visibility: hidden;
+    min-width: 121px;
+    white-space: nowrap;
+    background: #d2d7e5;
+    transition: opacity 0.3s;
+    // border: 1px solid #707070;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 14px;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #d2d7e5 transparent transparent transparent;
+    }
+  }
+
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.pdfImage {
+  width: 57px;
+  height: 25px;
+
+  @include respond(sm-desktop) {
+    width: 50px;
+    height: 22px;
+  }
+  @include respond(phone) {
+    width: 35px;
+    height: 15px;
+  }
+}
+
+.uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+
+  input {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+  }
+
+  @include respond(phone) {
+    width: 100%;
+  }
+
+  .upload_btn {
+    text-align: center;
+    color: #3687e8;
+    border: 3px solid #3687e8;
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 23px;
+    font-weight: bold;
+    border-radius: 5px;
+    background: transparent;
+    text-transform: capitalize;
+    padding: 8px 30px 8px 30px;
+    @include respond(md-desktop) {
+      font-size: 16px;
+    }
+    @include respond(sm-desktop) {
+      font-size: 14px;
+      padding: 4px 25px 4px 25px;
+    }
+    @include respond(phone) {
+      font-size: 12px;
+      padding: 0px 15px 0 15px;
+    }
+  }
+}
+
+.img_arrow {
+  transform: translateY(30%);
+  top: 30%;
+  margin-left: -40px !important;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+
+.arrow {
+  transform: translateX(80%);
+  margin-top: -30px;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+
+.calanderIcon {
+  margin-left: -40px;
+  margin-top: 15px;
+  z-index: 1;
+  pointer-events: none;
+  @include respond(lg-desktop) {
+    width: 18px;
+    margin-top: 9px;
+    margin-left: -33px;
+  }
+}
+
+.customSelect {
+  appearance: none;
+  // position: relative;
+}
+
+.line {
+  border: 1px solid #d9dde8;
+}
+
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  //color: #111111;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+
+  span {
+    max-width: 92%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
+.certificate2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #3687e8;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
+
+.uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  line-height: 60px;
+
+  input {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+  }
+}
+
+.button_upload {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687e8;
+  line-height: 23px;
+  text-transform: capitalize;
+
+  @include respond(sm-desktop) {
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
+  }
+  @include respond(phone) {
+    font-size: $font_size_mobile_input_label;
+    width: 70%;
+    height: 35px;
+  }
+}
+
+.dashboard_form {
+  .comment_heading {
+    font-size: 16px;
+    letter-spacing: 0.53px;
+    line-height: 17px;
+    top: 46px;
+    left: 30px;
+    margin-bottom: 0;
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    transform: translateY(-30px);
+    transition: 0.3s all ease-in-out;
+    z-index: 1;
+    max-width: 77%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &::before {
+      top: 51%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      content: '';
+      z-index: -1;
+      position: absolute;
+      transform: translateY(-50%);
+    }
+
+    @include respond(sm-desktop) {
+      font-size: 16px;
+    }
+    @include respond(phone) {
+      font-size: 14px;
+      //top: 20px;
+    }
+  }
+
+  .comment_field {
+    // background-color: #c3c3c31f;
+    // border: 1px solid #0000001f;
+    border-radius: 4px;
+    font-size: 20px;
+    outline: none;
+    background: #c3c3c31f;
+    border: 1px solid #0000001f;
+    letter-spacing: 0.19px;
+    color: #111111;
+    line-height: 25px;
+    width: 100%;
+    height: 117px;
+    padding: 12px;
+    overflow: hidden;
+    box-shadow: none;
+    position: relative;
+    box-sizing: border-box;
+
+    &:invalid + label {
+      // background: none;
+      transform: translateY(0);
+    }
+
+    &:focus {
+      & + label {
+        transform: translateY(-30px);
+      }
+    }
+  }
+
+  .form_group {
+    margin-top: 42px;
+    position: relative;
+    margin-bottom: 11px;
+
+    .search_image {
+      margin-left: -40px;
+    }
+
+    .label_heading {
+      font-size: 16px;
+      letter-spacing: 0.53px;
+      line-height: 17px;
+      top: 22px;
+      left: 30px;
+      margin-bottom: 0;
+      position: absolute;
+      pointer-events: none;
+      box-sizing: border-box;
+      transform: translateY(-30px);
+      transition: 0.3s all ease-in-out;
+      z-index: 0;
+      max-width: 77%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &::before {
+        top: 51%;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        content: '';
+        z-index: -1;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+
+      @include respond(lg-desktop) {
+        top: 15px;
+        font-size: 14px;
+        line-height: 15px;
+        transform: translateY(-22px);
+      }
+    }
+
+    .line {
+      border: 3px solid #d9dde8;
+    }
+
+    .input_field {
+      font-size: 20px;
+      height: 60px;
+      outline: none;
+      line-height: 25px;
+      box-shadow: none;
+      border-radius: 4px;
+      position: relative;
+      box-sizing: border-box;
+      letter-spacing: 0.19px;
+      padding: 13px 30px 13px 17px;
+
+      &:invalid + label {
+        transform: translateY(0);
+      }
+
+      &:focus {
+        & + label {
+          transform: translateY(-30px);
+        }
+      }
+
+      @include respond(lg-desktop) {
+        height: 45px;
+        font-size: 15px;
+        line-height: 1.3;
+      }
+    }
+  }
+}
+
+.total {
+  color: #111111;
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+  @include respond(lg-desktop) {
+    font-size: 14px;
+    line-height: 15px;
+  }
+}
+
+.rate {
+  letter-spacing: 0.19px;
+  font-size: 20px;
+  line-height: 25px;
+  color: #111111;
+  white-space: nowrap;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
+  }
+}

@@ -1,0 +1,232 @@
+@import '../styles/Core/config';
+
+.sub_heading {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: bold;
+  padding: 10px 0 15px;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1;
+  }
+  @include respond(sm-desktop) {
+    font-size: 14px;
+  }
+  @include respond(phone) {
+    font-size: 12px;
+  }
+}
+
+.add_btn {
+  border-style: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 25px;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 10px;
+  background: #3687e8;
+  width: 50%;
+  max-width: 200px;
+  height: 48px;
+  @include respond(lg-desktop) {
+    font-size: 16px;
+    line-height: 1.3;
+    height: 38px;
+    max-width: 150px;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  display: inline-block;
+
+  .info_circle {
+    margin-left: 295px;
+    margin-top: -145px;
+    // margin-right: 50px;
+    line-height: 1;
+    z-index: 2;
+    background: #ffffff;
+    border-radius: 50%;
+    @include respond(lg-desktop) {
+      width: 17px;
+      margin-left: 270px;
+      margin-top: -120px;
+    }
+    @include respond(sm-desktop) {
+      margin-left: 230px;
+      margin-top: -130px;
+    }
+    @include respond(phone) {
+      margin-left: 270px;
+      margin-top: -115px;
+      //margin-right: 50px;
+    }
+  }
+
+  .tooltiptext {
+    font-size: 13px !important;
+    color: #000000;
+    //line-height: 16px !important;
+    line-height: 1;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    right: -7px;
+    top: -105px;
+    margin-left: -60px;
+    opacity: 0;
+    visibility: hidden;
+    min-width: 121px;
+    white-space: nowrap;
+    background: #d2d7e5;
+    transition: opacity 0.3s;
+    // border: 1px solid #707070;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 14px;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #d2d7e5 transparent transparent transparent;
+    }
+  }
+
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  // color: #111111;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+
+  span {
+    max-width: 92%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: auto !important;
+    height: auto !important;
+  }
+}
+.address_card {
+  border: 1px solid #0000001f;
+  border-radius: 9px;
+  padding: 22px;
+  margin-bottom: 70px;
+  max-width: 49%;
+  width: 100%;
+  @include respond(lg-desktop) {
+    margin-bottom: 30px;
+  }
+  .label {
+    line-height: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    // color: #111111;
+    text-transform: capitalize;
+    padding-left: 18px;
+  }
+  .address_values {
+    padding-left: 30px;
+    @include respond(lg-desktop) {
+      padding-left: 0;
+    }
+    h5 {
+      line-height: 25px;
+      font-weight: bold;
+      font-size: 20px;
+      //color: #111111;
+      text-transform: capitalize;
+      @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+    }
+    p {
+      letter-spacing: 0.19px;
+      font-size: 20px;
+      line-height: 32px;
+      //color: #111111;
+      text-transform: capitalize;
+      margin-bottom: 5px;
+      @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      span {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: bold;
+        //color: #111111;
+        text-transform: capitalize;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
+        }
+      }
+    }
+    .view_btn {
+      padding-top: 3px;
+      padding-left: 15px;
+      color: #3687e8;
+      margin-left: 1rem;
+      text-decoration: underline;
+    }
+  }
+}
+.edit_image {
+  background: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  padding: 10px 9px;
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+  }
+  @include respond(sm-desktop) {
+    width: 28px;
+    height: 28px;
+    padding: 6px;
+  }
+  @include respond(phone) {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+  }
+}
+.delete_image {
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
+  }
+  @include respond(sm-desktop) {
+    width: 28px;
+    height: 28px;
+  }
+  @include respond(phone) {
+    width: 25px;
+    height: 25px;
+  }
+}
