@@ -33,7 +33,7 @@ function Index() {
                   <div className="d-flex">
                     <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
                       <option value="">India</option>
-                      <option value="">US</option>
+                      <option value="">Switzerland</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Country <strong className="text-danger ml-1">*</strong>
