@@ -217,16 +217,6 @@ const index = () => {
             Total Count: <span>280</span>
           </div>
         </div>
-        {/* <div className="d-flex justify-content-end mt-5 mb-4">
-        <div className={styles.btn_file}>
-          <span>Download</span>
-          <img
-            src="/static/file_download.svg"
-            className="img-fluid"
-            alt="FileDownload"
-          />
-        </div>
-      </div> */}
       </div>
       <DownloadMasterBar btnName="Download" 
        downloadFormat={true}/>
