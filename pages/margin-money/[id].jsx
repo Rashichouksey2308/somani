@@ -2,26 +2,31 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import RevisedMargin from '../../src/components/RevisedMargin';
-import { Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+import jsPDF from 'jspdf';
 import _get from 'lodash/get';
-import UploadOther from '../../src/components/UploadOther';
-import DownloadBar from '../../src/components/DownloadBar';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import ReactDOMServer from 'react-dom/server';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import DownloadBar from '../../src/components/DownloadBar';
+import RevisedMargin from '../../src/components/RevisedMargin';
+import UploadOther from '../../src/components/UploadOther';
 import { GetMarginMoney, RevisedMarginMoney, UpdateMarginMoney } from '../../src/redux/marginMoney/action';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
+import { getBanks, getInternalCompanies } from '../../src/redux/masters/action';
 import { GetAllOrders } from '../../src/redux/registerBuyer/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import MarginMoney from '../../src/templates/MarginMoney';
+import RevisedMarginMoneyTemp from '../../src/templates/RevisedMarginMoneyTemp';
+import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
+import styles from './index.module.scss';
 
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
 import moment from 'moment';
-import { getBanks, getInternalCompanies, getBranches } from '../../src/redux/masters/action';
+import { getBanks, getInternalCompanies ,getBranches} from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -894,7 +899,7 @@ function Index() {
   };
 
   const exportPDF = () => {
-
+   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -1096,7 +1101,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {(marginData?.order?.quantity ? marginData?.order?.quantity + ' ' + marginData?.order?.unitOfQuantity : 0)}
+                          {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
                         </p>
                       </td>
                     </tr>
@@ -1219,8 +1224,11 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet ? marginData?.order?.termsheet?.commercials?.usanceInterestPercetage + ' %' : ''}
-
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+                            '%',
+                            '',
+                          )}
                         </p>
                       </td>
                     </tr>
@@ -1261,7 +1269,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage + ' %' : ''}
+                          {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
                         </p>
                       </td>
                     </tr>
@@ -1306,7 +1314,7 @@ function Index() {
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance
                               : 0
-
+                            
                           )} %
                         </p>
                       </td>
@@ -1348,10 +1356,13 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {
+                          {addPrefixOrSuffix(
                             marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney + ' %'
-                              : 0}
+                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                              : 0,
+                            '%',
+                            '',
+                          )}
                         </p>
                       </td>
                     </tr>
@@ -2225,19 +2236,19 @@ function Index() {
         </tr>
       </table>
     );
-
+   
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
-    doc.html(ReactDOMServer.renderToString(element), {
+    doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
-
+      
       autoPaging: 'text',
     });
   };
 
   const exportPDFReviced = () => {
-
+   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -2454,9 +2465,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-
-                          {marginData?.order?.quantity ? marginData?.order?.quantity + ' ' + marginData?.order?.unitOfQuantity : ''}
-
+                          {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
                         </p>
                       </td>
                       <td align="left">
@@ -2471,8 +2480,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.quantity ? marginData?.order?.quantity + ' ' + marginData?.order?.unitOfQuantity : ''}
-
+                          {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
                         </p>
                       </td>
                     </tr>
@@ -2631,7 +2639,11 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ? marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In') + ' %' : ''}
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+                            '%',
+                            '',
+                          )}
                         </p>
                       </td>
                       <td align="left">
@@ -2646,7 +2658,11 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ? marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In') + ' %' : ''}
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+                            '%',
+                            '',
+                          )}
                         </p>
                       </td>
                     </tr>
@@ -2689,7 +2705,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage + ' %' : ''}
+                          {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
                         </p>
                       </td>
                       <td align="left">
@@ -2704,7 +2720,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                        {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage + ' %' : ''}
+                          {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
                         </p>
                       </td>
                     </tr>
@@ -2809,7 +2825,13 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet?.transactionDetails?.marginMoney ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In') + ' %' : ''}
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                              : 0,
+                            '%',
+                            '',
+                          )}
                         </p>
                       </td>
                       <td align="left">
@@ -2824,7 +2846,13 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.termsheet?.transactionDetails?.marginMoney ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In') + ' %' : ''}
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                              : 0,
+                            '%',
+                            '',
+                          )}
                         </p>
                       </td>
                     </tr>
@@ -4012,9 +4040,9 @@ function Index() {
         </tr>
       </table>
     );
-
+   
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
-    doc.html(ReactDOMServer.renderToString(element), {
+    doc.html(ReactDOMServer.renderToString(<RevisedMarginMoneyTemp marginData={marginData} />), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
@@ -4022,8 +4050,6 @@ function Index() {
       autoPaging: 'text',
     });
   };
-
-  const [active, setActive] = useState('Margin Money');
 
   useEffect(() => {
     if (marginData) {
@@ -4099,13 +4125,6 @@ function Index() {
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
-            {/* <img onClick={() => Router.push('/margin-money')}
-              src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-                }`}
-              alt="arrow right"
-              className="img-fluid mr-2 image_arrow"
-              style={{cursor:'pointer'}}
-            /> */}
             <img
               onClick={() => Router.push('/margin-money')}
               className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
@@ -4126,7 +4145,7 @@ function Index() {
             </div>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`} onClick={() => setActive('Margin Money')}>
+            <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -4140,7 +4159,7 @@ function Index() {
               </a>
             </li>
             {RevisedMarginMoneyTrue ? (
-              <li className={`${styles.navItem} nav-item`} onClick={() => setActive('Revised Margin Money')}>
+              <li className={`${styles.navItem} nav-item`}>
                 <a
                   className={`${styles.navLink} navLink nav-link`}
                   data-toggle="tab"
@@ -4153,11 +4172,8 @@ function Index() {
                 </a>
               </li>
             ) : null}
-            {/* <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
-                  </li> */}
 
-            <li className={`${styles.navItem} nav-item`} onClick={() => setActive('Document')}>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link`}
                 data-toggle="tab"
@@ -4212,19 +4228,7 @@ function Index() {
                             </select>
                           </div>
                         </div>
-                        {/* <input >{marginData?.order?.unitOfValue}</input> */}
-                        {/* <select
-                          className={`${styles.options} mr-4 accordion_DropDown`}
-                        >
-                          <option>Select an option</option>
-                          <option>
-                            {' '}
-                            {marginData?.order?.unitOfValue == 'Cr'
-                              ? 'Crores'
-                              : null}
-                          </option>
-                          <option>Million</option>
-                        </select> */}
+
                         <span
                           data-toggle="collapse"
                           data-target="#commodityAccordion"
@@ -4496,37 +4500,6 @@ function Index() {
                                 <div className={`${styles.val} heading`}>{/* {marginData?.additionalPDC} */}</div>
                               </div>
                             </div>
-                            {/* <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
-                                <span>I</span>
-                              </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="additionalPDC"
-                                onChange={(e) =>
-                                  saveForCalculation(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
-                                }
-                                defaultValue={marginData?.additionalPDC}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Additional PDC's
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div> */}
                           </div>
                         </div>
                         <div className={`${styles.content} border_color`}>
@@ -4982,14 +4955,6 @@ function Index() {
                                   style={{ paddingRight: '40px' }}
                                   disabled
                                 >
-                                  {/* <option>Select an option</option>
-                                  {getInternalCompaniesMasterData.filter((val)=>{
-                                    if(val.Company_Name!==""){
-                                      return val
-                                    }
-                                  }).map((val,index)=>{
-                                    return <option value={`${val.Company_Name}`}>{val.Company_Name}</option>
-                                  })} */}
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
                                     INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                                   </option>
@@ -5056,10 +5021,12 @@ function Index() {
                                 >
                                   <option>Select an option</option>
                                   {branchOptions.map((val, index) => {
-                                    return <option value={val.Branch}>{val.Branch}</option>;
+                                    return (
+                                      <option key={index} value={val.Branch}>
+                                        {val.Branch}
+                                      </option>
+                                    );
                                   })}
-                                  {/* <option value="SURAT">{'SURAT'}</option>
-                                  <option value="DELHI">DELHI</option> */}
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Branch Office
@@ -5288,7 +5255,7 @@ function Index() {
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                         saveforCalculationRevised={saveforCalculationRevised}
-                        exportPDF={exportPDFReviced}
+                        exportPDF={exportPDFRevised}
                         getBanksMasterData={getBanksMasterData}
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}
@@ -5302,28 +5269,12 @@ function Index() {
                   <div className={`${styles.card}  accordion_body`}>
                     <UploadOther orderid={id} module="LeadOnboarding&OrderApproval" />
                   </div>
-                  {/* <DownloadBar
-                    downLoadButtonName={`Download`}
-                    isPrevious={true}
-                    handleUpdate={handleUpdate}
-                    leftButtonName={`Save`}
-                    rightButtonName={`Preview`}
-                  /> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <DownloadBar
-        downLoadButtonName={`Download`}
-        isPrevious={true}
-        handleUpdate={handleUpdate}
-        handleUpdateRevised={handleUpdateRevisedMarginMoney}
-        leftButtonName={`Save`}
-        rightButtonName={`Preview`}
-        handleApprove={routeChange}
-      /> */}
     </>
   );
 }

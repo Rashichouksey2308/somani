@@ -149,7 +149,6 @@ function searchSupplierFailed() {
   };
 }
 
-
 export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   dispatch(createSupplier());
@@ -275,7 +274,6 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(getAllSupplierSuccess(response.data.data));
         dispatch(setNotLoading());
-
       } else {
         dispatch(getAllSupplierFailed(response.data));
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
@@ -308,8 +306,13 @@ export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) =>
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-       
-        return response
+        // dispatch(uploadSupplierDocSuccess(response.data.data));
+        // dispatch(setNotLoading());
+        // const toastMessage = 'document uploaded successfully';
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+        // }
+        return response;
       } else {
         dispatch(uploadSupplierDocFailed(response.data));
        

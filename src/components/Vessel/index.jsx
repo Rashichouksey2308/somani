@@ -1,18 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from './index.module.scss';
-import DateCalender from '../../components/DateCalenderVessel';
-import 'react-datepicker/dist/react-datepicker.css';
-import UploadDocument from '../UploadDocument';
-import UploadOther from '../UploadOther';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import DateCalender from '../../components/DateCalenderVessel'
+import 'react-datepicker/dist/react-datepicker.css'
+import UploadDocument from '../UploadDocument'
+import UploadOther from '../UploadOther'
+import moment from 'moment'
+import { useDispatch } from 'react-redux'
+import Router from 'next/router'
+import _get from 'lodash/get'
+import { toast } from 'react-toastify'
 
-import Router from 'next/router';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-
-function Index({
+function Index ({
   vesselData,
   vesselUpdatedAt,
   partShipmentAllowed,
@@ -26,14 +25,9 @@ function Index({
   OnVesselTransitFieldsChangeHandler,
   OnVesselBasicFieldsChangeHandler,
   shipmentTypeChangeHandler,
-  setlastDate,
-  lastDate,
-  setStartDate,
-  startDate,
   OnAddvesselInformation,
   onAddVessel,
   list,
-  orderID,
   id1,
   onDeleteVessel,
   OnAddvesselInformationDelete,
@@ -52,22 +46,21 @@ function Index({
   country,
   port,
 }) {
-  const [orderValueinFocus, setOrderValueInFocus] = useState(false);
+  const [orderValueinFocus, setOrderValueInFocus] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const getSn = (index) => {
-    let a = Number(index);
-    return a + 1;
-  };
+    return Number(index) + 1
+  }
 
   const uploadDocHandler1 = (e) => {
-    uploadDocHandler(e);
-  };
+    uploadDocHandler(e)
+  }
 
   const handleClose = (e) => {
-    setVesselCertificate(null);
-  };
+    setVesselCertificate(null)
+  }
 
   return (
     <>
@@ -76,7 +69,7 @@ function Index({
           <div className={`${styles.tab_header} d-lg-flex d-inline-block align-items-center justify-content-between`}>
             <img
               onClick={() => {
-                Router.push('/vessel-nomination');
+                Router.push('/vessel-nomination')
               }}
               style={{ cursor: 'pointer' }}
               src="/static/keyboard_arrow_right-3.svg"
@@ -86,7 +79,8 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto text-right">
               <div className={`${styles.lastModified} text `}>
-                <div className="accordion_Text">Last Modified:</div>{' '}
+                <div className="accordion_Text">Last Modified:</div>
+                {' '}
                 {vesselUpdatedAt ? moment(vesselUpdatedAt).format('DD-MM-YYYY,h:mm a') : ''}
               </div>
             </div>
@@ -131,24 +125,25 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index == 0 ? (
+                            {
+                              index === 0 && (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
-                                  onAddVessel();
+                                  onAddVessel()
                                 }}
                               >
                                 <span className={styles.add_sign}>+</span>Add
                               </button>
-                            ) : null}
+                            )}
                             {index > 0 ? (
                               <button
                                 className={`${styles.add_btn} border-danger text-danger`}
                                 onClick={(e) => {
-                                  onDeleteVessel(index);
+                                  onDeleteVessel(index)
                                 }}
                               >
-                                <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
+                                <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete"/> Delete
                               </button>
                             ) : null}
                           </>
@@ -196,8 +191,8 @@ function Index({
                           <input
                             onWheel={(event) => event.currentTarget.blur()}
                             onFocus={(e) => {
-                              setOnFocus(index);
-                              e.target.type = 'number';
+                              setOnFocus(index)
+                              e.target.type = 'number'
                             }}
                             onBlur={(e) => {
                               setOnBlur(index);
@@ -234,12 +229,12 @@ function Index({
                           <input
                             onWheel={(event) => event.currentTarget.blur()}
                             onFocus={(e) => {
-                              setOrderValueInFocus(true);
-                              e.target.type = 'number';
+                              setOrderValueInFocus(true)
+                              e.target.type = 'number'
                             }}
                             onBlur={(e) => {
-                              setOrderValueInFocus(false);
-                              e.target.type = 'text';
+                              setOrderValueInFocus(false)
+                              e.target.type = 'text'
                             }}
                             id="orderValue"
                             type="text"
@@ -259,7 +254,7 @@ function Index({
                         </div>
                       </div>
                     </div>
-                    <hr className="m-0 border_color" />
+                    <hr className="m-0 border_color"/>
                     <div className={`${styles.dashboard_form} card-body`}>
                       <h3 className={`${styles.sub_heading} mt-3`}>Transit Details</h3>
 
@@ -277,7 +272,7 @@ function Index({
                                 {val.countryOfOrigin}
                               </option> */}
                               {country.map((val, index) => {
-                                return <option value={val.Country}>{val.Country}</option>;
+                                return <option value={val.Country}>{val.Country}</option>
                               })}
                               {/* <option value="India">India</option>
                               <option value="Australia">Australia</option>
@@ -309,17 +304,13 @@ function Index({
                                 {val.portOfLoading}
                               </option> */}
                               {port
-                                .filter((val, index) => {
-                                  if (val.Country.toLowerCase() !== 'india') {
-                                    return val;
-                                  }
-                                })
+                                .filter((val) => val.Country.toLowerCase() !== 'india')
                                 .map((val, index) => {
                                   return (
-                                    <option value={`${val.Port_Name},${val.Country}`}>
+                                    <option key={index} value={`${val.Port_Name},${val.Country}`}>
                                       {val.Port_Name},{val.Country}
                                     </option>
-                                  );
+                                  )
                                 })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>
@@ -346,17 +337,13 @@ function Index({
                                 {val.portOfDischarge}
                               </option> */}
                               {port
-                                .filter((val, index) => {
-                                  if (val.Country.toLowerCase() == 'india') {
-                                    return val;
-                                  }
-                                })
+                                .filter((val => val.Country.toLowerCase() === 'india'))
                                 .map((val, index) => {
                                   return (
-                                    <option value={`${val.Port_Name},${val.Country}`}>
+                                    <option key={index} value={`${val.Port_Name},${val.Country}`}>
                                       {val.Port_Name},{val.Country}
                                     </option>
-                                  );
+                                  )
                                 })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>
@@ -472,7 +459,7 @@ function Index({
                         </div>
                       </div>
                     </div>
-                    <hr className="m-0 border_color" />
+                    <hr className="m-0 border_color"/>
 
                     {list[index].shipmentType === 'Bulk' ? (
                       <>
@@ -530,7 +517,9 @@ function Index({
                                       id="yearOfBuilt"
                                       value={
                                         vesselInfo.yearOfBuilt
-                                          ? vesselInfo?.yearOfBuilt?.slice(0, 4) : ''
+                                          ? vesselInfo?.yearOfBuilt?.slice(0, 4)
+                                          : // moment(vesselInfo.yearOfBuilt).format("YYYY")
+                                          ''
                                       }
                                       className={`${styles.input_field} input form-control`}
                                       type="number"
@@ -539,8 +528,8 @@ function Index({
                                         ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()
                                       }
                                       onChange={(e) => {
-                                        e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)));
-                                        onVesselInfoChangeHandlerForBulk(e, index);
+                                        e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)))
+                                        onVesselInfoChangeHandlerForBulk(e, index)
                                       }}
                                       required
                                     />
@@ -588,7 +577,7 @@ function Index({
                                     required
                                     type="text"
                                     onChange={(e) => {
-                                      onVesselInfoChangeHandlerForBulk(e, index);
+                                      onVesselInfoChangeHandlerForBulk(e, index)
                                     }}
                                   />
                                   <label className={`${styles.label_heading} label_heading`}>
@@ -671,7 +660,7 @@ function Index({
                                     onClick={() => OnAddvesselInformationDelete(index)}
                                     className={`${styles.add_btn} border-danger text-danger`}
                                   >
-                                    <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" />{' '}
+                                    <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete"/>{' '}
                                     Delete
                                   </button>
                                 ) : null}
@@ -716,7 +705,7 @@ function Index({
                                     value={
                                       newVessel.yearOfBuilt
                                         ? newVessel.yearOfBuilt?.slice(0, 4)
-                                        :
+                                        : // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                         ''
                                     }
                                     className={`${styles.input_field} input form-control`}
@@ -726,8 +715,8 @@ function Index({
                                       ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()
                                     }
                                     onChange={(e) => {
-                                      e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)));
-                                      onVesselInfoChangeHandlerForLiner(e, index);
+                                      e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)))
+                                      onVesselInfoChangeHandlerForLiner(e, index)
                                     }}
                                     required
                                   />
@@ -737,7 +726,7 @@ function Index({
                             </div>
                           </div>
                         ))}
-                        <hr className="m-0 border_color" />
+                        <hr className="m-0 border_color"/>
                         <div className={`${styles.dashboard_form} card-body`}>
                           <h3 className={`${styles.sub_heading} mt-3`}>Container Number(s)</h3>
 
@@ -752,11 +741,11 @@ function Index({
                                       e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') ||
                                       e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')
                                     ) {
-                                      uploadDocHandler1(e);
+                                      uploadDocHandler1(e)
                                     } else {
-                                      let toastMessage = 'only XLS files are allowed';
+                                      let toastMessage = 'only XLS files are allowed'
                                       if (!toast.isActive(toastMessage.toUpperCase())) {
-                                        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                                        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
                                       }
                                     }
                                   }}
@@ -780,14 +769,14 @@ function Index({
                             <div className={`${styles.upload_text}`}>
                               <strong className="text-danger ml-n2 mr-1">*</strong>
                               ONLY .XLS FILES ARE ALLOWED
-                              <br /> &amp; MAX FILE SIZE UP TO 50MB
+                              <br/> &amp; MAX FILE SIZE UP TO 50MB
                             </div>
                           </div>
                         </div>
                       </>
                     )}
                   </div>
-                );
+                )
               })}
 
             <UploadDocument
@@ -801,12 +790,12 @@ function Index({
               setContainerListDocument={setContainerListDocument}
             />
 
-            <UploadOther module="Agreements&Insurance&LC&Opening" orderid={id1} />
+            <UploadOther module="Agreements&Insurance&LC&Opening" orderid={id1}/>
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

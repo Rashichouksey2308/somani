@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import Contract from '../../../src/components/A2S_Sales_Contract';
-import QPA from '../../../src/components/QPA';
-import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
-import TPASeller from '../../../src/components/TPASeller';
-import TPAIGI from '../../../src/components/TPAIGI';
-import DownloadBar from '../../../src/components/DownloadBar';
-import AssignmentLetter from '../../../src/components/AssignmentLetter';
-import moment from 'moment';
 import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-
 import {toPdf,letterPrint,igiPrint,sellerPrint,qpaPrint,associateshipPrint} from '../../../src/utils/agreementTemplate'
 import _get from 'lodash/get';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import ReactDOMServer from 'react-dom/server';
+import Contract from '../../../src/components/A2S_Sales_Contract';
+import AssignmentLetter from '../../../src/components/AssignmentLetter';
+import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
+import DownloadBar from '../../../src/components/DownloadBar';
+import QPA from '../../../src/components/QPA';
+import TPAIGI from '../../../src/components/TPAIGI';
+import TPASeller from '../../../src/components/TPASeller';
+import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
+import IGIAgreementPreview from '../../../src/templates/IGIAgreementPreview';
+import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
+import SalesContractPreview from '../../../src/templates/SalesContractPreview';
+import TPASellerPreview from '../../../src/templates/TPASellerPreview';
+
 function index() {
-  
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -43,23 +47,23 @@ function index() {
     curr: '',
     specComment: '',
   });
-  const [preview,setPreview]=useState("")
+  const [preview, setPreview] = useState('');
 
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-      
-      const data2 = sessionStorage.getItem('agreementPreview')
-      setPreview(data2)
-      let toCheck='Sales Agreement'
-      if(data2==="QPA"){
-        toCheck="QPA"
+
+      const data2 = sessionStorage.getItem('agreementPreview');
+      setPreview(data2);
+      let toCheck = 'Sales Agreement';
+      if (data2 === 'QPA') {
+        toCheck = 'QPA';
       }
-      if(data2=="LETTER"){
-        toCheck="Assignment Letter"
+      if (data2 == 'LETTER') {
+        toCheck = 'Assignment Letter';
       }
-       if(data2=="TPASELLER"){
-        toCheck="TPA (Seller)"
+      if (data2 == 'TPASELLER') {
+        toCheck = 'TPA (Seller)';
       }
        if(data2=="ASSO"){
         toCheck="Associateship Agreement"
@@ -73,7 +77,7 @@ function index() {
 
       let exe;
       let dat = '';
-       let dateOfContract =''
+      let dateOfContract = '';
       data?.placeOfExecution?.execution?.forEach((val, index) => {
         if (val.agreementName == toCheck) {
           exe = val.place;
@@ -86,8 +90,8 @@ function index() {
       data?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName == toCheck) {
           comment.push(val.comment);
-          if(toCheck=="LETTER"){
-            dateOfContract=moment(val?.dateOfContract).format('DD-MM-YYYY')
+          if (toCheck == 'LETTER') {
+            dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
           }
         }
       });
@@ -95,8 +99,8 @@ function index() {
       setData({
         seller: data?.seller?.name,
         buyer: data?.buyer?.name,
-        sellerAddress:_get(data, 'seller.addresses[0]', {}),
-        buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
+        sellerAddress: _get(data, 'seller.addresses[0]', {}),
+        buyerAddress: _get(data, 'buyer.addresses[0]', {}),
         shortseller: data?.seller?.shortName,
         shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
         sellerSignature: data?.seller?.name,
@@ -198,18 +202,18 @@ function index() {
       });
     }
   }, []);
+
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
-    // let toPrint=toPdf(data)
-     let toPrint=toPdf(data)
-    let name ="SalesAgreement"
-    if(preview=="Sales"){
-      toPrint=toPdf(data)
-       name ="SalesAgreement.pdf"
+    let toPrint = SalesContractPreview(data);
+    let name = 'SalesAgreement';
+    if (preview == 'Sales') {
+      toPrint = SalesContractPreview(data);
+      name = 'SalesAgreement.pdf';
     }
-    if(preview=="QPA"){
-      toPrint=qpaPrint(data)
-       name ="QPA.pdf"
+    if (preview == 'QPA') {
+      toPrint = QuadripartiteAgreementPreview(data);
+      name = 'QPA.pdf';
     }
     if(preview=="ASSO"){
       toPrint=associateshipPrint(data)
@@ -227,19 +231,18 @@ function index() {
       toPrint=sellerPrint(data)
       name="TPA(Seller).pdf"
     }
-    if(preview=="TPAIGI"){
-      toPrint=igiPrint(data)
-       name ="TPA(CAM).pdf"
+    if (preview == 'TPAIGI') {
+      toPrint = IGIAgreementPreview(data);
+      name = 'TPA(CAM).pdf';
     }
-    if(preview=="LETTER"){
-      toPrint=letterPrint(data)
-       name ="AssignmentLetter.pdf"
+    if (preview == 'LETTER') {
+      toPrint = AssignmentLetterPreview(data);
+      name = 'AssignmentLetter.pdf';
     }
     doc.html(ReactDOMServer.renderToString(toPrint), {
       callback: function (doc) {
         doc.save(name);
       },
-      // margin:margins,
       autoPaging: 'text',
     });
   };
@@ -254,15 +257,7 @@ function index() {
         <AssociateshipAgreement preview={true} type={preview} />
       ) : null}
 
-      <DownloadBar
-        downLoadButtonName={`Download`}
-        handleReject={exportPDF}
-        // isPrevious={true}
-        // handleUpdate={handleUpdate}
-        // leftButtonName={`Save`}
-        // rightButtonName={`Preview`}
-        // handleApprove={routeChange}
-      />
+      <DownloadBar downLoadButtonName={`Download`} handleReject={exportPDF} />
     </>
   );
 }

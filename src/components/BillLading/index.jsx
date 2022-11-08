@@ -56,7 +56,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
 
 
   const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false);
-
   useEffect(() => {
     setshipmentTypeBulk(
       _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false,
@@ -153,33 +152,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     let filteredVessel = {};
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-    if (
-      _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].shipmentType`,
-        '',
-      ) === 'Bulk'
-    ) {
-
-      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
-        (vessel, index) => {
-          if (vessel.vesselInformation[0].name === VesselName) {
-            filteredVessel = vessel;
-          }
-        },
-      );
+    if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
+      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
+        if (vessel.vesselInformation[0].name === VesselName) {
+          filteredVessel = vessel;
+        }
+      });
     } else {
-
-      filteredVessel = JSON.parse(JSON.stringify(_get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0]`,
-        {},
-      )))
-      let tempArray = JSON.parse(JSON.stringify(_get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].vesselInformation`,
-        [],
-      )))
+      filteredVessel = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})));
+      let tempArray = JSON.parse(
+        JSON.stringify(_get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])),
+      );
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
           filteredVessel.vesselInformation = [vessel];
@@ -598,8 +581,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                     )?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == 'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -672,27 +654,18 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             >
                               <option selected>Select an option</option>
                               {shipmentTypeBulk
-                                ? _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option
-                                    value={vessel?.vesselInformation?.name}
-                                    key={index}
-                                  >
-                                    {vessel?.vesselInformation[0]?.name}
-                                  </option>
-                                ))
-                                : _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels[0].vesselInformation',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option value={vessel?.name} key={index}>
-                                    {vessel?.name}
-                                  </option>
-                                ))}
+                                ? _get(TransitDetails, 'data[0].order.vessel.vessels', []).map((vessel, index) => (
+                                    <option value={vessel?.vesselInformation?.name} key={index}>
+                                      {vessel?.vesselInformation[0]?.name}
+                                    </option>
+                                  ))
+                                : _get(TransitDetails, 'data[0].order.vessel.vessels[0].vesselInformation', []).map(
+                                    (vessel, index) => (
+                                      <option value={vessel?.name} key={index}>
+                                        {vessel?.name}
+                                      </option>
+                                    ),
+                                  )}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>
                               Vessel Name
@@ -777,14 +750,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             value={
                               isFieldInFocus
                                 ? bol?.blQuantity
-                                : Number(bol?.blQuantity)?.toLocaleString(
-                                  'en-IN',
-                                ) +
-                                ` ${_get(
-                                  TransitDetails,
-                                  'data[0].order.unitOfQuantity',
-                                  '',
-                                )}`
+                                : Number(bol?.blQuantity)?.toLocaleString('en-IN') +
+                                  ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
                             }
                           />
                           <label className={`${styles.label_heading} label_heading`}>
@@ -1015,28 +982,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               </td>
                               <td>
                                 {bolList[index]?.blDoc ? (
-                                  bolList[index]?.blDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                    bolList[index]?.blDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : bolList[index]?.blDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.doc') ||
-                                    bolList[index]?.blDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
                                     <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
@@ -1045,9 +996,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
                                   ? ''
-                                  : moment(bolList[index]?.blDoc.date).format(
-                                    'DD-MM-YYYY , h:mm a ',
-                                  )}
+                                  : moment(bolList[index]?.blDoc.date).format('DD-MM-YYYY , h:mm a ')}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -1100,24 +1049,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                       bolList[index]?.containerNumberListDoc?.originalName
                                         ?.toLowerCase()
                                         .endsWith('.xls') ||
-                                        bolList[
-                                          index
-                                        ]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.xlsx') ? (
-                                        <img
-                                          src="/static/excel.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : bolList[
-                                        index
-                                      ]?.containerNumberListDoc?.originalName
+                                      bolList[index]?.containerNumberListDoc?.originalName
                                         ?.toLowerCase()
-                                        .endsWith('.doc') ||
-                                        bolList[
-                                          index
-                                        ]?.containerNumberListDoc?.originalName
+                                        .endsWith('.xlsx') ? (
+                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                      ) : bolList[index]?.containerNumberListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.doc') ||
+                                        bolList[index]?.containerNumberListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.docx') ? (
                                         <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
@@ -1127,13 +1066,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     ) : null}
                                   </td>
                                   <td className={styles.doc_row}>
-                                    {bolList[index]?.containerNumberListDoc ==
-                                      null
+                                    {bolList[index]?.containerNumberListDoc == null
                                       ? ''
-                                      : moment(
-                                        bolList[index]?.containerNumberListDoc
-                                          .date,
-                                      ).format('DD-MM-YYYY , h:mm a ')}
+                                      : moment(bolList[index]?.containerNumberListDoc.date).format(
+                                          'DD-MM-YYYY , h:mm a ',
+                                        )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1149,9 +1086,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         Upload
                                       </button>
                                     </div> */}
-                                    {bolList &&
-                                      bolList[index]?.containerNumberListDoc ==
-                                      null ? (
+                                    {bolList && bolList[index]?.containerNumberListDoc == null ? (
                                       <>
                                         <div className={styles.uploadBtnWrapper}>
                                           <input
@@ -1183,29 +1118,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   </td>
                                   <td>
                                     {bolList[index]?.packingListDoc ? (
-                                      bolList[
-                                        index
-                                      ]?.packingListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xls') ||
-                                        bolList[
-                                          index
-                                        ]?.packingListDoc?.originalName
+                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                      ) : bolList[index]?.packingListDoc?.originalName
                                           ?.toLowerCase()
-                                          .endsWith('.xlsx') ? (
-                                        <img
-                                          src="/static/excel.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : bolList[
-                                        index
-                                      ]?.packingListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.doc') ||
-                                        bolList[
-                                          index
-                                        ]?.packingListDoc?.originalName
+                                          .endsWith('.doc') ||
+                                        bolList[index]?.packingListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.docx') ? (
                                         <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
@@ -1217,9 +1136,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
                                       ? ''
-                                      : moment(
-                                        bolList[index]?.packingListDoc.date,
-                                      ).format('DD-MM-YYYY , h:mm a ')}
+                                      : moment(bolList[index]?.packingListDoc.date).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1235,8 +1152,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         Upload
                                       </button>
                                     </div> */}
-                                    {bolList &&
-                                      bolList[index]?.packingListDoc == null ? (
+                                    {bolList && bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div className={styles.uploadBtnWrapper}>
                                           <input
@@ -1337,30 +1253,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               </td>
                               <td>
                                 {bolList[index]?.blSurrenderDoc ? (
-                                  bolList[index]?.blSurrenderDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                    bolList[index]?.blSurrenderDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : bolList[
-                                    index
-                                  ]?.blSurrenderDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.doc') ||
-                                    bolList[index]?.blSurrenderDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
                                     <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
@@ -1369,13 +1267,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null
                                   ? ''
-                                  : moment(
-                                    bolList[index]?.blSurrenderDoc?.Date,
-                                  ).format(' DD-MM-YYYY , h:mm a')}
+                                  : moment(bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
-                                {bolList &&
-                                  bolList[index]?.blSurrenderDoc == null ? (
+                                {bolList && bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input

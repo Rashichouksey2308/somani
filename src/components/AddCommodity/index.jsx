@@ -53,11 +53,8 @@ function Index() {
           </div>
 
           <div className={`${styles.dashboard_form} card-body`}>
-          
             <div className="row">
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
@@ -66,13 +63,10 @@ function Index() {
                   onChange={ (e) => saveCommodityData(e.target.name, e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Commodity  <strong className="text-danger">*</strong>
-                 
+                  Commodity <strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
@@ -81,12 +75,10 @@ function Index() {
                   onChange={ (e) => saveCommodityData(e.target.name, e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                Chapter Name  <strong className="text-danger">*</strong>
+                  Chapter Name <strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="number"
@@ -95,9 +87,9 @@ function Index() {
                   onChange={ (e) => saveCommodityData(e.target.name, e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                Chapter Code  <strong className="text-danger">*</strong>
+                  Chapter Code <strong className="text-danger">*</strong>
                 </label>
-              </div>
+      </div>
               <div className={`${styles.form_group} mt-0 col-lg-2 col-md-6 col-sm-6 `}>
                     <div className={`${styles.radio_form} ml-1`}>
                       <div className={`${styles.sub_heading} label_heading`}>
@@ -133,43 +125,28 @@ function Index() {
                 <div className="d-flex">
                   <DateCalender name='Approved_Date' saveDate={saveDate} labelName="Approved Date " />
                   <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image
-                      width="22px"
-                      height="24px"
-                      src="/static/caldericon.svg"
-                      alt="Calender"
-                    />
+                    <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                   </div>
                 </div>
               </div>
-             
-             
             </div>
           </div>
         </div>
-        { 
-        // !isUpdate ? 
+       
+      
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
-       
-                <button onClick={handleCreate} className={`${styles.approve} ml-3`}>
-                 Send for Approval
-                </button>
-             
-         
+            <button className={`${styles.approve} ml-3`}>Send for Approval</button>
           </div>
         </div>
-        // :
-        // <div className={`${styles.main} vessel_card mt-4 card border_color`}>
-        //   <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
-        //     <button className={`${styles.approve} ml-3`}>Update</button>
-        //   </div>
-        // </div>
-}
-        <div className='d-flex justify-content-end mb-5'
-        style={{marginTop:'35px'}}>
-          <div className={`${styles.footer_heading} mr-5`}>Created By <span>Balakrishna SGF001</span></div>
-          <div className={`${styles.footer_heading}`}>Approved By <span>Ramakrishna SGF001</span></div>
+
+        <div className="d-flex justify-content-end mb-5" style={{ marginTop: '35px' }}>
+          <div className={`${styles.footer_heading} mr-5`}>
+            Created By <span>Balakrishna SGF001</span>
+          </div>
+          <div className={`${styles.footer_heading}`}>
+            Approved By <span>Ramakrishna SGF001</span>
+          </div>
         </div>
       </div>
     </div>
