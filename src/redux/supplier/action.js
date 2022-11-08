@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { returnAuthToken } from 'utils/helpers/global';
 
 function createSupplier() {
   return {
@@ -266,7 +267,7 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  var headers = { authorization:   returnAuthToken()    , Cache: 'no-cache' };
   try {
     Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
       headers: headers,

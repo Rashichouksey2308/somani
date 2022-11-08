@@ -842,7 +842,7 @@ const assignmentSupplier = (data, preview) => {
               Address of Seller
             </Col>
             <Col md={7} className={styles.right}>
-              {data.sellerAddress?.fullAddress},
+              {data.sellerAddress?.fullAddress},{" "} 
               {data.sellerAddress?.city}{" "} 
               {data.sellerAddress?.country},{" "}
               
@@ -1016,7 +1016,7 @@ const assignmentSupplier = (data, preview) => {
               <strong>.................................................</strong>
             </p>
             <p className="text_sales">
-              <strong></strong>
+              <strong>(Buyer)</strong>
             </p>
           </Col>
           <Col md={6}>

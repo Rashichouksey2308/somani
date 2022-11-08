@@ -226,13 +226,12 @@ const tripartiteAgreement = (data, preview) => {
           <strong>Schedule I</strong> hereto by and between:
         </p>
         <p className="text_sales">
-          <b>{data.seller}</b>, a company organized and existing in accordance
+          <b style={{textTransform:'uppercase'}}>{data.seller}</b>, a company organized and existing in accordance
           with Law of Switzerland and having address at{' '}
-          <b> {data.sellerAddress?.fullAddress},
-              {data.sellerAddress?.city}{" "} 
+          {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city},{" "} 
               {data.sellerAddress?.country},{" "}
               
-              {data.sellerAddress?.pinCode}</b> through its Authorized Signatory
+              {data.sellerAddress?.pinCode} through its Authorized Signatory
           (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
           which expression shall, unless excluded by or repugnant to the context
           be deemed to include its legal heirs, successors and permitted
@@ -322,14 +321,13 @@ const tripartiteAgreement = (data, preview) => {
           </li>
           <li>
             <p className="text_sales">
-              In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will
-              prevail.
+              In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any
+              failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.
             </p>
           </li>
           <li>
             <p className="text_sales">
-              In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any
-              failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.
+              Further, End Buyer shall be fully responsible for payment of the price in the event that Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
             </p>
           </li>
           <li>
@@ -503,23 +501,33 @@ const tripartiteAgreement = (data, preview) => {
           </Row>
         </div>
 
-        <div className={`row`}>
-          <Col md={12} className={`d-flex justify-content-around`}>
+        <div className={`row my-4`}>
+          <Col md={6}>
             <p className="text_sales  m-0">
               <strong>Buyer</strong>
             </p>
+          </Col>
+          <Col md={6}>
             <p className="text_sales">Authorised Signatory</p>
           </Col>
-          <Col md={12} className={`d-flex justify-content-around`}>
+        </div>
+        <div className={`row my-4`}>
+          <Col md={6}>
             <p className="text_sales m-0">
               <strong>Supplier </strong>
             </p>
+          </Col>
+          <Col md={6}>
             <p className="text_sales">Authorised Signatory</p>
           </Col>
-          <Col md={12} className={`d-flex justify-content-around`}>
+        </div>
+        <div className={`row my-4`}>
+          <Col md={6}>
             <p className="text_sales  m-0">
               <strong>End Buyer </strong>
             </p>
+          </Col>
+          <Col md={6}>
             <p className="text_sales">Authorised Signatory</p>
           </Col>
         </div>
@@ -545,7 +553,7 @@ const tpaSeller = () => {
       </p>
       <p>And</p>
       <p>
-        <GrowInput type="text" placeholder="INDO INTERNATIONAL TRADING FZCO" />, a company organized and existing in
+        <GrowInput className='text-uppercase' type="text" placeholder="INDO INTERNATIONAL TRADING FZCO" />, a company organized and existing in
         accordance with Law of UAE and having registered address at{' '}
         <GrowInput type="text" placeholder="JAFZA VIEW-18, LOB-180504, JEBEL ALI, DUBAI, UAE" /> through its authorized
         signatory which included its successors, administrator setc. (hereinafter referred to as the &quot;BUYER
