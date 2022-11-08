@@ -58,8 +58,9 @@ export const handleSuccessToast = (toastMessage) => {
  */
 export const objectValidator = (obj = {}, validation = []) => {
   validation.every(element => {
-    if (!_.has(obj, element.key)) {
-      handleErrorToast(element.error)
+    const { key, error } = element
+    if (!_.has(obj, key)) {
+      handleErrorToast(error)
       return false
     }
     return true
