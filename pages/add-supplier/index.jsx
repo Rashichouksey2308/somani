@@ -34,10 +34,10 @@ const index = () => {
     dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
-  // const handleRoute = (id) => {
-  //   sessionStorage.setItem('supplier', id);
-  //   Router.push('/supplier');
-  // };
+  const handleRoute = (id) => {
+    sessionStorage.setItem('supplier', id);
+    Router.push('/supplier');
+  };
 
   return (
     <>
