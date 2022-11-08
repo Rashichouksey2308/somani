@@ -45,8 +45,6 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Product')) {
-
-
         let savedData = JSON.parse(sessionStorage.getItem('Product'));
         let temp = [];
         savedData.list.forEach((val, index) => {
@@ -68,7 +66,6 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-
           return { ...obj, action: !obj.action };
         }
 
@@ -97,17 +94,14 @@ function Index(props) {
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
-      
       let reader = new FileReader();
       reader.readAsArrayBuffer(selectedFile);
       reader.onload = (e) => {
         setExcelData(e.target.result);
       };
     } else {
-     
     }
   };
-  
 
   useEffect(() => {
     if (excelData !== null) {

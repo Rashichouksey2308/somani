@@ -7,7 +7,6 @@ import { convertValue } from '../../../utils/helper';
 
 function Index({ cashData, rtrnChartIndiaction }) {
   const [unit, setUnit] = useState(10000000);
-  
 
   const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {});
 
@@ -28,8 +27,6 @@ function Index({ cashData, rtrnChartIndiaction }) {
   const lastYearIncomeStatement = _get(cashData, 'financial.incomeStatement[2]', {});
 
   const yearArray = _get(cashData, 'financial.other.financialYears', ['', '', '']);
-
-
 
   return (
     <>

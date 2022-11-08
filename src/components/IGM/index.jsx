@@ -151,7 +151,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let VesselName = e.target.value;
     let filteredVessel = {};
 
-   
     if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
         if (vessel.vesselInformation[0].name === VesselName) {
@@ -281,14 +280,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         return item.blNumber === value;
       });
 
-
       let tempArray = { ...igmList };
 
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity;
       tempArray.igmDetails[index].blNumber[index2].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
-      setIgmList({...tempArray});
+      setIgmList({ ...tempArray });
     }
   };
 
@@ -364,7 +362,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       name="group11"
                       disabled={!shipmentTypeBulk}
                       type={type}
-                     
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
@@ -374,7 +371,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       label="Liner"
                       name="group11"
                       disabled={shipmentTypeBulk}
-                     
                       checked={!shipmentTypeBulk}
                       type={type}
                       id={`inline-${type}-2`}
@@ -553,7 +549,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                         className={`${styles.add_btn} mt-2 border-danger text-danger`}
                       >
                         <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
-                      </button> 
+                      </button>
                     ) : null}
                   </div>
                 </div>
@@ -638,120 +634,62 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   </div>
                   <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
-                 
-                    {item?.blNumber?.length> 0 && item.blNumber.map((blEntry, index2) => {
-                      return (
-                        <>
-                          <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                            <div className="d-flex">
-                              <select
-                                id="vesselName"
-                                onChange={(e) => {
-                                  if (e.target.value !== 'select an option') {
-                                    onChangeBlDropDown(e);
-                                  }
-                                }}
-                                className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                                value={`${blEntry.blNumber}-${index}-${index2}`}
-                              >
-                                <option value="select an option">Select an option</option>
-                                {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => (
-                                  <option key={index3} value={`${bl.blNumber}-${index}-${index2}`}>
-                                    {bl.blNumber}
-                                  </option>
-                                ))}
-                              </select>
+                    {item?.blNumber?.length > 0 &&
+                      item.blNumber.map((blEntry, index2) => {
+                        return (
+                          <>
+                            <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                              <div className="d-flex">
+                                <select
+                                  id="vesselName"
+                                  onChange={(e) => {
+                                    if (e.target.value !== 'select an option') {
+                                      onChangeBlDropDown(e);
+                                    }
+                                  }}
+                                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                                  value={`${blEntry.blNumber}-${index}-${index2}`}
+                                >
+                                  <option value="select an option">Select an option</option>
+                                  {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => (
+                                    <option key={index3} value={`${bl.blNumber}-${index}-${index2}`}>
+                                      {bl.blNumber}
+                                    </option>
+                                  ))}
+                                </select>
 
-                              <label className={`${styles.label_heading} label_heading`}>
-                                BL Number
-                                <strong className="text-danger">*</strong>
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                                <label className={`${styles.label_heading} label_heading`}>
+                                  BL Number
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <img
+                                  className={`${styles.arrow} image_arrow img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="Search"
+                                />
+                              </div>
                             </div>
-                          </div>
-                          {shipmentTypeBulk ? (
-                            <>
-                              <div className="col-lg-4 col-md-6 col-sm-6" style={{ top: '35px' }}>
-                                <div className={`${styles.label} text`}>
-                                  BL Date <strong className="text-danger ml-n1">*</strong>
-                                </div>
-                                <span className={styles.value}>
-                                  {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
-                                </span>
-                              </div>
-                              <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
-                                <div className={`${styles.label} text`}>
-                                  BL Quantity <strong className="text-danger ml-n1">*</strong>
-                                </div>
-                                <span className={styles.value}>
-                                
-                                  <span className="mr-2">{ blEntry.blQuantity} </span>
-                                  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
-                                </span>
-                              </div>
-                              <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
-                                <div className="d-flex align-items-center">
-                                  <img
-                                    src="/static/preview.svg"
-                                    className={`${styles.previewImg} ml-n4`}
-                                    alt="Preview"
-                                  />
-                                  {item.blNumber.length >= index2 ? (
-                                    <img
-                                      onClick={() => onAddBlNumber(index, index2)}
-                                      src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} ml-5`}
-                                      alt="Add"
-                                    />
-                                  ) : null}
-                                  {item.blNumber.length > 1 ? (
-                                    <img
-                                      onClick={() => onRemoveBlNumber(index, index2)}
-                                      src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} ml-5`}
-                                      alt="delete"
-                                    />
-                                  ) : null}
-                                </div>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="col-lg-4 col-md-6 col-sm-6" style={{ top: '35px' }}>
-                                <div className="row">
-                                  <div className="col-md-6">
-                                    <div className={`${styles.label} text`}>
-                                      BL Date <strong className="text-danger ml-n1">*</strong>
-                                    </div>
-                                    <span className={styles.value}>
-                                      {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
-                                    </span>
+                            {shipmentTypeBulk ? (
+                              <>
+                                <div className="col-lg-4 col-md-6 col-sm-6" style={{ top: '35px' }}>
+                                  <div className={`${styles.label} text`}>
+                                    BL Date <strong className="text-danger ml-n1">*</strong>
                                   </div>
-                                  <div className="col-md-6">
-                                    <div className={`${styles.label} text`}>
-                                      No. of Containers <strong className="text-danger ml-n1">*</strong>
-                                    </div>
-                                    <span className={styles.value}>{blEntry?.noOfContainers}</span>
-                                  </div>
+                                  <span className={styles.value}>
+                                    {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
+                                  </span>
                                 </div>
-                              </div>
-                              <div className="col-lg-4 col-md-4 col-sm-6" style={{ top: '35px' }}>
-                                <div className="row align-items-center">
-                                  <div className="col-md-6">
-                                    <div className={`${styles.label} text`}>
-                                      BL Quantity <strong className="text-danger ml-n1">*</strong>
-                                    </div>
-                                    <span className={styles.value}>
-                                      
-                                      <span className="mr-2">{blEntry?.blQuantity}</span>
-                                      {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
-                                    </span>
+                                <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
+                                  <div className={`${styles.label} text`}>
+                                    BL Quantity <strong className="text-danger ml-n1">*</strong>
                                   </div>
-                                  <div className="col-md-6">
+                                  <span className={styles.value}>
+                                    <span className="mr-2">{blEntry.blQuantity} </span>
+                                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
+                                  </span>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
+                                  <div className="d-flex align-items-center">
                                     <img
                                       src="/static/preview.svg"
                                       className={`${styles.previewImg} ml-n4`}
@@ -765,7 +703,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                         alt="Add"
                                       />
                                     ) : null}
-                                    {index2 > 0 ? (
+                                    {item.blNumber.length > 1 ? (
                                       <img
                                         onClick={() => onRemoveBlNumber(index, index2)}
                                         src="/static/delete 2.svg"
@@ -775,12 +713,68 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     ) : null}
                                   </div>
                                 </div>
-                              </div>
-                            </>
-                          )}
-                        </>
-                      );
-                    })}
+                              </>
+                            ) : (
+                              <>
+                                <div className="col-lg-4 col-md-6 col-sm-6" style={{ top: '35px' }}>
+                                  <div className="row">
+                                    <div className="col-md-6">
+                                      <div className={`${styles.label} text`}>
+                                        BL Date <strong className="text-danger ml-n1">*</strong>
+                                      </div>
+                                      <span className={styles.value}>
+                                        {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
+                                      </span>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <div className={`${styles.label} text`}>
+                                        No. of Containers <strong className="text-danger ml-n1">*</strong>
+                                      </div>
+                                      <span className={styles.value}>{blEntry?.noOfContainers}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-lg-4 col-md-4 col-sm-6" style={{ top: '35px' }}>
+                                  <div className="row align-items-center">
+                                    <div className="col-md-6">
+                                      <div className={`${styles.label} text`}>
+                                        BL Quantity <strong className="text-danger ml-n1">*</strong>
+                                      </div>
+                                      <span className={styles.value}>
+                                        <span className="mr-2">{blEntry?.blQuantity}</span>
+                                        {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
+                                      </span>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <img
+                                        src="/static/preview.svg"
+                                        className={`${styles.previewImg} ml-n4`}
+                                        alt="Preview"
+                                      />
+                                      {item.blNumber.length >= index2 ? (
+                                        <img
+                                          onClick={() => onAddBlNumber(index, index2)}
+                                          src="/static/add-btn.svg"
+                                          className={`${styles.delete_image} ml-5`}
+                                          alt="Add"
+                                        />
+                                      ) : null}
+                                      {index2 > 0 ? (
+                                        <img
+                                          onClick={() => onRemoveBlNumber(index, index2)}
+                                          src="/static/delete 2.svg"
+                                          className={`${styles.delete_image} ml-5`}
+                                          alt="delete"
+                                        />
+                                      ) : null}
+                                    </div>
+                                  </div>
+                                </div>
+                              </>
+                            )}
+                          </>
+                        );
+                      })}
                   </div>
                 </div>
                 <div className={styles.table_scroll_outer}>

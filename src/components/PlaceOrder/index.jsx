@@ -23,12 +23,9 @@ const Index = () => {
   const { creditData } = useSelector((state) => state.companyDetails);
   const { newOrder } = useSelector((state) => state.placeOrder);
 
-
-
   useEffect(() => {
     if (newOrder) {
       Router.push('/order-list');
-   
     }
   }, [newOrder]);
   useEffect(() => {
@@ -87,7 +84,6 @@ const Index = () => {
     setOrderData(newInput);
   };
 
-
   const handleCurr = () => {
     const newInput = { ...orderData };
     let currVal = handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue);
@@ -96,7 +92,6 @@ const Index = () => {
   };
 
   const saveShipmentData = (name, value) => {
-
     const newInput = { ...shipment };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
@@ -104,139 +99,111 @@ const Index = () => {
   };
 
   const onOrderSave = () => {
-  
-
-   
     if (orderData?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.commodity?.trim() === '') {
       let toastMessage = 'Commodity can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.quantity === '') {
       let toastMessage = 'Quantity can not be Empty ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.unitOfQuantity?.trim() === '') {
       let toastMessage = 'Please Provide unit Of Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.orderValue === '') {
       let toastMessage = 'Please check the Order value  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
-    }
-    
-    else if (orderData?.unitOfValue?.trim() === '') {
+    } else if (orderData?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please set the unit of value';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.supplierName?.trim() === '') {
       let toastMessage = 'Supplier Name cannot be empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData.countryOfOrigin.trim() === '') {
       let toastMessage = 'Country Of Origin can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.portOfDischarge?.trim() === '') {
       let toastMessage = 'Port Of Discharge can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.ExpectedDateOfShipment?.trim() === '') {
       let toastMessage = 'Expected Date Of Shipment can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.incoTerm?.trim() === '') {
       let toastMessage = 'the incoTerm can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.grade?.trim() === '') {
       let toastMessage = 'Grade can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.tolerance === '') {
       let toastMessage = 'Tolerance can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderData?.transactionPeriodDays === '') {
       let toastMessage = 'Transaction Period Days can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
-    } 
-    
-    else if (shipment?.shipmentType?.trim() === '') {
+    } else if (shipment?.shipmentType?.trim() === '') {
       let toastMessage = 'SHIPMENT TYPE  can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (shipment?.loadPort?.fromDate === '') {
       let toastMessage = 'laycan load port from can not be Empty ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (shipment?.loadPort?.toDate?.trim() === '') {
       let toastMessage = 'laycan load port to can not be Empty ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (shipment?.lastDateOfShipment?.trim() === '') {
       let toastMessage = 'last date of shipment can not be Empty ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (shipment?.ETAofDischarge?.fromDate?.trim() === '') {
       let toastMessage = 'Eta at Dischare Port from   can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (shipment?.ETAofDischarge?.toDate === '') {
       let toastMessage = 'Eta at Dischare Port to   can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (shipment?.portOfLoading?.trim() === '') {
       let toastMessage = 'Please Provide a port of loading';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else {
       handleCurr();
       let orderDataNew = { ...orderData };

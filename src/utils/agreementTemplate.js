@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 export const toPdf = (data) => {
   return (
     <table
@@ -1340,7 +1341,7 @@ export const toPdf = (data) => {
           style={{
             fontFamily: 'Times New Roman, Times, serif',
             fontSize: '12px',
-            lineHeight: '1.5',
+            lineHeight: '1.3',
             color: '#000000',
             padding: '20px',
           }}
@@ -1654,7 +1655,7 @@ export const toPdf = (data) => {
                           <td
                             bgColor="#fafafb"
                             style={{
-                              color: '#8492a6',
+                              color: '#000000',
                               fontWeight: 'bold',
                               borderBottom: '1px solid #d9dde8',
                               borderRight: '1px solid #d9dde8',
@@ -1674,7 +1675,7 @@ export const toPdf = (data) => {
                             <td
                               style={{
                                 borderBottom: '1px solid #d9dde8',
-                                color: '#8492a6',
+                                color: '#000000',
                                 borderRight: '1px solid #d9dde8',
                                 padding: '5px',
                               }}
@@ -2919,9 +2920,9 @@ export const qpaPrint = (data) => {
                       color: '#000000',
                     }}
                   >
-                    WHEREAS <u>{data.shortbuyer}</u>&nbsp;has appointed the Stevedore for handling the vessel
-                    as detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel,
-                    Discharge port and the plot allotted to&nbsp;
+                    WHEREAS <u>{data.shortbuyer}</u>&nbsp;has appointed the Stevedore for handling the vessel as
+                    detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge
+                    port and the plot allotted to&nbsp;
                     <u>{data.shortbuyer}</u>&nbsp;are mentioned at Schedule I.
                   </p>
                 </td>
@@ -2974,10 +2975,10 @@ export const qpaPrint = (data) => {
                         }}
                       >
                         The Goods shall be stored at the Plot allotted to&nbsp;
-                        <u>{data.shortbuyer}</u> by the Discharge Port authorities and shall be kept under the
-                        control and custody of CHA on behalf of&nbsp;
-                        <u>{data.shortbuyer}</u>. All dispatches from the plot shall be done by CHA solely on
-                        the basis of Written Delivery Orders issued by&nbsp;
+                        <u>{data.shortbuyer}</u> by the Discharge Port authorities and shall be kept under the control
+                        and custody of CHA on behalf of&nbsp;
+                        <u>{data.shortbuyer}</u>. All dispatches from the plot shall be done by CHA solely on the basis
+                        of Written Delivery Orders issued by&nbsp;
                         <u>{data.shortbuyer}</u>.
                       </p>
                     </li>
@@ -2987,7 +2988,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         {' '}
@@ -3007,7 +3008,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         a) arranging plot allotment in the name of <u>{data.shortbuyer}</u>
@@ -3019,7 +3020,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         b) discharge of cargo from the Vessel,
@@ -3029,7 +3030,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         c) loading of wharf, intra carting at Port,
@@ -3039,7 +3040,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         d) deployment of labors and equipments,
@@ -3049,18 +3050,18 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
-                        e) transportation from wharf to <u>{data.shortbuyer}</u> allotted plot, ensure that
-                        the plot where goods are being stored is suitable for the storage of the goods,
+                        e) transportation from wharf to <u>{data.shortbuyer}</u> allotted plot, ensure that the plot
+                        where goods are being stored is suitable for the storage of the goods,
                       </p>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         f) segregated stacking cargo at plot grade wise,
@@ -3070,7 +3071,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         g) placement of wagon indents, wagon cleaning, wooden plugging,
@@ -3080,7 +3081,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         h) loading into wagons/trucks, leveling of cargo, lime marking on stacks and wagons, placing
@@ -3091,7 +3092,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         i) Arranging round the clock security cover at the storage area,
@@ -3101,7 +3102,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         j) liaison with Discharge Port authorities,
@@ -3111,7 +3112,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         k) obtaining RRs and arranging dispatches as per Written release orders issued by{' '}
@@ -3122,7 +3123,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         l) obtaining gate passes,
@@ -3132,7 +3133,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         m) yard management,{' '}
@@ -3142,7 +3143,7 @@ export const qpaPrint = (data) => {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom:'0'
+                          marginBottom: '0',
                         }}
                       >
                         n) maintenance of proper records and registers for incoming and outgoing of material,
@@ -3151,7 +3152,7 @@ export const qpaPrint = (data) => {
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
-                          color: '#000000'
+                          color: '#000000',
                         }}
                       >
                         o) water sprinkling as per PCB norms and other services as may be required by{' '}
@@ -3170,10 +3171,17 @@ export const qpaPrint = (data) => {
                         joint and several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and
                         Stevedore shall provide round the clock security guards at the Storage Plot allotted at
                         Discharge Port, where Goods shall be stored.&nbsp;
-                        <u>{data.shortbuyer}</u> shall in no way be responsible or liable for any loss or
-                        damage to the Goods for any reason whatsoever including shortage, theft or mix up.
+                        <u>{data.shortbuyer}</u> shall in no way be responsible or liable for any loss or damage to the
+                        Goods for any reason whatsoever including shortage, theft or mix up.
                       </p>
-                      <br/><br/><br/><br/><br/><br/><br/><br/>
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <br />
                     </li>
                     <li>
                       <p
@@ -3183,14 +3191,14 @@ export const qpaPrint = (data) => {
                           color: '#000000',
                         }}
                       >
-                        Bill of Entry to be filed in the name <u>{data.shortbuyer}</u>. Payment of customs
-                        duty, IGST, energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the
-                        Associate Buyer to&nbsp;
-                        <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate
-                        Buyer shall pay Port Charges directly to port or through the Stevedore who will take care of the
-                        payments to Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI.
-                        Any penalty/demurrage on account of delayed payment shall be solely to the account of the
-                        Associate Buyer
+                        Bill of Entry to be filed in the name <u>{data.shortbuyer}</u>. Payment of customs duty, IGST,
+                        energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer
+                        to&nbsp;
+                        <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate Buyer shall
+                        pay Port Charges directly to port or through the Stevedore who will take care of the payments to
+                        Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI. Any
+                        penalty/demurrage on account of delayed payment shall be solely to the account of the Associate
+                        Buyer
                       </p>
                     </li>
                     <li>
@@ -3202,10 +3210,9 @@ export const qpaPrint = (data) => {
                         }}
                       >
                         Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty
-                        (if applicable) are to be paid by the Associate Buyer in advance to{' '}
-                        <u>{data.shortbuyer}</u> as per the Discharge Port. HMC crane charges at the Discharge
-                        Port and any pre berthing delays/detentions/demurrages will be to the account of the Associate
-                        Buyer on actual basis.
+                        (if applicable) are to be paid by the Associate Buyer in advance to <u>{data.shortbuyer}</u> as
+                        per the Discharge Port. HMC crane charges at the Discharge Port and any pre berthing
+                        delays/detentions/demurrages will be to the account of the Associate Buyer on actual basis.
                       </p>
                     </li>
                     <li>
@@ -3241,9 +3248,9 @@ export const qpaPrint = (data) => {
                         }}
                       >
                         Scanned copy of RR shall be furnished by Stevedore to&nbsp;
-                        <u>{data.shortbuyer}</u> as well as to Associate Buyer as soon as it is issued after
-                        loading. The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery
-                        of the rake. The final reconciliation shall be done based on the BL quantity.
+                        <u>{data.shortbuyer}</u> as well as to Associate Buyer as soon as it is issued after loading.
+                        The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery of the
+                        rake. The final reconciliation shall be done based on the BL quantity.
                       </p>
                     </li>
                     <li>
@@ -3257,12 +3264,12 @@ export const qpaPrint = (data) => {
                         The Associate Buyer will arrange comprehensive storage insurance against all risks for{' '}
                         <strong>110%</strong> of the value of goods. The insurance policy will indicate&nbsp;
                         <u>{data.shortbuyer}</u> or its nominated Bank (as per&nbsp;
-                        <u>{data.shortbuyer}</u>'s discretion), as sole beneficiary. The Associate Buyer shall
-                        inform Stevedore the details of the goods for which <u>{data.shortbuyer}</u>/IGI's
-                        nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as
-                        per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance
-                        company the same shall be claimed and pursued till realization by the Associate Buyer at its
-                        sole cost and the Associate Buyer shall indemnify Stevedore and IGI against all risks.
+                        <u>{data.shortbuyer}</u>'s discretion), as sole beneficiary. The Associate Buyer shall inform
+                        Stevedore the details of the goods for which <u>{data.shortbuyer}</u>/IGI's nominated Bank shall
+                        be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity
+                        kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall
+                        be claimed and pursued till realization by the Associate Buyer at its sole cost and the
+                        Associate Buyer shall indemnify Stevedore and IGI against all risks.
                       </p>
                     </li>
                     <li>
@@ -3273,13 +3280,13 @@ export const qpaPrint = (data) => {
                           color: '#000000',
                         }}
                       >
-                        <u>{data.shortbuyer}</u> and CMA Agent (Collateral Manager appointed by LC opening
-                        Bank) shall have free and unfettered access to the plot where the goods are stored without any
-                        prior notice to the plot keeper during all reasonable hours including the right of ingress and
-                        egress to and from the plot by <u>{data.shortbuyer}</u> 's and /or CMA Agent's
-                        officials, agents, other nominated buyers, if any, of <u>{data.shortbuyer}</u> and/or
-                        CMA Agent, its vehicles, any Government Agency, for storing/de-storing/removing the material in
-                        or from the plot without any hindrance or obstruction.
+                        <u>{data.shortbuyer}</u> and CMA Agent (Collateral Manager appointed by LC opening Bank) shall
+                        have free and unfettered access to the plot where the goods are stored without any prior notice
+                        to the plot keeper during all reasonable hours including the right of ingress and egress to and
+                        from the plot by <u>{data.shortbuyer}</u> 's and /or CMA Agent's officials, agents, other
+                        nominated buyers, if any, of <u>{data.shortbuyer}</u> and/or CMA Agent, its vehicles, any
+                        Government Agency, for storing/de-storing/removing the material in or from the plot without any
+                        hindrance or obstruction.
                       </p>
                     </li>
                     <li>
@@ -3310,13 +3317,13 @@ export const qpaPrint = (data) => {
                         }}
                       >
                         CHA/Stevedore shall at all times follow and be bound by the instructions solely of{' '}
-                        <u>{data.shortbuyer}</u> with regard to delivery of the Goods. Stevedore confirms and
-                        undertakes that it shall not release the Goods without the written Release Order of&nbsp;
-                        <u>{data.shortbuyer}</u>. Stevedore shall have no objection whatsoever, if{' '}
-                        <u>{data.buyer}</u> instructs it to deliver the Goods to any third party so nominated
-                        by them. The instructions of the&nbsp;
-                        <u>{data.buyer}</u> shall be followed forthwith, without any objection, hindrance or
-                        delay whatsoever.
+                        <u>{data.shortbuyer}</u> with regard to delivery of the Goods. Stevedore confirms and undertakes
+                        that it shall not release the Goods without the written Release Order of&nbsp;
+                        <u>{data.shortbuyer}</u>. Stevedore shall have no objection whatsoever, if <u>{data.buyer}</u>{' '}
+                        instructs it to deliver the Goods to any third party so nominated by them. The instructions of
+                        the&nbsp;
+                        <u>{data.buyer}</u> shall be followed forthwith, without any objection, hindrance or delay
+                        whatsoever.
                       </p>
                     </li>
                     <li>
@@ -3329,13 +3336,13 @@ export const qpaPrint = (data) => {
                       >
                         CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt,
                         storage and release of goods from the warehouse and furnish a daily report to{' '}
-                        <u>{data.shortbuyer}</u> & the Associate Buyer. Under no circumstance releases will be
-                        made by Stevedore or be taken by the Associate Buyer without obtaining proper Release Order in
-                        writing from <u>{data.shortbuyer}</u>. Stevedore and the Associate Buyer jointly and
-                        severally agree to indemnify and hold harmless at all times <u>{data.shortbuyer}</u>,
-                        its officers, agents, employees for any losses, damages, claims, costs and expenses incurred by{' '}
-                        <u>{data.shortbuyer}</u> due to unauthorized, improper release of the Goods, shortage
-                        and/or for breach of the terms of this Agreement.
+                        <u>{data.shortbuyer}</u> & the Associate Buyer. Under no circumstance releases will be made by
+                        Stevedore or be taken by the Associate Buyer without obtaining proper Release Order in writing
+                        from <u>{data.shortbuyer}</u>. Stevedore and the Associate Buyer jointly and severally agree to
+                        indemnify and hold harmless at all times <u>{data.shortbuyer}</u>, its officers, agents,
+                        employees for any losses, damages, claims, costs and expenses incurred by{' '}
+                        <u>{data.shortbuyer}</u> due to unauthorized, improper release of the Goods, shortage and/or for
+                        breach of the terms of this Agreement.
                       </p>
                     </li>
                     <li>
@@ -3360,8 +3367,8 @@ export const qpaPrint = (data) => {
                         }}
                       >
                         In the event the Associate Buyer does not lift the goods/material within the scheduled period{' '}
-                        <u>{data.shortbuyer}</u> has the right to sell/dispose of the Goods at the sole risk,
-                        cost of the Associate Buyer. The Associate Buyer shall liable to pay to&nbsp;
+                        <u>{data.shortbuyer}</u> has the right to sell/dispose of the Goods at the sole risk, cost of
+                        the Associate Buyer. The Associate Buyer shall liable to pay to&nbsp;
                         <u>{data.shortbuyer}</u> the loss (if any) incurred by&nbsp;
                         <u>{data.shortbuyer}</u>.
                       </p>
@@ -3387,7 +3394,13 @@ export const qpaPrint = (data) => {
               </tr>
               <tr>
                 <td style={{ paddingTop: '20px' }}>
-                  <br/><br/><br/><br/><br/><br/><br/>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                   <h3
                     align="center"
                     style={{
@@ -3658,11 +3671,13 @@ export const qpaPrint = (data) => {
                             marginBottom: '0',
                           }}
                         >
-                          <ol style={{
+                          <ol
+                            style={{
                               fontSize: '12px',
                               lineHeight: '18px',
-                              color: '#000000'
-                            }}>
+                              color: '#000000',
+                            }}
+                          >
                             {data?.associateBuyerAuthorized?.length > 0 &&
                               data?.associateBuyerAuthorized?.map((val, index) => {
                                 return (
@@ -3673,7 +3688,8 @@ export const qpaPrint = (data) => {
                                         lineHeight: '18px',
                                         color: '#000000',
                                         marginBottom: '0',
-                                      }}>
+                                      }}
+                                    >
                                       Name- <span>{val.name}</span>
                                     </p>
                                     <p
@@ -3682,7 +3698,8 @@ export const qpaPrint = (data) => {
                                         lineHeight: '18px',
                                         color: '#000000',
                                         marginBottom: '0',
-                                      }}>
+                                      }}
+                                    >
                                       Designation- <span>{val.designation}</span>
                                     </p>
                                   </li>
@@ -3797,11 +3814,13 @@ export const qpaPrint = (data) => {
                             marginBottom: '0',
                           }}
                         >
-                          <ol style={{
-                            fontSize: '12px',
-                            lineHeight: '18px',
-                            color: '#000000'
-                          }}>
+                          <ol
+                            style={{
+                              fontSize: '12px',
+                              lineHeight: '18px',
+                              color: '#000000',
+                            }}
+                          >
                             {data?.stevedoreAuthorized?.length > 0 &&
                               data?.stevedoreAuthorized?.map((val, index) => {
                                 return (
@@ -3812,7 +3831,8 @@ export const qpaPrint = (data) => {
                                         lineHeight: '18px',
                                         color: '#000000',
                                         marginBottom: '0',
-                                      }}>
+                                      }}
+                                    >
                                       Name- <span>{val.name}</span>
                                     </p>
                                     <p
@@ -3821,7 +3841,8 @@ export const qpaPrint = (data) => {
                                         lineHeight: '18px',
                                         color: '#000000',
                                         marginBottom: '0',
-                                      }}>
+                                      }}
+                                    >
                                       Designation- <span>{val.designation}</span>
                                     </p>
                                   </li>
@@ -3937,11 +3958,13 @@ export const qpaPrint = (data) => {
                             marginBottom: '0',
                           }}
                         >
-                          <ol style={{
-                            fontSize: '12px',
-                            lineHeight: '18px',
-                            color: '#000000'
-                          }}>
+                          <ol
+                            style={{
+                              fontSize: '12px',
+                              lineHeight: '18px',
+                              color: '#000000',
+                            }}
+                          >
                             {data?.cmaAuthorized?.length > 0 &&
                               data?.cmaAuthorized?.map((val, index) => {
                                 return (
@@ -3952,7 +3975,8 @@ export const qpaPrint = (data) => {
                                         lineHeight: '18px',
                                         color: '#000000',
                                         marginBottom: '0',
-                                      }}>
+                                      }}
+                                    >
                                       Name- <span>{val.name}</span>
                                     </p>
                                     <p
@@ -3961,7 +3985,8 @@ export const qpaPrint = (data) => {
                                         lineHeight: '18px',
                                         color: '#000000',
                                         marginBottom: '0',
-                                      }}>
+                                      }}
+                                    >
                                       Designation- <span>{val.designation}</span>
                                     </p>
                                   </li>
@@ -4429,9 +4454,12 @@ export const igiPrint = (data) => {
                     {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
                     {data.buyerAddress?.pinCode}
                   </u>
-                  through its Authorised Signatory (hereinafter referred as the “<strong><u>{data.buyerseller}</u></strong> ”,
-                  which expression shall, unless excluded by or repugnant to the context be deemed to include its legal
-                  heirs, successors and permitted assigns) of the First Part.)
+                  through its Authorised Signatory (hereinafter referred as the “
+                  <strong>
+                    <u>{data.buyerseller}</u>
+                  </strong>{' '}
+                  ”, which expression shall, unless excluded by or repugnant to the context be deemed to include its
+                  legal heirs, successors and permitted assigns) of the First Part.)
                 </p>
               </td>
             </tr>
@@ -4485,9 +4513,12 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.seller}</u>(hereinafter referred as the <strong><u>“IIAG”</u></strong>, which expression
-                  shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors
-                  and permitted assigns) of the Third Part.
+                  <u>{data.seller}</u>(hereinafter referred as the{' '}
+                  <strong>
+                    <u>“IIAG”</u>
+                  </strong>
+                  , which expression shall, unless excluded by or repugnant to the context be deemed to include its
+                  legal heirs, successors and permitted assigns) of the Third Part.
                 </p>
               </td>
             </tr>
@@ -4513,8 +4544,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.shortseller}</u> is engaged in the business of trading of industrial commodities,
-                  which are stored at the Designated Storage Area as detailed in Schedule-I.
+                  <u>{data.shortseller}</u> is engaged in the business of trading of industrial commodities, which are
+                  stored at the Designated Storage Area as detailed in Schedule-I.
                 </p>
               </td>
             </tr>
@@ -4527,8 +4558,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.buyerseller}</u> has purchased Commodity from the Supplier, that has been financed
-                  by the “Financing Bank”. The details of the commodity purchased, Supplier and the Financing Bank are
+                  <u>{data.buyerseller}</u> has purchased Commodity from the Supplier, that has been financed by the
+                  “Financing Bank”. The details of the commodity purchased, Supplier and the Financing Bank are
                   mentioned in Schedule-I.
                 </p>
               </td>
@@ -4545,9 +4576,9 @@ export const igiPrint = (data) => {
                   Financing Bank has a first ranking security right over the Goods in the form of a pledge, and has
                   appointed Collateral Manager pursuant to the terms of the tripartite collateral management agreement
                   executed between
-                  <u>{data.shortseller}</u>, Collateral Manager and Financing Bank as amended from time to
-                  time (the “<strong>Collateral Management Agreement</strong>”) for the purpose of keeping the custody
-                  and control of Goods.
+                  <u>{data.shortseller}</u>, Collateral Manager and Financing Bank as amended from time to time (the “
+                  <strong>Collateral Management Agreement</strong>”) for the purpose of keeping the custody and control
+                  of Goods.
                 </p>
               </td>
             </tr>
@@ -4574,9 +4605,9 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.buyerseller}</u>hereby agrees that it shall grant unrestricted access to a clearly
-                  demarcated part of the Storage Facility (as per stocking requirement) in ready-to-operate-condition
-                  exclusively for the use of Collateral Manager where the pledged Goods shall only be stored (the “
+                  <u>{data.buyerseller}</u>hereby agrees that it shall grant unrestricted access to a clearly demarcated
+                  part of the Storage Facility (as per stocking requirement) in ready-to-operate-condition exclusively
+                  for the use of Collateral Manager where the pledged Goods shall only be stored (the “
                   <strong>Designated Storage Area</strong>”).
                 </p>
               </td>
@@ -4692,8 +4723,8 @@ export const igiPrint = (data) => {
                   }}
                 >
                   <span className="mr-6">2.3</span> be responsible for putting a Placard on each lot of Goods stored at
-                  the Designated Storage Area clearly specifying the name of <u>{data?.shortseller}</u> as the
-                  owner of the Goods and Collateral Manager as the Collateral Manager as custodian of the Goods;
+                  the Designated Storage Area clearly specifying the name of <u>{data?.shortseller}</u> as the owner of
+                  the Goods and Collateral Manager as the Collateral Manager as custodian of the Goods;
                 </p>
               </td>
             </tr>
@@ -4709,8 +4740,8 @@ export const igiPrint = (data) => {
                   <span className="mr-6">2.4</span> be responsible for providing an office equipped with required
                   infrastructure such as electricity, toilet, telephone, access to fax, email etc. will have to be
                   provided free of cost to Collateral Manager and the running cost of these facilities will also be
-                  borne by <u>{data.buyerseller}</u>. Collateral Manager and their representatives shall have
-                  unfettered access to the warehouse/stockyard;
+                  borne by <u>{data.buyerseller}</u>. Collateral Manager and their representatives shall have unfettered
+                  access to the warehouse/stockyard;
                 </p>
               </td>
             </tr>
@@ -4950,9 +4981,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <span className="mr-6">5.2</span> <u>{data.shortbuyer}</u> undertakes that the pledged Goods
-                  shall be separately stocked at the Designated Storage Area under the custody and control of Collateral
-                  Manager
+                  <span className="mr-6">5.2</span> <u>{data.shortbuyer}</u> undertakes that the pledged Goods shall be
+                  separately stocked at the Designated Storage Area under the custody and control of Collateral Manager
                 </p>
               </td>
             </tr>
@@ -5006,14 +5036,14 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <span className="mr-6">7.1</span> <u>{data.buyerseller}</u> shall take out and maintain an
-                  all risks cargo insurance policy in respect of the Goods which terms are acceptable to the respective
-                  Financing Bank at its full discretion. The policy shall cover loss, strikes, riots, civil commotion,
-                  theft, misappropriation and damage of the Goods during storage in the Designated Storage Area and
-                  while under transport to and from the Designated Storage Area. The Insurance shall remain valid until
-                  the period that the entire Goods at the Designated Storage Area have been released by Collateral
-                  Manager to <u>{data.buyerseller}</u>. The insurance policy shall name the Financing Bank as
-                  a beneficiary of insurances and loss payee.
+                  <span className="mr-6">7.1</span> <u>{data.buyerseller}</u> shall take out and maintain an all risks
+                  cargo insurance policy in respect of the Goods which terms are acceptable to the respective Financing
+                  Bank at its full discretion. The policy shall cover loss, strikes, riots, civil commotion, theft,
+                  misappropriation and damage of the Goods during storage in the Designated Storage Area and while under
+                  transport to and from the Designated Storage Area. The Insurance shall remain valid until the period
+                  that the entire Goods at the Designated Storage Area have been released by Collateral Manager to{' '}
+                  <u>{data.buyerseller}</u>. The insurance policy shall name the Financing Bank as a beneficiary of
+                  insurances and loss payee.
                 </p>
               </td>
             </tr>
@@ -5054,8 +5084,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.buyerseller}</u> shall be responsible for the payment of all Land and Building
-                  taxes as may be applicable and that relate to the Designated Storage Area.
+                  <u>{data.buyerseller}</u> shall be responsible for the payment of all Land and Building taxes as may
+                  be applicable and that relate to the Designated Storage Area.
                 </p>
               </td>
             </tr>
@@ -5081,8 +5111,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  During the period of this Agreement, <u>{data.buyerseller}</u> shall be responsible for
-                  payment of all charges with regard to water and electricity.
+                  During the period of this Agreement, <u>{data.buyerseller}</u> shall be responsible for payment of all
+                  charges with regard to water and electricity.
                 </p>
               </td>
             </tr>
@@ -5108,8 +5138,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.buyerseller}</u> shall bear all duties, taxes, cesses, levies etc. payable under
-                  present Indian State/Central Government/Semi Government Policies or payable in future under any newly
+                  <u>{data.buyerseller}</u> shall bear all duties, taxes, cesses, levies etc. payable under present
+                  Indian State/Central Government/Semi Government Policies or payable in future under any newly
                   implemented Government Policy/ies in respect of the said Designated Storage Area.
                 </p>
               </td>
@@ -5123,9 +5153,9 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.buyerseller}</u>hereby agrees to make the payments referred above regularly without
-                  any delay and default and shall produce to Collateral Manager, after expiry of every 12 months,
-                  certified copies of the receipts for the payments made during such period.
+                  <u>{data.buyerseller}</u>hereby agrees to make the payments referred above regularly without any delay
+                  and default and shall produce to Collateral Manager, after expiry of every 12 months, certified copies
+                  of the receipts for the payments made during such period.
                 </p>
               </td>
             </tr>
@@ -5177,8 +5207,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.buyerseller}</u> will pay any deposits due in respect of water and electricity
-                  charges as may be required. <u>{data.buyerseller}</u>
+                  <u>{data.buyerseller}</u> will pay any deposits due in respect of water and electricity charges as may
+                  be required. <u>{data.buyerseller}</u>
                   hereby indemnifies Collateral Manager against any consequences that may arise as a result of failure
                   to pay said deposits or any claims whatsoever with regards to any of the charges.
                 </p>
@@ -5211,12 +5241,12 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u> shall arrange to obtain no claim on inventory letters from all
-                      and any party who has an interest in the Storage Facility/Designated Storage Area. Such letters
-                      shall proclaim that the parties concerned recognize and agree that they do not have any ownership
-                      or title rights to the Goods stored at the Designated Storage Area, and that they shall not bring
-                      any claim to bear on the Goods, under the custody, control and supervision of Collateral Manager
-                      and stored in the Designated Storage Area.
+                      <u>{data.buyerseller}</u> shall arrange to obtain no claim on inventory letters from all and any
+                      party who has an interest in the Storage Facility/Designated Storage Area. Such letters shall
+                      proclaim that the parties concerned recognize and agree that they do not have any ownership or
+                      title rights to the Goods stored at the Designated Storage Area, and that they shall not bring any
+                      claim to bear on the Goods, under the custody, control and supervision of Collateral Manager and
+                      stored in the Designated Storage Area.
                     </p>
                   </li>
                   <li>
@@ -5227,8 +5257,8 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u>shall furnish written confirmation to Collateral Manager that
-                      there are no circumstances of which he is aware that may give rise to a claim over the land, plot,
+                      <u>{data.buyerseller}</u>shall furnish written confirmation to Collateral Manager that there are
+                      no circumstances of which he is aware that may give rise to a claim over the land, plot,
                       Designated Storage Area or the Goods stored therein during the period of this Agreement.
                     </p>
                   </li>
@@ -5240,9 +5270,9 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      During the period of this Agreement, <u>{data.buyerseller}</u> shall warrant that it
-                      will allow Collateral Manager to have the custody, control and supervision of the Goods stored at
-                      the Designated Storage Area without any interruption and obstruction.
+                      During the period of this Agreement, <u>{data.buyerseller}</u> shall warrant that it will allow
+                      Collateral Manager to have the custody, control and supervision of the Goods stored at the
+                      Designated Storage Area without any interruption and obstruction.
                     </p>
                   </li>
                   <li>
@@ -5253,11 +5283,10 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u> further agrees that he shall not, for any reason whatsoever,
-                      prevent Collateral Manager from entering or leaving the Designated Storage Area nor shall it at
-                      any time prevent Collateral Manager from taking in, or delivering out, the Goods stored therein
-                      which shall be done under the supervision of Collateral Manager at the written instance of the
-                      Financing Bank.
+                      <u>{data.buyerseller}</u> further agrees that he shall not, for any reason whatsoever, prevent
+                      Collateral Manager from entering or leaving the Designated Storage Area nor shall it at any time
+                      prevent Collateral Manager from taking in, or delivering out, the Goods stored therein which shall
+                      be done under the supervision of Collateral Manager at the written instance of the Financing Bank.
                     </p>
                   </li>
                   <li>
@@ -5268,8 +5297,8 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u> hereby waives all rights to the Goods stored under the custody
-                      of Collateral Manager and shall not remove, transfer or otherwise attempt to gain control of the
+                      <u>{data.buyerseller}</u> hereby waives all rights to the Goods stored under the custody of
+                      Collateral Manager and shall not remove, transfer or otherwise attempt to gain control of the
                       Goods unless authorized in writing by Collateral Manager .
                     </p>
                   </li>
@@ -5281,9 +5310,9 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u> shall take the delivery of the Goods from Collateral Manager
-                      only upon receipt [by Collateral Manager] of the Release Orders from the Financing Bank and then
-                      released by Collateral Manager on instructions of <u>{data?.shortseller}</u>
+                      <u>{data.buyerseller}</u> shall take the delivery of the Goods from Collateral Manager only upon
+                      receipt [by Collateral Manager] of the Release Orders from the Financing Bank and then released by
+                      Collateral Manager on instructions of <u>{data?.shortseller}</u>
                     </p>
                   </li>
                   <li>
@@ -5294,8 +5323,8 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u> warrants that Collateral Manager shall enjoy complete and
-                      uninterrupted custody of the Goods in the Designated Storage Area
+                      <u>{data.buyerseller}</u> warrants that Collateral Manager shall enjoy complete and uninterrupted
+                      custody of the Goods in the Designated Storage Area
                     </p>
                   </li>
                 </ul>
@@ -5358,8 +5387,8 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      <u>{data.buyerseller}</u>shall furnish written confirmation to Collateral Manager that
-                      there are no circumstances of which he is aware that may give rise to a claim over the land, plot,
+                      <u>{data.buyerseller}</u>shall furnish written confirmation to Collateral Manager that there are
+                      no circumstances of which he is aware that may give rise to a claim over the land, plot,
                       Designated Storage Area or the Goods stored therein during the period of this Agreement.
                     </p>
                   </li>
@@ -5371,9 +5400,9 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      During the period of this Agreement, <u>{data.buyerseller}</u> shall warrant that it
-                      will allow Collateral Manager to have the custody, control and supervision of the Goods stored at
-                      the Designated Storage Area without any interruption and obstruction.
+                      During the period of this Agreement, <u>{data.buyerseller}</u> shall warrant that it will allow
+                      Collateral Manager to have the custody, control and supervision of the Goods stored at the
+                      Designated Storage Area without any interruption and obstruction.
                     </p>
                   </li>
                   <li>
@@ -5416,10 +5445,10 @@ export const igiPrint = (data) => {
                 >
                   <u>{data.buyerseller}</u> agrees to indemnify and keep indemnified, defend and hold harmless
                   Collateral Manager and
-                  <u>{data.buyerseller}</u>, its officers, directors, employees and agents from and against
-                  any and all losses, liabilities, claims, obligations, costs, expenses arising during the duration of
-                  this Agreement, which result from, arise in connection with or are related in any way to claims by
-                  third parties or regulatory authorities, and which directly arise due to any reasons whatsoever and
+                  <u>{data.buyerseller}</u>, its officers, directors, employees and agents from and against any and all
+                  losses, liabilities, claims, obligations, costs, expenses arising during the duration of this
+                  Agreement, which result from, arise in connection with or are related in any way to claims by third
+                  parties or regulatory authorities, and which directly arise due to any reasons whatsoever and
                   including the following
                 </p>
               </td>
@@ -5454,9 +5483,8 @@ export const igiPrint = (data) => {
                         color: '#000000',
                       }}
                     >
-                      negligence, fault or misconduct by <u>{data.buyerseller}</u> or its officers, employees,
-                      agents, subcontractors and/or representatives and/or other persons authorized to act on its
-                      behalf;
+                      negligence, fault or misconduct by <u>{data.buyerseller}</u> or its officers, employees, agents,
+                      subcontractors and/or representatives and/or other persons authorized to act on its behalf;
                     </p>
                   </li>
                 </ol>
@@ -5484,8 +5512,8 @@ export const igiPrint = (data) => {
                     color: '#000000',
                   }}
                 >
-                  The responsibility of <u>{data.buyerseller}</u> to indemnify set forth in this Clause and
-                  the obligations there under, shall survive the termination of this Tripartite Agreement for any reason
+                  The responsibility of <u>{data.buyerseller}</u> to indemnify set forth in this Clause and the
+                  obligations there under, shall survive the termination of this Tripartite Agreement for any reason
                   whatsoever with regard to any indemnity claims arising out of or in relation to the performance
                   hereof.
                 </p>
@@ -5731,10 +5759,12 @@ export const igiPrint = (data) => {
                           marginBottom: '0',
                         }}
                       >
-                        <ol style={{
-                          fontSize: '12px',
-                          lineHeight: '18px',
-                          color: '#000000'}}
+                        <ol
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000',
+                          }}
                         >
                           {data?.cmaAuthorized?.length > 0 &&
                             data?.cmaAuthorized?.map((val, index) => {
@@ -6160,8 +6190,8 @@ export const sellerPrint = (data) => {
                       color: '#000000',
                     }}
                   >
-                    <strong style={{textTransform:'uppercase'}}>{data.seller}</strong>, a company organized and existing in accordance with Law of
-                    Switzerland and having address at{' '}
+                    <strong style={{ textTransform: 'uppercase' }}>{data.seller}</strong>, a company organized and
+                    existing in accordance with Law of Switzerland and having address at{' '}
                     <strong>
                       {' '}
                       {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
@@ -6390,7 +6420,9 @@ export const sellerPrint = (data) => {
                           lineHeight: '18px',
                           color: '#000000',
                         }}
-                      >Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any reason whatsoever once LC is issued by the Buyer.
+                      >
+                        Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any
+                        reason whatsoever once LC is issued by the Buyer.
                       </p>
                     </li>
                     <li>
@@ -6400,7 +6432,9 @@ export const sellerPrint = (data) => {
                           lineHeight: '18px',
                           color: '#000000',
                         }}
-                      >In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail.
+                      >
+                        In case of any conflict between the Sales Contract and this Agreement, the terms of this
+                        Agreement will prevail.
                       </p>
                     </li>
                     <li>
@@ -6410,7 +6444,10 @@ export const sellerPrint = (data) => {
                           lineHeight: '18px',
                           color: '#000000',
                         }}
-                      >Further, End Buyer shall be fully responsible for payment of the price in the event that Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
+                      >
+                        Further, End Buyer shall be fully responsible for payment of the price in the event that
+                        Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and
+                        Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
                       </p>
                     </li>
                     <li>
@@ -6420,7 +6457,10 @@ export const sellerPrint = (data) => {
                           lineHeight: '18px',
                           color: '#000000',
                         }}
-                      >In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.
+                      >
+                        In any case, End Buyer shall remain responsible for the performance of the Sales Contract,
+                        including any failure or delay in the issuance of the LC in accordance with the terms of the
+                        Sales Contract.
                       </p>
                     </li>
                     <li>
@@ -6430,7 +6470,11 @@ export const sellerPrint = (data) => {
                           lineHeight: '18px',
                           color: '#000000',
                         }}
-                      >This Agreement is subject to English laws, and any disputes arising out of this Agreement shall be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of Arbitration Proceedings shall be in English.
+                      >
+                        This Agreement is subject to English laws, and any disputes arising out of this Agreement shall
+                        be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by
+                        a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of
+                        Arbitration Proceedings shall be in English.
                       </p>
                     </li>
                   </ol>
@@ -6438,7 +6482,13 @@ export const sellerPrint = (data) => {
               </tr>
               <tr>
                 <td style={{ paddingTop: '20px' }}>
-                  <br/><br/><br/><br/><br/><br/><br/>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                   <h3
                     align="center"
                     style={{

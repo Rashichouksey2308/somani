@@ -1,251 +1,250 @@
-import * as types from './actionType';
-import Axios from 'axios';
-import { toast } from 'react-toastify';
-import API from '../../utils/endpoints';
-import Cookies from 'js-cookie';
-import router from 'next/router';
-import { settingSidebar } from '../breadcrumb/action';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
+import * as types from './actionType'
+import Axios from 'axios'
+import { toast } from 'react-toastify'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import router from 'next/router'
+import { settingSidebar } from '../breadcrumb/action'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getAllMarginMoney() {
+function getAllMarginMoney () {
   return {
-    type: types.GET_ALL_MARGINMONEY,
-  };
+    type: types.GET_ALL_MARGINMONEY
+  }
 }
 
-function getAllMarginMoneySuccess(payload) {
+function getAllMarginMoneySuccess (payload) {
   return {
     type: types.GET_ALL_MARGINMONEY_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function getAllMarginMoneyFailed() {
+function getAllMarginMoneyFailed () {
   return {
-    type: types.GET_ALL_MARGINMONEY_FAILED,
-  };
+    type: types.GET_ALL_MARGINMONEY_FAILED
+  }
 }
 
-function getMarginMoney() {
+function getMarginMoney () {
   return {
-    type: types.GET_MARGINMONEY,
-  };
+    type: types.GET_MARGINMONEY
+  }
 }
 
-function getMarginMoneySuccess(payload) {
+function getMarginMoneySuccess (payload) {
   return {
     type: types.GET_MARGINMONEY_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function getMarginMoneyFailed() {
+function getMarginMoneyFailed () {
   return {
-    type: types.GET_MARGINMONEY_FAILED,
-  };
+    type: types.GET_MARGINMONEY_FAILED
+  }
 }
 
-function updatingMarginMoney() {
+function updatingMarginMoney () {
   return {
-    type: types.UPDATE_MARGINMONEY,
-  };
+    type: types.UPDATE_MARGINMONEY
+  }
 }
 
-function updateMarginMoneySuccess(payload) {
+function updateMarginMoneySuccess (payload) {
   return {
     type: types.UPDATE_MARGINMONEY_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function updateMarginMoneyFailed() {
+function updateMarginMoneyFailed () {
   return {
-    type: types.UPDATE_MARGINMONEY_FAILED,
-  };
+    type: types.UPDATE_MARGINMONEY_FAILED
+  }
 }
 
-function updatingRevisedMarginMoney() {
+function updatingRevisedMarginMoney () {
   return {
-    type: types.UPDATE_MARGINMONEY_REVISED,
-  };
+    type: types.UPDATE_MARGINMONEY_REVISED
+  }
 }
 
-function updatingRevisedMarginMoneySuccess(payload) {
+function updatingRevisedMarginMoneySuccess (payload) {
   return {
     type: types.UPDATE_MARGINMONEY_REVISED_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function updatingRevisedMarginMoneyFailed() {
+function updatingRevisedMarginMoneyFailed () {
   return {
-    type: types.UPDATE_MARGINMONEY_REVISED_FAILED,
-  };
+    type: types.UPDATE_MARGINMONEY_REVISED_FAILED
+  }
 }
 
 export const GetAllMarginMoney = (payload) => async (dispatch, getState, api) => {
   try {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    dispatch(setIsLoading())
+    const cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
+      'Access-Control-Allow-Origin': '*'
+    }
     Axios.get(`${API.corebaseUrl}${API.getMarginMoney}${payload || ''}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllMarginMoneySuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(getAllMarginMoneySuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getAllMarginMoneyFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(getAllMarginMoneyFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getAllMarginMoneyFailed());
-    dispatch(setNotLoading());
-    const toastMessage = 'GET MARGIN MONEY API FAILED';
+    dispatch(getAllMarginMoneyFailed())
+    dispatch(setNotLoading())
+    const toastMessage = 'GET MARGIN MONEY API FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-};
+}
 
 export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.get(`${API.corebaseUrl}${API.getMarginMoney}?order=${payload.orderId}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getMarginMoneySuccess(response.data));
-        dispatch(setNotLoading());
+        dispatch(getMarginMoneySuccess(response.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getMarginMoneyFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(getMarginMoneyFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getMarginMoneyFailed());
+    dispatch(getMarginMoneyFailed())
 
-    const toastMessage = 'GET MARGIN MONEY API FAILED';
+    const toastMessage = 'GET MARGIN MONEY API FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateMarginMoney}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updateMarginMoneySuccess(response.data));
-        const toastMessage = 'SAVED SUCCESSFULLY';
+        dispatch(updateMarginMoneySuccess(response.data))
+        const toastMessage = 'SAVED SUCCESSFULLY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage,
-          });
+            toastId: toastMessage
+          })
         }
-        dispatch(setNotLoading());
-        dispatch(settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'));
-        router.push('/generic/generic-list');
+        dispatch(setNotLoading())
+        dispatch(settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'))
+        router.push('/generic/generic-list')
       } else {
-        dispatch(updateMarginMoneyFailed(response.data));
-        const toastMessage = 'UPDATE REQUEST FAILED';
+        dispatch(updateMarginMoneyFailed(response.data))
+        const toastMessage = 'UPDATE REQUEST FAILED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(updateMarginMoneyFailed());
-    const toastMessage = 'UPDATE MARGIN MONEY REQUEST FAILED';
+    dispatch(updateMarginMoneyFailed())
+    const toastMessage = 'UPDATE MARGIN MONEY REQUEST FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const RevisedMarginMoney = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.put(`${API.corebaseUrl}${API.reviseMarginMoney}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updatingRevisedMarginMoneySuccess(response.data));
-        const toastMessage = 'SAVED SUCCESSFULLY';
+        dispatch(updatingRevisedMarginMoneySuccess(response.data))
+        const toastMessage = 'SAVED SUCCESSFULLY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage,
-          });
+            toastId: toastMessage
+          })
         }
-        const id = sessionStorage.getItem('marginId');
+        const id = sessionStorage.getItem('marginId')
 
-        dispatch(GetMarginMoney({ orderId: id }));
-        dispatch(setNotLoading());
-   
+        dispatch(GetMarginMoney({ orderId: id }))
+        dispatch(setNotLoading())
       } else {
-        dispatch(updatingRevisedMarginMoneyFailed(response.data));
-        const toastMessage = 'UPDATE REQUEST FAILED';
+        dispatch(updatingRevisedMarginMoneyFailed(response.data))
+        const toastMessage = 'UPDATE REQUEST FAILED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(updatingRevisedMarginMoneyFailed());
-    const toastMessage = 'REVISE MARGIN MONEY REQUEST FAILED';
+    dispatch(updatingRevisedMarginMoneyFailed())
+    const toastMessage = 'REVISE MARGIN MONEY REQUEST FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}

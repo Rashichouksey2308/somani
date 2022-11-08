@@ -20,7 +20,6 @@ function Index() {
 
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney);
 
-
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`));
   }, [dispatch, currentPage]);
@@ -40,7 +39,6 @@ function Index() {
   };
 
   const handleRoute = (margin) => {
-   
     sessionStorage.setItem('marginId', margin?.order?._id);
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
@@ -48,7 +46,6 @@ function Index() {
   };
 
   const handlePreviewRoute = (margin) => {
-    
     if (margin.revisedMarginMoney.isActive !== true) {
       sessionStorage.setItem('marginId', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
@@ -114,7 +111,6 @@ function Index() {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return;
                     } else {
                       setCurrentPage((prevState) => prevState - 1);
                     }

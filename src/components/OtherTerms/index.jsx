@@ -16,8 +16,6 @@ const Index = ({
   onChangeLcOpening,
   onChangeCha,
 }) => {
-
-
   return (
     <div className={`${styles.main} main`}>
       <div

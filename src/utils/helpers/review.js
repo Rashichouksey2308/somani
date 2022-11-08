@@ -7,7 +7,7 @@ export const handleErrorToast = (toastMessage) => {
   }
 };
 
-export const orderValidation = (orderDetails, shipment,approvedCredit) => {
+export const orderValidation = (orderDetails, shipment, approvedCredit) => {
   if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
     handleErrorToast('Invalid Transaction Type');
     return false;

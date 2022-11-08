@@ -11,7 +11,6 @@ let shipping = {
 };
 
 function Index(props) {
-  
   const [shippingData, setShippingData] = useState(shipping);
   useEffect(() => {
     if (window) {
@@ -43,7 +42,6 @@ function Index(props) {
       props.sendData('Shipping Line', data);
     }
     if (props.submitData == true && props.active == 'Shipping Line') {
- 
       let data = {
         shippingData: shippingData,
       };

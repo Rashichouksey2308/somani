@@ -4,10 +4,8 @@ import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
-import Image from 'next/image';
 import Router from 'next/router';
 import { GetAllSupplier } from 'redux/supplier/action';
-import moment from 'moment';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 
 const index = () => {
@@ -92,17 +90,16 @@ const index = () => {
           </div>
 
           {/*UserTable*/}
-         <MasterTableQueue tableName='Internal Companies'
-         header1='COMPANY NAME'
-         header2='SHORT NAME'
-         header3='COUNTRY'
-         header4='STATUS'         
-         />
+          <MasterTableQueue
+            tableName="Internal Companies"
+            header1="COMPANY NAME"
+            header2="SHORT NAME"
+            header3="COUNTRY"
+            header4="STATUS"
+          />
+        </div>
       </div>
-      </div>
-      <DownloadMasterBar 
-      downloadFormat={true}
-      btnName="Download" />
+      <DownloadMasterBar downloadFormat={true} btnName="Download" />
     </>
   );
 };

@@ -9,7 +9,6 @@
   }
 
   .cardHeader {
-
     min-height: 80px;
     border-bottom: none;
     padding: 0 35px !important;
@@ -44,7 +43,7 @@
 
       label {
         font-size: 20px;
-    
+
         font-weight: normal;
         line-height: 25px;
         letter-spacing: 0.19px;
@@ -170,7 +169,6 @@
         overflow-x: auto;
 
         .table {
-         
           th {
             font-size: 15px;
             color: #3687e8;
@@ -249,7 +247,7 @@
 
           h3 {
             font-size: 22px;
-        
+
             font-weight: bold;
             line-height: 27px;
             margin-bottom: 0;
@@ -278,7 +276,7 @@
 
       td {
         font-size: 19px;
-   
+
         font-weight: 500;
         line-height: 24px;
         padding: 15px 30px;
@@ -330,7 +328,7 @@
     .card {
       margin-bottom: 1rem;
       border-radius: 6px !important;
-     
+
       .cardHeader {
         cursor: pointer;
         border-bottom: none;
@@ -424,7 +422,6 @@
 
     .cardBody {
       padding: 17px 25px;
-     
     }
   }
 }
@@ -436,7 +433,7 @@
     tr {
       th {
         background: #fafafb 0% 0% no-repeat padding-box;
-       
+
         font-weight: bold;
         font-size: 15px;
         color: #3687e8;
@@ -459,7 +456,7 @@
 .unit_container {
   .unit_label {
     font-size: 18px;
-   
+
     text-transform: capitalize;
     font-weight: bold;
     margin: 0;
@@ -509,5 +506,4 @@ img {
 
 .customSelect {
   appearance: none;
- 
 }

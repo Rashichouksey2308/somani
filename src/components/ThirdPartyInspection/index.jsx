@@ -14,7 +14,6 @@ import { ViewDocument } from 'redux/ViewDoc/action';
 import moment from 'moment';
 import { GetAllInspection } from '../../redux/Inspections/action';
 
-
 export default function Index({ addButton }) {
   const dispatch = useDispatch();
 
@@ -44,6 +43,7 @@ export default function Index({ addButton }) {
   const [documentAction, setDocumentAction] = useState('');
   const [documentAction1, setDocumentAction1] = useState('');
   const [documentAction2, setDocumentAction2] = useState('');
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const [portType, setPortType] = useState({
     loadPortInspection: false,
@@ -81,6 +81,7 @@ export default function Index({ addButton }) {
   const handleShow = () => setShow(true);
 
   const [inspectionDetails, setInspectionData] = useState({
+    quantity: '',
     loadPortInspection: false,
     dischargePortInspection: false,
     loadPortInspectionDetails: {
@@ -110,6 +111,7 @@ export default function Index({ addButton }) {
     let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort;
 
     setInspectionData({
+      quantity: inspectionData?.order?.quantity,
       dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy
         ? inspectionData?.thirdPartyInspection?.dischargePortInspection
         : typeOfPort === 'Both'
@@ -126,14 +128,18 @@ export default function Index({ addButton }) {
         : false,
 
       loadPortInspectionDetails: {
-        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
+        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
+          ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
+          : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
         inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
       },
       dischargePortInspectionDetails: {
-        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
+        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
+          ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
+          : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
@@ -320,7 +326,7 @@ export default function Index({ addButton }) {
         let fd = new FormData();
 
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-      
+
         fd.append('inspectionId', inspectionData?._id);
 
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
@@ -348,7 +354,7 @@ export default function Index({ addButton }) {
 
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-  
+
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -363,7 +369,7 @@ export default function Index({ addButton }) {
       } else {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-      
+
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -376,7 +382,7 @@ export default function Index({ addButton }) {
     } else {
       let fd = new FormData();
       fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-   
+
       fd.append('inspectionId', inspectionData?._id);
       fd.append('certificateOfOrigin', documents.certificateOfOrigin);
       fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -399,7 +405,7 @@ export default function Index({ addButton }) {
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-       
+
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -411,9 +417,9 @@ export default function Index({ addButton }) {
       } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-      
+
         fd.append('inspectionId', inspectionData?._id);
-      
+
         fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
         fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
         fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
@@ -424,7 +430,7 @@ export default function Index({ addButton }) {
       } else {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-      
+
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -599,7 +605,7 @@ export default function Index({ addButton }) {
         if (noError2 == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-       
+
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -664,7 +670,6 @@ export default function Index({ addButton }) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
-      
           fd.append('inspectionId', inspectionData?._id);
 
           fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
@@ -760,7 +765,7 @@ export default function Index({ addButton }) {
         if (noError == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        
+
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -818,7 +823,7 @@ export default function Index({ addButton }) {
         if (noError2 == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        
+
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -874,7 +879,6 @@ export default function Index({ addButton }) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
-         
           fd.append('inspectionId', inspectionData?._id);
 
           fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
@@ -891,12 +895,9 @@ export default function Index({ addButton }) {
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage });
         }
-        return;
       }
     }
   };
-
-
 
   return (
     <>
@@ -914,8 +915,6 @@ export default function Index({ addButton }) {
                     {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '')}
                   </div>
                 </div>
-
-              
 
                 <div className="d-flex align-items-center">
                   <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</label>
@@ -939,8 +938,6 @@ export default function Index({ addButton }) {
                     type={type}
                     onChange={(e) => {
                       handlePortType(e.target.name, e.target.checked);
-
-                    
                     }}
                     checked={inspectionDetails.loadPortInspection}
                     id={`inline-${type}-1`}
@@ -954,7 +951,6 @@ export default function Index({ addButton }) {
                     value="Discharge"
                     onChange={(e) => {
                       handlePortType(e.target.name, e.target.checked);
-                     
                     }}
                     checked={inspectionDetails.dischargePortInspection}
                     type={type}
@@ -972,17 +968,55 @@ export default function Index({ addButton }) {
                   </div>
                   <span className={styles.value}>{inspectionData?.order?.commodity}</span>
                 </div>
-                <div className="col-lg-3 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>
-                    Quantity <strong className="text-danger ml-n1">*</strong>
+                {_get(
+                  inspectionData,
+                  'order.termsheet.transactionDetails.partShipmentAllowed',
+                  '',
+                )?.toLocaleLowerCase() === 'yes' ? (
+                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      name="quantity"
+                      onWheel={(event) => event.currentTarget.blur()}
+                      onFocus={(e) => {
+                        setIsFieldInFocus(true), (e.target.type = 'number');
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus(false), (e.target.type = 'text');
+                      }}
+                      onChange={(e) => saveInspectionDetails(e.target.name, Number(e.target.value))}
+                      value={
+                        isFieldInFocus
+                          ? inspectionDetails.quantity
+                          : Number(inspectionDetails.quantity)?.toLocaleString('en-IN') +
+                            ` ${_get(inspectionData, 'order.unitOfQuantity', '')}`
+                      }
+                      // value={Number(inspectionDetails.quantity)?.toLocaleString('en-IN', {
+                      //   maximumFractionDigits: 2,
+                      // })}
+
+                      type="number"
+                      onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Quantity
+                      <strong className="text-danger">*</strong>
+                    </label>
                   </div>
-                  <span className={styles.value}>
-                    {Number(inspectionData?.order?.quantity)?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
-                    MT
-                  </span>
-                </div>
+                ) : (
+                  <div className="col-lg-3 col-md-6 col-sm-6">
+                    <div className={`${styles.label} text`}>
+                      Quantity <strong className="text-danger ml-n1">*</strong>
+                    </div>
+                    <span className={styles.value}>
+                      {Number(inspectionDetails.quantity)?.toLocaleString('en-IN', {
+                        maximumFractionDigits: 2,
+                      })}{' '}
+                      MT
+                    </span>
+                  </div>
+                )}
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Country of Origin <strong className="text-danger ml-n1">*</strong>{' '}
@@ -1024,7 +1058,6 @@ export default function Index({ addButton }) {
                           className={`${styles.input_field} input form-control`}
                           required
                           name="loadPortInspectionDetails.numberOfContainer"
-                        
                           value={inspectionDetails?.loadPortInspectionDetails?.numberOfContainer}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                           type="number"
@@ -1046,7 +1079,6 @@ export default function Index({ addButton }) {
                           required
                           type="text"
                           name="loadPortInspectionDetails.inspectionPort"
-                         
                           value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                         />
@@ -1054,7 +1086,6 @@ export default function Index({ addButton }) {
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
-                       
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
@@ -1062,7 +1093,6 @@ export default function Index({ addButton }) {
                         className={`${styles.input_field} input form-control`}
                         required
                         name="loadPortInspectionDetails.inspectedBy"
-                       
                         value={inspectionDetails?.loadPortInspectionDetails?.inspectedBy}
                         onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                         type="text"
@@ -1076,7 +1106,6 @@ export default function Index({ addButton }) {
                         <DateCalender
                           saveDate={saveDate}
                           name="loadPortInspectionDetails.startDate"
-                        
                           defaultDate={inspectionDetails?.loadPortInspectionDetails?.startDate}
                           labelName="Inspection Date"
                           startFrom={dateStartFrom.inspectionDateAtLoad}
@@ -1100,13 +1129,11 @@ export default function Index({ addButton }) {
                         <input
                           as="textarea"
                           name="loadPortInspectionDetails.specialMention"
-                        
                           value={inspectionDetails?.loadPortInspectionDetails?.specialMention}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                        
                         />
                         <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                           Special Mention
@@ -2193,7 +2220,6 @@ const Discharge = (
                 className={`${styles.input_field} input form-control`}
                 required
                 name="dischargePortInspectionDetails.numberOfContainer"
-              
                 value={inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer}
                 onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                 type="number"
@@ -2215,7 +2241,6 @@ const Discharge = (
                 required
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
-               
                 value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
                 onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
               />
@@ -2223,7 +2248,6 @@ const Discharge = (
                 Inspection Port
                 <strong className="text-danger">*</strong>
               </label>
-              
             </div>
           </div>
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -2232,7 +2256,6 @@ const Discharge = (
               required
               type="text"
               name="dischargePortInspectionDetails.inspectedBy"
-             
               value={inspectionDetails?.dischargePortInspectionDetails?.inspectedBy}
               onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
             />
@@ -2244,7 +2267,6 @@ const Discharge = (
             <div className="d-flex">
               <DateCalender
                 name="dischargePortInspectionDetails.startDate"
-            
                 defaultDate={inspectionDetails?.dischargePortInspectionDetails?.startDate}
                 saveDate={saveDate}
                 setDateStartFrom={setStartDate}
@@ -2274,7 +2296,6 @@ const Discharge = (
                 onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-              
               />
               <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                 Special Mention

@@ -1,203 +1,203 @@
-import * as types from './actionType';
-import Axios from 'axios';
-import { toast } from 'react-toastify';
-import API from '../../utils/endpoints';
-import Cookies from 'js-cookie';
-import moment from 'moment';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
+import * as types from './actionType'
+import Axios from 'axios'
+import { toast } from 'react-toastify'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import moment from 'moment'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getInspection() {
+function getInspection () {
   return {
-    type: types.GET_INSPECTION,
-  };
+    type: types.GET_INSPECTION
+  }
 }
 
-function getInspectionSuccess(payload) {
+function getInspectionSuccess (payload) {
   return {
     type: types.GET_INSPECTION_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getInspectionFailed() {
+function getInspectionFailed () {
   return {
-    type: types.GET_INSPECTION_FAILED,
-  };
+    type: types.GET_INSPECTION_FAILED
+  }
 }
 
-function getAllInspection() {
+function getAllInspection () {
   return {
-    type: types.GET_ALL_INSPECTION,
-  };
+    type: types.GET_ALL_INSPECTION
+  }
 }
 
-function getAllInspectionSuccess(payload) {
+function getAllInspectionSuccess (payload) {
   return {
     type: types.GET_ALL_INSPECTION_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getAllInspectionFailed() {
+function getAllInspectionFailed () {
   return {
-    type: types.GET_ALL_INSPECTION_FAILED,
-  };
+    type: types.GET_ALL_INSPECTION_FAILED
+  }
 }
 
-function updateInspection() {
+function updateInspection () {
   return {
-    type: types.UPDATE_INSPECTION,
-  };
+    type: types.UPDATE_INSPECTION
+  }
 }
 
-function updateInspectionSuccess(payload) {
+function updateInspectionSuccess (payload) {
   return {
     type: types.UPDATE_INSPECTION_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function updateInspectionFailed() {
+function updateInspectionFailed () {
   return {
-    type: types.UPDATE_INSPECTION_FAILED,
-  };
+    type: types.UPDATE_INSPECTION_FAILED
+  }
 }
 
-function updateDate(payload) {
+function updateDate (payload) {
   return {
     type: types.GET_UPDATED_DATE,
-    payload,
-  };
+    payload
+  }
 }
 
 export const GetAllInspection = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     const response = await Axios.get(`${API.corebaseUrl}${API.getInspection}${payload || ''}`, {
-      headers: headers,
-    });
+      headers: headers
+    })
 
     if (response.data.code === 200) {
-      dispatch(getAllInspectionSuccess(response.data.data));
-      dispatch(setNotLoading());
+      dispatch(getAllInspectionSuccess(response.data.data))
+      dispatch(setNotLoading())
     } else {
-      dispatch(getAllInspectionFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      dispatch(getAllInspectionFailed(response.data.data))
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      dispatch(setNotLoading());
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(getAllInspectionFailed());
+    dispatch(getAllInspectionFailed())
 
-    const toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME';
+    const toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const GetInspection = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     const response = await Axios.get(`${API.corebaseUrl}${API.getInspection}${payload}`, {
-      headers: headers,
-    });
+      headers: headers
+    })
     if (response.data.code === 200) {
-      dispatch(getInspectionSuccess(response.data.data));
-      localStorage.setItem('inceptionlastmodified', moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a'));
-      dispatch(updateDate(moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a')));
-      dispatch(setNotLoading());
+      dispatch(getInspectionSuccess(response.data.data))
+      localStorage.setItem('inceptionlastmodified', moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a'))
+      dispatch(updateDate(moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a')))
+      dispatch(setNotLoading())
     } else {
-      dispatch(getInspectionFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      dispatch(getInspectionFailed(response.data.data))
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      dispatch(setNotLoading());
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(getInspectionFailed());
+    dispatch(getInspectionFailed())
 
-    const toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME';
+    const toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UpdateInspection = (payload) => async (dispatch, getState, api) => {
   try {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    dispatch(setIsLoading())
+    const cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
     const response = await Axios.put(`${API.corebaseUrl}${API.updateInspection}`, payload.fd, {
-      headers: headers,
-    });
+      headers: headers
+    })
 
     if (response.data.code === 200) {
-      let toastMessage = 'UPDATED SUCCESSFULLY';
+      let toastMessage = 'UPDATED SUCCESSFULLY'
 
       if (payload.task == 'save') {
-        toastMessage = 'Saved Successfully';
+        toastMessage = 'Saved Successfully'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage,
-          });
+            toastId: toastMessage
+          })
         }
       } else {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage,
-          });
+            toastId: toastMessage
+          })
         }
 
-        localStorage.setItem('inceptionlastmodified', moment(response.data.timestamp).format('DD MMM,HH:mm:a'));
-        dispatch(updateDate(moment(response.data.timestamp).format('DD MMM,HH:mm:a')));
+        localStorage.setItem('inceptionlastmodified', moment(response.data.timestamp).format('DD MMM,HH:mm:a'))
+        dispatch(updateDate(moment(response.data.timestamp).format('DD MMM,HH:mm:a')))
       }
-      dispatch(updateInspectionSuccess(response.data.data));
-      dispatch(setNotLoading());
-      return response.data.code;
+      dispatch(updateInspectionSuccess(response.data.data))
+      dispatch(setNotLoading())
+      return response.data.code
     } else {
-      dispatch(updateInspectionFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      dispatch(updateInspectionFailed(response.data.data))
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      dispatch(setNotLoading());
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(updateInspectionFailed());
+    dispatch(updateInspectionFailed())
 
-    const toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME';
+    const toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}

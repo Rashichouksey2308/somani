@@ -45,7 +45,7 @@
           font-size: 22px;
           font-weight: 500;
           line-height: 27px;
-    
+
           margin-right: 20px;
           margin-left: 22px !important;
           @include respond(lg-desktop) {
@@ -58,11 +58,11 @@
         img {
           width: 27px;
           height: 27px;
-      
+
           line-height: 45px;
-       
+
           display: inline-block;
-         
+
           display: flex;
           justify-content: center;
           align-items: center;
@@ -128,7 +128,7 @@
 
         .yes {
           font-size: 20px;
-        
+
           font-weight: normal;
           line-height: 25px;
           letter-spacing: 0.19px;
@@ -141,7 +141,7 @@
 
         .no {
           font-size: 20px;
-        
+
           font-weight: normal;
           line-height: 25px;
           letter-spacing: 0.19px;
@@ -227,7 +227,7 @@
 
         span {
           letter-spacing: 0.53px;
-          
+
           font-size: 16px;
           line-height: 17px;
           font-weight: 500;
@@ -245,7 +245,6 @@
           letter-spacing: 0.19px;
 
           input[type='radio'] {
-          
             transform: scale(1.5);
             vertical-align: middle;
             @include respond(lg-desktop) {
@@ -273,7 +272,7 @@
           height: 42px;
           box-shadow: none !important;
           letter-spacing: 0.19px;
-         
+
           border-radius: 4px !important;
           min-width: 188px;
           @include respond(lg-desktop) {
@@ -287,7 +286,6 @@
     }
 
     div {
-   
       p {
         font-size: 20px;
         margin-bottom: 2rem;
@@ -488,5 +486,4 @@ img {
 
 .customSelect {
   appearance: none;
- 
 }

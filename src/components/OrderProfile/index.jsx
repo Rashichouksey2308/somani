@@ -7,10 +7,7 @@ import { ViewDocument } from 'redux/ViewDoc/action';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  
-
   const { buyerList } = useSelector((state) => state.buyer);
-
 
   return (
     <div className={`${styles.wrapper} card border_color`}>
@@ -26,12 +23,7 @@ function Index() {
           <span className=" d-flex align-items-center justify-content-between">+</span>
         </div>
       </div>
-      <div
-        id="orderDetail"
-        className={`collapse ${styles.body} card-body row`}
-        aria-labelledby="orderDetail"
-      
-      >
+      <div id="orderDetail" className={`collapse ${styles.body} card-body row`} aria-labelledby="orderDetail">
         {fields('Commodity', buyerList?.order?.commodity)}
         {fields(
           'Quantity (in MT)',

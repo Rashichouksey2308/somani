@@ -109,7 +109,7 @@ function Index(props) {
         };
 
         let temp = [];
-  
+
         setAddressList([
           {
             addressType: 'Registered',
@@ -139,7 +139,6 @@ function Index(props) {
 
         setBuyerData(buyer);
         let tempArr = props.data?.authorisedSignatoryDetails;
-
 
         let optionArray = [...options];
         tempArr.forEach((val, index) => {
@@ -223,8 +222,6 @@ function Index(props) {
     //  setRemovedOption(value.name)
   };
   const onEditRemove = (index, value) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -288,7 +285,6 @@ function Index(props) {
     setBuyerData(newInput);
   };
   const removeDoc = (index) => {
-
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -372,7 +368,6 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-       
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -450,11 +445,9 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress, false)) {
- 
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-     
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -877,8 +870,6 @@ function Index(props) {
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
-
-                                     
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -909,8 +900,6 @@ function Index(props) {
                                             {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
-
-                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1025,7 +1014,6 @@ const editData = (
   saveNewAddress,
   setAddressEditType,
 ) => {
-
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>

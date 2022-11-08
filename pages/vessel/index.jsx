@@ -68,9 +68,9 @@ export default function Home() {
     setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
     setVesselData(Vessel);
     setPartShipmentAllowed(_get(Vessel, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', 'No'));
-    if (_get(Vessel, 'data[0].vessels', []).length > 0) {
+    if (list.length > 0) {
       let temp = [];
-      list.forEach((val, index) => {
+      list.forEach(() => {
         temp.push({ value: false });
       });
 
@@ -135,13 +135,12 @@ export default function Home() {
               _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
-          
+
             EDTatLoadPort:
               '' || _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
             ETAatDischargePort: _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
-           
           },
           shippingInformation: {
             shippingLineOrCharter:
@@ -158,7 +157,6 @@ export default function Home() {
     } else {
       setList(_get(Vessel, 'data[0].vessels', []));
     }
-   
   };
 
   const onAddVessel = () => {
@@ -305,22 +303,20 @@ export default function Home() {
     const name = e.target.id;
     let value = e.target.value;
 
-     
-      let array = { ...list[index].vesselInformation[0], [name]: value };
+    let array = { ...list[index].vesselInformation[0], [name]: value };
 
-      setList((prevState) => {
-        const newState = prevState.map((obj, i) => {
-          if (i == index) {
-            return {
-              ...obj,
-              vesselInformation: [array],
-            };
-          }
-          return obj;
-        });
-        return newState;
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            vesselInformation: [array],
+          };
+        }
+        return obj;
       });
-    
+      return newState;
+    });
   };
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
@@ -708,7 +704,6 @@ export default function Home() {
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={orderID}
-    
         list={list}
         companyName={companyName}
         onAddVessel={onAddVessel}

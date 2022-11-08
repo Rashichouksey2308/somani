@@ -5,25 +5,20 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import DateCalender from '../../src/components/DateCalender';
-import InspectionDocument from '../../src/components/InspectionDocument';
 import { setPageName } from '../../src/redux/userData/action';
 import SaveBar from '../../src/components/SaveBar';
 import { Form } from 'react-bootstrap';
-
-import Image from 'next/image';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc } from 'redux/supplier/action';
+import { ClearSupplier, CreateSupplier, DeleteSupplierDoc, GetSupplier, UpdateSupplier } from 'redux/supplier/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
 import moment from 'moment';
 import Axios from 'axios';
 import API from 'utils/endpoints';
 import Cookies from 'js-cookie';
-import TermsheetPopUp from '../../src/components/TermsheetPopUp'
-import { ShareDocument } from 'redux/shareDoc/action';
-
+import TermsheetPopUp from '../../src/components/TermsheetPopUp';
 
 function Index() {
   const dispatch = useDispatch();
@@ -66,18 +61,16 @@ function Index() {
     if (_get(supplierData, 'document[1]', '') !== '') {
       SetThirdParty(supplierData?.document[1]);
     }
+  }, [supplierResponse]);
 
-  }, [supplierResponse])
- 
-  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
-
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
 
   const [saveShareTable, setSaveTable] = useState(false);
   const [saveContactTable, setContactTable] = useState(false);
   const [saveDirectorTable, setDirectorTable] = useState(false);
   const [saveCommodityTable, setCommodityTable] = useState(false);
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -88,7 +81,6 @@ function Index() {
       receiver: '',
     },
   });
-
 
   const [formData, setFormData] = useState({
     supplierName: '',
@@ -109,14 +101,15 @@ function Index() {
     emailId: '',
   });
 
-  const [person, setPerson] = useState([{
-    name: '',
-    designation: '',
-    contact: '',
-    emailId: '',
-    action: false
-  }]);
- 
+  const [person, setPerson] = useState([
+    {
+      name: '',
+      designation: '',
+      contact: '',
+      emailId: '',
+      action: false,
+    },
+  ]);
 
   const [detail, setDetail] = useState([
     {
@@ -155,7 +148,6 @@ function Index() {
 
   const [docs, setdocs] = useState([]);
 
-
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
@@ -176,7 +168,6 @@ function Index() {
       action: false,
     },
   ]);
-
 
   const onAddCommodity = () => {
     setListCommodity([
@@ -251,13 +242,12 @@ function Index() {
     ]);
   };
 
-
   const handleShareDoc = async (doc) => {
     if (emailValidation(sharedDoc.data.receiver)) {
       let tempArr = { ...sharedDoc };
       tempArr.company = documentsFetched.company;
       tempArr.order = orderid;
-     
+
       if (data?.code == 200) {
         setClose(false);
       }
@@ -269,19 +259,13 @@ function Index() {
     }
   };
 
-
-
   const saveDate = (value, name) => {
-   
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
-   
   };
 
   const saveQuotationData = (name, value) => {
- 
-
     formData.incorporationDate = value;
     setFormData({
       ...formData,
@@ -305,29 +289,26 @@ function Index() {
   };
 
   const onChangeHandler2 = (name, value, index) => {
-
     let newInput = [...person];
-   
+
     newInput[index][name] = value;
-   
+
     setListShare([...newInput]);
   };
- 
-  const onChangeHandler3 = (name, value, index) => {
 
+  const onChangeHandler3 = (name, value, index) => {
     let newInput = [...detail];
-   
+
     newInput[index][name] = value;
-   
+
     setDetail([...newInput]);
   };
 
   const onChangeHandler4 = (name, value, index) => {
-
     let newInput = [...listDirector];
-  
+
     newInput[index][name] = value;
-   
+
     setListDirector([...newInput]);
   };
 
@@ -337,19 +318,17 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
- 
     let temp = [...businessArray];
-   
-    setBusinessArray([...temp, { businessSummary: business }])
+
+    setBusinessArray([...temp, { businessSummary: business }]);
     setBusiness('');
   };
 
   const onChangeHandler6 = (name, value, index) => {
-   
     let newInput = [...listCommodity];
 
     newInput[index][name] = value;
-   
+
     setListCommodity([...newInput]);
   };
 
@@ -376,7 +355,7 @@ function Index() {
           break;
         }
       }
-      
+
       if (person[i].contact === '' || person[i].contact === null || person[i].contact.length !== 10) {
         toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -409,7 +388,7 @@ function Index() {
           break;
         }
       }
-    
+
       if (
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
@@ -446,7 +425,6 @@ function Index() {
           break;
         }
       }
-    
     }
     return isOk;
   };
@@ -470,7 +448,6 @@ function Index() {
           break;
         }
       }
-     
     }
     return isOk;
   };
@@ -533,8 +510,6 @@ function Index() {
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-     
-
       let apiData = {
         supplierProfile: formData,
         keyAddress: keyAddData,
@@ -546,9 +521,9 @@ function Index() {
         additionalInformation: infoArray,
         incumbencyCertificateDocument: incumbencyDoc,
         thirdPartyCertificateDocument: thirdParty,
-        extraDocument: docs
-      }
-    
+        extraDocument: docs,
+      };
+
       let fd = new FormData();
       fd.append('supplierId', supplierData?._id);
       fd.append('supplierProfile', JSON.stringify(formData));
@@ -568,7 +543,6 @@ function Index() {
       } else {
         dispatch(CreateSupplier(fd));
       }
-      
     }
   };
 
@@ -606,13 +580,11 @@ function Index() {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
           isOk = false;
-          return;
         }
       });
 
       return isOk;
     };
-
 
     if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
@@ -682,7 +654,6 @@ function Index() {
     pinCode: null,
   });
 
-
   const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
@@ -729,7 +700,6 @@ function Index() {
 
     let namesplit = name.split('.');
 
-
     if (name === 'emailId') {
       newInput.email[index] = value;
     } else if (namesplit.length > 1) {
@@ -737,7 +707,6 @@ function Index() {
     } else {
       newInput[name] = value;
     }
-
 
     setKeyAddressData(newInput);
   };
@@ -751,8 +720,7 @@ function Index() {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-     
-          setdocs([...docs, response.data.data])
+          setdocs([...docs, response.data.data]);
         } else {
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -779,12 +747,11 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
-  }
+  };
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
-    
 
     let payload = {
       supplierId: supplierData._id,
@@ -853,12 +820,7 @@ function Index() {
                 </span>
               </div>
             </div>
-            <div
-              id="supplierProfile"
-           
-              aria-labelledby="supplierProfile"
-              data-parent="#supplierProfile"
-            >
+            <div id="supplierProfile" aria-labelledby="supplierProfile" data-parent="#supplierProfile">
               <div className={`${styles.dashboard_form} mt-1 card-body border_color`}>
                 <div className="row">
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
@@ -1001,7 +963,6 @@ function Index() {
                           deleteComponent={deleteComponent}
                           editAddress={editAddress}
                           pinCode={address.pinCode}
-                     
                           path={''}
                         />
                       </>
@@ -1275,7 +1236,7 @@ function Index() {
                                   }}
                                 />
                               </td>
-                      
+
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
@@ -1285,9 +1246,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                          
                                           onChangeHandler2('action', true, index);
-                                  
                                         }}
                                       />
                                     </>
@@ -1298,9 +1257,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                   
                                           onChangeHandler2('action', false, index);
-                                        
                                         }}
                                       />
                                     </>
@@ -1683,7 +1640,6 @@ function Index() {
                                   }}
                                 />
                               </td>
-             
 
                               <td className="text-right">
                                 <div>
@@ -1750,8 +1706,6 @@ function Index() {
             </div>
             <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
               <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
-             
-
                 <div className="d-flex mt-4 pb-4 position-relative">
                   <input
                     as="textarea"
@@ -1841,34 +1795,14 @@ function Index() {
                             </td>
 
                             <td>
-                              {incumbencyDoc?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.xls') ||
-                                incumbencyDoc?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.xlsx') ? (
-                                <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : incumbencyDoc?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.doc') ||
-                                incumbencyDoc?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.docx') ? (
-                                <img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
+                              {incumbencyDoc?.name?.toLowerCase()?.endsWith('.xls') ||
+                              incumbencyDoc?.name?.toLowerCase()?.endsWith('.xlsx') ? (
+                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                              ) : incumbencyDoc?.name?.toLowerCase()?.endsWith('.doc') ||
+                                incumbencyDoc?.name?.toLowerCase()?.endsWith('.docx') ? (
+                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                               ) : (
-                                <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                               )}
                             </td>
                             <td className={styles.doc_row}>
@@ -1912,34 +1846,14 @@ function Index() {
                             </td>
 
                             <td>
-                              {thirdParty?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.xls') ||
-                                thirdParty?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.xlsx') ? (
-                                <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : thirdParty?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.doc') ||
-                                thirdParty?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.docx') ? (
-                                <img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
+                              {thirdParty?.name?.toLowerCase()?.endsWith('.xls') ||
+                              thirdParty?.name?.toLowerCase()?.endsWith('.xlsx') ? (
+                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                              ) : thirdParty?.name?.toLowerCase()?.endsWith('.doc') ||
+                                thirdParty?.name?.toLowerCase()?.endsWith('.docx') ? (
+                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                               ) : (
-                                <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
+                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                               )}
                             </td>
                             <td className={styles.doc_row}>
@@ -2026,12 +1940,7 @@ function Index() {
                       <div className="col-md-4 offset-md-1 col-sm-6">
                         <Form.Group className={styles.form_group}>
                           <div className="d-flex">
-                            <select
-                              className={`${styles.value} ${styles.customSelect} input form-control`}
-                            
-                              id="name"
-                          
-                            >
+                            <select className={`${styles.value} ${styles.customSelect} input form-control`} id="name">
                               <option value="others">Others</option>
                             </select>
                             <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
@@ -2049,7 +1958,6 @@ function Index() {
                             className={`${styles.value} input form-control`}
                             type="text"
                             required
-                         
                           />
                           <Form.Label className={`${styles.label} label_heading`}>
                             Please Specify Document Name
@@ -2059,11 +1967,10 @@ function Index() {
                           <button
                             onClick={(e) => uploadDocumentHandler(e)}
                             className={`${styles.upload_button} btn`}
-                          >
-                          </button>
+                          ></button>
+                        </div>
                       </div>
-                      </div>
-                     </div>
+                    </div>
                   </Form>
                 </div>
 
@@ -2073,10 +1980,7 @@ function Index() {
                       <div
                         className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-end align-items-center`}
                       >
-
-                        <div
-                          className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                        >
+                        <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
                           <img
                             className={` ${styles.searchImage} img-fluid`}
                             src="/static/search.svg"
@@ -2173,8 +2077,7 @@ function Index() {
                                         alt="Share"
                                         onClick={() => {
                                           setOpen(true);
-                                          setSharedDoc({ ...sharedDoc, path: document.path })
-
+                                          setSharedDoc({ ...sharedDoc, path: document.path });
                                         }}
                                       />
                                     </td>
@@ -2240,14 +2143,26 @@ function Index() {
                                 return null;
                               }
                             })}
-
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              {open ? <TermsheetPopUp close={() => setOpen(false)} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}
+              {open ? (
+                <TermsheetPopUp
+                  close={() => setOpen(false)}
+                  open={open}
+                  istermsheet
+                  shareEmail={handleShareDoc}
+                  setEmail={(e) =>
+                    setSharedDoc({
+                      ...sharedDoc,
+                      data: { ...sharedDoc.data, receiver: e },
+                    })
+                  }
+                />
+              ) : null}
             </div>
           </div>
         </div>
@@ -2260,7 +2175,7 @@ function Index() {
         />
       </div>
     </>
-  )
+  );
 }
 
 export default Index;

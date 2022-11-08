@@ -6,8 +6,6 @@ import { checkNan, convertValue } from 'utils/helper';
 function Index({ peerData }) {
   const [conversionUnit, setConversionUnit] = useState(10000000);
 
- 
-
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>

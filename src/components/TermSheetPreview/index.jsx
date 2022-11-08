@@ -180,9 +180,6 @@ function Index() {
     setOpen(false);
   };
   const exportPDF = () => {
-   
-   
-
     const doc = new jsPDF('p', 'pt', [1500, 2150]);
     doc.html(
       ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
@@ -190,7 +187,7 @@ function Index() {
         callback: function (doc) {
           doc.save('TransactionSummary.pdf');
         },
-      
+
         autoPaging: 'text',
       },
     );
@@ -202,7 +199,6 @@ function Index() {
       toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions, filteredValue),
     );
     return doc.getFileFromVFS('Termsheet.pdf');
-  
   };
   const shareEmail = async (email) => {
     let doc = exportPDF2();
