@@ -366,24 +366,7 @@ function Index() {
                             </div>
                           </td>
                         </tr>
-                        <tr>
-                          <td>ICICI Bank</td>
-                          <td>63547853487</td>
-                          <td>ICIC0000031</td>
-                          <td>63547853487</td>
-                          <td>A-44, Sagar Apartments, Tilak Marg, Agra</td>
-                          <td>
-                            <div>
-                              <img src="/static/mode_edit.svg" className={`${styles.edit_image} mr-3`} alt="edit" />
-
-                              <img
-                                src="/static/delete 2.svg"
-                                className={`${styles.delete_image} border-0 p-0`}
-                                alt="delete"
-                              />
-                            </div>
-                          </td>
-                        </tr>
+                       
                       </tbody>
                     </table>
                   </div>
@@ -406,51 +389,7 @@ function Index() {
           <div id="authorisedDetails" className="collapse" aria-labelledby="authorisedDetails">
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
-                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                  <div className="d-flex">
-                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
-                      <option value="">John Doe</option>
-                      <option value="">US</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Name <strong className="text-danger">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
-                    </div>
-                  </div>
-                </div>
-                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                  <input
-                    className={`${styles.input_field} border_color input form-control`}
-                    type="text"
-                    required
-                    name="supplierName"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Email <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.form_group} col-lg-3 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="email"
-                    required
-                    className={`${styles.input_field} border_color input form-control`}
-                  />
-                  <label className={`${styles.label_heading} label_heading`} id="textInput">
-                    Designation <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-lg-3 col-sm-6`}>
-                  <div className="mt-2">
-                    <img src="/static/mode_edit.svg" className={`${styles.edit_image} mr-3`} alt="edit" />
-
-                    <img src="/static/delete 2.svg" className={`${styles.delete_image} border-0 p-0`} alt="delete" />
-                  </div>
-                </div>
+                
                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
