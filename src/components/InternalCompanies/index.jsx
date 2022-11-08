@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
 
 function Index () {
+  const [countryName, setCountryName] = useState('India') 
+
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -28,9 +30,12 @@ function Index () {
               <div className='row'>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className='d-flex'>
-                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
-                      <option value=''>India</option>
-                      <option value=''>Switzerland</option>
+                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                    onChange={(e) => {
+                        setCountryName(e.target.value);
+                    }}>
+                      <option value='India'>India</option>
+                      <option value='Switzerland'>Switzerland</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Country <strong className='text-danger ml-1'>*</strong>
@@ -63,7 +68,8 @@ function Index () {
                     Short Name <strong className='text-danger'>*</strong>
                   </label>
                 </div>
-
+                { countryName === 'India' ? (
+                  <>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
@@ -87,6 +93,9 @@ function Index () {
                     CIN No. <strong className='text-danger'>*</strong>
                   </label>
                 </div>
+                </> 
+                ) : ' '
+}
               </div>
             </div>
 
@@ -100,6 +109,8 @@ function Index () {
                 </div>
                 <div className={`${styles.dashboard_form} card-body border_color`}>
                   <div className='row'>
+                  { countryName === 'India' ? (
+                    <>
                     <div className={`${styles.form_group} col-md-3 col-sm-4`}>
                       <div className='d-flex'>
                         <select
@@ -182,6 +193,60 @@ function Index () {
                         Branch <strong className='text-danger'>*</strong>
                       </label>
                     </div>
+                    </> ) : ( <>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6`}>
+                      <div className='d-flex'>
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                          name='countryOfOrigin'
+                          required
+                        >
+                          <option value='India'>Branch Address</option>
+                          <option value='Dubai'>Office Address</option>
+                        </select>
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Address Type <strong className='text-danger'>*</strong>
+                        </label>
+                        <div className={`${styles.image_arrow} image_arrow`}>
+                          <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`${styles.form_group} col-lg-8 col-md-12`}>
+                      <input
+                        className={`${styles.input_field} border_color input form-control`}
+                        required
+                        type='text'
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Address <strong className='text-danger'>*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6`}>
+                      <input
+                        className={`${styles.input_field} border_color input form-control`}
+                        required
+                        type='text'
+                        name='city'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        City <strong className='text-danger'>*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                      <input
+                        type='text'
+                        id='textInput'
+                        required
+                        className={`${styles.input_field} border_color input form-control`}
+                      />
+                      <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                        Zip Code <strong className='text-danger'>*</strong>
+                      </label>
+                    </div>
+                    </>) }
                     <div className={`${styles.form_group} col-md-2 col-sm-6`}>
                       <input
                         type='text'
@@ -214,9 +279,11 @@ function Index () {
                           <p>
                             <span>Email:</span> abc@email.com
                           </p>
+                          { countryName === 'India' ? (
                           <p>
                             <span className='ml-5'>GSTIN:</span> RTF67WTF76RT456
                           </p>
+                         ) : ''}
                         </div>
                       </div>
                     </div>
@@ -255,6 +322,7 @@ function Index () {
                   <h3 className={`${styles.heading}`}>Add New Bank</h3>
                 </div>
                 <div className={`${styles.dashboard_form} card-body border_color`}>
+                { countryName === 'India' ? (
                   <div className='row'>
                     <div className={`${styles.form_group} col-lg-4 col-md-6`}>
                       <input className={`${styles.input_field} border_color input form-control`} required type='text' />
@@ -319,6 +387,54 @@ function Index () {
                       </label>
                     </div>
                   </div>
+                ) : (
+                  <div className='row'>
+                    <div className={`${styles.form_group} col-lg-3 col-md-6`}>
+                      <input
+                        className={`${styles.input_field} border_color input form-control`}
+                        required
+                        type='text'
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Bank Name <strong className='text-danger'>*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6`}>
+                      <input
+                        className={`${styles.input_field} border_color input form-control`}
+                        required
+                        type='number'
+                        onWheel={(event) => event.currentTarget.blur()}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Account No. <strong className='text-danger'>*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6`}>
+                      <input
+                        type='text'
+                        id='textInput'
+                        required
+                        className={`${styles.input_field} border_color input form-control`}
+                      />
+                      <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                        Swift Code <strong className='text-danger'>*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-5 col-md-6`}>
+                      <input
+                        className={`${styles.input_field} border_color input form-control`}
+                        required
+                        type='text'
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>Branch Address</label>
+                    </div>
+                  </div>
+                ) }
                 </div>
                 <button
                   className={`${styles.add_btn}`}
@@ -333,6 +449,7 @@ function Index () {
               <div className={styles.table_container}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
+                  { countryName === 'India' ? (
                     <table className={`${styles.table} mb-0 table`} cellPadding='0' cellSpacing='0' border='0'>
                       <thead>
                         <tr>
@@ -365,6 +482,40 @@ function Index () {
                         </tr>
                       </tbody>
                     </table>
+                  ) : (
+                    <table className={`${styles.table} mb-0 table`} cellPadding='0' cellSpacing='0' border='0'>
+                      <thead>
+                        <tr>
+                          <th>BANK NAME</th>
+                          <th>ACCOUNT NO.</th>
+
+                          <th>SWIFT CODE</th>
+                          <th>BRANCH ADDRESS</th>
+                          <th>ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>ICICI Bank</td>
+                          <td>63547853487</td>
+                          <td>ICIC0000031</td>
+
+                          <td>A-44, Sagar Apartments, Tilak Marg, Agra</td>
+                          <td>
+                            <div>
+                              <img src='/static/mode_edit.svg' className={`${styles.edit_image} mr-3`} alt='edit' />
+
+                              <img
+                                src='/static/delete 2.svg'
+                                className={`${styles.delete_image} border-0 p-0`}
+                                alt='delete'
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )}
                   </div>
                 </div>
               </div>
