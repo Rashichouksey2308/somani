@@ -23,10 +23,9 @@ import RevisedMarginMoneyTemp from '../../src/templates/RevisedMarginMoneyTemp';
 import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
 
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
+
 import moment from 'moment';
-import { getBanks, getInternalCompanies ,getBranches} from '../../src/redux/masters/action';
+
 
 function Index() {
   const dispatch = useDispatch();
