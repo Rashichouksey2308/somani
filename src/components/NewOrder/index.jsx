@@ -27,7 +27,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
       return o.Commodity.toLowerCase().includes(value.toLowerCase());
     });
 
-
     setToShow(filterData);
     setToView(true);
   };
@@ -165,7 +164,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                   }}
-                 
                   value={
                     isFieldInFocus.quantity
                       ? orderData.quantity
@@ -205,7 +203,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                             : orderData.unitOfValue
                         }`
                   }
-                 
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -279,7 +276,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                         }) +
                         ' %'
                   }
-                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}

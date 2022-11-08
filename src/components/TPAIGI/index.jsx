@@ -208,17 +208,14 @@ const tpaSeller = (data) => {
       </p>
       <p className="text_sales">
         {' '}
-         <u>{data.buyer}</u>, a Company incorporated under the Companies Act,
-        1956, having its <u>registered office</u> at <u>
-             {data.buyerAddress?.fullAddress}, 
-              {data.buyerAddress?.city}{" "} 
-              {data.buyerAddress?.country},{" "}
-              
-              {data.buyerAddress?.pinCode}
-          </u>{' '}
-        through its Authorised Signatory (hereinafter referred as the “
-        <strong>{data.buyerseller}</strong> ”, which expression shall, unless excluded by
-        or repugnant to the context be deemed to include its legal heirs,
+        <u>{data.buyer}</u>, a Company incorporated under the Companies Act, 1956, having its <u>registered office</u>{' '}
+        at{' '}
+        <u>
+          {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+          {data.buyerAddress?.pinCode}
+        </u>{' '}
+        through its Authorised Signatory (hereinafter referred as the “<strong>{data.buyerseller}</strong> ”, which
+        expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs,
         successors and permitted assigns) of the First Part.)
       </p>
       <p className="text-center text_sales">And</p>
@@ -637,10 +634,10 @@ const tpaSeller = (data) => {
                 data?.cmaAuthorized?.map((val, index) => {
                   return (
                     <li key={index}>
-                      <p className='mb-0'>
+                      <p className="mb-0">
                         Name- <span>{val.name}</span>
                       </p>
-                      <p className='mb-0'>
+                      <p className="mb-0">
                         Designation- <span>{val.designation}</span>
                       </p>
                     </li>
@@ -722,10 +719,10 @@ const tpaSeller = (data) => {
       </div>
       <div className={`row`}>
         <Col md={6}>
-            <p className="text_sales">{data.seller}</p>
+          <p className="text_sales">{data.seller}</p>
         </Col>
         <Col md={6}>
-           <p className="text_sales">{data.buyer}</p>
+          <p className="text_sales">{data.buyer}</p>
         </Col>
       </div>
     </div>

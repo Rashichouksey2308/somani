@@ -30,7 +30,6 @@ function Index({
   name,
   port,
 }) {
-
   const [editStren, setEditStren] = useState(false);
   const [edit, setEdit] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -80,12 +79,7 @@ function Index({
               <h2 className="mb-0">LC Application</h2>
               <span>+</span>
             </div>
-            <div
-              id="lcApplication"
-         
-              aria-labelledby="lcApplication"
-              data-parent="#lcApplication"
-            >
+            <div id="lcApplication" aria-labelledby="lcApplication" data-parent="#lcApplication">
               <div className={` ${styles.cardBody} card-body  border_color`}>
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body} `}>
@@ -264,7 +258,6 @@ function Index({
                                   { maximumFractionDigits: 2 },
                                 )
                           }
-                         
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
@@ -310,7 +303,6 @@ function Index({
                                 ) +
                                 ` %`
                           }
-                         
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}

@@ -34,7 +34,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
     if (data.length > 0) {
-    
       setCimsDetails(data);
     } else {
       setCimsDetails([
@@ -52,13 +51,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     }
   }, [TransitDetails]);
 
-
-
   const dispatch = useDispatch();
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value;
     let filteredVessel = {};
-
 
     _get(TransitDetails, `data[0].BL.billOfLanding`, [])
       .slice()
@@ -93,7 +89,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   };
 
   const saveDate = (startDate, name, index) => {
-
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -129,12 +124,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         document2: null,
       },
     ]);
-  
   };
 
   const handleCloseDoc = (e, index) => {
     let tempArr = [...cimsDetails];
-   
 
     tempArr[index][e] = null;
     setCimsDetails(tempArr);
@@ -145,7 +138,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const uploadDoc = async (e, index) => {
     let id = e.target.id;
     let doc = await docUploadFunction(e);
- 
 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -166,7 +158,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let toastMessage = '';
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
-      
       if (cimsDetails[i]?.vesselName == '' || cimsDetails[i]?.vesselName == undefined) {
         toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -191,7 +182,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           break;
         }
       }
-      
+
       if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
         toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -221,7 +212,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   };
 
   const handleSubmit = () => {
-   
     if (validation()) {
       const cims = { cimsDetails: cimsDetails };
       let idtrans = transId._id;
@@ -231,14 +221,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       fd.append('transitId', transId._id);
 
       let task = 'submit';
-   
+
       dispatch(UpdateTransitDetails({ fd, task, idtrans }));
     }
   };
 
   const handleSave = () => {
-
-
     const cims = { cimsDetails: cimsDetails };
 
     let fd = new FormData();
@@ -248,8 +236,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let task = 'save';
     dispatch(UpdateTransitDetails({ fd, task }));
   };
-
-
 
   return (
     <>
@@ -306,14 +292,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       id="quantity"
-                     
                       onFocus={(e) => {
                         setIsFieldInFocus(true), (e.target.type = 'number');
                       }}
                       onBlur={(e) => {
                         setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
-                     
                       value={
                         isFieldInFocus
                           ? list.quantity
@@ -349,7 +333,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
                         value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
-                      
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -394,20 +377,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
                       <select
-                        value={
-                          list.paymentBy
-                         
-                        }
+                        value={list.paymentBy}
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option checked>Select an option</option>
                         <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
-                          INDO GERMAN INTERNATIONAL PRIVATE LIMITED 
+                          INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                         </option>
                         <option value={'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'}>
-                          EMERGENT INDUSTRIAL SOLUTIONS LIMITED 
+                          EMERGENT INDUSTRIAL SOLUTIONS LIMITED
                         </option>
 
                         <option value="Buyer">Buyer</option>

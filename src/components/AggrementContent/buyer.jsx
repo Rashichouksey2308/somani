@@ -212,8 +212,6 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -331,7 +329,6 @@ function Index(props) {
     });
   };
   const removeDoc = (index) => {
-
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -423,7 +420,6 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -437,11 +433,9 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-   
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -478,7 +472,7 @@ function Index(props) {
   useEffect(() => {
     if (buyerData?.name) {
       let filter;
-     
+
       if (buyerData.name == 'Indo German International Private Limited') {
         setShotName('IGIPL');
 
@@ -488,7 +482,6 @@ function Index(props) {
           }
         });
         let otherData = props.internal.filter((val) => {
-         
           if (val.Branch == buyerData.branchName) {
             return val;
           }
@@ -497,7 +490,7 @@ function Index(props) {
         if (otherData.length > 0) {
           setGstin(otherData[0]?.GSTIN);
           setPan(otherData[0]?.PAN);
-        
+
           if (_get(otherData[0], 'Branch_Address', '') !== '') {
             let add = otherData[0]?.Branch_Address?.split(',');
             let newAddress = [];
@@ -508,7 +501,7 @@ function Index(props) {
             });
 
             let pincode = add[add.length - 1].split('-');
-     
+
             setAddressList([
               {
                 addressType: 'Registered',
@@ -565,7 +558,7 @@ function Index(props) {
             });
 
             let pincode = add[add.length - 1].split('-');
-        
+
             setAddressList([
               {
                 addressType: 'Registered',
@@ -690,7 +683,7 @@ function Index(props) {
                         return val;
                       }
                     });
-              
+
                     //  setGstin(props?.data.gstin||"")
                     //  setPan(props?.data.pan||"")
                     setBranchOptions([...filter]);
@@ -1058,8 +1051,6 @@ function Index(props) {
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
-
-                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1090,8 +1081,6 @@ function Index(props) {
                                             {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
-
-                                            
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}

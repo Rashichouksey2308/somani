@@ -31,7 +31,6 @@ export default function Index({ isQuery }) {
   };
   const router = useRouter();
 
-
   useEffect(() => {
     if (
       isQuery == '/letter-table' ||
@@ -138,7 +137,6 @@ export default function Index({ isQuery }) {
 
   const { upperTabs, companyId } = useSelector((state) => state.Breadcrumb.breadCrumbData);
 
-
   let customData = _get(allCustomClearance, 'data[0]', {});
   let OrderId = _get(customData, 'order.orderId', {});
   let companyName = _get(customData, 'company.companyName');
@@ -151,7 +149,6 @@ export default function Index({ isQuery }) {
   const { pageTabName } = useSelector((state) => state?.user);
   const id = useSelector((state) => state?.user.id);
   const order = useSelector((state) => state?.user.order);
-
 
   const [unit, setUnit] = useState({ value: 'crores' });
   const [curency, setCurency] = useState({ value: 'inr' });
@@ -209,7 +206,6 @@ export default function Index({ isQuery }) {
     if ('margin-money' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`;
-   
       } else {
         router.route = '/Leads' + '/Margin Money';
       }
@@ -218,10 +214,8 @@ export default function Index({ isQuery }) {
     if ('termsheet' == pageName) {
       if (order != null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()}` + `/${order}`;
-      
       } else if (id !== null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `;
-       
       } else {
         router.route = '/Leads' + '/Transaction Summary';
       }
@@ -229,7 +223,6 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`;
-       
       } else {
         router.route = '/Leads' + '/Termsheet';
       }
@@ -237,7 +230,6 @@ export default function Index({ isQuery }) {
     if ('generic' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Generic' + `/${id?.toLowerCase()}` + `/${order}`;
-        
       } else {
         router.route = '/Agreements & LC' + '/Generic';
       }
@@ -245,7 +237,6 @@ export default function Index({ isQuery }) {
     if ('agreement' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Agreement' + `/${id?.toLowerCase()}` + `/${order}`;
-       
       } else {
         router.route = '/Agreements & LC' + '/Agreement';
       }
@@ -253,10 +244,8 @@ export default function Index({ isQuery }) {
     if ('Lc' == pageName) {
       if (order != null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}` + `/${order}`;
-      
       } else if (id !== null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}`;
-       
       } else {
         router.route = '/Agreements & LC' + '/LC';
       }
@@ -281,30 +270,23 @@ export default function Index({ isQuery }) {
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
     if ('insurance Request Letter' == pageName) {
-
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
 
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
-       
       } else {
         router.route = '/Loading, Transit & Unloading';
       }
     }
-   
+
     if ('inception2' == pageName) {
       if (order != null) {
         router.route =
           '/Loading, Transit & Unloading' + `/Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
       } else if (id !== null) {
-        router.route =
-          '/Loading, Transit & Unloading' +
-          `Inspection` +
-          `/${upperTabs}` +
-          `/${id?.toLowerCase()}` 
-        
+        router.route = '/Loading, Transit & Unloading' + `Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}`;
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Inspection';
       }
@@ -317,7 +299,6 @@ export default function Index({ isQuery }) {
           `/${id?.toLowerCase()}` +
           `/${upperTabs}` +
           `/${order}`;
-      
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Transit Details';
       }
@@ -325,10 +306,8 @@ export default function Index({ isQuery }) {
     if ('forward' == pageName) {
       if (order != null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()}` + `/${order}`;
-        
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()} `;
-       
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging';
       }
@@ -338,10 +317,8 @@ export default function Index({ isQuery }) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
         // `/${id}` +
         // `/${order}`
-      
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
-       
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
       }
@@ -349,12 +326,11 @@ export default function Index({ isQuery }) {
     if ('custom' == pageName) {
       if (id !== null) {
         router.route = '/Custom Clearance & Warehouse' + `/${companyName}` + `/${upperTabs}` + `/${OrderId}`;
-        
       } else {
         router.route = '/Custom Clearance & Warehouse';
       }
     }
-  
+
     if ('payment' == pageName) {
       if (id !== null) {
         router.route = '/Payment, Invoicing & Delivery' + `/${id?.toLowerCase()}` + `/${upperTabs}` + `/${companyId}`;
@@ -363,11 +339,7 @@ export default function Index({ isQuery }) {
       }
     }
 
-   
-
     router.route.split('/').map((subRoute, index) => {
-     
-
       if (subRoute !== '') {
         if (subRoute == '[id]') {
           // setUrl([...url, router.query.id])
@@ -400,7 +372,6 @@ export default function Index({ isQuery }) {
         pageName == 'payment' ? (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-              
               return (
                 <span
                   key={index}
@@ -417,7 +388,6 @@ export default function Index({ isQuery }) {
         ) : (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-              
               return (
                 <span
                   key={index}

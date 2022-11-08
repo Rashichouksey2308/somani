@@ -1,14 +1,14 @@
-import React from 'react';
-import styles from './index.module.scss';
-import { Col, Form, Row } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
+import React from 'react'
+import styles from './index.module.scss'
+import { Col, Form, Row } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
 
 const index = () => {
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={styles.head_header}>
-          <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt="ArrowRight" />
+          <img className={`${styles.arrow} img-fluid`} src='/static/keyboard_arrow_right-3.svg' alt='ArrowRight' />
           <h1 className={styles.heading}>Insurance</h1>
         </div>
         <div>
@@ -24,16 +24,16 @@ const index = () => {
               <Form.Check
                 className={styles.radio}
                 inline
-                label="Marine Insurance"
-                name="group1"
+                label='Marine Insurance'
+                name='group1'
                 type={type}
                 id={`inline-${type}-1`}
               />
               <Form.Check
                 className={styles.radio}
                 inline
-                label="Storage Insurance"
-                name="group1"
+                label='Storage Insurance'
+                name='group1'
                 type={type}
                 id={`inline-${type}-2`}
               />
@@ -45,15 +45,15 @@ const index = () => {
       <div className={`${styles.wrapper} mt-4 card`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#marineInsurance"
-          aria-expanded="true"
-          aria-controls="marineInsurance"
+          data-toggle='collapse'
+          data-target='#marineInsurance'
+          aria-expanded='true'
+          aria-controls='marineInsurance'
         >
-          <h2 className="mb-0">Marine Insurance</h2>
+          <h2 className='mb-0'>Marine Insurance</h2>
           <span>+</span>
         </div>
-        <div id="marineInsurance" className="collapse" aria-labelledby="marineInsurance" data-parent="#marineInsurance">
+        <div id='marineInsurance' className='collapse' aria-labelledby='marineInsurance' data-parent='#marineInsurance'>
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.header}  card_sub_header`}>
@@ -89,13 +89,13 @@ const index = () => {
                     <div className={`${styles.col_header} label_heading`}>Loss Payee Bank</div>
                     <div className={styles.col_body}>HDFC Bank</div>
                   </Col>
-                  <Col className="mt-4" md={4}>
-                    <div className="d-flex">
-                      <DateCalender labelName="Expected time of Dispatch" />
+                  <Col className='mt-4' md={4}>
+                    <div className='d-flex'>
+                      <DateCalender labelName='Expected time of Dispatch' />
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
+                        src='/static/caldericon.svg'
+                        alt='Search'
                       />
                     </div>
                   </Col>
@@ -109,85 +109,85 @@ const index = () => {
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Policy Number<strong className="text-danger">*</strong>
+                      Policy Number<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>Ramakrishna Traders</option>
                       <option>Balaji Traders</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Name of Insurer<strong className="text-danger">*</strong>
+                      Name of Insurer<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>COA202138329477</option>
                       <option>DSDA202138329477</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      GST of Insured<strong className="text-danger">*</strong>
+                      GST of Insured<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Name of Insured<strong className="text-danger">*</strong>
+                      Name of Insured<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
                       Address of Insured
-                      <strong className="text-danger">*</strong>
+                      <strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={2}>
-                    <div className="d-flex">
-                      <DateCalender labelName="Insurance from" />
+                  <Col className='mb-4 mt-4' md={2}>
+                    <div className='d-flex'>
+                      <DateCalender labelName='Insurance from' />
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
+                        src='/static/caldericon.svg'
+                        alt='Search'
                       />
                     </div>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={2}>
-                    <div className="d-flex">
-                      <DateCalender labelName="Insurance to" />
+                  <Col className='mb-4 mt-4' md={2}>
+                    <div className='d-flex'>
+                      <DateCalender labelName='Insurance to' />
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
+                        src='/static/caldericon.svg'
+                        alt='Search'
                       />
                     </div>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
-                      type="number"
+                      type='number'
                       onWheel={(event) => event.currentTarget.blur()}
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
-                      <strong className="text-danger">*</strong>
+                      <strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>HDFC Bank</option>
                       <option>SBI</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Loss Payee Bank<strong className="text-danger">*</strong>
+                      Loss Payee Bank<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
                 </Row>
@@ -200,49 +200,49 @@ const index = () => {
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Sum Insured<strong className="text-danger">*</strong>
+                      Sum Insured<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Premium Amount<strong className="text-danger">*</strong>
+                      Premium Amount<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      IGST<strong className="text-danger">*</strong>
+                      IGST<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      CGST<strong className="text-danger">*</strong>
+                      CGST<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      SGST<strong className="text-danger">*</strong>
+                      SGST<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
                       Recoverable Stamp duty
-                      <strong className="text-danger">*</strong>
+                      <strong className='text-danger'>*</strong>
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Total Amount<strong className="text-danger">*</strong>
+                      Total Amount<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
                 </Row>
@@ -255,19 +255,19 @@ const index = () => {
       <div className={`${styles.wrapper} mt-4 card`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#storageInsurance"
-          aria-expanded="true"
-          aria-controls="storageInsurance"
+          data-toggle='collapse'
+          data-target='#storageInsurance'
+          aria-expanded='true'
+          aria-controls='storageInsurance'
         >
-          <h2 className="mb-0">Storage Insurance</h2>
+          <h2 className='mb-0'>Storage Insurance</h2>
           <span>+</span>
         </div>
         <div
-          id="storageInsurance"
-          className="collapse"
-          aria-labelledby="storageInsurance"
-          data-parent="#storageInsurance"
+          id='storageInsurance'
+          className='collapse'
+          aria-labelledby='storageInsurance'
+          data-parent='#storageInsurance'
         >
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={` ${styles.content}`}>
@@ -304,13 +304,13 @@ const index = () => {
                     <div className={`${styles.col_header} label_heading`}>Loss Payee Bank</div>
                     <div className={styles.col_body}>HDFC Bank</div>
                   </Col>
-                  <Col className="mt-4" md={4}>
-                    <div className="d-flex">
-                      <DateCalender labelName="Expected time of Dispatch" />
+                  <Col className='mt-4' md={4}>
+                    <div className='d-flex'>
+                      <DateCalender labelName='Expected time of Dispatch' />
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
+                        src='/static/caldericon.svg'
+                        alt='Search'
                       />
                     </div>
                   </Col>
@@ -324,104 +324,104 @@ const index = () => {
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Policy Number<strong className="text-danger">*</strong>
+                      Policy Number<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>Ramakrishna Traders</option>
                       <option>Balaji Traders</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Name of Insurer<strong className="text-danger">*</strong>
+                      Name of Insurer<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>COA202138329477</option>
                       <option>DSDA202138329477</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      GST of Insured<strong className="text-danger">*</strong>
+                      GST of Insured<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Name of Insured<strong className="text-danger">*</strong>
+                      Name of Insured<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
                       Address of Insured
-                      <strong className="text-danger">*</strong>
+                      <strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={2}>
-                    <div className="d-flex">
-                      <DateCalender labelName=" Insurance from" />
+                  <Col className='mb-4 mt-4' md={2}>
+                    <div className='d-flex'>
+                      <DateCalender labelName=' Insurance from' />
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
+                        src='/static/caldericon.svg'
+                        alt='Search'
                       />
                     </div>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={2}>
-                    <div className="d-flex">
-                      <DateCalender labelName="Insurance to" />
+                  <Col className='mb-4 mt-4' md={2}>
+                    <div className='d-flex'>
+                      <DateCalender labelName='Insurance to' />
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
+                        src='/static/caldericon.svg'
+                        alt='Search'
                       />
                     </div>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
-                      type="number"
+                      type='number'
                       onWheel={(event) => event.currentTarget.blur()}
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
-                      <strong className="text-danger">*</strong>
+                      <strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>HDFC Bank</option>
                       <option>SBI</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Loss Payee Bank<strong className="text-danger">*</strong>
+                      Loss Payee Bank<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className='mb-4 mt-4' md={4}>
                     <select className={`${styles.input_field} input form-control`}>
                       <option>Warehouse</option>
                       <option>Warehouse</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Place of Storage<strong className="text-danger">*</strong>
+                      Place of Storage<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <div className="d-flex">
-                      <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <div className='d-flex'>
+                      <input className={`${styles.input_field} input form-control`} required type='text' />
                       <label className={`${styles.label_heading} label_heading`}>
                         Address of storage
-                        <strong className="text-danger">*</strong>
+                        <strong className='text-danger'>*</strong>
                       </label>
-                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                      <img className={`${styles.search_image} img-fluid`} src='/static/search-grey.svg' alt='Search' />
                     </div>
                   </Col>
                 </Row>
@@ -434,49 +434,49 @@ const index = () => {
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Sum Insured<strong className="text-danger">*</strong>
+                      Sum Insured<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Premium Amount<strong className="text-danger">*</strong>
+                      Premium Amount<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      IGST<strong className="text-danger">*</strong>
+                      IGST<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      CGST<strong className="text-danger">*</strong>
+                      CGST<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      SGST<strong className="text-danger">*</strong>
+                      SGST<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
                       Recoverable Stamp duty
-                      <strong className="text-danger">*</strong>
+                      <strong className='text-danger'>*</strong>
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
-                    <input className={`${styles.input_field} input form-control`} required type="text" />
+                  <Col className='mb-4 mt-4' md={4}>
+                    <input className={`${styles.input_field} input form-control`} required type='text' />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Total Amount<strong className="text-danger">*</strong>
+                      Total Amount<strong className='text-danger'>*</strong>
                     </label>
                   </Col>
                 </Row>
@@ -489,15 +489,15 @@ const index = () => {
       <div className={`${styles.wrapper} mt-4 card`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#remarks"
-          aria-expanded="true"
-          aria-controls="remarks"
+          data-toggle='collapse'
+          data-target='#remarks'
+          aria-expanded='true'
+          aria-controls='remarks'
         >
-          <h2 className="mb-0">Remarks</h2>
+          <h2 className='mb-0'>Remarks</h2>
           <span>+</span>
         </div>
-        <div id="remarks" className="collapse" aria-labelledby="remarks" data-parent="#remarks">
+        <div id='remarks' className='collapse' aria-labelledby='remarks' data-parent='#remarks'>
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={styles.remark_field}>
               <p>
@@ -517,17 +517,17 @@ const index = () => {
       <div className={`${styles.wrapper} mt-4 card`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#uploadDoc"
-          aria-expanded="true"
-          aria-controls="uploadDoc"
+          data-toggle='collapse'
+          data-target='#uploadDoc'
+          aria-expanded='true'
+          aria-controls='uploadDoc'
         >
-          <h2 className="mb-0">Upload Documents</h2>
+          <h2 className='mb-0'>Upload Documents</h2>
           <span>+</span>
         </div>
-        <div id="uploadDoc" className="collapse" aria-labelledby="uploadDoc" data-parent="#uploadDoc">
+        <div id='uploadDoc' className='collapse' aria-labelledby='uploadDoc' data-parent='#uploadDoc'>
           <div className={styles.table_container}>
-            <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+            <table className={`${styles.table} table`} cellPadding='0' cellSpacing='0' border='0'>
               <thead>
                 <tr>
                   <th>DOCUMENT NAME</th>
@@ -537,27 +537,27 @@ const index = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="table_row">
+                <tr className='table_row'>
                   <td className={`${styles.doc_name}`}>Policy Document - Marine</td>
                   <td>
-                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                    <img src='/static/pdf.svg' className='img-fluid' alt='Pdf' />
                   </td>
                   <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                   <td>
-                    <div className="d-flex">
-                      <input className={`${styles.file_field}`} type="file" />
+                    <div className='d-flex'>
+                      <input className={`${styles.file_field}`} type='file' />
                       <img
                         className={`${styles.close_image} image_arrow img-fluid`}
-                        src="/static/close.svg"
-                        alt="close"
+                        src='/static/close.svg'
+                        alt='close'
                       />
                     </div>
                   </td>
                 </tr>
-                <tr className="table_row">
+                <tr className='table_row'>
                   <td className={`${styles.doc_name}`}>Policy Document - Marine</td>
                   <td>
-                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                    <img src='/static/pdf.svg' className='img-fluid' alt='Pdf' />
                   </td>
                   <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                   <td>
@@ -566,10 +566,10 @@ const index = () => {
                   </td>
                 </tr>
 
-                <tr className="table_row">
+                <tr className='table_row'>
                   <td className={`${styles.doc_name}`}>Invoice</td>
                   <td>
-                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                    <img src='/static/pdf.svg' className='img-fluid' alt='Pdf' />
                   </td>
                   <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                   <td>
@@ -583,6 +583,6 @@ const index = () => {
         </div>
       </div>
     </div>
-  );
-};
-export default index;
+  )
+}
+export default index

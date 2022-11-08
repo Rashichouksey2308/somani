@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 function Index(props) {
-
   const [active, setActive] = useState('none');
   const [data, setData] = useState({
     seller: '',
@@ -76,40 +75,38 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.curr,
           specComment: data?.specComment,
-          loadingCargo:data.monthOfLoadingCargo || "",
-          supplier:data?.supplier,
-          supplierAddress:data?.supplierAddress,
-          supplierAuthorized:data?.supplierAuthorized,
-          buyerAuthorized:data?.buyerAuthorized,
-          toleranceLevel:data?.toleranceLevel,
-          incoTerms:data?.incoTerms,
-          financialBank:data?.financialBank,
-          associateBuyer:data?.associateBuyer,
-          associateBuyerAddress:data?.associateBuyerAddress,
-          associateBuyerGst:data?.associateBuyerGst,
-          associateBuyerPan:data?.associateBuyerPan,
-          associateBuyerAuthorized:data?.associateBuyerAuthorized,
-          stevedore:data?.stevedore,
-          stevedoreAddress:data?.stevedoreAddress,
-          stevedoreAuthorized:data?.stevedoreAuthorized,
-          cma:data?.cma,
-          cmaAddress:data?.cmaAddress,
-          vessel:data?.vessel,
-          storagePlot:data?.storagePlot,
-          cmaAuthorized:data?.cmaAuthorized,
+          loadingCargo: data.monthOfLoadingCargo || '',
+          supplier: data?.supplier,
+          supplierAddress: data?.supplierAddress,
+          supplierAuthorized: data?.supplierAuthorized,
+          buyerAuthorized: data?.buyerAuthorized,
+          toleranceLevel: data?.toleranceLevel,
+          incoTerms: data?.incoTerms,
+          financialBank: data?.financialBank,
+          associateBuyer: data?.associateBuyer,
+          associateBuyerAddress: data?.associateBuyerAddress,
+          associateBuyerGst: data?.associateBuyerGst,
+          associateBuyerPan: data?.associateBuyerPan,
+          associateBuyerAuthorized: data?.associateBuyerAuthorized,
+          stevedore: data?.stevedore,
+          stevedoreAddress: data?.stevedoreAddress,
+          stevedoreAuthorized: data?.stevedoreAuthorized,
+          cma: data?.cma,
+          cmaAddress: data?.cmaAddress,
+          vessel: data?.vessel,
+          storagePlot: data?.storagePlot,
+          cmaAuthorized: data?.cmaAuthorized,
           priceOfGoods: data?.perUnitPrice,
-         
-          commodityDetails:data?.commodityDetails,
+
+          commodityDetails: data?.commodityDetails,
           unitPrice: data.unitPrice,
-          tradeMargin:data.tradeMargin,
-          deliveryTerm:data.deliveryTerm,
-          totalPrice:data?.totalPrice,
-          advanceMoney:data?.advanceMoney,
-          orderValueCurrency:data?.orderValueCurrency,
-          paymentTerm:data.paymentTerm,
-           
-         
-       });
+          tradeMargin: data.tradeMargin,
+          deliveryTerm: data.deliveryTerm,
+          totalPrice: data?.totalPrice,
+          advanceMoney: data?.advanceMoney,
+          orderValueCurrency: data?.orderValueCurrency,
+          paymentTerm: data.paymentTerm,
+        });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
 
@@ -130,12 +127,11 @@ function Index(props) {
           }
         });
 
-
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:_get(data, 'seller.addresses[0]', {}),
-          buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
+          sellerAddress: _get(data, 'seller.addresses[0]', {}),
+          buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
@@ -169,12 +165,8 @@ function Index(props) {
           incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank: data?.financingBank?.name,
           financialAddress: '',
-          associateBuyer: _get(data,"company.companyName",""),
-          associateBuyerAddress: _get(
-            data,
-            'company.detailedCompanyInfo.profile.companyDetail.registeredAddress'
-            ,""
-          ),
+          associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
           associateBuyerGst: data?.associateBuyer?.gstin,
           associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
           associateBuyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
@@ -182,24 +174,22 @@ function Index(props) {
           stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
           stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
           cma: data?.CMA?.name,
-           cmaAddress:_get(data, 'CMA.addresses[0]', {}),
-           
-           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-           vessel: data?.shippingLine?.vesselName,
-          loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
-          storagePlot:
-          data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          cmaAddress: _get(data, 'CMA.addresses[0]', {}),
+
+          cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+          vessel: data?.shippingLine?.vesselName,
+          loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
+          storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           priceOfGoods: data?.order?.perUnitPrice,
-          commodityDetails:data?.order?.commodity,
+          commodityDetails: data?.order?.commodity,
           unitPrice: data.order?.perUnitPrice,
-          tradeMargin:data.order?.termsheet?.commercials?.tradeMarginPercentage,
-          deliveryTerm:data.deliveryTerms.deliveryTerm,
-          totalPrice:data?.order?.marginMoney?.calculation?.totalOrderValue,
-          advanceMoney:data?.order?.marginMoney?.calculation?.marginMoney,
-          orderValueCurrency:data?.order?.marginMoney?.calculation?.orderValueCurrency,
-          paymentTerm:data.deliveryTerms.paymentTerms,
-          cheque:data.deliveryTerms?.cheque || []
-          
+          tradeMargin: data.order?.termsheet?.commercials?.tradeMarginPercentage,
+          deliveryTerm: data.deliveryTerms.deliveryTerm,
+          totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
+          advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
+          orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
+          paymentTerm: data.deliveryTerms.paymentTerms,
+          cheque: data.deliveryTerms?.cheque || [],
         });
       }
     }
@@ -207,7 +197,7 @@ function Index(props) {
   return (
     <>
       {/* Agreement pdf download code start */}
-      
+
       {/* Agreement pdf download code end */}
 
       {/* Undertaking 1 pdf download code start */}
@@ -2127,13 +2117,13 @@ Andhra Pradesh, 530016 India
                     of the price and other payables in respect thereof and actual delivery of the goods having been made
                     to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
                     goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
-                    becoming insolvent, and shall be entitled to deal with the goods/material as it may
-                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
-                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
-                    to be in the constructive or ac'ual possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
-                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
-                    and delivered by the Seller in accordance with this Agreement.
+                    becoming insolvent, and shall be entitled to deal with the goods/material as it may deem fit
+                    including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt, the
+                    parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to
+                    be in the constructive or ac'ual possession of the Buyer until the Goods are released and delivered
+                    by the Seller in accordance with this Agreement. The Buyer specifically represents and agrees to not
+                    exercise any or all such possessory rights on the Goods until the Goods are released and delivered
+                    by the Seller in accordance with this Agreement.
                   </p>
                 </li>
                 <li>
@@ -3158,8 +3148,6 @@ const tpaSeller = () => {
   );
 };
 
-
-
 // const sales=()=>{
 //   return(
 //      <div className="card-body">
@@ -3696,15 +3684,22 @@ const underTaking1 = (data, preview, setPreviewValue) => {
   return (
     <>
       <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
-     
         <p className="text-center text_sales">
           {' '}
           <strong>Undertaking for Post-dated Cheques issued by Associate Buyer</strong>
         </p>
         <p className="text-left text_sales ml-4 d-flex align-items-start">
           {' '}
-          <span className='mb-0'>To:</span>{' '}
-          <span className='ml-4'><u>Indo German International Private Limited,<br/>7A, Sagar Apartments, 6, Tilak Marg,<br/>New Delhi</u></span>
+          <span className="mb-0">To:</span>{' '}
+          <span className="ml-4">
+            <u>
+              Indo German International Private Limited,
+              <br />
+              7A, Sagar Apartments, 6, Tilak Marg,
+              <br />
+              New Delhi
+            </u>
+          </span>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -3720,18 +3715,18 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           </li>
           <li>
             <p className="text_sales">
-              That as requested by us, the Supplier shall sell the Goods to <u>Indo</u> and{' '}
-              <u>Indo</u> will establish Letter of Credit in favour of the Supplier and make payment to the
-              Supplier for the Goods. <u>Indo</u> shall sell the Goods to Seller and Seller shall sell the
-              same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the
-              Associateship Agreement shall jointly be referred to as “Contracts”.
+              That as requested by us, the Supplier shall sell the Goods to <u>Indo</u> and <u>Indo</u> will establish
+              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>Indo</u>{' '}
+              shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said
+              Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to
+              as “Contracts”.
             </p>
           </li>
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the Contracts being entered into by{' '}
-              <u>Indo</u> and Seller on our request. It is pertinent to mention that the terms of the
-              Associateship Agreement be read as a part of this Undertaking.
+              <u>Indo</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship
+              Agreement be read as a part of this Undertaking.
             </p>
           </li>
           <li>
@@ -3810,7 +3805,11 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           </li>
           <li>
             <p className="text_sales">
-            In any event of our failure to perform the Associateship Agreement in accordance with its terms including default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds whatsoever.
+              In any event of our failure to perform the Associateship Agreement in accordance with its terms including
+              default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil
+              and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We
+              unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds
+              whatsoever.
             </p>
           </li>
         </ol>
@@ -3819,7 +3818,9 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           {' '}
           <strong>Schedule I</strong>
         </p>
-        <p className="text_sales pb-3"><u>Details of post-dated Cheque(s)-</u></p>        
+        <p className="text_sales pb-3">
+          <u>Details of post-dated Cheque(s)-</u>
+        </p>
         <div className={`${styles.inputsContainer} border_black`}>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>
@@ -3838,30 +3839,30 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               <strong>Amount</strong>
             </Col>
           </Row>
-      
-         {data.cheque.length>0 && data.cheque.map((val,index)=>{
-           return (
 
-            <Row className={`${styles.row} border_black`}>
-            <Col md={1} className={`${styles.left} border_black`}>
-             {val.sNo}
-            </Col>
-            <Col md={4} className={`${styles.left} border_black`}>
-              {val.bankName}
-            </Col>
-            <Col md={2} className={`${styles.left} border_black`}>
-               {val.chequeNo}
-            </Col>
-            <Col md={2} className={`${styles.left} border_black`}>
-               {moment(val.chequeDate).format("DD-MM-YYYY")}
-            </Col>
-            <Col md={3} className={styles.right}>
-               {val.amount}
-            </Col>
-          </Row>
-           )
-         })}
-         
+          {data.cheque.length > 0 &&
+            data.cheque.map((val, index) => {
+              return (
+                <Row className={`${styles.row} border_black`}>
+                  <Col md={1} className={`${styles.left} border_black`}>
+                    {val.sNo}
+                  </Col>
+                  <Col md={4} className={`${styles.left} border_black`}>
+                    {val.bankName}
+                  </Col>
+                  <Col md={2} className={`${styles.left} border_black`}>
+                    {val.chequeNo}
+                  </Col>
+                  <Col md={2} className={`${styles.left} border_black`}>
+                    {moment(val.chequeDate).format('DD-MM-YYYY')}
+                  </Col>
+                  <Col md={3} className={styles.right}>
+                    {val.amount}
+                  </Col>
+                </Row>
+              );
+            })}
+
           {/* <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Date of execution
@@ -4089,7 +4090,12 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             <p className="text_sales m-0">Place:</p>
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0"><strong>(Associate Buyer)</strong><br/><br/>Name………………………</p>
+            <p className="text_sales m-0">
+              <strong>(Associate Buyer)</strong>
+              <br />
+              <br />
+              Name………………………
+            </p>
           </Col>
         </div>
         <div className={`row my-4`}>
@@ -4107,7 +4113,8 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span className='mb-0'
+              <span
+                className="mb-0"
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -4119,10 +4126,10 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span className='mb-0'>Save</span>
+              <span className="mb-0">Save</span>
             </div>
             <div className={styles.approve}>
-              <span className='mb-0'>Submit</span>
+              <span className="mb-0">Submit</span>
             </div>
           </div>
         </>
@@ -4134,15 +4141,22 @@ const underTaking2 = (data, preview, setPreviewValue) => {
   return (
     <>
       <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
-       
         <p className="text-center text_sales">
           {' '}
           <strong>Undertaking by Associate Buyer for Price, Quality &amp; Quantity</strong>
         </p>
         <p className="text-left text_sales ml-4 d-flex align-items-start">
           {' '}
-          <span className='mb-0'>To:</span>{' '}
-          <span className='ml-4'><u>Indo German International Private Limited,<br/>7A, Sagar Apartments, 6, Tilak Marg,<br/>New Delhi</u></span>
+          <span className="mb-0">To:</span>{' '}
+          <span className="ml-4">
+            <u>
+              Indo German International Private Limited,
+              <br />
+              7A, Sagar Apartments, 6, Tilak Marg,
+              <br />
+              New Delhi
+            </u>
+          </span>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -4162,8 +4176,8 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               That we have requested <u>Indo German International Private Limited </u>
               (“IGI/ Seller”) to import on our behalf the Goods and sell the same to us on stock and sale basis as per
               Associateship Agreement. We confirm and undertake that all the terms &amp; conditions of the Sales
-              Contract entered into between <u>Indo</u> and the Supplier (hereinafter referred to as “Sales
-              Contract”) are acceptable and binding on us.
+              Contract entered into between <u>Indo</u> and the Supplier (hereinafter referred to as “Sales Contract”)
+              are acceptable and binding on us.
             </p>
           </li>
           <li>
@@ -4185,7 +4199,12 @@ const underTaking2 = (data, preview, setPreviewValue) => {
           </li>
           <li>
             <p className="text_sales">
-            We undertake to accept the goods from Seller/<u>Indo</u> on 'no complaint basis' with regard to quality, quantity and/or any other claims including shortage. Seller/<u>Indo</u> shall in no way be responsible or liable for the quality, quantity or any other claim pertaining to the Goods being supplied by the Supplier and/or any other claim relating to this transaction. It is our sole responsibility in settling the quality, quantity or other claims pertaining to this transaction directly with the Supplier and/or Custom House Agent (CHA), with no liability whatsoever upon Seller/<u>Indo</u>.
+              We undertake to accept the goods from Seller/<u>Indo</u> on 'no complaint basis' with regard to quality,
+              quantity and/or any other claims including shortage. Seller/<u>Indo</u> shall in no way be responsible or
+              liable for the quality, quantity or any other claim pertaining to the Goods being supplied by the Supplier
+              and/or any other claim relating to this transaction. It is our sole responsibility in settling the
+              quality, quantity or other claims pertaining to this transaction directly with the Supplier and/or Custom
+              House Agent (CHA), with no liability whatsoever upon Seller/<u>Indo</u>.
             </p>
           </li>
         </ol>
@@ -4404,28 +4423,48 @@ const underTaking2 = (data, preview, setPreviewValue) => {
         </div> */}
         <div className={`row`}>
           <Col md={6} className="offset-md-6">
-            <p className="text_sales"><strong>FOR & ON BEHALF OF</strong></p>
+            <p className="text_sales">
+              <strong>FOR & ON BEHALF OF</strong>
+            </p>
           </Col>
         </div>
         <div className={`row`}>
           <Col md={6} className="offset-md-6">
-            <p className="text_sales"><strong>(Associate Buyer)</strong></p>
+            <p className="text_sales">
+              <strong>(Associate Buyer)</strong>
+            </p>
           </Col>
         </div>
         <div className={`row my-4`}>
           <Col md={6}>
-            <p className="text_sales m-0"><strong><u>Place:</u></strong></p>
+            <p className="text_sales m-0">
+              <strong>
+                <u>Place:</u>
+              </strong>
+            </p>
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0"><strong><u>Name:</u></strong></p>
+            <p className="text_sales m-0">
+              <strong>
+                <u>Name:</u>
+              </strong>
+            </p>
           </Col>
         </div>
         <div className={`row my-4`}>
           <Col md={6}>
-            <p className="text_sales m-0"><strong><u>Date:</u></strong></p>
+            <p className="text_sales m-0">
+              <strong>
+                <u>Date:</u>
+              </strong>
+            </p>
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0"><strong><u>Designation:</u></strong></p>
+            <p className="text_sales m-0">
+              <strong>
+                <u>Designation:</u>
+              </strong>
+            </p>
           </Col>
         </div>
       </div>
@@ -4435,7 +4474,8 @@ const underTaking2 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-              <span className='mb-0'
+              <span
+                className="mb-0"
                 onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
 
@@ -4447,10 +4487,10 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               </span>
             </div>
             <div className={styles.reject}>
-              <span className='mb-0'>Save</span>
+              <span className="mb-0">Save</span>
             </div>
             <div className={styles.approve}>
-              <span className='mb-0'>Submit</span>
+              <span className="mb-0">Submit</span>
             </div>
           </div>
         </>

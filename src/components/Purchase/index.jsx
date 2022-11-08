@@ -48,11 +48,7 @@ export default function Index({}) {
                     <span className={`${styles.rate}`}>INR 10 CR</span>
                   </div>
                   <div className={`${styles.tooltip} `}>
-                    <img
-                    
-                      className={`${styles.info_circle} img-fluid`}
-                      src="/static/info-circle.svg"
-                    />
+                    <img className={`${styles.info_circle} img-fluid`} src="/static/info-circle.svg" />
 
                     <div className={`${styles.tooltiptext}`}>Ex. Margin Money</div>
                   </div>
@@ -508,12 +504,7 @@ export default function Index({}) {
                         </label>
                       </div>
                       <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        
-                        />
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
                         <label className={`${styles.label_heading} label_heading`}>
                           IFSC No. <strong className="text-danger">*</strong>
@@ -587,12 +578,7 @@ export default function Index({}) {
                         </label>
                       </div>
                       <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        
-                        />
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
                         <label className={`${styles.label_heading} label_heading`}>
                           Swift Code <strong className="text-danger">*</strong>
@@ -628,12 +614,7 @@ export default function Index({}) {
                         </div>
                       </div>
                       <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        
-                        />
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
                         <label className={`${styles.label_heading} label_heading`}>Swift Code</label>
                       </div>
@@ -656,7 +637,6 @@ export default function Index({}) {
                       rows={3}
                       required
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                    
                     />
                     <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                       Narration Remarks

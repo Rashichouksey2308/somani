@@ -15,8 +15,6 @@ import styles from './index.module.scss';
 function Index() {
   const dispatch = useDispatch();
 
-
-
   useEffect(() => {
     let id = sessionStorage.getItem('lcPreviewId');
     dispatch(GetLcModule(`?lcModuleId=${id}`));

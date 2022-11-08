@@ -170,7 +170,7 @@
         font-size: 20px;
         letter-spacing: 0.19px;
         text-transform: capitalize;
-       
+
         border-radius: 4px;
         height: 60px;
         box-shadow: none;
@@ -208,13 +208,11 @@
   }
 
   .search_container {
-   
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
 
     .dropDown {
-    
       border-radius: 4px;
       color: #3687e8;
       font-size: 16px;
@@ -233,7 +231,7 @@
         width: 337px;
         height: 40px;
         padding-left: 3.5rem;
-      
+
         border: 2px solid #d2d7e5;
         border-radius: 1.1rem;
         box-shadow: none;
@@ -338,7 +336,7 @@
               padding: 24px 15px;
               border-top: none;
               vertical-align: middle;
-              
+
               white-space: nowrap;
 
               &:first-child {
@@ -408,7 +406,7 @@
           .doc_row {
             font-size: 19px;
             line-height: 24px;
-      
+
             font-weight: 500;
             @include respond(lg-desktop) {
               font-size: 15px;
@@ -531,7 +529,7 @@ img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
- 
+
     pointer-events: none;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
 
@@ -577,5 +575,4 @@ img {
 
 .customSelect {
   appearance: none;
-
 }

@@ -24,8 +24,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
 
   const { documentsFetched } = useSelector((state) => state.review);
 
- 
-
   const [filteredDoc, setFilteredDoc] = useState([]);
 
   const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval');
@@ -40,7 +38,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       receiver: '',
     },
   });
-
 
   useEffect(() => {
     const tempArray = documentsFetched?.documents?.filter((doc) => {
@@ -57,7 +54,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       })
       .map((obj) => ({ ...obj, moving: false }));
 
-   
     setFilteredDoc(tempArray);
   }, [orderId, documentsFetched]);
 
@@ -97,7 +93,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       }
     } else {
       const fd = new FormData();
- 
+
       fd.append('document', newDoc.document);
       fd.append('module', newDoc.module);
       fd.append('order', orderId);
@@ -168,7 +164,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       if (data?.code == 200) {
         close();
       }
-  
     } else {
       let toastMessage = 'please provide a valid email';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -430,18 +425,18 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           </option>
                           <option value="Certificate of Incorporation">Certificate of Incorporation</option>
                           <option value="IEC Certificate">IEC Certificate</option>
-                          <option value="Business Registration Certificate">Business Registration Certificate </option>
+                          <option value="Business Registration Certificate">Business Registration Certificate</option>
                           <option value="PAN Card">PAN Card</option>
                           <option value="GST Certificate">GST Certificate</option>
                           <option value="Bank Reference Letter">Bank Reference Letter</option>
-                          <option value="Financial Year">Financial Year </option>
+                          <option value="Financial Year">Financial Year</option>
                         </>
                       ) : module === 'Loading-Transit-Unloading' ? (
                         <>
                           <option value="" disabled>
                             Select an option
                           </option>
-                          <option value="Certificate Of Origin">Certificate of Origin </option>
+                          <option value="Certificate Of Origin">Certificate of Origin</option>
                           <option value="Certificate Of Quality"> Certificate of Quality</option>
                           <option value="Certificate Of Weight"> Certificate of Weight</option>
                           <option value="Plot Inspection Report"> Plot Inspection Report</option>

@@ -23,7 +23,6 @@ function Index() {
     newValue: false,
   });
   const handleEdit = (index) => {
-   
     const newArr = [...clauseArr];
     newArr.forEach((val, i) => {
       if (i == index) {
@@ -33,7 +32,6 @@ function Index() {
 
     setClauseArr(newArr);
   };
-
 
   const { lcModule } = useSelector((state) => state.lc);
 
@@ -52,8 +50,6 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-
-
 
   useEffect(() => {
     setLcData({
@@ -145,8 +141,6 @@ function Index() {
 
   const [clauseData, setClauseData] = useState();
 
-
-
   const initialState = {
     existingValue: '',
     dropDownValue: '',
@@ -159,10 +153,7 @@ function Index() {
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
-
-
   const [clauseArr, setClauseArr] = useState([]);
-
 
   const [drop, setDrop] = useState('');
 
@@ -182,16 +173,15 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text || '';
     let val2 = e.target.value || '';
     setDrop(val2);
-   
+
     newInput['existingValue'] = lcData[e.target.value] || '';
     newInput['dropDownValue'] = val1 || '';
     newInput['newValue'] = '';
-   
+
     setClauseObj(newInput);
   };
 
   const arrChange = (name, value) => {
-
     const newInput = { ...clauseObj };
     newInput[name] = value;
     setClauseObj(newInput);
@@ -249,8 +239,6 @@ function Index() {
     lcDraftDoc: null,
   });
 
-
-
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
     newInput.lcDraftDoc = e.target.files[0];
@@ -281,7 +269,7 @@ function Index() {
     } else {
       let sendLcData = { ...clauseData };
       setLcData(clauseData);
-    
+
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
@@ -292,11 +280,8 @@ function Index() {
   };
   const [existingValue, setExistingValue] = useState('');
   const getDataFormDropDown = (value) => {
-   
-  
     if (fieldType == 'date') {
       setExistingValue(moment(value).format('DD-MM-YYYY'));
-      return;
     } else if (fieldType == 'drop') {
       if (value == 'Yes') {
         setExistingValue('Allowed');
@@ -312,16 +297,12 @@ function Index() {
       }
       if (value == '') {
         setExistingValue('');
-        return;
       }
     } else {
       setExistingValue(value);
-      return;
     }
   };
   const getValue = (value, toCheck) => {
-
-
     if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
     } else if (toCheck == '(43P) Partial Shipment') {
@@ -342,10 +323,9 @@ function Index() {
     }
   };
   useEffect(() => {
-
     getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
-  
+
   return (
     <>
       {' '}
@@ -505,10 +485,8 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                          
                               value={clauseObj?.newValue}
                               onChange={(e) => {
-                              
                                 arrChange('newValue', e.target.value);
                               }}
                             />
@@ -583,8 +561,8 @@ function Index() {
                                 <th width="35%" className={`${styles.table_header} text`}>
                                   CLAUSE{' '}
                                 </th>
-                                <th className={`${styles.table_header} text`}>EXISTING VALUE </th>
-                                <th className={`${styles.table_header} text`}>NEW VALUE </th>
+                                <th className={`${styles.table_header} text`}>EXISTING VALUE</th>
+                                <th className={`${styles.table_header} text`}>NEW VALUE</th>
                                 <th className={`${styles.table_header}`}></th>
                               </tr>
                             </thead>
@@ -601,7 +579,7 @@ function Index() {
                                               onChange={(e) => dropDownChange(e)}
                                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                             >
-                                              <option value='' >Select an option</option>
+                                              <option value="">Select an option</option>
                                               <option value="shipmentForm">(44A) Shipment From</option>
                                               <option value="applicableRules">(40E) Application Rules</option>
                                               <option value="placeOfExpiry">(32D) Place Of Expiry</option>
@@ -704,8 +682,22 @@ function Index() {
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>{arr.dropDownValue === '(32B) Currency Code & Amount' ? `${lcModuleData?.order?.orderCurrency} ` :  ''}{ arr.dropDownValue === '(39A) Tolerance (+/-) Percentage' ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %` : getValue(arr.existingValue, arr.dropDownValue) }</td>
-                                        <td>{arr.dropDownValue === '(32B) Currency Code & Amount' ? `${lcModuleData?.order?.orderCurrency} ` : ''}{ arr.dropDownValue === '(39A) Tolerance (+/-) Percentage' ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : getValue(arr.newValue, arr.dropDownValue) }</td>
+                                        <td>
+                                          {arr.dropDownValue === '(32B) Currency Code & Amount'
+                                            ? `${lcModuleData?.order?.orderCurrency} `
+                                            : ''}
+                                          {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %`
+                                            : getValue(arr.existingValue, arr.dropDownValue)}
+                                        </td>
+                                        <td>
+                                          {arr.dropDownValue === '(32B) Currency Code & Amount'
+                                            ? `${lcModuleData?.order?.orderCurrency} `
+                                            : ''}
+                                          {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
+                                            : getValue(arr.newValue, arr.dropDownValue)}
+                                        </td>
                                         <td>
                                           {/* <img
                                             src="/static/mode_edit.svg"

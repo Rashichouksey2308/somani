@@ -4,7 +4,7 @@
   margin: 28px;
 
   background: #ffffff00;
- 
+
   margin-bottom: 152px;
   @include respond(lg-desktop) {
     margin: 20px;
@@ -83,14 +83,13 @@
     padding: 10px 36px 18px 36px;
     height: 126px;
     margin-bottom: 26px;
-  
+
     border-radius: 6px;
     @include respond(lg-desktop) {
       height: 100px;
     }
 
     span {
-    
       font-size: 34px;
       line-height: 41px;
       font-weight: bold;
@@ -105,7 +104,7 @@
 
       .termSub_head {
         font-size: 20px;
-      
+
         font-weight: 500;
         line-height: 41px;
         margin-right: 0.5rem;
@@ -116,7 +115,7 @@
 
       .termValue {
         font-size: 20px;
-     
+
         font-weight: normal;
         line-height: 41px;
         white-space: nowrap;
@@ -131,7 +130,7 @@
   .content {
     padding-right: 15px;
     padding-left: 15px;
-  
+
     @include respond(phone) {
       padding-right: 10px;
       padding-left: 10px;
@@ -277,7 +276,6 @@
         color: #111111;
         padding: 20px 0 20px 30px;
         height: 67px;
-      
       }
 
       .checkContent {
@@ -311,7 +309,6 @@
       }
 
       .checkContent {
-       
         padding-top: 1rem;
 
         div {
@@ -333,8 +330,6 @@
             padding: 20px 0 20px 30px;
             height: 67px;
           }
-
-        
         }
       }
     }

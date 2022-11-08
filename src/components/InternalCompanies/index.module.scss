@@ -323,6 +323,7 @@
       }
     }
   }
+
   .arrow {
     margin-left: -40px;
     width: 13px;
@@ -353,7 +354,7 @@
       height: 15px;
     }
   }
- 
+
   .remark_field {
     background: #c3c3c31f;
     border: 1px solid #0000001f;
@@ -647,7 +648,6 @@ img {
 
 .customSelect {
   appearance: none;
-
 }
 
 .edit_image {
@@ -714,8 +714,6 @@ img {
     .search_image {
       margin-left: -40px;
     }
-
-   
 
     .phone {
       .label_heading {
@@ -899,6 +897,7 @@ img {
     line-height: 25px;
   }
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -922,6 +921,7 @@ img {
     font-size: 12px;
   }
 }
+
 .plus_add {
   margin-top: 12px;
   z-index: 1;
@@ -935,6 +935,7 @@ img {
     margin-left: -40px;
   }
 }
+
 .dashboard_form {
   padding: 10px 10px 0px 20px;
   //margin: 15px;
@@ -1065,10 +1066,8 @@ img {
           width: 13px;
           height: 13px;
         }
-       
       }
 
-     
       @include respond(lg-desktop) {
         font-size: $font_size_mobile_input_label;
       }
@@ -1130,6 +1129,7 @@ img {
     height: 15px;
   }
 }
+
 .table_container {
   .table_scroll_outer {
     width: 100%;
@@ -1159,7 +1159,7 @@ img {
               padding-left: 15px;
             }
           }
-          
+
           img {
             width: 14px;
             height: 14px;
@@ -1275,6 +1275,7 @@ img {
     }
   }
 }
+
 .image_arrow {
   transform: translateX(80%);
   margin-top: 17px;
@@ -1372,11 +1373,12 @@ img {
     opacity: 0.6;
   }
 }
+
 .col_header {
   font-weight: 500;
   font-size: 16px;
   line-height: 17px;
- 
+
   letter-spacing: 0.53px;
   @include respond(lg-desktop) {
     font-size: 14px;

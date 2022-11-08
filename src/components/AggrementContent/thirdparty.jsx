@@ -41,7 +41,6 @@ function Index(props) {
     setIsFieldInFocus([...isFieldInFocus.slice(0, index), ...isFieldInFocus.slice(index + 1)]);
   };
 
-
   useEffect(() => {
     let tempArray = [];
 
@@ -54,9 +53,7 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
-
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
-
 
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
@@ -76,7 +73,6 @@ function Index(props) {
               ],
         );
       } else {
-
         setDeliveryData(props?.data?.deliveryTerm);
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
         setPaymentTerms(props?.data?.paymentTerms);
@@ -98,12 +94,11 @@ function Index(props) {
   }, [props.data]);
 
   useEffect(() => {
-    let temp=[...listContact]
-      temp.forEach((val,index)=>{
+    let temp = [...listContact];
+    temp.forEach((val, index) => {
       delete val?._id;
-      })
+    });
     if (props.saveData == true && props.active == 'Delivery Terms') {
-      
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -113,7 +108,7 @@ function Index(props) {
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log(temp,"listContact")
+      console.log(temp, 'listContact');
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -182,7 +177,7 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date </option>
+                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>

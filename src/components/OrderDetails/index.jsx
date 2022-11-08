@@ -13,7 +13,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const saveDate = (value, name) => {
-   
     const d = new Date(value);
     let text = d.toISOString();
     saveOrderData(name, text);
@@ -27,7 +26,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
     let filterData = commodity.filter((o) => {
       return o.Commodity.toLowerCase().includes(value.toLowerCase());
     });
-    
 
     setToShow(filterData);
     setToView(true);
@@ -36,7 +34,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
     saveOrderData(name, value);
     setToView(false);
   };
-  
+
   return (
     <div className={`${styles.main} border_color`}>
       <div className={`${styles.heading} heading_card_switch_blue`}>Order Details</div>
@@ -96,11 +94,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
               onBlur={(e) => {
                 setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
               }}
-             
-
-          
               onChange={(e) => {
-              
                 saveOrderData(e.target.name, e.target.value);
               }}
               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
@@ -111,7 +105,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
               }
               className={`${styles.input_field} input form-control`}
               required
-             
             />
             <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Quantity<strong className="text-danger">*</strong>
@@ -143,13 +136,9 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                     }`
               }
               onChange={(e) => {
-               
                 saveOrderData(e.target.name, e.target.value);
               }}
-            
               className={`${styles.input_field} input form-control`}
-            
-
               required
             />
             <label className={`${styles.label_heading}  label_heading`} id="textInput">

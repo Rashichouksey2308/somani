@@ -65,7 +65,6 @@ input[type='number'] {
 input[type='date']::-webkit-inner-spin-button,
 input[type='date']::-webkit-calendar-picker-indicator {
   opacity: 0;
-  
 }
 
 body.light-mode {
@@ -214,12 +213,10 @@ body.light-mode .card2 {
 
 body.dark-mode .previewCard {
   background: #171e27;
-
 }
 
 body.light-mode .previewCard {
   background: #d8eaff;
-
 }
 
 body.dark-mode .card_main {
@@ -253,7 +250,6 @@ body.light-mode .clear_btn {
   border-radius: 8px;
   color: #3687e8;
 }
-
 
 body.dark-mode .text {
   color: #ffffff80 !important;
@@ -466,7 +462,6 @@ body.dark-mode .background1 {
 }
 
 body.light-mode .background1 {
-
   background-color: #ffffff;
 }
 
@@ -544,13 +539,11 @@ body.dark-mode .filterList {
 body.light-mode .statusBox {
   background: #ffffff;
   box-shadow: 0 3px 6px #cad0e2;
-
 }
 
 body.dark-mode .statusBox {
   background: #232936;
   box-shadow: none;
-
 }
 
 body.light-mode .statusBox h3 {
@@ -750,8 +743,6 @@ body.dark-mode .table_row17 {
   color: #ffffff80;
   border: 2px solid #434e61;
 }
-
-
 
 body.light-mode .leads {
   background: #ffffff;
@@ -961,8 +952,6 @@ body.dark-mode .text_sales {
   color: #ffffff;
 }
 
-
-
 body.dark-mode .generic_th {
   color: #ffffff;
 }
@@ -989,7 +978,6 @@ body.light-mode th {
 body.dark-mode td {
   color: rgba(255, 255, 255, 0.7) !important;
   border-color: #434e61 !important;
-  
 }
 
 body.light-mode table_background {
@@ -1016,7 +1004,6 @@ body.light-mode .row_head {
 }
 
 body.dark-mode .image_arrow {
-  
   filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(352deg) brightness(103%) contrast(101%);
 }
 
@@ -1052,7 +1039,6 @@ body.dark-mode .gst_profile_alerts {
 
 body.light-mode .gst_profile_alerts {
   border-color: #d9dde8 !important;
-  
 }
 
 body.dark-mode .Compliance {

@@ -19,8 +19,6 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc);
 
-
-
   useEffect(() => {
     let id = sessionStorage.getItem('lcCompanyId');
     dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}`));
@@ -37,7 +35,6 @@ function Index() {
   }, [lcModule]);
 
   const handleRoute = (lc) => {
- 
     if (!lc.firstTimeUpdate) {
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
@@ -130,7 +127,6 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return;
                   } else {
                     setCurrentPage((prevState) => prevState - 1);
                   }

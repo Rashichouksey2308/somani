@@ -19,10 +19,8 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     if (localStorage.getItem('darkMode') == 'true' || localStorage.getItem('darkMode') == true) {
-
       setDarkMode(true);
     } else {
-
       setDarkMode(false);
     }
   }, []);
@@ -37,8 +35,6 @@ function Index() {
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
-
-  
 
   const { gstList } = useSelector((state) => state.buyer);
 
@@ -132,7 +128,6 @@ function Index() {
     incoTerm: '',
   });
 
-
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails };
 
@@ -185,7 +180,6 @@ function Index() {
   };
 
   const submitData = () => {
-   
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -198,19 +192,16 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (companyDetails.companyPan.trim().length !== 10) {
       let toastMessage = 'Please Fill A valid Company Pan';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (
       !String(companyDetails.email)
         .toLowerCase()
@@ -222,13 +213,11 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderDetails.commodity.trim() === '') {
       let toastMessage = 'Please Fill A valid Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (
       Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ||
       orderDetails.quantity === null ||
@@ -238,10 +227,7 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
-    }
-   
-    else if (
+    } else if (
       Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0 ||
       orderDetails.orderValue === null ||
       isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))
@@ -250,38 +236,27 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
-    }
-
-   
-    else if (orderDetails.countryOfOrigin.trim() === '') {
+    } else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderDetails.portOfDischarge.trim() === '') {
       let toastMessage = 'Please Fill A valid Port Of Discharge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (!orderDetails.ExpectedDateOfShipment) {
       let toastMessage = 'Please Fill  Last date of Shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
     } else if (orderDetails.incoTerm === '') {
       let toastMessage = 'Please Select A INCO Term';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
-    }
-   
-    else {
- 
+    } else {
       let docTypeArr = [];
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument);
@@ -298,13 +273,10 @@ function Index() {
       fd.append('documentType', JSON.stringify(docTypeArr));
 
       documents.forEach((val, index) => {
-      
         fd.append(`documents`, val.attachDoc);
       });
 
-    
       fd.append('gstList', JSON.stringify(gstListData));
-     
 
       dispatch(CreateBuyer(fd));
     }
@@ -315,14 +287,10 @@ function Index() {
     document.getElementById('OrderDetailsForm').reset();
     document.getElementById('documents').reset();
     document.getElementById('companyInput').value = '';
-
-   
   };
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      
-    }, 3000);
+    const delayDebounceFn = setTimeout(() => {}, 3000);
     return () => clearTimeout(delayDebounceFn);
   }, [companyDetails.companyName]);
 

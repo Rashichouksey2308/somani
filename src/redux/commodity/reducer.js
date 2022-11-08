@@ -1,4 +1,4 @@
-import * as types from './actionType';
+import * as types from './actionType'
 
 const initialState = {
   gettingAllCommodity: false,
@@ -8,91 +8,91 @@ const initialState = {
   updatingCommodity: false,
   updateCommodityResponse: false,
   creatingCommodity: false,
-  createdCommodity: null,
-};
+  createdCommodity: null
+}
 
-function CommodityReducer(state = initialState, action) {
+function CommodityReducer (state = initialState, action) {
   switch (action.type) {
     case types.GET_ALL_COMMODITY:
       return {
         ...state,
-        gettingAllCommodity: true,
-      };
+        gettingAllCommodity: true
+      }
 
     case types.GET_ALL_COMMODITY_SUCCESS:
       return {
         ...state,
         gettingAllCommodity: false,
-        allCommodity: action.payload,
-      };
+        allCommodity: action.payload
+      }
 
     case types.GET_ALL_COMMODITY_FAILED:
       return {
         ...state,
         gettingAllCommodity: false,
-        allCommodity: null,
-      };
+        allCommodity: null
+      }
 
     case types.GET_COMMODITY:
       return {
         ...state,
-        gettingCommodity: true,
-      };
+        gettingCommodity: true
+      }
 
     case types.GET_COMMODITY_SUCCESS:
       return {
         ...state,
         gettingCommodity: false,
-        Commodity: action.payload,
-      };
+        Commodity: action.payload
+      }
 
     case types.GET_COMMODITY_FAILED:
       return {
         ...state,
-        gettingCommodity: false,
-      };
+        gettingCommodity: false
+      }
 
     case types.UPDATE_COMMODITY:
       return {
         ...state,
         updatingCommodity: true,
-        updateCommodityResponse: null,
-      };
+        updateCommodityResponse: null
+      }
     case types.UPDATE_COMMODITY_SUCCESS:
       return {
         ...state,
         updatingCommodity: false,
-        updateCommodityResponse: action.payload,
-      };
+        updateCommodityResponse: action.payload
+      }
     case types.UPDATE_COMMODITY_FAILED:
       return {
         ...state,
         updatingCommodity: false,
-        updateCommodityResponse: null,
-      };
+        updateCommodityResponse: null
+      }
 
     case types.CREATE_COMMODITY:
       return {
         ...state,
         creatingCommodity: true,
-        createdCommodity: null,
-      };
+        createdCommodity: null
+      }
     case types.CREATE_COMMODITY_SUCCESS:
       return {
         ...state,
         creatingCommodity: false,
-        createdCommodity: action.payload,
-      };
+        createdCommodity: action.payload
+      }
     case types.CREATE_COMMODITY_FAILED:
       return {
         ...state,
         creatingCommodity: false,
-        createdCommodity: null,
-      };
+        createdCommodity: null
+      }
 
     default:
-      return state;
+      return state
   }
 }
 
-export default CommodityReducer;
+export default CommodityReducer

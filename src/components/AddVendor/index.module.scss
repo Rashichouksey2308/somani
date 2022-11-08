@@ -1329,11 +1329,12 @@ img {
     opacity: 0.6;
   }
 }
+
 .col_header {
   font-weight: 500;
   font-size: 16px;
   line-height: 17px;
- 
+
   letter-spacing: 0.53px;
   @include respond(lg-desktop) {
     font-size: 14px;

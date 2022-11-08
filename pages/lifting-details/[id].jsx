@@ -1,8 +1,8 @@
-import React from 'react';
-import LcDetails from '../../src/components/LcDetails';
+import React from 'react'
+import LcDetails from '../../src/components/LcDetails'
 
 const Index = () => {
-  return <LcDetails />;
-};
+  return <LcDetails />
+}
 
-export default Index;
+export default Index

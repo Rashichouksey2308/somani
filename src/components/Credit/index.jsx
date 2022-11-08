@@ -13,6 +13,7 @@ import AddressComponent from './addressComponent';
 import _get from 'lodash/get';
 import MultiSelect from '../MutilSelect';
 import { SearchSupplier } from 'redux/supplier/action';
+
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -107,7 +108,6 @@ const index = ({
     setKeyAddressData(newInput);
   };
 
-
   const addMoreDebtRows = () => {
     setDebtData([
       ...debtData,
@@ -176,8 +176,6 @@ const index = ({
     setKeyPersonData(personData);
   }, [personData]);
 
-  
-
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
 
@@ -199,14 +197,12 @@ const index = ({
 
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData);
-    
   };
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
 
-    
     setKeyAddressData(newInput);
   };
 
@@ -402,7 +398,7 @@ const index = ({
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
-   
+
     setEditData(newInput);
   };
 
@@ -419,11 +415,9 @@ const index = ({
 
   const [exSupplier, setexSupplier] = useState([]);
 
-
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
-      
     }
   }, [creditDetail?.existingSuppliers]);
 
@@ -456,12 +450,10 @@ const index = ({
   };
 
   const handleFilteredData = (results) => {
-   
-      let temp = [...exSupplier];
-      temp.push(results?.supplierProfile?.supplierName);
-      setexSupplier([...temp]);
-      setSearchTerm('')
-    
+    let temp = [...exSupplier];
+    temp.push(results?.supplierProfile?.supplierName);
+    setexSupplier([...temp]);
+    setSearchTerm('');
   };
 
   return (
@@ -477,12 +469,7 @@ const index = ({
           <h3 className={`${styles.heading} mb-0`}>Product Summary</h3>
           <span>+</span>
         </div>
-        <div
-          id="productSummary"
-
-          aria-labelledby="productSummary"
-          data-parent="#profileAccordion"
-        >
+        <div id="productSummary" aria-labelledby="productSummary" data-parent="#profileAccordion">
           <div className={`${styles.dashboard_form} card-body border_color`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -512,7 +499,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.monthlyProductionCapacity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -550,8 +536,6 @@ const index = ({
                       ? creditDetail?.capacityUtilization
                       : checkNan(Number(creditDetail?.capacityUtilization), 'no') + ' %'
                   }
-
-                  
                   name="capacityUtilization"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -589,7 +573,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.averageStockOfCommodity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-              
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -628,7 +611,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.averageStockInTransit))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-               
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -667,7 +649,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.availableStock))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -704,7 +685,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.dailyConsumptionOfCommodity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -762,7 +742,7 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
-                    id='Existing Supplier(s)'
+                    id="Existing Supplier(s)"
                     handleSearch={handleSearch}
                     handleFilteredData={handleFilteredData}
                     removeInput={removeInput}
@@ -826,11 +806,7 @@ const index = ({
                   />
                 </div>
                 <div className={`${styles.tooltip} `}>
-                  <img
-                  
-                    className={`${styles.info_circle} img-fluid`}
-                    src="/static/info-circle.svg"
-                  />
+                  <img className={`${styles.info_circle} img-fluid`} src="/static/info-circle.svg" />
 
                   <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
                 </div>
@@ -877,7 +853,7 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing CHA(s)"
                     emails={emails}
-                    id='Existing CHA(s)'
+                    id="Existing CHA(s)"
                     onChange={(_emails) => {
                       let temp = [...emails];
                       temp.push(_emails[0]);
@@ -1115,7 +1091,6 @@ const index = ({
                       ? supplierCred?.commodityOfTotalTrade
                       : checkNan(Number(supplierCred?.commodityOfTotalTrade), 'no') + ' %'
                   }
-                 
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value);
@@ -1126,11 +1101,7 @@ const index = ({
                   <strong className="text-danger">*</strong>
                 </label>
                 <div className={`${styles.tooltip} `}>
-                  <img
-                 
-                    className={`${styles.info_circle} img-fluid`}
-                    src="/static/info-circle.svg"
-                  />
+                  <img className={`${styles.info_circle} img-fluid`} src="/static/info-circle.svg" />
 
                   <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
                 </div>
@@ -1642,7 +1613,6 @@ const index = ({
                           onChange={(e) => {
                             mobileFunction(e);
                           }}
-                       
                         />
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
