@@ -56,7 +56,6 @@ function Index({
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return;
               } else {
                 setCurrentPage((prevState) => prevState - 1);
               }
@@ -132,15 +131,11 @@ function Index({
                     <td>{insured?.order?.commodity}</td>
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
-                      {
-                        insured?.quotationRequest?.insuranceType == 'Marine Insurance'
-                          ? moment(insured?.marineInsurance?.insuranceTo).format('DD-MM-YYYY')
-                          : insured?.quotationRequest?.insuranceType == 'Storage Insurance'
-                          ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
-                          : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
-
-                      
-                      }
+                      {insured?.quotationRequest?.insuranceType == 'Marine Insurance'
+                        ? moment(insured?.marineInsurance?.insuranceTo).format('DD-MM-YYYY')
+                        : insured?.quotationRequest?.insuranceType == 'Storage Insurance'
+                        ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
+                        : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')}
                     </td>
 
                     {getStatus(insured) ? (

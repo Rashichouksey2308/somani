@@ -33,10 +33,14 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
         <p className="text_sales">
           {' '}
           <b>{data.buyer}</b>, a company incorporated under the Indian Companies Act, 1956, having its Registered Office
-          at <b>{data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
-                {data.buyerAddress?.pinCode}</b>, through its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b>{' '}
-          or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning
-          thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.
+          at{' '}
+          <b>
+            {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+            {data.buyerAddress?.pinCode}
+          </b>
+          , through its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b> or <strong>“Seller”</strong>,
+          which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and
+          include its successors and permitted assigns, attorneys) of One Part.
         </p>
         <p className=" text-center text_sales">AND</p>
         <p className="text_sales">
@@ -1043,8 +1047,8 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               Address of Buyer
             </Col>
             <Col md={7} className={styles.right}>
-             {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
-                {data.buyerAddress?.pinCode}
+              {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+              {data.buyerAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

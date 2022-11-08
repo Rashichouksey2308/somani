@@ -1,11 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from './index.module.scss';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import styles from './index.module.scss'
 
-function Index({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 'Save' }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
-
+function Index ({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 'Save' }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
 
   return (
     <div
@@ -16,8 +15,7 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 
         <div
           onClick={() => {
             if (handleSave) {
-           
-              handleSave();
+              handleSave()
             }
           }}
           className={`${styles.reject} ml-3`}
@@ -29,22 +27,16 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 
         <div
           className={`${styles.approve} ml-3`}
           onClick={() => {
-          
             if (rightBtnClick) {
-
-              rightBtnClick();
-
-          
+              rightBtnClick()
             }
-
-          
           }}
         >
           <span>{rightBtn}</span>
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

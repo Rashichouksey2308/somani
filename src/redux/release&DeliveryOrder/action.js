@@ -1,208 +1,208 @@
-import * as types from './actionType';
-import Axios from 'axios';
-import { toast } from 'react-toastify';
-import API from '../../utils/endpoints';
-import Cookies from 'js-cookie';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
+import * as types from './actionType'
+import Axios from 'axios'
+import { toast } from 'react-toastify'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getDelivery() {
+function getDelivery () {
   return {
-    type: types.GET_DELIVERY,
-  };
+    type: types.GET_DELIVERY
+  }
 }
 
-function getDeliverySuccess(payload) {
+function getDeliverySuccess (payload) {
   return {
     type: types.GET_DELIVERY_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getDeliveryFailed() {
+function getDeliveryFailed () {
   return {
-    type: types.GET_DELIVERY_FAILED,
-  };
+    type: types.GET_DELIVERY_FAILED
+  }
 }
 
-function getAllDelivery() {
+function getAllDelivery () {
   return {
-    type: types.GET_ALL_DELIVERY,
-  };
+    type: types.GET_ALL_DELIVERY
+  }
 }
 
-function getAllDeliverySuccess(payload) {
+function getAllDeliverySuccess (payload) {
   return {
     type: types.GET_ALL_DELIVERY_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getAllDeliveryFailed() {
+function getAllDeliveryFailed () {
   return {
-    type: types.GET_ALL_DELIVERY_FAILED,
-  };
+    type: types.GET_ALL_DELIVERY_FAILED
+  }
 }
 
-function updateDelivery() {
+function updateDelivery () {
   return {
-    type: types.UPDATE_DELIVERY,
-  };
+    type: types.UPDATE_DELIVERY
+  }
 }
 
-function updateDeliverySuccess(payload) {
+function updateDeliverySuccess (payload) {
   return {
     type: types.UPDATE_DELIVERY_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function updateDeliveryFailed() {
+function updateDeliveryFailed () {
   return {
-    type: types.UPDATE_DELIVERY_FAILED,
-  };
+    type: types.UPDATE_DELIVERY_FAILED
+  }
 }
 
 export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.delivery}${payload || ''}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllDeliverySuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(getAllDeliverySuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getAllDeliveryFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(getAllDeliveryFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getAllDeliveryFailed());
+    dispatch(getAllDeliveryFailed())
 
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const GetDelivery = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.delivery}${payload}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getDeliverySuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(getDeliverySuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getDeliveryFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(getDeliveryFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getDeliveryFailed());
+    dispatch(getDeliveryFailed())
 
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.put(`${API.corebaseUrl}${API.delivery}`, payload.payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updateDeliverySuccess(response.data.data));
-        const id = sessionStorage.getItem('ROrderID');
-        dispatch(GetDelivery(`?deliveryId=${id}`));
+        dispatch(updateDeliverySuccess(response.data.data))
+        const id = sessionStorage.getItem('ROrderID')
+        dispatch(GetDelivery(`?deliveryId=${id}`))
 
-        let toastMessage = 'SAVED SUCCESSFULLY';
+        let toastMessage = 'SAVED SUCCESSFULLY'
         if (payload.task === 'submit') {
-          toastMessage = 'updated successfully';
+          toastMessage = 'updated successfully'
         }
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       } else {
-        dispatch(updateDeliveryFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(updateDeliveryFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(updateDeliveryFailed());
+    dispatch(updateDeliveryFailed())
 
-    const toastMessage = 'COULD NOT SUBMIT YOUR REQUEST';
+    const toastMessage = 'COULD NOT SUBMIT YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.delivery}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getDeliverySuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(getDeliverySuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getDeliveryFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(getDeliveryFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getDeliveryFailed());
+    dispatch(getDeliveryFailed())
 
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}

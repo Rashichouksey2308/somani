@@ -53,11 +53,9 @@ const Index = ({
     suggestedCreditLimit: false,
   });
 
-
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
   });
-
 
   const [exposureData, setExposureData] = useState({
     accountConduct: '',
@@ -92,8 +90,6 @@ const Index = ({
     setEditStren(strenthCommentseditable);
   }, [companyComment, financialsComment, strengthsComment, weaknessComment]);
 
- 
-
   const onExpSave = () => {
     addGroupExpArr(exposureData);
   };
@@ -118,7 +114,6 @@ const Index = ({
         val[name] = value;
       }
     });
-
 
     setGroupExposureData([...tempArr]);
   };
@@ -387,14 +382,12 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
-                             
                               value={profile?.limit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
 
                                 if (re.test(evt.target.value) == false) {
-                                 
                                 }
                               }}
                               onChange={(e) => {
@@ -418,7 +411,6 @@ const Index = ({
                                 const re = /^[0-9\b]+$/;
 
                                 if (re.test(evt.target.value) == false) {
-                               
                                 }
                               }}
                               onChange={(e) => {
@@ -491,7 +483,6 @@ const Index = ({
               <div
                 role="button"
                 onClick={(e) => {
-                
                   addMoreExpRows();
                 }}
               >
@@ -715,7 +706,6 @@ const Index = ({
                             ? suggestedCredit?.suggestedCreditLimit
                             : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
                         }
-                      
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
                         }}
@@ -760,7 +750,6 @@ const Index = ({
                             ? suggestedCredit?.suggestedOrderValue
                             : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
                         }
-                      
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
                         }}

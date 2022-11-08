@@ -143,8 +143,6 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
       let toastMessage = 'Comment of same type already exists';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-
-        return;
       }
     } else {
       setAdditionalComments([...additionalComments, { additionalCommentType: commentType, comment: textGenerator() }]);

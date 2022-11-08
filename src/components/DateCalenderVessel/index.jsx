@@ -23,7 +23,6 @@ const Index = ({
 
   useEffect(() => {
     if (startFrom) {
-   
       setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
     } else {
       setlastDate(new Date());
@@ -33,7 +32,6 @@ const Index = ({
     setStartDate(null);
   }, [reset]);
 
- 
   return (
     <>
       <div className="vessel_card w-100">

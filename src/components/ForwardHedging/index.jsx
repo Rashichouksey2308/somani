@@ -123,10 +123,8 @@ export default function Index() {
   };
 
   const uploadDocument = async (e) => {
-   
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -141,21 +139,15 @@ export default function Index() {
       let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
-     
-      if (response.data.code === 200) {
-      
 
+      if (response.data.code === 200) {
         return response.data.data;
       } else {
-        
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   const uploadDocument1 = async (e, index) => {
-   
     const doc = await uploadDocument(e);
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -169,7 +161,6 @@ export default function Index() {
       });
       return newState;
     });
-    
   };
 
   const [cancel, setCancel] = useState(false);
@@ -182,7 +173,6 @@ export default function Index() {
     let tempArr = [...list];
     tempArr[index].forwardSalesContract = null;
     setList(tempArr);
-  
   };
 
   const [editInput, setEditInput] = useState(true);
@@ -200,7 +190,6 @@ export default function Index() {
 
     hedgingObj.balanceAmount = list.bookedAmount;
 
-  
     let obj = {
       forwardHedgingId: hedgingData?._id,
       detail: hedgingObj,
@@ -286,8 +275,6 @@ export default function Index() {
   const handleSubmit = () => {
     if (validation()) {
       let hedgingObj = [...list];
-
-  
 
       let obj = {
         forwardHedgingId: hedgingData?._id,
@@ -447,7 +434,6 @@ export default function Index() {
                                 (e.target.type = 'text');
                             }}
                             name="bookedAmount"
-                          
                             value={
                               isFieldInFocus.bookedAmount
                                 ? item.bookedAmount

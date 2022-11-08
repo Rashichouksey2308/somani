@@ -25,8 +25,6 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc);
 
-
-
   const lcModuleData = _get(lcModule, 'data[0]', {});
 
   const [show, setShow] = useState(false);
@@ -91,7 +89,7 @@ function Index() {
           <div className={`${styles.term_container} container-fluid download-pdf-bg`}>
             <Row>
               <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-                <h3 className='download-pdf-title'>APPLICATION FOR LETTER OF CREDIT</h3>
+                <h3 className="download-pdf-title">APPLICATION FOR LETTER OF CREDIT</h3>
               </Col>
             </Row>
 
@@ -453,7 +451,11 @@ function Index() {
                                                 'data[0].order.generic.productSpecifications.specificationTable',
                                                 [],
                                               )[0],
-                                            ).map((val, index) => <th className='border-left' key={index}>{val}</th>)}
+                                            ).map((val, index) => (
+                                              <th className="border-left" key={index}>
+                                                {val}
+                                              </th>
+                                            ))}
                                         </tr>
                                         {_get(
                                           lcModule,

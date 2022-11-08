@@ -206,12 +206,15 @@
     width: 11px;
   }
 }
+
 .btn_red {
-  color: #EA3F3F;
+  color: #ea3f3f;
 }
+
 .btn_green {
-  color: #43C34D;
+  color: #43c34d;
 }
+
 .verify_gst {
   top: 50%;
   left: 50%;
@@ -234,9 +237,8 @@
     }
   }
 
- .title {
-  padding: 15px;
-
+  .title {
+    padding: 15px;
 
     h3 {
       font-size: 22px;
@@ -245,39 +247,41 @@
       line-height: 27px;
       margin-bottom: 0;
     }
+
     img {
       width: 14px;
       height: 14px;
     }
-  
- }
- .btn {
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 16px;
-  height: 30px;
-  cursor: pointer;
-  text-align: center;
-  width: 49%;
-  max-width: 90px;
-  border-radius: 5px;
-  box-shadow: none;
-  @include respond(md-desktop) {
-    font-size: 16px;
   }
 
-  &.close {
-    color: #4d4d4d;
-    // background: #FFFFFF;
-    border: 3px solid #d5d5d5;
+  .btn {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 16px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    width: 49%;
+    max-width: 90px;
+    border-radius: 5px;
+    box-shadow: none;
+    @include respond(md-desktop) {
+      font-size: 16px;
+    }
+
+    &.close {
+      color: #4d4d4d;
+      // background: #FFFFFF;
+      border: 3px solid #d5d5d5;
+    }
+
+    &.submit {
+      color: #ffffff;
+      background: #3687e8;
+      border: 3px solid #3687e8;
+    }
   }
 
-  &.submit {
-    color: #ffffff;
-    background: #3687e8;
-    border: 3px solid #3687e8;
-  }
-}
   .card_body {
     padding: 21px 35px 51px;
 
@@ -288,9 +292,5 @@
       line-height: 22px;
       letter-spacing: 0.53px;
     }
-
-   
-    
-   
   }
 }

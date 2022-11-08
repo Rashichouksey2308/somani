@@ -6,16 +6,13 @@ import _get from 'lodash/get';
 import { convertValue } from '../../../utils/helper';
 
 function Index({ balanceData, rtrnChartIndiaction }) {
-  
   const [darkMode, setDarkMode] = useState(false);
   const [unit, setUnit] = useState(10000000);
 
   useEffect(() => {
     if (localStorage.getItem('darkMode') == 'true' || localStorage.getItem('darkMode') == true) {
-
       setDarkMode(true);
     } else {
-     
       setDarkMode(false);
     }
   }, []);
@@ -25,9 +22,6 @@ function Index({ balanceData, rtrnChartIndiaction }) {
   const lastYearData = _get(balanceData, 'financial.balanceSheet[2]', {});
 
   const yearArray = _get(balanceData, 'financial.other.financialYears', ['', '', '']);
- 
-
-
 
   return (
     <>

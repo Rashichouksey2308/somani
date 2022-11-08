@@ -7,8 +7,6 @@ import { checkNan, CovertvaluefromtoCR } from '../../../utils/helper';
 import _get from 'lodash/get';
 
 function Index({ order, companyDetail }) {
-
-
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
     referedBy: '',
@@ -22,8 +20,6 @@ function Index({ order, companyDetail }) {
       sourceChanel: order?.sourceChanel ?? '',
     };
     setUpdateCompany(newCompanyData);
-
-   
   }, [order]);
 
   const dispatch = useDispatch();
@@ -31,7 +27,7 @@ function Index({ order, companyDetail }) {
   const onChangeHandler = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-  
+
     setUpdateCompany((prev) => ({ ...prev, [Key]: value }));
   };
 
@@ -40,10 +36,9 @@ function Index({ order, companyDetail }) {
       ...updateCompany,
       _id: companyDetail?.company,
     };
-    
+
     dispatch(UpdateCompanyDetails(payload));
   };
-
 
   return (
     <>
@@ -58,12 +53,7 @@ function Index({ order, companyDetail }) {
           <h2 className="mb-0">Company Details</h2>
           <span>+</span>
         </div>
-        <div
-          id="companyDetails"
-       
-          aria-labelledby="companyDetails"
-          data-parent="#profileAccordion"
-        >
+        <div id="companyDetails" aria-labelledby="companyDetails" data-parent="#profileAccordion">
           <div className={`${styles.cardBody} card-body border_color`}>
             <div className="row">
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -230,7 +220,7 @@ function Index({ order, companyDetail }) {
 
                     <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
-                    <option value="Customs Associate"> Customs Associate </option>
+                    <option value="Customs Associate"> Customs Associate</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Sourcing Channel

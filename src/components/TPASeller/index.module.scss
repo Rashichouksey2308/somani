@@ -5,7 +5,6 @@
   font-family: 'Times New Roman', Times, serif;
 
   .content {
- 
     box-shadow: 0px 3px 6px #cad0e2;
     border-radius: 6px !important;
 
@@ -45,7 +44,7 @@
           width: fit-content;
           height: 36px;
           outline: none;
-         
+
           border-radius: 4px;
         }
       }
@@ -70,11 +69,13 @@
         line-height: 1.3;
       }
     }
+
     ol {
       font-size: 20px;
       line-height: 36px;
     }
-    ul {  
+
+    ul {
       font-size: 20px;
       line-height: 36px;
     }
@@ -143,12 +144,11 @@
     }
 
     .para {
-    
       text-align: left;
       width: 100%;
       height: 100%;
       outline: none;
-     
+
       border-radius: 4px;
     }
   }
@@ -255,11 +255,10 @@
   }
 
   .para {
-   
     text-align: left;
     width: 100%;
     height: 100%;
-  
+
     background: #c3c3c31f;
     border: 1px solid #0000001f;
     border-radius: 4px;

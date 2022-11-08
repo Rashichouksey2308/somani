@@ -21,7 +21,7 @@ function Index({
   commodity,
 }) {
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState(['Import', 'Domestic']);
- 
+
   const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
   const countryOfOriginDropdown = ['India', 'Australia', 'Sri Lanka', 'Qatar', 'Dubai'];
   const portOfDischargeDropdown = ['Mumbai, India', 'Gujrat, India', 'Vishakapatnam, India'];
@@ -67,8 +67,6 @@ function Index({
     document.getElementById('ReviewProfileForm').reset();
   };
 
-
-
   const handleCheckBox = (index, name) => {
     let tempArr = [...fields];
     tempArr[index].isEdit = !tempArr[index].isEdit;
@@ -80,7 +78,6 @@ function Index({
       setPayloadData(tempObj);
     }
   };
- 
 
   return (
     <div className={`${styles.leads} border card`}>
@@ -319,36 +316,33 @@ function Index({
                     ) : null}
                   </td>
                   <td>
-                    {
-                      !reviewedProfile?.countryOfOrigin?.apiResponse && (
-                        <>
-                          <div className="d-inline-flex align-items-center position-relative">
-                            <Form.Select
-                              size="sm"
-                              name={'countryOfOrigin'}
-                              className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-                              onChange={(e) => {
-                                handleChange(e.target.name, e.target.value);
-                              }}
-                              value={payloadData.country}
-                              disabled={fields[5].isEdit}
-                            >
-                              {' '}
-                              <option value="">Select an option</option>
-                              {country.map((options) => {
-                                return <option value={`${options.Country}`}>{options.Country}</option>;
-                              })}{' '}
-                            </Form.Select>
-                            <img
-                              className={`${styles.arrow2} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </>
-                      )
-                    
-                    }
+                    {!reviewedProfile?.countryOfOrigin?.apiResponse && (
+                      <>
+                        <div className="d-inline-flex align-items-center position-relative">
+                          <Form.Select
+                            size="sm"
+                            name={'countryOfOrigin'}
+                            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                            onChange={(e) => {
+                              handleChange(e.target.name, e.target.value);
+                            }}
+                            value={payloadData.country}
+                            disabled={fields[5].isEdit}
+                          >
+                            {' '}
+                            <option value="">Select an option</option>
+                            {country.map((options) => {
+                              return <option value={`${options.Country}`}>{options.Country}</option>;
+                            })}{' '}
+                          </Form.Select>
+                          <img
+                            className={`${styles.arrow2} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </>
+                    )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -375,46 +369,43 @@ function Index({
                     ) : null}
                   </td>
                   <td>
-                    {
-                      !reviewedProfile?.portOfDischarge?.apiResponse && (
-                        <>
-                          <div className="d-inline-flex align-items-center position-relative">
-                            <Form.Select
-                              size="sm"
-                              name={'portOfDischarge'}
-                              className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-                              onChange={(e) => {
-                                handleChange(e.target.name, e.target.value);
-                              }}
-                              value={payloadData.port}
-                              disabled={fields[6]?.isEdit}
-                            >
-                              {' '}
-                              <option value="">Select an option</option>
-                              {port
-                                .filter((val, index) => {
-                                  if (val.Country.toLowerCase() == 'india') {
-                                    return val;
-                                  }
-                                })
-                                .map((options) => {
-                                  return (
-                                    <option value={`${options.Port_Name},${options.Country}`}>
-                                      {options.Port_Name},{options.Country}
-                                    </option>
-                                  );
-                                })}{' '}
-                            </Form.Select>
-                            <img
-                              className={`${styles.arrow2} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </>
-                      )
-                   
-                    }
+                    {!reviewedProfile?.portOfDischarge?.apiResponse && (
+                      <>
+                        <div className="d-inline-flex align-items-center position-relative">
+                          <Form.Select
+                            size="sm"
+                            name={'portOfDischarge'}
+                            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                            onChange={(e) => {
+                              handleChange(e.target.name, e.target.value);
+                            }}
+                            value={payloadData.port}
+                            disabled={fields[6]?.isEdit}
+                          >
+                            {' '}
+                            <option value="">Select an option</option>
+                            {port
+                              .filter((val, index) => {
+                                if (val.Country.toLowerCase() == 'india') {
+                                  return val;
+                                }
+                              })
+                              .map((options) => {
+                                return (
+                                  <option value={`${options.Port_Name},${options.Country}`}>
+                                    {options.Port_Name},{options.Country}
+                                  </option>
+                                );
+                              })}{' '}
+                          </Form.Select>
+                          <img
+                            className={`${styles.arrow2} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </>
+                    )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -444,7 +435,6 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
-                  
                       <div className={`${styles.calender}  d-flex`}>
                         <DateCalender
                           defaultDate={payloadData.ExpectedDateOfShipment}
@@ -527,5 +517,3 @@ function Index({
 }
 
 export default Index;
-
-

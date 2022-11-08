@@ -1,240 +1,239 @@
-import * as types from './actionType';
-import Axios from 'axios';
-import { toast } from 'react-toastify';
-import API from '../../utils/endpoints';
-import Cookies from 'js-cookie';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
+import * as types from './actionType'
+import Axios from 'axios'
+import { toast } from 'react-toastify'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getVessel() {
+function getVessel () {
   return {
-    type: types.GET_VESSEL,
-  };
+    type: types.GET_VESSEL
+  }
 }
 
-function getVesselSuccess(payload) {
+function getVesselSuccess (payload) {
   return {
     type: types.GET_VESSEL_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getVesselFailed() {
+function getVesselFailed () {
   return {
-    type: types.GET_VESSEL_FAILED,
-  };
+    type: types.GET_VESSEL_FAILED
+  }
 }
 
-function getAllVessel() {
+function getAllVessel () {
   return {
-    type: types.GET_ALL_VESSEL,
-  };
+    type: types.GET_ALL_VESSEL
+  }
 }
 
-function getAllVesselSuccess(payload) {
+function getAllVesselSuccess (payload) {
   return {
     type: types.GET_ALL_VESSEL_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getAllVesselFailed() {
+function getAllVesselFailed () {
   return {
-    type: types.GET_ALL_VESSEL_FAILED,
-  };
+    type: types.GET_ALL_VESSEL_FAILED
+  }
 }
 
-function updateVessel() {
+function updateVessel () {
   return {
-    type: types.UPDATE_VESSEL,
-  };
+    type: types.UPDATE_VESSEL
+  }
 }
 
-function updateVesselSuccess(payload) {
+function updateVesselSuccess (payload) {
   return {
     type: types.UPDATE_VESSEL_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function updateVesselFailed() {
+function updateVesselFailed () {
   return {
-    type: types.UPDATE_VESSEL_FAILED,
-  };
+    type: types.UPDATE_VESSEL_FAILED
+  }
 }
 
-function uploadDocVessel() {
+function uploadDocVessel () {
   return {
-    type: types.UPLOAD_DOC_VESSEL,
-  };
+    type: types.UPLOAD_DOC_VESSEL
+  }
 }
 
-function uploadDocVesselSuccess(payload) {
+function uploadDocVesselSuccess (payload) {
   return {
     type: types.UPLOAD_DOC_VESSEL_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function uploadDocVesselFailed() {
+function uploadDocVesselFailed () {
   return {
-    type: types.UPLOAD_DOC_VESSEL_FAILED,
-  };
+    type: types.UPLOAD_DOC_VESSEL_FAILED
+  }
 }
 
 export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.get(`${API.corebaseUrl}${API.getVessel}${payload || ''}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllVesselSuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(getAllVesselSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getAllVesselFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(getAllVesselFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getAllVesselFailed());
+    dispatch(getAllVesselFailed())
 
-    const toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME';
+    const toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const GetVessel = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     const response = await Axios.get(`${API.corebaseUrl}${API.getVessel}${payload}`, {
-      headers: headers,
-    });
+      headers: headers
+    })
     if (response.data.code === 200) {
-     
-      dispatch(setNotLoading());
-      return response.data.data;
+      dispatch(setNotLoading())
+      return response.data.data
     } else {
-      dispatch(getVesselFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      dispatch(getVesselFailed(response.data.data))
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      dispatch(setNotLoading());
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(getVesselFailed());
+    dispatch(getVesselFailed())
 
-    const toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME';
+    const toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
 
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     const response = await Axios.put(`${API.corebaseUrl}${API.getVessel}`, payload, {
-      headers: headers,
-    });
+      headers: headers
+    })
     if (response.data.code === 200) {
-      sessionStorage.setItem('quotationId', response.data.data.order.insurance);
-      dispatch(updateVesselSuccess(response.data.data));
-      dispatch(setNotLoading());
-      return response.data.code;
+      sessionStorage.setItem('quotationId', response.data.data.order.insurance)
+      dispatch(updateVesselSuccess(response.data.data))
+      dispatch(setNotLoading())
+      return response.data.code
     } else {
-      dispatch(updateVesselFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      dispatch(updateVesselFailed(response.data.data))
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      dispatch(setNotLoading());
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(updateVesselFailed());
+    dispatch(updateVesselFailed())
 
-    const toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME';
+    const toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  const cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(uploadDocVesselSuccess(response.data.data));
-        const toastMessage = 'DOCUMENT UPLOADED SUCCESSFULL';
+        dispatch(uploadDocVesselSuccess(response.data.data))
+        const toastMessage = 'DOCUMENT UPLOADED SUCCESSFULL'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       } else {
-        dispatch(uploadDocVesselFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(uploadDocVesselFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(uploadDocVesselFailed());
+    dispatch(uploadDocVesselFailed())
 
-    const toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME';
+    const toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}

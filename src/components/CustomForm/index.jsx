@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react'
+import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
+import { toast } from 'react-toastify'
 
-import 'react-toastify/dist/ReactToastify.css';
-import UploadFile from '../UploadFile';
-import Config from '../../utils/config';
-import history from '../../history';
-import CustomButton from '../CustomButton';
-import CartTitle from '../CartTitle';
-import InputText from '../InputText';
-import Loader from '../Loader';
+import 'react-toastify/dist/ReactToastify.css'
+import UploadFile from '../UploadFile'
+import Config from '../../utils/config'
+import history from '../../history'
+import CustomButton from '../CustomButton'
+import CartTitle from '../CartTitle'
+import InputText from '../InputText'
+import Loader from '../Loader'
 
-import { fetchQueryParams } from '../../utils/comman';
+import { fetchQueryParams } from '../../utils/comman'
 
-import get from 'lodash/get';
+import get from 'lodash/get'
 
-const _ = { get };
+const _ = { get }
 
 const initialState = {
   addressLine1: '',
@@ -56,329 +56,323 @@ const initialState = {
   instagramUrl: '',
   image: {
     preview: null,
-    Image: null,
+    Image: null
   },
-  description: '',
-};
+  description: ''
+}
 
-function BranchCreation(props) {
-  const { elements } = props;
+function BranchCreation (props) {
+  const { elements } = props
 
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState)
 
   useEffect(() => {
     if (props.page === 'create-branch') {
-      setInitialState();
-      const queryParams = props.query;
+      setInitialState()
+      const queryParams = props.query
       if (queryParams === '') {
-        history.push(`/dealer/list`);
+        history.push(`/dealer/list`)
       } else {
-        const params = fetchQueryParams(props.query);
-        const id = params.dealerId;
+        const params = fetchQueryParams(props.query)
+        const id = params.dealerId
 
         if (props.dealerData !== null) {
-          handleAutoFillDealerData();
-          state.tab = params.tab;
-          state.id = params.dealerId;
-          setState({ ...state });
+          handleAutoFillDealerData()
+          state.tab = params.tab
+          state.id = params.dealerId
+          setState({ ...state })
         } else {
-          props.handleSingleDealerFetch(id);
+          props.handleSingleDealerFetch(id)
         }
       }
     } else {
-      const queryParams = props.query;
+      const queryParams = props.query
       if (queryParams === '') {
-        history.push(`/branch/list`);
+        history.push(`/branch/list`)
       } else {
-        const params = fetchQueryParams(props.query);
-        const id = params.branchId;
+        const params = fetchQueryParams(props.query)
+        const id = params.branchId
         if (props.branchData !== null) {
-          handleUpdateForm();
+          handleUpdateForm()
         } else {
-          props.handleFetchSingleBranch(id);
-          handleUpdateForm();
+          props.handleFetchSingleBranch(id)
+          handleUpdateForm()
         }
       }
     }
-  }, [props.dealerData, props.branchData]);
+  }, [props.dealerData, props.branchData])
 
   const setInitialState = () => {
-    state.addressLine1 = '';
-    state.addressLine2 = '';
-    state.addressLine3 = '';
-    state.altPhone = '';
-    state.businessHours = '';
-    state.city = '';
-    state.city_id = '';
-    state.country = '';
-    state.countryCode = '';
-    state.country_id = '';
-    state.branchPrincipalName = '';
-    state.branchName = '';
-    state.emailId = '';
-    state.googlePlaceId = '';
-    state.landmark = '';
-    state.longitude = 0;
-    state.latitude = 0;
-    state.phone = '';
-    state.pincode = '';
-    state.state = '';
-    state.stateCode = '';
-    state.state_id = '';
-    state.storeManagerName = '';
-    state.websiteUrl = '';
-    state.weeklyOff = '';
-    state.locality = null;
-    state.dealerName = '';
-    state.dealerPrincipalName = '';
-    state.dealerId = '';
-    state.dealerWebsiteUrl = '';
-    state.tab = '';
-    state.id = '';
-    state.branchId = '';
-    state.facebookUrl = '';
-    state.branchCode = '';
-    state.instagramUrl = '';
-    state.image.preview = null;
-    state.image.Image = null;
-    setState({ ...state });
-  };
+    state.addressLine1 = ''
+    state.addressLine2 = ''
+    state.addressLine3 = ''
+    state.altPhone = ''
+    state.businessHours = ''
+    state.city = ''
+    state.city_id = ''
+    state.country = ''
+    state.countryCode = ''
+    state.country_id = ''
+    state.branchPrincipalName = ''
+    state.branchName = ''
+    state.emailId = ''
+    state.googlePlaceId = ''
+    state.landmark = ''
+    state.longitude = 0
+    state.latitude = 0
+    state.phone = ''
+    state.pincode = ''
+    state.state = ''
+    state.stateCode = ''
+    state.state_id = ''
+    state.storeManagerName = ''
+    state.websiteUrl = ''
+    state.weeklyOff = ''
+    state.locality = null
+    state.dealerName = ''
+    state.dealerPrincipalName = ''
+    state.dealerId = ''
+    state.dealerWebsiteUrl = ''
+    state.tab = ''
+    state.id = ''
+    state.branchId = ''
+    state.facebookUrl = ''
+    state.branchCode = ''
+    state.instagramUrl = ''
+    state.image.preview = null
+    state.image.Image = null
+    setState({ ...state })
+  }
 
   const handleChange = (e, id) => {
     if (id === 'phone') {
-      const value = e.target.value;
+      const value = e.target.value
       if (value.length <= 14) {
-        state.phone = e.target.value;
-        setState({ ...state });
+        state.phone = e.target.value
+        setState({ ...state })
       }
     } else {
-      state[e.target.name] = e.target.value;
-      setState({ ...state });
+      state[e.target.name] = e.target.value
+      setState({ ...state })
     }
-  };
+  }
 
   const handleGoBack = () => {
-    const params = fetchQueryParams(props.query);
-    history.push(`/dealer/detail?dealerId=${params.dealerId}&tab=${params.tab}`);
-  };
+    const params = fetchQueryParams(props.query)
+    history.push(`/dealer/detail?dealerId=${params.dealerId}&tab=${params.tab}`)
+  }
 
   const hanldeGoBackForUpdate = () => {
-    const params = fetchQueryParams(props.query);
-    history.push(`/branch/detail?branchId=${params.branchId} `);
-  };
+    const params = fetchQueryParams(props.query)
+    history.push(`/branch/detail?branchId=${params.branchId} `)
+  }
 
   const handleCoordinateChange = (e) => {
-    state[e.target.name] = e.target.value;
-    setState({ ...state });
-  };
+    state[e.target.name] = e.target.value
+    setState({ ...state })
+  }
 
   const handleCountryChange = (e) => {
-    const parsedValue = JSON.parse(e.target.value);
+    const parsedValue = JSON.parse(e.target.value)
     if (e.target.value !== 'Select Country') {
-      state.country = parsedValue.country;
-      state.countryCode = parsedValue.locality.country;
-      state.locality = parsedValue.locality;
-      state.state = '';
-      state.city = '';
+      state.country = parsedValue.country
+      state.countryCode = parsedValue.locality.country
+      state.locality = parsedValue.locality
+      state.state = ''
+      state.city = ''
     }
-    setState({ ...state });
-    props.handleFetchBranchState(state.countryCode.toUpperCase());
-  };
-
-
+    setState({ ...state })
+    props.handleFetchBranchState(state.countryCode.toUpperCase())
+  }
 
   const handleImageChange = (e) => {
-    e.preventDefault();
-    const fileTypes = ['jpg', 'jpeg', 'png'];
+    e.preventDefault()
+    const fileTypes = ['jpg', 'jpeg', 'png']
     if (e.target.files[0]) {
-      const extension = e.target.files[0].name.split('.').pop().toLowerCase(); // file extension from input file
-      const isSuccess = fileTypes.indexOf(extension) > -1;
+      const extension = e.target.files[0].name.split('.').pop().toLowerCase() // file extension from input file
+      const isSuccess = fileTypes.indexOf(extension) > -1
 
       if (isSuccess) {
-        const reader = new FileReader();
-        const file = e.target.files[0];
+        const reader = new FileReader()
+        const file = e.target.files[0]
 
         reader.onloadend = () => {
-          saveImage(reader.result, file);
-        };
-        reader.readAsDataURL(file);
+          saveImage(reader.result, file)
+        }
+        reader.readAsDataURL(file)
       } else {
         toast.error(
           _.get(
             elements,
             'branchCreationElement.imageValidationElement',
-            "only '.jpg' , '.jpeg' , '.png' file types are accepted",
-          ),
-        );
+            "only '.jpg' , '.jpeg' , '.png' file types are accepted"
+          )
+        )
       }
     } else {
     }
 
-    e.target.value = '';
-  };
+    e.target.value = ''
+  }
   const deleteImage = () => {
-    state.image.Image = null;
-    state.image.preview = null;
-    setState({ ...state });
-  };
+    state.image.Image = null
+    state.image.preview = null
+    setState({ ...state })
+  }
 
   const saveImage = (preview, Image) => {
     const file = {
       preview,
-      Image,
-    };
-    state.image = file;
-    setState({ ...state });
-  };
+      Image
+    }
+    state.image = file
+    setState({ ...state })
+  }
 
   const handleAutoFillDealerData = () => {
-    const { dealerData } = props;
+    const { dealerData } = props
 
     if (dealerData !== null) {
-     
-      state.storeManagerName = dealerData.storeManagerName;
-      state.dealerName = dealerData.dealerName;
-      state.dealerId = dealerData.dealerId;
-      state.dealerPrincipalName = dealerData.dealerPrincipalName;
-      state.dealer_id = dealerData._id;
-      state.latitude = dealerData.latitude;
-      state.branchCode = dealerData.branchCode;
-      state.longitude = dealerData.longitude;
-      state.addressLine1 = dealerData.addressLine1;
-      state.branchPrincipalName = dealerData.branchName;
-      state.websiteUrl = dealerData.websiteUrl;
-      state.pincode = dealerData.pincode;
-      state.phone = dealerData.phone;
-      state.emailId = dealerData.emailId;
-      state.weeklyOff = dealerData.weeklyOff;
-      state.facebookUrl = dealerData.facebookUrl;
-      state.businessHours = dealerData.businessHours;
-      state.instagramUrl = dealerData.instagramUrl;
-      state.description = dealerData.description;
-      state.addressLine2 = dealerData.addressLine2;
-      state.addressLine3 = dealerData.addressLine3;
-      state.landmark = dealerData.landmark;
-      state.altPhone = dealerData.altPhone;
-      state.country = dealerData.country;
-      state.state = dealerData.state;
-      state.city = dealerData.city;
-      state.locality = dealerData.locality;
+      state.storeManagerName = dealerData.storeManagerName
+      state.dealerName = dealerData.dealerName
+      state.dealerId = dealerData.dealerId
+      state.dealerPrincipalName = dealerData.dealerPrincipalName
+      state.dealer_id = dealerData._id
+      state.latitude = dealerData.latitude
+      state.branchCode = dealerData.branchCode
+      state.longitude = dealerData.longitude
+      state.addressLine1 = dealerData.addressLine1
+      state.branchPrincipalName = dealerData.branchName
+      state.websiteUrl = dealerData.websiteUrl
+      state.pincode = dealerData.pincode
+      state.phone = dealerData.phone
+      state.emailId = dealerData.emailId
+      state.weeklyOff = dealerData.weeklyOff
+      state.facebookUrl = dealerData.facebookUrl
+      state.businessHours = dealerData.businessHours
+      state.instagramUrl = dealerData.instagramUrl
+      state.description = dealerData.description
+      state.addressLine2 = dealerData.addressLine2
+      state.addressLine3 = dealerData.addressLine3
+      state.landmark = dealerData.landmark
+      state.altPhone = dealerData.altPhone
+      state.country = dealerData.country
+      state.state = dealerData.state
+      state.city = dealerData.city
+      state.locality = dealerData.locality
     }
-    setState({ ...state });
-  };
+    setState({ ...state })
+  }
 
   const handleUpdateForm = () => {
-    const { branchData } = props;
+    const { branchData } = props
     if (branchData !== null) {
-      state.addressLine1 = branchData.addressLine1;
-      state.addressLine2 = branchData.addressLine2;
-      state.addressLine3 = branchData.addressLine3;
-      state.altPhone = branchData.altPhone;
-      state.businessHours = branchData.businessHours;
-      state.city = branchData.city;
-      state.country = branchData.country;
-      state.branchName = branchData.branchName;
-      state.branchPrincipalName = branchData.branchPrincipalName;
-      state.branchStatus = branchData.branchStatus;
-      state.branchType = branchData.branchType;
-      state.emailId = branchData.emailId;
-      state.landmark = branchData.landmark;
-      state.latitude = branchData.latitude;
-      state.locality = branchData.locality;
-      state.longitude = branchData.longitude;
-      state.phone = branchData.phone;
-      state.pincode = branchData.pincode;
-      state.state = branchData.state;
-      state.storeManagerName = branchData.storeManagerName;
-      state.description = branchData.branchDescription;
-      state.weeklyOff = branchData.weeklyOff;
-      state.websiteUrl = branchData.websiteUrl;
-      state.dealer_id = branchData.dealer !== null ? branchData.dealer._id : '';
-      state.branchId = branchData._id;
-      state.facebookUrl = branchData.facebookUrl;
-      state.dealerName = branchData.dealer !== null ? branchData.dealer.dealerName : '';
-      state.dealerPrincipalName = branchData.dealer !== null ? branchData.dealer.dealerPrincipalName : '';
-      state.dealerId = branchData.dealer !== null ? branchData.dealer.dealerId : '';
-      state.branchCode = branchData.branchCode;
-      state.instagramUrl = branchData.instagramUrl;
-      state.image.preview = `${Config.imageBaseUrl}${branchData.primary_image}`;
-      state.image.Image = `${Config.imageBaseUrl}${branchData.primary_image}`;
-      setState({ ...state });
-      props.handleFetchBranchState(branchData.locality.country.toUpperCase());
+      state.addressLine1 = branchData.addressLine1
+      state.addressLine2 = branchData.addressLine2
+      state.addressLine3 = branchData.addressLine3
+      state.altPhone = branchData.altPhone
+      state.businessHours = branchData.businessHours
+      state.city = branchData.city
+      state.country = branchData.country
+      state.branchName = branchData.branchName
+      state.branchPrincipalName = branchData.branchPrincipalName
+      state.branchStatus = branchData.branchStatus
+      state.branchType = branchData.branchType
+      state.emailId = branchData.emailId
+      state.landmark = branchData.landmark
+      state.latitude = branchData.latitude
+      state.locality = branchData.locality
+      state.longitude = branchData.longitude
+      state.phone = branchData.phone
+      state.pincode = branchData.pincode
+      state.state = branchData.state
+      state.storeManagerName = branchData.storeManagerName
+      state.description = branchData.branchDescription
+      state.weeklyOff = branchData.weeklyOff
+      state.websiteUrl = branchData.websiteUrl
+      state.dealer_id = branchData.dealer !== null ? branchData.dealer._id : ''
+      state.branchId = branchData._id
+      state.facebookUrl = branchData.facebookUrl
+      state.dealerName = branchData.dealer !== null ? branchData.dealer.dealerName : ''
+      state.dealerPrincipalName = branchData.dealer !== null ? branchData.dealer.dealerPrincipalName : ''
+      state.dealerId = branchData.dealer !== null ? branchData.dealer.dealerId : ''
+      state.branchCode = branchData.branchCode
+      state.instagramUrl = branchData.instagramUrl
+      state.image.preview = `${Config.imageBaseUrl}${branchData.primary_image}`
+      state.image.Image = `${Config.imageBaseUrl}${branchData.primary_image}`
+      setState({ ...state })
+      props.handleFetchBranchState(branchData.locality.country.toUpperCase())
     }
-  };
+  }
 
   const handleSubmitForm = (e) => {
-    e.preventDefault();
-  
+    e.preventDefault()
 
-    const formData = new FormData();
-    formData.append('addressLine1', state.addressLine1);
-    formData.append('addressLine2', state.addressLine2);
-    formData.append('addressLine3', state.addressLine3);
-    formData.append('altPhone', state.altPhone);
-    formData.append('businessHours', state.businessHours);
-    formData.append('city', state.city);
-    formData.append('country', state.country);
-    formData.append('branchName', state.branchName);
-    formData.append('branchPrincipalName', state.branchPrincipalName);
-    formData.append('emailId', state.emailId);
-    formData.append('landmark', state.landmark);
-    formData.append('latitude', state.latitude);
-    formData.append('locality', JSON.stringify(state.locality));
-    formData.append('longitude', state.longitude);
-    formData.append('phone', state.phone);
-    formData.append('pincode', state.pincode);
-    formData.append('state', state.state);
-    formData.append('storeManagerName', state.storeManagerName);
-    formData.append('weeklyOff', state.weeklyOff);
-    formData.append('websiteUrl', state.websiteUrl);
-    formData.append('dealer', state.dealer_id);
-    formData.append('dealerId', state.dealerId);
-    formData.append('id', state.id);
-    formData.append('tab', state.tab);
-    formData.append('branchId', state.branchId);
-    formData.append('facebookUrl', state.facebookUrl);
-    formData.append('branchCode', state.branchCode);
-    formData.append('instagramUrl', state.instagramUrl);
-    formData.append('image', state.image.Image);
+    const formData = new FormData()
+    formData.append('addressLine1', state.addressLine1)
+    formData.append('addressLine2', state.addressLine2)
+    formData.append('addressLine3', state.addressLine3)
+    formData.append('altPhone', state.altPhone)
+    formData.append('businessHours', state.businessHours)
+    formData.append('city', state.city)
+    formData.append('country', state.country)
+    formData.append('branchName', state.branchName)
+    formData.append('branchPrincipalName', state.branchPrincipalName)
+    formData.append('emailId', state.emailId)
+    formData.append('landmark', state.landmark)
+    formData.append('latitude', state.latitude)
+    formData.append('locality', JSON.stringify(state.locality))
+    formData.append('longitude', state.longitude)
+    formData.append('phone', state.phone)
+    formData.append('pincode', state.pincode)
+    formData.append('state', state.state)
+    formData.append('storeManagerName', state.storeManagerName)
+    formData.append('weeklyOff', state.weeklyOff)
+    formData.append('websiteUrl', state.websiteUrl)
+    formData.append('dealer', state.dealer_id)
+    formData.append('dealerId', state.dealerId)
+    formData.append('id', state.id)
+    formData.append('tab', state.tab)
+    formData.append('branchId', state.branchId)
+    formData.append('facebookUrl', state.facebookUrl)
+    formData.append('branchCode', state.branchCode)
+    formData.append('instagramUrl', state.instagramUrl)
+    formData.append('image', state.image.Image)
 
     const data = {
       formData: formData,
       tab: state.tab,
-      id: state.dealer_id,
-    };
+      id: state.dealer_id
+    }
 
     if (state.phone.length >= 8 && state.phone.length <= 15) {
       if (state.country !== '') {
         if (state.state !== '') {
           if (state.city !== '') {
             if (props.page !== 'update-branch') {
-              props.handleCreateBranch(data);
+              props.handleCreateBranch(data)
             } else {
-              props.handleUpdateBranch(data);
+              props.handleUpdateBranch(data)
             }
           } else {
-            toast.error(_.get(elements, 'branchCreationElement.cityValidationElement', 'City cannot be empty'));
+            toast.error(_.get(elements, 'branchCreationElement.cityValidationElement', 'City cannot be empty'))
           }
         } else {
-          toast.error(_.get(elements, 'branchCreationElement.stateValidationElement', 'State cannot be empty'));
+          toast.error(_.get(elements, 'branchCreationElement.stateValidationElement', 'State cannot be empty'))
         }
       } else {
-        toast.error(_.get(elements, 'branchCreationElement.countryValidationElement', 'Country cannot be empty'));
+        toast.error(_.get(elements, 'branchCreationElement.countryValidationElement', 'Country cannot be empty'))
       }
     } else {
       toast.error(
         _.get(
           elements,
           'branchCreationElement.phoneValidationElement',
-          'phone Length should be more than 7 and less than 16',
-        ),
-      );
+          'phone Length should be more than 7 and less than 16'
+        )
+      )
     }
-  };
-
- 
+  }
 
   return (
     <React.Fragment>
@@ -394,7 +388,7 @@ function BranchCreation(props) {
         </div>
       )}
 
-      <div className="hideSearch">
+      <div className='hideSearch'>
         <Row>
           <Col sm={12}>
             <CartTitle
@@ -412,11 +406,11 @@ function BranchCreation(props) {
         </Row>
 
         <Form onSubmit={handleSubmitForm}>
-          <Card className="mb-3">
+          <Card className='mb-3'>
             <CardBody>
               <Row>
-                <Col md="12">
-                  <h3 className="title-bar secondary-title f-weight-bold mb-3 pb-2 themeColor">
+                <Col md='12'>
+                  <h3 className='title-bar secondary-title f-weight-bold mb-3 pb-2 themeColor'>
                     <span>
                       {_.get(elements, 'branchCreationElement.subHeadingMainInformationElement', 'MAIN INFORMATION')}
                     </span>
@@ -424,22 +418,22 @@ function BranchCreation(props) {
                 </Col>
                 <Col xl={12}>
                   <Row>
-                    <Col xl={4} lg={4} md={12} sm={12} className="mb-2 pt-4">
+                    <Col xl={4} lg={4} md={12} sm={12} className='mb-2 pt-4'>
                       <UploadFile
-                        id="image1"
+                        id='image1'
                         image={state.image}
                         handleImageChange={handleImageChange}
                         deleteImage={deleteImage}
                       />
                     </Col>
-                    <Col xl={8} lg={8} md={12} sm={12} className="mb-2">
+                    <Col xl={8} lg={8} md={12} sm={12} className='mb-2'>
                       <Row>
-                        <Col xl={6} lg={4} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={4} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(
                               elements,
                               'branchCreationElement.branchPrincipalNameLabel',
-                              'Branch Name*',
+                              'Branch Name*'
                             )}
                             inputType={'text'}
                             inputName={'branchPrincipalName'}
@@ -448,7 +442,7 @@ function BranchCreation(props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.branchPrincipalNamePlaceholder',
-                              'Branch Name',
+                              'Branch Name'
                             )}
                             customOnChange={(e) => handleChange(e)}
                             customRequired
@@ -456,7 +450,7 @@ function BranchCreation(props) {
                         </Col>
                         {/* <Col xl={8} lg={8} md={12} sm={12}>
                       <Row> */}
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(elements, 'branchCreationElement.emailLabel', 'Email ID / Store ID*')}
                             inputType={'email'}
@@ -466,13 +460,13 @@ function BranchCreation(props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.emailPlaceholder',
-                              'Email ID / Store ID',
+                              'Email ID / Store ID'
                             )}
                             customOnChange={(e) => handleChange(e)}
                             customRequired
                           />
                         </Col>
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(elements, 'branchCreationElement.phoneNumberLabel', 'Phone Number*')}
                             inputType={'tel'}
@@ -481,19 +475,19 @@ function BranchCreation(props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.phoneNumberPlaceholder',
-                              'Phone Number',
+                              'Phone Number'
                             )}
                             customValue={state.phone}
                             customOnChange={(e) => handleChange(e, 'phone')}
                             customRequired
                           />
                         </Col>
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(
                               elements,
                               'branchCreationElement.alternatePhoneNumberLabel',
-                              'Alternate Phone Number',
+                              'Alternate Phone Number'
                             )}
                             inputType={'number'}
                             inputName={'altPhone'}
@@ -502,24 +496,24 @@ function BranchCreation(props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.alternatePhoneNumberPlaceholder',
-                              'Alternate Phone Number',
+                              'Alternate Phone Number'
                             )}
                             customOnChange={(e) => handleChange(e)}
                           />
                         </Col>
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
-                          <Label className="inputLabel">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
+                          <Label className='inputLabel'>
                             {_.get(elements, 'branchCreationElement.countryLabel', 'Country*')}
                           </Label>
-                          <FormGroup className=" confirmRiderSelect select_options">
+                          <FormGroup className=' confirmRiderSelect select_options'>
                             <Input
-                              type="select"
-                              name="country"
-                              className="my-2 w-100 customeSelectBtn"
+                              type='select'
+                              name='country'
+                              className='my-2 w-100 customeSelectBtn'
                               onChange={handleCountryChange}
-                              placeholder="Select Country"
+                              placeholder='Select Country'
                             >
-                              <option selected="true" disabled="disabled">
+                              <option selected='true' disabled='disabled'>
                                 {state.country !== '' ? state.country : 'Select Country'}
                               </option>
                               {props.countriesBranch
@@ -533,8 +527,8 @@ function BranchCreation(props) {
                           </FormGroup>
                         </Col>
 
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
-                          <FormGroup className=" confirmRiderSelect select_options">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
+                          <FormGroup className=' confirmRiderSelect select_options'>
                             <InputText
                               labelName={_.get(elements, 'branchCreationElement.stateLabel', 'State*')}
                               inputType={'text'}
@@ -574,8 +568,8 @@ function BranchCreation(props) {
                   </Row>
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <FormGroup className="confirmRiderSelect select_options">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <FormGroup className='confirmRiderSelect select_options'>
                     <InputText
                       labelName={_.get(elements, 'branchCreationElement.cityLabel', 'City*')}
                       inputType={'text'}
@@ -602,7 +596,7 @@ function BranchCreation(props) {
                   </FormGroup>
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.landmarkLabel', 'Landmark')}
                     inputType={'text'}
@@ -613,7 +607,7 @@ function BranchCreation(props) {
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.pinCodeLabel', 'Pincode')}
                     inputType={'tel'}
@@ -625,56 +619,56 @@ function BranchCreation(props) {
                     customRequired
                   />
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {_.get(elements, 'branchCreationElement.addressLineOneLabel', 'Address Line 1*')}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(elements, 'branchCreationElement.addressLineOnePlaceholder', 'Address Line 1')}
-                      name="addressLine1"
-                      id="--"
-                      className="my-2 inputText"
+                      name='addressLine1'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.addressLine1}
                       onChange={(e) => handleChange(e)}
                       required
                     />
                   </FormGroup>
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {' '}
                     {_.get(elements, 'branchCreationElement.addressLineTwoLabel', 'Address Line 2')}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(elements, 'branchCreationElement.addressLineTwoPlaceholder', 'Address Line 2')}
-                      name="addressLine2"
-                      id="--"
-                      className="my-2 inputText"
+                      name='addressLine2'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.addressLine2}
                       onChange={(e) => handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {' '}
                     {_.get(elements, 'branchCreationElement.addressLineThreeLabel', 'Address Line 3')}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.addressLineThreePlaceholder',
-                        'Address Line 3',
+                        'Address Line 3'
                       )}
-                      name="addressLine3"
-                      id="--"
-                      className="my-2 inputText"
+                      name='addressLine3'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.addressLine3}
                       onChange={(e) => handleChange(e)}
                     />
@@ -682,28 +676,28 @@ function BranchCreation(props) {
                 </Col>
               </Row>
               <Row>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {' '}
                     {_.get(elements, 'branchCreationElement.descriptionLabelElement', 'Description')}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.descriptionPlaceHolderElement',
-                        'Description',
+                        'Description'
                       )}
-                      name="description"
-                      id="--"
-                      className="my-2 inputText"
+                      name='description'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.description}
                       onChange={(e) => handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.latitudeLabel', 'Latitude*')}
                     inputType={'number'}
@@ -715,7 +709,7 @@ function BranchCreation(props) {
                     customRequired
                   />
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.longitudeLabel', 'Longitude*')}
                     inputType={'number'}
@@ -730,12 +724,12 @@ function BranchCreation(props) {
               </Row>
 
               <Row>
-                <Col md="12">
-                  <h3 className="title-bar secondary-title f-weight-bold my-3 pb-2 themeColor">
+                <Col md='12'>
+                  <h3 className='title-bar secondary-title f-weight-bold my-3 pb-2 themeColor'>
                     {_.get(
                       elements,
                       'branchCreationElement.subHeadingPersonalInformationElement',
-                      'PERSONAL INFORMATION',
+                      'PERSONAL INFORMATION'
                     )}
                   </h3>
                 </Col>
@@ -780,12 +774,12 @@ function BranchCreation(props) {
                   />
                 </Col> */}
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.clubCoordinatorNameLabel',
-                      'Club Coordinator Name*',
+                      'Club Coordinator Name*'
                     )}
                     inputType={'text'}
                     inputName={'storeManagerName'}
@@ -793,7 +787,7 @@ function BranchCreation(props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.clubCoordinatorPlaceholder',
-                      'Club Coordinator Name',
+                      'Club Coordinator Name'
                     )}
                     customValue={state.storeManagerName}
                     customOnChange={(e) => handleChange(e)}
@@ -801,7 +795,7 @@ function BranchCreation(props) {
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.branchCodeLabel', 'Branch Code')}
                     inputType={'tel'}
@@ -813,7 +807,7 @@ function BranchCreation(props) {
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.webUrlLabel', 'Website Page URL')}
                     inputType={'text'}
@@ -825,7 +819,7 @@ function BranchCreation(props) {
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.instagramUrlLabel', 'Instagram URL')}
                     inputType={'text'}
@@ -837,7 +831,7 @@ function BranchCreation(props) {
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.facebookUrlLabel', 'Facebook URL')}
                     inputType={'text'}
@@ -849,7 +843,7 @@ function BranchCreation(props) {
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(elements, 'branchCreationElement.weeklyOffLabel', 'Weekly Off')}
                     inputType={'tel'}
@@ -861,25 +855,25 @@ function BranchCreation(props) {
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label className="inputLabel" for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label className='inputLabel' for='--'>
                     {_.get(elements, 'branchCreationElement.businessHourLabel', 'Business Hours')}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(elements, 'branchCreationElement.businessHourPlaceholder', 'Business Hours')}
-                      name="businessHours"
-                      id="--"
+                      name='businessHours'
+                      id='--'
                       value={state.businessHours}
-                      className="my-2 inputText"
+                      className='my-2 inputText'
                       onChange={(e) => handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
               </Row>
 
-              <div className="d-flex justify-content-center justify-content-lg-end position-relative ">
+              <div className='d-flex justify-content-center justify-content-lg-end position-relative '>
                 <CustomButton
                   customType={'button'}
                   name={_.get(elements, 'branchCreationElement.backButtonElement', 'Back')}
@@ -897,7 +891,7 @@ function BranchCreation(props) {
         </Form>
       </div>
     </React.Fragment>
-  );
+  )
 }
 
-export default BranchCreation;
+export default BranchCreation

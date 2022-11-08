@@ -29,7 +29,6 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
       return o.Commodity.toLowerCase().includes(value.toLowerCase());
     });
 
-
     setToShow(filterData);
     setToView(true);
   };
@@ -84,11 +83,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
           </div>
         </div>
       </div>
-      <div
-        id="orderSummary"
-       
-        aria-labelledby="orderSummary"
-      >
+      <div id="orderSummary" aria-labelledby="orderSummary">
         <div className={`${styles.dashboard_form} card-body border_color`}>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
@@ -207,7 +202,6 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
                         ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
-                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -279,7 +273,6 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                           maximumFractionDigits: 2,
                         }) + ' %'
                   }
-                 
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -416,8 +409,6 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                 
-                
                   defaultValue={orderDetail?.hsnCode}
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 />
@@ -426,7 +417,6 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
-         
             </div>
           </Form>
         </div>

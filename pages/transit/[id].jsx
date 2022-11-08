@@ -36,8 +36,6 @@ function Index() {
   let objID = sessionStorage.getItem('ObjId');
   let transID = sessionStorage.getItem('transId');
 
-
-
   useEffect(() => {
     dispatch(GetTransitDetails(`?transitId=${transID}`));
   }, [dispatch]);
@@ -53,8 +51,6 @@ function Index() {
     }
   }, [transID]);
 
-
-
   const fetchInitialData = async () => {
     const data = await dispatch(GetTransitDetails(`?transitId=${transID}`));
     setTransitDetails(data);
@@ -66,7 +62,6 @@ function Index() {
   const uploadDoc = async (e) => {
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-  
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -83,16 +78,10 @@ function Index() {
       });
 
       if (response.data.code === 200) {
-     
-
         return response.data.data;
-      
       } else {
-       
       }
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   };
   // for setting default breadcrumb tab value //
   useEffect(() => {
@@ -128,7 +117,6 @@ function Index() {
             <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
-              
                 role="button"
                 onClick={() => {
                   setComponentId(1);
@@ -141,7 +129,6 @@ function Index() {
             <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
-                
                 role="button"
                 onClick={() => {
                   setComponentId(2);
@@ -155,7 +142,6 @@ function Index() {
               <li className={`${styles.navItem} nav-item`}>
                 <a
                   className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'} `}
-                 
                   role="button"
                   onClick={() => {
                     setComponentId(3);
@@ -169,7 +155,6 @@ function Index() {
             <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 4 && 'active'} `}
-              
                 role="button"
                 onClick={() => {
                   setComponentId(4);
@@ -202,13 +187,12 @@ function Index() {
                     />
                   )}
                 </div>
-               
+
                 <div className={`${styles.card}  accordion_body`}>
                   {componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
                 </div>
                 {/* </div> */}
                 {commodity?.toLowerCase().includes('coal') && (
-              
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 3 && (
                       <CIMS
@@ -219,9 +203,8 @@ function Index() {
                       />
                     )}
                   </div>
-                
                 )}
-             
+
                 <div className={`${styles.card}  accordion_body`}>
                   {componentId === 4 && (
                     <IGM

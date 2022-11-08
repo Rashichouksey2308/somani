@@ -20,7 +20,6 @@ import { updateGenericData } from '../../redux/generic/actionsType';
 function Index(props) {
   const dispatch = useDispatch();
 
-
   const [active, setActive] = useState('Supplier');
   const [multiPart, setMultiPart] = useState(false);
   const [saveData, setSaveData] = useState(false);
@@ -154,26 +153,25 @@ function Index(props) {
           tempArr[i].state = 'default';
           tempArr[i].image = '/static/Group 3256.svg';
           let a = i - 1;
-    
+
           tempArr[a].state = 'current';
           tempArr[a].image = '/static/currnet.svg';
           setActive(tempArr[a].name);
         }
       }
     }
-    
+
     setSidebar(tempArr);
   };
   const onRightChange = () => {
     let tempArr = sideBar;
 
     for (let i = 0; i < tempArr.length; i++) {
-    
       if (tempArr[i].state == 'current') {
         if (i != tempArr.length) {
           tempArr[i].state = 'default';
           tempArr[i].image = '/static/Group 3256.svg';
-  
+
           let a = i + 1;
 
           tempArr[a].state = 'current';
@@ -186,7 +184,6 @@ function Index(props) {
 
     setSidebar(tempArr);
   };
-
 
   const onSave = () => {
     setSaveData(true);
@@ -213,7 +210,6 @@ function Index(props) {
           multiParty: data.supplierState.multiParty,
         },
       };
-     
     }
     if (key == 'Seller') {
       dataToSend = {
@@ -226,7 +222,6 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
         },
       };
-
 
       sessionStorage.removeItem('Seller');
     }
@@ -241,7 +236,6 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
         },
       };
-
     }
     if (key == 'Finance') {
       dataToSend = {
@@ -251,7 +245,6 @@ function Index(props) {
           branchName: data.financeData.branchName,
         },
       };
-
     }
     if (key == 'Cma') {
       dataToSend = {
@@ -304,7 +297,6 @@ function Index(props) {
     setSubmitData(false);
   };
   const sendData = (key, data) => {
-
     let dataToSend = {};
     if (key == 'Supplier') {
       dataToSend = {

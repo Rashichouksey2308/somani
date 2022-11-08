@@ -21,8 +21,6 @@ const Index = ({
 
   const [name, setName] = useState(null);
 
-
-
   const [secondDocName, setSecondDocName] = useState(null);
 
   return (
@@ -72,7 +70,6 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
-                            
                             addDoc(e.target.files[0], index);
                             // uploadDocument2(e)
                           }}

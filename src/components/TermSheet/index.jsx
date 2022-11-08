@@ -70,7 +70,6 @@ const Index = () => {
               tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
-           
               typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
@@ -312,7 +311,6 @@ const Index = () => {
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
-   
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -368,7 +366,6 @@ const Index = () => {
       return;
     }
 
- 
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
       Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
@@ -570,7 +567,7 @@ const Index = () => {
       }
       return;
     }
-  
+
     if (
       termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
       termsheetDetails.commercials.lcOpeningChargesUnit == undefined
@@ -667,7 +664,7 @@ const Index = () => {
 
   const handlePreview = () => {
     let toastMessage = 'PLEASE SAVE TERMSHEET FIRST';
-    
+
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
@@ -690,7 +687,6 @@ const Index = () => {
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
- 
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||

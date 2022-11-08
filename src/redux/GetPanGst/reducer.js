@@ -1,34 +1,34 @@
-import * as types from './actionType';
+import * as types from './actionType'
 
 const initialState = {
   gettingCompanyPan: false,
-  gettingCompanyPanResponse: null,
-};
+  gettingCompanyPanResponse: null
+}
 
-function GetCompanyPanReducer(state = initialState, action) {
+function GetCompanyPanReducer (state = initialState, action) {
   switch (action.type) {
     case types.GET_COMPANY_PAN:
       return {
         ...state,
         gettingCompanyPan: true,
-        gettingCompanyPanResponse: null,
-      };
+        gettingCompanyPanResponse: null
+      }
     case types.GET_COMPANY_PAN_SUCCESSFULL:
       return {
         ...state,
         gettingCompanyPan: false,
-        gettingCompanyPanResponse: action.payload,
-      };
+        gettingCompanyPanResponse: action.payload
+      }
     case types.GET_COMPANY_PAN_FAILED:
       return {
         ...state,
         gettingCompanyPan: false,
-        gettingCompanyPanResponse: null,
-      };
+        gettingCompanyPanResponse: null
+      }
 
     default:
-      return state;
+      return state
   }
 }
 
-export default GetCompanyPanReducer;
+export default GetCompanyPanReducer

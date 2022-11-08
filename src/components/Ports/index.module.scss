@@ -372,7 +372,7 @@
       height: 15px;
     }
   }
- 
+
   .button {
     padding: 25px 35px !important;
     cursor: pointer;
@@ -538,7 +538,6 @@
   }
 }
 
-
 .add_row {
   text-align: center;
   font-size: 18px;
@@ -652,7 +651,6 @@ img {
 
 .customSelect {
   appearance: none;
-
 }
 
 .edit_image {
@@ -719,8 +717,6 @@ img {
     .search_image {
       margin-left: -40px;
     }
-
-   
 
     .phone {
       .label_heading {
@@ -884,8 +880,6 @@ img {
   }
 }
 
-
-
 .comment_para {
   border: 1px solid #0000001f;
   border-radius: 4px;
@@ -899,6 +893,7 @@ img {
     line-height: 25px;
   }
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -922,6 +917,7 @@ img {
     font-size: 12px;
   }
 }
+
 .plus_add {
   z-index: 1;
   width: 36px;
@@ -933,6 +929,7 @@ img {
     margin-left: -40px;
   }
 }
+
 .dashboard_form {
   padding: 10px 10px 0px 20px;
   //margin: 15px;
@@ -1223,12 +1220,11 @@ img {
   }
 }
 
-
 .col_header {
   font-weight: 500;
   font-size: 16px;
   line-height: 17px;
- 
+
   letter-spacing: 0.53px;
   @include respond(lg-desktop) {
     font-size: 14px;

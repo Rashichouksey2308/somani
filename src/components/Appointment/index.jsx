@@ -19,7 +19,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const [appointmentData, setAppointmentData] = useState();
- 
+
   useEffect(() => {
     let add = [];
     let pincode = [];
@@ -33,7 +33,6 @@ export default function Index({ inspectionData, setDate, vendor }) {
       //     }
       //   })
       // pincode =   add[add.length-1].split("-")
-     
     }
 
     setAppointmentData({
@@ -57,9 +56,6 @@ export default function Index({ inspectionData, setDate, vendor }) {
       },
     });
   }, [inspectionData, vendor]);
-
-
- 
 
   const [addressData, setAddressData] = useState({
     name: '',
@@ -97,7 +93,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     const newInput = { ...addressData };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
-   
+
     setAddressData({ ...newInput });
   };
 
@@ -110,7 +106,6 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleOnAdd = () => {
-
     if (addressData.address.addressType === '' || addressData.address.addressType == undefined) {
       let toastMessage = 'Please add address Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -156,7 +151,6 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleSave = () => {
-
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
     fd.append('inspectionId', inspectionData?._id);
@@ -167,7 +161,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
   const handleSubmit = () => {
     if (!validation()) <return></return>;
-  
+
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
     fd.append('inspectionId', inspectionData?._id);
