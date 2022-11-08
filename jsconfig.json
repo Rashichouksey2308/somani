@@ -3,7 +3,8 @@
     "baseUrl": "src",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/templates/*": ["templates/*"]
+      "@/templates/*": ["templates/*"],
+      "@/utils/*": ["utils/*"]
     }
   },
   "include": ["src", "src/components/AggrementContent/.jsx"]
