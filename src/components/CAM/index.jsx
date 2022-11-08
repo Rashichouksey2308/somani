@@ -1485,7 +1485,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
   
                             <td>
                               {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format('DD-MM-YYYY')
                                 : ''}
                             </td>
                           </tr>
@@ -3665,8 +3665,22 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                 </div>
 
                 <div className={`${styles.score}`}>
-                  <div className={`${styles.excellent}`}>
-                    <span>
+                  <div className={`${styles.excellent}`}
+                  style={{
+                      background:`${filteredCreditRating?.length > 0 ? 
+                        filteredCreditRating[0]?.creditResult?.toUpperCase()=="POOR"?"#ff423045":
+                      filteredCreditRating[0]?.creditResult?.toUpperCase()=="AVERAGE"?"#ad7e0742": 
+                      filteredCreditRating[0]?.creditResult?.toUpperCase()=="EXCELLENT"?"#00b81e52":"rgba(0, 184, 31, 0.1882352941)":null
+                      
+                      }`}}
+                  >
+                    <span style={{
+                      color:`${filteredCreditRating?.length > 0 ? 
+                        filteredCreditRating[0]?.creditResult?.toUpperCase()=="POOR"?"#ff4230":
+                      filteredCreditRating[0]?.creditResult?.toUpperCase()=="AVERAGE"?"#ffb700": 
+                      filteredCreditRating[0]?.creditResult?.toUpperCase()=="EXCELLENT"?"#8ac41c":"00b81f30":null
+                      
+                      }`}}>
                       {filteredCreditRating?.length > 0 ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ''}
                     </span>
                   </div>

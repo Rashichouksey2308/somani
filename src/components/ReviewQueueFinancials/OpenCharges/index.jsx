@@ -156,36 +156,7 @@ function Index({ chargesData }) {
                           <td className="text-center">{charges.dateOfSatisfactionOfChargeInFull}</td>
                         </tr>
                       ))}
-                    {/* <tr>
-                      <td>100310953</td>
-                      <td>Divine Infracon Private Limited</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">
-                        <img
-                          src="/static/eye.svg"
-                          alt="Eye"
-                          className="img-fluid"
-                        />
-                      </td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">08-12-2019</td>
-                    </tr>
-                    <tr>
-                      <td>100310953</td>
-                      <td>Gujarat Jhm Hotels Limited</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">
-                        <img
-                          src="/static/eye.svg"
-                          alt="Eye"
-                          className="img-fluid"
-                        />
-                      </td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">08-12-2019</td>
-                    </tr> */}
+                  
                   </tbody>
                 </table>
               </div>

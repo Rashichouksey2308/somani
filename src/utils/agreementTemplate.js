@@ -1340,7 +1340,7 @@ export const toPdf = (data) => {
           style={{
             fontFamily: 'Times New Roman, Times, serif',
             fontSize: '12px',
-            lineHeight: '1.5',
+            lineHeight: '1.3',
             color: '#000000',
             padding: '20px',
           }}
@@ -1654,7 +1654,7 @@ export const toPdf = (data) => {
                           <td
                             bgColor="#fafafb"
                             style={{
-                              color: '#8492a6',
+                              color: '#000000',
                               fontWeight: 'bold',
                               borderBottom: '1px solid #d9dde8',
                               borderRight: '1px solid #d9dde8',
@@ -1674,7 +1674,7 @@ export const toPdf = (data) => {
                             <td
                               style={{
                                 borderBottom: '1px solid #d9dde8',
-                                color: '#8492a6',
+                                color: '#000000',
                                 borderRight: '1px solid #d9dde8',
                                 padding: '5px',
                               }}
