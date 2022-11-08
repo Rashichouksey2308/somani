@@ -1485,7 +1485,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
   
                             <td>
                               {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format('DD-MM-YYYY')
                                 : ''}
                             </td>
                           </tr>

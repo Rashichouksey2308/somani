@@ -55,7 +55,7 @@ function Index({
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
 
   const dispatch = useDispatch();
-  
+
   const getSn = (index) => {
     let a = Number(index);
     return a + 1;
@@ -201,7 +201,6 @@ function Index({
                             }}
                             onBlur={(e) => {
                               setOnBlur(index);
-
                               e.target.type = 'text';
                             }}
                             id="quantity"
@@ -212,7 +211,7 @@ function Index({
                               isFieldInFocus[index]?.value
                                 ? val.quantity
                                 : Number(val.quantity)?.toLocaleString('en-IN', { maximumFractionDigits: 2 }) +
-                                  ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`
+                                ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`
                             }
                             onChange={(e) => OnVesselBasicFieldsChangeHandler(e, index)}
                           />
@@ -246,7 +245,6 @@ function Index({
                             type="text"
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            
                             value={
                               orderValueinFocus
                                 ? val.orderValue
@@ -530,12 +528,9 @@ function Index({
                                   <div className="d-flex">
                                     <input
                                       id="yearOfBuilt"
-                                  
                                       value={
                                         vesselInfo.yearOfBuilt
-                                          ? vesselInfo?.yearOfBuilt?.slice(0, 4)
-                                          : 
-                                            ''
+                                          ? vesselInfo?.yearOfBuilt?.slice(0, 4) : ''
                                       }
                                       className={`${styles.input_field} input form-control`}
                                       type="number"
@@ -718,14 +713,12 @@ function Index({
                                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                                   <input
                                     id="yearOfBuilt"
-                                 
                                     value={
                                       newVessel.yearOfBuilt
                                         ? newVessel.yearOfBuilt?.slice(0, 4)
                                         :
-                                          ''
+                                        ''
                                     }
-                                  
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
                                     onWheel={(event) => event.currentTarget.blur()}
