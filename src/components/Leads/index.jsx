@@ -14,7 +14,7 @@ function index(props) {
       let inprocess = 0;
       let approved = 0;
       let rejected = 0;
-      let all = 0;
+      // let all = 0;
       props?.data.forEach((val, index) => {
     
         if (val._id == 'ReviewQueue') {
