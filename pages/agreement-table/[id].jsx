@@ -1,6 +1,6 @@
+import Router from 'next/router';
 import React from 'react';
 import styles from './index.module.scss';
-import Router from 'next/router';
 
 function Index() {
   const handleRoute = () => {
@@ -19,18 +19,6 @@ function Index() {
             />
             <h1 className={styles.heading}>Ramakrishna Traders </h1>
           </div>
-
-          {/* <Filter /> */}
-          {/* <a href="#" className={`${styles.filterList} filterList `}>
-          Bhutani Traders
-        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-        </a> */}
-
-          {/* <button className={styles.createBtn}
-        style={{ position: "absolute", right: 25 }}
-        onClick={()=>{Router.push("/letter-table/letter-application")}}
-        >
-        Create</button> */}
         </div>
 
         <div className={`${styles.datatable} card datatable border-color`}>

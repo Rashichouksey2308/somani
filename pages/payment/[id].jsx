@@ -412,20 +412,16 @@ function Index() {
   };
 
   const BalanceQuantity = () => {
-    let boe = _get(
-      ReleaseOrderData,
-      'data[0].order.customClearance.billOfEntry.billOfEntry',
-      0,
-    )
-     if(boe!==0){
+    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
+    if (boe !== 0) {
       let boeTotalQuantity = boe?.reduce((accumulator, object) => {
-      return accumulator + Number(object.boeDetails.invoiceQuantity);
-    }, 0);
+        return accumulator + Number(object.boeDetails.invoiceQuantity);
+      }, 0);
 
-    deliveryOrder.forEach((item) => {
-      boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
-    });
-    return boeTotalQuantity;
+      deliveryOrder.forEach((item) => {
+        boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+      });
+      return boeTotalQuantity;
     }
   };
 

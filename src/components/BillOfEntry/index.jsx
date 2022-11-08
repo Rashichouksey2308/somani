@@ -745,11 +745,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>Port Of Discharge</div>
                           <span className={styles.value}>
-                            {_get(
-                              customData,
-                              'order.vessel.vessels[0].transitDetails.portOfDischarge',
-                              '',
-                            )}
+                            {_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                           </span>
                         </div>
 

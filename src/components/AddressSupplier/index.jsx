@@ -23,8 +23,7 @@ function AddressComponent({
     <div className={`${styles.address_card} value background1 border_color`}>
       <div className="d-flex justify-content-between w-100">
         <div className="w-100">
-       
-            {/* <div
+          {/* <div
               className={`d-flex justify-content-between align-items-center`}
             >
               {communicationModeYes == true ? (
@@ -61,7 +60,9 @@ function AddressComponent({
       
           </div>
           <div className={`${styles.address_values}`}>
-            <p className="">{address} {', '} {country} {', '} {pinCode}</p>
+            <p className="">
+              {address} {', '} {country} {', '} {pinCode}
+            </p>
             {/* <p className="pt-3">{}</p>
             <p className="pt-3">{pinCode}</p> */}
             <p className="pt-3">

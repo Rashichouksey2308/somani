@@ -19,11 +19,10 @@ import _get from 'lodash/get';
 import Router from 'next/router';
 import moment from 'moment';
 import Axios from 'axios';
-import API from 'utils/endpoints'
+import API from 'utils/endpoints';
 import Cookies from 'js-cookie';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp'
 import { ShareDocument } from 'redux/shareDoc/action';
-
 
 
 function Index() {
@@ -33,39 +32,39 @@ function Index() {
   let id = sessionStorage.getItem('supplier');
   useEffect(() => {
     if (id) {
-      dispatch(GetSupplier(`?supplierId=${id}`))
+      dispatch(GetSupplier(`?supplierId=${id}`));
     } else {
-      dispatch(ClearSupplier())
+      dispatch(ClearSupplier());
     }
   }, [id]);
 
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
-
-
   useEffect(() => {
-    setFormData(supplierData?.supplierProfile ?? {
-      supplierName: '',
-      constitution: '',
-      incorporationDate: '',
-      countryOfIncorporation: '',
-      nationalIdentificationNumber: '',
-      website: '',
-      status: "Active"
-    })
-    setKeyAddData(supplierData?.keyAddress ?? [])
-    setPerson(supplierData.contactPerson ?? [])
-    setDetail(supplierData?.shareHoldersDetails ?? [])
-    setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? [])
-    setBusinessArray(supplierData?.bussinessSummary ?? [])
-    setListCommodity(supplierData?.commoditiesTraded ?? [])
-    setInfoArray(supplierData?.additionalInformation ?? [])
-    setdocs(supplierData?.extraDocument ?? [])
+    setFormData(
+      supplierData?.supplierProfile ?? {
+        supplierName: '',
+        constitution: '',
+        incorporationDate: '',
+        countryOfIncorporation: '',
+        nationalIdentificationNumber: '',
+        website: '',
+        status: 'Active',
+      },
+    );
+    setKeyAddData(supplierData?.keyAddress ?? []);
+    setPerson(supplierData.contactPerson ?? []);
+    setDetail(supplierData?.shareHoldersDetails ?? []);
+    setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? []);
+    setBusinessArray(supplierData?.bussinessSummary ?? []);
+    setListCommodity(supplierData?.commoditiesTraded ?? []);
+    setInfoArray(supplierData?.additionalInformation ?? []);
+    setdocs(supplierData?.extraDocument ?? []);
     if (_get(supplierData, 'document[0]', '') !== '') {
-      setIncumbencyDoc(supplierData?.document[0])
+      setIncumbencyDoc(supplierData?.document[0]);
     }
     if (_get(supplierData, 'document[1]', '') !== '') {
-      SetThirdParty(supplierData?.document[1])
+      SetThirdParty(supplierData?.document[1]);
     }
 
   }, [supplierResponse])
@@ -98,9 +97,8 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status: "Active"
+    status: 'Active',
   });
-
 
   const [address, setAddress] = useState({
     contactPerson: '',
@@ -120,13 +118,15 @@ function Index() {
   }]);
  
 
-  const [detail, setDetail] = useState([{
-    shareHoldersName: '',
-    designation: '',
-    contact: '',
-    ownershipPercentage: '',
-    action: false
-  }]);
+  const [detail, setDetail] = useState([
+    {
+      shareHoldersName: '',
+      designation: '',
+      contact: '',
+      ownershipPercentage: '',
+      action: false,
+    },
+  ]);
 
   const [signatory, setSignatory] = useState({
     name: '',
@@ -135,25 +135,25 @@ function Index() {
   });
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
-  const [commodity, setCommidity] = useState([{
-    hsnCode: '',
-    commodity: '',
-    action: false
-  }]);
-
+  const [commodity, setCommidity] = useState([
+    {
+      hsnCode: '',
+      commodity: '',
+      action: false,
+    },
+  ]);
 
   const [info, setInfo] = useState('');
   const [infoArray, setInfoArray] = useState([]);
 
-  const [incumbencyDoc, setIncumbencyDoc] = useState(null)
-  const [thirdParty, SetThirdParty] = useState(null)
+  const [incumbencyDoc, setIncumbencyDoc] = useState(null);
+  const [thirdParty, SetThirdParty] = useState(null);
   const [newDoc, setNewDoc] = useState({
     document: null,
-    name: ''
-  })
+    name: '',
+  });
 
-  const [docs, setdocs] = useState([])
-
+  const [docs, setdocs] = useState([]);
 
 
   const handleShareDelete = (index) => {
@@ -234,7 +234,7 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-      action: false
+      action: false,
     },
   ]);
 
@@ -359,11 +359,10 @@ function Index() {
   };
   const onChangeHandler7Array = (e) => {
     let temp = [...infoArray];
-  
-    setInfoArray([...temp, { remarks: info }])
+    // temp.push(info)
+    setInfoArray([...temp, { remarks: info }]);
     setInfo('');
   };
-
 
   const contactPersonDetailsValidation = () => {
     let isOk = true;
@@ -377,13 +376,8 @@ function Index() {
           break;
         }
       }
-    
-      if (
-        person[i]?.contact === '' ||
-        person[i]?.contact === null ||
-        person[i]?.contact?.length !== 10
-
-      ) {
+      
+      if (person[i].contact === '' || person[i].contact === null || person[i].contact.length !== 10) {
         toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -517,32 +511,29 @@ function Index() {
     } else if (!shareholdersDetailsValidation()) {
       return false;
     } else if (!directorsAndAuthorisedSignatoryValidation()) {
-      return false
-    }
-    else if (!commoditiesTradedValidation()) {
-      return false
+      return false;
+    } else if (!commoditiesTradedValidation()) {
+      return false;
     } else if (!incumbencyDoc) {
       let toastMessage = `please upload incumbency certificate`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (!thirdParty) {
       let toastMessage = `please upload third party certificate`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
-    }
-    else {
-      return true
+      return false;
+    } else {
+      return true;
     }
   };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
      
-
 
       let apiData = {
         supplierProfile: formData,
@@ -559,7 +550,7 @@ function Index() {
       }
     
       let fd = new FormData();
-      fd.append('supplierId', supplierData?._id)
+      fd.append('supplierId', supplierData?._id);
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
@@ -572,11 +563,10 @@ function Index() {
       fd.append('thirdPartyCertificateDocument', thirdParty);
       fd.append('extraDocument', JSON.stringify(docs));
 
-
       if (id) {
         dispatch(UpdateSupplier(fd));
       } else {
-        dispatch(CreateSupplier(fd))
+        dispatch(CreateSupplier(fd));
       }
       
     }
@@ -644,11 +634,9 @@ function Index() {
       }
 
       return false;
-    }
-    else if (!emailValidate()) {
+    } else if (!emailValidate()) {
       return false;
-    }
-    else if (
+    } else if (
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
       data.contact.phoneNumber === undefined
@@ -780,13 +768,11 @@ function Index() {
     }
   };
 
-
-
   const uploadDocumentHandler = async (e) => {
     if (newDoc?.document) {
       let fd = new FormData();
       fd.append('document', newDoc.document);
-      docUploader(fd)
+      docUploader(fd);
     } else {
       let toastMessage = 'please upload a document first';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -802,12 +788,10 @@ function Index() {
 
     let payload = {
       supplierId: supplierData._id,
-      path: document?.path
-    }
-    dispatch(DeleteSupplierDoc(payload))
-  }
-
-
+      path: document?.path,
+    };
+    dispatch(DeleteSupplierDoc(payload));
+  };
 
   return (
     <>
@@ -827,8 +811,7 @@ function Index() {
         </div>
 
         <div className={`${styles.backgroundMain}`}>
-          <div className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
               style={{ cursor: 'default' }}
@@ -836,9 +819,7 @@ function Index() {
               <h3 className={`${styles.heading}`}>Supplier Profile</h3>
 
               <div className="d-flex align-items-center">
-                <label className={`${styles.dropDown_label} text`}>
-                  Status:
-                </label>
+                <label className={`${styles.dropDown_label} text`}>Status:</label>
                 <div className="position-relative">
                   <select
                     className={`${styles.dropDown} ${styles.customSelect} input`}
@@ -849,8 +830,8 @@ function Index() {
                     <>
                       {' '}
                       <option>Select an option</option>
-                      <option value='Active'>Active</option>
-                      <option value='InActive'>Not active</option>
+                      <option value="Active">Active</option>
+                      <option value="InActive">Not active</option>
                     </>
                   </select>
                   <img
@@ -880,9 +861,7 @@ function Index() {
             >
               <div className={`${styles.dashboard_form} mt-1 card-body border_color`}>
                 <div className="row">
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <input
                         className={`${styles.input_field} input form-control`}
@@ -892,22 +871,14 @@ function Index() {
                         name="supplierName"
                         value={formData?.supplierName}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Supplier Name
                         <strong className="text-danger">*</strong>
                       </label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <select
                         onChange={onChangeHandler}
@@ -920,9 +891,7 @@ function Index() {
                         <option value="India">Private Limited</option>
                         <option value="America">ABC</option>
                       </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Constitution<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -932,9 +901,7 @@ function Index() {
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <DateCalender
                         defaultDate={formData?.incorporationDate ?? ''}
@@ -950,9 +917,7 @@ function Index() {
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <select
                         onChange={onChangeHandler}
@@ -964,9 +929,7 @@ function Index() {
                         <option value="India">India</option>
                         <option value="America">USA</option>
                       </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Country of Incorporation
                         <strong className="text-danger">*</strong>
                       </label>
@@ -977,32 +940,23 @@ function Index() {
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
                       onChange={onChangeHandler}
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       required
                       name="nationalIdentificationNumber"
                       value={formData?.nationalIdentificationNumber}
                     />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                    >
+                    <label className={`${styles.label_heading} label_heading`}>
                       National Identification No. / Commercial Registry No.
                       <strong className="text-danger">*</strong>
                     </label>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
                       onChange={onChangeHandler}
                       className={`${styles.input_field} input form-control`}
@@ -1011,11 +965,7 @@ function Index() {
                       name="website"
                       value={formData?.website}
                     />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                    >
-                      Website
-                    </label>
+                    <label className={`${styles.label_heading} label_heading`}>Website</label>
                   </div>
                 </div>
               </div>
@@ -1032,16 +982,10 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
               <span>+</span>
             </div>
-            <div
-              id="keyAddress"
-              className="collapse"
-              aria-labelledby="keyAddress"
-            >
+            <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
               <div className={`${styles.dashboard_form} card-body border_color`}>
                 <div className="d-flex align-items-center justify-content-between">
-
                   {keyAddData?.map((address, index) => {
-
                     return (
                       <>
                         <AddressComponent
@@ -1059,53 +1003,37 @@ function Index() {
                           pinCode={address.pinCode}
                      
                           path={''}
-
                         />
                       </>
                     );
                   })}
-
                 </div>
-                <div
-                  className={`${styles.address_card} mt-3 pb-5 value background1`}
-                >
+                <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                   <div
                     className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
                   >
-                    <h3
-                      className={`${styles.heading}`}
-                      style={{ textTransform: 'none' }}
-                    >
+                    <h3 className={`${styles.heading}`} style={{ textTransform: 'none' }}>
                       Add a new address
                     </h3>
                   </div>
-                  <div
-                    className={`${styles.dashboard_form} card-body border_color`}
-                  >
+                  <div className={`${styles.dashboard_form} card-body border_color`}>
                     <div className="row">
-                      <div
-                        className={`${styles.form_group} col-md-12 col-sm-6`}
-                      >
+                      <div className={`${styles.form_group} col-md-12 col-sm-6`}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="text"
-
                           name="address"
                           value={keyAddressData?.address}
                           onChange={(e) => {
-                            handleChange(e.target.value, e.target.name)
+                            handleChange(e.target.value, e.target.name);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Address
                           <strong className="text-danger">*</strong>
                         </label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-md-4 col-sm-4`}
-                      >
+                      <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                         <div className="d-flex">
                           <input
                             className={`${styles.input_field} input form-control`}
@@ -1118,9 +1046,7 @@ function Index() {
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Pin Code
                             <strong className="text-danger">*</strong>
                           </label>
@@ -1132,9 +1058,7 @@ function Index() {
                         </div>
                       </div>
 
-                      <div
-                        className={`${styles.form_group} col-md-4 col-sm-4`}
-                      >
+                      <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                         <div className="d-flex">
                           <input
                             className={`${styles.input_field} input form-control`}
@@ -1143,12 +1067,10 @@ function Index() {
                             name="country"
                             value={keyAddressData?.country}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Country
                             <strong className="text-danger">*</strong>
                           </label>
@@ -1160,9 +1082,7 @@ function Index() {
                         </div>
                       </div>
 
-                      <div
-                        className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                      >
+                      <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={`${styles.phone_card}`}>
                           <select
                             name="contact.phoneNumberCallingCode"
@@ -1170,14 +1090,14 @@ function Index() {
                             className={`${styles.code_phone} input border-right-0`}
                             value={keyAddressData.contact.phoneNumberCallingCode}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           >
-                            <option value='+91'>+91</option>
-                            <option value='+1'>+1</option>
-                            <option value='+92'>+92</option>
-                            <option value='+95'>+95</option>
-                            <option value='+24'>+24</option>
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+92">+92</option>
+                            <option value="+95">+95</option>
+                            <option value="+24">+24</option>
                           </select>
                           <input
                             type="tel"
@@ -1186,38 +1106,32 @@ function Index() {
                             value={keyAddressData?.phoneNumber}
                             className={`${styles.input_field}  input form-control border-left-0`}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                            id="textNumber"
-                          >
+                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
                             Phone Number
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                      >
+                      <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={`${styles.phone_card}`}>
                           <select
                             name="contact.alternatePhoneNumberCallingCode"
                             id="Code"
                             className={`${styles.code_phone} input border-right-0`}
                             value={keyAddressData.contact.alternatePhoneNumberCallingCode}
-
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           >
                             {' '}
-                            <option value='+91'>+91</option>
-                            <option value='+1'>+1</option>
-                            <option value='+92'>+92</option>
-                            <option value='+95'>+95</option>
-                            <option value='+24'>+24</option>
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+92">+92</option>
+                            <option value="+95">+95</option>
+                            <option value="+24">+24</option>
                           </select>
                           <input
                             type="tel"
@@ -1226,21 +1140,16 @@ function Index() {
                             value={keyAddressData?.alternatePhoneNumber}
                             className={`${styles.input_field} input form-control border-left-0`}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                            id="textNumber"
-                          >
+                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
                             Alternate Phone Number
                           </label>
                         </div>
                       </div>
                       {keyAddressData.email.map((email, index) => (
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
@@ -1248,40 +1157,33 @@ function Index() {
                               type="text"
                               name="emailId"
                               value={email}
-
                               onChange={(e) => {
-                                handleChange(e.target.value, e.target.name, index)
+                                handleChange(e.target.value, e.target.name, index);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Email ID
                               <strong className="text-danger">*</strong>
                             </label>
 
-
                             <img
-                              onClick={() => setKeyAddressData((prev) => {
-                                return { ...prev, email: [...prev.email, ''] }
-                              })}
+                              onClick={() =>
+                                setKeyAddressData((prev) => {
+                                  return { ...prev, email: [...prev.email, ''] };
+                                })
+                              }
                               className={`${styles.plus_add} img-fluid`}
                               src="/static/add-btn.svg"
                               alt="Search"
                             />
-
                           </div>
                         </div>
                       ))}
                     </div>
-                    <button
-                      className={`${styles.add_btn}`}
-                      onClick={() => handleClick()}
-                    >
+                    <button className={`${styles.add_btn}`} onClick={() => handleClick()}>
                       Add
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -1297,12 +1199,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Contact Person Details</h3>
               <span>+</span>
             </div>
-            <div
-              id="keyContact"
-              className="collapse"
-              aria-labelledby="keyContact"
-              data-parent="#keyContact"
-            >
+            <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#keyContact">
               <div className={`${styles.datatable} border_color card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1446,12 +1343,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Shareholders Details</h3>
               <span>+</span>
             </div>
-            <div
-              id="shareHolding"
-              className="collapse"
-              aria-labelledby="shareHolding"
-              data-parent="#shareHolding"
-            >
+            <div id="shareHolding" className="collapse" aria-labelledby="shareHolding" data-parent="#shareHolding">
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1573,12 +1465,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Directors and Authorised Signatory</h3>
               <span>+</span>
             </div>
-            <div
-              id="director"
-              className="collapse"
-              aria-labelledby="director"
-              data-parent="#director"
-            >
+            <div id="director" className="collapse" aria-labelledby="director" data-parent="#director">
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1636,7 +1523,7 @@ function Index() {
                                   type="checkbox"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, !val?.authoriztyToSign, index)
+                                    onChangeHandler4(e.target.name, !val?.authoriztyToSign, index);
                                   }}
                                 />
                               </td>
@@ -1710,8 +1597,6 @@ function Index() {
               data-parent="#businessSummary"
             >
               <div className={`${styles.dashboard_form} mr-3 card-body border_color`}>
-
-
                 <div className="d-flex pb-4 ml-4 position-relative">
                   <input
                     as="textarea"
@@ -1734,7 +1619,7 @@ function Index() {
                 </div>
                 <ol>
                   {businessArray?.map((val, index) => {
-                    return <li>{val?.businessSummary}</li>
+                    return <li>{val?.businessSummary}</li>;
                   })}
                 </ol>
               </div>
@@ -1751,12 +1636,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Commodities Traded</h3>
               <span>+</span>
             </div>
-            <div
-              id="commodity"
-              className="collapse"
-              aria-labelledby="commodity"
-              data-parent="#commodity"
-            >
+            <div id="commodity" className="collapse" aria-labelledby="commodity" data-parent="#commodity">
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1868,12 +1748,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Additional Information</h3>
               <span>+</span>
             </div>
-            <div
-              id="additional"
-              className="collapse"
-              aria-labelledby="additional"
-              data-parent="#additional"
-            >
+            <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
               <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
              
 
@@ -1899,18 +1774,16 @@ function Index() {
                   />
                 </div>
                 <ol>
-                  {infoArray?.length > 0 && infoArray?.map((val, index) => {
-                    return <li>{val?.remarks}</li>
-
-                  })}
+                  {infoArray?.length > 0 &&
+                    infoArray?.map((val, index) => {
+                      return <li>{val?.remarks}</li>;
+                    })}
                 </ol>
               </div>
             </div>
           </div>
           <div className="ml-2 mr-2">
-            <div
-              className={`${styles.upload_main} vessel_card card border_color upload_main`}
-            >
+            <div className={`${styles.upload_main} vessel_card card border_color upload_main`}>
               <div
                 className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`}
                 data-toggle="collapse"
@@ -1930,12 +1803,7 @@ function Index() {
                 <div className={styles.table_container}>
                   <div className={styles.table_scroll_outer}>
                     <div className={styles.table_scroll_inner}>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
+                      <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                           <tr>
                             <th>
@@ -1966,7 +1834,6 @@ function Index() {
                           </tr>
                         </thead>
                         <tbody>
-
                           <tr className="table_row">
                             <td className={styles.doc_name}>
                               Incumbency Certificate
@@ -2019,9 +1886,7 @@ function Index() {
                                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                       onChange={(e) => setIncumbencyDoc(e.target.files[0])}
                                     />
-                                    <button className={`${styles.button_upload} btn`}>
-                                      Upload
-                                    </button>
+                                    <button className={`${styles.button_upload} btn`}>Upload</button>
                                   </div>
                                 </>
                               ) : (
@@ -2030,9 +1895,7 @@ function Index() {
                                 >
                                   <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
                                   <img
-                                    onClick={(e) =>
-                                      setIncumbencyDoc(null)
-                                    }
+                                    onClick={(e) => setIncumbencyDoc(null)}
                                     className={`${styles.close_image} image_arrow mx-2`}
                                     src="/static/close.svg"
                                     alt="Close"
@@ -2094,9 +1957,7 @@ function Index() {
                                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                       onChange={(e) => SetThirdParty(e.target.files[0])}
                                     />
-                                    <button className={`${styles.button_upload} btn`}>
-                                      Upload
-                                    </button>
+                                    <button className={`${styles.button_upload} btn`}>Upload</button>
                                   </div>
                                 </>
                               ) : (
@@ -2105,9 +1966,7 @@ function Index() {
                                 >
                                   <span>{thirdParty?.name ? thirdParty?.name : thirdParty?.originalName}</span>
                                   <img
-                                    onClick={(e) =>
-                                      SetThirdParty(null)
-                                    }
+                                    onClick={(e) => SetThirdParty(null)}
                                     className={`${styles.close_image} image_arrow mx-2`}
                                     src="/static/close.svg"
                                     alt="Close"
@@ -2136,9 +1995,7 @@ function Index() {
                           />
                           {newDoc?.document ? (
                             <div className="d-flex justify-content-center align-items-center">
-                              <div
-                                className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
-                              >
+                              <div className={`${styles.certificate} text1 d-inline-flex justify-content-between`}>
                                 <span>{newDoc?.document?.name}</span>
                                 <img
                                   className={`${styles.close_image} image_arrow mx-2`}
@@ -2177,9 +2034,7 @@ function Index() {
                             >
                               <option value="others">Others</option>
                             </select>
-                            <Form.Label className={`${styles.label} label_heading`}>
-                              Document Type
-                            </Form.Label>
+                            <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -2189,9 +2044,7 @@ function Index() {
                         </Form.Group>
                         <Form.Group className={styles.form_group}>
                           <input
-                            onChange={(e) =>
-                              setNewDoc({ ...newDoc, name: e.target.value })
-                            }
+                            onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
                             id="otherDocName"
                             className={`${styles.value} input form-control`}
                             type="text"
@@ -2206,13 +2059,11 @@ function Index() {
                           <button
                             onClick={(e) => uploadDocumentHandler(e)}
                             className={`${styles.upload_button} btn`}
-                         
                           >
-                            Upload
                           </button>
-                        </div>
                       </div>
-                    </div>
+                      </div>
+                     </div>
                   </Form>
                 </div>
 
@@ -2238,12 +2089,7 @@ function Index() {
                           ></input>
                         </div>
                       </div>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
+                      <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                           <tr>
                             <th>
@@ -2290,55 +2136,32 @@ function Index() {
                               } else {
                                 return (
                                   <tr key={index} className="uploadRowTable">
-                                    <td className={`${styles.doc_name}`}>
-                                      {document?.originalName}
-                                    </td>
+                                    <td className={`${styles.doc_name}`}>{document?.originalName}</td>
                                     <td>
-                                      {document?.originalName
-                                        ?.toLowerCase()
-                                        ?.endsWith('.xls') ||
-                                        document?.originalName
-                                          .toLowerCase()
-                                          .endsWith('.xlsx') ? (
-                                        <img
-                                          src="/static/excel.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : document?.originalName
-                                        .toLowerCase()
-                                        .endsWith('.doc') ||
-                                        document?.originalName
-                                          .toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img
-                                          src="/static/doc.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
+                                      {document?.originalName?.toLowerCase()?.endsWith('.xls') ||
+                                      document?.originalName.toLowerCase().endsWith('.xlsx') ? (
+                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                      ) : document?.originalName.toLowerCase().endsWith('.doc') ||
+                                        document?.originalName.toLowerCase().endsWith('.docx') ? (
+                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                       ) : (
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
+                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                       )}
                                     </td>
-                                    <td className={styles.doc_row}>{moment(document?.date).format('DD-MM-YYYY, h:mm A')}</td>
                                     <td className={styles.doc_row}>
-                                      {document?.uploadedBy?.fName}{' '}
-                                      {document?.uploadedBy?.lName}
+                                      {moment(document?.date).format('DD-MM-YYYY, h:mm A')}
+                                    </td>
+                                    <td className={styles.doc_row}>
+                                      {document?.uploadedBy?.fName} {document?.uploadedBy?.lName}
                                     </td>
                                     <td>
-                                      <span
-                                        className={`${styles.status} ${styles.approved}`}
-                                      ></span>
+                                      <span className={`${styles.status} ${styles.approved}`}></span>
                                       {document?.verification?.status}
                                     </td>
                                     <td colSpan="2">
                                       <img
                                         onClick={(e) => {
-                                          deleteDocumentHandler({document, index})
+                                          deleteDocumentHandler(document, index);
                                         }}
                                         src="/static/delete.svg"
                                         className={`${styles.delete_image} mr-3`}
@@ -2354,7 +2177,6 @@ function Index() {
 
                                         }}
                                       />
-
                                     </td>
                                   </tr>
                                 );
@@ -2363,29 +2185,20 @@ function Index() {
                           {false &&
                             documentsFetched?.documents?.map((document, index) => {
                               if (document.deleted) {
-                                return null
+                                return null;
                               } else if (document.module === documentsDropDownFilter) {
                                 return (
                                   <tr key={index} className="uploadRowTable">
-                                    <td className={`${styles.doc_name}`}>
-                                      {document.name}
-                                    </td>
+                                    <td className={`${styles.doc_name}`}>{document.name}</td>
                                     <td>
-                                      <img
-                                        src="/static/pdf.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
+                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                     </td>
                                     <td className={styles.doc_row}>{document.date}</td>
                                     <td className={styles.doc_row}>
-                                      {document.uploadedBy?.fName}{' '}
-                                      {document.uploadedBy?.lName}
+                                      {document.uploadedBy?.fName} {document.uploadedBy?.lName}
                                     </td>
                                     <td>
-                                      <span
-                                        className={`${styles.status} ${styles.approved}`}
-                                      ></span>
+                                      <span className={`${styles.status} ${styles.approved}`}></span>
                                       {document?.verification?.status}
                                     </td>
                                     <td colSpan="2">
@@ -2407,10 +2220,12 @@ function Index() {
                                         className="img-fluid mr-3"
                                         alt="Share"
                                         onClick={() => {
-                                          dispatch(ViewDocument({
-                                            path: document.path,
-                                            orderId: documentsFetched._id
-                                          }))
+                                          dispatch(
+                                            ViewDocument({
+                                              path: document.path,
+                                              orderId: documentsFetched._id,
+                                            }),
+                                          );
                                         }}
                                       />
                                       <img
@@ -2420,9 +2235,9 @@ function Index() {
                                       />
                                     </td>
                                   </tr>
-                                )
+                                );
                               } else {
-                                return null
+                                return null;
                               }
                             })}
 
@@ -2445,7 +2260,7 @@ function Index() {
         />
       </div>
     </>
-  );
+  )
 }
 
 export default Index;

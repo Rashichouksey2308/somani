@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42450adf-49d6-448f-95f4-e25a99539819" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/utils/helpers/review.js" afterDir="false" />
+    <list default="true" id="db6aa802-a683-4450-8623-6f34a8f3ddda" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.dccache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sg-web-app.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/review/[profile].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review/[profile].jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/review/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Vessel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Vessel/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,38 +21,35 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Gzsjfpzosc7XumlGoCqoukoJoN" />
+  <component name="ProjectId" id="2H3HHoi8todoUhhBm4mezuRGbJe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;/Users/nishantbhadana/Documents/Code/sg-web-app/node_modules/standard&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/nishantbhadana/Documents/Code/sg-web-app/node_modules/prettier&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "/Users/nishantbhadana/Documents/Code/Somani/node_modules/standard",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/nishantbhadana/Documents/Code/Somani/node_modules/prettier",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="42450adf-49d6-448f-95f4-e25a99539819" name="Changes" comment="" />
-      <created>1667402884220</created>
+      <changelist id="db6aa802-a683-4450-8623-6f34a8f3ddda" name="Changes" comment="" />
+      <created>1667506764642</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1667402884220</updated>
-      <workItem from="1667402887655" duration="829000" />
-      <workItem from="1667404297398" duration="5271000" />
-      <workItem from="1667411017909" duration="3469000" />
+      <updated>1667506764642</updated>
+      <workItem from="1667506767919" duration="1342000" />
     </task>
     <servers />
   </component>
