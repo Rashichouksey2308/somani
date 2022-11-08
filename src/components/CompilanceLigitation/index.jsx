@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 import React from 'react';
 import styles from './index.module.scss';
 
 function index(props) {
+=======
+import React from 'react'
+import styles from './index.module.scss'
+
+function index (props) {
+>>>>>>> Stashed changes
   return (
     <div className={`${styles.risk}  d-flex align-items-center`} style={{ backgroundColor: `${props.backColor}` }}>
       <div
@@ -15,7 +22,14 @@ function index(props) {
         <span>{props.content}</span>
       </div>
     </div>
+<<<<<<< Updated upstream
   );
 }
 
 export default index;
+=======
+  )
+}
+
+export default index
+>>>>>>> Stashed changes

@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 import React from 'react';
 
 function index() {
+=======
+import React from 'react'
+
+function index () {
+>>>>>>> Stashed changes
   // if(token){
   //   return <Redirect to ="/" />
   // }
@@ -113,7 +119,14 @@ function index() {
     //     </div>
     //   </div>
     // </div>
+<<<<<<< Updated upstream
   );
 }
 
 export default index;
+=======
+  )
+}
+
+export default index
+>>>>>>> Stashed changes

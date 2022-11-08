@@ -8,6 +8,7 @@ scanner(
     /* Setting the project name and the source directory. */
     options: {
       'sonar.projectName': 'sg-node-web-app',
+<<<<<<< Updated upstream
       'sonar.sources': '.',
     },
   },
@@ -15,3 +16,11 @@ scanner(
   () => process.exit(),
 )
  
+=======
+      'sonar.sources': '.'
+    }
+  },
+  /* A function that is called after the sonarqube-scanner module is done. */
+  () => process.exit()
+)
+>>>>>>> Stashed changes

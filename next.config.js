@@ -26,5 +26,9 @@ module.exports = {
     }
 
     return config
+<<<<<<< Updated upstream
   },
+=======
+  }
+>>>>>>> Stashed changes
 }

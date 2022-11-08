@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+<<<<<<< Updated upstream
 import React, { useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
@@ -8,21 +9,39 @@ import Image from 'next/image';
 import UploadOther from '../UploadOther';
 
 function Index() {
+=======
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import Image from 'next/image'
+import UploadOther from '../UploadOther'
+
+function Index () {
+>>>>>>> Stashed changes
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
+<<<<<<< Updated upstream
             data-toggle="collapse"
             data-target="#internalCompanies"
             aria-expanded="true"
             aria-controls="internalCompanies"
+=======
+            data-toggle='collapse'
+            data-target='#internalCompanies'
+            aria-expanded='true'
+            aria-controls='internalCompanies'
+>>>>>>> Stashed changes
           >
             <h3 className={`${styles.heading}`}>Internal Companies</h3>
             <span>+</span>
           </div>
           <div
+<<<<<<< Updated upstream
             id="internalCompanies"
             //className="collapse"
             aria-labelledby="internalCompanies"
@@ -40,6 +59,25 @@ function Index() {
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
                       <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
+=======
+            id='internalCompanies'
+            // className="collapse"
+            aria-labelledby='internalCompanies'
+          >
+            <div className={`${styles.dashboard_form} card-body`}>
+              <div className='row'>
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                  <div className='d-flex'>
+                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
+                      <option value=''>India</option>
+                      <option value=''>US</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Country <strong className='text-danger ml-1'>*</strong>
+                    </label>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
+>>>>>>> Stashed changes
                     </div>
                   </div>
                 </div>
@@ -47,23 +85,41 @@ function Index() {
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
+<<<<<<< Updated upstream
                     type="text"
                     required
                     name="supplierName"
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Company Name <strong className="text-danger">*</strong>
+=======
+                    type='text'
+                    required
+                    name='supplierName'
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Company Name <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                   </label>
                 </div>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
+<<<<<<< Updated upstream
                     type="text"
                     required
                     name="supplierName"
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Short Name <strong className="text-danger">*</strong>
+=======
+                    type='text'
+                    required
+                    name='supplierName'
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Short Name <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                   </label>
                 </div>
               </div>
@@ -78,6 +134,7 @@ function Index() {
                   <h3 className={`${styles.heading}`}>Add New Address</h3>
                 </div>
                 <div className={`${styles.dashboard_form} card-body border_color`}>
+<<<<<<< Updated upstream
                   <div className="row">
                     <div className={`${styles.form_group} col-lg-2 col-md-6`}>
                       <div className="d-flex">
@@ -98,21 +155,52 @@ function Index() {
                       </div>
                     </div>
                   
+=======
+                  <div className='row'>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6`}>
+                      <div className='d-flex'>
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                          name='countryOfOrigin'
+                          required
+                        >
+                          <option value='India'>Branch Address</option>
+                          <option value='Dubai'>Office Address</option>
+                        </select>
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Address Type <strong className='text-danger'>*</strong>
+                        </label>
+                        <div className={`${styles.image_arrow} image_arrow`}>
+                          <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
+                        </div>
+                      </div>
+                    </div>
+
+>>>>>>> Stashed changes
                     <div className={`${styles.form_group} col-lg-8 col-md-12`}>
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
+<<<<<<< Updated upstream
                         type="text"
                         name="pinCode"
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Address <strong className="text-danger">*</strong>
+=======
+                        type='text'
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Address <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-lg-2 col-md-6`}>
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
+<<<<<<< Updated upstream
                         type="text"
                         name="city"
                       />
@@ -128,10 +216,28 @@ function Index() {
                       />
                       <label className={`${styles.label_heading} label_heading`} id="textInput">
                         Zip Code <strong className="text-danger">*</strong>
+=======
+                        type='text'
+                        name='city'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        City <strong className='text-danger'>*</strong></label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                      <input
+                        type='text'
+                        id='textInput'
+                        required
+                        className={`${styles.input_field} border_color input form-control`}
+                      />
+                      <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                        Zip Code <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-6`}>
                       <input
+<<<<<<< Updated upstream
                         type="text"
                         id="textInput"
                         required
@@ -139,38 +245,72 @@ function Index() {
                       />
                       <label className={`${styles.label_heading} label_heading`} id="textInput">
                         Email <strong className="text-danger">*</strong>
+=======
+                        type='text'
+                        id='textInput'
+                        required
+                        className={`${styles.input_field} border_color input form-control`}
+                      />
+                      <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                        Email <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                       </label>
                     </div>
                   </div>
                 </div>
                 <button
                   className={`${styles.add_btn}`}
+<<<<<<< Updated upstream
                   //onClick={() => addData('address')}
+=======
+                  // onClick={() => addData('address')}
+>>>>>>> Stashed changes
                 >
                   Add
                 </button>
                 <button className={`${styles.cancel_btn}`}>Cancel</button>
               </div>
+<<<<<<< Updated upstream
               <div className="d-flex justify-content-between">
                 <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                   <div className="d-flex justify-content-between">
+=======
+              <div className='d-flex justify-content-between'>
+                <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
+                  <div className='d-flex justify-content-between'>
+>>>>>>> Stashed changes
                     <div>
                       <label className={styles.label}>Registered Address</label>
                       <div className={styles.address_values}>
                         <p>N-11, 29 Tilak Marg, New Delhi</p>
+<<<<<<< Updated upstream
                         <div className="d-flex">
                           <p>
                             <span>Email:</span> abc@email.com
                           </p>
                          
+=======
+                        <div className='d-flex'>
+                          <p>
+                            <span>Email:</span> abc@email.com
+                          </p>
+
+>>>>>>> Stashed changes
                         </div>
                       </div>
                     </div>
                     <div>
+<<<<<<< Updated upstream
                       <div className="d-flex">
                         <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                         <div className={`${styles.delete_image} ml-3`}>
                           <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
+=======
+                      <div className='d-flex'>
+                        <img className={`${styles.edit_image} img-fluid`} src='/static/mode_edit.svg' alt='Edit' />
+                        <div className={`${styles.delete_image} ml-3`}>
+                          <Image src='/static/delete.svg' width='40px' height='40px' alt='Bin' />
+>>>>>>> Stashed changes
                         </div>
                       </div>
                     </div>
@@ -184,15 +324,26 @@ function Index() {
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
+<<<<<<< Updated upstream
             data-toggle="collapse"
             data-target="#bankDetails"
             aria-expanded="true"
             aria-controls="bankDetails"
+=======
+            data-toggle='collapse'
+            data-target='#bankDetails'
+            aria-expanded='true'
+            aria-controls='bankDetails'
+>>>>>>> Stashed changes
           >
             <h3 className={`${styles.heading} mb-0`}>Bank Details</h3>
             <span>+</span>
           </div>
+<<<<<<< Updated upstream
           <div id="bankDetails" className="collapse" aria-labelledby="bankDetails">
+=======
+          <div id='bankDetails' className='collapse' aria-labelledby='bankDetails'>
+>>>>>>> Stashed changes
             <div className={`${styles.dashboard_form} card-body`}>
               <div className={`${styles.address_card} pb-5 value background1`} style={{ marginTop: '40px' }}>
                 <div
@@ -201,23 +352,37 @@ function Index() {
                   <h3 className={`${styles.heading}`}>Add New Bank</h3>
                 </div>
                 <div className={`${styles.dashboard_form} card-body border_color`}>
+<<<<<<< Updated upstream
                   <div className="row">
                    
+=======
+                  <div className='row'>
+
+>>>>>>> Stashed changes
                     <div className={`${styles.form_group} col-lg-3 col-md-6`}>
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
+<<<<<<< Updated upstream
                         type="text"
                         name="pinCode"
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Bank Name <strong className="text-danger">*</strong>
+=======
+                        type='text'
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Bank Name <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-lg-2 col-md-6`}>
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
+<<<<<<< Updated upstream
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
@@ -225,10 +390,20 @@ function Index() {
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Account No. <strong className="text-danger">*</strong>
+=======
+                        type='number'
+                        onWheel={(event) => event.currentTarget.blur()}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Account No. <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-lg-2 col-md-6`}>
                       <input
+<<<<<<< Updated upstream
                         type="text"
                         id="textInput"
                         required
@@ -236,23 +411,45 @@ function Index() {
                       />
                       <label className={`${styles.label_heading} label_heading`} id="textInput">
                         Swift Code <strong className="text-danger">*</strong>
+=======
+                        type='text'
+                        id='textInput'
+                        required
+                        className={`${styles.input_field} border_color input form-control`}
+                      />
+                      <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                        Swift Code <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-lg-5 col-md-6`}>
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
+<<<<<<< Updated upstream
                         type="text"
                         name="pinCode"
                       />
                       <label className={`${styles.label_heading} label_heading`}>Branch Address</label>
                     </div>
                   
+=======
+                        type='text'
+                        name='pinCode'
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>Branch Address</label>
+                    </div>
+
+>>>>>>> Stashed changes
                   </div>
                 </div>
                 <button
                   className={`${styles.add_btn}`}
+<<<<<<< Updated upstream
                   //onClick={() => addData('address')}
+=======
+                  // onClick={() => addData('address')}
+>>>>>>> Stashed changes
                 >
                   Add
                 </button>
@@ -263,12 +460,20 @@ function Index() {
               <div className={styles.table_container}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
+<<<<<<< Updated upstream
                     <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
+=======
+                    <table className={`${styles.table} mb-0 table`} cellPadding='0' cellSpacing='0' border='0'>
+>>>>>>> Stashed changes
                       <thead>
                         <tr>
                           <th>BANK NAME</th>
                           <th>ACCOUNT NO.</th>
+<<<<<<< Updated upstream
                      
+=======
+
+>>>>>>> Stashed changes
                           <th>SWIFT CODE</th>
                           <th>BRANCH ADDRESS</th>
                           <th>ACTION</th>
@@ -279,6 +484,7 @@ function Index() {
                           <td>ICICI Bank</td>
                           <td>63547853487</td>
                           <td>ICIC0000031</td>
+<<<<<<< Updated upstream
                      
                           <td>A-44, Sagar Apartments, Tilak Marg, Agra</td>
                           <td>
@@ -289,11 +495,27 @@ function Index() {
                                 src="/static/delete 2.svg"
                                 className={`${styles.delete_image} border-0 p-0`}
                                 alt="delete"
+=======
+
+                          <td>A-44, Sagar Apartments, Tilak Marg, Agra</td>
+                          <td>
+                            <div>
+                              <img src='/static/mode_edit.svg' className={`${styles.edit_image} mr-3`} alt='edit' />
+
+                              <img
+                                src='/static/delete 2.svg'
+                                className={`${styles.delete_image} border-0 p-0`}
+                                alt='delete'
+>>>>>>> Stashed changes
                               />
                             </div>
                           </td>
                         </tr>
+<<<<<<< Updated upstream
                       
+=======
+
+>>>>>>> Stashed changes
                       </tbody>
                     </table>
                   </div>
@@ -305,14 +527,22 @@ function Index() {
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
+<<<<<<< Updated upstream
             data-toggle="collapse"
             data-target="#authorisedDetails"
             aria-expanded="true"
             aria-controls="authorisedDetails"
+=======
+            data-toggle='collapse'
+            data-target='#authorisedDetails'
+            aria-expanded='true'
+            aria-controls='authorisedDetails'
+>>>>>>> Stashed changes
           >
             <h3 className={`${styles.heading} mb-0`}>Authorised Signatories Details</h3>
             <span>+</span>
           </div>
+<<<<<<< Updated upstream
           <div id="authorisedDetails" className="collapse" aria-labelledby="authorisedDetails">
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
@@ -327,23 +557,49 @@ function Index() {
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
                       <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
+=======
+          <div id='authorisedDetails' className='collapse' aria-labelledby='authorisedDetails'>
+            <div className={`${styles.dashboard_form} card-body`}>
+              <div className='row'>
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
+                  <div className='d-flex'>
+                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
+                      <option value=''>John Doe</option>
+                      <option value=''>US</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Name <strong className='text-danger'>*</strong>
+                    </label>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
+>>>>>>> Stashed changes
                     </div>
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
+<<<<<<< Updated upstream
                     type="text"
                     required
                     name="supplierName"
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Email <strong className="text-danger">*</strong>
+=======
+                    type='text'
+                    required
+                    name='supplierName'
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Email <strong className='text-danger'>*</strong>
+>>>>>>> Stashed changes
                   </label>
                 </div>
 
                 <div className={`${styles.form_group} col-lg-3 col-sm-6`}>
                   <input
+<<<<<<< Updated upstream
                     type="text"
                     id="textInput"
                     name="email"
@@ -358,6 +614,22 @@ function Index() {
                   <div className="d-flex mt-2">
                     <img src="/static/mode_edit.svg" className={`${styles.edit_image} mr-3`} alt="edit" />
                     <img src="/static/delete 2.svg" className={`${styles.delete_image} border-0 p-0`} alt="delete" />
+=======
+                    type='text'
+                    id='textInput'
+                    name='email'
+                    required
+                    className={`${styles.input_field} border_color input form-control`}
+                  />
+                  <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                    Designation <strong className='text-danger'>*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-lg-3 col-sm-6`}>
+                  <div className='d-flex mt-2'>
+                    <img src='/static/mode_edit.svg' className={`${styles.edit_image} mr-3`} alt='edit' />
+                    <img src='/static/delete 2.svg' className={`${styles.delete_image} border-0 p-0`} alt='delete' />
+>>>>>>> Stashed changes
                     {/* <img className={`${styles.plus_add} img-fluid`} src="/static/add-btn.svg" alt="Plus" /> */}
                   </div>
                 </div>
@@ -374,7 +646,11 @@ function Index() {
           </div>
         </div>
 
+<<<<<<< Updated upstream
         <div className="d-flex justify-content-end mb-5" style={{ marginTop: '35px' }}>
+=======
+        <div className='d-flex justify-content-end mb-5' style={{ marginTop: '35px' }}>
+>>>>>>> Stashed changes
           <div className={`${styles.footer_heading} mr-5`}>
             Created By <span>Balakrishna SGF001</span>
           </div>
@@ -384,7 +660,14 @@ function Index() {
         </div>
       </div>
     </div>
+<<<<<<< Updated upstream
   );
 }
 
 export default Index;
+=======
+  )
+}
+
+export default Index
+>>>>>>> Stashed changes

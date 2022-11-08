@@ -68,9 +68,9 @@ export default function Home() {
     setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
     setVesselData(Vessel);
     setPartShipmentAllowed(_get(Vessel, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', 'No'));
-    if (_get(Vessel, 'data[0].vessels', []).length > 0) {
+    if (list.length > 0) {
       let temp = [];
-      list.forEach((val, index) => {
+      list.forEach(() => {
         temp.push({ value: false });
       });
 
