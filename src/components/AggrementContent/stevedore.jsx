@@ -191,7 +191,6 @@ function Index(props) {
           setOptions([...optionArray]);
         }
       } else if (sessionStorage.getItem('Stevedore')) {
-       
         let savedData = JSON.parse(sessionStorage.getItem('Stevedore'));
         let supplier = {
           name: savedData.name || props.vendor?.field4,

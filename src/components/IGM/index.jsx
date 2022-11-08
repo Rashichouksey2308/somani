@@ -20,20 +20,11 @@ import { settingSidebar } from 'redux/breadcrumb/action';
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
 
-
   const dispatch = useDispatch();
   const router = useRouter();
 
-
-
   let shipmentTypeBulk =
-    _get(
-      TransitDetails,
-      `data[0].order.termsheet.transactionDetails.shipmentType`,
-      '',
-    ) === 'Bulk'
-      ? true
-      : false;
+    _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false;
 
   const [editInput, setEditInput] = useState(true);
 
@@ -203,8 +194,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     setIgmList(tempArray);
   };
 
-
-
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
       setConsigneeInfo({
@@ -237,11 +226,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
-        _get(
-          TransitDetails,
-          `data[0].order.marginMoney.invoiceDetail.importerName`,
-        ) == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
+        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
         setConsigneeName('EMERGENT');
         setConsigneeInfo({
@@ -249,22 +236,20 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           branch: 'VIZAG',
           address:
             '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
-        })
+        });
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
-        _get(
-          TransitDetails,
-          `data[0].order.marginMoney.invoiceDetail.importerName`,
-        ) == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
+        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {
         setConsigneeName('indoGerman');
         setConsigneeInfo({
           name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
           branch: 'DELHI',
           address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
-        })
+        });
       }
       let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
         {
@@ -286,7 +271,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       tempArray.igmDetails = [...existingData];
       setIgmList(tempArray);
     }
-
   }, [TransitDetails]);
 
   const onChangeBlDropDown = (e) => {
@@ -308,9 +292,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
   };
 
-
   const onDocumentSelect = async (e, index) => {
-
     const docData = await docUploadFunction(e);
 
     let temparray = { ...igmList };
@@ -363,8 +345,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
   };
   const getIndex = (index) => {
-    return index = index + 1
-  }
+    return (index = index + 1);
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -422,16 +404,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(
-                      TransitDetails,
-                      'data[0].order.quantity',
-                      '',
-                    )?.toLocaleString('en-IN')}{' '}
-                    {_get(
-                      TransitDetails,
-                      'data[0].order.unitOfQuantity',
-                      '',
-                    ).toUpperCase('en-IN')}{' '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase('en-IN')}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -454,8 +428,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     ).toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == 'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -604,27 +577,18 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           }
                         >
                           {shipmentTypeBulk
-                            ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation[0]?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
-                            : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                            ? _get(TransitDetails, 'data[0].order.vessel.vessels', []).map((vessel, index) => (
+                                <option value={vessel?.vesselInformation[0]?.name} key={index}>
+                                  {vessel?.vesselInformation[0]?.name}
+                                </option>
+                              ))
+                            : _get(TransitDetails, 'data[0].order.vessel.vessels[0].vesselInformation', []).map(
+                                (vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ),
+                              )}
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
                           Vessel Name
@@ -698,9 +662,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                 ))}
                               </select>
 
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 BL Number
                                 <strong className="text-danger">*</strong>
                               </label>
@@ -718,11 +680,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   BL Date <strong className="text-danger ml-n1">*</strong>
                                 </div>
                                 <span className={styles.value}>
-                                  {blEntry?.blDate
-                                    ? moment(blEntry?.blDate,"DD-MM-YYYY").format(
-                                      'DD-MM-YYYY',
-                                    )
-                                    : ''}
+                                  {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
                                 </span>
                               </div>
                               <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
@@ -770,11 +728,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       BL Date <strong className="text-danger ml-n1">*</strong>
                                     </div>
                                     <span className={styles.value}>
-                                      {blEntry?.blDate
-                                        ? moment(blEntry?.blDate ,"DD-MM-YYYY").format(
-                                          'DD-MM-YYYY',
-                                        )
-                                        : ''}
+                                      {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
                                     </span>
                                   </div>
                                   <div className="col-md-6">
@@ -789,10 +743,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                 <div className="row align-items-center">
                                   <div className="col-md-6">
                                     <div className={`${styles.label} text`}>
-                                      BL Quantity{' '}
-                                      <strong className="text-danger ml-n1">
-                                        *
-                                      </strong>
+                                      BL Quantity <strong className="text-danger ml-n1">*</strong>
                                     </div>
                                     <span className={styles.value}>
                                       
@@ -872,39 +823,19 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           </td>
                           <td>
                             {item?.document ? (
-                              item?.document?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.xls') ||
-                                item?.document?.originalName
-                                  ?.toLowerCase()
-                                  .endsWith('.xlsx') ? (
-                                <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : item?.document?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                                item?.document?.originalName
-                                  ?.toLowerCase()
-                                  .endsWith('.docx') ? (
-                                <img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
+                              item?.document?.originalName?.toLowerCase().endsWith('.xls') ||
+                              item?.document?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                              ) : item?.document?.originalName?.toLowerCase().endsWith('.doc') ||
+                                item?.document?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                               ) : (
                                 <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                               )
                             ) : null}
                           </td>
                           <td className={styles.doc_row}>
-                            {item?.document
-                              ? moment(item?.document?.Date).format(
-                                ' DD-MM-YYYY , h:mm a',
-                              )
-                              : ''}
+                            {item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}
                           </td>
                           <td>
                             {item.document === null ? (

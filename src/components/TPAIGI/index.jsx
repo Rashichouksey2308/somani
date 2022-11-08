@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Col, Row } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
 import _get from 'lodash/get';
 import moment from 'moment';
 import Router from 'next/router';
+import { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import styles from './index.module.scss';
 
 function Index(props) {
   const [data, setData] = useState({
@@ -64,26 +63,24 @@ function Index(props) {
           lastDate: data?.lastDate,
           terms: data?.terms,
           addComm: data?.addComm,
-          
+
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-          designatedStorageArea:data?.designatedStorageArea,
-          cmaAddress:data?.cmaAddress,
-          cma:data?.cma,
-          toleranceLevel:data?.toleranceLevel,
-          incoTerms:data?.incoTerms,
-          supplierAddress:data?.supplierAddress,
-          financialAddress:data?.financialAddress,
-          designatedStorageArea:data.designatedStorageArea,
-          cmaAuthorized:data.cmaAuthorized,
+          designatedStorageArea: data?.designatedStorageArea,
+          cmaAddress: data?.cmaAddress,
+          cma: data?.cma,
+          toleranceLevel: data?.toleranceLevel,
+          incoTerms: data?.incoTerms,
+          supplierAddress: data?.supplierAddress,
+          financialAddress: data?.financialAddress,
+          designatedStorageArea: data.designatedStorageArea,
+          cmaAuthorized: data.cmaAuthorized,
           financialBank: data?.financialBank,
           supplier: data?.supplier,
-
-
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -108,8 +105,8 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:_get(data, 'seller.addresses[0]', {}),
-          buyerAddress:  _get(data, 'buyer.addresses[0]', {}),
+          sellerAddress: _get(data, 'seller.addresses[0]', {}),
+          buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
@@ -121,17 +118,11 @@ function Index(props) {
           detailsOfComm: data?.order?.commodity,
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
-          totalOrderValue:
-          data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -141,11 +132,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.addresses[0]', ''),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           buyerEmail: '',
           supplierEmail: '',
@@ -154,18 +141,16 @@ function Index(props) {
           financialBank: data?.financingBank?.name,
           financialAddress: `${data?.financingBank?.branch}, Netherlands`,
           cma: data?.CMA?.name,
-          cmaAddress:
-            _get(data, 'CMA.addresses[0]', {}),
+          cmaAddress: _get(data, 'CMA.addresses[0]', {}),
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-          designatedStorageArea:data?.CMA?.designatedStorageArea,
+          designatedStorageArea: data?.CMA?.designatedStorageArea,
           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
         });
       }
     }
   }, [props]);
   return (
-    <>      
-    
+    <>
       {/* TPA (CMA) pdf download code end */}
 
       <div className={`${styles.root}`}>
@@ -204,10 +189,10 @@ function Index(props) {
 }
 
 export default Index;
-const tpaSeller = (data, preview) => {
+
+const tpaSeller = (data) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
-    
       <p className="text-center text_sales">
         {' '}
         <strong>TRIPARTITE AGREEMENT</strong>
@@ -638,11 +623,8 @@ const tpaSeller = (data, preview) => {
             Address of Collateral Manager
           </Col>
           <Col md={7} className={styles.right}>
-           {data.cmaAddress?.fullAddress},
-              {data.cmaAddress?.city}{" "} 
-              {data.cmaAddress?.country},{" "}
-              
-              {data.cmaAddress?.pinCode}
+            {data.cmaAddress?.fullAddress},{data.cmaAddress?.city} {data.cmaAddress?.country},{' '}
+            {data.cmaAddress?.pinCode}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -704,11 +686,8 @@ const tpaSeller = (data, preview) => {
             Address of Supplier
           </Col>
           <Col md={7} className={styles.right}>
-              {data.supplierAddress?.fullAddress},
-              {data.supplierAddress?.city}{" "} 
-              {data.supplierAddress?.country},{" "}
-              
-              {data.supplierAddress?.pinCode}
+            {data.supplierAddress?.fullAddress},{data.supplierAddress?.city} {data.supplierAddress?.country},{' '}
+            {data.supplierAddress?.pinCode}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -752,4 +731,3 @@ const tpaSeller = (data, preview) => {
     </div>
   );
 };
-
