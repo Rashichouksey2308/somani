@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './port.module.scss'
+import styles from '../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import Ports from '../../src/components/Ports'

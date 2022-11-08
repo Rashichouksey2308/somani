@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './index.module.scss';
+import styles from '../commodity/index.module.scss';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
@@ -74,8 +74,7 @@ const index = () => {
               Add
             </button>
           </div>
-
-          {/*UserTable*/}
+        {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
             <div className={`${styles.tableFilter} d-flex justify-content-between`}>
               <h3 className="heading_card">Document Master</h3>
@@ -141,61 +140,6 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
                     <tr className={`${styles.table_row} table_row17`}>
                       <td>Leads</td>
                       <td>Credit Queue</td>
