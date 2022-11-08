@@ -14,7 +14,6 @@ function Index() {
   const [transitDetails, setTransitDetails] = useState();
   const dispatch = useDispatch();
   const id = sessionStorage.getItem('transitPId');
- 
 
   useEffect(() => {
     if (id) {
@@ -26,8 +25,6 @@ function Index() {
     const data = await dispatch(GetTransitDetails(`?transitId=${id}`));
     setTransitDetails(data);
   };
-
-
 
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1150]);

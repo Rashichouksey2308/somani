@@ -22,11 +22,7 @@ import MarginMoney from '../../src/templates/MarginMoney';
 import RevisedMarginMoneyTemp from '../../src/templates/RevisedMarginMoneyTemp';
 import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
-
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
 import moment from 'moment';
-import { getBanks, getInternalCompanies ,getBranches} from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -50,12 +46,11 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', '');
 
-
   let id = sessionStorage.getItem('marginId');
 
   const [unit, setUnit] = useState({ value: 'Crores' });
   const [coversionUnit, setCoversionUnit] = useState(10000000);
-  const [isConsigneeSameAsBuyer, setisConsigneeSameAsBuyer] = useState(true)
+  const [isConsigneeSameAsBuyer, setisConsigneeSameAsBuyer] = useState(true);
 
   const RevisedMarginMoneyTrue = _get(margin, 'data.data[0].revisedMarginMoney.isActive', false);
 
@@ -136,7 +131,7 @@ function Index() {
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 1) *
         90) /
-      365,
+        365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
@@ -173,7 +168,7 @@ function Index() {
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 0) *
         90) /
-      365,
+        365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
@@ -216,13 +211,12 @@ function Index() {
   const [invoiceData, setInvoiceData] = useState({});
   const [branchOptions, setBranchOptions] = useState([]);
 
-  const saveData = (name, value, name2, value2, value3,value4) => {
-  
+  const saveData = (name, value, name2, value2, value3, value4) => {
     const newInput = { ...invoiceData };
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
-     newInput.accountNo = value4;
+    newInput.accountNo = value4;
 
     setInvoiceData({ ...newInput });
   };
@@ -239,12 +233,8 @@ function Index() {
 
     newInput[name] = value;
 
-
-
     setInvoiceData({ ...newInput });
   };
-
-
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
@@ -253,15 +243,12 @@ function Index() {
   });
 
   const dropDownChange = (name, value) => {
-
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
 
       setInvoiceData({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
 
@@ -275,16 +262,21 @@ function Index() {
 
     setBranchOptions([...filter]);
   };
-  console.log(branchOptions,"setBranchOptions")
+  console.log(branchOptions, 'setBranchOptions');
   useEffect(() => {
-    dropDownChange("name", marginData?.invoiceDetail?.importerName ? marginData?.invoiceDetail?.importerName : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-      ?.toUpperCase()
-      ?.replace(/ *\([^)]*\) */g, '') ||
-      '')
-  }, [marginData?.invoiceDetail?.importerName, marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-    ?.toUpperCase()
-    ?.replace(/ *\([^)]*\) */g, '') ||
-    ''])
+    dropDownChange(
+      'name',
+      marginData?.invoiceDetail?.importerName
+        ? marginData?.invoiceDetail?.importerName
+        : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') || '',
+    );
+  }, [
+    marginData?.invoiceDetail?.importerName,
+    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ||
+      '',
+  ]);
 
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
@@ -495,8 +487,7 @@ function Index() {
           consigneeName: invoiceData?.consigneeName,
           consigneeGSTIN: invoiceData?.consigneeGSTIN,
           consigneeAddress: invoiceData?.consigneeAddress,
-          importerName:
-            invoiceData?.importerName,
+          importerName: invoiceData?.importerName,
 
           branchOffice: invoiceData?.branchOffice,
           companyAddress: invoiceData?.companyAddress,
@@ -609,7 +600,7 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
+        365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
@@ -654,7 +645,7 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 0) *
         90) /
-      365,
+        365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
@@ -749,7 +740,6 @@ function Index() {
         IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
       });
-
     }
   }, [marginData]);
 
@@ -767,14 +757,14 @@ function Index() {
     let additionalAmountPerPDC = isNaN(
       Number(
         (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
+          Number(forCalculationRevised.additionalPDC),
       ).toFixed(2),
     )
       ? 0
       : Number(
-        (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
-      ).toFixed(2);
+          (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
+            Number(forCalculationRevised.additionalPDC),
+        ).toFixed(2);
     // u calculation
     let revisedNetOrderValueNew = Number(
       Number(finalCalRevised?.totalOrderValue) - Number(marginData?.calculation?.totalOrderValue),
@@ -796,7 +786,7 @@ function Index() {
   const getRevisedData2 = () => {
     let additionalAmountPerPDC = Number(
       (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
-      Number(forCalculationRevised.additionalPDC),
+        Number(forCalculationRevised.additionalPDC),
     ).toFixed(2);
 
     let revisedNetOrderValueNew = Number(
@@ -816,7 +806,6 @@ function Index() {
   };
 
   const saveInvoiceDataRevisedRevised = (name, value) => {
-
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
 
@@ -871,9 +860,7 @@ function Index() {
         },
       },
 
-
       isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
-
     };
 
     dispatch(RevisedMarginMoney(obj));
@@ -901,7 +888,6 @@ function Index() {
   };
 
   const exportPDF = () => {
-   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -1312,12 +1298,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {(
-                            marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance
-                              : 0
-                            
-                          )} %
+                          {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
                         </p>
                       </td>
                     </tr>
@@ -2238,19 +2219,18 @@ function Index() {
         </tr>
       </table>
     );
-   
+
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
-      
+
       autoPaging: 'text',
     });
   };
 
   const exportPDFReviced = () => {
-   
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -2765,11 +2745,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {(
-                            marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance
-                              : 0
-                          )} %
+                          {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
                         </p>
                       </td>
                       <td align="left">
@@ -2784,7 +2760,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {(marginData?.order?.tolerance ? marginData?.order?.tolerance : 0)} %
+                          {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
                         </p>
                       </td>
                     </tr>
@@ -4042,7 +4018,7 @@ function Index() {
         </tr>
       </table>
     );
-   
+
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginMoneyTemp marginData={marginData} />), {
       callback: function (doc) {
@@ -4078,9 +4054,8 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       });
-      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true)
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
     }
-
   }, [marginData, getInternalCompaniesMasterData]);
 
   useEffect(() => {
@@ -4242,12 +4217,7 @@ function Index() {
                         </span>
                       </div>
                     </div>
-                    <div
-                      id="commodityAccordion"
-
-                      aria-labelledby="commodityAccordion"
-                      data-parent="#commodityAccordion"
-                    >
+                    <div id="commodityAccordion" aria-labelledby="commodityAccordion" data-parent="#commodityAccordion">
                       <div className={`${styles.cardBody} card-body `}>
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
@@ -4263,11 +4233,13 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-
-                                  {marginData?.order?.quantity ? marginData?.order?.quantity?.toLocaleString('en-In', { maximumFractionDigits: 2 }) + ' ' + marginData?.order?.unitOfQuantity : ''}
-
-
-
+                                  {marginData?.order?.quantity
+                                    ? marginData?.order?.quantity?.toLocaleString('en-In', {
+                                        maximumFractionDigits: 2,
+                                      }) +
+                                      ' ' +
+                                      marginData?.order?.unitOfQuantity
+                                    : ''}
                                 </div>
                               </div>
                             </div>
@@ -4323,10 +4295,9 @@ function Index() {
                                   isFieldInFocus.conversion
                                     ? forCalculation?.conversionRate
                                     : checkNan(Number(forCalculation?.conversionRate))?.toLocaleString('en-In', {
-                                      maximumFractionDigits: 2,
-                                    })
+                                        maximumFractionDigits: 2,
+                                      })
                                 }
-
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -4404,7 +4375,11 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.termsheet ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In') + ' %' : ''}
+                                  {marginData?.order?.termsheet
+                                    ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString(
+                                        'en-In',
+                                      ) + ' %'
+                                    : ''}
                                 </div>
                               </div>
                             </div>
@@ -4437,7 +4412,11 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.termsheet ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In') + ' %' : ''}
+                                  {marginData?.order?.termsheet
+                                    ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString(
+                                        'en-In',
+                                      ) + ' %'
+                                    : ''}
                                 </div>
                               </div>
                             </div>
@@ -4475,7 +4454,6 @@ function Index() {
                                     : checkNan(Number(forCalculation?.numberOfPDC))?.toLocaleString('en-In')
                                 }
                                 onChange={(e) => saveForCalculation(e.target.name, e.target.value)}
-
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -4820,7 +4798,6 @@ function Index() {
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
-
                                   value={invoiceData?.buyerGSTIN}
                                 >
                                   <option selected>Select an Option</option>
@@ -4868,25 +4845,24 @@ function Index() {
                                       inline
                                       label="Yes"
                                       onChange={(e) => {
-                                        setisConsigneeSameAsBuyer(true)
+                                        setisConsigneeSameAsBuyer(true);
 
                                         setSame(true);
                                       }}
-
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-1`}
-                                      checked={isConsigneeSameAsBuyer == true ? "checked" : ""}
+                                      checked={isConsigneeSameAsBuyer == true ? 'checked' : ''}
                                     />
                                     <Form.Check
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
                                       onChange={(e) => {
-                                        setisConsigneeSameAsBuyer(false)
+                                        setisConsigneeSameAsBuyer(false);
                                         setSame(false);
                                       }}
-                                      checked={isConsigneeSameAsBuyer == false ? "checked" : ""}
+                                      checked={isConsigneeSameAsBuyer == false ? 'checked' : ''}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-2`}
@@ -4985,7 +4961,6 @@ function Index() {
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
                                   onChange={(e) => {
-
                                     let filter = getInternalCompaniesMasterData.filter((val, index) => {
                                       if (
                                         val.Branch == e.target.value &&
@@ -5002,15 +4977,6 @@ function Index() {
 
                                       changeImporterData.GSTIN = filter[0].GSTIN;
                                       newInput['importerGSTIN'] = filter[0].GSTIN;
-
-
-
-
-
-
-
-
-
 
                                       newInput['branchOffice'] = e.target.value;
                                       changeImporterData.branch = e.target.value;
@@ -5088,22 +5054,19 @@ function Index() {
                                   required
                                   value={invoiceData?.bankName}
                                   onChange={(e) => {
-                                  saveInvoiceData(e.target.name, e.target.value);
-                                  
+                                    saveInvoiceData(e.target.name, e.target.value);
                                   }}
                                 >
                                   <option>Select an option</option>
-                                  {branchOptions.filter((val,index)=>{
-                                    if(val.Bank_Name){
-                                      return val
-                                    }
-                                  }).map((val, index) => {
-                                    return (
-                                      <option value={`${val.Bank_Name}`}>
-                                        {val.Bank_Name}
-                                      </option>
-                                    );
-                                  })}
+                                  {branchOptions
+                                    .filter((val, index) => {
+                                      if (val.Bank_Name) {
+                                        return val;
+                                      }
+                                    })
+                                    .map((val, index) => {
+                                      return <option value={`${val.Bank_Name}`}>{val.Bank_Name}</option>;
+                                    })}
                                   {/* <option value={`${invoiceData?.bankName}`}>
                                     {invoiceData?.bankName}
                                   </option> */}
@@ -5130,41 +5093,32 @@ function Index() {
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
-                                    let filter = branchOptions.filter(
-                                      (val, index) => {
-                                        if (val.Branch_Type == e.target.value) {
-                                          return val;
-                                        }
-                                      },
-                                    );
-                                    console.log(filter[0].Branch_Address,"filter")
+                                    let filter = branchOptions.filter((val, index) => {
+                                      if (val.Branch_Type == e.target.value) {
+                                        return val;
+                                      }
+                                    });
+                                    console.log(filter[0].Branch_Address, 'filter');
                                     saveData(
                                       'branchAddress',
-                                      filter[0].Branch_Address==undefined?"":  filter[0].Branch_Address,
+                                      filter[0].Branch_Address == undefined ? '' : filter[0].Branch_Address,
                                       'IFSCcode',
-                                      filter[0].IFSC==undefined?"":filter[0].IFSC,
+                                      filter[0].IFSC == undefined ? '' : filter[0].IFSC,
                                       e.target.value,
-                                      filter[0].Account_No==undefined?"":filter[0].Account_No
-
-                                    )
-
+                                      filter[0].Account_No == undefined ? '' : filter[0].Account_No,
+                                    );
                                   }}
                                 >
-
                                   <option selected>Select an option</option>
-                                  {branchOptions.filter(
-                                      (val, index) => {
-                                        if (val.Branch_Type) {
-                                          return val;
-                                        }
+                                  {branchOptions
+                                    .filter((val, index) => {
+                                      if (val.Branch_Type) {
+                                        return val;
                                       }
-                                    ).map((val, index) => {
-                                    return (
-                                      <option value={`${val.Branch_Type}`}>
-                                        {val.Branch_Type}
-                                      </option>
-                                    );
-                                  })}
+                                    })
+                                    .map((val, index) => {
+                                      return <option value={`${val.Branch_Type}`}>{val.Branch_Type}</option>;
+                                    })}
                                   {/* <option value={`${invoiceData?.branch}`}>
                                     {invoiceData?.branch}
                                   </option> */}
@@ -5201,8 +5155,6 @@ function Index() {
                                 name="IFSCcode"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.IFSCcode}
-
-
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />

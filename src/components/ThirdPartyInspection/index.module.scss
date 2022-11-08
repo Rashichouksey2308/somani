@@ -1,7 +1,6 @@
 @import '../styles/Core/config';
 
 .dashboardTab {
- 
   border: 1px solid #d2d7e5;
 
   .tabHeader {
@@ -77,9 +76,7 @@
 }
 
 .backgroundMain {
-
   .vessel_card {
-  
     .main {
       margin-bottom: 26px;
       border-radius: 6px;
@@ -304,13 +301,12 @@
         }
         @include respond(phone) {
           font-size: 14px;
-          
         }
       }
 
       .comment_field {
         height: 106px;
-      
+
         border-radius: 4px;
         font-size: 20px;
         font-weight: 500;
@@ -320,7 +316,6 @@
         box-sizing: border-box;
 
         &:invalid + label {
-        
           transform: translateY(0);
         }
 
@@ -417,7 +412,7 @@
           box-sizing: border-box;
           letter-spacing: 0.19px;
           padding: 13px 30px 13px 17px;
-        
+
           &:invalid + label {
             transform: translateY(0);
           }
@@ -438,12 +433,10 @@
     }
 
     .search_container {
-   
       height: 62px;
       padding-right: 1.5rem !important;
-     
+
       .dropDown {
-    
         border: 1px solid #0000001f;
         border-radius: 4px;
         color: #3687e8;
@@ -467,7 +460,7 @@
           width: 337px;
           height: 40px;
           padding-left: 3.5rem;
-        
+
           border: 2px solid #d2d7e5;
           border-radius: 1.1rem;
         }
@@ -550,7 +543,7 @@
             tr {
               td {
                 font-size: 19px;
-              
+
                 font-weight: 500;
                 line-height: 24px;
                 padding: 24px 15px;
@@ -794,7 +787,7 @@ img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
-  
+
     pointer-events: none;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
 
@@ -808,7 +801,6 @@ img {
 
 .customSelect {
   appearance: none;
- 
 }
 
 .drop_container {
@@ -879,7 +871,7 @@ img {
 .tpi_popup {
   border-radius: 6px !important;
   box-shadow: none;
- 
+
   padding: 0 !important;
 
   & > div {
@@ -924,7 +916,7 @@ img {
 
         .table_scroll_inner {
           display: table-cell;
-        
+
           .table {
             border: 2px solid #e2e2e2;
 
@@ -965,12 +957,12 @@ img {
             tr {
               td {
                 font-size: 19px;
-        
+
                 font-weight: 500;
                 line-height: 24px;
                 padding: 10px 20px;
                 vertical-align: middle;
-                
+
                 border: 2px solid #e2e2e2;
                 @include respond(lg-desktop) {
                   font-size: 15px;
@@ -993,7 +985,7 @@ img {
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
- 
+
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;

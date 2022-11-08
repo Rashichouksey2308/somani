@@ -63,7 +63,7 @@ function Index(props) {
           lastDate: data?.lastDate,
           terms: data?.terms,
           addComm: data?.addComm,
-        
+
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
@@ -181,7 +181,6 @@ const tripartiteAgreement = (data, preview) => {
   return (
     <>
       <div className="card-body">
-       
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -193,16 +192,11 @@ const tripartiteAgreement = (data, preview) => {
           <strong>Schedule I</strong> hereto by and between:
         </p>
         <p className="text_sales">
-          <b style={{textTransform:'uppercase'}}>{data.seller}</b>, a company organized and existing in accordance
-          with Law of Switzerland and having address at{' '}
-          {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city},{" "} 
-              {data.sellerAddress?.country},{" "}
-              
-              {data.sellerAddress?.pinCode} through its Authorized Signatory
-          (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
-          which expression shall, unless excluded by or repugnant to the context
-          be deemed to include its legal heirs, successors and permitted
-          assigns) of the First Part.
+          <b style={{ textTransform: 'uppercase' }}>{data.seller}</b>, a company organized and existing in accordance
+          with Law of Switzerland and having address at {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city},{' '}
+          {data.sellerAddress?.country}, {data.sellerAddress?.pinCode} through its Authorized Signatory (hereinafter
+          referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant
+          to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
         </p>
         <p className="text_sales">And</p>
         <p className="text_sales">
@@ -294,7 +288,9 @@ const tripartiteAgreement = (data, preview) => {
           </li>
           <li>
             <p className="text_sales">
-              Further, End Buyer shall be fully responsible for payment of the price in the event that Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
+              Further, End Buyer shall be fully responsible for payment of the price in the event that Supplier is
+              unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and Buyer for any loss,
+              damage or expense arising due to execution of the Sales Contract.
             </p>
           </li>
           <li>
@@ -340,10 +336,7 @@ const tripartiteAgreement = (data, preview) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-               {data.supplierAddress?.fullAddress},
-              {data.supplierAddress?.city}{" "} 
-              {data.supplierAddress?.country},{" "}
-              
+              {data.supplierAddress?.fullAddress},{data.supplierAddress?.city} {data.supplierAddress?.country},{' '}
               {data.supplierAddress?.pinCode}
             </Col>
           </Row>
@@ -374,13 +367,12 @@ const tripartiteAgreement = (data, preview) => {
               Email ID of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-             
-                <ol>
-                  {data?.supplierEmail?.length > 0 &&
-                    data?.supplierEmail?.map((val, index) => {
-                       return <li>{val.email}</li>;
-                    })}
-                </ol>
+              <ol>
+                {data?.supplierEmail?.length > 0 &&
+                  data?.supplierEmail?.map((val, index) => {
+                    return <li>{val.email}</li>;
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -418,21 +410,19 @@ const tripartiteAgreement = (data, preview) => {
               Email ID of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              
-                <ol>
-                  {data?.buyerEmail?.length > 0 &&
-                    data?.buyerEmail?.map((val, index) => {
-                      return <li>{val.email}</li>;
-                    })}
-                </ol>
-              
+              <ol>
+                {data?.buyerEmail?.length > 0 &&
+                  data?.buyerEmail?.map((val, index) => {
+                    return <li>{val.email}</li>;
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`} >
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
@@ -520,8 +510,8 @@ const tpaSeller = () => {
       </p>
       <p>And</p>
       <p>
-        <GrowInput className='text-uppercase' type="text" placeholder="INDO INTERNATIONAL TRADING FZCO" />, a company organized and existing in
-        accordance with Law of UAE and having registered address at{' '}
+        <GrowInput className="text-uppercase" type="text" placeholder="INDO INTERNATIONAL TRADING FZCO" />, a company
+        organized and existing in accordance with Law of UAE and having registered address at{' '}
         <GrowInput type="text" placeholder="JAFZA VIEW-18, LOB-180504, JEBEL ALI, DUBAI, UAE" /> through its authorized
         signatory which included its successors, administrator setc. (hereinafter referred to as the &quot;BUYER
         &quot;), which expression shall, unless excluded by or repugnant to the context be deemed to include its legal

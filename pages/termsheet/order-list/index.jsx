@@ -151,7 +151,6 @@ function Index() {
                   <a
                     onClick={() => {
                       if (currentPage === 0) {
-                        return;
                       } else {
                         setCurrentPage((prevState) => prevState - 1);
                       }
@@ -241,7 +240,7 @@ function Index() {
                                     dispatch(GetTermsheet(`?company=${term.company._id}`));
 
                                     dispatch(setDynamicName(term.order.orderId));
-                                  
+
                                     Router.push('/termsheet-preview');
                                   }}
                                 />

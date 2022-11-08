@@ -1,33 +1,3 @@
-<<<<<<< Updated upstream
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import Router, { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetOrders } from '../../redux/registerBuyer/action';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
-import _get from 'lodash/get';
-
-function Index() {
-  const { singleOrder } = useSelector((state) => state.buyer);
-
-  const [edit, setEdit] = useState(false);
-  const router = useRouter();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const id1 = sessionStorage.getItem('VesselCompany');
-    dispatch(GetOrders(`?company=${id1}`));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(setPageName('vessel'));
-    dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', 'Company Name')));
-    dispatch(setDynamicOrder(null));
-  }, [singleOrder]);
-
-  return (
-    <div className="container-fluid p-0 border-0">
-=======
 import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import Router, { useRouter } from 'next/router'
@@ -56,25 +26,16 @@ function Index () {
 
   return (
     <div className='container-fluid p-0 border-0'>
->>>>>>> Stashed changes
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
             <img
               onClick={() => {
-<<<<<<< Updated upstream
-                Router.push('/vessel-nomination');
-              }}
-              className={`${styles.arrow} image_arrow img-fluid mr-2`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-=======
                 Router.push('/vessel-nomination')
               }}
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src='/static/keyboard_arrow_right-3.svg'
               alt='ArrowRight'
->>>>>>> Stashed changes
             />
             <h1 className={styles.heading}>{_get(singleOrder, 'data[0].company.companyName', 'Company Name')}</h1>
           </div>
@@ -110,17 +71,6 @@ function Index () {
 
         <div className={`${styles.datatable} card datatable border-color`}>
           <div className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}>
-<<<<<<< Updated upstream
-            <h3 className="heading_card">All Orders</h3>
-            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-              <span>Showing Page 1 out of 10</span>
-              <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-                {' '}
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-              <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-=======
             <h3 className='heading_card'>All Orders</h3>
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>Showing Page 1 out of 10</span>
@@ -130,25 +80,16 @@ function Index () {
               </a>
               <a href='#' className={`${styles.arrow} ${styles.rightArrow} arrow`}>
                 <img src='/static/keyboard_arrow_right-3.svg' alt='arrow right' className='img-fluid' />
->>>>>>> Stashed changes
               </a>
             </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-<<<<<<< Updated upstream
-              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />{' '}
-=======
               <table className={`${styles.table} table`} cellPadding='0' cellSpacing='0' border='0'>
                 <thead>
                   <tr className='table_row'>
                     <th>
                       ORDER ID <img className={`mb-1`} src='/static/icons8-sort-24.svg' alt='Sort icon' />{' '}
->>>>>>> Stashed changes
                     </th>
                     <th>COMMODITY</th>
                     <th>SHIPMENT TYPE</th>
@@ -157,20 +98,12 @@ function Index () {
                   </tr>
                 </thead>
                 <tbody>
-<<<<<<< Updated upstream
-                  <tr className="table_row">
-=======
                   <tr className='table_row'>
->>>>>>> Stashed changes
                     <td>124621</td>
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-<<<<<<< Updated upstream
-                        Router.push('/vessel');
-=======
                         Router.push('/vessel')
->>>>>>> Stashed changes
                       }}
                     >
                       Iron
@@ -205,20 +138,12 @@ function Index () {
                       </>
                     )} */}
                   </tr>
-<<<<<<< Updated upstream
-                  <tr className="table_row">
-=======
                   <tr className='table_row'>
->>>>>>> Stashed changes
                     <td>124621</td>
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-<<<<<<< Updated upstream
-                        Router.push('/vessel');
-=======
                         Router.push('/vessel')
->>>>>>> Stashed changes
                       }}
                     >
                       Iron
@@ -230,20 +155,12 @@ function Index () {
                       Pending
                     </td>
                   </tr>
-<<<<<<< Updated upstream
-                  <tr className="table_row">
-=======
                   <tr className='table_row'>
->>>>>>> Stashed changes
                     <td>124621</td>
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-<<<<<<< Updated upstream
-                        Router.push('/vessel');
-=======
                         Router.push('/vessel')
->>>>>>> Stashed changes
                       }}
                     >
                       Copper
@@ -262,14 +179,7 @@ function Index () {
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
-  );
-}
-
-export default Index;
-=======
   )
 }
 
 export default Index
->>>>>>> Stashed changes

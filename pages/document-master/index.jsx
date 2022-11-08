@@ -125,7 +125,7 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                     
+
                       <th className={`${styles.table_heading} table_heading`}>
                         DOCUMENT NAME{' '}
                         <Image
@@ -207,7 +207,6 @@ const index = () => {
                         </div>
                       </td>
                     </tr>
-                   
                   </tbody>
                 </table>
               </div>
@@ -218,8 +217,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      <DownloadMasterBar btnName="Download" 
-       downloadFormat={true}/>
+      <DownloadMasterBar btnName="Download" downloadFormat={true} />
     </>
   );
 };

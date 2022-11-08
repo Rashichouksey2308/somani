@@ -92,7 +92,7 @@ function Index(props) {
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-  
+
         let exe;
         let dat = '';
         data?.placeOfExecution?.execution?.forEach((val, index) => {

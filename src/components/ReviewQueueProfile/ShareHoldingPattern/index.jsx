@@ -13,7 +13,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import { Doughnut, getDatasetAtEvent } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 Chart.register(
   ArcElement,
@@ -33,9 +33,7 @@ function Index({ shareHolding }) {
   const [equiltyCapitalShares, setEquiltyCapitalShares] = useState([]);
   const [prefrenceCapitalShares, setPrefrenceCapitalShares] = useState([]);
 
- 
   Chart.register(ArcElement);
-
 
   let totalEquityShare = 0;
   let totalEquitySharePercentage = 0;
@@ -69,7 +67,6 @@ function Index({ shareHolding }) {
     ?.sort((a, b) => b.numberOfShares - a.numberOfShares)
     .slice(0, 5)
     .forEach((item) => {
-  
       equityShareNo.push(item.numberOfShares);
       equityShareName.push(item.fullName);
     });
@@ -77,7 +74,6 @@ function Index({ shareHolding }) {
     totalEquityShare += equity.numberOfShares;
     totalEquitySharePercentage += equity.percentageShareHolding;
   });
-
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return item.type !== 'EquityShares1Member';
@@ -96,9 +92,6 @@ function Index({ shareHolding }) {
     totalPrefrenceShare += item.numberOfShares;
     totalPrefrenceSharePercentage += item.percentageShareHolding;
   });
-
- 
-
 
   const equitydata = {
     labels: equityShareName,
@@ -166,7 +159,6 @@ function Index({ shareHolding }) {
     cutout: 100,
   };
 
-
   const colorReturn = (index) => {
     let finalColor = 'red';
     let colors = ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'];
@@ -176,12 +168,10 @@ function Index({ shareHolding }) {
     } else {
       finalColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     }
-    
+
     return finalColor;
   };
 
-
- 
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -239,8 +229,6 @@ function Index({ shareHolding }) {
                           return b?.numberOfShares - a?.numberOfShares;
                         })
                         .map((shareHolder, index) => {
-                         
-
                           return (
                             <tr key={index}>
                               <td

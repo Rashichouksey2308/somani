@@ -31,7 +31,6 @@ function Index({ customerSummary }) {
 
     if (customerSummary?.length > 0) {
       customerSummary.forEach((val, index) => {
-    
         tempData.push(val?.company[0]?.companyName);
         tempPoint.push(val.total);
       });
@@ -47,9 +46,7 @@ function Index({ customerSummary }) {
         ],
       });
     }
-   
   }, [customerSummary]);
-
 
   const options = {
     elements: {

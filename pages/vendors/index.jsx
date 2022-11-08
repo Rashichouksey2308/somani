@@ -4,10 +4,8 @@ import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
-import Image from 'next/image';
 import Router from 'next/router';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
-
 
 const index = () => {
   const dispatch = useDispatch();
@@ -70,15 +68,16 @@ const index = () => {
           </div>
 
           {/*UserTable*/}
-          <MasterTableQueue tableName='Vendor Management'
-         header1='VENDOR TYPE'
-         header2='VENDOR NAME'
-         header3='COUNTRY'
-         header='ACTIVATION DATE'
-         header4='STATUS'
-         isDate={true}
-         isHeader={true}
-         />
+          <MasterTableQueue
+            tableName="Vendor Management"
+            header1="VENDOR TYPE"
+            header2="VENDOR NAME"
+            header3="COUNTRY"
+            header="ACTIVATION DATE"
+            header4="STATUS"
+            isDate={true}
+            isHeader={true}
+          />
         </div>
       </div>
       <DownloadMasterBar btnName="Download" />

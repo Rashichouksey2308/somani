@@ -88,7 +88,7 @@ function Index(props) {
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-  
+
         let exe;
         let dat = '';
         data?.placeOfExecution?.execution?.forEach((val, index) => {
@@ -107,7 +107,6 @@ function Index(props) {
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
           }
         });
-
 
         setData({
           seller: data?.seller?.name,

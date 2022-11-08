@@ -11,9 +11,6 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 
 export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
-
-
-
   const dispatch = useDispatch();
   const [sumOfDischargeQuantities, setSum] = useState('');
   useEffect(() => {
@@ -30,8 +27,6 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       }
     }
   }, [customData]);
-
-
 
   const [show, setShow] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
@@ -68,7 +63,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       dischargeQuantity: sumOfDischargeQuantities
         ? sumOfDischargeQuantities
         : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
-      numberOfContainers:  _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
+      numberOfContainers: _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
       vesselArrivaldate: '',
       dischargeStartDate: '',
       dischargeEndDate: '',
@@ -77,10 +72,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     document2: null,
   });
 
- 
-
   const saveDate = (value, name) => {
-
     const d = new Date(value);
     let text = d.toISOString();
     onChangeDischargeOfCargo(name, text);
@@ -205,7 +197,6 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
     setComponentId(componentId + 1);
-
   };
 
   const handleSave = () => {
@@ -244,7 +235,9 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
-          numberOfContainers: customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers ? customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers : _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
+          numberOfContainers: customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers
+            ? customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers
+            : _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         },
         document1: data?.document1 ?? null,
         document2: data?.document2 ?? null,
@@ -334,15 +327,15 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         </option>
                         {shipmentTypeBulk
                           ? _get(customData, 'order.vessel.vessels', []).map((vessel, index) => (
-                            <option value={vessel?.vesselInformation?.name} key={index}>
-                              {_get(vessel, 'vesselInformation[0].name', '')}
-                            </option>
-                          ))
+                              <option value={vessel?.vesselInformation?.name} key={index}>
+                                {_get(vessel, 'vesselInformation[0].name', '')}
+                              </option>
+                            ))
                           : _get(customData, 'order.vessel.vessels[0].vesselInformation', []).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
-                            </option>
-                          ))}
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                       </select>
                       <label className={`${styles.label_heading} label_heading`}>
                         Vessel Name<strong className="text-danger">*</strong>
@@ -384,13 +377,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                             isNaN(sumOfDischargeQuantities) ||
                             sumOfDischargeQuantities == undefined ||
                             sumOfDischargeQuantities == ''
-                            ? ''
-                            : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
+                          ? ''
+                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
                       }
                       name="dischargeQuantity"
                       onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
                       required
-                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                      // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Discharge Quantity

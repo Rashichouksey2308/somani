@@ -1,9 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-<<<<<<< Updated upstream
-import config from './config';
-=======
 import config from './config'
->>>>>>> Stashed changes
 
 export default {
   baseUrl: `${config.baseUrl}`,
@@ -136,21 +132,13 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
-<<<<<<< Updated upstream
-  //preview
-=======
   // preview
->>>>>>> Stashed changes
   preview: '/document/access/preview',
 
   // Commodity
   getCommodity: '/commodity',
 
-<<<<<<< Updated upstream
-  //ALL MASTER URL's
-=======
   // ALL MASTER URL's
->>>>>>> Stashed changes
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
   portsMaster: 'ports.json',
@@ -161,10 +149,5 @@ export default {
   vendorsMaster: 'vendors.json',
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
-<<<<<<< Updated upstream
-  pincodesMaster: 'locations/pincodes/',
-};
-=======
   pincodesMaster: 'locations/pincodes/'
 }
->>>>>>> Stashed changes

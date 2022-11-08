@@ -20,11 +20,10 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   const handleShow = () => setShow(true);
   const [orderid, setorderId] = useState('');
 
- 
   useEffect(() => {
     setorderId(_get(ReleaseOrderData, 'data[0].order._id', ''));
   }, [ReleaseOrderData]);
- 
+
   let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', []);
   const boeTotalQuantity = boe?.reduce((accumulator, object) => {
     return accumulator + Number(object.boeDetails.invoiceQuantity);
@@ -34,7 +33,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(boeTotalQuantity);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
- 
   useEffect(() => {
     if (releaseDetail) {
       let index = releaseDetail.length - 1;
@@ -49,23 +47,19 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   };
 
   const handlereleaseDetailChange = (name, value, index) => {
-   
     let tempArr = [...releaseDetail];
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
       }
     });
-   
 
     setReleaseDetail([...tempArr]);
   };
-  
+
   const uploadDoc = async (e) => {
- 
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -80,29 +74,20 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       let response = await Axios.post(`${API.corebaseUrl}${API.uploadDoc}`, fd, {
         headers: headers,
       });
-     
-      if (response.data.code === 200) {
-       
-       
-        return response.data.data;
 
-        
+      if (response.data.code === 200) {
+        return response.data.data;
       } else {
-       
       }
-    } catch (error) {
-    
-    }
+    } catch (error) {}
   };
 
   const handleDeleteRow = (index) => {
-   
     let tempArr = [...releaseDetail];
     tempArr.pop(index);
     setReleaseDetail(tempArr);
   };
 
-  
   const [releaseOrderButtonIndex, setReleaseOrderButtonIndex] = useState(0);
   const addMorereleaseDetailDataRows = (index) => {
     setReleaseDetail([
@@ -118,7 +103,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     setReleaseOrderButtonIndex(index);
   };
   const saveDate = (value, name, index) => {
-  
     const d = new Date(value);
     let text = d.toISOString();
     handlereleaseDetailChange(name, text, index);
@@ -137,8 +121,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       Number(_get(ReleaseOrderData, 'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity', 0)) <
       Number(e.target.value)
     ) {
-      
-
       const toastMessage = 'net quantity Realesed cannot be Greater than net bALance Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -147,8 +129,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     }
 
     if (Number(e.target.value) < 0) {
-    
-
       const toastMessage = 'Net Quantity Realesed cannot be Negative';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -156,18 +136,17 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       return;
     }
     handlereleaseDetailChange(e.target.id, e.target.value, index);
-    
   };
- 
+
   const getData = () => {
     let value = boeTotalQuantity;
     releaseDetail.forEach((item) => {
       value = value - item.netQuantityReleased;
     });
-   
+
     setNetBalanceQuantity(value);
   };
- 
+
   useEffect(() => {
     getData();
   }, [releaseDetail]);
@@ -178,10 +157,9 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   };
 
   const uplaodDoc = async (e, index) => {
-  
     let name = e.target.id;
     let doc = await uploadDoc(e);
-   
+
     handlereleaseDetailChange(name, doc, index);
   };
 
@@ -196,7 +174,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       releaseDetail: [...releaseDetail],
     };
     let task = 'save';
-    
+
     if (netBalanceQuantity >= 0) {
       await dispatch(UpdateDelivery({ payload, task }));
     } else {
@@ -211,7 +189,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= releaseDetail.length - 1; i++) {
-     
       if (releaseDetail[i]?.releaseOrderDate == '' || releaseDetail[i]?.releaseOrderDate == null) {
         toastMessage = `please input a date for release order   ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -230,7 +207,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       }
     }
     return isOk;
-  
   };
 
   const onSubmitHanler = async () => {
@@ -241,7 +217,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     };
     let task = 'submit';
 
-    
     if (netBalanceQuantity >= 0) {
       await dispatch(UpdateDelivery({ payload, task }));
     } else {
@@ -251,7 +226,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       }
     }
   };
-  
 
   return (
     <>
@@ -269,12 +243,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
 
               <span>+</span>
             </div>
-            <div
-              id="lcApplication"
-             
-              aria-labelledby="lcApplication"
-              data-parent="#lcApplication"
-            >
+            <div id="lcApplication" aria-labelledby="lcApplication" data-parent="#lcApplication">
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
                   <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
@@ -297,7 +266,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                     </span>
                   </div>
                   <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                    <div className={`${styles.label} text`}>Documentary Credit No. </div>
+                    <div className={`${styles.label} text`}>Documentary Credit No.</div>
                     <span className={styles.value}>
                       {_get(ReleaseOrderData, 'data[0].order.lc.lcApplication.documentaryCreditNumber', '')}
                     </span>
@@ -329,7 +298,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                               name="releaseOrderDate"
                               labelName="Release Order Date"
                             />
-                  
+
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -339,7 +308,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                         </div>
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                           <input
-                         
                             onFocus={(e) => {
                               setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
@@ -350,7 +318,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             type="text"
                             onChange={(e) => {
                               e.target.value;
-                            
+
                               netQuantityChange(e, index);
                             }}
                             id="netQuantityReleased"
@@ -362,8 +330,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             }
                             className={`${styles.input_field} input form-control`}
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-
-                           
                           />
                           <label className={`${styles.label_heading} label_heading`}>
                             Net Quantity Released

@@ -1,56 +1,3 @@
-<<<<<<< Updated upstream
-import React, { useEffect, useState } from 'react';
-import history from '../../history';
-
-import { Card, CardBody, Col, Row } from 'reactstrap';
-import CartTitle from '../CartTitle';
-import { Tab, Tabs } from 'react-bootstrap';
-
-import Information from '../Informatin';
-import Branch from '../Branch';
-
-import { fetchQueryParams } from '../../utils/comman';
-import Loader from '../Loader';
-
-import get from 'lodash/get';
-
-const _ = { get };
-
-function DetailPage(props) {
-  const { elements } = props;
-  const [key, setKey] = useState('detail');
-
-  useEffect(() => {
-    const queryParams = props.query;
-    if (queryParams === '') {
-      history.push(`/dealer/list`);
-    } else {
-      const params = fetchQueryParams(props.query);
-      setKey(params.tab);
-      if (params.tab === 'detail') {
-        props.handleSingleDealerFetch(params.dealerId);
-      } else {
-        props.handleDealerBranchFetch(params.dealerId);
-      }
-    }
-  }, []);
-
-  const handleSelectTab = (tab) => {
-    setKey(tab);
-    const params = fetchQueryParams(props.query);
-    history.push(`/dealer/detail?dealerId=${params.dealerId}&tab=${tab}`);
-    props.handleDealerBranchFetch(params.dealerId);
-  };
-
-  const handleToCreateForm = () => {
-    const queryParams = props.query;
-    if (queryParams !== '') {
-      history.push(`/dealer/create-branch${queryParams}`);
-    } else {
-      history.push(`/dealer/list`);
-    }
-  };
-=======
 import React, { useEffect, useState } from 'react'
 import history from '../../history'
 
@@ -102,16 +49,11 @@ function DetailPage (props) {
       history.push(`/dealer/list`)
     }
   }
->>>>>>> Stashed changes
   return (
     <React.Fragment>
       {props.dealerDataStatus !== false ? <Loader /> : null}
       {props.dealerBranchDataStatus !== false ? <Loader /> : null}
-<<<<<<< Updated upstream
-      <div className="hideSearch">
-=======
       <div className='hideSearch'>
->>>>>>> Stashed changes
         <Row>
           <Col sm={12}>
             <CartTitle
@@ -123,21 +65,12 @@ function DetailPage (props) {
             />
           </Col>
         </Row>
-<<<<<<< Updated upstream
-        <Card className="mb-3">
-          <CardBody className="px-0 px-lg-1 py-0 py-lg-1">
-            <Row className="custom-tab">
-              <Col sm={12}>
-                <Tabs id="tab-id" activeKey={key} onSelect={(k) => handleSelectTab(k)}>
-                  <Tab eventKey="detail" title={_.get(elements, 'dealerDetailElements.tabDetailElement', 'Details')}>
-=======
         <Card className='mb-3'>
           <CardBody className='px-0 px-lg-1 py-0 py-lg-1'>
             <Row className='custom-tab'>
               <Col sm={12}>
                 <Tabs id='tab-id' activeKey={key} onSelect={(k) => handleSelectTab(k)}>
                   <Tab eventKey='detail' title={_.get(elements, 'dealerDetailElements.tabDetailElement', 'Details')}>
->>>>>>> Stashed changes
                     <Information
                       query={props.query}
                       dealerData={props.dealerData}
@@ -145,11 +78,7 @@ function DetailPage (props) {
                       elements={props.elements}
                     />
                   </Tab>
-<<<<<<< Updated upstream
-                  <Tab eventKey="branch" title={_.get(elements, 'dealerDetailElements.tabBranchElement', 'Branch')}>
-=======
                   <Tab eventKey='branch' title={_.get(elements, 'dealerDetailElements.tabBranchElement', 'Branch')}>
->>>>>>> Stashed changes
                     <Branch
                       dealerBranchData={props.dealerBranchData}
                       handleToCreateForm={() => handleToCreateForm()}
@@ -163,14 +92,7 @@ function DetailPage (props) {
         </Card>
       </div>
     </React.Fragment>
-<<<<<<< Updated upstream
-  );
-}
-
-export default DetailPage;
-=======
   )
 }
 
 export default DetailPage
->>>>>>> Stashed changes

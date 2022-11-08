@@ -330,7 +330,7 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 2px solid #d2d7e5;
-    
+
       @include respond(md-desktop) {
         font-size: 16px;
       }
@@ -405,7 +405,6 @@
       justify-content: space-between;
       border-bottom: 2px solid #d2d7e5;
 
-     
       @include respond(md-desktop) {
         font-size: 16px;
       }

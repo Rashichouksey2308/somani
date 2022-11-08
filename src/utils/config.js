@@ -25,13 +25,8 @@ export default {
   baseUrl: 'https://api-dev.simport.global',
   authServerUrl: 'https://api-dev.simport.global/auth',
   userServerUrl: 'https://api-dev.simport.global/user',
-<<<<<<< Updated upstream
-  coreServerUrl: 'https://api-dev.simport.global/core',
-};
-=======
   coreServerUrl: 'https://api-dev.simport.global/core'
 }
->>>>>>> Stashed changes
 
 // local
 

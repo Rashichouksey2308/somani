@@ -12,8 +12,6 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
 
   const { allCustomClearance } = useSelector((state) => state.Custom);
 
-
-
   useEffect(() => {
     dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`));
   }, [dispatch, currentPage]);
@@ -41,7 +39,6 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return;
               } else {
                 setCurrentPage((prevState) => prevState - 1);
               }

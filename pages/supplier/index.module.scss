@@ -95,6 +95,7 @@
     @include respond(phone) {
       margin: 15px;
     }
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -115,22 +116,26 @@
     .main {
       border-radius: 6px;
       margin-bottom: 26px;
+
       &:first-child {
         margin-top: 26px;
       }
+
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px 40px;
 
       .bill_landing {
-       
         border: 2px solid #cad6e6;
         border-radius: 9px;
+
         .vessel_card {
           padding: 0px 35px 0px 35px;
+
           .main {
             margin-bottom: 26px;
             border-radius: 6px !important;
@@ -141,6 +146,7 @@
               border-bottom: none;
               height: 80px;
               padding: 25px 35px !important;
+
               .heading {
                 color: #3687e8;
                 font-weight: bold;
@@ -252,6 +258,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -262,6 +269,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -269,9 +277,11 @@
             transform: translateY(-22px);
           }
         }
+
         .phone_card {
           display: flex;
           flex-wrap: nowrap;
+
           .code_phone {
             border-top-right-radius: 0px;
             border-bottom-right-radius: 0px;
@@ -288,6 +298,7 @@
             }
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
@@ -305,9 +316,11 @@
           letter-spacing: 0.19px;
           padding: 13px 30px 13px 17px;
           border: 1px solid #0000001f;
+
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -316,6 +329,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -332,9 +346,11 @@
             transform: translate(-61px, -22px);
           }
         }
+
         .input_field {
           border-top-left-radius: 0px;
           border-bottom-left-radius: 0px;
+
           &:focus {
             & + label {
               transform: translate(-61px, -30px);
@@ -394,7 +410,6 @@
 
   .customSelect {
     appearance: none;
-
   }
 
   .pdfImage {
@@ -501,7 +516,7 @@
       line-height: 25px;
       font-weight: bold;
       font-size: 20px;
-     
+
       text-transform: capitalize;
     }
 
@@ -509,14 +524,14 @@
       letter-spacing: 0.19px;
       font-size: 20px;
       line-height: 32px;
-  
+
       text-transform: capitalize;
 
       span {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
-       
+
         text-transform: capitalize;
       }
     }
@@ -664,6 +679,7 @@
   font-weight: bold;
   color: #3687e8;
   cursor: pointer;
+
   span {
     margin-right: 15px;
     @include respond(lg-desktop) {
@@ -671,6 +687,7 @@
       line-height: 1.2;
     }
   }
+
   @include respond(lg-desktop) {
     font-size: 15px;
     line-height: 1.3;
@@ -678,7 +695,6 @@
 }
 
 .head_container {
-
   padding: 0 35px !important;
   min-height: 80px;
   border-bottom: none;
@@ -686,6 +702,7 @@
   @include respond(lg-desktop) {
     min-height: 60px;
   }
+
   .dropDown {
     border: 1px solid #0000001f;
     border-radius: 4px;
@@ -774,7 +791,6 @@ img {
 
 .customSelect {
   appearance: none;
-
 }
 
 .edit_image {
@@ -805,8 +821,6 @@ img {
   margin: 0 !important;
   padding: 25px 35px !important;
   border-top: 2px solid red;
-
- 
 
   .form_group {
     position: relative;
@@ -857,13 +871,12 @@ img {
       }
       @include respond(phone) {
         font-size: 14px;
-      
       }
     }
 
     .input_field {
       height: 60px;
-    
+
       border: 1px solid #0000001f;
       border-radius: 4px;
       font-size: 20px;
@@ -922,7 +935,7 @@ img {
 
   .comment {
     letter-spacing: 0.19px;
-  
+
     font-size: 20px;
     line-height: 25px;
   }
@@ -962,7 +975,7 @@ img {
 
     .comment {
       letter-spacing: 0.19px;
- 
+
       font-size: 20px;
       line-height: 25px;
     }
@@ -1053,6 +1066,7 @@ img {
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .cardHeader {
     cursor: pointer;
     min-height: 80px;
@@ -1061,6 +1075,7 @@ img {
     @include respond(lg-desktop) {
       min-height: 60px;
     }
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -1079,6 +1094,7 @@ img {
         margin: 13px 0;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -1095,15 +1111,18 @@ img {
       }
     }
   }
+
   .cardBody {
     padding: 0px;
     border-top: 2px solid red !important;
+
     .content {
       .header {
         padding: 25px 35px !important;
         font-weight: bold;
         line-height: 27px;
       }
+
       h5 {
         font-size: 22px;
         font-weight: bold;
@@ -1118,8 +1137,10 @@ img {
         }
       }
     }
+
     .body {
       padding: 25px 35px !important;
+
       .label_heading {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -1137,6 +1158,7 @@ img {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -1147,6 +1169,7 @@ img {
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 15px;
           font-size: 14px;
@@ -1157,6 +1180,7 @@ img {
           font-size: 12px;
         }
       }
+
       .input_field {
         height: 60px;
         background-color: #c3c3c31f;
@@ -1168,10 +1192,11 @@ img {
         box-shadow: none;
         position: relative;
         box-sizing: border-box;
+
         &:invalid + label {
-       
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -1180,6 +1205,7 @@ img {
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -1189,13 +1215,16 @@ img {
           font-size: 14px;
         }
       }
+
       .search_image {
         margin-left: -40px;
       }
     }
+
     .dashboard_form {
       padding: 10px 20px 0px 20px;
       margin: 15px;
+
       .sub_heading {
         margin-top: 20px;
         font-size: 20px;
@@ -1207,6 +1236,7 @@ img {
           line-height: 1.3;
         }
       }
+
       .number {
         letter-spacing: 0.19px;
         color: #111111;
@@ -1218,6 +1248,7 @@ img {
           line-height: 1.3;
         }
       }
+
       h5 {
         letter-spacing: 0.19px;
         color: #111111;
@@ -1226,12 +1257,14 @@ img {
         line-height: 25px;
         padding-left: 30px;
       }
+
       .paragraph {
         line-height: 25px;
         letter-spacing: 0.19px;
         font-size: 20px;
         width: 85%;
       }
+
       .label_heading {
         font-size: 16px;
         font-weight: 500;
@@ -1248,6 +1281,7 @@ img {
           line-height: 17px;
         }
       }
+
       .comment_field {
         height: 106px;
         background-color: #c3c3c31f;
@@ -1264,21 +1298,26 @@ img {
         }
       }
     }
+
     .datatable {
       width: 879px;
       margin: 0 12px;
       box-shadow: none !important;
       border: none !important;
+
       .table_scroll_outer {
         width: 100%;
         display: table;
         table-layout: fixed;
+
         .table_scroll_inner {
           display: table-cell;
           overflow-x: auto;
+
           .table {
             border: 1px solid #cad6e6;
             margin-bottom: 0px;
+
             th {
               font-size: 15px;
               line-height: 18px;
@@ -1288,12 +1327,14 @@ img {
               background: transparent !important;
               white-space: nowrap;
               vertical-align: middle;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(sm-desktop) {
                   padding-left: 15px;
                 }
               }
+
               .sort_image {
                 width: 14px;
                 height: 14px;
@@ -1302,6 +1343,7 @@ img {
                   height: 12px;
                 }
               }
+
               @include respond(lg-desktop) {
                 height: 50px;
                 font-size: 14px;
@@ -1314,10 +1356,12 @@ img {
                 font-size: 12px;
               }
             }
+
             tr {
               &:last-child {
                 border-bottom: none;
               }
+
               td {
                 font-size: 19px;
                 font-weight: 500;
@@ -1325,12 +1369,14 @@ img {
                 padding: 24px 15px;
                 border: 1px solid #cad6e6;
                 white-space: nowrap;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   font-size: 15px;
                   line-height: 1.3;
@@ -1342,11 +1388,13 @@ img {
                 }
               }
             }
+
             .buyerName {
               color: #3687e8;
               font-weight: bold;
               text-transform: capitalize;
             }
+
             .status {
               width: 15px;
               height: 15px;
@@ -1355,12 +1403,15 @@ img {
               display: inline-block;
               vertical-align: middle;
             }
+
             .approved {
               background: #26dd73;
             }
+
             .rejected {
               background: #ed714c;
             }
+
             .review {
               background: #ffce00;
             }
@@ -1368,17 +1419,20 @@ img {
         }
       }
     }
+
     .line {
       border: 2px solid #cad6e6;
     }
   }
 }
+
 .upload_main {
   border-radius: 6px;
   margin-bottom: 26px;
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .head_container {
     cursor: pointer;
     min-height: 80px;
@@ -1386,6 +1440,7 @@ img {
     @include respond(lg-desktop) {
       min-height: 60px;
     }
+
     .heading {
       font-size: 22px;
       font-weight: bold;
@@ -1404,6 +1459,7 @@ img {
         margin: 13px 0;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -1420,22 +1476,26 @@ img {
       }
     }
   }
+
   .dashboard_form {
     padding: 40px 35px 40px 35px;
     @include respond(phone) {
       padding: 25px 20px 20px;
     }
+
     .drop_container {
       background-color: #c3c3c31f;
       border: 1px dashed #00000045;
       border-radius: 4px;
       height: 284px;
       line-height: 1;
+
       .upload_image {
         width: 83px;
         height: 83px;
         line-height: 83px;
       }
+
       .drop_para {
         font-size: 19px;
         line-height: 24px;
@@ -1448,6 +1508,7 @@ img {
         @include respond(phone) {
           font-size: 12px;
         }
+
         a {
           text-decoration: underline;
           font-size: 19px;
@@ -1463,6 +1524,7 @@ img {
         }
       }
     }
+
     .upload_button {
       border: 3px solid #3687e8;
       border-radius: 5px;
@@ -1474,7 +1536,7 @@ img {
       text-transform: capitalize;
       width: 220px;
       height: 46px;
-    
+
       @include respond(lg-desktop) {
         width: 180px;
         height: 38px;
@@ -1493,10 +1555,12 @@ img {
         height: 35px;
       }
     }
+
     .form_group {
       position: relative;
       margin-bottom: 40px;
       margin-top: 20px;
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -1509,6 +1573,7 @@ img {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -1519,16 +1584,18 @@ img {
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 15px;
         }
       }
+
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
         text-transform: capitalize;
-      
+
         border-radius: 4px;
         height: 60px;
         box-shadow: none;
@@ -1543,13 +1610,13 @@ img {
       }
     }
   }
+
   .search_container {
- 
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
+
     .dropDown {
-   
       border-radius: 4px;
       color: #3687e8;
       text-transform: capitalize;
@@ -1561,19 +1628,22 @@ img {
       height: 40px;
       box-shadow: none;
     }
+
     .searchBarContainer {
       position: relative;
+
       .searchBar {
         width: 337px;
         height: 40px;
         padding-left: 3.5rem;
-       
+
         border-radius: 1.1rem;
         box-shadow: none;
         @include respond(lg-desktop) {
           padding-left: 2.5rem;
         }
       }
+
       .searchImage {
         position: absolute;
         margin-left: 30px;
@@ -1584,17 +1654,22 @@ img {
       }
     }
   }
+
   .table_container {
     background-color: #fafafb;
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
           margin-bottom: 0px;
+
           th {
             font-size: 15px;
             color: #8492a6;
@@ -1608,12 +1683,14 @@ img {
             border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
             vertical-align: middle;
+
             &:first-child {
               padding-left: 35px;
               @include respond(sm-desktop) {
                 padding-left: 15px;
               }
             }
+
             img {
               &.sort_image {
                 width: 14px;
@@ -1623,6 +1700,7 @@ img {
                   height: 12px;
                 }
               }
+
               &.searchImg {
                 width: 48px;
                 height: 48px;
@@ -1636,6 +1714,7 @@ img {
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -1649,10 +1728,12 @@ img {
               font-size: 12px;
             }
           }
+
           tr {
             &:last-child {
               border-bottom: none;
             }
+
             td {
               font-size: 19px;
               font-weight: 500;
@@ -1670,6 +1751,7 @@ img {
               @include respond(phone) {
                 font-size: 12px;
               }
+
               .actionContainer {
                 @include respond(phone) {
                   display: flex;
@@ -1678,6 +1760,7 @@ img {
                   display: flex;
                 }
               }
+
               .uploadDoc {
                 text-align: center;
                 color: #3687e8;
@@ -1704,6 +1787,7 @@ img {
               }
             }
           }
+
           .updateBtn {
             text-align: center;
             color: #3687e8;
@@ -1727,6 +1811,7 @@ img {
               padding: 0px 15px 0 15px;
             }
           }
+
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -1741,6 +1826,7 @@ img {
               font-size: 14px;
             }
           }
+
           .doc_row {
             font-size: 19px;
             line-height: 24px;
@@ -1759,9 +1845,11 @@ img {
     }
   }
 }
+
 .table_clause {
   margin-top: 40px;
   border: none !important;
+
   .table_header {
     letter-spacing: 0.53px;
     color: #00000080;
@@ -1785,8 +1873,10 @@ img {
       font-size: 12px;
     }
   }
+
   tr {
     border-bottom: none !important;
+
     td {
       color: #111111;
       font-size: 20px;
@@ -1805,6 +1895,7 @@ img {
       }
     }
   }
+
   .updateBtn {
     text-align: center;
     color: #3687e8;
@@ -1818,6 +1909,7 @@ img {
     padding: 8px 30px 8px 30px;
   }
 }
+
 .module {
   background: #8492a6;
   font-size: 15px;
@@ -1838,6 +1930,7 @@ img {
     font-size: 11px;
   }
 }
+
 .doc_name {
   font-weight: bold;
   line-height: 25px;
@@ -1854,6 +1947,7 @@ img {
     font-size: 14px;
   }
 }
+
 .doc_row {
   font-size: 19px;
   line-height: 24px;
@@ -1869,6 +1963,7 @@ img {
     font-size: 12px;
   }
 }
+
 .status {
   width: 15px;
   height: 15px;
@@ -1885,12 +1980,15 @@ img {
     height: 10px;
   }
 }
+
 .approved {
   background: #26dd73;
 }
+
 .rejected {
   background: #ff9d00;
 }
+
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -1903,6 +2001,7 @@ img {
     height: 15px;
   }
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -1924,6 +2023,7 @@ img {
     padding: 5px;
   }
 }
+
 .delete_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -1944,23 +2044,27 @@ img {
     height: 25px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
+
 img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
-  
+
     pointer-events: none;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+
     input[type='date']::-webkit-inner-spin-button,
     input[type='date']::-webkit-calendar-picker-indicator {
       display: none;
@@ -1968,10 +2072,11 @@ img {
     }
   }
 }
+
 .customSelect {
   appearance: none;
-
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -1984,6 +2089,7 @@ img {
     font-size: 15px;
     line-height: 1.3;
   }
+
   span {
     max-width: 95%;
     overflow: hidden;
@@ -1991,6 +2097,7 @@ img {
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
@@ -1999,6 +2106,7 @@ img {
     }
   }
 }
+
 .certificate2 {
   display: flex;
   justify-content: space-around;
@@ -2011,6 +2119,7 @@ img {
   padding: 8px;
   margin: 7px 0;
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;

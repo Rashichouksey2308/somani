@@ -16,9 +16,7 @@ function index(props) {
       let rejected = 0;
       let all = 0;
       props?.data.forEach((val, index) => {
-    
         if (val._id == 'ReviewQueue') {
-        
           inprocess = val.total;
         }
         if (val._id == 'CreditQueue') {

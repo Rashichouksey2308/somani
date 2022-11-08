@@ -13,11 +13,8 @@ function Index(props) {
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
 
-
-
   useEffect(() => {
     if (window) {
-      
       if (sessionStorage.getItem('exe')) {
         let savedData = JSON.parse(sessionStorage.getItem('exe'));
 
@@ -100,8 +97,6 @@ function Index(props) {
   };
 
   const handleChangeInput = (name, value, index) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -137,7 +132,6 @@ function Index(props) {
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <div className={`${styles.tableContainer} border_color card p-0`}>
-      
           <div id="customerDetail" className={` ${styles.body} card-body row`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>

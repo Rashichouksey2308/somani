@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 function Index(props) {
-
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -123,7 +122,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           totalPrice: data?.order.marginMoney.calculation.totalOrderValue,
-          advanceMoney:data?.order?.marginMoney?.calculation?.marginMoney
+          advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
         });
       }
     }

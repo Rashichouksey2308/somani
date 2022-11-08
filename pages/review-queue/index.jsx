@@ -42,7 +42,7 @@ function Index() {
     sessionStorage.setItem('orderID', buyer._id);
     sessionStorage.setItem('company', buyer.company._id);
     sessionStorage.setItem('companyID', buyer.company._id);
-  
+
     Router.push('/review/id');
   };
 
@@ -177,7 +177,6 @@ function Index() {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return;
                     } else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
