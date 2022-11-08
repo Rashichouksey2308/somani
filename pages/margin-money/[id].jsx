@@ -21,7 +21,7 @@ import { GetAllOrders } from '../../src/redux/registerBuyer/action';
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
 import moment from 'moment';
-import { getBanks, getInternalCompanies ,getBranches} from '../../src/redux/masters/action';
+import { getBanks, getInternalCompanies, getBranches } from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -50,10 +50,10 @@ function Index() {
 
   const [unit, setUnit] = useState({ value: 'Crores' });
   const [coversionUnit, setCoversionUnit] = useState(10000000);
-  const [isConsigneeSameAsBuyer,setisConsigneeSameAsBuyer]=useState(true)
+  const [isConsigneeSameAsBuyer, setisConsigneeSameAsBuyer] = useState(true)
 
   const RevisedMarginMoneyTrue = _get(margin, 'data.data[0].revisedMarginMoney.isActive', false);
-  
+
   useEffect(() => {
     let id = sessionStorage.getItem('marginId');
 
@@ -131,7 +131,7 @@ function Index() {
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
@@ -168,7 +168,7 @@ function Index() {
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 0) *
         90) /
-        365,
+      365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
@@ -212,7 +212,7 @@ function Index() {
   const [branchOptions, setBranchOptions] = useState([]);
 
   const saveData = (name, value, name2, value2, value3) => {
-  
+
     const newInput = { ...invoiceData };
     newInput.branch = value3;
     newInput.branchAddress = value;
@@ -232,13 +232,13 @@ function Index() {
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
-   
+
 
 
     setInvoiceData({ ...newInput });
   };
 
- 
+
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
@@ -249,16 +249,16 @@ function Index() {
   const dropDownChange = (name, value) => {
 
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-    
+
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
-      
+
       setInvoiceData({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-     
+
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
-     
+
       setInvoiceData({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -270,14 +270,14 @@ function Index() {
     setBranchOptions([...filter]);
   };
   useEffect(() => {
-    dropDownChange("name",marginData?.invoiceDetail?.importerName? marginData?.invoiceDetail?.importerName:  marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-            ?.toUpperCase()
-            ?.replace(/ *\([^)]*\) */g, '') ||
-          '')
-  },[ marginData?.invoiceDetail?.importerName,marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-            ?.toUpperCase()
-            ?.replace(/ *\([^)]*\) */g, '') ||
-          ''])
+    dropDownChange("name", marginData?.invoiceDetail?.importerName ? marginData?.invoiceDetail?.importerName : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+      ?.toUpperCase()
+      ?.replace(/ *\([^)]*\) */g, '') ||
+      '')
+  }, [marginData?.invoiceDetail?.importerName, marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+    ?.toUpperCase()
+    ?.replace(/ *\([^)]*\) */g, '') ||
+    ''])
 
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
@@ -480,26 +480,26 @@ function Index() {
         isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
-        invoiceDetail: { 
-                buyerName: invoiceData?.companyName ,
-                buyerGSTIN:invoiceData?.buyerGSTIN ,
-                buyerAddress: invoiceData?.buyerAddress ,
-                isConsigneeSameAsBuyer:isConsigneeSameAsBuyer,
-                consigneeName:invoiceData?.consigneeName ,
-                consigneeGSTIN:invoiceData?.consigneeGSTIN ,
-                consigneeAddress:invoiceData?.consigneeAddress ,
-                importerName:
-                invoiceData?.importerName ,
-                  
-                branchOffice:invoiceData?.branchOffice ,
-                companyAddress:invoiceData?.companyAddress ,
-                importerGSTIN:invoiceData?.importerGSTIN ,
-                bankName:invoiceData?.bankName ,
-                branch:invoiceData?.branch ,
-                branchAddress:invoiceData?.branchAddress ,
-                IFSCcode:invoiceData?.IFSCcode ,
-                accountNo:invoiceData?.accountNo ,
-         },
+        invoiceDetail: {
+          buyerName: invoiceData?.companyName,
+          buyerGSTIN: invoiceData?.buyerGSTIN,
+          buyerAddress: invoiceData?.buyerAddress,
+          isConsigneeSameAsBuyer: isConsigneeSameAsBuyer,
+          consigneeName: invoiceData?.consigneeName,
+          consigneeGSTIN: invoiceData?.consigneeGSTIN,
+          consigneeAddress: invoiceData?.consigneeAddress,
+          importerName:
+            invoiceData?.importerName,
+
+          branchOffice: invoiceData?.branchOffice,
+          companyAddress: invoiceData?.companyAddress,
+          importerGSTIN: invoiceData?.importerGSTIN,
+          bankName: invoiceData?.bankName,
+          branch: invoiceData?.branch,
+          branchAddress: invoiceData?.branchAddress,
+          IFSCcode: invoiceData?.IFSCcode,
+          accountNo: invoiceData?.accountNo,
+        },
         calculation: {
           orderValue: finalCal.orderValue,
           orderValueCurrency: finalCal.orderValueCurrency,
@@ -602,7 +602,7 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
@@ -647,7 +647,7 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 0) *
         90) /
-        365,
+      365,
     ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
@@ -742,7 +742,7 @@ function Index() {
         IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
       });
-   
+
     }
   }, [marginData]);
 
@@ -760,14 +760,14 @@ function Index() {
     let additionalAmountPerPDC = isNaN(
       Number(
         (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
-          Number(forCalculationRevised.additionalPDC),
+        Number(forCalculationRevised.additionalPDC),
       ).toFixed(2),
     )
       ? 0
       : Number(
-          (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
-            Number(forCalculationRevised.additionalPDC),
-        ).toFixed(2);
+        (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
+        Number(forCalculationRevised.additionalPDC),
+      ).toFixed(2);
     // u calculation
     let revisedNetOrderValueNew = Number(
       Number(finalCalRevised?.totalOrderValue) - Number(marginData?.calculation?.totalOrderValue),
@@ -789,7 +789,7 @@ function Index() {
   const getRevisedData2 = () => {
     let additionalAmountPerPDC = Number(
       (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2);
 
     let revisedNetOrderValueNew = Number(
@@ -809,7 +809,7 @@ function Index() {
   };
 
   const saveInvoiceDataRevisedRevised = (name, value) => {
-  
+
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
 
@@ -864,9 +864,9 @@ function Index() {
         },
       },
 
-     
+
       isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
-      
+
     };
 
     dispatch(RevisedMarginMoney(obj));
@@ -894,7 +894,7 @@ function Index() {
   };
 
   const exportPDF = () => {
-   
+
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -1096,7 +1096,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                          {(marginData?.order?.quantity ? marginData?.order?.quantity + ' ' + marginData?.order?.unitOfQuantity : 0)}
                         </p>
                       </td>
                     </tr>
@@ -1219,11 +1219,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
-                            marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
-                            '%',
-                            '',
-                          )}
+                          {marginData?.order?.termsheet ? marginData?.order?.termsheet?.commercials?.usanceInterestPercetage + ' %' : ''}
+
                         </p>
                       </td>
                     </tr>
@@ -1264,7 +1261,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                          {marginData?.order?.termsheet ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage + ' %' : ''}
                         </p>
                       </td>
                     </tr>
@@ -1309,7 +1306,7 @@ function Index() {
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance
                               : 0
-                            
+
                           )} %
                         </p>
                       </td>
@@ -1351,13 +1348,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
+                          {
                             marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney + ' %'
+                              : 0}
                         </p>
                       </td>
                     </tr>
@@ -2231,19 +2225,19 @@ function Index() {
         </tr>
       </table>
     );
-   
+
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
-      
+
       autoPaging: 'text',
     });
   };
 
   const exportPDFReviced = () => {
-   
+
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -2460,7 +2454,9 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+
+                          {marginData?.order?.quantity ? marginData?.order?.quantity + ' ' + marginData?.order?.unitOfQuantity : ''}
+
                         </p>
                       </td>
                       <td align="left">
@@ -2475,7 +2471,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                          {marginData?.order?.quantity ? marginData?.order?.quantity + ' ' + marginData?.order?.unitOfQuantity : ''}
+
                         </p>
                       </td>
                     </tr>
@@ -2634,11 +2631,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
-                            marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
-                            '%',
-                            '',
-                          )}
+                          {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ? marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In') + ' %' : ''}
                         </p>
                       </td>
                       <td align="left">
@@ -2653,11 +2646,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
-                            marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
-                            '%',
-                            '',
-                          )}
+                          {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ? marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In') + ' %' : ''}
                         </p>
                       </td>
                     </tr>
@@ -2700,7 +2689,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                          {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage + ' %' : ''}
                         </p>
                       </td>
                       <td align="left">
@@ -2715,7 +2704,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                        {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage + ' %' : ''}
                         </p>
                       </td>
                     </tr>
@@ -2820,13 +2809,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
-                            marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                          {marginData?.order?.termsheet?.transactionDetails?.marginMoney ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In') + ' %' : ''}
                         </p>
                       </td>
                       <td align="left">
@@ -2841,13 +2824,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {addPrefixOrSuffix(
-                            marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                              : 0,
-                            '%',
-                            '',
-                          )}
+                          {marginData?.order?.termsheet?.transactionDetails?.marginMoney ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In') + ' %' : ''}
                         </p>
                       </td>
                     </tr>
@@ -4035,13 +4012,13 @@ function Index() {
         </tr>
       </table>
     );
-   
+
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
-     
+
       autoPaging: 'text',
     });
   };
@@ -4073,7 +4050,7 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       });
-       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer ==false ? false : true)
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true)
     }
 
   }, [marginData, getInternalCompaniesMasterData]);
@@ -4261,7 +4238,7 @@ function Index() {
                     </div>
                     <div
                       id="commodityAccordion"
-                     
+
                       aria-labelledby="commodityAccordion"
                       data-parent="#commodityAccordion"
                     >
@@ -4280,11 +4257,11 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(
-                                    marginData?.order?.quantity?.toLocaleString('en-In', { maximumFractionDigits: 2 }),
-                                    '',
-                                  )}{' '}
-                                  {marginData?.order?.unitOfQuantity?.toUpperCase()}
+
+                                  {marginData?.order?.quantity ? marginData?.order?.quantity?.toLocaleString('en-In', { maximumFractionDigits: 2 }) + ' ' + marginData?.order?.unitOfQuantity : ''}
+
+
+
                                 </div>
                               </div>
                             </div>
@@ -4301,7 +4278,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {marginData?.order?.orderCurrency}{' '}
-                                  {addPrefixOrSuffix(marginData?.order?.perUnitPrice, '')?.toLocaleString('en-In', {
+                                  {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                   })}
                                 </div>
@@ -4340,10 +4317,10 @@ function Index() {
                                   isFieldInFocus.conversion
                                     ? forCalculation?.conversionRate
                                     : checkNan(Number(forCalculation?.conversionRate))?.toLocaleString('en-In', {
-                                        maximumFractionDigits: 2,
-                                      })
+                                      maximumFractionDigits: 2,
+                                    })
                                 }
-                             
+
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -4421,11 +4398,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(
-                                    marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
-                                    '%',
-                                    '',
-                                  )?.toLocaleString('en-In')}
+                                  {marginData?.order?.termsheet ? marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In') + ' %' : ''}
                                 </div>
                               </div>
                             </div>
@@ -4441,10 +4414,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                 
-                                   {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
-                                   
-                                 
+                                  {marginData?.order?.tolerance ? marginData?.order?.tolerance + ' %' : 0}
                                 </div>
                               </div>
                             </div>
@@ -4461,11 +4431,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(
-                                    marginData?.order?.termsheet?.transactionDetails?.marginMoney,
-                                    '%',
-                                    '',
-                                  )?.toLocaleString('en-In')}
+                                  {marginData?.order?.termsheet ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In') + ' %' : ''}
                                 </div>
                               </div>
                             </div>
@@ -4503,7 +4469,7 @@ function Index() {
                                     : checkNan(Number(forCalculation?.numberOfPDC))?.toLocaleString('en-In')
                                 }
                                 onChange={(e) => saveForCalculation(e.target.name, e.target.value)}
-                               
+
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -4879,7 +4845,7 @@ function Index() {
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
-                                 
+
                                   value={invoiceData?.buyerGSTIN}
                                 >
                                   <option selected>Select an Option</option>
@@ -4927,15 +4893,15 @@ function Index() {
                                       inline
                                       label="Yes"
                                       onChange={(e) => {
-                                       setisConsigneeSameAsBuyer(true)
-                                       
+                                        setisConsigneeSameAsBuyer(true)
+
                                         setSame(true);
                                       }}
-                                      
+
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-1`}
-                                      checked={isConsigneeSameAsBuyer==true ?"checked":""}
+                                      checked={isConsigneeSameAsBuyer == true ? "checked" : ""}
                                     />
                                     <Form.Check
                                       className={`${styles.radio} radio`}
@@ -4945,7 +4911,7 @@ function Index() {
                                         setisConsigneeSameAsBuyer(false)
                                         setSame(false);
                                       }}
-                                      checked={isConsigneeSameAsBuyer==false?"checked":""}
+                                      checked={isConsigneeSameAsBuyer == false ? "checked" : ""}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-2`}
@@ -5052,7 +5018,7 @@ function Index() {
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
                                   onChange={(e) => {
-                                  
+
                                     let filter = getInternalCompaniesMasterData.filter((val, index) => {
                                       if (
                                         val.Branch == e.target.value &&
@@ -5070,14 +5036,14 @@ function Index() {
                                       changeImporterData.GSTIN = filter[0].GSTIN;
                                       newInput['importerGSTIN'] = filter[0].GSTIN;
 
-                                     
 
-                                     
 
-                                     
-                                      
 
-                                     
+
+
+
+
+
 
                                       newInput['branchOffice'] = e.target.value;
                                       changeImporterData.branch = e.target.value;
@@ -5217,7 +5183,7 @@ function Index() {
 
                                   }}
                                 >
-                                 
+
                                   <option selected>Select an option</option>
                                   {getBranchesMasterData.map((val, index) => {
                                     return (
@@ -5262,7 +5228,7 @@ function Index() {
                                 name="IFSCcode"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.IFSCcode}
-                                
+
 
                                 className={`${styles.input_field} input form-control`}
                                 required
