@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
 import { checkNan, CovertvaluefromtoCR } from '../../utils/helper';
+import styles from './index.module.scss';
 
 const Index = ({
   financialsComment,
@@ -233,8 +233,7 @@ const Index = ({
               ))}
 
             <div className="d-flex mt-4 mb-3 position-relative">
-              <input
-                as="textarea"
+              <textarea
                 rows={3}
                 placeholder=""
                 className={`${styles.comment_field} input form-control`}
@@ -291,8 +290,7 @@ const Index = ({
               ))}
 
             <div className="d-flex mt-4 position-relative">
-              <input
-                as="textarea"
+              <textarea
                 rows={3}
                 placeholder=""
                 className={`${styles.comment_field} input form-control`}
@@ -557,8 +555,7 @@ const Index = ({
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Weakness</div>
               <div className="d-flex mt-5 pb-5 position-relative">
-                <input
-                  as="textarea"
+                <textarea
                   rows={3}
                   placeholder=""
                   value={weaknessComments}
@@ -761,8 +758,7 @@ const Index = ({
             </div>
             <div className={`${styles.comment_inner}`}>
               <div className="d-flex mt-5 pb-5 position-relative">
-                <input
-                  as="textarea"
+                <textarea
                   rows={3}
                   placeholder=""
                   value={sanctionComments}

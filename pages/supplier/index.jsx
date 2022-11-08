@@ -1,24 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import DateCalender from '../../src/components/DateCalender';
-import { setPageName } from '../../src/redux/userData/action';
-import SaveBar from '../../src/components/SaveBar';
-import { Form } from 'react-bootstrap';
-import AddressComponent from '../../src/components/AddressSupplier';
-import { toast } from 'react-toastify';
-import { emailValidation } from 'utils/helper';
-import { ClearSupplier, CreateSupplier, DeleteSupplierDoc, GetSupplier, UpdateSupplier } from 'redux/supplier/action';
-import _get from 'lodash/get';
-import Router from 'next/router';
-import moment from 'moment';
 import Axios from 'axios';
-import API from 'utils/endpoints';
 import Cookies from 'js-cookie';
+import _get from 'lodash/get';
+import moment from 'moment';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { ClearSupplier, CreateSupplier, DeleteSupplierDoc, GetSupplier, UpdateSupplier } from 'redux/supplier/action';
+import API from 'utils/endpoints';
+import { emailValidation } from 'utils/helper';
+import AddressComponent from '../../src/components/AddressSupplier';
+import DateCalender from '../../src/components/DateCalender';
+import SaveBar from '../../src/components/SaveBar';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp';
+import { setPageName } from '../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 function Index() {
   const dispatch = useDispatch();
@@ -1555,8 +1555,7 @@ function Index() {
             >
               <div className={`${styles.dashboard_form} mr-3 card-body border_color`}>
                 <div className="d-flex pb-4 ml-4 position-relative">
-                  <input
-                    as="textarea"
+                  <textarea
                     rows={3}
                     placeholder=""
                     className={`${styles.comment_field} input form-control`}
@@ -1707,8 +1706,7 @@ function Index() {
             <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
               <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
                 <div className="d-flex mt-4 pb-4 position-relative">
-                  <input
-                    as="textarea"
+                  <textarea
                     rows={3}
                     placeholder=""
                     name="remarks"

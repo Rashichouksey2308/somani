@@ -1,10 +1,6 @@
 @import '../styles/Core/config';
 
 .card {
-  // width: 406px;
-  // height: 401px;
-  //background: #FFFFFF;
-  //box-shadow: 0px 3px 12px #E5E7ED;
   border: 1px solid #d2d7e5;
   border-radius: 8px;
   margin-bottom: 24px;
@@ -15,7 +11,6 @@
   .header {
     background-color: rgb(0 0 0 / 0%);
     border-bottom: none;
-    // margin: 0 0 20px;
     font-weight: bold;
     font-size: 16px;
     line-height: 23px;
@@ -55,7 +50,6 @@
       align-items: center;
       width: 100%;
       margin-bottom: 14px;
-      // height: 47px;
 
       span {
         width: 30%;
@@ -66,7 +60,6 @@
         padding: 0px 1.25rem;
         color: #111111;
         text-transform: capitalize;
-        // opacity: 0.7;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -78,7 +71,6 @@
         height: 90%;
         position: relative;
         direction: rtl;
-        // padding-right:  1.25rem;
         span {
           text-align: right;
           font-weight: bold;
@@ -94,7 +86,6 @@
           width: 70%;
           height: 100%;
           top: 0;
-          // opacity: 0.1;
           border-radius: 2px;
         }
       }

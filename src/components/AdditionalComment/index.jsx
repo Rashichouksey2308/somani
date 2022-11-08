@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import GrowInput from '../GrowInput';
+import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
 import { toast } from 'react-toastify';
+import GrowInput from '../GrowInput';
+import styles from './index.module.scss';
 
 const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, otherTermConditions }) => {
   const [commentType, setCommentType] = useState('select an Option');
@@ -357,13 +357,9 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                     // </p>
                     <>
                       <Form.Control
-                        className={`${styles.comment} text_area text_input border_color }
-                                            
-                                            `}
+                        className={`${styles.comment} text_area text_input border_color`}
                         as="textarea"
                         rows={3}
-                        //On Change TO BE Done
-
                         value={newComment}
                         onChange={(e) => {
                           setNewComment(e.target.value);
@@ -375,13 +371,9 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                   {commentType === 'Other terms and conditions' ? (
                     <>
                       <Form.Control
-                        className={`${styles.comment} text_area text_input border_color }
-                                            
-                                            `}
+                        className={`${styles.comment} text_area text_input border_color`}
                         as="textarea"
                         rows={3}
-                        //On Change TO BE Done
-
                         value={newComment}
                         onChange={(e) => {
                           setNewComment(e.target.value);
@@ -392,13 +384,9 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                   {commentType === 'Payment Reimbursement of Charges' ? (
                     <>
                       <Form.Control
-                        className={`${styles.comment} text_area text_input border_color }
-                                            
-                                            `}
+                        className={`${styles.comment} text_area text_input border_color`}
                         as="textarea"
                         rows={3}
-                        //On Change TO BE Done
-
                         value={newComment}
                         onChange={(e) => {
                           setNewComment(e.target.value);
@@ -433,9 +421,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                       <Form.Control
                         className={`${styles.comment} text_area text_input border_color ${
                           !isCommentEditable[index] ? styles.nonEditable : null
-                        }
-                                            
-                                            `}
+                        }`}
                         as="textarea"
                         rows={3}
                         //On Change TO BE Done
