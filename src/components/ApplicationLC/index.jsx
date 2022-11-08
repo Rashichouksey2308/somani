@@ -2281,10 +2281,10 @@ function Index() {
     <>
       <div className="container-fluid p-0 border-0">
         <div className={`${styles.root_container} card shadow-none border-0 bg-transparent`}>
-          <div className={`${styles.term_container} previewCard container-fluid border_color`}>
+          <div className={`${styles.term_container} container-fluid download-pdf-bg`}>
             <Row>
               <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-                <h3>APPLICATION FOR LETTER OF CREDIT</h3>
+                <h3 className='download-pdf-title'>APPLICATION FOR LETTER OF CREDIT</h3>
               </Col>
             </Row>
 
@@ -2646,7 +2646,7 @@ function Index() {
                                                 'data[0].order.generic.productSpecifications.specificationTable',
                                                 [],
                                               )[0],
-                                            ).map((val, index) => <th key={index}>{val}</th>)}
+                                            ).map((val, index) => <th className='border-left' key={index}>{val}</th>)}
                                         </tr>
                                         {_get(
                                           lcModule,

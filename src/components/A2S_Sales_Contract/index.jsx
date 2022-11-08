@@ -1060,14 +1060,14 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                         <tr>
                           {data?.spec &&
                             data?.spec.length > 0 &&
-                            Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
+                            Object.keys(data?.spec[0]).map((val, index) => <th className='text-color' key={index}>{val}</th>)}
                         </tr>
                         {data?.spec &&
                           data?.spec.length > 0 &&
                           data?.spec.map((item, index) => (
                             <tr>
                               {Object.values(item).map((value, id) => (
-                                <td key={id}>{value}</td>
+                                <td className='text-color' key={id}>{value}</td>
                               ))}
                             </tr>
                           ))}
