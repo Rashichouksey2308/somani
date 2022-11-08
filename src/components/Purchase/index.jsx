@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from './index.module.scss';
-import { Col, Form, Row } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import DateCalender from '../DateCalender';
 import Image from 'next/image';
+import { useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import SaveBar from '../SaveBar';
+import styles from './index.module.scss';
 
 export default function Index({}) {
   const [serviceType, setServiceType] = useState('goods');
@@ -632,8 +632,7 @@ export default function Index({}) {
               <Row className="mt-4">
                 <Col lg={12}>
                   <div className="mt-4">
-                    <input
-                      as="textarea"
+                    <textarea
                       rows={3}
                       required
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
