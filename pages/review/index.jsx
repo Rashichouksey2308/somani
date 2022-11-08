@@ -457,6 +457,7 @@ function Index() {
   }, [orderList]);
 
   const handleProductSave = (chas, exsupp) => {
+
     if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -623,24 +624,7 @@ function Index() {
 
   const [personData, setPersonData] = useState([]);
 
-  // useEffect(() => {
-  //   if (orderList?.company?.keyContactPerson.length > 0) {
-  //     setPersonData([
-  //       {
-  //         contact: {
-  //           callingCode:
-  //             orderList?.company?.keyContactPerson?.contact?.callingCode,
-  //           number: orderList?.company?.keyContactPerson?.contact?.number,
-  //         },
-  //         department: orderList?.company?.keyContactPerson?.department,
-  //         designation: orderList?.company?.keyContactPerson?.designation,
-  //         email: orderList?.company?.keyContactPerson?.email,
-  //         name: orderList?.company?.keyContactPerson?.name,
-  //         isEdit: false,
-  //       },
-  //     ])
-  //   }
-  // }, [orderList])
+ 
 
   useEffect(() => {
     let groupExposureArr = [];
@@ -781,9 +765,9 @@ function Index() {
         if (i == index) {
           return newData;
         }
-        // 👇️ otherwise return object as is
-        return obj;
-      });
+      
+        return obj
+      })
 
       return newState;
     });
@@ -1212,6 +1196,7 @@ function Index() {
         }
       }
     } else {
+ 
       dispatch(
         McaReportFetch({
           company: orderList.company._id,
@@ -5412,7 +5397,7 @@ function Index() {
                           {top5Customers.datasets &&
                             top5Customers?.datasets[0]?.data?.map((val, index) => {
                               return (
-                                <tr>
+                                <tr key={index}>
                                   <td width="5%" align="left">
                                     <span
                                       style={{
@@ -5500,7 +5485,7 @@ function Index() {
                           {top5Suppliers.datasets &&
                             top5Customers?.datasets[0]?.data?.map((val, index) => {
                               return (
-                                <tr>
+                                <tr key={index}>
                                   <td width="5%" align="left">
                                     <span
                                       style={{
@@ -7495,10 +7480,10 @@ function Index() {
       dispatch(
         ViewDocument({
           path: path,
-          // orderId: documentsFetched._id,
+       
         }),
-      );
-      // window.open(gstData?.detail?.other?.pdfLink, '_blank')
+      )
+    
     }
   };
 
@@ -7572,7 +7557,7 @@ function Index() {
       relevence: 0,
     };
 
-    //getCount
+   
     companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
       if (val.caseStatus == 'Disposed') {
@@ -7919,15 +7904,7 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          // var pageSize = doc.internal.pageSize
-          // var pdf_pages = doc.internal.pages;
-          // var pageHeight = pageSize.height
-          //   ? pageSize.height
-          //   : pageSize.getHeight();
-
-          // doc.setFont('helvetica', "normal")
-
-          // var line = "Footer Content";
+        
 
           doc.save('CAM.pdf');
         },
@@ -7936,8 +7913,7 @@ function Index() {
           scale: 0.33, //this was my solution, you have to adjust to your size
           width: 1000, //for some reason width does nothing
         },
-        // x: 32,
-        // y: 32,
+       
         autoPaging: 'text',
       },
     );
@@ -8203,7 +8179,7 @@ function Index() {
                     </div>
                     <div
                       id="compliance"
-                      // className="collapse"
+                    
                       aria-labelledby="compliance"
                       data-parent="#profileAccordion"
                     >
@@ -8559,8 +8535,8 @@ function Index() {
                                 value={'high'}
                                 id={'high'}
                                 onChange={() => {
-                                  changeRisk('high');
-                                  // setFilterType({ ...filterType, risk: 'high' })
+                                  changeRisk('high')
+                                 
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -8577,11 +8553,8 @@ function Index() {
                                 value={'medium'}
                                 id={'medium'}
                                 onChange={() => {
-                                  changeRisk('medium');
-                                  // setFilterType({
-                                  //   ...filterType,
-                                  //   risk: 'medium',
-                                  // })
+                                  changeRisk('medium')
+                                  
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -8597,11 +8570,8 @@ function Index() {
                                 value={'Relevance'}
                                 id={'Relevance'}
                                 onChange={() => {
-                                  changeRisk('relevance');
-                                  // setFilterType({
-                                  //   ...filterType,
-                                  //   risk: 'relevence',
-                                  // })
+                                  changeRisk('relevance')
+                                 
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -8611,34 +8581,7 @@ function Index() {
                             </label>
                           </div>
 
-                          {/* <ComplianceLigitations
-                            icon={'/static/danger.svg'}
-                            backColor={'#E3F0FF'}
-                            iconBackGroudColor={'#3687E8 '}
-                            heading={'High Risk (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          />
-                          <ComplianceLigitations
-                            icon={'/static/danger.svg'}
-                            backColor={'#FFE9C5'}
-                            iconBackGroudColor={'#FF9D00'}
-                            heading={'Medium Risk (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          />
-                          <ComplianceLigitations
-                            icon={'/static/Path 3369.svg'}
-                            backColor={'#F3F4F7'}
-                            iconBackGroudColor={'#9EB6FF'}
-                            heading={'High Priority (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          />
-                          <ComplianceLigitations
-                            icon={'/static/Group 1240.svg'}
-                            backColor={'#FFE8E8'}
-                            iconBackGroudColor={'#EA3F3F'}
-                            heading={'Stagnant Cases (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          /> */}
+                        
                         </div>
 
                         <div>{ligitations(Supreme, District, High, Tribunal, companyData)}</div>

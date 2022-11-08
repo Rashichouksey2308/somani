@@ -256,11 +256,37 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.generic?.buyer?.name} , <br></br>{' '}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')} <br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')} <br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')} <br></br>
-                    {_get(insuranceData, 'order.generic.buyer.gstin', '')} <br></br>
+                    {insuranceData?.order?.generic?.buyer?.name} ,{' '}
+                    <br></br>{' '}
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].fullAddress',
+                      '',
+                    )},
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].state',
+                      '',
+                    )},
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].country',
+                      '',
+                    )}{' '}  -
+                     {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].pinCode',
+                      '',
+                    )},
+                    <br></br>
+                    GSTIN NO - {_get(
+                      insuranceData,
+                      'order.generic.buyer.gstin',
+                      '',
+                    )}
+                    <br></br>
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

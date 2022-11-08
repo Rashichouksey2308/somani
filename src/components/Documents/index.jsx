@@ -18,19 +18,10 @@ const Index = ({
   documentApi,
 }) => {
   const [list, setList] = useState([{ typeDocument: 'Certificate', attachDoc: 'false' }]);
-  console.log(documentApi, 'documentApi');
+
   const [name, setName] = useState(null);
 
-  // const onAddDoc = (index) => {
-  //   setList([
-  //     ...list,
-  //     {
-  //       typeDocument: '',
-  //       attachDoc: '',
-  //       actions: 'false',
-  //     },
-  //   ])
-  // }
+
 
   const [secondDocName, setSecondDocName] = useState(null);
 
@@ -81,7 +72,7 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
-                            console.log('Addddoc');
+                            
                             addDoc(e.target.files[0], index);
                             // uploadDocument2(e)
                           }}

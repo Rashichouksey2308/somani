@@ -106,9 +106,7 @@ const index = ({
     newInput.GSTIN_document.date = undefined;
     setKeyAddressData(newInput);
   };
-  //const [deleteRow, setDeleteRow] = useState(true)
 
-  // const [debt, setDebtData] = useState([])
 
   const addMoreDebtRows = () => {
     setDebtData([
@@ -125,7 +123,6 @@ const index = ({
 
   const handleDebtChange = (name, value, index) => {
     let tempArr = [...debtData];
-
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
@@ -179,7 +176,7 @@ const index = ({
     setKeyPersonData(personData);
   }, [personData]);
 
-  // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
+  
 
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
@@ -202,14 +199,14 @@ const index = ({
 
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData);
-    //console.log(keyPersonData, 'This is person data')
+    
   };
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
 
-    // console.log(newInput)
+    
     setKeyAddressData(newInput);
   };
 
@@ -316,6 +313,7 @@ const index = ({
     }
     return true;
   };
+
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
@@ -400,10 +398,11 @@ const index = ({
       communication: tempArr[index].communication || false,
     });
   };
+
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
-    // console.log(newInput)
+   
     setEditData(newInput);
   };
 
@@ -420,9 +419,11 @@ const index = ({
 
   const [exSupplier, setexSupplier] = useState([]);
 
+
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
-      setexSupplier(creditDetail?.existingSuppliers);
+      setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
+      
     }
   }, [creditDetail?.existingSuppliers]);
 
@@ -431,6 +432,7 @@ const index = ({
     temp.splice(index, 1);
     setemails([...temp]);
   };
+
   const removeExSupplierParent = (index) => {
     let temp = [...exSupplier];
     temp.splice(index, 1);
@@ -454,11 +456,12 @@ const index = ({
   };
 
   const handleFilteredData = (results) => {
-    let temp = [...exSupplier];
-    temp.push({ name: results?.supplierProfile?.supplierName, status: results?.status });
-    // temp.push(results?.supplierProfile?.supplierName);
-    setexSupplier([...temp]);
-    setSearchTerm('');
+   
+      let temp = [...exSupplier];
+      temp.push(results?.supplierProfile?.supplierName);
+      setexSupplier([...temp]);
+      setSearchTerm('')
+    
   };
 
   return (
@@ -476,7 +479,7 @@ const index = ({
         </div>
         <div
           id="productSummary"
-          // className="collapse"
+
           aria-labelledby="productSummary"
           data-parent="#profileAccordion"
         >
@@ -509,10 +512,7 @@ const index = ({
                       : checkNan(Number(creditDetail?.monthlyProductionCapacity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.monthlyProductionCapacity,
-                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  // )}
+                  
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -550,10 +550,8 @@ const index = ({
                       ? creditDetail?.capacityUtilization
                       : checkNan(Number(creditDetail?.capacityUtilization), 'no') + ' %'
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.capacityUtilization,
-                  //   '%',
-                  // )}
+
+                  
                   name="capacityUtilization"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -591,10 +589,7 @@ const index = ({
                       : checkNan(Number(creditDetail?.averageStockOfCommodity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.averageStockOfCommodity,
-                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  // )}
+              
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -633,10 +628,7 @@ const index = ({
                       : checkNan(Number(creditDetail?.averageStockInTransit))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.averageStockInTransit,
-                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  // )}
+               
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -675,10 +667,7 @@ const index = ({
                       : checkNan(Number(creditDetail?.availableStock))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.availableStock,
-                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  // )}
+                
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -715,10 +704,7 @@ const index = ({
                       : checkNan(Number(creditDetail?.dailyConsumptionOfCommodity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   creditDetail?.dailyConsumptionOfCommodity,
-                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  // )}
+                
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -776,6 +762,7 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
+                    id='Existing Supplier(s)'
                     handleSearch={handleSearch}
                     handleFilteredData={handleFilteredData}
                     removeInput={removeInput}
@@ -840,7 +827,7 @@ const index = ({
                 </div>
                 <div className={`${styles.tooltip} `}>
                   <img
-                    //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                  
                     className={`${styles.info_circle} img-fluid`}
                     src="/static/info-circle.svg"
                   />
@@ -890,6 +877,7 @@ const index = ({
                   <MultiSelect
                     placeholder="Existing CHA(s)"
                     emails={emails}
+                    id='Existing CHA(s)'
                     onChange={(_emails) => {
                       let temp = [...emails];
                       temp.push(_emails[0]);
@@ -1127,11 +1115,7 @@ const index = ({
                       ? supplierCred?.commodityOfTotalTrade
                       : checkNan(Number(supplierCred?.commodityOfTotalTrade), 'no') + ' %'
                   }
-                  // value={addPrefixOrSuffix(
-                  //   supplierCred?.commodityOfTotalTrade,
-                  //   '%',
-                  //   '',
-                  // )}
+                 
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value);
@@ -1143,7 +1127,7 @@ const index = ({
                 </label>
                 <div className={`${styles.tooltip} `}>
                   <img
-                    // style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                 
                     className={`${styles.info_circle} img-fluid`}
                     src="/static/info-circle.svg"
                   />
@@ -1658,18 +1642,7 @@ const index = ({
                           onChange={(e) => {
                             mobileFunction(e);
                           }}
-                          // onBlur={(e) => {`
-                          //   if (phoneValidation(e.target.value)) {
-                          //     mobileFunction(e)
-                          //   } else {
-                          //     let toastMessage = 'Enter a valid Phone Number'
-                          //     if (!toast.isActive(toastMessage.toUpperCase())) {
-                          //       toast.error(toastMessage, {
-                          //         toastId: toastMessage,
-                          //       })
-                          //     }
-                          //   }
-                          // }}
+                       
                         />
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>

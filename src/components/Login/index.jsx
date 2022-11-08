@@ -14,7 +14,7 @@ function Index(props) {
     if (loggingoutUser) {
       props.login();
     } else {
-      //display error msg
+    
     }
   }, [loggingoutUser]);
   const [loginDetails, setLoginDetails] = useState({
@@ -34,7 +34,7 @@ function Index(props) {
   };
 
   const onSubmitHandler = async (e) => {
-    //e.preventDefault();
+
 
     const encodedString = Buffer.from(`${loginDetails.email.trim()}:${loginDetails.password.trim()}`).toString(
       'base64',

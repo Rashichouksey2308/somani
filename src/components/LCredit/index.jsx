@@ -23,9 +23,7 @@ function Index() {
     newValue: false,
   });
   const handleEdit = (index) => {
-    // console.log('THIS IS HANDLE EDIT', val)
-    // setEditCurrent(val)
-    // setEditInput(true)
+   
     const newArr = [...clauseArr];
     newArr.forEach((val, i) => {
       if (i == index) {
@@ -36,8 +34,6 @@ function Index() {
     setClauseArr(newArr);
   };
 
-  console.log(clauseData, 'clauseData');
-  console.log(editCurrent, 'THIS IS EDIT LC', editInput);
 
   const { lcModule } = useSelector((state) => state.lc);
 
@@ -45,7 +41,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('Lc'));
-    console.log(lcModule?.data?.order?.orderId, 'lcModule?.data?.order?.orderId');
+
     dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')));
     dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')));
   }, [lcModuleData]);
@@ -57,12 +53,12 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
-  console.log(lcData, 'THIS IS LC DATA');
+
 
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-      applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
+      applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
       lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
@@ -149,7 +145,7 @@ function Index() {
 
   const [clauseData, setClauseData] = useState();
 
-  console.log(clauseData, 'CLAUSE DATA');
+
 
   const initialState = {
     existingValue: '',
@@ -163,10 +159,10 @@ function Index() {
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
-  console.log(clauseObj, 'this is ccccc');
+
 
   const [clauseArr, setClauseArr] = useState([]);
-  // console.log(clauseArr, 'new arr', clauseArr.map((e)=>e.dropDownValue))
+
 
   const [drop, setDrop] = useState('');
 
@@ -175,7 +171,7 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'partialShipment') {
+    } else if (e.target.value == 'partialShipment' || e.target.value == 'transhipments') {
       setFieldType('drop');
     } else {
       setFieldType('');
@@ -186,16 +182,16 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text || '';
     let val2 = e.target.value || '';
     setDrop(val2);
-    console.log(lcData[e.target.value], 'lcData[e.target.value]', e.target.value);
+   
     newInput['existingValue'] = lcData[e.target.value] || '';
     newInput['dropDownValue'] = val1 || '';
     newInput['newValue'] = '';
-    console.log(newInput, 'dropDownChange');
+   
     setClauseObj(newInput);
   };
 
   const arrChange = (name, value) => {
-    console.log(name, value, 'name, value');
+
     const newInput = { ...clauseObj };
     newInput[name] = value;
     setClauseObj(newInput);
@@ -204,7 +200,7 @@ function Index() {
     newInput1[drop] = value;
     setClauseData(newInput1);
   };
-  console.log(clauseObj, 'arrChange');
+
   const saveDropDownDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -241,7 +237,7 @@ function Index() {
       }
     }
   };
-  console.log(clauseArr, 'clauseArr');
+
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
       return item.dropDownValue !== arr;
@@ -253,7 +249,7 @@ function Index() {
     lcDraftDoc: null,
   });
 
-  console.log(lcDoc, 'THIS IS LOC DOC');
+
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
@@ -285,7 +281,7 @@ function Index() {
     } else {
       let sendLcData = { ...clauseData };
       setLcData(clauseData);
-      console.log(clauseData, 'CLAUSE DATA 2');
+    
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
@@ -296,8 +292,8 @@ function Index() {
   };
   const [existingValue, setExistingValue] = useState('');
   const getDataFormDropDown = (value) => {
-    console.log('sffsdfsdf', value);
-    console.log(value);
+   
+  
     if (fieldType == 'date') {
       setExistingValue(moment(value).format('DD-MM-YYYY'));
       return;
@@ -324,9 +320,9 @@ function Index() {
     }
   };
   const getValue = (value, toCheck) => {
-    console.log('asasasasa', value, toCheck);
-    console.log(value);
-    if (toCheck == '(32D) Place Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+
+
+    if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
     } else if (toCheck == '(43P) Partial Shipment') {
       if (value == 'Yes') {
@@ -346,10 +342,10 @@ function Index() {
     }
   };
   useEffect(() => {
-    console.log('useeedd');
+
     getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
-  console.log(clauseObj, lcData, 'sasdasdasd');
+  
   return (
     <>
       {' '}
@@ -509,26 +505,10 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              // ref={inputRef}
-                              // onFocus={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: true }),
-                              //     e.target.type = 'number'
-                              // }}
-                              // onBlur={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: false }),
-                              //     e.target.type = 'text'
-                              // }}
-
-                              // value={isFieldInFocus.existingValue ?
-                              //   editInput ? editCurrent?.newValue : ''  :
-                              //   Number(editInput ? editCurrent?.newValue : '' ).toLocaleString('en-In')
-                              // }
-                              // defaultValue={
-                              //   editInput ? editCurrent?.newValue : ''
-                              // }
+                          
                               value={clauseObj?.newValue}
                               onChange={(e) => {
-                                // inputRef.current.value = ''
+                              
                                 arrChange('newValue', e.target.value);
                               }}
                             />
@@ -621,7 +601,7 @@ function Index() {
                                               onChange={(e) => dropDownChange(e)}
                                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                             >
-                                              <option selected>Select an option</option>
+                                              <option value='' >Select an option</option>
                                               <option value="shipmentForm">(44A) Shipment From</option>
                                               <option value="applicableRules">(40E) Application Rules</option>
                                               <option value="placeOfExpiry">(32D) Place Of Expiry</option>
@@ -724,8 +704,8 @@ function Index() {
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>{getValue(arr.existingValue, arr.dropDownValue)}</td>
-                                        <td>{getValue(arr.newValue, arr.dropDownValue)}</td>
+                                        <td>{arr.dropDownValue === '(32B) Currency Code & Amount' ? `${lcModuleData?.order?.orderCurrency} ` :  ''}{ arr.dropDownValue === '(39A) Tolerance (+/-) Percentage' ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %` : getValue(arr.existingValue, arr.dropDownValue) }</td>
+                                        <td>{arr.dropDownValue === '(32B) Currency Code & Amount' ? `${lcModuleData?.order?.orderCurrency} ` : ''}{ arr.dropDownValue === '(39A) Tolerance (+/-) Percentage' ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : getValue(arr.newValue, arr.dropDownValue) }</td>
                                         <td>
                                           {/* <img
                                             src="/static/mode_edit.svg"

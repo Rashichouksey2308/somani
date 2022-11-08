@@ -109,22 +109,7 @@ function Index(props) {
         };
 
         let temp = [];
-        //  props?.data.addresses.forEach(val=>{
-        //     temp.push(val)
-        //   })
-        //   if(temp=undefined){
-        //     temp=[]
-        //   }
-        //   console.log(temp,"temo")
-        //   temp.push({
-        //         "addressType": "Registered",
-        //         "fullAddress": "Industriestrasse 16",
-        //         "pinCode": "6300",
-        //         "country": "Switzerland",
-        //         "gstin": "",
-        //         "state": "",
-        //         "city": "Zug"
-        //     })
+  
         setAddressList([
           {
             addressType: 'Registered',
@@ -155,7 +140,7 @@ function Index(props) {
         setBuyerData(buyer);
         let tempArr = props.data?.authorisedSignatoryDetails;
 
-        console.log(tempArr, 'tempArr');
+
         let optionArray = [...options];
         tempArr.forEach((val, index) => {
           val.actions = 'true';
@@ -238,7 +223,7 @@ function Index(props) {
     //  setRemovedOption(value.name)
   };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -258,7 +243,7 @@ function Index(props) {
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
-    console.log(temp, 'temp');
+
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -276,7 +261,7 @@ function Index(props) {
     setRemovedOption(null);
   };
   // setRemovedOption(null)
-  console.log(list, 'listlist');
+
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
       if (index == val.index) {
@@ -303,7 +288,7 @@ function Index(props) {
     setBuyerData(newInput);
   };
   const removeDoc = (index) => {
-    console.log('removeDOc');
+
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -387,7 +372,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+       
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -465,11 +450,11 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress, false)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+ 
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
+     
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -893,7 +878,7 @@ function Index(props) {
                                           return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>{'Add New'}</option>
+                                     
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -925,7 +910,7 @@ function Index(props) {
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>{'Add New'}</option>
+                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1040,7 +1025,7 @@ const editData = (
   saveNewAddress,
   setAddressEditType,
 ) => {
-  console.log(addressEditType, 'addressEditType');
+
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>

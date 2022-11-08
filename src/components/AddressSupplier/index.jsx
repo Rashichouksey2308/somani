@@ -38,25 +38,26 @@ function AddressComponent({
 
               <h5 className={`mb-0`}>{Title}</h5>
             </div> */}
-          <div className="text-right">
-            <img
-              className={`${styles.edit_image} ml-2 mr-3`}
-              src="/static/mode_edit.svg"
-              alt="edit"
-              onClick={() => {
-                console.log('index', index);
-                editAddress(index);
-              }}
-            />
-            <img
-              onClick={() => {
-                // console.log('index', index)
-                deleteComponent(index);
-              }}
-              src="/static/delete 2.svg"
-              className={`${styles.delete_image}`}
-              alt="delete"
-            />
+            <div className='text-right'>
+                <img
+                  className={`${styles.edit_image} ml-2 mr-3`}
+                  src="/static/mode_edit.svg"
+                  alt="edit"
+                  onClick={() => {
+                  
+                    editAddress(index);
+                  }}
+                />
+                <img
+                  onClick={() => {
+                  
+                    deleteComponent(index);
+                  }}
+                  src="/static/delete 2.svg"
+                  className={`${styles.delete_image}`}
+                  alt="delete"
+                />
+      
           </div>
           <div className={`${styles.address_values}`}>
             <p className="">

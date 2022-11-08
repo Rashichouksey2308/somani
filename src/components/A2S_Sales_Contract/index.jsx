@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 function Index(props) {
-  console.log(props, 'props');
+
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -122,6 +122,8 @@ function Index(props) {
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
+          totalPrice: data?.order.marginMoney.calculation.totalOrderValue,
+          advanceMoney:data?.order?.marginMoney?.calculation?.marginMoney
         });
       }
     }
@@ -130,7 +132,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
-  console.log(data.sellerAddress, 'sellerAddress');
+
   return (
     <>
       <div className={`${styles.root}`}>

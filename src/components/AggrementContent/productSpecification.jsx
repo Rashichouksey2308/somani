@@ -11,7 +11,7 @@ function Index(props) {
   const [value, setValue] = useState('');
   const [editField, setEditField] = useState(false);
   const [doc, setdoc] = useState({ attachDoc: '' });
-  console.log(excelData, 'excelData', excelFile);
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
       let temp = [];
@@ -45,7 +45,7 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Product')) {
-        console.log('herer23123');
+
 
         let savedData = JSON.parse(sessionStorage.getItem('Product'));
         let temp = [];
@@ -68,7 +68,7 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          console.log(obj.action, 'obj.action');
+
           return { ...obj, action: !obj.action };
         }
 
@@ -97,18 +97,17 @@ function Index(props) {
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
-      console.log(selectedFile.type, 'test');
+      
       let reader = new FileReader();
       reader.readAsArrayBuffer(selectedFile);
       reader.onload = (e) => {
         setExcelData(e.target.result);
       };
     } else {
-      console.log('please select file');
+     
     }
   };
-  console.log(excelData, 'test1234', excelFile);
-  console.log(excelFile, 'file');
+  
 
   useEffect(() => {
     if (excelData !== null) {
@@ -116,7 +115,7 @@ function Index(props) {
       const workSheetName = workbook.SheetNames[0];
       const workSheet = workbook.Sheets[workSheetName];
       const data = XLSX.utils.sheet_to_json(workSheet);
-      console.log(data, '11');
+
       setExcelFile(data);
     }
   }, [excelData]);

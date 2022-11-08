@@ -51,10 +51,10 @@ function Index(props) {
   //   let tempArr2=chaState.addresses
   //   setAddressList(tempArr2)
   // },[])
-  console.log(chaState, 'chaState');
+
   useEffect(() => {
     if (window) {
-      console.log(sessionStorage.getItem('Cha'), '.getItem');
+ 
       if (sessionStorage.getItem('Cha')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
@@ -137,7 +137,7 @@ function Index(props) {
           }
         });
         let pincode = add[add.length - 1].split('-');
-        console.log(add, 'dfdfsdfdsf', pincode);
+     
         setAddressList([
           ...addressList,
           {
@@ -181,7 +181,7 @@ function Index(props) {
     },
   ];
   const removeDoc = (index) => {
-    console.log('removeDOc');
+
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -243,7 +243,7 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -312,7 +312,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+      
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -454,11 +454,11 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+   
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
+           
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -884,7 +884,7 @@ function Index(props) {
                                           return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>{'Add New'}</option>
+                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -916,7 +916,7 @@ function Index(props) {
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>{'Add New'}</option>
+                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}

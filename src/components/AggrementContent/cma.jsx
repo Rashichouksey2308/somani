@@ -25,7 +25,7 @@ function Index(props) {
     state: '',
     city: '',
   });
-  console.log(list, addressList, 'addressList');
+ 
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -50,7 +50,7 @@ function Index(props) {
     let tempArr2 = cmaState.addresses;
     setAddressList(tempArr2);
   }, []);
-  console.log(list, 'lsit');
+
   let masterList = [
     {
       name: 'Bhawana Jain',
@@ -91,7 +91,7 @@ function Index(props) {
   };
   useEffect(() => {
     if (window) {
-      console.log(sessionStorage.getItem('Cma'), '.getItem');
+      
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
         let cma = {
@@ -163,7 +163,7 @@ function Index(props) {
           }
         }
         if (a == false) {
-          console.log(props?.vendor?.field23, 'props?.vendor?.field23');
+        
           let add = props?.vendor?.field23.split(',');
           let newAddress = [];
           if (add?.length > 0) {
@@ -173,7 +173,7 @@ function Index(props) {
               }
             });
             let pincode = add[5].split('-');
-            console.log(add, 'dfdfsdfdsf', pincode);
+           
             setAddressList([
               ...addressList,
               {
@@ -206,7 +206,7 @@ function Index(props) {
       }
     }
   }, [props]);
-  console.log(addressList, 'addressList');
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
       let data = {
@@ -227,7 +227,7 @@ function Index(props) {
     }
   }, [props.saveData, props.submitData]);
   const removeDoc = (index) => {
-    console.log('removeDOc');
+  
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -256,7 +256,7 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -326,7 +326,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+         
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -468,11 +468,11 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+   
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
+ 
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -908,7 +908,7 @@ function Index(props) {
                                           return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>{'Add New'}</option>
+                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -940,7 +940,7 @@ function Index(props) {
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>{'Add New'}</option>
+                                           
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}

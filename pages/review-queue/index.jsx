@@ -42,7 +42,7 @@ function Index() {
     sessionStorage.setItem('orderID', buyer._id);
     sessionStorage.setItem('company', buyer.company._id);
     sessionStorage.setItem('companyID', buyer.company._id);
-    //dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+  
     Router.push('/review/id');
   };
 

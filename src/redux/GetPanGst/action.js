@@ -26,7 +26,7 @@ function getPanGstFailed() {
 
 export const GetPanGst = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  //   dispatch(getPanGst())
+ 
   const cookie = Cookies.get('SOMANI');
 
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');

@@ -218,7 +218,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     };
     dispatch(VerifyingGst());
 
-    // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+   
     const response = await Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     });
@@ -252,7 +252,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   const headers = {
     authorization: jwtAccessToken,
-    // Cache: 'no-cache',
+   
     'Content-Type': 'multipart/form-data',
   };
 

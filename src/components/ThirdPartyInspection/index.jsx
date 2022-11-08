@@ -13,7 +13,7 @@ import UploadOther from '../UploadOther/index';
 import { ViewDocument } from 'redux/ViewDoc/action';
 import moment from 'moment';
 import { GetAllInspection } from '../../redux/Inspections/action';
-// import ThirdPartyPopUp from './ThirdPartyPopUp'
+
 
 export default function Index({ addButton }) {
   const dispatch = useDispatch();
@@ -126,14 +126,14 @@ export default function Index({ addButton }) {
         : false,
 
       loadPortInspectionDetails: {
-        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+        numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
         inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
       },
       dischargePortInspectionDetails: {
-        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+        numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
@@ -320,7 +320,7 @@ export default function Index({ addButton }) {
         let fd = new FormData();
 
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        // fd.append('loadPortInspection', portType.loadPortInspection)
+      
         fd.append('inspectionId', inspectionData?._id);
 
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
@@ -348,7 +348,7 @@ export default function Index({ addButton }) {
 
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        // fd.append('dischargePortInspection', portType.dischargePortInspection)
+  
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -363,8 +363,7 @@ export default function Index({ addButton }) {
       } else {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        // fd.append('dischargePortInspection', portType.dischargePortInspection)
-        // fd.append('loadPortInspection', portType.loadPortInspection)
+      
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -377,8 +376,7 @@ export default function Index({ addButton }) {
     } else {
       let fd = new FormData();
       fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-      // fd.append('dischargePortInspection', portType.dischargePortInspection)
-      // fd.append('loadPortInspection', portType.loadPortInspection)
+   
       fd.append('inspectionId', inspectionData?._id);
       fd.append('certificateOfOrigin', documents.certificateOfOrigin);
       fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -401,7 +399,7 @@ export default function Index({ addButton }) {
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        // fd.append('loadPortInspection', portType.loadPortInspection)
+       
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -413,11 +411,9 @@ export default function Index({ addButton }) {
       } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        // fd.append('dischargePortInspection', portType.dischargePortInspection)
+      
         fd.append('inspectionId', inspectionData?._id);
-        // fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-        // fd.append('certificateOfQuality', documents.certificateOfQuality);
-        // fd.append('certificateOfWeight', documents.certificateOfWeight);
+      
         fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
         fd.append('dischargeCertificateOfQuality', dischargeDocuments.dischargeCertificateOfQuality);
         fd.append('dischargeCertificateOfWeight', dischargeDocuments.dischargeCertificateOfWeight);
@@ -428,8 +424,7 @@ export default function Index({ addButton }) {
       } else {
         let fd = new FormData();
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-        // fd.append('dischargePortInspection', portType.dischargePortInspection)
-        // fd.append('loadPortInspection', portType.loadPortInspection)
+      
         fd.append('inspectionId', inspectionData?._id);
         fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -537,7 +532,7 @@ export default function Index({ addButton }) {
         if (noError == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-          // fd.append('loadPortInspection', portType.loadPortInspection)
+
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -604,7 +599,7 @@ export default function Index({ addButton }) {
         if (noError2 == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-          // fd.append('loadPortInspection', portType.loadPortInspection)
+       
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -669,7 +664,7 @@ export default function Index({ addButton }) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
-          // fd.append('dischargePortInspection', portType.dischargePortInspection)
+      
           fd.append('inspectionId', inspectionData?._id);
 
           fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
@@ -765,7 +760,7 @@ export default function Index({ addButton }) {
         if (noError == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-          // fd.append('loadPortInspection', portType.loadPortInspection)
+        
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -823,7 +818,7 @@ export default function Index({ addButton }) {
         if (noError2 == false) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
-          // fd.append('loadPortInspection', portType.loadPortInspection)
+        
           fd.append('inspectionId', inspectionData?._id);
           fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
@@ -879,7 +874,7 @@ export default function Index({ addButton }) {
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
-          // fd.append('dischargePortInspection', portType.dischargePortInspection)
+         
           fd.append('inspectionId', inspectionData?._id);
 
           fd.append('dischargeCertificateOfOrigin', dischargeDocuments.dischargeCertificateOfOrigin);
@@ -901,72 +896,7 @@ export default function Index({ addButton }) {
     }
   };
 
-  // useEffect(() => {
-  //   if (inspectionData?.thirdPartyInspection) {
-  //     if (
-  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-  //       true &&
-  //       inspectionData?.thirdPartyInspection?.loadPortInspection === true
-  //     ) {
-  //       setInspectionData({
-  //         ...inspectionDetails,
-  //         loadPortInspection: true,
-  //         dischargePortInspection: true,
-  //       });
-  //     } else if (
-  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-  //       false &&
-  //       inspectionData?.thirdPartyInspection?.loadPortInspection === false
-  //     ) {
-  //       setInspectionData({
-  //         ...inspectionDetails,
-  //         loadPortInspection: false,
-  //         dischargePortInspection: false,
-  //       });
-  //     } else if (
-  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-  //       true &&
-  //       inspectionData?.thirdPartyInspection?.loadPortInspection === false
-  //     ) {
-  //       setInspectionData({
-  //         ...inspectionDetails,
-  //         loadPortInspection: false,
-  //         dischargePortInspection: true,
-  //       });
-  //     } else if (
-  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-  //       false &&
-  //       inspectionData?.thirdPartyInspection?.loadPortInspection === true
-  //     ) {
-  //       setInspectionData({
-  //         ...inspectionDetails,
-  //         loadPortInspection: true,
-  //         dischargePortInspection: false,
-  //       });
-  //     }
-  //   } else {
-  //     if (
-  //       inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
-  //       'Load Port'
-  //     ) {
-  //       setInspectionData({ ...inspectionDetails, loadPortInspection: true });
-  //     } else if (
-  //       inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
-  //       'Both'
-  //     ) {
-  //       setInspectionData({
-  //         ...inspectionDetails,
-  //         loadPortInspection: true,
-  //         dischargePortInspection: true,
-  //       });
-  //     } else {
-  //       setInspectionData({
-  //         ...inspectionDetails,
-  //         dischargePortInspection: true,
-  //       });
-  //     }
-  //   }
-  // }, [inspectionData]);
+
 
   return (
     <>
@@ -985,17 +915,7 @@ export default function Index({ addButton }) {
                   </div>
                 </div>
 
-                {/* <div className="d-flex align-items-center mr-5">
-                  <label className={`${styles.dropDown_label} text`}>
-                    Shipment Type:
-                  </label>
-                  <div
-                    className={`${styles.dropDown} input`}
-                    value="Liner"
-                  >
-                    Liner
-                  </div>
-                </div> */}
+              
 
                 <div className="d-flex align-items-center">
                   <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</label>
@@ -1020,7 +940,7 @@ export default function Index({ addButton }) {
                     onChange={(e) => {
                       handlePortType(e.target.name, e.target.checked);
 
-                      // setBothField(!bothField)
+                    
                     }}
                     checked={inspectionDetails.loadPortInspection}
                     id={`inline-${type}-1`}
@@ -1034,7 +954,7 @@ export default function Index({ addButton }) {
                     value="Discharge"
                     onChange={(e) => {
                       handlePortType(e.target.name, e.target.checked);
-                      // setBothField(!bothField)
+                     
                     }}
                     checked={inspectionDetails.dischargePortInspection}
                     type={type}
@@ -1104,10 +1024,7 @@ export default function Index({ addButton }) {
                           className={`${styles.input_field} input form-control`}
                           required
                           name="loadPortInspectionDetails.numberOfContainer"
-                          // defaultValue={
-                          //   inspectionData?.thirdPartyInspection
-                          //     ?.loadPortInspectionDetails?.numberOfContainer
-                          // }
+                        
                           value={inspectionDetails?.loadPortInspectionDetails?.numberOfContainer}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                           type="number"
@@ -1129,10 +1046,7 @@ export default function Index({ addButton }) {
                           required
                           type="text"
                           name="loadPortInspectionDetails.inspectionPort"
-                          // defaultValue={
-                          //   inspectionData?.thirdPartyInspection
-                          //     ?.loadPortInspectionDetails?.inspectionPort
-                          // }
+                         
                           value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                         />
@@ -1140,11 +1054,7 @@ export default function Index({ addButton }) {
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
-                        {/* <img
-                          className={`${styles.search_image} img-fluid`}
-                          src="/static/search-grey.svg"
-                          alt="Search"
-                        /> */}
+                       
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
@@ -1152,10 +1062,7 @@ export default function Index({ addButton }) {
                         className={`${styles.input_field} input form-control`}
                         required
                         name="loadPortInspectionDetails.inspectedBy"
-                        // defaultValue={
-                        //   inspectionData?.thirdPartyInspection
-                        //     ?.loadPortInspectionDetails?.inspectedBy
-                        // }
+                       
                         value={inspectionDetails?.loadPortInspectionDetails?.inspectedBy}
                         onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                         type="text"
@@ -1169,10 +1076,7 @@ export default function Index({ addButton }) {
                         <DateCalender
                           saveDate={saveDate}
                           name="loadPortInspectionDetails.startDate"
-                          // defaultDate={
-                          //   inspectionData?.thirdPartyInspection
-                          //     ?.loadPortInspectionDetails?.startDate
-                          // }
+                        
                           defaultDate={inspectionDetails?.loadPortInspectionDetails?.startDate}
                           labelName="Inspection Date"
                           startFrom={dateStartFrom.inspectionDateAtLoad}
@@ -1196,16 +1100,13 @@ export default function Index({ addButton }) {
                         <input
                           as="textarea"
                           name="loadPortInspectionDetails.specialMention"
-                          // defaultValue={
-                          //   inspectionData?.thirdPartyInspection
-                          //     ?.loadPortInspectionDetails?.specialMention
-                          // }
+                        
                           value={inspectionDetails?.loadPortInspectionDetails?.specialMention}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                          // style={{ backgroundColor: 'none' }}
+                        
                         />
                         <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                           Special Mention
@@ -2244,7 +2145,7 @@ export default function Index({ addButton }) {
                     {excelFile &&
                       excelFile.length > 0 &&
                       excelFile.map((item, index) => (
-                        <tr>
+                        <tr key={index}>
                           {Object.values(item).map((value, id) => (
                             <td key={id}>{value}</td>
                           ))}
@@ -2292,10 +2193,7 @@ const Discharge = (
                 className={`${styles.input_field} input form-control`}
                 required
                 name="dischargePortInspectionDetails.numberOfContainer"
-                // defaultValue={
-                //   inspectionData?.thirdPartyInspection
-                //     ?.dischargePortInspectionDetails?.numberOfContainer
-                // }
+              
                 value={inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer}
                 onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                 type="number"
@@ -2317,10 +2215,7 @@ const Discharge = (
                 required
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
-                // value={
-                //   inspectionData?.thirdPartyInspection
-                //     ?.dischargePortInspectionDetails?.inspectionPort
-                // }
+               
                 value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
                 onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
               />
@@ -2328,11 +2223,7 @@ const Discharge = (
                 Inspection Port
                 <strong className="text-danger">*</strong>
               </label>
-              {/* <img
-                className={`${styles.search_image} img-fluid`}
-                src="/static/search-grey.svg"
-                alt="Search"
-              /> */}
+              
             </div>
           </div>
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -2341,10 +2232,7 @@ const Discharge = (
               required
               type="text"
               name="dischargePortInspectionDetails.inspectedBy"
-              // defaultValue={
-              //   inspectionData?.thirdPartyInspection
-              //     ?.dischargePortInspectionDetails?.inspectedBy
-              // }
+             
               value={inspectionDetails?.dischargePortInspectionDetails?.inspectedBy}
               onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
             />
@@ -2356,10 +2244,7 @@ const Discharge = (
             <div className="d-flex">
               <DateCalender
                 name="dischargePortInspectionDetails.startDate"
-                // defaultDate={
-                //   inspectionData?.thirdPartyInspection
-                //     ?.dischargePortInspectionDetails?.startDate
-                // }
+            
                 defaultDate={inspectionDetails?.dischargePortInspectionDetails?.startDate}
                 saveDate={saveDate}
                 setDateStartFrom={setStartDate}
@@ -2389,7 +2274,7 @@ const Discharge = (
                 onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                // style={{ backgroundColor: 'none' }}
+              
               />
               <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                 Special Mention

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
-// import InspectionDocument from '../InspectionDocument'
+
 import UploadOther from '../UploadOther';
 import DateCalender from '../DateCalender';
 import _get from 'lodash/get';
@@ -30,7 +30,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const [shipmentType, setShipmentType] = useState(true);
 
-  const [startBlDate, setBlDate] = useState(null);
+  const [startblDate, setblDate] = useState(null);
 
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -69,7 +69,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
-    BlDate: new Date(),
+    blDate: new Date(),
     quantity: '',
   });
 
@@ -113,7 +113,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       blNumber: [
         {
           blNumber: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blNumber ?? '',
-          BlDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate ?? '').format('DD-MM-YYYY'),
+          blDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate ?? '').format('DD-MM-YYYY'),
           quantity: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blQuantity ?? '',
           noOfContainers: 0,
         },
@@ -122,10 +122,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     setIgmList(tempArray);
   };
   const onDeleteClick = (index) => {
-    // setIgmList({
-    //     ...igmList.igmDetails.slice(0, index),
-    //     ...igmList.igmDetails.slice(index + 1),
-    // })
     setIgmList({
       ...igmList,
       igmDetails: [...igmList.igmDetails.slice(0, index), ...igmList.igmDetails.slice(index + 1)],
@@ -155,7 +151,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let VesselName = e.target.value;
     let filteredVessel = {};
 
-    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+   
     if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
         if (vessel.vesselInformation[0].name === VesselName) {
@@ -185,7 +181,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
     newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
-      BlDate: new Date(),
+      blDate: new Date(),
       quantity: '',
     });
     setIgmList(newIgmList);
@@ -264,8 +260,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           blNumber: [
             {
               blNumber: _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, ''),
-              BlDate: moment(_get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`, '')).format('DD-MM-YYYY'),
-              quantity: _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`, ''),
+              blDate: moment(_get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`, '')).format('DD-MM-YYYY'),
+              blQuantity: _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`, ''),
               noOfContainers: 0,
             },
           ],
@@ -285,22 +281,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         return item.blNumber === value;
       });
 
-      //     setIgmList(prevState => {
-      //       return {
-      //         ...prevState, [
-      //         ...prevState.igmDetails, {
-      //           ...prevState.igmDetails[index], [
-      //       ...prevState.igmDetails[index].blNumber, {
-      //         ...prevState.igmDetails[index].blNumber[index2]}, blNumber:'' ,BlDate:'' ,quantity: '',
-      //     ] }]
-      // }
-      // })
+
       let tempArray = { ...igmList };
+
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity;
       tempArray.igmDetails[index].blNumber[index2].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
-      setIgmList(tempArray);
+      setIgmList({...tempArray});
     }
   };
 
@@ -376,13 +364,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       name="group11"
                       disabled={!shipmentTypeBulk}
                       type={type}
-                      // checked={
-                      //   _get(
-                      //     TransitDetails,
-                      //     'data[0].order.vessel.vessels[0].shipmentType',
-                      //     '',
-                      //   ) == 'Bulk' ? 'checked' : ''
-                      // }
+                     
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
@@ -392,13 +374,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       label="Liner"
                       name="group11"
                       disabled={shipmentTypeBulk}
-                      // checked={
-                      //   _get(
-                      //     TransitDetails,
-                      //     'data[0].order.vessel.vessels[0].shipmentType',
-                      //     '',
-                      //   ) == 'Liner' ? 'checked' : ''
-                      // }
+                     
                       checked={!shipmentTypeBulk}
                       type={type}
                       id={`inline-${type}-2`}
@@ -577,7 +553,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                         className={`${styles.add_btn} mt-2 border-danger text-danger`}
                       >
                         <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
-                      </button>
+                      </button> 
                     ) : null}
                   </div>
                 </div>
@@ -662,7 +638,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   </div>
                   <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
-                    {item.blNumber.map((blEntry, index2) => {
+                 
+                    {item?.blNumber?.length> 0 && item.blNumber.map((blEntry, index2) => {
                       return (
                         <>
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
@@ -711,7 +688,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   BL Quantity <strong className="text-danger ml-n1">*</strong>
                                 </div>
                                 <span className={styles.value}>
-                                  <span className="mr-2">{blEntry?.blQuantity} </span>
+                                
+                                  <span className="mr-2">{ blEntry.blQuantity} </span>
                                   {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                 </span>
                               </div>
@@ -768,6 +746,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       BL Quantity <strong className="text-danger ml-n1">*</strong>
                                     </div>
                                     <span className={styles.value}>
+                                      
                                       <span className="mr-2">{blEntry?.blQuantity}</span>
                                       {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                     </span>

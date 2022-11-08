@@ -230,7 +230,7 @@ export const RevisedMarginMoney = (payload) => async (dispatch, getState, api) =
 
         dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
-        // router.push('/margin-money')
+   
       } else {
         dispatch(updatingRevisedMarginMoneyFailed(response.data));
         const toastMessage = 'UPDATE REQUEST FAILED';

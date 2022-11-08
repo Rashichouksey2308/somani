@@ -34,7 +34,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
     if (data.length > 0) {
-      // data[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
+    
       setCimsDetails(data);
     } else {
       setCimsDetails([
@@ -44,58 +44,21 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           circNumber: '',
           circDate: '',
           cimsCharges: '',
-          paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
+          paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
         },
       ]);
     }
   }, [TransitDetails]);
-  console.log(TransitDetails, 'TransitDetails');
-  console.log(cimsDetails, 'xxxxzxc');
-  // useEffect(() => {
-  //   let temp = [...cimsDetails]
-  //   temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
-  //   setCimsDetails([...temp])
-  // }, [TransitDetails])
+
+
 
   const dispatch = useDispatch();
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value;
     let filteredVessel = {};
 
-    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-    // if (
-    //   _get(
-    //     TransitDetails,
-    //     `data[0].order.vessel.vessels[0].shipmentType`,
-    //     '',
-    //   ) === 'Bulk'
-    // ) {
-    //   _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
-    //     (vessel, index) => {
-    //       if (vessel.vesselInformation[0].name === VesselName) {
-    //         filteredVessel = vessel
-    //       }
-    //     },
-    //   )
-    // } else {
-    //   filteredVessel = _get(
-    //     TransitDetails,
-    //     `data[0].order.vessel.vessels[0]`,
-    //     {},
-    //   )
-    //   let tempArray = _get(
-    //     TransitDetails,
-    //     `data[0].order.vessel.vessels[0].vesselInformation`,
-    //     [],
-    //   )
-    //   tempArray.forEach((vessel, index) => {
-    //     if (vessel.name === VesselName) {
-    //       filteredVessel.vesselInformation = [vessel]
-    //     }
-    //   })
-    // }
 
     _get(TransitDetails, `data[0].BL.billOfLanding`, [])
       .slice()
@@ -108,7 +71,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let newArray = cimsDetails.slice();
     newArray[index].vesselName = _get(filteredVessel, 'vesselName', '');
     newArray[index].quantity = _get(filteredVessel, 'blQuantity', '');
-    console.log(filteredVessel, 'filteredVessel');
+
     setCimsDetails(newArray.slice());
   };
 
@@ -128,9 +91,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       return newState;
     });
   };
-  console.log(cimsDetails, '2222222');
+
   const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1');
+
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -161,20 +124,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         circNumber: '',
         circDate: '',
         cimsCharges: '',
-        paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
+        paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
         document1: null,
         document2: null,
       },
     ]);
-    // setIsFieldInFocus((prevState) => [
-    //   ...prevState,
-    //   { blQuantity: false, cimsCharges: false },
-    // ]);
+  
   };
 
   const handleCloseDoc = (e, index) => {
     let tempArr = [...cimsDetails];
-    console.log(tempArr, 'khjfdfgkegfk12', tempArr[index].e, index, e);
+   
 
     tempArr[index][e] = null;
     setCimsDetails(tempArr);
@@ -185,7 +145,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const uploadDoc = async (e, index) => {
     let id = e.target.id;
     let doc = await docUploadFunction(e);
-    console.log(doc, id, 'khjfdfgkegfk');
+ 
 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -200,13 +160,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       return newState;
     });
   };
-  console.log(cimsDetails, 'khjfdfgkegfk');
+
   const validation = () => {
     let isOk = true;
     let toastMessage = '';
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', cimsDetails.length);
+      
       if (cimsDetails[i]?.vesselName == '' || cimsDetails[i]?.vesselName == undefined) {
         toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -231,17 +191,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           break;
         }
       }
-      // if (
-      //   cimsDetails[i]?.circDate == '' ||
-      //   cimsDetails[i]?.circDate == undefined
-      // ) {
-      //   toastMessage = `Please  SELECT A CIRC DATE FOR CIMS NO   - ${i +1}  `
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      //     isOk = false
-      //     break
-      //   }
-      // }
+      
       if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
         toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -271,7 +221,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   };
 
   const handleSubmit = () => {
-    // const billOfLanding = [...bolList]
+   
     if (validation()) {
       const cims = { cimsDetails: cimsDetails };
       let idtrans = transId._id;
@@ -281,13 +231,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       fd.append('transitId', transId._id);
 
       let task = 'submit';
-      console.log({ fd, task, idtrans }, 'transitUpdatePayload');
+   
       dispatch(UpdateTransitDetails({ fd, task, idtrans }));
     }
   };
 
   const handleSave = () => {
-    // const billOfLanding = [...bolList]
+
 
     const cims = { cimsDetails: cimsDetails };
 
@@ -299,7 +249,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     dispatch(UpdateTransitDetails({ fd, task }));
   };
 
-  // console.log(cimsDetails, 'khjfdfgkegfk')
+
 
   return (
     <>
@@ -356,18 +306,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       id="quantity"
-                      // defaultValue={
-                      //   list.quantity
-                      //     ? list.quantity
-                      //     : _get(TransitDetails, 'data[0].order.quantity', '')
-                      // }
+                     
                       onFocus={(e) => {
                         setIsFieldInFocus(true), (e.target.type = 'number');
                       }}
                       onBlur={(e) => {
                         setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
-                      // _get(TransitDetails, 'data[0].order.quantity', 0)
+                     
                       value={
                         isFieldInFocus
                           ? list.quantity
@@ -403,7 +349,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
                         value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
-                        // defaultDate={list?.circDate}
+                      
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -450,23 +396,18 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       <select
                         value={
                           list.paymentBy
-                          // ? list.paymentBy
-                          // : _get(
-                          //   TransitDetails,
-                          //   'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-                          //   '',
-                          // )
+                         
                         }
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option checked>Select an option</option>
-                        <option value={'Indo German International Private Limited (IGPL)'}>
-                          Indo German International Private Limited (IGPL)
+                        <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
+                          INDO GERMAN INTERNATIONAL PRIVATE LIMITED 
                         </option>
-                        <option value={'Emergent Industrial Solutions Limited (EISL)'}>
-                          Emergent Industrial Solutions Limited (EISL)
+                        <option value={'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'}>
+                          EMERGENT INDUSTRIAL SOLUTIONS LIMITED 
                         </option>
 
                         <option value="Buyer">Buyer</option>

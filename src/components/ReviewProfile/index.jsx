@@ -21,8 +21,7 @@ function Index({
   commodity,
 }) {
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState(['Import', 'Domestic']);
-  console.log(country, port, commodity, 'sasdasdad');
-  console.log(fields, 'payloadData');
+ 
   const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
   const countryOfOriginDropdown = ['India', 'Australia', 'Sri Lanka', 'Qatar', 'Dubai'];
   const portOfDischargeDropdown = ['Mumbai, India', 'Gujrat, India', 'Vishakapatnam, India'];
@@ -68,7 +67,7 @@ function Index({
     document.getElementById('ReviewProfileForm').reset();
   };
 
-  console.log(payloadData, 'payloadData');
+
 
   const handleCheckBox = (index, name) => {
     let tempArr = [...fields];
@@ -81,8 +80,7 @@ function Index({
       setPayloadData(tempObj);
     }
   };
-  console.log(fields, 'fields');
-  console.log(reviewedProfile, 'this is reviewed');
+ 
 
   return (
     <div className={`${styles.leads} border card`}>
@@ -349,13 +347,7 @@ function Index({
                           </div>
                         </>
                       )
-                      // DropDown2(
-                      //   country,
-                      //   'countryOfOrigin',
-                      //   fields[5].isEdit,
-                      //   "Country"
-
-                      // )
+                    
                     }
                   </td>
                 </tr>
@@ -421,12 +413,7 @@ function Index({
                           </div>
                         </>
                       )
-                      // DropDown(
-                      //   port,
-                      //   'portOfDischarge',
-                      //   fields[6]?.isEdit,
-                      //   "Port_Name"
-                      // )
+                   
                     }
                   </td>
                 </tr>
@@ -457,16 +444,7 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
-                      // <Form.Control
-                      //   type="date"
-                      //   name="ExpectedDateOfShipment"
-                      //   id="textDate"
-                      //   className={`${styles.input}`}
-                      //   onBlur={(e) =>
-                      //     handleChange(e.target.name, e.target.value)
-                      //   }
-                      //   disabled={fields[8]?.isEdit}
-                      // />
+                  
                       <div className={`${styles.calender}  d-flex`}>
                         <DateCalender
                           defaultDate={payloadData.ExpectedDateOfShipment}
@@ -550,25 +528,4 @@ function Index({
 
 export default Index;
 
-// const tableRow = (props) => {
-//   return (
-//     <tr className={`${styles.table_row} table_row`}>
-//       <td>{props}</td>
-//       <td>Domestic</td>
-//       <td>
-//         <div className={styles.tick}>
-//           <img src="/static/check.svg" alt="Check" className="img-fluid" />
-//         </div>
-//       </td>
-//       <td>
-//         <input className={styles.checkBox} type="checkbox" />
-//       </td>
-//       <td>
-//         <Form.Select size="sm" className={`${styles.dropDown} dropDown`}>
-//           <option>Retailer</option>
-//           <option>Copper</option>
-//         </Form.Select>
-//       </td>
-//     </tr>
-//   )
-// }
+

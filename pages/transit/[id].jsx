@@ -36,10 +36,7 @@ function Index() {
   let objID = sessionStorage.getItem('ObjId');
   let transID = sessionStorage.getItem('transId');
 
-  // useEffect(() => {
-  //   let Value = vesselData.partShipmentAllowed
-  //   setIsShipmentTypeBulk(Value)
-  // }, [vesselData])
+
 
   useEffect(() => {
     dispatch(GetTransitDetails(`?transitId=${transID}`));
@@ -56,9 +53,7 @@ function Index() {
     }
   }, [transID]);
 
-  // useEffect(()=>{
-  //   setTransitDetails(TransitDetail)
-  // },[TransitDetail])
+
 
   const fetchInitialData = async () => {
     const data = await dispatch(GetTransitDetails(`?transitId=${transID}`));
@@ -71,7 +66,7 @@ function Index() {
   const uploadDoc = async (e) => {
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-    // dispatch(UploadCustomDoc(fd))
+  
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -88,24 +83,15 @@ function Index() {
       });
 
       if (response.data.code === 200) {
-        // dispatch(getCustomClearanceSuccess(response.data.data))
+     
 
         return response.data.data;
-        // let toastMessage = 'DOCUMENT UPDATED'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+      
       } else {
-        // dispatch(getCustomClearanceFailed(response.data.data))
-        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+       
       }
     } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      // }
+     
     }
   };
   // for setting default breadcrumb tab value //
@@ -142,11 +128,7 @@ function Index() {
             <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
-                // data-toggle="tab"
-                // href="#billLanding"
-                // role="tab"
-                // aria-controls="billLanding"
-                // aria-selected="true"
+              
                 role="button"
                 onClick={() => {
                   setComponentId(1);
@@ -159,11 +141,7 @@ function Index() {
             <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
-                // data-toggle="tab"
-                // href="#loi"
-                // role="tab"
-                // aria-controls="loi"
-                // aria-selected="false"
+                
                 role="button"
                 onClick={() => {
                   setComponentId(2);
@@ -177,11 +155,7 @@ function Index() {
               <li className={`${styles.navItem} nav-item`}>
                 <a
                   className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'} `}
-                  // data-toggle="tab"
-                  // href="#cims"
-                  // role="tab"
-                  // aria-controls="cims"
-                  // aria-selected="false"
+                 
                   role="button"
                   onClick={() => {
                     setComponentId(3);
@@ -195,11 +169,7 @@ function Index() {
             <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 4 && 'active'} `}
-                // data-toggle="tab"
-                // href="#igm"
-                // role="tab"
-                // aria-controls="igm"
-                // aria-selected="false"
+              
                 role="button"
                 onClick={() => {
                   setComponentId(4);
@@ -232,14 +202,13 @@ function Index() {
                     />
                   )}
                 </div>
-                {/* </div> */}
-                {/* <div className="tab-pane fade" id="loi" role="tabpanel"> */}
+               
                 <div className={`${styles.card}  accordion_body`}>
                   {componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
                 </div>
                 {/* </div> */}
                 {commodity?.toLowerCase().includes('coal') && (
-                  // <div className="tab-pane fade" id="cims" role="tabpanel">
+              
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 3 && (
                       <CIMS
@@ -250,9 +219,9 @@ function Index() {
                       />
                     )}
                   </div>
-                  // </div>
+                
                 )}
-                {/* <div className="tab-pane fade" id="igm" role="tabpanel"> */}
+             
                 <div className={`${styles.card}  accordion_body`}>
                   {componentId === 4 && (
                     <IGM

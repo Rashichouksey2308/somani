@@ -80,7 +80,7 @@ export const GetAllForwardHedging = (payload) => async (dispatch, getState, api)
         dispatch(getAllForwardHedgingSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllForwardHedgingFailed(response.data.data));
+        dispatch(getAllForwardHedgingFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -118,7 +118,7 @@ export const GetForwardHedging = (payload) => async (dispatch, getState, api) =>
         dispatch(getForwardHedgingSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getForwardHedgingFailed(response.data.data));
+        dispatch(getForwardHedgingFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

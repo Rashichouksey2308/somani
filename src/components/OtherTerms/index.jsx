@@ -16,8 +16,7 @@ const Index = ({
   onChangeLcOpening,
   onChangeCha,
 }) => {
-  // const [otherTermConditions, setOtherTermConditions] = useState({})
-  console.log(otherTermConditions, 'otherTermConditions');
+
 
   return (
     <div className={`${styles.main} main`}>

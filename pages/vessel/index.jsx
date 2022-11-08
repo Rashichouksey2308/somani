@@ -135,29 +135,13 @@ export default function Home() {
               _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
-            // !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.laycanTo",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.loadPort.toDate",
-            //   ""
-            // )
+          
             EDTatLoadPort:
               '' || _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
             ETAatDischargePort: _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
-            // !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.ETAatDischargePort",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.ETAofDischarge.fromDate",
-            //   ""
-            // )
+           
           },
           shippingInformation: {
             shippingLineOrCharter:
@@ -174,7 +158,7 @@ export default function Home() {
     } else {
       setList(_get(Vessel, 'data[0].vessels', []));
     }
-    // serVesselDataToAdd(Vessel)
+   
   };
 
   const onAddVessel = () => {
@@ -321,12 +305,7 @@ export default function Home() {
     const name = e.target.id;
     let value = e.target.value;
 
-    if (name.trim() === 'yearOfBuilt' && value.length !== 4) {
-      let toastMessage = 'provide a valid year';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else {
+     
       let array = { ...list[index].vesselInformation[0], [name]: value };
 
       setList((prevState) => {
@@ -341,7 +320,7 @@ export default function Home() {
         });
         return newState;
       });
-    }
+    
   };
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
@@ -729,7 +708,7 @@ export default function Home() {
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={orderID}
-        // orderID={orderID}
+    
         list={list}
         companyName={companyName}
         onAddVessel={onAddVessel}

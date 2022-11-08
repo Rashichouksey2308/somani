@@ -17,7 +17,7 @@ function Index(props) {
   }, [props.emails]);
 
   const emailInputRef = useRef(null);
-  // console.log(emailInputRef.current.value, 'emails');
+ 
 
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
@@ -35,7 +35,12 @@ function Index(props) {
           return false;
         }
       }
-      validEmails.push({ name: email, status: 'Active' });
+      if(props.id == 'Existing Supplier(s)'){
+     
+      validEmails.push(email);
+      }else{
+        validEmails.push(email)
+      }
       return true;
     };
 
@@ -75,45 +80,26 @@ function Index(props) {
     let temp = { ...state };
     temp.emails.splice(index, 1);
     setState({ ...temp });
-    // if (props.onChange) {
-    //       props.onChange(temp.emails);
-    // }
+   
   };
   const handleOnKeydown = (e) => {
-    // switch (e.keyCode) {
-    //   case 13:
-    //   case 9: {
-    //     e.preventDefault();
-    //     break;
-    //   }
-    //   case 8: {
-    //     if (!e.currentTarget.value) {
-    //       // removeEmail(state.emails.length - 1, false);
-    //     }
-    //     break;
-    //   }
-    //   case 32: {
-    //       if (!e.currentTarget.value) {
-    //       // removeEmail(state.emails.length - 1, false);
-    //     }
-    //     break;
-    //   }
-    //   default:
-    // }
+   
   };
 
   const handleOnKeyup = (e) => {
     switch (e.keyCode) {
       case 13:
         findEmailAddress(e.currentTarget.value, true);
+        if(props.id == 'Existing Supplier(s)'){
         props.setRemoveInput(true);
-        setHandleFunc(false);
+        setHandleFunc(false)
+        }
       case 9: {
         findEmailAddress(e.currentTarget.value, true);
         break;
       }
       case 32: {
-        //  findEmailAddress(e.currentTarget.value);
+       
         e.preventDefault();
 
         break;
@@ -126,12 +112,14 @@ function Index(props) {
 
   const handleOnChange = (e) => {
     onChangeInputValue(e.currentTarget.value);
+    if(props.id == 'Existing Supplier(s)'){
     props.handleSearch(e.currentTarget.value);
+    }
   };
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
-    // findEmailAddress(e.currentTarget.value, true);
+   
   };
 
   const handleOnFocus = () =>
@@ -159,8 +147,11 @@ function Index(props) {
         state?.emails?.map((email, index) => {
           return (
             <>
-              <span className={email.status === 'Pending' && `${styles.pending}`}>
-                {props.getLabel(email.name, index, removeEmail)}
+              <span
+                // className={email.status === 'Pending' && `${styles.pending}`}
+              >
+                
+                { props.id == 'Existing Supplier(s)' ?  props.getLabel(email, index, removeEmail) : props.getLabel(email, index, removeEmail) }
               </span>
             </>
           );
@@ -169,7 +160,7 @@ function Index(props) {
         ref={emailInputRef}
         type="text"
         //   placeholder={props.placeholder}
-        value={handeFunc ? props.searchTerm : state.inputValue}
+        value={ props.id == 'Existing Supplier(s)' ? handeFunc ? props.searchTerm : state.inputValue : state.inputValue}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={handleOnChange}

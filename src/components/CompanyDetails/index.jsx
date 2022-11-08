@@ -448,10 +448,10 @@ const Index = ({
                       <Form.Check
                         className={`${styles.radio} radio`}
                         inline
-                        // defaultChecked={true}
+                        
                         label="Email ID"
                         onChange={(e) =>
-                          // saveCompanyData('communicationMode', 'Email')
+                        
                           handleCommunication(e)
                         }
                         name="Email"
@@ -464,7 +464,7 @@ const Index = ({
                         label="SMS"
                         name="SMS"
                         onChange={(e) =>
-                          // saveCompanyData('communicationMode', 'SMS')
+                        
                           handleCommunication(e)
                         }
                         type={type}
@@ -480,7 +480,7 @@ const Index = ({
                           handleCommunication(e);
                         }}
                         name="Whatsapp"
-                        // type={type}
+                       
                         id={`inline-${type}-2`}
                       />
                     </div>

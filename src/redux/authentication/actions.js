@@ -1,10 +1,10 @@
-// import Cookies from 'js-cookie'
+
 import Axios from 'axios';
 import Router from 'next/router';
 import API from '../../utils/endpoints';
 import * as types from './actionType';
 import { toast } from 'react-toastify';
-// import history from '../../history'
+
 import Cookies from 'js-cookie';
 import { setAuthenticationCookie } from '../../utils/authentication';
 
@@ -122,19 +122,6 @@ export function generatingTokenFailed(payload) {
   };
 }
 
-//* ***** logging out user  ********//
-
-// export function loggingoutUserSuccess() {
-//   return {
-//     type: types.LOGOUT_USER_SUCCESS,
-//   };
-// }
-
-// export function loggingoutUserFailed(payload) {
-//   return {
-//     type: types.LOGOUT_USER_FAILED,
-//   };
-// }
 
 function loggingoutUser() {
   return {
@@ -274,14 +261,10 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     if (response.data.code === 200) {
       dispatch(loggingUserSuccess(response.data));
 
-      // localStorage.setItem(response.data.token)
-      // Router.push("/")
-      // Cookies.set('refreshtoken', response.data.data.refreshToken)
-      // Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
       setAuthenticationCookie(response.data.data);
     } else {
       dispatch(loggingUserFailed(response.data));
-      // Cookies.remove('token')
+
       const toastMessage = 'Please check your credentials and Try Again!';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -336,7 +319,6 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     });
     if (response.data.code === 200) {
-      // dispatch(getVesselSuccess(response.data.data))
       return response.data.data;
     } else {
       if (response.data.code === 401) {
@@ -397,7 +379,7 @@ export const generateToken = () => async (dispatch, getState, api) => {
 //* ***** Logout User   ********//
 
 export const logoutUser = () => async (dispatch, getState, api) => {
-  // let  cookie =  Cookies.get('SOMANI')
+ 
   const cookie = Cookies.get('SOMANI');
 
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');

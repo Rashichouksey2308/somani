@@ -53,14 +53,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     packingListDoc: null,
   };
   const dispatch = useDispatch();
-  console.log(bolList, 'bolList');
-  // let shipmentTypeBulk =
-  //   _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-  //     'Bulk'
-  //     ? true
-  //     : false
+
+
   const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false);
-  console.log(shipmentTypeBulk, TransitDetails, 'shipmentTypeBulk');
   useEffect(() => {
     setshipmentTypeBulk(
       _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false,
@@ -70,7 +65,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, []);
 
   const initalState = shipmentTypeBulk ? initialStateForBulk : initialStateForLiner;
-  // console.log(existingBlData,'existingBlData')
+
 
   const [show, setShow] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
@@ -109,9 +104,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     } else {
       setBolList([...bolList, initialStateForLiner]);
     }
-    console.log('here');
+
   };
-  console.log(bolList, 'bol');
+
   const onDeleteClick = (index) => {
     setBolList([...bolList.slice(0, index), ...bolList.slice(index + 1)]);
   };
@@ -119,19 +114,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     let name = e.target.name;
     let id = e.target.id;
     let docs = await docUploadFunction(e);
-    console.log(name, 'name');
+
     let newInput = [...bolList];
     newInput.forEach((val, i) => {
       if (i == index) {
         val[name] = docs;
       }
     });
-    // newInput[index].[name] = docs
-
-    // console.log(newInput, 'response data123')
+  
     setBolList(newInput);
   };
-  console.log(bolList, 'bollist');
+
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -145,7 +138,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     let tempArr = [...bolList];
 
     tempArr[index][e] = null;
-    console.log(tempArr, 'temp arr', e);
+  
     setBolList(tempArr);
   };
   const handleCloseContanierDoc = (e, index) => {
@@ -176,7 +169,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       });
     }
-    console.log(filteredVessel, 'filteredVessel');
+ 
     let newArray = [...bolList];
     newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '');
     newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '');
@@ -267,7 +260,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   };
 
   const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1');
+
     setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -282,10 +275,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     });
   };
 
-  // const checkAvail = (vessel) => {
-  //   console.log(vessel)
-  //   return false
-  // }
+ 
 
   const validation = () => {
     let isOk = true;
@@ -301,7 +291,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       }
       for (let i = 0; i <= bolList.length - 1; i++) {
-        console.log(i, 'INSIDE FOR LOOP', bolList.length);
+       
         if (bolList[i]?.vesselName == '' || bolList[i]?.vesselName == undefined) {
           toastMessage = `Please select vessel name of Bill of Lading  ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -409,7 +399,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       }
       for (let i = 0; i <= bolList.length - 1; i++) {
-        console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList);
+     
 
         if (bolList[i]?.vesselName == '' || bolList[i]?.vesselName == undefined) {
           toastMessage = `Please select vessel name of Bill of Lading  ${i}  `;
@@ -475,9 +465,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
 
   const saveData = async () => {
     if (!validation()) return;
-    // const billOfLanding = [...bolList]
+   
     let bol = { billOfLanding: bolList };
-    // console.log(bol, 'bol', bolList.billOfLanding)
+    
     bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(bolList[0].blQuantity);
     let fd = new FormData();
     fd.append('bl', JSON.stringify(bol));
@@ -488,11 +478,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     if (responseData) {
       fetchInitialData();
     }
-    console.log(responseData, 'responseData');
-    console.log(fd, bol, 'filteredVessel');
+   ;
   };
-  // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
-  console.log(TransitDetails, 'TransitDetails');
+
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -625,7 +613,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             </div>
           </div>
           {bolList?.map((bol, index) => {
-            // console.log(bol, `existingBlDataindi${index}`)
+            
             return (
               <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div

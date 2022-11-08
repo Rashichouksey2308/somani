@@ -3,21 +3,21 @@
 .root_Container {
   width: 100%;
   height: 90%;
-  // overflow-y: scroll;
+
   position: relative;
   min-height: 85.2vh;
   @include respond(lg-desktop) {
-    // height: calc(100vh - 155px);
+   
   }
   @include respond(md-desktop) {
-    // height: calc(100vh - 151px);
+   
   }
   @include respond(sm-desktop) {
-    // height: calc(100vh - 150px);
+   
   }
   @include respond(phone) {
     min-height: auto;
-    // height: calc(100vh - 165px);
+  
   }
 
   .wrapper {

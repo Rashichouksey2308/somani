@@ -12,7 +12,7 @@ function Index() {
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
-        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        <div className={`${styles.main} vessel_card card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
           >
@@ -447,13 +447,8 @@ function Index() {
                         </label>
                       </div>
                       <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <input
-                          className={`${styles.input_field} border_color input form-control`}
-                          name="countryOfOrigin"
-                          required
-                          style={{ paddingRight: '35px' }}
-                        />
-                        <label className={`${styles.label_heading} label_heading`}>State</label>
+                        <div className={`${styles.col_header} label_heading`}>State</div>
+                        <div className={styles.col_body}>Uttar Pradesh</div>
                       </div>
                       <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                         <div className="d-flex">

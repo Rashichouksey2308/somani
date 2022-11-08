@@ -25,10 +25,10 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc);
 
-  //console.log(lcModule.data[0].documentRequired, 'LC MODULE')
+
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(lcModuleData, 'lcModuleData');
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [what, setWhat] = useState('email');

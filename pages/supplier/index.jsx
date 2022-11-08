@@ -21,7 +21,9 @@ import moment from 'moment';
 import Axios from 'axios';
 import API from 'utils/endpoints';
 import Cookies from 'js-cookie';
-import { element } from 'prop-types';
+import TermsheetPopUp from '../../src/components/TermsheetPopUp'
+import { ShareDocument } from 'redux/shareDoc/action';
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -64,14 +66,29 @@ function Index() {
     if (_get(supplierData, 'document[1]', '') !== '') {
       SetThirdParty(supplierData?.document[1]);
     }
-  }, [supplierResponse]);
-  console.log(supplierData, keyAddData, 'supplierResponse');
-  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
+
+  }, [supplierResponse])
+ 
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
+
 
   const [saveShareTable, setSaveTable] = useState(false);
   const [saveContactTable, setContactTable] = useState(false);
   const [saveDirectorTable, setDirectorTable] = useState(false);
   const [saveCommodityTable, setCommodityTable] = useState(false);
+
+  const [open, setOpen] = useState(false)
+  const [sharedDoc, setSharedDoc] = useState({
+    company: '',
+    order: '',
+    path: '',
+    data: {
+      subject: 'this is subject',
+      text: 'this is text',
+      receiver: '',
+    },
+  });
+
 
   const [formData, setFormData] = useState({
     supplierName: '',
@@ -83,7 +100,6 @@ function Index() {
     status: 'Active',
   });
 
-  console.log(formData, 'setFormData');
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -93,16 +109,14 @@ function Index() {
     emailId: '',
   });
 
-  const [person, setPerson] = useState([
-    {
-      name: '',
-      designation: '',
-      contact: '',
-      emailId: '',
-      action: false,
-    },
-  ]);
-  console.log(person, 'person');
+  const [person, setPerson] = useState([{
+    name: '',
+    designation: '',
+    contact: '',
+    emailId: '',
+    action: false
+  }]);
+ 
 
   const [detail, setDetail] = useState([
     {
@@ -141,7 +155,6 @@ function Index() {
 
   const [docs, setdocs] = useState([]);
 
-  console.log(thirdParty, incumbencyDoc, _get(supplierData, 'document[0]', ''), 'incumbencyDoc');
 
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
@@ -164,7 +177,7 @@ function Index() {
     },
   ]);
 
-  // console.log(listCommodity,'supplierstate')
+
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -224,7 +237,7 @@ function Index() {
       action: false,
     },
   ]);
-  console.log(listDirector, 'listDirector');
+
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -238,16 +251,36 @@ function Index() {
     ]);
   };
 
+
+  const handleShareDoc = async (doc) => {
+    if (emailValidation(sharedDoc.data.receiver)) {
+      let tempArr = { ...sharedDoc };
+      tempArr.company = documentsFetched.company;
+      tempArr.order = orderid;
+     
+      if (data?.code == 200) {
+        setClose(false);
+      }
+    } else {
+      let toastMessage = 'please provide a valid email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
+  };
+
+
+
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+   
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
-    // setStartDate(value, name)
+   
   };
 
   const saveQuotationData = (name, value) => {
-    // console.log(value, 'dhjsgfksjdghf')
+ 
 
     formData.incorporationDate = value;
     setFormData({
@@ -272,29 +305,29 @@ function Index() {
   };
 
   const onChangeHandler2 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+
     let newInput = [...person];
-    console.log(newInput[index], 'newInput[index]');
+   
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setListShare([...newInput]);
   };
-  console.log(person, 'person');
+ 
   const onChangeHandler3 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+
     let newInput = [...detail];
-    console.log(newInput[index], 'newInput[index]');
+   
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setDetail([...newInput]);
   };
-  console.log(listShare, 'listShare');
+
   const onChangeHandler4 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+
     let newInput = [...listDirector];
-    console.log(newInput[index], 'newInput[index]');
+  
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setListDirector([...newInput]);
   };
 
@@ -304,19 +337,19 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
-    console.log(businessArray, 'businessArray');
+ 
     let temp = [...businessArray];
-    // temp.push(business)
-    setBusinessArray([...temp, { businessSummary: business }]);
+   
+    setBusinessArray([...temp, { businessSummary: business }])
     setBusiness('');
   };
 
   const onChangeHandler6 = (name, value, index) => {
-    console.log(name, value, index, 'name,value,<index></index>');
+   
     let newInput = [...listCommodity];
 
     newInput[index][name] = value;
-    console.log(newInput, 'newInput');
+   
     setListCommodity([...newInput]);
   };
 
@@ -343,17 +376,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   person[i].designation === '' ||
-      //   person[i].designation === null
-      // ) {
-      //   toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+      
       if (person[i].contact === '' || person[i].contact === null || person[i].contact.length !== 10) {
         toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -386,17 +409,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   detail[i].designation === '' ||
-      //   detail[i].designation === null
-      // ) {
-      //   toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+    
       if (
         detail[i].ownershipPercentage === '' ||
         detail[i].ownershipPercentage === null ||
@@ -433,17 +446,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null
-      // ) {
-      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+    
     }
     return isOk;
   };
@@ -467,17 +470,7 @@ function Index() {
           break;
         }
       }
-      // if (
-      //   listDirector[i].authorityToSign === '' ||
-      //   listDirector[i].authorityToSign === null
-      // ) {
-      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     isOk = false;
-      //     break;
-      //   }
-      // }
+     
     }
     return isOk;
   };
@@ -503,6 +496,12 @@ function Index() {
       return false;
     } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
       let toastMessage = `please provide a country Of Incorporation`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
+      let toastMessage = `please provide a national Identification Number`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -534,9 +533,7 @@ function Index() {
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-      // let fd = new FormData();
-      // fd.append('document1', incumbencyDoc);
-      // fd.append('document2', thirdParty);
+     
 
       let apiData = {
         supplierProfile: formData,
@@ -549,9 +546,9 @@ function Index() {
         additionalInformation: infoArray,
         incumbencyCertificateDocument: incumbencyDoc,
         thirdPartyCertificateDocument: thirdParty,
-        extraDocument: docs,
-      };
-      console.log(apiData, 'supplierstate');
+        extraDocument: docs
+      }
+    
       let fd = new FormData();
       fd.append('supplierId', supplierData?._id);
       fd.append('supplierProfile', JSON.stringify(formData));
@@ -571,7 +568,7 @@ function Index() {
       } else {
         dispatch(CreateSupplier(fd));
       }
-      // console.log('apidata', apiData)
+      
     }
   };
 
@@ -612,11 +609,11 @@ function Index() {
           return;
         }
       });
-      console.log(isOk, 'keyAddressData');
+
       return isOk;
     };
 
-    console.log(data, 'addressValidtion');
+
     if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -685,12 +682,12 @@ function Index() {
     pinCode: null,
   });
 
-  console.log(keyAddressData, 'keyAddressData');
+
   const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-    console.log(keyAddData, 'keyAddData');
+
     let tempArr = keyAddData;
     setEditData({
       email: tempArr[index].email,
@@ -731,7 +728,7 @@ function Index() {
     const newInput = { ...keyAddressData };
 
     let namesplit = name.split('.');
-    console.log(name, namesplit, value, 'name, value');
+
 
     if (name === 'emailId') {
       newInput.email[index] = value;
@@ -741,7 +738,7 @@ function Index() {
       newInput[name] = value;
     }
 
-    // console.log(newInput)
+
     setKeyAddressData(newInput);
   };
   const docUploader = async (payload) => {
@@ -754,8 +751,8 @@ function Index() {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-          console.log(response.data.data, 'uplaod doc response');
-          setdocs([...docs, response.data.data]);
+     
+          setdocs([...docs, response.data.data])
         } else {
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -782,12 +779,12 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
-  };
-  console.log(docs, 'uplaod doc response3');
+  }
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
+    
 
     let payload = {
       supplierId: supplierData._id,
@@ -858,7 +855,7 @@ function Index() {
             </div>
             <div
               id="supplierProfile"
-              //className="collapse"
+           
               aria-labelledby="supplierProfile"
               data-parent="#supplierProfile"
             >
@@ -1004,7 +1001,7 @@ function Index() {
                           deleteComponent={deleteComponent}
                           editAddress={editAddress}
                           pinCode={address.pinCode}
-                          // orderDetail={orderDetail}
+                     
                           path={''}
                         />
                       </>
@@ -1278,7 +1275,7 @@ function Index() {
                                   }}
                                 />
                               </td>
-                              {console.log('data55', val)}
+                      
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
@@ -1288,9 +1285,9 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          console.log('herer1');
+                          
                                           onChangeHandler2('action', true, index);
-                                          // setContactTable(true);
+                                  
                                         }}
                                       />
                                     </>
@@ -1301,9 +1298,9 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          console.log('herer2');
+                                   
                                           onChangeHandler2('action', false, index);
-                                          // setContactTable(false);
+                                        
                                         }}
                                       />
                                     </>
@@ -1686,7 +1683,7 @@ function Index() {
                                   }}
                                 />
                               </td>
-                              {console.log('data99', commodity)}
+             
 
                               <td className="text-right">
                                 <div>
@@ -1753,29 +1750,7 @@ function Index() {
             </div>
             <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
               <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
-                {/* <div className={`${styles.comment_para} d-flex `}>
-                  <Form.Control
-                    className={`${styles.comment}`}
-                    as="textarea"
-                    rows={3}
-                  />
-
-                  <div className="ml-3">
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mb-3`}
-                      alt="edit"
-                      // onClick={(e) => {
-                      //   setEditProfile(!editProfile)
-                      // }}
-                    />
-                    <img
-                      src="/static/delete 2.svg"
-                      className={`${styles.delete_image} border-0 p-0`}
-                      alt="delete"
-                    />
-                  </div>
-                </div> */}
+             
 
                 <div className="d-flex mt-4 pb-4 position-relative">
                   <input
@@ -1866,7 +1841,35 @@ function Index() {
                             </td>
 
                             <td>
-                              <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
+                              {incumbencyDoc?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.xls') ||
+                                incumbencyDoc?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : incumbencyDoc?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.doc') ||
+                                incumbencyDoc?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {incumbencyDoc && incumbencyDoc?.lastModifiedDate
@@ -1909,7 +1912,35 @@ function Index() {
                             </td>
 
                             <td>
-                              <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
+                              {thirdParty?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.xls') ||
+                                thirdParty?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : thirdParty?.name
+                                ?.toLowerCase()
+                                ?.endsWith('.doc') ||
+                                thirdParty?.name
+                                  ?.toLowerCase()
+                                  ?.endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {thirdParty && thirdParty?.lastModifiedDate
@@ -1997,9 +2028,9 @@ function Index() {
                           <div className="d-flex">
                             <select
                               className={`${styles.value} ${styles.customSelect} input form-control`}
-                              // value={manualDocModule ? newDoc.name : 'others'}
+                            
                               id="name"
-                              // onChange={(e) => handleNewDocModule(e)}
+                          
                             >
                               <option value="others">Others</option>
                             </select>
@@ -2018,7 +2049,7 @@ function Index() {
                             className={`${styles.value} input form-control`}
                             type="text"
                             required
-                            // disabled={manualDocModule}
+                         
                           />
                           <Form.Label className={`${styles.label} label_heading`}>
                             Please Specify Document Name
@@ -2028,13 +2059,11 @@ function Index() {
                           <button
                             onClick={(e) => uploadDocumentHandler(e)}
                             className={`${styles.upload_button} btn`}
-                            // disabled={!editInput}
                           >
-                            Upload
                           </button>
-                        </div>
                       </div>
-                    </div>
+                      </div>
+                     </div>
                   </Form>
                 </div>
 
@@ -2044,35 +2073,10 @@ function Index() {
                       <div
                         className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-end align-items-center`}
                       >
-                        {/* <div className="d-flex align-items-center">
-                          <select
-                            onChange={(e) => setModuleSelected(e.target.value)}
-                            className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            <option value="LeadOnboarding&OrderApproval">
-                              Lead Onboarding &amp; Order Approval
-                            </option>
-                            <option value="Agreements&Insurance&LC&Opening">
-                              Agreements, Insurance &amp; LC Opening
-                            </option>
-                            <option value="Loading-Transit-Unloading">
-                              Loading-Transit-Unloading
-                            </option>
-                            <option value="CustomClearanceAndWarehousing">
-                              Custom Clearance And Warehousing
-                            </option>
-                            <option value="Others">Others</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow2} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div> */}
-                        <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
+
+                        <div
+                          className={`d-flex align-items-center ${styles.searchBarContainer} `}
+                        >
                           <img
                             className={` ${styles.searchImage} img-fluid`}
                             src="/static/search.svg"
@@ -2168,8 +2172,9 @@ function Index() {
                                         className="mr-3"
                                         alt="Share"
                                         onClick={() => {
-                                          openbar();
-                                          setSharedDoc({ ...sharedDoc, path: document.path });
+                                          setOpen(true);
+                                          setSharedDoc({ ...sharedDoc, path: document.path })
+
                                         }}
                                       />
                                     </td>
@@ -2235,48 +2240,14 @@ function Index() {
                                 return null;
                               }
                             })}
-                          {/* <tr className="table_row">
-                            <td className={styles.doc_name}>Container No. List</td>
-                            <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
-                            </td>
-                            <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td className={styles.doc_row}>Buyer</td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
-                              Verified
-                            </td>
-                            <td colSpan="2">
-                              <img
-                                src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
-                                alt="Bin"
-                              />
-                              <img
-                                src="/static/upload.svg"
-                                className="img-fluid mr-3"
-                                alt="Share"
-                              />
-                              <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
-                                alt="Share"
-                              />
-                            </td>
-                          </tr> */}
+
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}  */}
+              {open ? <TermsheetPopUp close={() => setOpen(false)} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}
             </div>
           </div>
         </div>
@@ -2289,7 +2260,7 @@ function Index() {
         />
       </div>
     </>
-  );
+  )
 }
 
 export default Index;

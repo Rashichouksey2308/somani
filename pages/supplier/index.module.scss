@@ -126,7 +126,7 @@
       padding: 20px 35px 25px 40px;
 
       .bill_landing {
-        //background: #FFFFFF;
+       
         border: 2px solid #cad6e6;
         border-radius: 9px;
         .vessel_card {
@@ -394,7 +394,7 @@
 
   .customSelect {
     appearance: none;
-    // position: relative;
+
   }
 
   .pdfImage {
@@ -449,7 +449,7 @@
 .address_card {
   border: 1px solid #0000001f;
   border-radius: 9px;
-  //padding: 22px;
+
   margin-bottom: 20px;
   min-width: 49%;
 
@@ -457,7 +457,7 @@
     line-height: 25px;
     font-weight: bold;
     font-size: 20px;
-    // color: #111111;
+
     text-transform: capitalize;
     padding-left: 30px;
     @include respond(lg-desktop) {
@@ -501,7 +501,7 @@
       line-height: 25px;
       font-weight: bold;
       font-size: 20px;
-      //color: #111111;
+     
       text-transform: capitalize;
     }
 
@@ -509,14 +509,14 @@
       letter-spacing: 0.19px;
       font-size: 20px;
       line-height: 32px;
-      //color: #111111;
+  
       text-transform: capitalize;
 
       span {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
-        //color: #111111;
+       
         text-transform: capitalize;
       }
     }
@@ -553,7 +553,7 @@
   border-radius: 6px;
   padding: 0px;
   border-top: 2px solid red;
-  // width:calc(100vw - 30px);
+
   .table_scroll_outer {
     width: 100%;
     display: table;
@@ -678,7 +678,7 @@
 }
 
 .head_container {
-  // border-bottom: 2px solid #cad6e6;
+
   padding: 0 35px !important;
   min-height: 80px;
   border-bottom: none;
@@ -774,7 +774,7 @@ img {
 
 .customSelect {
   appearance: none;
-  // position: relative;
+
 }
 
 .edit_image {
@@ -806,9 +806,7 @@ img {
   padding: 25px 35px !important;
   border-top: 2px solid red;
 
-  // div {
-  //   flex-wrap: wrap;
-  // }
+ 
 
   .form_group {
     position: relative;
@@ -859,13 +857,13 @@ img {
       }
       @include respond(phone) {
         font-size: 14px;
-        //top: 20px;
+      
       }
     }
 
     .input_field {
       height: 60px;
-      //background-color: #c3c3c31f;
+    
       border: 1px solid #0000001f;
       border-radius: 4px;
       font-size: 20px;
@@ -924,7 +922,7 @@ img {
 
   .comment {
     letter-spacing: 0.19px;
-    //color: #111111;
+  
     font-size: 20px;
     line-height: 25px;
   }
@@ -964,7 +962,7 @@ img {
 
     .comment {
       letter-spacing: 0.19px;
-      //color: #111111;
+ 
       font-size: 20px;
       line-height: 25px;
     }
@@ -1171,7 +1169,7 @@ img {
         position: relative;
         box-sizing: border-box;
         &:invalid + label {
-          //background: none;
+       
           transform: translateY(0);
         }
         &:focus {
@@ -1476,7 +1474,7 @@ img {
       text-transform: capitalize;
       width: 220px;
       height: 46px;
-      //background-color: #ffffff;
+    
       @include respond(lg-desktop) {
         width: 180px;
         height: 38px;
@@ -1530,7 +1528,7 @@ img {
         font-size: 20px;
         letter-spacing: 0.19px;
         text-transform: capitalize;
-        // border: 1px solid #0000001f;
+      
         border-radius: 4px;
         height: 60px;
         box-shadow: none;
@@ -1546,13 +1544,12 @@ img {
     }
   }
   .search_container {
-    //background: #F0F0F0;
+ 
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
     .dropDown {
-      //background: #ffffff;
-      // border: 1px solid #0000001f;
+   
       border-radius: 4px;
       color: #3687e8;
       text-transform: capitalize;
@@ -1570,8 +1567,7 @@ img {
         width: 337px;
         height: 40px;
         padding-left: 3.5rem;
-        //background: #ffffff;
-        // border: 2px solid #d2d7e5;
+       
         border-radius: 1.1rem;
         box-shadow: none;
         @include respond(lg-desktop) {
@@ -1962,7 +1958,7 @@ img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
-    // position: absolute;
+  
     pointer-events: none;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
     input[type='date']::-webkit-inner-spin-button,
@@ -1974,7 +1970,7 @@ img {
 }
 .customSelect {
   appearance: none;
-  // position: relative;
+
 }
 .certificate {
   font-size: 20px;

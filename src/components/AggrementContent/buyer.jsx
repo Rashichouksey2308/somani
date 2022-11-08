@@ -19,7 +19,7 @@ function Index(props) {
       name: 'Indo German International Private Limited',
     });
   }, [props.order]);
-  console.log(buyerData, 'buyerData');
+
   const [gstin, setGstin] = useState('');
   const [list, setList] = useState([]);
   const [shortName, setShotName] = useState('IGI');
@@ -212,7 +212,7 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -227,7 +227,7 @@ function Index(props) {
     });
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    console.log(value.name, 'value.name');
+
     setRemovedOption(value.name);
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
@@ -331,7 +331,7 @@ function Index(props) {
     });
   };
   const removeDoc = (index) => {
-    console.log('removeDOc');
+
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -423,7 +423,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -437,11 +437,11 @@ function Index(props) {
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
+   
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -478,7 +478,7 @@ function Index(props) {
   useEffect(() => {
     if (buyerData?.name) {
       let filter;
-      console.log(buyerData?.name, 'buyerData?.name');
+     
       if (buyerData.name == 'Indo German International Private Limited') {
         setShotName('IGIPL');
 
@@ -488,16 +488,16 @@ function Index(props) {
           }
         });
         let otherData = props.internal.filter((val) => {
-          console.log(val.Branch == buyerData.branchName, val.Branch, buyerData.branchName, 'val.Company_Name');
+         
           if (val.Branch == buyerData.branchName) {
             return val;
           }
         });
-        console.log(otherData, 'otherData');
+
         if (otherData.length > 0) {
           setGstin(otherData[0]?.GSTIN);
           setPan(otherData[0]?.PAN);
-          console.log(_get(otherData[0], 'Branch_Address', ''), 'otherData[0]');
+        
           if (_get(otherData[0], 'Branch_Address', '') !== '') {
             let add = otherData[0]?.Branch_Address?.split(',');
             let newAddress = [];
@@ -508,7 +508,7 @@ function Index(props) {
             });
 
             let pincode = add[add.length - 1].split('-');
-            console.log(newAddress, 'dfdfsdfdsf', pincode);
+     
             setAddressList([
               {
                 addressType: 'Registered',
@@ -551,7 +551,7 @@ function Index(props) {
             return val;
           }
         });
-        console.log(otherData);
+
         if (otherData.length > 0) {
           setGstin(otherData[0].GSTIN);
           setPan(otherData[0].PAN);
@@ -565,7 +565,7 @@ function Index(props) {
             });
 
             let pincode = add[add.length - 1].split('-');
-            console.log(newAddress, 'dfdfsdfdsf', pincode);
+        
             setAddressList([
               {
                 addressType: 'Registered',
@@ -638,7 +638,7 @@ function Index(props) {
       setBranchOptions([...filter]);
     }
   }, [buyerData.name, buyerData.branchName, props.internal]);
-  console.log(addressList, 'addressList');
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -690,7 +690,7 @@ function Index(props) {
                         return val;
                       }
                     });
-                    console.log(filter, 'filter');
+              
                     //  setGstin(props?.data.gstin||"")
                     //  setPan(props?.data.pan||"")
                     setBranchOptions([...filter]);
@@ -1059,7 +1059,7 @@ function Index(props) {
                                           return <option value={val}>{val}</option>;
                                         })}
 
-                                        <option value={'addnew'}>{'Add New'}</option>
+                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1091,7 +1091,7 @@ function Index(props) {
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>{'Add New'}</option>
+                                            
                                           </select>
                                           <img
                                             className={`${styles.arrow2} image_arrow img-fluid`}

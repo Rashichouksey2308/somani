@@ -70,12 +70,12 @@ const Index = () => {
               tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
-              // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+           
               typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney ? sheet?.transactionDetails?.marginMoney : 10,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || 'First Class European Bank',
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
@@ -312,7 +312,7 @@ const Index = () => {
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
-    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+   
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -368,21 +368,10 @@ const Index = () => {
       return;
     }
 
-    // transaction
-
-    // if (
-    //     termsheetDetails.transactionDetails.typeOfPort == '' ||
-    //     termsheetDetails.transactionDetails.typeOfPort == undefined
-    //   ) {
-    //     let toastMessage = 'Please add typeOfPort '
-    //     if (!toast.isActive(toastMessage.toUpperCase())) {
-    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     }
-    //     return
-    //   }
+ 
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       let toastMessage = 'Please add lc Value ';
@@ -391,16 +380,7 @@ const Index = () => {
       }
       return;
     }
-    //  if (
-    //     termsheetDetails.transactionDetails.lcCurrency == '' ||
-    //     termsheetDetails.transactionDetails.lcCurrency == undefined
-    //   ) {
-    //     let toastMessage = 'Please add lc Currency '
-    //     if (!toast.isActive(toastMessage.toUpperCase())) {
-    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     }
-    //     return
-    //   }
+
     if (
       termsheetDetails.transactionDetails.marginMoney == '' ||
       termsheetDetails.transactionDetails.marginMoney == undefined
@@ -590,26 +570,7 @@ const Index = () => {
       }
       return;
     }
-    //  if (
-    //   termsheetDetails.commercials.lcOpeningValue == '' ||
-    //   termsheetDetails.commercials.lcOpeningValue == undefined
-    // ) {
-    //   let toastMessage = 'Please add lc Opening Value '
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
-    //    if (
-    //   termsheetDetails.commercials.lcOpeningCurrency == '' ||
-    //   termsheetDetails.commercials.lcOpeningCurrency == undefined
-    // ) {
-    //   let toastMessage = 'Please add lc Opening Currency '
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
+  
     if (
       termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
       termsheetDetails.commercials.lcOpeningChargesUnit == undefined
@@ -706,18 +667,7 @@ const Index = () => {
 
   const handlePreview = () => {
     let toastMessage = 'PLEASE SAVE TERMSHEET FIRST';
-    // const commercialTerms = _get(termsheet, 'data[0].commercials', false)
-    // const transactional = _get(termsheet, 'data[0].transactionDetails', false)
-    // const paymentDueDate = _get(termsheet, 'data[0].paymentDueDate', false)
-    // if (commercialTerms || transactional || paymentDueDate) {
-    //  dispatch(GetTermsheet({companyId: sheet.company._id}))
-
-    // } else {
-    //   let toastMessage = 'please save termsheet First'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
+    
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
@@ -740,7 +690,7 @@ const Index = () => {
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
-    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+ 
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -790,7 +740,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       if (!toast.isActive(toastMessage.toUpperCase())) {

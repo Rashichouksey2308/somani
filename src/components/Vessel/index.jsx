@@ -241,9 +241,7 @@ function Index ({
                             type="text"
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            // value={_get(vesselData,'data[0].order.marginMoney.calculation.orderValue','')}
-
-                            // value={Number(val.orderValue).toLocaleString()}
+                            
                             value={
                               orderValueinFocus
                                 ? val.orderValue
@@ -519,7 +517,7 @@ function Index ({
                                   <div className="d-flex">
                                     <input
                                       id="yearOfBuilt"
-                                      // value={vesselInfo.yearOfBuilt}
+                                  
                                       value={
                                         vesselInfo.yearOfBuilt
                                           ? vesselInfo?.yearOfBuilt?.slice(0, 4)
@@ -707,14 +705,14 @@ function Index ({
                                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                                   <input
                                     id="yearOfBuilt"
-                                    //  value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
+                                 
                                     value={
                                       newVessel.yearOfBuilt
                                         ? newVessel.yearOfBuilt?.slice(0, 4)
                                         : // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                         ''
                                     }
-                                    // defaultValue={newVessel.yearOfBuilt}
+                                  
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
                                     onWheel={(event) => event.currentTarget.blur()}

@@ -53,13 +53,11 @@ const Index = ({
     suggestedCreditLimit: false,
   });
 
-  // console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
   });
 
-  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
 
   const [exposureData, setExposureData] = useState({
     accountConduct: '',
@@ -94,11 +92,7 @@ const Index = ({
     setEditStren(strenthCommentseditable);
   }, [companyComment, financialsComment, strengthsComment, weaknessComment]);
 
-  // const handleGroupExpChange = (name, value) => {
-  //   const newInput = { ...exposureData }
-  //   newInput[name] = value
-  //   setExposureData(newInput)
-  // }
+ 
 
   const onExpSave = () => {
     addGroupExpArr(exposureData);
@@ -125,7 +119,7 @@ const Index = ({
       }
     });
 
-    // console.log(tempArr, 'tempArr')
+
     setGroupExposureData([...tempArr]);
   };
 
@@ -393,25 +387,14 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
-                              // onFocus={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, groupExposureLimit: true }),
-                              //     e.target.type = 'number'
-                              // }}
-                              // onBlur={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, groupExposureLimit: false }),
-                              //     e.target.type = 'text'
-                              // }}
-                              // value={
-                              //   isFieldInFocus.groupExposureLimit ?
-                              //   profile?.limit:
-                              //     Number(profile?.limit)?.toLocaleString() + ` Lakhs`}
+                             
                               value={profile?.limit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
 
                                 if (re.test(evt.target.value) == false) {
-                                  // evt.preventDefault()
+                                 
                                 }
                               }}
                               onChange={(e) => {
@@ -435,7 +418,7 @@ const Index = ({
                                 const re = /^[0-9\b]+$/;
 
                                 if (re.test(evt.target.value) == false) {
-                                  // evt.preventDefault()
+                               
                                 }
                               }}
                               onChange={(e) => {
@@ -508,7 +491,7 @@ const Index = ({
               <div
                 role="button"
                 onClick={(e) => {
-                  //  onExpSave(exposureData)
+                
                   addMoreExpRows();
                 }}
               >
@@ -732,12 +715,7 @@ const Index = ({
                             ? suggestedCredit?.suggestedCreditLimit
                             : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
                         }
-                        // value={addPrefixOrSuffix(
-                        //   suggestedCredit?.suggestedCreditLimit,
-                        //   '',
-                        // )?.toLocaleString(undefined, {
-                        //   minimumFractionDigits: 2,
-                        // })}
+                      
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
                         }}
@@ -782,15 +760,7 @@ const Index = ({
                             ? suggestedCredit?.suggestedOrderValue
                             : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
                         }
-                        // value={(
-                        //   addPrefixOrSuffix(
-                        //     suggestedCredit?.suggestedOrderValue,
-                        //     '',
-                        //   ) ?? ''
-                        // )?.toLocaleString(undefined, {
-                        //   minimumFractionDigits: 2,
-                        // })}
-                        // defaultValue={creditDetail?.suggestedOrderValue}
+                      
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
                         }}

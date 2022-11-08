@@ -2,7 +2,7 @@
 
 .card {
   margin-bottom: 26px;
-  // box-shadow: 0 3px 6px #cad0e2;
+
   border-radius: 6px !important;
   @include respond(lg-desktop) {
     margin-bottom: 20px;
@@ -225,9 +225,7 @@
     }
 
     .tableParent {
-      // max-height: 300px;
-      // display: inline-block;
-      // overflow-y: auto;
+     
       border-radius: 6px;
 
       .table_scroll_outer {
@@ -259,7 +257,7 @@
 
             td {
               font-size: 19px;
-              //color: rgba(17, 17, 17, 0.7);
+             
               font-weight: 500;
               line-height: 24px;
               white-space: nowrap;
@@ -347,9 +345,7 @@
     }
 
     .tableParent {
-      // max-height: 300px;
-      // display: inline-block;
-      // overflow-y: auto;
+    
       overflow-x: auto;
       border-radius: 6px;
 
@@ -391,8 +387,7 @@
               font-weight: 500;
               line-height: 24px;
               padding: 15px 22px;
-              // white-space: nowrap;
-              //height: 48px;
+            
               vertical-align: middle;
               border-bottom: 2px solid #e6eaf0;
               border-right: 2px solid #e6eaf0;
@@ -403,7 +398,7 @@
               }
 
               &.name {
-                // color: #111111;
+                
               }
 
               &:last-child {
@@ -450,19 +445,12 @@
   }
 
   .directorDetails {
-    // .scroll_outer {
-    //     width: 100%;
-    //     display: table;
-    //     table-layout: fixed;
-    //     .scroll_inner {
-    //         display: table-cell;
-    //         overflow-x: auto;
+  
     .card {
       margin-bottom: 0;
       box-shadow: none !important;
       border-radius: 6px !important;
-      // border: 1px solid #D2D7E5;
-      // box-shadow: 0 3px 6px #CAD0E2;
+     
       .cardHeader {
         cursor: pointer;
         position: relative;
@@ -474,7 +462,7 @@
 
           .unit_label {
             font-size: 18px;
-            // color: #2837566A;
+           
             text-transform: capitalize;
             font-weight: bold;
             margin-top: 10px;
@@ -608,12 +596,9 @@
 
     .cardBody {
       padding: 17px 28px;
-      // border: 2px solid #e6eaf0;
-      // border-left: 9px solid #c4d7ef;
+     
     }
 
-    //     }
-    // }
   }
 
   .entities {
@@ -622,7 +607,7 @@
 
     .entities_content {
       margin-top: 1.5rem;
-      // background: #ffffff;
+    
       border: 2px solid #e6eaf0;
       border-radius: 6px;
 
@@ -702,7 +687,7 @@
                     font-weight: bold;
                     font-size: 16px;
                     line-height: 17px;
-                    // color: #00000080;
+                  
                     border-top: none;
                     white-space: nowrap;
                     border-bottom: 2px solid #e6eaf0;
@@ -773,16 +758,13 @@
     }
   }
 
-  // .card_compliance_wrapper {
-  //   // height: 70px;
-  // }
+ 
 }
 
 .cardBody_litigations {
   border-top: 2px solid red;
   padding-left: 35px;
-  // .checkbox_Container {
-  // }
+
   .risk_Container {
     .risk {
       width: 25%;
@@ -830,10 +812,10 @@
     tr {
       th {
         background: #fafafb;
-        // border: none;
+      
         font-weight: bold;
         font-size: 15px;
-        // color: #3687e8;
+      
       }
     }
   }
@@ -862,7 +844,7 @@
   transform: translateY(-50%);
 
   img {
-    // transform: rotate(270deg);
+
     opacity: 0.7;
     height: 20px;
   }
@@ -922,10 +904,10 @@
 }
 
 .form_group {
-  //position: relative;
+
   margin-bottom: 20px;
   margin-top: 20px;
-  //max-width: 350px;
+
   @include respond(phone) {
     margin-top: 10px;
     max-width: 100%;
@@ -1082,5 +1064,5 @@
 .customSelect {
   appearance: none;
   padding-right: 40px;
-  // position: relative;
+
 }

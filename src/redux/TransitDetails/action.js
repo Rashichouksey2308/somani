@@ -134,7 +134,7 @@ export const GetTransitDetails = (payload) => async (dispatch, getState, api) =>
       headers: headers,
     });
     if (response.data.code === 200) {
-      // dispatch(getVesselSuccess(response.data.data))
+  
       dispatch(setNotLoading());
       return response.data.data;
     } else {

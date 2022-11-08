@@ -45,13 +45,15 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', '');
 
+
   let id = sessionStorage.getItem('marginId');
 
   const [unit, setUnit] = useState({ value: 'Crores' });
   const [coversionUnit, setCoversionUnit] = useState(10000000);
+  const [isConsigneeSameAsBuyer,setisConsigneeSameAsBuyer]=useState(true)
 
   const RevisedMarginMoneyTrue = _get(margin, 'data.data[0].revisedMarginMoney.isActive', false);
-
+  
   useEffect(() => {
     let id = sessionStorage.getItem('marginId');
 
@@ -209,6 +211,15 @@ function Index() {
   const [invoiceData, setInvoiceData] = useState({});
   const [branchOptions, setBranchOptions] = useState([]);
 
+  const saveData = (name, value, name2, value2, value3) => {
+  
+    const newInput = { ...invoiceData };
+    newInput.branch = value3;
+    newInput.branchAddress = value;
+    newInput.IFSCcode = value2;
+
+    setInvoiceData({ ...newInput });
+  };
   const savedataRevised = (name, value, name2, value2, value3) => {
     const newInput = { ...invoiceDataRevised };
     newInput.branch = value3;
@@ -221,40 +232,13 @@ function Index() {
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
+   
 
-    if (invoiceData?.isConsigneeSameAsBuyer == true) {
-      if (name == 'buyerName') {
-        let a = 'consigneeName';
-        newInput[a] = value;
-      }
-      if (name == 'buyerGSTIN') {
-        let a = 'consigneeGSTIN';
-        newInput[a] = value;
-      }
-      if (name == 'buyerAddress') {
-        let a = 'consigneeAddress';
-        newInput[a] = value;
-      }
-    }
 
     setInvoiceData({ ...newInput });
   };
 
-  let emergent = {
-    companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-    branch: 'DELHI',
-    state: 'DELHI',
-    address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
-    GSTIN: '07AAACS8253L1Z0',
-  };
-
-  let indoGerman = {
-    companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-    branch: 'SURAT',
-    state: 'GUJARAT',
-    address: 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
-    GSTIN: '24AAACI3028D1Z8',
-  };
+ 
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
@@ -263,15 +247,18 @@ function Index() {
   });
 
   const dropDownChange = (name, value) => {
+
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+    
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
-
+      
       setInvoiceData({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
+     
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
-
+     
       setInvoiceData({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -280,8 +267,17 @@ function Index() {
       }
     });
 
-    setBranchOptions(filter);
+    setBranchOptions([...filter]);
   };
+  useEffect(() => {
+    dropDownChange("name",marginData?.invoiceDetail?.importerName? marginData?.invoiceDetail?.importerName:  marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '')
+  },[ marginData?.invoiceDetail?.importerName,marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          ''])
 
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
@@ -484,7 +480,26 @@ function Index() {
         isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
-        invoiceDetail: { ...invoiceData },
+        invoiceDetail: { 
+                buyerName: invoiceData?.companyName ,
+                buyerGSTIN:invoiceData?.buyerGSTIN ,
+                buyerAddress: invoiceData?.buyerAddress ,
+                isConsigneeSameAsBuyer:isConsigneeSameAsBuyer,
+                consigneeName:invoiceData?.consigneeName ,
+                consigneeGSTIN:invoiceData?.consigneeGSTIN ,
+                consigneeAddress:invoiceData?.consigneeAddress ,
+                importerName:
+                invoiceData?.importerName ,
+                  
+                branchOffice:invoiceData?.branchOffice ,
+                companyAddress:invoiceData?.companyAddress ,
+                importerGSTIN:invoiceData?.importerGSTIN ,
+                bankName:invoiceData?.bankName ,
+                branch:invoiceData?.branch ,
+                branchAddress:invoiceData?.branchAddress ,
+                IFSCcode:invoiceData?.IFSCcode ,
+                accountNo:invoiceData?.accountNo ,
+         },
         calculation: {
           orderValue: finalCal.orderValue,
           orderValueCurrency: finalCal.orderValueCurrency,
@@ -727,6 +742,7 @@ function Index() {
         IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
       });
+   
     }
   }, [marginData]);
 
@@ -793,6 +809,7 @@ function Index() {
   };
 
   const saveInvoiceDataRevisedRevised = (name, value) => {
+  
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
 
@@ -847,13 +864,9 @@ function Index() {
         },
       },
 
-      // conversionRate: forCalculationRevised.conversionRate,
+     
       isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
-      // orderObj: {
-      //   quantity: forCalculationRevised.quantity,
-      //   perUnitPrice: forCalculationRevised.perUnitPrice,
-      //   orderValue: finalCalRevised.orderValue,
-      // },
+      
     };
 
     dispatch(RevisedMarginMoney(obj));
@@ -896,6 +909,7 @@ function Index() {
       callback: function (doc) {
         doc.save('sample.pdf');
       },
+     
       autoPaging: 'text',
     });
   };
@@ -906,7 +920,7 @@ function Index() {
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
+        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
         consigneeName: marginData?.invoiceDetail?.consigneeName || '',
         consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
@@ -925,23 +939,9 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       });
+       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer ==false ? false : true)
     }
-    if (getInternalCompaniesMasterData) {
-      let filter = getInternalCompaniesMasterData.filter((val, index) => {
-        if (
-          val.Company_Name?.toLowerCase() == marginData?.invoiceDetail?.importerName?.toLowerCase() ||
-          val.Company_Name?.toLowerCase() ==
-            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-              ?.toUpperCase()
-              ?.replace(/ *\([^)]*\) */g, '')
-              .toLowerCase()
-        ) {
-          return val;
-        }
-      });
 
-      setBranchOptions(filter);
-    }
   }, [marginData, getInternalCompaniesMasterData]);
 
   useEffect(() => {
@@ -975,8 +975,6 @@ function Index() {
   useEffect(() => {
     getRevisedData2();
   }, [revisedCalc]);
-  // ? revisedCalc.additionalAmountPerPDC
-  //           : 0,
 
   useEffect(() => {
     getDataRevised2();
@@ -1107,7 +1105,7 @@ function Index() {
                     </div>
                     <div
                       id="commodityAccordion"
-                      // className="collapse"
+                     
                       aria-labelledby="commodityAccordion"
                       data-parent="#commodityAccordion"
                     >
@@ -1189,7 +1187,7 @@ function Index() {
                                         maximumFractionDigits: 2,
                                       })
                                 }
-                                // value={forCalculation?.conversionRate}
+                             
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1287,14 +1285,10 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(
-                                    marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                      maximumFractionDigits: 2,
-                                      minimumFractionDigits: 2,
-                                    }),
-                                    '%',
-                                    '',
-                                  )}
+                                 
+                                   {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
+                                   
+                                 
                                 </div>
                               </div>
                             </div>
@@ -1353,7 +1347,7 @@ function Index() {
                                     : checkNan(Number(forCalculation?.numberOfPDC))?.toLocaleString('en-In')
                                 }
                                 onChange={(e) => saveForCalculation(e.target.name, e.target.value)}
-                                // value={forCalculation?.numberOfPDC}
+                               
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1698,9 +1692,7 @@ function Index() {
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
-                                  // defaultValue={
-                                  //   marginData?.invoiceDetail?.buyerGSTIN
-                                  // }
+                                 
                                   value={invoiceData?.buyerGSTIN}
                                 >
                                   <option selected>Select an Option</option>
@@ -1725,7 +1717,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerAddress"
-                                defaultValue={marginData?.invoiceDetail?.buyerAddress}
+                                value={marginData?.invoiceDetail?.buyerAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
@@ -1748,28 +1740,25 @@ function Index() {
                                       inline
                                       label="Yes"
                                       onChange={(e) => {
-                                        setInvoiceData({
-                                          ...invoiceData,
-                                          isConsigneeSameAsBuyer: true,
-                                        });
-
+                                       setisConsigneeSameAsBuyer(true)
+                                       
                                         setSame(true);
                                       }}
+                                      
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-1`}
+                                      checked={isConsigneeSameAsBuyer==true ?"checked":""}
                                     />
                                     <Form.Check
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
                                       onChange={(e) => {
-                                        setInvoiceData({
-                                          ...invoiceData,
-                                          isConsigneeSameAsBuyer: false,
-                                        });
+                                        setisConsigneeSameAsBuyer(false)
                                         setSame(false);
                                       }}
+                                      checked={isConsigneeSameAsBuyer==false?"checked":""}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-2`}
@@ -1838,6 +1827,7 @@ function Index() {
                                   value={invoiceData?.importerName}
                                   onChange={(e) => dropDownChange(e.target.name, e.target.value)}
                                   style={{ paddingRight: '40px' }}
+                                  disabled
                                 >
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
                                     INDO GERMAN INTERNATIONAL PRIVATE LIMITED
@@ -1867,6 +1857,7 @@ function Index() {
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
                                   onChange={(e) => {
+                                  
                                     let filter = getInternalCompaniesMasterData.filter((val, index) => {
                                       if (
                                         val.Branch == e.target.value &&
@@ -1884,20 +1875,14 @@ function Index() {
                                       changeImporterData.GSTIN = filter[0].GSTIN;
                                       newInput['importerGSTIN'] = filter[0].GSTIN;
 
-                                      newInput['branchAddress'] = filter[0]?.Branch_Address || '';
-                                      changeImporterData.branchAddress = filter[0]?.Branch_Address || '';
+                                     
 
-                                      newInput['IFSCcode'] = filter[0]?.IFSC || '';
-                                      changeImporterData.IFSCcode = filter[0]?.IFSC || '';
+                                     
 
-                                      newInput['accountNo'] = filter[0]?.Account_No || '';
-                                      changeImporterData.accountNo = filter[0]?.Account_No || '';
+                                     
+                                      
 
-                                      newInput['branch'] = filter[0]?.Branch_Type || '';
-                                      changeImporterData.branch = filter[0]?.Branch_Type || '';
-
-                                      newInput['bankName'] = filter[0]?.Bank_Name || '';
-                                      changeImporterData.bankName = filter[0]?.Bank_Name || '';
+                                     
 
                                       newInput['branchOffice'] = e.target.value;
                                       changeImporterData.branch = e.target.value;
@@ -1967,7 +1952,7 @@ function Index() {
 
                             <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                               <div className="d-flex">
-                                <input
+                                <select
                                   type="text"
                                   id="Code"
                                   name="bankName"
@@ -1976,17 +1961,43 @@ function Index() {
                                   value={invoiceData?.bankName}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
+                                    let filter = getBanksMasterData.filter(
+                                      (val, index) => {
+                                        if (val.name == e.target.value) {
+                                          return val;
+                                        }
+                                      },
+                                    );
+
+                                    dispatch(getBranches(filter[0].code));
                                   }}
-                                ></input>
+                                >
+                                  <option>Select an option</option>
+                                  {getBanksMasterData.map((val, index) => {
+                                    return (
+                                      <option value={`${val.name}`}>
+                                        {val.name}
+                                      </option>
+                                    );
+                                  })}
+                                  {/* <option value={`${invoiceData?.bankName}`}>
+                                    {invoiceData?.bankName}
+                                  </option> */}
+                                  {/* <option value="ICICI">ICICI Bank Ltd</option> */}
+                                </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Bank Name
                                   <strong className="text-danger">*</strong>
                                 </label>
+                                <img
+                                  className={`img-fluid  image_arrow ${styles.arrow}`}
+                                  src="/static/inputDropDown.svg"
+                                ></img>
                               </div>
                             </div>
                             <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                               <div className="d-flex">
-                                <input
+                                <select
                                   type="text"
                                   id="Code"
                                   name="branch"
@@ -1995,12 +2006,45 @@ function Index() {
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
+                                    let filter = getBranchesMasterData.filter(
+                                      (val, index) => {
+                                        if (val.BRANCH == e.target.value) {
+                                          return val;
+                                        }
+                                      },
+                                    );
+
+                                    saveData(
+                                      'branchAddress',
+                                      filter[0].ADDRESS,
+                                      'IFSCcode',
+                                      filter[0].IFSC,
+                                      e.target.value,
+                                    );
+
                                   }}
-                                ></input>
+                                >
+                                 
+                                  <option selected>Select an option</option>
+                                  {getBranchesMasterData.map((val, index) => {
+                                    return (
+                                      <option value={`${val.BRANCH}`}>
+                                        {val.BRANCH}
+                                      </option>
+                                    );
+                                  })}
+                                  {/* <option value={`${invoiceData?.branch}`}>
+                                    {invoiceData?.branch}
+                                  </option> */}
+                                </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Branch
                                   <strong className="text-danger">*</strong>
                                 </label>
+                                <img
+                                  className={`img-fluid image_arrow ${styles.arrow}`}
+                                  src="/static/inputDropDown.svg"
+                                ></img>
                               </div>
                             </div>
 
@@ -2025,6 +2069,8 @@ function Index() {
                                 name="IFSCcode"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.IFSCcode}
+                                
+
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />

@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { returnAuthToken } from 'utils/helpers/global';
 
 function createSupplier() {
   return {
@@ -265,7 +266,7 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  var headers = { authorization:   returnAuthToken()    , Cache: 'no-cache' };
   try {
     Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
       headers: headers,
@@ -314,19 +315,13 @@ export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) =>
         return response;
       } else {
         dispatch(uploadSupplierDocFailed(response.data));
-        // const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        // }
+       
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(uploadSupplierDocFailed());
-    // const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-    // if (!toast.isActive(toastMessage.toUpperCase())) {
-    //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    // }
+   
     dispatch(setNotLoading());
   }
 };
@@ -348,19 +343,13 @@ export const DeleteSupplierDoc = (payload) => async (dispatch, getState, api) =>
         dispatch(setNotLoading());
       } else {
         dispatch(deleteSupplierDocFailed(response.data));
-        // const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        // }
+      
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(deleteSupplierDocFailed());
-    // const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-    // if (!toast.isActive(toastMessage.toUpperCase())) {
-    //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    // }
+  
     dispatch(setNotLoading());
   }
 };

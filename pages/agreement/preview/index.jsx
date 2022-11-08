@@ -1,4 +1,5 @@
 import jsPDF from 'jspdf';
+import {toPdf,letterPrint,igiPrint,sellerPrint,qpaPrint,associateshipPrint} from '../../../src/utils/agreementTemplate'
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -64,6 +65,16 @@ function index() {
       if (data2 == 'TPASELLER') {
         toCheck = 'TPA (Seller)';
       }
+       if(data2=="ASSO"){
+        toCheck="Associateship Agreement"
+      }
+        if(data2=="UNDERTAKING1"){
+        toCheck="Associateship Agreement"
+      }
+        if(data2=="UNDERTAKING2"){
+        toCheck="Associateship Agreement"
+      }
+
       let exe;
       let dat = '';
       let dateOfContract = '';
@@ -116,34 +127,78 @@ function index() {
         unitOfValue: data?.order?.unitOfValue,
         curr: data?.order?.orderCurrency,
         supplierAddress: _get(data, 'supplier.addresses[0]', {}),
-        supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
-        buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
-        buyerEmail: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
-        supplierEmail: _get(data, 'supplier.authorisedSignatoryDetails', []),
-        toleranceLevel: data?.order?.tolerance,
-        incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
-        financialBank: data?.financingBank?.name,
-        financialAddress: `${data?.financingBank?.branch}, Netherlands`,
-        associateBuyer: _get(data, 'company.companyName', ''),
-        associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
-        associateBuyerGst: data?.associateBuyer?.gstin,
-        associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
-        associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
-        stevedore: data?.stevedore?.name,
-        stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
-        stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
-        cma: data?.CMA?.name,
-        cmaAddress: _get(data, 'CMA.addresses[0]', {}),
-
-        cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-        vessel: data?.shippingLine?.vesselName,
-        storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
-        loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
-        priceOfGoods: data?.order?.perUnitPrice,
-        dateOfContract: dateOfContract,
-        designatedStorageArea: data?.CMA?.designatedStorageArea,
-        supplier: data?.supplier?.name,
-        endBuyer: data.company.companyName,
+          supplierAuthorized: _get(
+            data,
+            'supplier.authorisedSignatoryDetails',
+            [],
+          ),
+          buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
+          buyerEmail: _get(
+            data,
+            'associateBuyer.authorisedSignatoryDetails',
+            [],
+          ),
+          supplierEmail:  _get(
+            data,
+            'supplier.authorisedSignatoryDetails',
+            [],
+          ) ,
+          toleranceLevel: data?.order?.tolerance,
+          incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
+          financialBank: data?.financingBank?.name,
+          financialAddress: `${data?.financingBank?.branch}, Netherlands`,
+          associateBuyer: _get(data,"company.companyName",""),
+          associateBuyerAddress: _get(
+            data,
+            'company.detailedCompanyInfo.profile.companyDetail.registeredAddress'
+            ,""
+          ),
+          associateBuyerGst: data?.associateBuyer?.gstin,
+          associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
+          associateBuyerAuthorized: _get(
+            data,
+            'associateBuyer.authorisedSignatoryDetails',
+            [],
+          ),
+          stevedore: data?.stevedore?.name,
+          stevedoreAddress: _get(
+            data,
+            'stevedore.addresses[0]',
+            {},
+          ),
+          stevedoreAuthorized: _get(
+            data,
+            'stevedore.authorisedSignatoryDetails',
+            [],
+          ),
+          cma: data?.CMA?.name,
+          cmaAddress:_get(
+            data,
+            'CMA.addresses[0]',
+            {},
+            
+          ),
+            
+          cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+          vessel: data?.shippingLine?.vesselName,
+          storagePlot:
+          data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
+          priceOfGoods: data?.order?.perUnitPrice,
+          dateOfContract:dateOfContract,
+          designatedStorageArea:data?.CMA?.designatedStorageArea,
+          supplier: data?.supplier?.name,
+          endBuyer: data.company.companyName,
+          priceOfGoods: data?.order?.perUnitPrice,
+          commodityDetails:data?.order?.commodity,
+          unitPrice: data.order?.perUnitPrice,
+          tradeMargin:data.order?.termsheet?.commercials?.tradeMarginPercentage,
+          deliveryTerm:data.deliveryTerms.deliveryTerm,
+          totalPrice:data?.order?.marginMoney?.calculation?.totalOrderValue,
+          advanceMoney:data?.order?.marginMoney?.calculation?.marginMoney,
+          orderValueCurrency:data?.order?.marginMoney?.calculation?.orderValueCurrency,
+          paymentTerm:data.deliveryTerms.paymentTerms,
+          cheque:data.deliveryTerms?.cheque || []
       });
     }
   }, []);
@@ -160,9 +215,21 @@ function index() {
       toPrint = QuadripartiteAgreementPreview(data);
       name = 'QPA.pdf';
     }
-    if (preview == 'TPASELLER') {
-      toPrint = TPASellerPreview(data);
-      name = 'TPA(Seller).pdf';
+    if(preview=="ASSO"){
+      toPrint=associateshipPrint(data)
+      name ="Associateship.pdf"
+    }
+     if(preview=="UNDERTAKING1"){
+      toPrint=undertakingPrint(data)
+      name ="Undertaking1.pdf"
+    }
+    if(preview=="UNDERTAKING1"){
+      toPrint=undertaking2Print(data)
+      name ="Undertaking2.pdf"
+    }
+    if(preview=="TPASELLER"){
+      toPrint=sellerPrint(data)
+      name="TPA(Seller).pdf"
     }
     if (preview == 'TPAIGI') {
       toPrint = IGIAgreementPreview(data);
@@ -196,3 +263,26 @@ function index() {
 }
 
 export default index;
+
+export const undertaking1Pdf = (data) => {
+  return (
+    <>
+    </>
+  )
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
