@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './internal.module.scss'
+import styles from '../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import InternalCompanies from '../../src/components/InternalCompanies'

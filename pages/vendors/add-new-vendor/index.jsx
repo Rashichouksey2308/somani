@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './index.module.scss'
+import styles from '../../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import AddVendor from '../../../src/components/AddVendor'
