@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Router from 'next/router';
-import { GetAllSupplier } from 'redux/supplier/action';
+import {GetAllInternalCompanies, GetInternalCompanies} from '../../src/redux/internalCompanies/action'
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 
 const index = () => {
@@ -15,7 +15,9 @@ const index = () => {
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
+  const { allInternalCompanies } = useSelector((state) => state.internalCompanies);
+
+  console.log(allInternalCompanies, 'ALL INTERNAL COMPANIES')
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -24,17 +26,19 @@ const index = () => {
       dispatch(SearchLeads(query));
     }
   };
+
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+    dispatch(GetInternalCompanies(`?company=${id}`));
   };
+
   useEffect(() => {
-    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetAllInternalCompanies(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
   const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id);
+    sessionStorage.setItem('internalCompanyId', id);
     Router.push('/supplier');
   };
 
@@ -96,6 +100,8 @@ const index = () => {
             header2="SHORT NAME"
             header3="COUNTRY"
             header4="STATUS"
+            handleRoute={handleRoute}    
+            selectorData={allInternalCompanies}      
           />
         </div>
       </div>

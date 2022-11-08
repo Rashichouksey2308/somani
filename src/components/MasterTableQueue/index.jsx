@@ -3,38 +3,37 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
-import Router from 'next/router';
-import { GetAllSupplier } from 'redux/supplier/action';
 
-const index = ({ tableName, header1, header2, header3, header4, isHeader, header, isDate }) => {
+
+
+const index = ({ tableName, header1, header2, header3, header4, isHeader, header, isDate, handleRoute, selectorData }) => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
 
-  const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
-    if (query.length >= 3) {
-      dispatch(SearchLeads(query));
-    }
-  };
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
-  };
-  useEffect(() => {
-    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
-  }, [currentPage, pageLimit]);
+  // const handleSearch = (e) => {
+  //   const query = `${e.target.value}`;
+  //   setSearchTerm(query);
+  //   if (query.length >= 3) {
+  //     dispatch(SearchLeads(query));
+  //   }
+  // };
+  // const handleFilteredData = (e) => {
+  //   setSearchTerm('');
+  //   const id = `${e.target.id}`;
+  //   dispatch(GetLcModule(`?company=${id}`));
+  // };
+  // useEffect(() => {
+  //   dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
+  // }, [currentPage, pageLimit]);
 
-  const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id);
-    Router.push('/supplier');
-  };
+  // const handleRoute = (id) => {
+  //   sessionStorage.setItem('supplier', id);
+  //   Router.push('/supplier');
+  // };
 
   return (
     <>
@@ -58,7 +57,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
                 {' '}
-                Showing Page {currentPage + 1} out of {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
+                Showing Page {currentPage + 1} out of {Math.ceil(selectorData?.totalCount / pageLimit)}
               </span>
               <a
                 onClick={() => {
@@ -74,7 +73,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(allSupplierResponse?.totalCount / 7)) {
+                  if (currentPage + 1 < Math.ceil(selectorData?.totalCount / 7)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
@@ -182,7 +181,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
         </div>
       </div>
       <div className={`${styles.total_count}`}>
-        Total Count: <span>{allSupplierResponse?.totalCount}</span>
+        Total Count: <span>{selectorData?.totalCount}</span>
       </div>
     </>
   );
