@@ -1,10 +1,7 @@
 import React, { useMemo } from 'react'
 import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
-
-const croreConverter = (amount=0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
-  maximumFractionDigits: 2,
-})} Cr`
+import {crConverter} from '@/utils/helper'
 
 const getGraph = (data) => {
   return data
@@ -14,7 +11,7 @@ const getGraph = (data) => {
         <div key={index} className={`${styles.wrapper} commodities`}>
           <span className={`heading`}>{val._id}</span>
           <div className={styles.graph}>
-            <span className="val">{croreConverter(val?.total)}</span>
+            <span className="val">{crConverter(val?.total)}</span>
             <div className={`${styles.bar} bar`} style={{ width: `${100-(index*10)}%` }}></div>
           </div>
         </div>

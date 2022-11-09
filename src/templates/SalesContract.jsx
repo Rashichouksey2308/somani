@@ -25,8 +25,9 @@ export default function SalesContract(changeHandler, data, preview) {
           </strong>
         </p>
         <p className="text_sales mt-3 mb-4">
-          This Sales Contract(“<strong>Contract</strong>”) is made at the place and on the day as set out in{' '}
-          <strong>Schedule I</strong> between the Seller and the Buyer.
+          This Sales Contract(“<strong>Contract</strong>”) is made at the place
+          and on the day as set out in <strong>Schedule I</strong> between the
+          Seller and the Buyer.
         </p>
 
         <div className={`${styles.inputsContainer} border_black`}>
@@ -40,11 +41,15 @@ export default function SalesContract(changeHandler, data, preview) {
             <Col md={7} className={styles.right}>
               <>{data?.seller}</>
               <br />
-
+             
               <>
-                {data.sellerAddress?.fullAddress},{data.sellerAddress?.city} {data.sellerAddress?.country}, &nbsp;
-                {data.sellerAddress?.pinCode}
+              
+              {data.sellerAddress?.fullAddress},
+              {data.sellerAddress?.city}{" "} 
+              {data.sellerAddress?.country},{" "}              
+              &nbsp;{data.sellerAddress?.pinCode}
               </>
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -58,9 +63,13 @@ export default function SalesContract(changeHandler, data, preview) {
               <>{data?.buyer?.toLowerCase()}</>
               <br />
               <>
-                {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
-                {data.buyerAddress?.pinCode}
-              </>
+              
+              {data.buyerAddress?.fullAddress},
+              {data.buyerAddress?.city}{" "} 
+              {data.buyerAddress?.country},{" "}
+              
+              {data.buyerAddress?.pinCode}
+              </> 
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -202,26 +211,26 @@ export default function SalesContract(changeHandler, data, preview) {
                       Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day.
                     </p>
                   </li>
-                  <li className="pl-4">
+                  <li className='pl-4'>
                     <p className="text_sales">
                       Documents to be provided to Buyer
                       <ol type="1" className="ml-n4 pl-0">
-                        <li className="pl-4">
+                        <li className='pl-4'>
                           <p className="text_sales">The Seller's Commercial Invoice,</p>{' '}
                         </li>
-                        <li className="pl-4">
+                        <li className='pl-4'>
                           <p className="text_sales">Full set of 3/3 originals of Bills of Lading,</p>
                         </li>
-                        <li className="pl-4">
+                        <li className='pl-4'>
                           <p className="text_sales">Certificate of Quality,</p>
                         </li>
-                        <li className="pl-4">
+                        <li className='pl-4'>
                           <p className="text_sales">Certificate of Weight,</p>
                         </li>
-                        <li className="pl-4">
+                        <li className='pl-4'>
                           <p className="text_sales">Certificate of Origin,</p>{' '}
                         </li>
-                        <li className="pl-4">
+                        <li className='pl-4'>
                           <p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p>
                         </li>
                       </ol>
@@ -266,8 +275,9 @@ export default function SalesContract(changeHandler, data, preview) {
               Shipping Terms{' '}
             </Col>
             <Col md={7} className={`${styles.right} text-justify`}>
-              All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and
-              End User with no liability upon the Seller whatsoever.
+              All demurrage/despatch for discharge port to be settled directly
+              between Shipper, Vessel Owner agent and End User with no liability
+              upon the Seller whatsoever.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -456,15 +466,18 @@ export default function SalesContract(changeHandler, data, preview) {
                 </li>
               </ol>
               <p className="">
-                a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;
+                a) For all quantity and quality claims/ issues pertaining to
+                material supplied by Manufacturer/shipper;
               </p>
               <p className="">
-                b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
+                b) Any express or implied warranty claim for the quality of
+                material supplied by Manufacturer/shipper;
               </p>
               <p className="">c) Loss of cargo;</p>
               <p className="">
-                d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
-                Buyer and Manufacturer/shipper;
+                d) Any demurrage charges at the load port and/or discharge port
+                shall be settled directly between the Buyer and
+                Manufacturer/shipper;
               </p>
               <p className="mt-3">
                 All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.
@@ -873,18 +886,18 @@ export default function SalesContract(changeHandler, data, preview) {
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
                     <div className={styles.table_scroll_inner}>
-                      <table>
+                      <table className={styles.schedule_table}>
                         <tr>
                           {data?.spec &&
                             data?.spec.length > 0 &&
-                            Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
+                            Object.keys(data?.spec[0]).map((val, index) => <th className='text-color' key={index}>{val}</th>)}
                         </tr>
                         {data?.spec &&
                           data?.spec.length > 0 &&
                           data?.spec.map((item, index) => (
                             <tr>
                               {Object.values(item).map((value, id) => (
-                                <td key={id}>{value}</td>
+                                <td className='text-color' key={id}>{value}</td>
                               ))}
                             </tr>
                           ))}
@@ -909,7 +922,7 @@ export default function SalesContract(changeHandler, data, preview) {
         </p>
         <div className={`row`}>
           <Col md={6}>
-            <p className="text_sales m-0">Seller</p>
+            <p className="text_sales m-0">(Seller)</p>
             {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
             </Col> */}
@@ -937,7 +950,7 @@ export default function SalesContract(changeHandler, data, preview) {
             )}
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0">Buyer</p>
+            <p className="text_sales m-0">(Buyer)</p>
             {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
             </Col> */}

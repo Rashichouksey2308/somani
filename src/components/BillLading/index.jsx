@@ -72,14 +72,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
 
   const handleShow = () => setShow(true);
 
-  // useEffect(() => {
-  //   if (existingBlData.length > 0) {
-  //     setBolList(existingBlData)
-  //   }
-  // }, [existingBlData])
 
-  const [editInput, setEditInput] = useState(true);
-  const [shipmentType, setShipmentType] = useState(true);
   const [bolList, setBolList] = useState([initalState]);
   const [startBlDate, setBlDate] = useState(null);
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null);
@@ -120,14 +113,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     });
 
     setBolList(newInput);
-  };
-
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false);
-    } else {
-      setEditInput(true);
-    }
   };
 
   const handleCloseDoc = (e, index) => {
