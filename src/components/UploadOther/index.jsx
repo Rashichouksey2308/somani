@@ -54,17 +54,17 @@ const Index = ({ orderid, module, isDocumentName }) => {
     }
   }, [orderid, documentsFetched]);
 
-    console.log({documentsFetched})
-    /* Filtering the documentsFetched array and setting the filteredDoc array. */
-    const filteredDocArray = documentsFetched?.documents
-      .filter((doc) => doc.module === moduleSelected)
-      .map(element => {
-        return {
-          ...element, moving: false
-        }
-      })
-    setFilteredDoc(filteredDocArray)
-  }, [orderid, documentsFetched])
+  //   console.log({documentsFetched})
+  //   /* Filtering the documentsFetched array and setting the filteredDoc array. */
+  //   const filteredDocArray = documentsFetched?.documents
+  //     .filter((doc) => doc.module === moduleSelected)
+  //     .map(element => {
+  //       return {
+  //         ...element, moving: false
+  //       }
+  //     })
+  //   setFilteredDoc(filteredDocArray)
+  // }, [orderid, documentsFetched])
 
   /** It deletes the document at the index.*/
   const DocDlt = (index) => setFilteredDoc([...filteredDoc].splice(index, 1))

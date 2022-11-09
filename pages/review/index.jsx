@@ -43,7 +43,7 @@ import {
   removePrefixOrSuffix,
 } from '../../src/utils/helper';
 
-import {orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
+import { orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
 import { handleErrorToast } from '../../src/utils/helpers/global';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -2390,13 +2390,12 @@ function Index() {
                           <span
                             style={{
                               background: '#FFB700',
-                              width: `${
-                                filteredCreditRating?.length > 0
-                                  ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                                      filteredCreditRating[0].totalRating) *
-                                    100
-                                  : '0'
-                              }%`,
+                              width: `${filteredCreditRating?.length > 0
+                                ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                                : '0'
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2417,11 +2416,11 @@ function Index() {
                         >
                           {filteredCreditRating?.length > 0
                             ? (
-                                Number(
-                                  filteredCreditRating[0].businessProfile.total.overallValue /
-                                    filteredCreditRating[0].totalRating,
-                                ) * 100
-                              ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].businessProfile.total.overallValue /
+                                filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                             : '0'}{' '}
                           %
                         </span>
@@ -2466,13 +2465,12 @@ function Index() {
                           <span
                             style={{
                               background: '#FF4230',
-                              width: `${
-                                filteredCreditRating?.length > 0
-                                  ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                                      filteredCreditRating[0].totalRating) *
-                                    100
-                                  : '0'
-                              }%`,
+                              width: `${filteredCreditRating?.length > 0
+                                ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                                : '0'
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2493,11 +2491,11 @@ function Index() {
                         >
                           {filteredCreditRating?.length > 0
                             ? (
-                                Number(
-                                  filteredCreditRating[0].revenueProfile.total.overallValue /
-                                    filteredCreditRating[0].totalRating,
-                                ) * 100
-                              ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].revenueProfile.total.overallValue /
+                                filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                             : '0'}{' '}
                           %
                         </span>
@@ -2539,13 +2537,12 @@ function Index() {
                           <span
                             style={{
                               background: '#83C400',
-                              width: `${
-                                filteredCreditRating?.length > 0
-                                  ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                                      filteredCreditRating[0].totalRating) *
-                                    100
-                                  : '0'
-                              }%`,
+                              width: `${filteredCreditRating?.length > 0
+                                ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                                : '0'
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2566,11 +2563,11 @@ function Index() {
                         >
                           {filteredCreditRating?.length > 0
                             ? (
-                                Number(
-                                  filteredCreditRating[0].financialProfile.total.overallValue /
-                                    filteredCreditRating[0].totalRating,
-                                ) * 100
-                              ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].financialProfile.total.overallValue /
+                                filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                             : '0'}{' '}
                           %
                         </span>
@@ -3672,9 +3669,9 @@ function Index() {
                             >
                               {share?.percentageShareHolding
                                 ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }) + '%'
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }) + '%'
                                 : ''}
                             </td>
                             <td
@@ -4109,11 +4106,10 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debtProfileColor(debt.conduct)}`,
-                                    width: `${
-                                      (Number(debt.limit) / totalLimitDebt() > 1
-                                        ? 1
-                                        : Number(debt.limit) / totalLimitDebt()) * 100
-                                    }%`,
+                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
+                                      ? 1
+                                      : Number(debt.limit) / totalLimitDebt()) * 100
+                                      }%`,
                                     height: '10px',
                                     borderRadius: '2px',
                                     display: 'inline-block',
@@ -4239,15 +4235,14 @@ function Index() {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
-                              color: `${
-                                debt.conduct == 'Good'
-                                  ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
+                              color: `${debt.conduct == 'Good'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
                                   : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : '#EA3F3F'
-                              }`,
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`,
                             }}
                           >
                             {debt?.conduct}
@@ -4318,8 +4313,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.monthlyProductionCapacity
                     ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
                   {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                 </td>
@@ -4347,8 +4342,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.averageStockInTransit
                     ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
                   {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                 </td>
@@ -4423,8 +4418,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.availableStock
                     ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
                   {camData?.productSummary?.availableStock ? 'MT' : ''}
                 </td>
@@ -4463,8 +4458,8 @@ function Index() {
                     )} */}
                   {camData?.productSummary?.AvgMonthlyElectricityBill
                     ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                      maximumFractionDigits: 2,
+                    })
                     : ''}
                 </td>
               </tr>
@@ -4493,8 +4488,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity
                     ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                 </td>
@@ -4667,7 +4662,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -4736,7 +4731,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5671,11 +5666,11 @@ function Index() {
                                     'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                                     '',
                                   ) +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                      '',
-                                    ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                                    '',
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5697,11 +5692,11 @@ function Index() {
                                     'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                                     '',
                                   ) +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                      '',
-                                    ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                                    '',
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5731,11 +5726,11 @@ function Index() {
                               {convertValue(
                                 Number(
                                   _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                      '',
-                                    ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                                    '',
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5753,11 +5748,11 @@ function Index() {
                               {convertValue(
                                 Number(
                                   _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                      '',
-                                    ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                                    '',
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -6713,12 +6708,12 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {[].forEach((l, index2) => {})}
+                  {[].forEach((l, index2) => { })}
                   {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
                     ? moment(
-                        _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
-                        'MMyyyy',
-                      ).format('MM-yyyy')
+                      _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
+                      'MMyyyy',
+                    ).format('MM-yyyy')
                     : ''}
                 </td>
                 <td
@@ -7235,9 +7230,9 @@ function Index() {
                       >
                         {filteredCreditRating && filteredCreditRating?.length > 0
                           ? filteredCreditRating?.length > 0 &&
-                            filteredCreditRating?.map((val, index) => {
-                              checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
-                            })
+                          filteredCreditRating?.map((val, index) => {
+                            checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
+                          })
                           : '-'}
                       </td>
                       <td
@@ -7458,6 +7453,11 @@ function Index() {
   const GstDataHandler = (data) => {
     setGstData(data);
   };
+  const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
+  const returnDataPeriodAndColour = (period, index) => {
+    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' }
+    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' }
+  }
 
   const handleGSTDownload = (value) => {
     let path = '';
@@ -7695,36 +7695,36 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : supremeCourt?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : highCourt?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
 
       tribunalCourts =
         tribunalCourts.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : tribunalCourts?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
       districtCourt =
         districtCourt.length <= 0
           ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : districtCourt?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
     }
 
     //civil Crimnal
@@ -7746,36 +7746,36 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : supremeCourt?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : highCourt?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
 
       tribunalCourts =
         tribunalCourts.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : tribunalCourts?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
       districtCourt =
         districtCourt.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : districtCourt?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
     }
 
     //party2
@@ -7803,36 +7803,36 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : supremeCourt?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : highCourt?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
 
       tribunalCourts =
         tribunalCourts.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : tribunalCourts?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
       districtCourt =
         districtCourt.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : districtCourt?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
     }
 
     setSupreme([...supremeCourt]);
@@ -8119,13 +8119,13 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
                     <Peer peerData={companyData} />
 
@@ -8823,8 +8823,8 @@ const table2 = (sat, balance, complienceFilter) => {
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-              ? 'All'
-              : `Banking Defaults`}
+                ? 'All'
+                : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -8834,63 +8834,63 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-            sat?.map((alert, index) => {
-              {
-              }
-              return (
-                <tr key={index}>
-                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert?.value?.length > 1 ? (
-                      <>
-                        {alert.value.map((val, index) => {
-                          return (
-                            <>
-                              {val}
-                              {index !== alert.value.length - 1 ? ', ' : ''}
-                            </>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                    )}
-                  </td>
-                </tr>
-              );
-            })
+          sat?.map((alert, index) => {
+            {
+            }
+            return (
+              <tr key={index}>
+                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                <td className="text-capitalize">
+                  {' '}
+                  {alert?.value?.length > 1 ? (
+                    <>
+                      {alert.value.map((val, index) => {
+                        return (
+                          <>
+                            {val}
+                            {index !== alert.value.length - 1 ? ', ' : ''}
+                          </>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                  )}
+                </td>
+              </tr>
+            );
+          })
           : balance.length > 0 &&
-            balance?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert?.value?.length > 1 ? (
-                      <>
-                        {alert.value.map((val, index) => {
-                          return (
-                            <>
-                              {val}
-                              {index !== alert.value.length - 1 ? ', ' : ''}
-                            </>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+          balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                <td className="text-capitalize">
+                  {' '}
+                  {alert?.value?.length > 1 ? (
+                    <>
+                      {alert.value.map((val, index) => {
+                        return (
+                          <>
+                            {val}
+                            {index !== alert.value.length - 1 ? ', ' : ''}
+                          </>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&
