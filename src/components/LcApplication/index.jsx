@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from './index.module.scss';
-import { Col, Form, Row } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
 import Router from 'next/router';
+import { useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
 import { checkNan } from '../../utils/helper';
+import DateCalender from '../DateCalender';
+import styles from './index.module.scss';
 
 function Index({
   saveLcData,
@@ -637,8 +637,7 @@ function Index({
                       <strong className="text-danger">*</strong>
                     </div>
                     <div className="d-flex mt-5 pb-4">
-                      <input
-                        as="textarea"
+                      <textarea
                         rows={3}
                         className={`${styles.comment_field} input form-control`}
                         onChange={(e) => addComment(e.target.value)}
@@ -710,8 +709,7 @@ function Index({
                       <strong className="text-danger">*</strong>
                     </div>
                     <div className="d-flex mt-5 pb-4">
-                      <input
-                        as="textarea"
+                      <textarea
                         rows={3}
                         className={`${styles.comment_field} input form-control`}
                         onChange={(e) => addConditionComment(e.target.value)}

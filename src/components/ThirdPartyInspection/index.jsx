@@ -1,18 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
+import _get from 'lodash/get';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import DateCalender from '../DateCalender';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { UpdateInspection } from 'redux/Inspections/action';
-import _get from 'lodash/get';
 import { toast } from 'react-toastify';
-import UploadOther from '../UploadOther/index';
+import { UpdateInspection } from 'redux/Inspections/action';
 import { ViewDocument } from 'redux/ViewDoc/action';
-import moment from 'moment';
 import { GetAllInspection } from '../../redux/Inspections/action';
+import DateCalender from '../DateCalender';
+import SaveBar from '../SaveBar';
+import UploadOther from '../UploadOther/index';
+import styles from './index.module.scss';
 
 export default function Index({ addButton }) {
   const dispatch = useDispatch();
@@ -1126,8 +1126,7 @@ export default function Index({ addButton }) {
                   <Row>
                     <Col lg={12}>
                       <div className="mt-4">
-                        <input
-                          as="textarea"
+                        <textarea
                           name="loadPortInspectionDetails.specialMention"
                           value={inspectionDetails?.loadPortInspectionDetails?.specialMention}
                           onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
@@ -2288,8 +2287,7 @@ const Discharge = (
         <Row>
           <Col lg={12}>
             <div className="mt-4">
-              <input
-                as="textarea"
+              <textarea
                 rows={3}
                 name="dischargePortInspectionDetails.specialMention"
                 value={inspectionDetails?.dischargePortInspectionDetails?.specialMention}

@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import { associateshipPrint, sellerPrint } from '../../../src/utils/agreementTemplate';
+import { associateshipPrint, sellerPrint } from '../../../src/templates/agreementTemplate';
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPrev
 import IGIAgreementPreview from '../../../src/templates/IGIAgreementPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
+import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
 
 function index() {
   const [data, setData] = useState({
@@ -181,7 +182,7 @@ function index() {
       name = 'QPA.pdf';
     }
     if (preview == 'ASSO') {
-      toPrint = associateshipPrint(data);
+      toPrint = AssociateshipAgreementPreview(data);
       name = 'Associateship.pdf';
     }
     if (preview == 'UNDERTAKING1') {
