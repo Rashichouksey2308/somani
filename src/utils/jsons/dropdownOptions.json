@@ -1,0 +1,75 @@
+{
+  "modulesDropDown": [
+    {
+      "name": "Lead Onboarding & Order Approval",
+      "value": "LeadOnboarding&OrderApproval"
+    },
+    {
+      "name": "Agreements, Insurance & LC Opening",
+      "value": "Agreements&Insurance&LC&Opening"
+    },
+    {
+      "name": "Loading-Transit-Unloading",
+      "value": "Loading-Transit-Unloading"
+    },
+    {
+      "name": "Custom Clearance And Warehousing",
+      "value": "customClearanceAndWarehousing"
+    },
+    {
+      "name": "Payments Invoicing & Delivery",
+      "value": "Payments Invoicing & Delivery"
+    },
+    {
+      "name": "Others",
+      "value": "Others"
+    }
+  ],
+  "dropDownOptionLeadOnboarding": [
+    "Certificate of Incorporation",
+    "IEC Certificate",
+    "Business Registration Certificate ",
+    "PAN Card",
+    "GST Certificate",
+    "Bank Reference Letter",
+    "Financial Year "
+  ],
+  "dropDownOptionLoading": [
+    "Certificate Of Origin",
+    "Certificate Of Quality",
+    "Certificate Of Weight",
+    "Plot Inspection Report",
+    "BL ",
+    "Container No List ",
+    "Packing List ",
+    "BL Acknowledgment Copy",
+    "Forward Sales Contract",
+    "Coal Import Registration Certificate"
+  ],
+  "dropDownOptionAgreements": [
+    "Lc Draft",
+    "lC Amendment Draft",
+    "vessel Certificate",
+    "vessel Certificate Container List",
+    "policy Document Marine",
+    "policy Document Storage"
+  ],
+  "dropDownOptionCustomClearance": [
+    "BOE Provisional",
+    "BOE Final - in case of final assessment.",
+    "Duty Paid Challan ",
+    "PD Bond",
+    "BOE Final",
+    "BOE Provisional ",
+    "BOE Final - in case of final assessment. ",
+    "PD Bond",
+    "Duty Paid Challan ",
+    "Statements of Facts",
+    "Discharge Confirmation",
+    "BOE Final"
+  ],
+  "dropDownOptionPayments": [
+    "RR",
+    "eWay Bill"
+  ]
+}
