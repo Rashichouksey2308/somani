@@ -56,7 +56,6 @@
     }
 
     .bill_landing {
-      //background: #FFFFFF;
       border: 2px solid #cad6e6;
       border-radius: 9px;
 
@@ -89,7 +88,6 @@
       }
 
       p {
-        // color: #111111;
         font-size: 20px;
         line-height: 60px;
         @include respond(sm-desktop) {
@@ -218,7 +216,6 @@
 
 .customSelect {
   appearance: none;
-  // position: relative;
   padding-right: 40px !important;
 }
 

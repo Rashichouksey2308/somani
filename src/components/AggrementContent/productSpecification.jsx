@@ -145,11 +145,7 @@ function Index(props) {
                   type="file"
                   name="myfile"
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  // onChange={(e) => {
-                  //   // addDoc(e.target.files[0], index)
-                  //   // uploadDocument2(e)
-                  //   setdoc({ attachDoc: e.target.files[0].name })
-                  // }}
+                  
                   onChange={handleFile}
                 />
                 <button className={`${styles.button_upload2} btn`}>Upload Specifications</button>
