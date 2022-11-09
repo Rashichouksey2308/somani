@@ -1,34 +1,34 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const initialState = {
   Fetchingmcareport: false,
-  mcaReport: null
-}
+  mcaReport: null,
+};
 
-function McaReportReducer (state = initialState, action) {
+function McaReportReducer(state = initialState, action) {
   switch (action.type) {
-    case types.PLACE_ORDER:
+    case types.GET_MCA_REPORT:
       return {
         ...state,
         Fetchingmcareport: true,
-        mcaReport: null
-      }
-    case types.PLACE_ORDER_SUCCESSFULL:
+        mcaReport: null,
+      };
+    case types.GET_MCA_REPORT_SUCCESS:
       return {
         ...state,
         Fetchingmcareport: false,
-        mcaReport: action.payload
-      }
-    case types.PLACE_ORDER_FAILED:
+        mcaReport: action.payload,
+      };
+    case types.GET_MCA_REPORT_FAILURE:
       return {
         ...state,
         Fetchingmcareport: false,
-        mcaReport: null
-      }
+        mcaReport: null,
+      };
 
     default:
-      return state
+      return state;
   }
 }
 
-export default McaReportReducer
+export default McaReportReducer;

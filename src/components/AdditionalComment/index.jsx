@@ -7,9 +7,6 @@ import styles from './index.module.scss';
 
 const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, otherTermConditions }) => {
   const [commentType, setCommentType] = useState('select an Option');
-
-  const [comment, setComment] = useState([]);
-  const [text, setText] = useState('');
   const [isCommentEditable, setIsCommentEditable] = useState({});
   const [dueDateTextObject, setDueDateTextObject] = useState({
     dueDateTextOne: '',
@@ -30,7 +27,6 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
     });
   }, [termsheetDetails]);
 
-  const allcomment = [];
   useEffect(() => {
     additionalComments.map((comment, index) => {
       setIsCommentEditable((prev) => ({ ...prev, [index]: false }));

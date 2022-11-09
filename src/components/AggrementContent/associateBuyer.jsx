@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import {editData} from './editContainer'
+import {addressLists} from './addressList'
 let associate = {
   branchName: '',
   shortName: '',
@@ -579,37 +580,7 @@ function Index(props) {
           
             {addressList?.map((val, index) => {
               return (
-                <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
-                  <div className={`${styles.registeredAddressHeading}`}>
-                    <span>{val.addressType} Address</span>
-                    <div className={`${styles.address_text}`}>
-                      {val.fullAddress} {val.pinCode} {val.country}
-                    </div>
-                  </div>
-                   
-                    <div className={`d-flex ${styles.actions} `}>
-                    {index==0? null: 
-                     <div
-                        className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
-                        onClick={() => {
-                          handleEditAddressInput(index);
-                        }}
-                      >
-                        <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
-                      </div>
-                      }
-                      <div
-                        className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
-                        onClick={() => {
-                          onAddressRemove(index);
-                        }}
-                      >
-                         <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
-                        
-                      </div>
-                    </div>
-                  
-                </div>
+              addressLists(val, index, handleEditAddressInput, onAddressRemove)
               );
             })}
           </div>
@@ -623,6 +594,7 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            "noBranch"
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card m-0 border_color`}>
@@ -962,50 +934,7 @@ function Index(props) {
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                  {/* <tr  className='table_row'>
-                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
-                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                      <td>{ doc.attachDoc == '' ? '' : moment(doc.attachDoc?.date).format('DD-MM-YYYY, h:mm a')}</td>
-                      <td>
-                      <td style={{padding:"0"}}>
-                    {doc.attachDoc == '' ? (
-                      <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={async(e) => {
-                            // addDoc(e.target.files[0], index)
-                            // uploadDocument2(e)
-                           let data = await props.uploadDoc(e)
-                          
-                            setdoc({attachDoc:data})
-                          }}
-                        />
-                        <button className={`${styles.button_upload} btn`}>
-                          Upload
-                        </button>
-                      </div>
-                    ) : (
-                      <div className={`${styles.certificate} d-flex justify-content-between`}>
-                        <span>
-                          {doc?.attachDoc?.originalName}
-                        </span>
-                        <img
-                          className={`${styles.close_image}`}
-                          src="/static/close.svg"
-                          onClick={() =>setdoc({attachDoc:""})}
-                          alt="Close"
-                        />{' '}
-                      </div>
-                    )}
-                      </td>
-                      </td>
-                      <td>
-                      
-                        <img  src="/static/upload.svg" alt="upload"/>
-                      </td>
-                  </tr>  */}
+             
 
                   {docList.length > 0 &&
                     docList.map((val, index) => {
@@ -1020,7 +949,7 @@ function Index(props) {
                             </td>
                             <td>
                               <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                              {/* {val.designation} */}
+                             
                             </td>
                             <td>{`28-02-2022,5:30 PM`}</td>
                             <td>
@@ -1033,7 +962,7 @@ function Index(props) {
                                     onChange={async (e) => {
                                       let data = await props.uploadDoc(e);
                                       addDoc(data, index);
-                                      // uploadDocument2(e)
+                                    
                                     }}
                                   />
                                   <button className={`${styles.button_upload} btn`}>Upload</button>

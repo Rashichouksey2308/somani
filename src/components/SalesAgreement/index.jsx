@@ -24,7 +24,7 @@ import API from '../../../src/utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
-import { getInternalCompanies, getVendors } from '../../redux/masters/action';
+import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
 
 function Index(props) {
   const dispatch = useDispatch();
