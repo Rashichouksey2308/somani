@@ -9,12 +9,14 @@ import {GetAllInternalCompanies, GetInternalCompanies} from '../../src/redux/int
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 
 const index = () => {
+  
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
+
   const { allInternalCompanies } = useSelector((state) => state.internalCompanies);
 
   console.log(allInternalCompanies, 'ALL INTERNAL COMPANIES')
