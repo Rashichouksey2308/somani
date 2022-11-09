@@ -4,9 +4,12 @@ import React, { useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import { addressValidtion, bankValidtion } from '@/utils/helpers/review';
+import AddComponent from './AddComponent';
 
-function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDetails, deleteAddress, deleteBank }) {
+function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDetails, deleteAddress, deleteBank, updateKeyAddDataArr }) {
   const [countryName, setCountryName] = useState('India');
+
+  // Address Schema code
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -64,6 +67,49 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
     Swift_Code: '',
     AD_Code: '',
   });
+
+  const [showAddress, setShowAddress] = useState(true);
+  const [Index, setIndex] = useState('0');
+  const [showEditAddress, setShowEditAddress] = useState(false);
+  
+  const [editData, setEditData] = useState({
+    GSTIN: '',
+    addressType: '',
+    branch: '',
+    city: '',
+    state: '',
+    fullAddress: '',
+    email: '',
+    pinCode: '',
+  });
+
+  const editAddress = (index) => {
+    setShowAddress(false);
+    setShowEditAddress(true);
+    setIndex(index);
+
+    let tempArr = keyAddData;
+    setEditData({
+      GSTIN: tempArr[index].GSTIN,
+      addressType: tempArr[index].addressType,
+      branch: tempArr[index].branch,
+      city: tempArr[index].city,
+      state: tempArr[index].state,
+      email: tempArr[index].email,
+      fullAddress: tempArr[index].fullAddress,
+      pinCode: tempArr[index].pinCode,
+    });
+  };
+
+  const changeData = (name, value) => {
+    const newInput = { ...editData };
+    newInput[name] = value;
+
+    setEditData(newInput);
+  };
+
+
+  // Bank Schema Code //
 
   const handleBankChange = (name, value) => {
     const newInput = { ...bankData };
@@ -204,7 +250,7 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
 
             <div className={`${styles.dashboard_form} card-body`} style={{ borderTop: '3px solid #D2D7E5' }}>
               <div className={`${styles.card_heading} mt-3`}>Key Addresses</div>
-              <div className={`${styles.address_card} pb-5 value background1`} style={{ marginTop: '40px' }}>
+              {/* <div className={`${styles.address_card} pb-5 value background1`} style={{ marginTop: '40px' }}>
                 <div
                   className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
                 >
@@ -410,7 +456,9 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
                 <button onClick={() => handleCancel} className={`${styles.cancel_btn}`}>
                   Cancel
                 </button>
-              </div>
+              </div> */}
+             {showAddress ? <AddComponent handleChange={handleChange} handleCancel={handleCancel} handleClick={handleClick} countryName={countryName} keyAddressData={keyAddressData} />: null}
+             {showEditAddress ? <AddComponent index={Index} editData={editData} setShowEditAddress={setShowEditAddress} setShowAddress={setShowAddress} showEditAddress={showEditAddress} handleChange={changeData} handleCancel={handleCancel} handleClick={updateKeyAddDataArr} countryName={countryName} keyAddressData={editData}  /> : null}
               {keyAddData &&
                 keyAddData?.length > 0 &&
                 keyAddData?.map((val, index) => (
@@ -437,7 +485,7 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
                         </div>
                         <div>
                           <div className="d-flex">
-                            <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
+                            <img onClick={() => {editAddress(index)}} className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                             <div className={`${styles.delete_image} ml-3`}>
                               <Image onClick={() => deleteAddress(index)} src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                             </div>
