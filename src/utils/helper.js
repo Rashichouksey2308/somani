@@ -61,6 +61,7 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
  */
 export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
   let newValue = Number(value / coversionRate);
+  if (value === 0) return 0;
   if (!newValue) return '';
   return newValue;
 };
@@ -161,7 +162,7 @@ export const addPrefixSymbol = (symbol = '') => {
   return symbol;
 };
 
-export const crConverter = (amount=0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
+export const crConverter = (amount = 0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
   maximumFractionDigits: 2,
 })} Cr`
 
