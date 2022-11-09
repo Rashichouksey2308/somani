@@ -3,10 +3,9 @@
 import React, { useState } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
-import { addressValidtion } from '@/utils/helpers/review';
-import { VALID_LOADERS } from 'next/dist/shared/lib/image-config';
+import { addressValidtion, bankValidtion } from '@/utils/helpers/review';
 
-function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDetails, deleteAddress }) {
+function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDetails, deleteAddress, deleteBank }) {
   const [countryName, setCountryName] = useState('India');
 
   const [keyAddressData, setKeyAddressData] = useState({
@@ -74,7 +73,7 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
   };
 
   const handleBankClick = () => {
-    // if (bankValidtion(bankData)) {
+    if (bankValidtion(bankData, countryName)) {
     bankDataArr(bankData);
     setBankData({
       IFSC: '',
@@ -85,7 +84,7 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
       Swift_Code: '',
       AD_Code: '',
     });
-    // }
+    }
   };
 
   const handleBankCancel = () => {
@@ -654,6 +653,7 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
                                   src="/static/delete 2.svg"
                                   className={`${styles.delete_image} border-0 p-0`}
                                   alt="delete"
+                                  onClick={()=>deleteBank(index)}
                                 />
                               </div>
                             </td>
@@ -687,6 +687,7 @@ function Index({ keyAddDataArr, keyAddData, saveCompanyData, bankDataArr, bankDe
                                   src="/static/delete 2.svg"
                                   className={`${styles.delete_image} border-0 p-0`}
                                   alt="delete"
+                                  onClick={()=>deleteBank(index)}
                                 />
                               </div>
                             </td>

@@ -52,6 +52,10 @@ function Index() {
     setBankDetails(newArr);
   };
 
+  const deleteBank = (index) => {
+    setBankDetails([...bankDetails.slice(0, index), ...bankDetails.slice(index + 1)]);
+  };
+
   const handleSubmit = () => {
     let data = {
       Country: companyData.Country,
@@ -89,7 +93,7 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-        <InternalCompanies keyAddDataArr={keyAddDataArr} deleteAddress={deleteAddress} keyAddData={keyAddData} saveCompanyData={saveCompanyData} handleSubmit={handleSubmit} bankDataArr={bankDataArr} bankDetails={bankDetails} />
+        <InternalCompanies keyAddDataArr={keyAddDataArr} deleteAddress={deleteAddress} keyAddData={keyAddData} saveCompanyData={saveCompanyData} handleSubmit={handleSubmit} bankDataArr={bankDataArr} bankDetails={bankDetails} deleteBank={deleteBank} />
       </Card>
     </div>
   );
