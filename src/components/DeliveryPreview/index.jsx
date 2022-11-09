@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import styles from './index.module.scss';
-import SaveBar from '../SaveBar';
-import { useDispatch, useSelector } from 'react-redux';
 import _get from 'lodash/get';
-import { GetDelivery } from '../../redux/release&DeliveryOrder/action';
 import moment from 'moment/moment';
+import { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetDelivery } from '../../redux/release&DeliveryOrder/action';
+import SaveBar from '../SaveBar';
+import styles from './index.module.scss';
 
 function Index() {
   const dispatch = useDispatch();
