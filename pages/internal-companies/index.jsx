@@ -19,8 +19,6 @@ const index = () => {
 
   const { allInternalCompanies } = useSelector((state) => state.internalCompanies);
 
-  console.log(allInternalCompanies, 'ALL INTERNAL COMPANIES')
-
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);

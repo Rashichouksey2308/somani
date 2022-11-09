@@ -1,10 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from '../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import InternalCompanies from '../../src/components/InternalCompanies'
 
 function Index () {
+
+  const [companyData, setCompanyData] = useState({
+    Country: '',
+    Company_Name: '',
+    Short_Name: '',
+    PAN: '',
+    CIN_No: '',
+  })
+
+  const [keyAddData, setKeyAddData] = useState([]);
+
+  const keyAddDataArr = (keyAddressData) => {
+    let newArr = [...keyAddData];
+    newArr.push(keyAddressData);
+    setKeyAddData(newArr);
+  };
+
+  const [authorisedSignatoryDetails, setAuthorisedSignatoryDetails] = useState([
+    {
+        name: '',
+        designation: '',
+        email: '',
+        phoneNo: ''
+    }
+  ]) 
+
+  const [bankDetails, setBankDetails] = useState([
+    {
+        IFSC: '',
+        Bank_Name: '',
+        Branch_Address: '',
+        Account_No: '',
+        gstin: '',
+        Swift_Code: '',
+        AD_Code: ''
+    }
+])
+
+
+
   return (
     <div className='container-fluid p-0 border-0'>
       <Card className={`${styles.card}`}>
@@ -28,7 +68,7 @@ function Index () {
             </div>
           </div>
         </Card.Header>
-        <InternalCompanies />
+        <InternalCompanies keyAddDataArr={keyAddDataArr} keyAddData={keyAddData} />
       </Card>
     </div>
   )

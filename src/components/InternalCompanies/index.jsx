@@ -3,10 +3,64 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
+import { addressValidtion } from '@/utils/helpers/review'
 
-function Index () {
+function Index ({keyAddDataArr, keyAddData}) {
+
+  console.log(keyAddData, 'KEY ADD')
   
   const [countryName, setCountryName] = useState('India') 
+
+  const [keyAddressData, setKeyAddressData] = useState(
+    {
+      GSTIN: '',
+      addressType: '',
+      branch: '',
+      city: '',
+      state: '',
+      fullAddress: '',
+      email:'',
+      pinCode: '',
+    }
+    );
+
+  const handleChange = (name, value) => {
+    const newInput = { ...keyAddressData };
+      newInput[name] = value;
+  
+      setKeyAddressData(newInput);
+    };  
+
+  const handleClick = () => {
+    if (addressValidtion(keyAddressData)) {
+      keyAddDataArr(keyAddressData);
+      setKeyAddressData( {
+        GSTIN: '',
+        addressType: '',
+        branch: '',
+        city: '',
+        state: '',
+        fullAddress: '',
+        email:'',
+        pinCode: '',
+      }
+      );
+    }
+  };
+
+  const handleCancel = () => {
+    setKeyAddressData( {
+      GSTIN: '',
+      addressType: '',
+      branch: '',
+      city: '',
+      state: '',
+      fullAddress: '',
+      email:'',
+      pinCode: '',
+    }
+    );
+  }
 
   return (
     <div className={`${styles.backgroundMain}`}>
@@ -116,11 +170,13 @@ function Index () {
                       <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          name='countryOfOrigin'
+                          name='addressType'
                           required
+                          onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         >
-                          <option value='India'>Agra</option>
-                          <option value='Dubai'>Dubai</option>
+                          <option value='' disabled>Select</option>
+                          <option value='Registered Address'>Registered Address</option>
+                          <option value='Branch Address'>Branch Address</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
                           Address Type<strong className='text-danger'>*</strong>
@@ -135,6 +191,7 @@ function Index () {
                         className={`${styles.input_field} border_color input form-control`}
                         required
                         type='number'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         onWheel={(event) => event.currentTarget.blur()}
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name='pinCode'
@@ -151,11 +208,13 @@ function Index () {
                       <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          name='countryOfOrigin'
+                          name='city'
+                          onChange={(e)=>handleChange(e.target.name, e.target.value)}
                           required
                         >
-                          <option value='India'>Agra</option>
-                          <option value='Dubai'>Dubai</option>
+                          <option selected disabled>Select</option>
+                          <option value='Agra'>Agra</option>
+                          <option value='Delhi'>Delhi</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>City</label>
                         <div className={`${styles.image_arrow} image_arrow`}>
@@ -168,7 +227,8 @@ function Index () {
                         className={`${styles.input_field} border_color input form-control`}
                         required
                         type='text'
-                        name='pinCode'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
+                        name='GSTIN'
                       />
                       <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
                     </div>
@@ -177,7 +237,8 @@ function Index () {
                         className={`${styles.input_field} border_color input form-control`}
                         required
                         type='text'
-                        name='pinCode'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
+                        name='fullAddress'
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Address <strong className='text-danger'>*</strong>
@@ -187,7 +248,9 @@ function Index () {
                       <input
                         type='text'
                         id='textInput'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         required
+                        name='branch'
                         className={`${styles.input_field} border_color input form-control`}
                       />
                       <label className={`${styles.label_heading} label_heading`} id='textInput'>
@@ -199,9 +262,11 @@ function Index () {
                       <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          name='countryOfOrigin'
+                          name='addressType'
                           required
+                          onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         >
+                          <option selected disabled>Select</option>
                           <option value='India'>Branch Address</option>
                           <option value='Dubai'>Office Address</option>
                         </select>
@@ -218,8 +283,9 @@ function Index () {
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         type='text'
-                        name='pinCode'
+                        name='fullAddress'
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Address <strong className='text-danger'>*</strong>
@@ -230,6 +296,7 @@ function Index () {
                         className={`${styles.input_field} border_color input form-control`}
                         required
                         type='text'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         name='city'
                       />
                       <label className={`${styles.label_heading} label_heading`}>
@@ -240,6 +307,8 @@ function Index () {
                       <input
                         type='text'
                         id='textInput'
+                        name='pinCode'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         required
                         className={`${styles.input_field} border_color input form-control`}
                       />
@@ -252,6 +321,8 @@ function Index () {
                       <input
                         type='text'
                         id='textInput'
+                        name='email'
+                        onChange={(e)=>handleChange(e.target.name, e.target.value)}
                         required
                         className={`${styles.input_field} border_color input form-control`}
                       />
@@ -264,25 +335,26 @@ function Index () {
                 <button
                   className={`${styles.add_btn}`}
                   // onClick={() => addData('address')}
+                  onClick={() => handleClick()}
                 >
                   Add
                 </button>
-                <button className={`${styles.cancel_btn}`}>Cancel</button>
+                <button onClick={()=>handleCancel} className={`${styles.cancel_btn}`}>Cancel</button>
               </div>
-              <div className='d-flex justify-content-between'>
+             { keyAddData && keyAddData?.length > 0 && keyAddData?.map((val, index) => ( <div key={index} className='d-flex justify-content-between'>
                 <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                   <div className='d-flex justify-content-between'>
                     <div>
-                      <label className={styles.label}>Registered Address</label>
+                      <label className={styles.label}>{val.addressType}</label>
                       <div className={styles.address_values}>
-                        <p>N-11, 29 Tilak Marg, New Delhi</p>
+                        <p>{val.fullAddress}</p>
                         <div className='d-flex'>
                           <p>
-                            <span>Email:</span> abc@email.com
+                            <span>Email:</span> {val.email}
                           </p>
                           { countryName === 'India' ? (
                           <p>
-                            <span className='ml-5'>GSTIN:</span> RTF67WTF76RT456
+                            <span className='ml-5'>GSTIN:</span> {val.GSTIN}
                           </p>
                          ) : ''}
                         </div>
@@ -298,7 +370,7 @@ function Index () {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>))}
             </div>
           </div>
         </div>
@@ -439,7 +511,7 @@ function Index () {
                 </div>
                 <button
                   className={`${styles.add_btn}`}
-                  // onClick={() => addData('address')}
+                  // onClick={() => handleClick()}
                 >
                   Add
                 </button>
