@@ -6,6 +6,6 @@
       "@/templates/*": ["templates/*"],
       "@/utils/*": ["utils/*"]
     }
-  },, "pages/vessel/validations.js"
+  },
   "include": ["src", "src/components/AggrementContent/.jsx"]
 }
