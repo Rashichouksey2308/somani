@@ -66,6 +66,20 @@ function Index() {
     setBankDetails(newArr);
   };
 
+  const updateBankDataArr = (newData, index) => {
+    setBankDetails((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return newData;
+        }
+
+        return obj;
+      });
+
+      return newState;
+    });
+  };
+
   const deleteBank = (index) => {
     setBankDetails([...bankDetails.slice(0, index), ...bankDetails.slice(index + 1)]);
   };
@@ -107,7 +121,18 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-        <InternalCompanies keyAddDataArr={keyAddDataArr} updateKeyAddDataArr={updateKeyAddDataArr} deleteAddress={deleteAddress} keyAddData={keyAddData} saveCompanyData={saveCompanyData} handleSubmit={handleSubmit} bankDataArr={bankDataArr} bankDetails={bankDetails} deleteBank={deleteBank} />
+        <InternalCompanies
+          keyAddDataArr={keyAddDataArr}
+          updateKeyAddDataArr={updateKeyAddDataArr}
+          deleteAddress={deleteAddress}
+          keyAddData={keyAddData}
+          saveCompanyData={saveCompanyData}
+          handleSubmit={handleSubmit}
+          bankDataArr={bankDataArr}
+          bankDetails={bankDetails}
+          deleteBank={deleteBank}
+          updateBankDataArr={updateBankDataArr}
+        />
       </Card>
     </div>
   );

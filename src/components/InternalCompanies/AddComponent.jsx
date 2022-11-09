@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
-import { editData } from '../AggrementContent/editContainer'
 
 function AddComponent({countryName, keyAddressData, handleCancel, handleChange, handleClick, showEditAddress, editData, index, setShowEditAddress, setShowAddress}) {
   return (
