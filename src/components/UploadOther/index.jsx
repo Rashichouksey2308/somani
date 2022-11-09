@@ -44,13 +44,15 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }
 
   useEffect(() => {
-    sessionStorage.setItem('docFetchID', orderid)
-    fetchData()
-    const tempArray = documentsFetched?.documents?.filter((doc) => doc?.module?.toLowerCase() === moduleSelected?.toLowerCase())
-    setFilteredDoc(tempArray)
-  }, [dispatch, orderid, moduleSelected])
+    if (documentsFetched) {
+      const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
+        return doc.module === moduleSelected;
+      })
+      tempArray?.forEach((obj) => obj.moving = false);
 
-  useEffect(() => {
+      setFilteredDoc(tempArray);
+    }
+  }, [orderid, documentsFetched]);
 
     console.log({documentsFetched})
     /* Filtering the documentsFetched array and setting the filteredDoc array. */
