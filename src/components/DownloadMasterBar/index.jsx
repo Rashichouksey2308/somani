@@ -7,7 +7,7 @@ function Index ({ btnName, handleSave, rightBtn, rightBtnClick, downloadFormat }
     <div className={`${styles.root} cta_bar`}>
       {downloadFormat ? (
         <div className='d-flex align-items-center mr-4'>
-          <div className={`${styles.sub_heading} mr-4 mt-1`}>Download As:</div>
+          <div className={`${styles.sub_heading} mr-4 mt-1 text`}>Download As:</div>
           <div className={`${styles.radio_form} ml-1`}>
             {['radio'].map((type, index) => (
               <div key={`inline-${index}`} className={`${styles.radio_group}`}>

@@ -55,8 +55,8 @@ function Index() {
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}

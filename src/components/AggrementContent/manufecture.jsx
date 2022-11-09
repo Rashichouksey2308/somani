@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Col, Form } from 'react-bootstrap';
-import { getPincodes } from '../../redux/masters/action';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {editData} from './editContainer'
 import {addressLists} from './addressList'
@@ -201,28 +201,7 @@ function Index(props) {
       setToView(false);
     }
   }, [getPincodesMasterData]);
-  const onEdit = (index) => {
-    let tempArr = list;
-    // tempArr[index].actions.edit="false"
-
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        // 👇️ if id equals 2, update country property
-        if (i == index) {
-          setRemovedOption(obj.name);
-          return { ...obj, actions: 'false' };
-        }
-
-        // 👇️ otherwise return object as is
-        return obj;
-      });
-
-      return newState;
-    });
-    // let temp=[...options]
-    // var indexOption = temp.indexOf(value.name);
-    //  setRemovedOption(value.name)
-  };
+ 
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -334,32 +313,7 @@ function Index(props) {
       return newState;
     });
   };
-  const addDoc = (e, index) => {
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: e };
-        }
-
-        return obj;
-      });
-
-      return newState;
-    });
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (obj.document) {
-          if ((obj.document = 'new')) {
-            return { ...obj, document: e };
-          }
-        }
-
-        return obj;
-      });
-
-      return newState;
-    });
-  };
+ 
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -744,14 +698,14 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
-            getPincodes,
+            props.gettingPins,
             handleDataEdit,
             dispatch,
             toShow,
             toView,
           )}
         {isEdit == false && (
-          addNewAddress(setAddressType,setAddress,addressType,toShow,toView,handleAddressInput,cancelAddress,props.gettingPins,newAddress,handleData)
+          addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true)
         )}
 
         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
@@ -799,7 +753,7 @@ function Index(props) {
                   cancelEditMultiAddress,
                   saveNewMultiAddress,
                   setMultiAddressType,
-                  getPincodes,
+                  props.gettingPins,
                   handleDataEditMines,
                   dispatch,
                   toShow,
@@ -807,7 +761,7 @@ function Index(props) {
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
-                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,toShow,toView,handleAddressMultiInput,cancelAddress,props.gettingPins,newMultiAddress,handleData)
+                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true)
                   
                 )}
               </div>

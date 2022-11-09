@@ -39,11 +39,6 @@ function index({
               <div className={`${styles.download_icon} my-auto`}>
                 <Image src="/static/file_download.svg" alt="Picture of the author" width={14} height={17} />
               </div>
-              {/* <img
-          className={`${styles.arrow} image_arrow img-fluid`}
-          src="/static/inputDropDown.svg"
-          alt="Search"
-        /> */}
             </div>
           </div>
         ) : (
