@@ -64,12 +64,14 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }, [dispatch, orderid, moduleSelected]);
 
   useEffect(() => {
-    const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
-      return doc.module === moduleSelected;
-    })
-    tempArray?.forEach((obj) => obj.moving = false);
+    if (documentsFetched) {
+      const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
+        return doc.module === moduleSelected;
+      })
+      tempArray?.forEach((obj) => obj.moving = false);
 
-    setFilteredDoc(tempArray);
+      setFilteredDoc(tempArray);
+    }
   }, [orderid, documentsFetched]);
 
   const DocDlt = (index) => {
