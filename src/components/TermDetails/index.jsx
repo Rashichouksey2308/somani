@@ -21,7 +21,7 @@ const Index = ({
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
-
+  console.log(port,"port")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,
@@ -155,6 +155,9 @@ const Index = ({
                       ? 'MT'
                       : termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
                   </option>
+                  <option value={"L"}>L</option>
+                  <option value={"KG"}>KG</option>
+                  <option value={"M"}>M</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Units of Measurement (UOM)
@@ -401,7 +404,7 @@ const Index = ({
                   <option selected>Select an option</option>
                   {port
                     .filter((val, index) => {
-                      if (val.Country.toLowerCase() !== 'india') {
+                      if (val.Country.toLowerCase() !== 'india' ) {
                         return val;
                       }
                     })
@@ -510,7 +513,7 @@ const Index = ({
                   <option selected>Select an option</option>
                   {port
                     .filter((val, index) => {
-                      if (val.Country.toLowerCase() == 'india') {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
                         return val;
                       }
                     })
@@ -635,9 +638,19 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option value="Vishakapatnam, India">Visakhapatnam, India</option>
-                  <option value="Mumbai, India">Mumbai, India</option>
-                  <option value="Gujrat, India">Gujrat, India</option>
+                    {port
+                    .filter((val, index) => {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                        return val;
+                      }
+                    })
+                    .map((val, index) => {
+                      return (
+                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                          {val.Port_Name},{val.Country}
+                        </option>
+                      );
+                    })}
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
