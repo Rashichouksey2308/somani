@@ -260,6 +260,10 @@
           text-transform: capitalize;
           width: 100%;
           margin-top: 8px;
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 15px;
+          }
           .datalist_option {
             position: relative;
             width: 30px;
@@ -348,6 +352,13 @@
           padding: 5px 12px;
           margin: 0 0 0 20px;
           box-shadow: none;
+          @include respond(lg-desktop) {
+            width: 65px;
+            height: 28px;
+            padding: 4px;
+            font-size: 14px;
+            line-height: 15px;
+          }
         }
       }
     }

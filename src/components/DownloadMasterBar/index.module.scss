@@ -37,7 +37,6 @@
   }
 
   .sub_heading {
-    color: #00000080;
     font-size: 16px;
     line-height: 17px;
     font-weight: 500;
@@ -49,7 +48,6 @@
   }
 
   .radio_form {
-    //padding-top: 30px;
     .radio_group {
       display: flex;
       @include respond(phone) {
@@ -58,11 +56,10 @@
 
       .radio {
         font-size: 20px;
-        color: #111111;
         letter-spacing: 0.19px;
         line-height: 25px;
         padding-right: 38px;
-        font-weight: normal !important;
+        font-weight: normal;
         @include respond(lg-desktop) {
           padding-right: 15px;
         }
@@ -76,21 +73,8 @@
             width: 13px;
             height: 13px;
           }
-          // @include respond(sm-desktop) {
-          //     font-size: 14px;
-          //     padding-right: 0px;
-          // }
-          // @include respond(phone) {
-          //     font-size: 12px;
-          // }
         }
-
-        // @include respond(xl-desktop) {
-        //     padding-right: 0px;
-
-        // }
         @include respond(lg-desktop) {
-          // padding-right: 0px;
           font-size: $font_size_mobile_input_label;
         }
         @include respond(md-desktop) {
