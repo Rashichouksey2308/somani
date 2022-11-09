@@ -60,7 +60,15 @@ function Index(props) {
 
           gstin: savedData.gstin,
         };
-        setAddressList(savedData.addresses);
+        setAddressList(savedData.addresses.length>0?savedData.addresses: [{
+        addressType: 'Registered',
+        fullAddress: props.address,
+        pinCode: '',
+        country: '',
+        gstin: '',
+        state: '',
+        city: '',
+      }]);
         setList(savedData.authorisedSignatoryDetails);
         let temp = [];
 
@@ -104,7 +112,17 @@ function Index(props) {
 
           gstin: props?.data?.gstin || props?.selectedGST,
         };
-        setAddressList(props?.data?.addresses ? props?.data?.addresses : []);
+        console.log(props?.data?.addresses.length,"props?.data?.addresses.length")
+        setAddressList(props?.data?.addresses.length > 0 ? props?.data?.addresses :
+          [{
+          addressType: 'Registered',
+          fullAddress: props.address,
+          pinCode: '',
+          country: '',
+          gstin: '',
+          state: '',
+          city: '',
+        }]);
         setList(props?.data?.authorisedSignatoryDetails ? props?.data?.authorisedSignatoryDetails : []);
         let temp = [];
         if (props?.data?.authorisedSignatoryDetails.length > 0) {
@@ -140,27 +158,28 @@ function Index(props) {
             }
           }
         });
-        setAddressList(props?.data.addresses);
+        // setAddressList(props?.data.addresses);
         setOptions([...optionArray]);
       }
     }
   }, [props]);
 
-  useEffect(() => {
-    if (props?.address) {
-      let a = {
-        addressType: 'Registered',
-        fullAddress: props.address,
-        pinCode: '',
-        country: '',
-        gstin: '',
-        state: '',
-        city: '',
-      };
+  console.log(addressList,"addressList")
+  // useEffect(() => {
+  //   if (props?.address) {
+  //     let a = {
+  //       addressType: 'Registered',
+  //       fullAddress: props.address,
+  //       pinCode: '',
+  //       country: '',
+  //       gstin: '',
+  //       state: '',
+  //       city: '',
+  //     };
 
-      setCompanyAddress(a);
-    }
-  }, [props.address]);
+  //     setCompanyAddress(a);
+  //   }
+  // }, [props.address]);
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Associate Buyer') {
@@ -557,18 +576,7 @@ function Index(props) {
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
-            {companyAddress.fullAddress !== '' ? (
-              <>
-                <div className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
-                  <div className={`${styles.registeredAddressHeading}`}>
-                    <span>{companyAddress.addressType} Address</span>
-                    <div className={`${styles.address_text}`}>
-                      {companyAddress.fullAddress} {companyAddress.pinCode} {companyAddress.country}
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : null}
+          
             {addressList?.map((val, index) => {
               return (
                 <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
@@ -578,9 +586,10 @@ function Index(props) {
                       {val.fullAddress} {val.pinCode} {val.country}
                     </div>
                   </div>
-                  {props.address !== val.fullAddress ? (
+                   
                     <div className={`d-flex ${styles.actions} `}>
-                      <div
+                    {index==0? null: 
+                     <div
                         className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                         onClick={() => {
                           handleEditAddressInput(index);
@@ -588,16 +597,18 @@ function Index(props) {
                       >
                         <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
                       </div>
+                      }
                       <div
                         className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                         onClick={() => {
                           onAddressRemove(index);
                         }}
                       >
-                        <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
+                         <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
+                        
                       </div>
                     </div>
-                  ) : null}
+                  
                 </div>
               );
             })}

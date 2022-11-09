@@ -129,8 +129,8 @@
 
       .right {
         font-weight: bold;
-        display: flex;
-        justify-content: flex-end;
+        // display: flex;
+        // justify-content: flex-end;
       }
 
       span {
@@ -214,9 +214,9 @@
     }
 
     .right {
-      display: flex;
-      align-items: center !important;
-      justify-content: flex-start !important;
+      // display: flex;
+      // align-items: center !important;
+      // justify-content: flex-start !important;
       padding: 0 15px;
     }
 
@@ -230,6 +230,9 @@
       // background: #C3C3C31F;
       // border: 1px solid #0000001F;
       border-radius: 4px;
+    }
+    ol {
+      padding-left: 20px;
     }
   }
 }
@@ -337,9 +340,9 @@
 
   .right {
     height: 100%;
-    display: flex;
+    // display: flex;
     padding-left: 50px;
-    justify-content: center !important;
+    // justify-content: center !important;
     padding: 0px;
   }
 
@@ -357,4 +360,25 @@
 
 .red {
   color: #ff0000 !important;
+}
+
+.tableWrapper {
+  overflow-y: auto;
+  max-height: 500px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+}
+.schedule_table {  
+  font-size: 18px;
+  line-height: 1.3;
 }
