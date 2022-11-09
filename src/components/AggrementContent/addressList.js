@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import { Col, Form } from 'react-bootstrap';
+
 export const addressLists = (val, index, handleEditAddressInput, onAddressRemove) => {
   return (
     <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>

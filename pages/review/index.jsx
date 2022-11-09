@@ -43,7 +43,8 @@ import {
   removePrefixOrSuffix,
 } from '../../src/utils/helper';
 
-import { handleErrorToast, orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
+import {orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
+import { handleErrorToast } from '../../src/utils/helpers/global';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCredit, UpdateCreditCalculate, UpdateOrderShipment } from '../../src/redux/buyerProfile/action';
