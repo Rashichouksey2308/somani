@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
+import _get from 'lodash/get'
 
 
 
@@ -13,6 +14,9 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
+
+  let data = _get(selectorData, 'data[0]', {})
+  console.log(data, 'Data')
 
   // const handleSearch = (e) => {
   //   const query = `${e.target.value}`;
