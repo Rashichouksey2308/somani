@@ -508,6 +508,9 @@ function Index({
                                       src="/static/mode_edit.svg"
                                       className={`${styles.edit_image} mr-3`}
                                       alt="edit"
+                                      onClick={() => {
+                                        editBankArr(index);
+                                      }}
                                     />
 
                                     <img
@@ -585,7 +588,7 @@ function Index({
                   <div className="d-flex mt-2">
                     <img src="/static/mode_edit.svg" className={`${styles.edit_image} mr-3`} alt="edit" />
                     <img src="/static/delete 2.svg" className={`${styles.delete_image} border-0 p-0`} alt="delete" />
-                    {/* <img className={`${styles.plus_add} img-fluid`} src="/static/add-btn.svg" alt="Plus" /> */}
+                    <img className={`${styles.plus_add} img-fluid`} src="/static/add-btn.svg" alt="Plus" />
                   </div>
                 </div>
               </div>
