@@ -3,7 +3,6 @@ import { Col, Form, FormControl, Modal, Row } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 function Index (props) {
-  const [email, setEmail] = useState('')
   return (
     <Modal
       show={props.open}
@@ -58,9 +57,6 @@ function Index (props) {
             </div>
           </Col>
         </Row>
-        {/* <div className={`${styles.left} col-md-6` }></div>
-       <div className={`${styles.right} col-md-6` }></div>
-      </div> */}
       </Modal.Body>
     </Modal>
   )

@@ -5,12 +5,6 @@ import Cookies from 'js-cookie'
 import * as types from './actionType'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getCommodity () {
-  return {
-    type: types.GET_COMMODITY
-  }
-}
-
 function getCommoditySuccess (payload) {
   return {
     type: types.GET_COMMODITY_SUCCESS,
@@ -21,12 +15,6 @@ function getCommoditySuccess (payload) {
 function getCommodityFailed () {
   return {
     type: types.GET_COMMODITY_FAILED
-  }
-}
-
-function getAllCommodity () {
-  return {
-    type: types.GET_ALL_COMMODITY
   }
 }
 
@@ -43,12 +31,6 @@ function getAllCommodityFailed () {
   }
 }
 
-function updateCommodity () {
-  return {
-    type: types.UPDATE_COMMODITY
-  }
-}
-
 function updateCommoditySuccess (payload) {
   return {
     type: types.UPDATE_COMMODITY_SUCCESS,
@@ -61,13 +43,6 @@ function updateCommodityFailed () {
     type: types.UPDATE_COMMODITY_FAILED
   }
 }
-
-function createCommodity () {
-  return {
-    type: types.CREATE_COMMODITY
-  }
-}
-
 function createCommoditySuccess (payload) {
   return {
     type: types.CREATE_COMMODITY_SUCCESS,
@@ -85,7 +60,7 @@ export const GetAllCommodity = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const [jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
@@ -155,7 +130,7 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
           dispatch(setNotLoading())
         }
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(getCommodityFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -179,7 +154,7 @@ export const CreateCommodity = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const [jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',

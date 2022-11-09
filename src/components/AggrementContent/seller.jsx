@@ -154,32 +154,7 @@ function Index(props) {
       }
     }
   }, [props]);
-  let masterList = [
-    {
-      name: 'Bhawana Jain',
-      designation: 'Vice President (Finance & Accounts)',
-      email: 'bhawanajain@somanigroup.com',
-      phoneNo: '',
-    },
-    {
-      name: 'Vipin Kumar',
-      designation: 'Manager Accounts',
-      email: 'vipinrajput@somanigroup.com',
-      phoneNo: '',
-    },
-    {
-      name: 'Devesh Jain',
-      designation: 'Director',
-      email: 'devesh@indointertrade.ch',
-      phoneNo: '',
-    },
-    {
-      name: 'Fatima Yannoulis',
-      designation: 'Chief Financial Officer',
-      email: 'fatima@indointertrade.ch',
-      phoneNo: '',
-    },
-  ];
+ 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Seller') {
       let data = {
@@ -318,7 +293,7 @@ function Index(props) {
       };
       setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
-      masterList.forEach((val, index) => {
+      props.masterList.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation;

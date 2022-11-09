@@ -11,8 +11,8 @@
 
   .header {
     font-weight: bold;
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 18px;
     text-transform: capitalize;
     background: none;
     border-bottom: 2px solid #f2f5f9;
@@ -35,7 +35,7 @@
     padding-top: 2rem;
     display: flex;
     flex-direction: column;
-    padding: 17px 24px 21px;
+    padding: 14px 24px 21px;
     @include respond(md-desktop) {
       padding: 15px;
     }
@@ -63,8 +63,8 @@
 
     .percent {
       text-align: right;
-      font-size: 23px;
-      margin-top: -23px;
+      font-size: 16px;
+      margin-top: -15px;
       color: #2884de;
       text-transform: capitalize;
       font-weight: bold;
@@ -88,8 +88,8 @@
       }
 
       margin-bottom: 1.2rem;
-      font-size: 14px;
-      padding-top: 25px;
+      font-size: 12px;
+      padding-top: 22px;
       color: #8492a6;
       text-transform: uppercase;
       display: flex;
@@ -119,8 +119,8 @@
         display: flex;
 
         span {
-          font-size: 18px;
-          line-height: 23px;
+          font-size: 12px;
+          line-height: 18px;
           // color: #111111;
           margin-bottom: -0.35rem;
         }
@@ -131,7 +131,7 @@
 
 .bar {
   position: relative;
-  height: 9px;
+  height: 6px;
   background: #f3f4f7;
   border-radius: 2px;
 

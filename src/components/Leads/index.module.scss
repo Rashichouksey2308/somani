@@ -10,12 +10,11 @@
   }
 
   .header {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 23px;
     font-weight: bold;
     background: none;
-    padding: 14px 22px;
-    // border-bottom: 2px solid #F2F5F9;
+    padding: 10px 22px;
     @include respond(md-desktop) {
       font-size: 16px;
       line-height: 1.3;
@@ -35,7 +34,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 22px 24px 33px;
+    padding: 14px 26px 26px;
     @include respond(lg-desktop) {
       padding: 20px;
     }
@@ -54,8 +53,8 @@
       }
 
       .leadsSub {
-        width: 58px;
-        height: 58px;
+        width: 55px;
+        height: 54px;
         background: #2883de3e 0% 0% no-repeat padding-box;
         border-radius: 8px;
         display: flex;
@@ -86,7 +85,6 @@
       }
 
       .lead_headContainer {
-        margin-right: 1rem;
         margin-left: 1rem;
         display: flex;
         justify-content: center;
@@ -106,8 +104,8 @@
 
         .lead_header {
           font-weight: bold;
-          font-size: 15px;
-          line-height: 18px;
+          font-size: 12px;
+          line-height: 14px;
           color: #8492a6;
           text-transform: uppercase;
           white-space: nowrap;
@@ -128,8 +126,8 @@
 
         .lead_value {
           font-weight: bold;
-          font-size: 28px;
-          line-height: 34px;
+          font-size: 18px;
+          line-height: 32px;
           color: #111111;
           text-transform: capitalize;
           @include respond(lg-desktop) {
@@ -144,10 +142,6 @@
           }
         }
       }
-
-      //  @media screen and (min-width: 1380) {
-      //         width: 40%;
-      //  }
     }
 
     .verticalLine {
@@ -164,8 +158,8 @@
 
       .lead_header {
         font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
+        font-size: 12px;
+        line-height: 15px;
         color: #8492a6;
         margin-bottom: 5px;
         text-transform: uppercase;
@@ -186,8 +180,8 @@
 
       .lead_value {
         font-weight: bold;
-        font-size: 28px;
-        line-height: 34px;
+        font-size: 18px;
+        line-height: 32px;
         color: #111111;
         text-transform: capitalize;
         @include respond(lg-desktop) {
