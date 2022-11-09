@@ -11,19 +11,15 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import TermsheetPopUp from '../TermsheetPopUp';
-import { toast } from 'react-toastify';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { emailValidation } from 'utils/helper';
+import { handleErrorToast, returnDocFormat } from 'utils/helpers/global';
 
 const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch();
 
   const { documentsFetched } = useSelector((state) => state.review);
-
-  const [editInput, setEditInput] = useState(true);
-
   const [manualDocModule, setManualDocModule] = useState(true);
-
   const [newDoc, setNewDoc] = useState({
     document: null,
     order: orderid,
@@ -44,20 +40,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
 
   const [open, setOpen] = useState(false);
 
-  const openbar = () => {
-    setOpen(true);
-  };
-
-  const close = () => {
-    setOpen(false);
-  };
-
   const [moduleSelected, setModuleSelected] = useState(module);
-
   const [filteredDoc, setFilteredDoc] = useState([]);
-
-  const [currentDoc, setCurrentDoc] = useState(null);
-
   const fetchData = async () => {
     await dispatch(GetDocuments(`?order=${orderid}`));
   };
@@ -76,32 +60,21 @@ const Index = ({ orderid, module, isDocumentName }) => {
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase();
     });
-
     setFilteredDoc(tempArray);
   }, [dispatch, orderid, moduleSelected]);
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents
-      ?.slice()
-      .filter((doc) => {
-        return doc.module === moduleSelected;
-      })
-      .map((obj) => ({ ...obj, moving: false }));
+    const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
+      return doc.module === moduleSelected;
+    })
+    tempArray?.forEach((obj) => obj.moving = false);
 
     setFilteredDoc(tempArray);
   }, [orderid, documentsFetched]);
 
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false);
-    } else {
-      setEditInput(true);
-    }
-  };
   const DocDlt = (index) => {
     let tempArray = filteredDoc;
     tempArray.splice(index, 1);
-
     setFilteredDoc(tempArray);
   };
 
@@ -123,7 +96,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
       module: module,
     });
   };
-  const [openDropdown, setDropdown] = useState(false);
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc };
     newUploadDoc1.document = e.target.files[0];
@@ -133,23 +105,15 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const uploadDocumentHandler = (e) => {
     e.preventDefault();
     if (newDoc.document === null) {
-      let toastMessage = 'please select A Document';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please select A Document')
     } else if (newDoc.name === '') {
-      let toastMessage = 'please provide a valid document name';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please provide a valid document name')
     } else {
       const fd = new FormData();
       fd.append('document', newDoc.document);
       fd.append('module', newDoc.module);
       fd.append('order', orderid);
-
       fd.append('name', newDoc.name);
-
       dispatch(AddingDocument(fd));
       setNewDoc({
         document: null,
@@ -159,7 +123,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
       });
     }
   };
-  const [filterValue, setFilterValue] = useState('');
 
   const filterDocBySearch = (val) => {
     if (!val.length >= 3) return;
@@ -176,22 +139,47 @@ const Index = ({ orderid, module, isDocumentName }) => {
     setFilteredDoc(tempArray);
   };
 
-  const handleShareDoc = async (doc) => {
+  const handleShareDoc = async () => {
     if (emailValidation(sharedDoc.data.receiver)) {
       let tempArr = { ...sharedDoc };
       tempArr.company = documentsFetched.company;
       tempArr.order = orderid;
       let data = await dispatch(ShareDocument(tempArr));
       if (data?.code == 200) {
-        close();
+        setOpen(false);
       }
     } else {
-      let toastMessage = 'please provide a valid email';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please provide a valid email')
     }
   };
+
+  const modulesDropDown = [{ name: "Lead Onboarding & Order Approval", value: "LeadOnboarding&OrderApproval" },
+  { name: "Agreements, Insurance & LC Opening", value: "Agreements&Insurance&LC&Opening" },
+  { name: "Loading-Transit-Unloading", value: "Loading-Transit-Unloading" },
+  { name: "Custom Clearance And Warehousing", value: "customClearanceAndWarehousing" },
+  { name: "Payments Invoicing & Delivery", value: "Payments Invoicing & Delivery" },
+  { name: "Others", value: "Others" }]
+
+  const dropDownOptionLeadOnboarding = ["Certificate of Incorporation", "IEC Certificate", "Business Registration Certificate ", "PAN Card", "GST Certificate", "Bank Reference Letter", "Financial Year "]
+  const dropDownOptionLoading = ["Certificate Of Origin", "Certificate Of Quality", "Certificate Of Weight", "Plot Inspection Report", "BL ", "Container No List ", "Packing List ", "BL Acknowledgment Copy", "Forward Sales Contract", "Coal Import Registration Certificate"]
+  const dropDownOptionAgreements = ["Lc Draft", "lC Ammendment Draft", "vessel Certificate", "vessel Certificate Container List", "policy Document Marine", "policy Document Storage"]
+  const dropDownOptionCustomClearance = ["BOE Provisional", "BOE Final - in case of final assessment.", "Duty Paid Challan ", "PD Bond", "BOE Final", "BOE Provisional ", "BOE Final - in case of final assessment. ", "PD Bond", "Duty Paid Challan ", "Statements of Facts", "Discharge Confirmation", "BOE Final"]
+  const dropDownOptionPayments = ["RR", "eWay Bill"]
+
+  const dropDownOptionHandler = () => {
+    switch (module) {
+      case 'LeadOnboarding&OrderApproval':
+        return dropDownOptionLeadOnboarding;
+      case 'Loading-Transit-Unloading':
+        return dropDownOptionLoading;
+      case 'Agreements&Insurance&LC&Opening':
+        return dropDownOptionAgreements;
+      case 'customClearanceAndWarehousing':
+        return dropDownOptionCustomClearance;
+      default:
+        return dropDownOptionPayments;
+    }
+  }
 
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
@@ -257,91 +245,14 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-                      {/* <option disabled selected>Select an option </option> */}
-                      {module === 'LeadOnboarding&OrderApproval' ? (
-                        <>
-                          {' '}
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Certificate of Incorporation">Certificate of Incorporation</option>
-                          <option value="IEC Certificate">IEC Certificate</option>
-                          <option value="Business Registration Certificate ">Business Registration Certificate</option>
-                          <option value="PAN Card">PAN Card</option>
-                          <option value="GST Certificate">GST Certificate</option>
-                          <option value="Bank Reference Letter">Bank Reference Letter</option>
-                          <option value="Financial Year ">Financial Year</option>
-                        </>
-                      ) : module === 'Loading-Transit-Unloading' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Certificate Of Origin">Certificate of Origin</option>
-                          <option value="Certificate Of Quality"> Certificate of Quality</option>
-                          <option value="Certificate Of Weight "> Certificate of Weight</option>
-                          <option value="Plot Inspection Report"> Plot Inspection Report</option>
-                          <option value="BL "> BL</option>
-                          <option value="Container No List "> Container No. List</option>
-                          <option value="Packing List "> Packing list</option>
-                          <option value="BL Acknowledgment Copy"> BL Acknowledgment Copy</option>
-                          <option value="Forward Sales Contract "> Forward Sales Contract</option>
-                          <option value="Coal Import Registration Certificate">
-                            {' '}
-                            Coal Import Registration Certificate
-                          </option>{' '}
-                          <option value="CIMS Payment Receipt "> CIMS Payment Receipt</option>{' '}
-                          <option value="IGM Copy "> IGM Copy</option>{' '}
-                        </>
-                      ) : module === 'Agreements & Insurance & LC & Opening' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="Lc Draft">LC Draft</option>
-
-                          <option value="lC Ammendment Draft"> LC Ammendment Draft</option>
-                          <option value="vessel Certificate"> Vessel certificate</option>
-                          <option value="vessel Certificate Container List"> Vessel Certificate, Container List</option>
-                          <option value="policy Document Marine"> Policy Document - Marine</option>
-                          <option value="policy Document Storage"> Policy Document - Storage</option>
-                        </>
-                      ) : module === 'Custom Clearance And Ware housing' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="BOE Provisional"> BOE Provisional</option>
-                          <option value="BOE Final - in case of final assessment.">
-                            {' '}
-                            BOE Final - in case of final assessment.
-                          </option>
-                          <option value="Duty Paid Challan "> Duty Paid Challan</option>
-                          <option value="PD Bond"> PD Bond</option>
-                          <option value="BOE Final"> BOE Final</option>
-                          <option value="BOE Provisional "> BOE Provisional</option>
-                          <option value="BOE Final - in case of final assessment. ">
-                            {' '}
-                            BOE Final - in case of final assessment.
-                          </option>
-                          <option value="PD Bond"> PD Bond</option>
-                          <option value="Duty Paid Challan "> Duty Paid Challan</option>
-                          <option value="Statements of Facts"> Statements of Facts</option>
-                          <option value="Discharge Confirmation"> Discharge Confirmation</option>
-                          <option value="BOE Final"> BOE Final</option>
-                        </>
-                      ) : (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="RR"> RR</option>
-                          <option value="eWay Bill"> eWay Bill</option>
-                        </>
-                      )}
+                      <option value="" disabled>
+                        Select an option
+                      </option>
+                      {dropDownOptionHandler()?.map((item) => (
+                        <option value={item} >
+                          {item}
+                        </option>
+                      ))}
                       <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
@@ -382,12 +293,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 <option selected disabled>
                   Select an option
                 </option>
-                <option value="LeadOnboarding&OrderApproval">Lead Onboarding &amp; Order Approval</option>
-                <option value="Agreements&Insurance&LC&Opening">Agreements, Insurance &amp; LC Opening</option>
-                <option value="Loading-Transit-Unloading">Loading-Transit-Unloading</option>
-                <option value="customClearanceAndWarehousing">Custom Clearance And Warehousing</option>
-                <option value="PaymentsInvoicing&Delivery">Payments Invoicing & Delivery</option>
-                <option value="Others">Others</option>
+                {modulesDropDown.map((item) => (
+                  <option value={item.value}>
+                    {item.name}
+                  </option>
+                ))}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>
@@ -429,7 +339,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 </thead>
                 <tbody>
                   <tr></tr>
-
                   {documentsFetched &&
                     filteredDoc?.map((document, index) => {
                       if (document.deleted) {
@@ -439,15 +348,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>{document.name}</td>
                             <td>
-                              {document.originalName.toLowerCase().endsWith('.xls') ||
-                              document.originalName.toLowerCase().endsWith('.xlsx') ? (
-                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                              ) : document.originalName.toLowerCase().endsWith('.doc') ||
-                                document.originalName.toLowerCase().endsWith('.docx') ? (
-                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                              ) : (
-                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                              )}
+                             {returnDocFormat(document?.originalName)}
                             </td>
                             <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
                             <td className={styles.doc_row}>
@@ -477,14 +378,13 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 className={`${styles.delete_image} p-0 border-0 bg-transparent mr-3`}
                                 alt="Share"
                                 onClick={() => {
-                                  openbar();
+                                  setOpen(true);
                                   setSharedDoc({
                                     ...sharedDoc,
                                     path: document.path,
                                   });
                                 }}
                               />
-
                               {!document.moving ? (
                                 <img
                                   src="/static/drive_file.svg"
@@ -502,7 +402,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                       onChange={async (e) => {
                                         DocDlt(index);
                                         await changeModule(documentsFetched._id, document.name, e.target.value);
-
                                         await fetchData();
                                       }}
                                       className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
@@ -511,39 +410,14 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                         paddingRight: '30px',
                                       }}
                                     >
-                                      <option
-                                        disabled={moduleSelected === 'LeadOnboarding&OrderApproval'}
-                                        value="LeadOnboarding&OrderApproval"
-                                      >
-                                        Lead Onboarding &amp; Order Approval
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'}
-                                        value="Agreements&Insurance&LC&Opening"
-                                      >
-                                        Agreements, Insurance &amp; LC Opening
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'Loading-Transit-Unloading'}
-                                        value="Loading-Transit-Unloading"
-                                      >
-                                        Loading-Transit-Unloading
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'customClearanceAndWarehousing'}
-                                        value="customClearanceAndWarehousing"
-                                      >
-                                        Custom Clearance And Warehousing
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'PaymentsInvoicing&Delivery'}
-                                        value="PaymentsInvoicing&Delivery"
-                                      >
-                                        Payments Invoicing & Delivery
-                                      </option>
-                                      <option disabled={moduleSelected === 'Others'} value="Others">
-                                        Others
-                                      </option>
+                                      {modulesDropDown.map((item) => (
+                                        <option
+                                          disabled={moduleSelected === item.value}
+                                          value={item.value}
+                                        >
+                                          {item.name}
+                                        </option>
+                                      ))}
                                     </select>
                                     <img
                                       className={`${styles.arrow2} img-fluid`}
@@ -564,9 +438,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
           </div>
         </div>
       </div>
-      {open ? (
+      {!open ? (
         <TermsheetPopUp
-          close={close}
+          close={() => setOpen(false)}
           open={open}
           istermsheet
           shareEmail={handleShareDoc}

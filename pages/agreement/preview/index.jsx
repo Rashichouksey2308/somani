@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import { associateshipPrint, sellerPrint } from '../../../src/utils/agreementTemplate';
+import { associateshipPrint, sellerPrint } from '../../../src/templates/agreementTemplate';
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';

@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import _get from 'lodash/get';
+import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { UploadDocument } from 'redux/registerBuyer/action';
-import { checkNan, phoneValidation } from 'utils/helper';
-import styles from './index.module.scss';
-import DateCalender from '../DateCalender';
-import { Form } from 'react-bootstrap';
-import AddressComponent from './addressComponent';
-import _get from 'lodash/get';
-import MultiSelect from '../MutilSelect';
 import { SearchSupplier } from 'redux/supplier/action';
+import { checkNan, phoneValidation } from 'utils/helper';
+import DateCalender from '../DateCalender';
+import MultiSelect from '../MutilSelect';
+import AddressComponent from './addressComponent';
+import styles from './index.module.scss';
 
 const index = ({
   creditDetail,
@@ -1108,7 +1108,6 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-12 mt-4`}>
                 <textarea
-                  as="textarea"
                   rows={3}
                   required
                   className={`${styles.remark_field} ${styles.input_field} input form-control`}

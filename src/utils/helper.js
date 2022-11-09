@@ -156,7 +156,12 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
  * @param [symbol] - The currency symbol you want to add a prefix to.
  */
 export const addPrefixSymbol = (symbol = '') => {
-  if (symbol === 'INR' || 'RUPEE') return 'INR';
+  if (symbol === 'RUPEE') return 'INR';
   if (symbol === 'BRITISHPOUND') return 'POUND';
   return symbol;
 };
+
+export const crConverter = (amount=0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
+  maximumFractionDigits: 2,
+})} Cr`
+
