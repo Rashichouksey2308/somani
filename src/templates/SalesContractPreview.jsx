@@ -1341,7 +1341,7 @@ export default function SalesContractPreview(data) {
           style={{
             fontFamily: 'Times New Roman, Times, serif',
             fontSize: '12px',
-            lineHeight: '1.5',
+            lineHeight: '1.3',
             color: '#000000',
             padding: '20px',
           }}
@@ -1655,7 +1655,7 @@ export default function SalesContractPreview(data) {
                           <td
                             bgColor="#fafafb"
                             style={{
-                              color: '#8492a6',
+                              color: '#000000',
                               fontWeight: 'bold',
                               borderBottom: '1px solid #d9dde8',
                               borderRight: '1px solid #d9dde8',
@@ -1675,7 +1675,7 @@ export default function SalesContractPreview(data) {
                             <td
                               style={{
                                 borderBottom: '1px solid #d9dde8',
-                                color: '#8492a6',
+                                color: '#000000',
                                 borderRight: '1px solid #d9dde8',
                                 padding: '5px',
                               }}
@@ -1731,10 +1731,10 @@ export default function SalesContractPreview(data) {
           <table width="100%" cellPadding="0" cellSpacing="0" border="0">
             <tr>
               <td width="50%">
-                <p style={{ color: '#000000', marginBottom: '0' }}>Seller</p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>(Seller)</p>
               </td>
               <td width="50%" style={{ paddingLeft: '15px' }}>
-                <p style={{ color: '#000000', marginBottom: '0' }}>Buyer</p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>(Buyer)</p>
               </td>
             </tr>
             <tr>
@@ -1742,10 +1742,18 @@ export default function SalesContractPreview(data) {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
+                <textarea
+                  value={data.sellerSignature}
+                  style={{ width: '100%', border: 'none', outline: 'none' }}
+                  rows={4}
+                ></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
+                <textarea
+                  value={data.buyerSignature}
+                  style={{ width: '100%', border: 'none', outline: 'none' }}
+                  rows={4}
+                ></textarea>
               </td>
             </tr>
           </table>

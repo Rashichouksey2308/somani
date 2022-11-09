@@ -1,7 +1,7 @@
 @import '../styles/Core/config';
 
 .main_container {
-  min-height: 42px;
+  min-height: 38px;
   width: 100%;
   background: #ffffff;
   box-shadow: 0 3px 12px #cad0e2;
@@ -28,7 +28,7 @@
     //     padding: 2px 5px 2px 0;
     // }
     img {
-      width: 17px;
+      width: 14px;
       height: 15px;
       margin-bottom: 5px;
       @include respond(phone) {
@@ -49,7 +49,7 @@
         span {
           height: 19px;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 15px;
           line-height: 19px;
           margin-left: 0.5rem;
           // white-space: nowrap;
@@ -80,7 +80,7 @@
         .values {
           height: 19px;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 15px;
           line-height: 19px;
           margin-left: 0.5rem;
           white-space: nowrap;
@@ -107,11 +107,11 @@
     }
 
     .unit_label {
-      font-size: 18px;
+      font-size: 15px;
       text-transform: capitalize;
       font-weight: bold;
       padding-right: 8px;
-      line-height: 23px;
+      line-height: 19px;
       margin-bottom: 0;
       display: inline-block;
       // white-space: nowrap;
@@ -127,11 +127,11 @@
 
     .options {
       color: #3687e8;
-      font-size: 18px;
+      font-size: 15px;
       margin-right: 10px;
       border-radius: 14px;
       border: none;
-      line-height: 23px;
+      line-height: 19px;
       font-weight: bold;
       // text-align: center;
       padding: 3px 8px;
