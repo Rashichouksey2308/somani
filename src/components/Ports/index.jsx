@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import styles from './index.module.scss'
+import styles from '../AddNewInternal/index.module.scss';
 import { Form } from 'react-bootstrap'
 import Image from 'next/image'
 
@@ -22,7 +22,6 @@ function Index () {
           </div>
           <div
             id='authorisedDetails'
-            // className="collapse"
             aria-labelledby='authorisedDetails'
           >
             <div className={`${styles.dashboard_form} card-body`}>
