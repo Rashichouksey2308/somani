@@ -4234,7 +4234,6 @@ function Index() {
                           <td
                             style={{
                               fontSize: '19px',
-                              color: '#EA3F3F',
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               paddingTop: '25px',

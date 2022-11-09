@@ -578,12 +578,9 @@
             display: flex;
 
             .code_phone {
-              border-top-right-radius: 0px;
-              border-bottom-right-radius: 0px;
               font-size: 19px;
               letter-spacing: 0.18px;
               color: #3687e8;
-              text-transform: capitalize;
               outline: none;
               border-radius: 8px 0 0 8px;
               @include respond(lg-desktop) {

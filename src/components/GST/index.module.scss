@@ -979,16 +979,11 @@
   font-size: 18px;
   line-height: 23px;
   color: #3687e8;
-  text-transform: capitalize;
-  margin-right: 10px;
   border-radius: 14px;
   border: none;
   font-weight: bold;
   text-align: center;
-  padding-left: 8px;
-  padding-right: 6px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 4px 6px 4px 8px;
   margin-right: 50px;
   outline: none;
   @include respond(lg-desktop) {
@@ -1358,20 +1353,13 @@
 }
 
 .first {
-  font-size: 15px;
-  // color: #111111;
   font-weight: bold;
-  line-height: 18px;
   height: 67px;
-  //background: #FAFAFB;
   vertical-align: middle;
-  // white-space: nowrap;
   padding: 20px 35px;
-
   font-size: 22px;
   line-height: 27px;
   border-top: 1.5px solid #dae2ed;
-
   border-right: 1.5px solid #dae2ed;
   @include respond(lg-desktop) {
     font-size: 18px;

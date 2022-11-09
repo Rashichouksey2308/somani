@@ -98,7 +98,6 @@
         }
 
         .dropDown {
-          border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           line-height: 25px;
@@ -732,10 +731,7 @@
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
-        text-transform: capitalize;
         position: absolute;
-        left: 15px;
-        top: -10px;
         line-height: 1;
         left: 30px;
         top: -8px;
@@ -754,7 +750,6 @@
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
-        text-transform: capitalize;
         border: 1px solid #0000001f;
         border-radius: 4px;
         height: 60px;
@@ -924,7 +919,6 @@
               border-top: none;
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
-              white-space: nowrap;
               white-space: nowrap;
 
               &:first-child {

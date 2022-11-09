@@ -63,10 +63,6 @@
             text-transform: capitalize;
           }
 
-          &:last-line {
-            text-transform: capitalize;
-          }
-
           @include respond(lg-desktop) {
             font-size: 14px;
             line-height: 1.2;
