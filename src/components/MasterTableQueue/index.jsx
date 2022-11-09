@@ -15,9 +15,6 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
 
   const { searchedLeads } = useSelector((state) => state.order);
 
-  let data = _get(selectorData, 'data[0]', {})
-  console.log(data, 'Data')
-
   // const handleSearch = (e) => {
   //   const query = `${e.target.value}`;
   //   setSearchTerm(query);
@@ -153,10 +150,10 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
                 </tr>
               </thead>
               <tbody>
-                <tr className={`${styles.table_row} table_row17`}>
-                  <td className={styles.buyerName}>Indo German Private Limited</td>
-                  <td>IGPL</td>
-                  <td>India</td>
+               {selectorData && selectorData?.data?.map((supplier, index) => <tr key={index} className={`${styles.table_row} table_row17`}>
+                  <td className={styles.buyerName}>{supplier.Company_Name}</td>
+                  <td>{supplier.Short_Name}</td>
+                  <td>{supplier.Country}</td>
                   {isDate ? <td>22-02-2022</td> : ''}
 
                   <td>
@@ -178,7 +175,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
                       />
                     </div>
                   </td>
-                </tr>
+                </tr>)}
               </tbody>
             </table>
           </div>

@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import Image from 'next/image'
 
 function Index () {
+  
   const [countryName, setCountryName] = useState('India') 
 
   return (
