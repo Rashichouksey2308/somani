@@ -9,6 +9,7 @@ import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
+import FilterBadge from '../../src/components/FilterBadge';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
@@ -19,6 +20,11 @@ function Index() {
 
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
+
+  const [open, setOpen] = useState(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`));
@@ -70,7 +76,6 @@ function Index() {
       setSorting(-1);
     }
   };
-
   return (
     <>
       {' '}
@@ -104,6 +109,12 @@ function Index() {
               )}
             </div>
             <Filter />
+
+            {open && <FilterBadge label="Bhutani Traders" onClose={handleClose} />}
+            <FilterBadge label="Aluminium" />
+            <FilterBadge label="Approved" />
+            <FilterBadge label="15437556" />
+
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
