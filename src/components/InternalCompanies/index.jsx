@@ -19,6 +19,7 @@ function Index({
   updateBankDataArr,
   authorisedSignatoryDetails,
   setAuthorisedSignatoryDetails,
+  handleSubmit,
 }) {
   const [countryName, setCountryName] = useState('India');
 
@@ -608,10 +609,12 @@ function Index({
                           value={val.name}
                           name="name"
                           disabled={! val.actions}
+                          onChange={(e)=>handleSignatoryChange(e.target.name, e.target.value, index)}
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                         >
-                          <option value="">John Doe</option>
-                          <option value="">US</option>
+                          <option value='' disabled >Select</option>
+                          <option value="John Doe">John Doe</option>
+                          <option value="Vikas Rajput">Vikas Rajput</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
                           Name <strong className="text-danger">*</strong>
@@ -627,6 +630,7 @@ function Index({
                         type="text"
                         required
                         value={val.email}
+                        onChange={(e)=>handleSignatoryChange(e.target.name, e.target.value, index)}
                         disabled={!val.actions}
                         name="email"
                       />
@@ -641,6 +645,7 @@ function Index({
                         id="textInput"
                         name="designation"
                         value={val.designation}
+                        onChange={(e)=>handleSignatoryChange(e.target.name, e.target.value, index)}
                         disabled={!val.actions}
                         required
                         className={`${styles.input_field} border_color input form-control`}
@@ -677,12 +682,12 @@ function Index({
                                   }}
                                 />
                               )}
-                        <img
+                       {index && index !== 0 ? <img
                           src="/static/delete 2.svg"
                           className={`${styles.delete_image} mr-3 border-0 p-0`}
                           onClick={() => handleRemoveSignatory(index)}
                           alt="delete"
-                        />
+                        />: ''}
                         <img
                           className={`${styles.plus_add}`}
                           onClick={() => addMoreSignatoryRows()}

@@ -10,7 +10,7 @@ function Index() {
   const dispatch = useDispatch();
 
   const [companyData, setCompanyData] = useState({
-    Country: '',
+    Country: 'India',
     Company_Name: '',
     Short_Name: '',
     PAN: '',
