@@ -13,8 +13,8 @@ function Index({ data }) {
             statData.push({ 'type': key, 'img-url': '/static/access-time.svg', 'value': data[key] });
         } else if (key == STATISTICS_TYPES.REJECTED) {
             statData.push({ 'type': key, 'img-url': '/static/close-b.svg', 'value': data[key] });
-        } else if (key == STATISTICS_TYPES.SAVED) {
-            statData.push({ 'type': key, 'img-url': '/static/bookmark.svg', 'value': data[key] });
+        } else if (key == STATISTICS_TYPES.PENDING) {
+            statData.push({ 'type': key, 'img-url': '/static/pending.svg', 'value': data[key] });
         }
     }
     return (
