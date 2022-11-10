@@ -64,12 +64,14 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }, [dispatch, orderid, moduleSelected]);
 
   useEffect(() => {
-    const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
-      return doc.module === moduleSelected;
-    })
-    tempArray?.forEach((obj) => obj.moving = false);
+    if (documentsFetched) {
+      const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
+        return doc.module === moduleSelected;
+      })
+      tempArray?.forEach((obj) => obj.moving = false);
 
-    setFilteredDoc(tempArray);
+      setFilteredDoc(tempArray);
+    }
   }, [orderid, documentsFetched]);
 
   const DocDlt = (index) => {
@@ -348,7 +350,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>{document.name}</td>
                             <td>
-                             {returnDocFormat(document?.originalName)}
+                              {returnDocFormat(document?.originalName)}
                             </td>
                             <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
                             <td className={styles.doc_row}>

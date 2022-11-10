@@ -18,7 +18,7 @@ import moment from 'moment'
 import { useRouter } from 'next/router'
 import { getCountries, getPorts } from '../../src/redux/masters/action'
 
-import { Validation } from './validations'
+import { Validation } from '../../src/components/Vessel/validations'
 
 export default function Home () {
   const dispatch = useDispatch()
@@ -119,7 +119,7 @@ export default function Home () {
             countryOfOrigin:
               _get(Vessel, 'data[0].vessels[0].transitDetails.countryOfOrigin', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.countryOfOrigin', '')
-                : _get(Vessel, 'data[0].order.countryOfOrigin', ''),
+                : _get(Vessel, 'data[0].order.termsheet.transactionDetails.countryOfOrigin', ''),
             portOfLoading:
               '' || _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '')
