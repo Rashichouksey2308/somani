@@ -181,8 +181,11 @@ export default function AssignmentLetter(data) {
               Price of Goods / MT
             </Col>
             <Col md={7} className={styles.right}>
-              {'INR '}
-              {data.priceOfGoods}
+              {data.orderValueCurrency}{" "}
+              {data.priceOfGoods?.toLocaleString(`${data.orderValueCurrency=="INR"?"en-In":"en-En"}`, {
+                maximumFractionDigits: 2,
+              })}{' '}
+             
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

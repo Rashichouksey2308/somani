@@ -91,12 +91,14 @@ function index() {
       data?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName == toCheck) {
           comment.push(val.comment);
-          if (toCheck == 'LETTER') {
+          console.log('asdsda',toCheck)
+          if (toCheck == 'Assignment Letter') {
+            
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
           }
         }
       });
-
+    
       setData({
         seller: data?.seller?.name,
         buyer: data?.buyer?.name,
