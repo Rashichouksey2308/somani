@@ -3,340 +3,9 @@
 
 .dashboardTab {
   margin-bottom: 105px;
-
   @include respond(phone) {
     margin-bottom: 105px;
   }
-
-  .tabHeader {
-    padding: 25px 30px 30px;
-    @include respond(lg-desktop) {
-      padding: 20px;
-    }
-    @include respond(sm-desktop) {
-      padding: 18px;
-    }
-    @include respond(phone) {
-      padding: 15px;
-    }
-
-    .title {
-      font-size: 34px;
-      font-weight: bold;
-      line-height: 41px;
-      margin: 0;
-      text-transform: lowercase;
-
-      &:first-letter {
-        text-transform: uppercase;
-      }
-
-      &:first-line {
-        text-transform: capitalize;
-      }
-
-      @include respond(lg-desktop) {
-        font-size: 24px;
-        line-height: 1.4;
-      }
-      @include respond(sm-desktop) {
-        font-size: 20px;
-      }
-      @include respond(phone) {
-        font-size: 18px;
-      }
-
-      span {
-        @include respond(phone) {
-          font-size: 13px;
-          margin: 0px;
-          padding-left: 0px;
-        }
-      }
-
-      img {
-        width: 13px;
-        height: 21px;
-        margin: -5px 25px 0 0;
-        @include respond(lg-desktop) {
-          width: 10px;
-          height: auto;
-        }
-        @include respond(phone) {
-          margin: 7px 7px 0 0;
-        }
-      }
-    }
-  }
-
-  .tabContent {
-    margin: 28px;
-    @include respond(lg-desktop) {
-      margin: 20px;
-    }
-    @include respond(sm-desktop) {
-      margin: 18px;
-    }
-    @include respond(phone) {
-      margin: 15px;
-    }
-
-    .backgroundMain {
-      .vessel_card {
-        border-radius: 6px;
-        margin: 0px 10px;
-
-        h2 {
-          font-size: 22px;
-          color: #3687e8;
-          font-weight: bold;
-          line-height: 27px;
-          @include respond(md-desktop) {
-            font-size: 22px;
-          }
-          @include respond(sm-desktop) {
-            font-size: 18px;
-          }
-          @include respond(phone) {
-            font-size: 15px;
-          }
-        }
-
-        .main {
-          border-radius: 6px;
-        }
-
-        .dashboard_form {
-          padding: 20px 35px 25px 40px;
-
-          .bill_landing {
-            //background: #FFFFFF;
-            border: 2px solid #cad6e6;
-            border-radius: 9px;
-
-            .vessel_card {
-              padding: 0px 35px 0px 35px;
-
-              .main {
-                margin-bottom: 26px;
-                border-radius: 6px !important;
-
-                .head_container {
-                  cursor: pointer;
-                  border-bottom: none;
-                  height: 80px;
-                  padding: 25px 35px !important;
-
-                  .heading {
-                    color: #3687e8;
-                    font-weight: bold;
-                    font-size: 22px;
-                    text-transform: capitalize;
-                    @include respond(md-desktop) {
-                      font-size: 20px;
-                    }
-                    @include respond(sm-desktop) {
-                      font-size: 18px;
-                    }
-                    @include respond(phone) {
-                      font-size: 15px;
-                    }
-                  }
-
-                  span {
-                    font-size: 45px;
-                    color: #3687e8;
-                    font-weight: normal;
-                    line-height: 20px;
-                    @include respond(lg-desktop) {
-                      font-size: 35px;
-                    }
-                    @include respond(sm-desktop) {
-                      font-size: 32px;
-                    }
-                    @include respond(phone) {
-                      font-size: 30px;
-                    }
-                  }
-                }
-
-                .add_row {
-                  text-align: center;
-                  font-size: 18px;
-                  line-height: 23px;
-                  font-weight: bold;
-                  color: #3687e8;
-                  cursor: pointer;
-
-                  span {
-                    margin-right: 15px;
-                  }
-                }
-
-                .submit {
-                  cursor: pointer;
-                  width: 260px;
-                  height: 48px;
-                  background: #3687e8;
-                  border-radius: 5px;
-                  color: #ffffff;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  margin: 10px 35px !important;
-                }
-              }
-            }
-          }
-
-          .form_group {
-            margin-top: 40px;
-            position: relative;
-            margin-bottom: 10px;
-
-            .search_image {
-              margin-left: -40px;
-            }
-
-            .label_heading {
-              font-size: 16px;
-              letter-spacing: 0.53px;
-              line-height: 17px;
-              top: 22px;
-              left: 30px;
-              margin-bottom: 0;
-              position: absolute;
-              pointer-events: none;
-              box-sizing: border-box;
-              transform: translateY(-30px);
-              transition: 0.3s all ease-in-out;
-              z-index: 1;
-              max-width: 77%;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-
-              &::before {
-                top: 51%;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                content: '';
-                z-index: -1;
-                position: absolute;
-                transform: translateY(-50%);
-              }
-
-              @include respond(lg-desktop) {
-                top: 15px;
-                font-size: 14px;
-                line-height: 15px;
-                transform: translateY(-22px);
-              }
-            }
-
-            .phone_card {
-              display: flex;
-              flex-wrap: nowrap;
-
-              .code_phone {
-                font-size: 19px;
-                letter-spacing: 0.18px;
-                color: #3687e8;
-                outline: none;
-                border-radius: 4px 0 0 4px;
-                @include respond(lg-desktop) {
-                  font-size: 15px;
-                  line-height: 1.3;
-                }
-              }
-            }
-
-            .line {
-              border: 3px solid #d9dde8;
-            }
-
-            .input_field {
-              font-size: 20px;
-              height: 60px;
-              outline: none;
-              line-height: 25px;
-              box-shadow: none;
-              border-radius: 4px;
-              position: relative;
-              box-sizing: border-box;
-              white-space: nowrap;
-              letter-spacing: 0.19px;
-              padding: 13px 30px 13px 17px;
-              border: 1px solid #0000001f;
-
-              &:invalid + label {
-                transform: translateY(0);
-              }
-
-              &:focus {
-                & + label {
-                  transform: translateY(-30px);
-                  @include respond(lg-desktop) {
-                    transform: translateY(-22px);
-                  }
-                }
-              }
-
-              @include respond(lg-desktop) {
-                height: 45px;
-                font-size: 15px;
-                line-height: 1.3;
-              }
-            }
-          }
-
-          .phone {
-            .label_heading {
-              left: 90px;
-              transform: translate(-61px, -30px);
-              @include respond(lg-desktop) {
-                transform: translate(-61px, -22px);
-              }
-            }
-
-            .input_field {
-              border-top-left-radius: 0px;
-              border-bottom-left-radius: 0px;
-
-              &:focus {
-                & + label {
-                  transform: translate(-61px, -30px);
-                  @include respond(lg-desktop) {
-                    transform: translate(-61px, -22px);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .btn_container {
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-
-    input {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
-    }
-
-    margin-top: 10px;
-  }
-
   .arrow {
     margin-left: -40px;
     width: 13px;
@@ -351,7 +20,6 @@
 
   .customSelect {
     appearance: none;
-    // position: relative;
   }
 
   .pdfImage {
@@ -367,46 +35,11 @@
       height: 15px;
     }
   }
-
-  .button {
-    padding: 25px 35px !important;
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687e8;
-    border-radius: 5px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 1rem;
-  }
-
-  .button2 {
-    padding: 25px 35px !important;
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687e8;
-    border-radius: 5px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .remark_field {
-    background: #c3c3c31f;
-    border: 1px solid #0000001f;
-    border-radius: 4px;
-    margin-bottom: 2rem !important;
-  }
 }
 
 .address_card {
   border: 1px solid #0000001f;
   border-radius: 9px;
-  //padding: 22px;
   margin-bottom: 20px;
   min-width: 49%;
 
@@ -414,7 +47,6 @@
     line-height: 25px;
     font-weight: bold;
     font-size: 20px;
-    // color: #111111;
     text-transform: capitalize;
     padding-left: 18px;
     @include respond(lg-desktop) {
@@ -496,7 +128,6 @@
       line-height: 25px;
       font-weight: bold;
       font-size: 20px;
-      //color: #111111;
       text-transform: capitalize;
     }
 
@@ -504,14 +135,11 @@
       letter-spacing: 0.19px;
       font-size: 20px;
       line-height: 25px;
-      //color: #111111;
-      //text-transform: capitalize;
 
       span {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
-        //color: #111111;
         text-transform: capitalize;
       }
 
@@ -536,7 +164,6 @@
 .datatable {
   border-radius: 6px;
   padding: 0px;
-  // width:calc(100vw - 30px);
   .table_scroll_outer {
     width: 100%;
     display: table;
@@ -633,61 +260,11 @@
   }
 }
 
-.add_row {
-  text-align: center;
-  font-size: 18px;
-  line-height: 23px;
-  font-weight: bold;
-  color: #3687e8;
-  cursor: pointer;
-
-  span {
-    margin-right: 15px;
-  }
-}
-
 .head_container {
   border-bottom: 2px solid #cad6e6;
   padding: 25px 35px !important;
   height: 80px;
   cursor: pointer;
-
-  .dropDown {
-    border: 1px solid #0000001f;
-    border-radius: 4px;
-    font-size: 18px;
-    line-height: 25px;
-    padding: 5px 20px 5px 10px;
-    outline: none;
-    letter-spacing: 0.17px;
-    min-width: 80px;
-    @include respond(md-desktop) {
-      font-size: 18px;
-    }
-    @include respond(sm-desktop) {
-      font-size: 16px;
-    }
-    @include respond(phone) {
-      font-size: 10px;
-      line-height: 18px;
-    }
-  }
-
-  .dropDown_label {
-    letter-spacing: 0.53px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 17px;
-    padding-right: 10px;
-    margin-bottom: 0;
-    @include respond(lg-desktop) {
-      font-size: 14px;
-      line-height: 15px;
-    }
-    @include respond(phone) {
-      font-size: 10px;
-    }
-  }
 
   .heading {
     color: #3687e8;
@@ -746,7 +323,6 @@ img {
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }
 
 .edit_image {
@@ -792,14 +368,9 @@ img {
   padding: 25px 35px !important;
 
   .card_heading {
-    //color: #111111;
     font-size: 20px;
     font-weight: bold;
     line-height: 25px;
-  }
-
-  div {
-    // flex-wrap: wrap;
   }
 
   .form_group {
@@ -907,7 +478,6 @@ img {
       margin-left: -130px;
       line-height: 23px;
       text-transform: capitalize;
-      // margin-left: -40px;
       @include respond(lg-desktop) {
         width: 90px;
         height: 34px;
@@ -997,116 +567,6 @@ img {
   }
 }
 
-.plus_add {
-  margin-top: 10px;
-  margin-left: -60px;
-  width: 36px;
-  height: 36px;
-}
-
-.comment_para {
-  border: 1px solid #0000001f;
-  border-radius: 4px;
-  padding: 25px 30px 25px 30px;
-  margin-top: 35px;
-
-  .comment {
-    letter-spacing: 0.19px;
-    //color: #111111;
-    font-size: 20px;
-    line-height: 25px;
-  }
-}
-
-.dashboard_form {
-  padding: 10px 10px 0px 20px;
-  //margin: 15px;
-
-  .sub_heading {
-    //margin-top: 20px;
-    font-size: 20px;
-    line-height: 25px;
-    font-weight: bold;
-    text-transform: capitalize;
-    @include respond(lg-desktop) {
-      font-size: 15px;
-      line-height: 1.3;
-    }
-  }
-
-  .strength {
-    text-decoration: underline;
-    letter-spacing: 0.63px;
-    font-size: 19px;
-    line-height: 17px;
-    font-weight: 500;
-    text-transform: capitalize;
-    padding: 25px 0px 25px 0px;
-  }
-
-  .comment_para {
-    border: 1px solid #0000001f;
-    border-radius: 4px;
-    padding: 25px 30px 25px 30px;
-    margin-top: 35px;
-
-    .comment {
-      letter-spacing: 0.19px;
-      //color: #111111;
-      font-size: 20px;
-      line-height: 25px;
-    }
-  }
-
-  .paragraph {
-    line-height: 25px;
-    letter-spacing: 0.19px;
-    font-size: 20px;
-    width: 85%;
-  }
-
-  .label_textarea {
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.53px;
-    position: absolute;
-    pointer-events: none;
-    line-height: 17px;
-    box-sizing: border-box;
-    transform: translateY(-8px);
-    margin-left: 20px;
-    transition: 0.3s all ease-in-out;
-    background: #ffffff;
-    @include respond(lg-desktop) {
-      font-size: 14px;
-      line-height: 15px;
-    }
-  }
-
-  .comment_field {
-    height: 135px;
-    width: 1300px;
-    background-color: #c3c3c31f;
-    border: 1px solid #0000001f;
-    border-radius: 4px;
-    font-size: 20px;
-    font-weight: 500;
-    outline: none;
-    box-shadow: none;
-    position: relative;
-    box-sizing: border-box;
-    margin-left: -10px;
-  }
-}
-
-.plus_field {
-  margin-left: 15px;
-}
-
-.labelSelect {
-  background: none !important;
-}
-
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -1122,8 +582,8 @@ img {
 }
 
 .radio_form {
-  //padding-top: 30px;
   .radio_group {
+    margin-left: 8px;
     display: flex;
     @include respond(phone) {
       justify-content: space-between;
@@ -1148,21 +608,8 @@ img {
           width: 13px;
           height: 13px;
         }
-        // @include respond(sm-desktop) {
-        //     font-size: 14px;
-        //     padding-right: 0px;
-        // }
-        // @include respond(phone) {
-        //     font-size: 12px;
-        // }
       }
-
-      // @include respond(xl-desktop) {
-      //     padding-right: 0px;
-
-      // }
       @include respond(lg-desktop) {
-        // padding-right: 0px;
         font-size: $font_size_mobile_input_label;
       }
       @include respond(md-desktop) {
@@ -1211,19 +658,6 @@ img {
   }
 }
 
-.pdfImage {
-  width: 57px;
-  height: 25px;
-  @include respond(sm-desktop) {
-    width: 50px;
-    height: 22px;
-  }
-  @include respond(phone) {
-    width: 35px;
-    height: 15px;
-  }
-}
-
 .image_arrow {
   transform: translateX(80%);
   margin-top: 17px;
@@ -1234,13 +668,6 @@ img {
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
-  }
-}
-
-.sort_img {
-  @include respond(lg-desktop) {
-    width: 12px;
-    height: 12px;
   }
 }
 
@@ -1292,7 +719,6 @@ img {
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }
 
 .img_arrow {
