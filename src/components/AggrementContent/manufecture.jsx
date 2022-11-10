@@ -751,7 +751,7 @@ function Index(props) {
             toView,
           )}
         {isEdit == false && (
-          addNewAddress(setAddressType,setAddress,addressType,toShow,toView,handleAddressInput,cancelAddress,props.gettingPins,newAddress,handleData)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true)
         )}
 
         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,"input")}
@@ -807,7 +807,7 @@ function Index(props) {
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
-                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,toShow,toView,handleAddressMultiInput,cancelAddress,props.gettingPins,newMultiAddress,handleData)
+                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true)
                   
                 )}
               </div>
