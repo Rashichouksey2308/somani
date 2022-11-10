@@ -66,6 +66,9 @@ function index() {
       if (data2 == 'TPASELLER') {
         toCheck = 'TPA (Seller)';
       }
+       if (data2 == 'TPAIGI') {
+        toCheck = 'TPA (CMA)';
+      }
       if (data2 == 'ASSO') {
         toCheck = 'Associateship Agreement';
       }
@@ -168,6 +171,7 @@ function index() {
         orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
         paymentTerm: data.deliveryTerms.paymentTerms,
         cheque: data.deliveryTerms?.cheque || [],
+        cmaShort: data?.CMA?.shortName,
       });
     }
   }, []);
