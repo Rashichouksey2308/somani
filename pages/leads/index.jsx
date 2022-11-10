@@ -9,7 +9,7 @@ import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
-import  FilterBadge from '../../src/components/FilterBadge';
+import FilterBadge from '../../src/components/FilterBadge';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
@@ -21,9 +21,9 @@ function Index() {
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
 
-  const [open , setOpen]= useState(true)
-  const handleClose = ()=>{
-      setOpen (false)
+  const [open, setOpen] = useState(true)
+  const handleClose = () => {
+    setOpen(false)
   }
 
   useEffect(() => {
@@ -76,7 +76,6 @@ function Index() {
       setSorting(-1);
     }
   };
-console.log(searchedLeads , serachterm ,"hel")
   return (
     <>
       {' '}
@@ -111,17 +110,15 @@ console.log(searchedLeads , serachterm ,"hel")
             </div>
             <Filter />
 
-           {
-            open && (
-         
-            <FilterBadge  label="Bhutani Traders" onClose={handleClose}/>
-        
+            {
+              open && (
+                <FilterBadge label="Bhutani Traders" onClose={handleClose} />
               )
-           }
-          <FilterBadge  label="Aluminium" />
-          <FilterBadge  label="Approved" />
-          <FilterBadge  label="15437556" />
-     
+            }
+            <FilterBadge label="Aluminium" />
+            <FilterBadge label="Approved" />
+            <FilterBadge label="15437556" />
+
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -273,24 +270,23 @@ console.log(searchedLeads , serachterm ,"hel")
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
-                              className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
+                              className={`${styles.status} ${buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
+                                    ? styles.review
+                                    : buyer.queue === 'CreditQueue'
+                                      ? styles.approved
+                                      : styles.rejected
+                                }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
+                                ? 'Review'
+                                : buyer.queue === 'CreditQueue'
+                                  ? 'Approved'
+                                  : 'Rejected'}
                           </td>
                         </tr>
                       ))}
