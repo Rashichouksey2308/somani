@@ -45,11 +45,6 @@ export default function Index({ addButton }) {
   const [documentAction2, setDocumentAction2] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const [portType, setPortType] = useState({
-    loadPortInspection: false,
-    dischargePortInspection: false,
-  });
-
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails };
     newInput[name] = value;
@@ -57,19 +52,6 @@ export default function Index({ addButton }) {
     setInspectionData(newInput);
   };
 
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false);
-    } else {
-      setEditInput(true);
-    }
-  };
-
-  const ChangeValue = (item) => {
-    document.getElementById('dropdownMenuButton').value = item;
-  };
-
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (inspectionData) {
@@ -160,7 +142,7 @@ export default function Index({ addButton }) {
       dischargeCertificateOfWeightStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
     });
   }, [inspectionData, allInspection]);
-  
+
   const [documents, setDocuments] = useState({
     certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
