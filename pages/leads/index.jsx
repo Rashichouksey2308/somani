@@ -79,11 +79,11 @@ function Index() {
   };
 
   const statData = {
-    'all': 3200,
-    'approved': 780,
-    'review': 800,
-    'rejected': 89,
-    'saved': 60
+    'all': allBuyerList?.data?.totalCount,
+    'approved': allBuyerList?.data?.approved,
+    'review': allBuyerList?.data?.reviewed,
+    'rejected': allBuyerList?.data?.rejected,
+    'pending': allBuyerList?.data?.pending
   }
 
   return (
@@ -146,7 +146,7 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <QueueStats data={statData}/>
+          <QueueStats data={statData} />
 
           {/*leads table*/}
           <div className={`${styles.datatable} border datatable card`}>
@@ -221,14 +221,14 @@ function Index() {
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
-                              className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : buyer.queue === 'ReviewQueue'
-                                    ? styles.review
-                                    : buyer.queue === 'CreditQueue'
-                                      ? styles.approved
-                                      : styles.rejected
+                            className={`${styles.status} ${
+                              buyer.queue === 'Rejected'
+                                ? styles.rejected
+                                : buyer.queue === 'ReviewQueue'
+                                  ? styles.review
+                                  : buyer.queue === 'CreditQueue'
+                                    ? styles.approved
+                                    : styles.rejected
                                 }`}
                             ></span>
 
