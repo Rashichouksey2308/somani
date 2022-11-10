@@ -21,10 +21,10 @@ function Index() {
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`));
@@ -110,11 +110,7 @@ function Index() {
             </div>
             <Filter />
 
-            {
-              open && (
-                <FilterBadge label="Bhutani Traders" onClose={handleClose} />
-              )
-            }
+            {open && <FilterBadge label="Bhutani Traders" onClose={handleClose} />}
             <FilterBadge label="Aluminium" />
             <FilterBadge label="Approved" />
             <FilterBadge label="15437556" />
@@ -270,23 +266,24 @@ function Index() {
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
-                              className={`${styles.status} ${buyer.queue === 'Rejected'
+                              className={`${styles.status} ${
+                                buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                    ? styles.review
-                                    : buyer.queue === 'CreditQueue'
-                                      ? styles.approved
-                                      : styles.rejected
-                                }`}
+                                  ? styles.review
+                                  : buyer.queue === 'CreditQueue'
+                                  ? styles.approved
+                                  : styles.rejected
+                              }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                                ? 'Review'
-                                : buyer.queue === 'CreditQueue'
-                                  ? 'Approved'
-                                  : 'Rejected'}
+                              ? 'Review'
+                              : buyer.queue === 'CreditQueue'
+                              ? 'Approved'
+                              : 'Rejected'}
                           </td>
                         </tr>
                       ))}
