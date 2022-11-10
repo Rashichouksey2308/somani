@@ -293,22 +293,6 @@
   }
 }
 
-img {
-  &.arrow2 {
-    width: 13px !important;
-    right: 12px;
-    height: 38px;
-    position: absolute;
-    pointer-events: none;
-
-    input[type='date']::-webkit-inner-spin-button,
-    input[type='date']::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
-  }
-}
-
 .arrow {
   margin-left: -40px;
   width: 13px;
