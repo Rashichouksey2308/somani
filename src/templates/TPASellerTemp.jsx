@@ -2,6 +2,7 @@ import styles from '@/components/TPASeller/index.module.scss';
 import { Col, Row } from 'react-bootstrap';
 
 export default function TPASeller(data) {
+  console.log(data,"vdata")
   return (
     <>
       <div className="card-body">
@@ -16,7 +17,9 @@ export default function TPASeller(data) {
           and between:
         </p>
         <p className="text_sales">
-          <strong>Seller</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at Industriestrasse 16, Zug 6300 through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
+          <strong>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at {""}{' '}
+                    {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
+                    {data.sellerAddress?.pinCode}{""}through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
         </p>
         <p className=" text-left text_sales">And</p>
         <p className="text_sales">
@@ -105,7 +108,21 @@ export default function TPASeller(data) {
               Authorized signatory of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              value
+                   <ol>
+              {data?.supplierAuthorized?.length > 0 &&
+                data?.supplierAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <p className='mb-0'>
+                        Name - {val.name}
+                      </p>
+                      <p className='mb-0'>
+                        Designation - {val.designation}
+                      </p>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -113,7 +130,11 @@ export default function TPASeller(data) {
               Email ID of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              value
+           
+            {data?.supplierAuthorized?.length > 0 &&
+                  data?.supplierAuthorized?.map((val, index) => {
+                    return <li>{val.email}</li>;
+                  })}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -141,7 +162,21 @@ export default function TPASeller(data) {
               Authorized signatory of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              value
+                 <ol>
+              {data?.associateBuyerAuthorized?.length > 0 &&
+                data?.associateBuyerAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <p className='mb-0'>
+                        Name - {val.name}
+                      </p>
+                      <p className='mb-0'>
+                        Designation - {val.designation}
+                      </p>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -149,7 +184,12 @@ export default function TPASeller(data) {
               Email ID of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              value
+              <ol>
+                {data?.associateBuyerAuthorized?.length > 0 &&
+                  data?.associateBuyerAuthorized?.map((val, index) => {
+                    return <li>{val.email}</li>;
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -198,26 +238,69 @@ export default function TPASeller(data) {
             </p>
           </Col>
           <Col md={6}>
+            <p className="text_sales">
+               {data?.buyerAuthorized?.length > 0 &&
+                  data?.buyerAuthorized?.map((val, index) => {
+                      return (
+                      <>
+                      <span>{val.name}, {val.designation}</span>
+                      <br></br>
+                      <br></br>
+                      </>
+                    )
+                  })}
+            </p>
             <p className="text_sales">Authorised Signatory</p>
           </Col>
         </div>
         <div className={`row my-4`}>
           <Col md={6}>
+          
             <p className="text_sales">
+             
+              
+           
               <strong>Supplier</strong>
             </p>
           </Col>
           <Col md={6}>
+            <p className="text_sales">
+             {data?.supplierAuthorized?.length > 0 &&
+                  data?.supplierAuthorized?.map((val, index) => {
+                     return (
+                      <>
+                      <span>{val.name}, {val.designation}</span>
+                      <br></br>
+                      <br></br>
+                      </>
+                    )
+                  })}
+            </p>
             <p className="text_sales">Authorised Signatory</p>
           </Col>
         </div>
         <div className={`row my-4`}>
           <Col md={6}>
+           
             <p className="text_sales">
+                
               <strong>End Buyer</strong>
             </p>
           </Col>
           <Col md={6}>
+             <p className="text_sales">
+             {data?.associateBuyerAuthorized?.length > 0 &&
+                  data?.associateBuyerAuthorized?.map((val, index) => {
+                    return (
+                      <>
+                      <span>{val.name}, {val.designation}</span>
+                      <br></br>
+                      <br></br>
+                      </>
+                    )
+                    
+                  })}
+            </p>
             <p className="text_sales">Authorised Signatory</p>
           </Col>
         </div>
