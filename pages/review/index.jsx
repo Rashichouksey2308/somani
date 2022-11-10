@@ -2997,24 +2997,25 @@ function Index() {
                   <tr>
                     <td
                       width="5%"
-                      height="60"
+                      height="30"
                       style={{
-                        padding: '21px 12px 21px 35px',
+                        padding: '14px 11px 14px 32px',
                       }}
                     >
                       <span
                         style={{
-                          fontSize: '28px',
+                          fontSize: '24px',
                           color: '#FF9D00',
-                          lineHeight: '34px',
+                          lineHeight: '30px',
                           fontWeight: 'bold',
                           background: '#FFECCF',
                           borderRadius: '8px',
-                          padding: '13px 0',
-                          width: '60px',
-                          height: '60px',
+                          padding: '9px 0',
+                          width: '50px',
+                          height: '50px',
                           textAlign: 'center',
                           display: 'inline-block',
+                          // marginBottom: '15px'
                         }}
                       >
                         {fName?.charAt(0)}{lName?.charAt(0)}
@@ -3101,7 +3102,7 @@ function Index() {
                     >
                       <span
                         style={{
-                          padding: '7.5px',
+                          padding: '5.5px',
                           display: 'inline-block',
                           background: '#FF9D00',
                           borderRadius: '50%',
