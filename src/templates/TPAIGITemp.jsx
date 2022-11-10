@@ -533,15 +533,15 @@ export default function TPAIGITemp(data) {
         <div className={`row`}>
           <Col md={12} className='my-4'>
             <p className="text_sales">Signed by:_______________________________</p>
-            <p className="text_sales">For and on behalf of "<strong>{data.buyer}</strong>"</p>
+            <p className="text_sales">For and on behalf of "<strong>{data.shortbuyer}</strong>"</p>
           </Col>
           <Col md={12} className='my-4'>
             <p className="text_sales">Signed by:_______________________________</p>
-            <p className="text_sales">For and on behalf of "<strong>CMA</strong>"</p>
+            <p className="text_sales">For and on behalf of "<strong>{data.cmaShort}</strong>"</p>
           </Col>
           <Col md={12} className='my-4'>
             <p className="text_sales">Signed by:_______________________________</p>
-            <p className="text_sales">For and on behalf of "<strong>{data.seller}</strong>"</p>
+            <p className="text_sales">For and on behalf of "<strong>{data.shortseller}</strong>"</p>
           </Col>
         </div>
       </div>

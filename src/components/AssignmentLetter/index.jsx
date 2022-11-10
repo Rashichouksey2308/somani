@@ -85,6 +85,7 @@ function Index(props) {
           loadingCargo: data.loadingCargo,
           dateOfContract: data.dateOfContract,
           financialAddress: data?.financialAddress,
+          orderValueCurrency:data.orderValueCurrency
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -126,7 +127,7 @@ function Index(props) {
           unitPrice: data.order?.perUnitPrice,
           totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
-          dischargePort: data?.order?.portOfDischarge,
+           dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
@@ -149,6 +150,8 @@ function Index(props) {
           priceOfGoods: data?.order?.perUnitPrice,
           loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
           dateOfContract: dateOfContract,
+          orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
+          
         });
       }
     }

@@ -1719,7 +1719,7 @@ export default function TPAIGIPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        For and on behalf of <strong>“{data.buyer}”</strong>
+                        For and on behalf of <strong>“{data.shortbuyer}”</strong>
                       </p>
                     </td>
                   </tr>
@@ -1745,7 +1745,7 @@ export default function TPAIGIPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        For and on behalf of <strong>“CMA”</strong>
+                        For and on behalf of <strong>“{data?.cmaShort}”</strong>
                       </p>
                     </td>
                   </tr>
@@ -1771,7 +1771,7 @@ export default function TPAIGIPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        For and on behalf of <strong>“{data.seller}”</strong>
+                        For and on behalf of <strong>“{data.shortseller}”</strong>
                       </p>
                     </td>
                   </tr>
