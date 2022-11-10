@@ -167,8 +167,7 @@ function Index({
                             }}
                             value={
                               lcData?.lcIssuingBank
-                                ? lcData?.lcIssuingBank
-                                : lcModuleData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                               
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -220,7 +219,7 @@ function Index({
                           required
                           type="text"
                           name="beneficiary"
-                          value={lcData?.beneficiary ? lcData?.beneficiary : lcModuleData?.order?.supplierName}
+                          value={lcData?.beneficiary }
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
@@ -291,14 +290,12 @@ function Index({
                           value={
                             isFieldInFocus.tolerance
                               ? lcData?.tolerancePercentage
-                                ? lcData?.tolerancePercentage
-                                : lcModuleData?.order?.tolerance
+                                
                               : '+/- ' +
                                 checkNan(
                                   Number(
                                     lcData?.tolerancePercentage
-                                      ? lcData?.tolerancePercentage
-                                      : lcModuleData?.order?.tolerance,
+                                      
                                   ),
                                 ) +
                                 ` %`
@@ -456,8 +453,7 @@ function Index({
                             }}
                             value={
                               lcData?.partialShipment
-                                ? lcData?.partialShipment
-                                : lcModuleData?.order?.termsheet?.transactionDetails?.partShipmentAllowed
+                               
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -539,8 +535,7 @@ function Index({
                             name="portOfLoading"
                             value={
                               lcData?.portOfLoading
-                                ? lcData?.portOfLoading
-                                : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort
+                                
                             }
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value);
@@ -561,8 +556,7 @@ function Index({
                             }}
                             value={
                               lcData?.portOfDischarge
-                                ? lcData.portOfDischarge
-                                : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge
+                               
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -842,8 +836,7 @@ function Index({
                               name="presentaionPeriod"
                               value={
                                 lcData?.presentaionPeriod
-                                  ? lcData.presentaionPeriod
-                                  : 'DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC.'
+                                 
                               }
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
@@ -1005,8 +998,7 @@ function Index({
                               name="charges"
                               value={
                                 lcData?.charges
-                                  ? lcData?.charges
-                                  : 'ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT'
+                                  
                               }
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
@@ -1026,8 +1018,7 @@ function Index({
                               name="instructionToBank"
                               value={
                                 lcData?.instructionToBank
-                                  ? lcData?.instructionToBank
-                                  : 'THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS).............. UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS'
+                                 
                               }
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);

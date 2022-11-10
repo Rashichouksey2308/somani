@@ -78,10 +78,11 @@ function Index(props) {
           incoTerms: data?.incoTerms,
           supplierAddress: data?.supplierAddress,
           financialAddress: data?.financialAddress,
-          designatedStorageArea: data.designatedStorageArea,
+         
           cmaAuthorized: data.cmaAuthorized,
           financialBank: data?.financialBank,
           supplier: data?.supplier,
+          cmaShort: data?.cmaShort,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -102,7 +103,7 @@ function Index(props) {
             comment.push(val.comment);
           }
         });
-
+      console.log(data?.CMA,"data?.CMA?")
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
@@ -142,6 +143,7 @@ function Index(props) {
           financialBank: data?.financingBank?.name,
           financialAddress: `${data?.financingBank?.branch}, Netherlands`,
           cma: data?.CMA?.name,
+          cmaShort: data?.CMA?.shortName,
           cmaAddress: _get(data, 'CMA.addresses[0]', {}),
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           designatedStorageArea: data?.CMA?.designatedStorageArea,
@@ -150,6 +152,7 @@ function Index(props) {
       }
     }
   }, [props]);
+  console.log(data,"Aasasd")
   return (
     <>
       {/* TPA (CMA) pdf download code end */}

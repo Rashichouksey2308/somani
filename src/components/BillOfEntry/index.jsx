@@ -22,7 +22,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
 
   const dispatch = useDispatch();
-   console.log(customData,)
+  
   const [isFieldInFocus2, setIsFieldInFocus2] = useState({
     invoiceValue: false,
     invoiceQuantity: false,
@@ -35,7 +35,23 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const [totalBl, setTotalBl] = useState(0);
   const [isFieldInFocus, setIsFieldInFocus] = useState([]);
   const { customClearance } = useSelector((state) => state.Custom);
+  const [bl,setbl]=useState([]);
+  useEffect(() => {
+    if(customData){
+      let temp=[]
+      _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
+        temp.push({
+           check:false,
+           blNumber:val.blNumber,
+           blDate:val.blDate,
+           blQuantity:val.blQuantity,
+           blDoc:val.blDoc
 
+        })
+      })
+      setbl([...temp])
+    }
+  },[customData])
   useEffect(() => {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
@@ -1259,7 +1275,7 @@ useEffect(() => {
                       </div>
 
                       <div className="row ml-auto">
-                        {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => {
+                        {bl.map((bl, indexbl) => {
                           return (
                             <>
                               {' '}

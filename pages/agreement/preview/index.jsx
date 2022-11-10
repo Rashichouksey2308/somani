@@ -66,6 +66,9 @@ function index() {
       if (data2 == 'TPASELLER') {
         toCheck = 'TPA (Seller)';
       }
+       if (data2 == 'TPAIGI') {
+        toCheck = 'TPA (CMA)';
+      }
       if (data2 == 'ASSO') {
         toCheck = 'Associateship Agreement';
       }
@@ -91,12 +94,14 @@ function index() {
       data?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName == toCheck) {
           comment.push(val.comment);
-          if (toCheck == 'LETTER') {
+          console.log('asdsda',toCheck)
+          if (toCheck == 'Assignment Letter') {
+            
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
           }
         }
       });
-
+    
       setData({
         seller: data?.seller?.name,
         buyer: data?.buyer?.name,
@@ -166,6 +171,7 @@ function index() {
         orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
         paymentTerm: data.deliveryTerms.paymentTerms,
         cheque: data.deliveryTerms?.cheque || [],
+        cmaShort: data?.CMA?.shortName,
       });
     }
   }, []);
