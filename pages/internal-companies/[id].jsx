@@ -4,23 +4,25 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import InternalCompanies from '../../src/components/InternalCompanies';
 import { useDispatch, useSelector } from 'react-redux';
-import { CreateInternalCompanies, GetInternalCompanies, UpdateInternalCompanies } from '../../src/redux/internalCompanies/action';
+import {
+  CreateInternalCompanies,
+  GetInternalCompanies,
+  UpdateInternalCompanies,
+} from '../../src/redux/internalCompanies/action';
 import _get from 'lodash/get';
 
 function Index() {
-
   const dispatch = useDispatch();
 
-  const {internalCompanyResponse} = useSelector((state)=>state.internalCompanies)
-  const internalCompanyData = _get(internalCompanyResponse, 'data[0]', {})
+  const { internalCompanyResponse } = useSelector((state) => state.internalCompanies);
+  const internalCompanyData = _get(internalCompanyResponse, 'data[0]', {});
 
   useEffect(() => {
-    let id = sessionStorage.getItem('internalCompanyId')
-    if(!id) return
-    dispatch(GetInternalCompanies(`?internalCompanyId=${id}`))
-  }, [dispatch])
-  
-  
+    let id = sessionStorage.getItem('internalCompanyId');
+    if (!id) return;
+    dispatch(GetInternalCompanies(`?internalCompanyId=${id}`));
+  }, [dispatch]);
+
   const [companyData, setCompanyData] = useState({
     Country: 'India',
     Company_Name: '',
@@ -29,21 +31,45 @@ function Index() {
     CIN_No: '',
   });
 
-  let id = sessionStorage.getItem('internalCompanyId')
+  let id = sessionStorage.getItem('internalCompanyId');
 
   useEffect(() => {
     // console.log(id, 'ID')
-    if(id){
+    if (id) {
       setCompanyData({
-    Country: internalCompanyData?.Country,
-    Company_Name: internalCompanyData?.Company_Name,
-    Short_Name: internalCompanyData?.Short_Name,
-    PAN: internalCompanyData?.PAN,
-    CIN_No: internalCompanyData?.CIN_No,
-      })
+        Country: internalCompanyData?.Country,
+        Company_Name: internalCompanyData?.Company_Name,
+        Short_Name: internalCompanyData?.Short_Name,
+        PAN: internalCompanyData?.PAN,
+        CIN_No: internalCompanyData?.CIN_No,
+      });
+
+      //getting addresses
+      let addressArr = [];
+      internalCompanyData?.keyAddresses?.forEach((element) => {
+      addressArr.push(element);
+    });
+      setKeyAddData(addressArr);
+
+      // getting authorised signatory
+
+      let authorisedArr = [];
+    internalCompanyData?.authorisedSignatoryDetails?.forEach((element) => {
+      authorisedArr.push(element);
+    });
+    setAuthorisedSignatoryDetails(authorisedArr);
+
+    // getting bank details
+
+    let bankArr = [];
+    internalCompanyData?.keyBanks?.forEach((element) => {
+      bankArr.push(element);
+    });
+    setBankDetails(bankArr);
+
+
     }
-    
-  }, [internalCompanyData])
+  }, [internalCompanyData]);
 
   const saveCompanyData = (name, value) => {
     let newInput = { ...companyData };
@@ -123,11 +149,21 @@ function Index() {
       authorisedSignatoryDetails: [...authorisedSignatoryDetails],
       keyBanks: [...bankDetails],
     };
-    if(id){
-      dispatch(UpdateInternalCompanies(data))
-    }
-    else{
-    dispatch(CreateInternalCompanies(data));
+    let data2 = {
+      Country: companyData.Country,
+      Company_Name: companyData.Company_Name,
+      Short_Name: companyData.Short_Name,
+      PAN: companyData.PAN,
+      CIN_No: companyData.CIN_No,
+      keyAddresses: [...keyAddData],
+      authorisedSignatoryDetails: [...authorisedSignatoryDetails],
+      keyBanks: [...bankDetails],
+      internalCompanyId: internalCompanyData._id,
+    };
+    if (id) {
+      dispatch(UpdateInternalCompanies(data2));
+    } else {
+      dispatch(CreateInternalCompanies(data));
     }
   };
 
