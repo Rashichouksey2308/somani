@@ -39,7 +39,8 @@ const index = () => {
 
   const handleRoute = (id) => {
     sessionStorage.setItem('internalCompanyId', id);
-    Router.push('/supplier');
+    dispatch(GetInternalCompanies(`?internalCompanyId=${id}`))
+    Router.push('/internal-companies/id');
   };
 
   return (

@@ -4,7 +4,7 @@ const initialState = {
   gettingAllInternalCompanies: false,
   allInternalCompanies: null,
   gettingInternalCompanies: false,
-  InternalCompanies: null,
+  internalCompanyResponse: null,
   updatingInternalCompanies: false,
   updateInternalCompaniesResponse: false,
   creatingInternalCompanies: false,
@@ -43,7 +43,7 @@ function InternalCompaniesReducer (state = initialState, action) {
       return {
         ...state,
         gettingInternalCompanies: false,
-        InternalCompanies: action.payload
+        internalCompanyResponse: action.payload
       }
 
     case types.GET_INTERNAL_COMPANIES_FAILED:

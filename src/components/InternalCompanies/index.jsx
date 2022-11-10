@@ -11,6 +11,7 @@ function Index({
   keyAddDataArr,
   keyAddData,
   saveCompanyData,
+  companyData,
   bankDataArr,
   bankDetails,
   deleteAddress,
@@ -20,6 +21,7 @@ function Index({
   authorisedSignatoryDetails,
   setAuthorisedSignatoryDetails,
   handleSubmit,
+  Id
 }) {
   const [countryName, setCountryName] = useState('India');
 
@@ -294,7 +296,8 @@ function Index({
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <select
-                      name="country"
+                      name="Country"
+                      value={companyData?.Country}
                       className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                       onChange={(e) => {
                         {
@@ -321,6 +324,7 @@ function Index({
                     type="text"
                     required
                     name="Company_Name"
+                    value={companyData?.Company_Name}
                     onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -332,6 +336,7 @@ function Index({
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
                     required
+                    value={companyData?.Short_Name}
                     name="Short_Name"
                     onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
                   />
@@ -345,6 +350,7 @@ function Index({
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
+                        value={companyData?.PAN}
                         required
                         name="PAN"
                         onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
@@ -359,6 +365,7 @@ function Index({
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         required
+                        value={companyData?.CIN_No}
                         name="CIN_No"
                         onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
                       />
@@ -704,9 +711,11 @@ function Index({
 
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
           <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
-            <div className={`${styles.approve} ml-3`}>
+          { Id ? <div className={`${styles.approve} ml-3`}>
+              <span onClick={() => handleSubmit()}>Update</span>
+            </div> : <div className={`${styles.approve} ml-3`}>
               <span onClick={() => handleSubmit()}>Send for Approval</span>
-            </div>
+            </div>}
           </div>
         </div>
 

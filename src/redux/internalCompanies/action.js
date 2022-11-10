@@ -254,6 +254,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
               toastId: toastMessage
             })
           }
+          sessionStorage.removeItem('internalCompanyId')
           dispatch(setNotLoading())
         } else {
           dispatch(updateInternalCompaniesFailed())
