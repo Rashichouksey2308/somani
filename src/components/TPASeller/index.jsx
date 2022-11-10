@@ -192,7 +192,7 @@ const tripartiteAgreement = (data, preview) => {
           <strong>Schedule I</strong> hereto by and between:
         </p>
         <p className="text_sales">
-          <b style={{ textTransform: 'uppercase' }}>{data.seller}</b>, a company organized and existing in accordance
+          <b className='text-uppercase'>{data.seller}</b>, a company organized and existing in accordance
           with Law of Switzerland and having address at {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city},{' '}
           {data.sellerAddress?.country}, {data.sellerAddress?.pinCode} through its Authorized Signatory (hereinafter
           referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant

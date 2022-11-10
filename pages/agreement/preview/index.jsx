@@ -12,10 +12,11 @@ import QPA from '../../../src/components/QPA';
 import TPAIGI from '../../../src/components/TPAIGI';
 import TPASeller from '../../../src/components/TPASeller';
 import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
-import IGIAgreementPreview from '../../../src/templates/IGIAgreementPreview';
+import IGIAgreementPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
 import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
+import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 
 function index() {
   const [data, setData] = useState({
@@ -194,7 +195,7 @@ function index() {
       name = 'Undertaking2.pdf';
     }
     if (preview == 'TPASELLER') {
-      toPrint = sellerPrint(data);
+      toPrint = TPASellerPreview(data);
       name = 'TPA(Seller).pdf';
     }
     if (preview == 'TPAIGI') {
