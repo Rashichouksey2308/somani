@@ -54,7 +54,7 @@ export default function TPASellerPreview(data) {
                     color: '#000000',
                   }}
                 >
-                  <strong style={{ textTransform: 'uppercase' }}>{data.seller}</strong>, a company organized and
+                  <strong style={{ textTransform: 'uppercase' }}>{data.sellerSignature}</strong>, a company organized and
                   existing in accordance with Law of Switzerland and having address at{' '}
                   <strong>
                     {' '}
@@ -844,6 +844,24 @@ export default function TPASellerPreview(data) {
                       </p>
                     </td>
                     <td align="left" width="50%">
+                       <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                        }}
+                      >
+                        {data?.buyerAuthorized?.length > 0 &&
+                      data?.buyerAuthorized?.map((val, index) => {
+                      return (
+                      <>
+                      <span>{val.name}, {val.designation}</span>
+                      <br></br>
+                      <br></br>
+                      </>
+                    )
+                  })}
+                      </p>
                       <p
                         style={{
                           fontSize: '12px',
@@ -875,6 +893,24 @@ export default function TPASellerPreview(data) {
                           color: '#000000',
                         }}
                       >
+                        {data?.supplierAuthorized?.length > 0 &&
+                      data?.supplierAuthorized?.map((val, index) => {
+                      return (
+                      <>
+                      <span>{val.name}, {val.designation}</span>
+                      <br></br>
+                      <br></br>
+                      </>
+                    )
+                  })}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                        }}
+                      >
                         Authorised Signatory
                       </p>
                     </td>
@@ -893,6 +929,24 @@ export default function TPASellerPreview(data) {
                       </p>
                     </td>
                     <td align="left">
+                         <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                        }}
+                      >
+                        {data?.associateBuyerAuthorized?.length > 0 &&
+                      data?.associateBuyerAuthorized?.map((val, index) => {
+                      return (
+                      <>
+                      <span>{val.name}, {val.designation}</span>
+                      <br></br>
+                      <br></br>
+                      </>
+                    )
+                  })}
+                      </p>
                       <p
                         style={{
                           fontSize: '12px',
