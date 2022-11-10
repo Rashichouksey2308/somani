@@ -7,7 +7,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther';
 import DateCalender from '../DateCalender';
 import _get from 'lodash/get';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
 import { number } from 'prop-types';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,10 +16,11 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
+import { getInternalCompanies } from '../../../src/redux/masters/action';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
-
+  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -35,7 +36,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   const [lastDate, setlastDate] = useState(new Date());
 
   const [consigneeName, setConsigneeName] = useState('');
-
+ const [branchOptions,setBranchOptions] = useState([])
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
@@ -74,7 +75,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   });
 
   const [orderData, setOrderData] = useState();
-
+  useEffect(() => {
+    
+    dispatch(getInternalCompanies());
+  }, []);
   const checkRemainingBalance = () => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     igmList.igmDetails.forEach((item) => {
@@ -194,27 +198,37 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
 
   const onChangeConsignee = (e) => {
-    if (e.target.value === 'indoGerman') {
+    if (e.target.value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
       setConsigneeInfo({
         name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-        branch: 'DELHI',
-        address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
+        branch: '',
+        address: '',
       });
-      setConsigneeName('indoGerman');
-    } else if (e.target.value === 'EMERGENT') {
+      setConsigneeName('INDO GERMAN INTERNATIONAL PRIVATE LIMITED');
+      setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'))
+    } else if (e.target.value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       setConsigneeInfo({
         name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-        branch: 'VIZAG',
+        branch: '',
         address:
-          '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
+          '',
       });
-      setConsigneeName('EMERGENT');
+      setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
+      setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'))
     } else {
       setConsigneeInfo({ name: '', branch: '', address: '' });
       setConsigneeName('');
     }
   };
-
+console.log(consigneeInfo,"consigneeInfo")
+  const filterBranch=(company)=>{
+     let filter =getInternalCompaniesMasterData.filter((val,index)=>{
+          if(val.Company_Name==company){
+            return val
+          }
+        })
+        return filter
+  }
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({
@@ -229,12 +243,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
-        setConsigneeName('EMERGENT');
+        setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
+       
+     
+        setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'))
         setConsigneeInfo({
           name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-          branch: 'VIZAG',
+          branch: TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch || TransitDetailsdata[0]?.order?.marginMoney?.invoiceDetail.branchOffice,
           address:
-            '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
+            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress || TransitDetailsdata[0]?.order?.marginMoney?.invoiceDetail?.companyAddress,
         });
       }
       if (
@@ -243,11 +260,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
           'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {
-        setConsigneeName('indoGerman');
-        setConsigneeInfo({
+         setConsigneeName('INDO GERMAN INTERNATIONAL PRIVATE LIMITED');
+         setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'))
+         setConsigneeInfo({
           name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-          branch: 'DELHI',
-          address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
+          branch: TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch || TransitDetailsdata[0].order.marginMoney.invoiceDetail.branchOffice,
+          address:
+            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress || TransitDetailsdata[0].order.marginMoney.invoiceDetail.companyAddress,
         });
       }
       let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
@@ -495,8 +514,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       value={consigneeName}
                     >
                       <option value="">Select an option</option>
-                      <option value="indoGerman">INDO GERMAN INTERNATIONAL PRIVATE LIMITED</option>
-                      <option value="EMERGENT">EMERGENT INDUSTRIAL SOLUTIONS LIMITED</option>
+                      <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">INDO GERMAN INTERNATIONAL PRIVATE LIMITED</option>
+                      <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">EMERGENT INDUSTRIAL SOLUTIONS LIMITED</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Consignee Name<strong className="text-danger">*</strong>
@@ -508,13 +527,42 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     />
                   </div>
                 </div>
-
-                <div className="col-lg-4 col-md-6" style={{ marginTop: '35px' }}>
-                  <div className={`${styles.label} text`}>
-                    Consignee Branch<strong className="text-danger">*</strong>{' '}
+               <div className={`${styles.form_group} col-lg-4 col-md-6 `}>
+                  <div className="d-flex">
+                    <select
+                      onChange={(e) => {
+                         let filter =getInternalCompaniesMasterData.filter((val,index)=>{
+                          if(val.Branch==e.target.value &&val.Company_Name==consigneeName ){
+                            return val
+                          }
+                        })
+                         console.log(filter,"sdasds")
+                         setConsigneeInfo({
+                          name: consigneeName,
+                          branch: e.target.value,
+                          address:filter[0].Address || ""
+                          
+                        });
+                      }}
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      value={consigneeInfo.branch}
+                    >
+                      <option value="">Select an option</option>
+                      {branchOptions.map((val,index)=>{
+                        return <option value={`${val.Branch}`}>{val.Branch}</option>
+                      })}
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                     Consignee Branch<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
                   </div>
-                  <span className={styles.value}>{consigneeInfo.branch}</span>
                 </div>
+                
                 <div className="col-lg-4 col-md-6 " style={{ marginTop: '35px' }}>
                   <div className={`${styles.label} text`}>
                     Consignee Address<strong className="text-danger">*</strong>{' '}
