@@ -934,17 +934,9 @@ export default function SalesContract(changeHandler, data, preview) {
             ) : (
               <>
                 <div className="form-group mt-5 pt-3">
-                  <textarea
-                    rows={3}
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value);
-                    }}
-                    value={data?.sellerSignature}
-                    name="sellerSignature"
-                    type="text"
-                    placeholder=""
+                  <span
                     className={`${styles.para} w-100 mt-5 input`}
-                  ></textarea>
+                  >{data?.sellerSignature}</span>
                 </div>
               </>
             )}
@@ -961,17 +953,11 @@ export default function SalesContract(changeHandler, data, preview) {
             ) : (
               <>
                 <div className="form-group mt-5 pt-3">
-                  <textarea
-                    rows={3}
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value);
-                    }}
-                    type="text"
-                    value={data?.buyerSignature}
-                    name="buyerSignature"
-                    placeholder=""
+                  <span
+            
                     className={`${styles.para} w-100 mt-5 input`}
-                  ></textarea>
+                  
+                  >{data?.buyerSignature}</span>
                 </div>
               </>
             )}
