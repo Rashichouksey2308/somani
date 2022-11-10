@@ -1,20 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 import styles from '../index.module.scss';
-import moment from 'moment';
 import _get from 'lodash/get';
 import { checkNan, convertValue } from '../../../utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
-function Index({ incomeData, rtrnChartIndiaction }) {
+
+function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
+
   const [unit, setUnit] = useState(10000000);
-
   const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {});
-
   const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', {});
-
   const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', {});
-
-  const yearArray = _get(incomeData, 'financial.other.financialYears', ['', '', '']);
 
   return (
     <>
@@ -62,34 +59,26 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}`,
+                          color: `${returnDataPeriodAndColour(latestYearData?.financialEndDate).colour}`,
                         }}
                       >
-                        {latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
-                          : 'MAR-' + yearArray[0].slice(5, 7)}
+                        {returnDataPeriodAndColour(latestYearData?.financialEndDate, 0).date}
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
                         style={{
-                          color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}`,
+                          color: `${returnDataPeriodAndColour(previousYearData?.financialEndDate).colour}`,
                         }}
                       >
-                        {previousYearData?.financialEndDate
-                          ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
-                          : 'MAR-' + yearArray[1].slice(5, 7)}
+                        {returnDataPeriodAndColour(previousYearData?.financialEndDate, 0).date}
                       </th>
                       <th
                         className="text-center"
                         width="12.5%"
-                        style={{
-                          color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}`,
-                        }}
+                        style={{color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}`,}}
                       >
-                        {lastYearData?.financialEndDate
-                          ? moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()
-                          : 'MAR-' + yearArray[2].slice(5, 7)}
+                        {returnDataPeriodAndColour(lastYearData?.financialEndDate, 0).date}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND
@@ -100,25 +89,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Revenue From Operation</td>
                       <td className="text-center">
-                        {/* {latestYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
-                        {convertValue(latestYearData?.revenue?.revenueFromOperations, unit)?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                      {returnReadableNumber(convertValue(latestYearData?.revenue?.revenueFromOperations, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className="text-center">
-                        {/* {previousYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
-                        {convertValue(previousYearData?.revenue?.revenueFromOperations, unit)?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                      {returnReadableNumber(convertValue(previousYearData?.revenue?.revenueFromOperations, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className="text-center">
-                        {/* {lastYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
-                        {convertValue(lastYearData?.revenue?.revenueFromOperations, unit)?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                      {returnReadableNumber(convertValue(lastYearData?.revenue?.revenueFromOperations, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -314,9 +291,9 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost +
-                            latestYearData?.expenses?.deprcnAmort,
+                          latestYearData?.expenses?.totExp +
+                          latestYearData?.expenses?.finCost +
+                          latestYearData?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -332,9 +309,9 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost +
-                            previousYearData?.expenses?.deprcnAmort,
+                          previousYearData?.expenses?.totExp +
+                          previousYearData?.expenses?.finCost +
+                          previousYearData?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -350,9 +327,9 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost +
-                            lastYearData?.expenses?.deprcnAmort,
+                          lastYearData?.expenses?.totExp +
+                          lastYearData?.expenses?.finCost +
+                          lastYearData?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -362,17 +339,17 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost +
-                            latestYearData?.expenses?.deprcnAmort,
+                          latestYearData?.expenses?.totExp +
+                          latestYearData?.expenses?.finCost +
+                          latestYearData?.expenses?.deprcnAmort,
                           previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost +
-                            previousYearData?.expenses?.deprcnAmort,
+                          previousYearData?.expenses?.totExp +
+                          previousYearData?.expenses?.finCost +
+                          previousYearData?.expenses?.deprcnAmort,
                           lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost +
-                            lastYearData?.expenses?.deprcnAmort,
+                          lastYearData?.expenses?.totExp +
+                          lastYearData?.expenses?.finCost +
+                          lastYearData?.expenses?.deprcnAmort,
                         )}
                       </td>
                     </tr>
@@ -419,8 +396,8 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost,
+                          latestYearData?.expenses?.totExp +
+                          latestYearData?.expenses?.finCost,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -435,8 +412,8 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost,
+                          previousYearData?.expenses?.totExp +
+                          previousYearData?.expenses?.finCost,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -451,8 +428,8 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost,
+                          lastYearData?.expenses?.totExp +
+                          lastYearData?.expenses?.finCost,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
@@ -462,14 +439,14 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost,
+                          latestYearData?.expenses?.totExp +
+                          latestYearData?.expenses?.finCost,
                           previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost,
+                          previousYearData?.expenses?.totExp +
+                          previousYearData?.expenses?.finCost,
                           lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost,
+                          lastYearData?.expenses?.totExp +
+                          lastYearData?.expenses?.finCost,
                         )}
                       </td>
                     </tr>
@@ -625,7 +602,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         {rtrnChartIndiaction(
                           (latestYearData?.totalTaxExpense / latestYearData?.profLossBefTax)?.toLocaleString() * 100,
                           (previousYearData?.totalTaxExpense / previousYearData?.profLossBefTax)?.toLocaleString() *
-                            100,
+                          100,
                           (lastYearData?.totalTaxExpense / lastYearData?.profLossBefTax)?.toLocaleString() * 100,
                         )}
                       </td>

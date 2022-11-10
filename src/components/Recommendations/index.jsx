@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
-import { checkNan, CovertvaluefromtoCR } from '../../utils/helper';
+import { Form, Modal } from 'react-bootstrap';
+import { checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import styles from './index.module.scss';
+import moment from 'moment';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({
   financialsComment,
@@ -29,6 +31,8 @@ const Index = ({
   deleteData,
   setSanctionComment,
   suggestedCredit,
+  allBuyerList,
+
 }) => {
   const [editProfile, setEditProfile] = useState([]);
   const [editFinance, setEditFinance] = useState([]);
@@ -44,6 +48,7 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('');
   const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([]);
   const [weaknessComments, setWeaknessComments] = useState('');
+  const [show, setShow] = useState(false);
 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
@@ -193,7 +198,6 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          {/* <hr className={styles.line} style={{ margin: '0' }}></hr> */}
           <div className={`${styles.dashboard_form} card-body`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
@@ -488,10 +492,9 @@ const Index = ({
               </div>
             </div>
           </div>
-          <span className={styles.view_order}>View Past Orders</span>
+          <span className={styles.view_order} onClick={() => setShow(true)}>View Past Orders</span>
 
           <hr className={`${styles.line} border-0 mt-5`}></hr>
-
           <div className={`${styles.dashboard_form} border_color p-0`}>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Strengths</div>
@@ -505,7 +508,6 @@ const Index = ({
                   onChange={(e) => setStrengthsComments(e.target.value)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>Comments</label>
-
                 <img
                   className={`${styles.add_btn} ml-4`}
                   role="button"
@@ -517,7 +519,6 @@ const Index = ({
                   }}
                 />
               </div>
-              {/* <div className={`${styles.strength} value`}>Strengths</div> */}
               {strengthsComment &&
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
@@ -575,7 +576,6 @@ const Index = ({
                   }}
                 />
               </div>
-              {/* <div className={`${styles.strength} value`}>Weakness</div> */}
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
@@ -825,6 +825,71 @@ const Index = ({
           </div>
         </div>
       </div>
+
+      <Modal
+        show={show}
+        size="lg"
+        // onHide={handleClose}
+        className={styles.updated_successfully}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={`${styles.card_header} background`}>
+          <Modal.Title>
+            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+              <h5 className='heading_card'>Order Summary - Last 6 Orders</h5>
+              <div className={`${styles.pageList} d-flex align-items-center`}
+                onClick={() => setShow(false)}>
+                <img src='/static/accordion_close_black.svg' alt='close' className='img-fluid' />
+              </div>
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.card_body} card-body`}>
+          <div className={styles.table_scroll_outer}>
+            <div className={styles.table_scroll_inner}>
+              <table className={`${styles.table} table`} cellPadding='0' cellSpacing='0' border='0'>
+                <thead>
+                  <tr className='table_row'>
+                    <th>SUPPLIER NAME</th>
+                    <th>ORDER ID</th>
+                    <th>ORDER DATE</th>
+                    <th>ORDER VALUE</th>
+                    <th>COMMODITY</th>
+                    <th>STATUS</th>
+                    {/* <th>DAYS DUE</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
+                    let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                    let [fName, lName] = name?.split(' ');
+                    return (
+                      <tr ke={index} className='table_row'>
+                        <td className={`d-flex justify-content-start align-items-center`}>
+                          <div className={`${styles.icon} `}>
+                            <span className={`d-flex justify-content-center align-items-center`}> {fName?.charAt(0)}{lName?.charAt(0)}</span>
+                          </div>
+
+                          <span className={` ${styles.name} ml-4`}>{item?.supplierName}</span>
+                        </td>
+                        <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
+                        <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
+                        <td>{returnReadableNumber(convertValue(item?.orderValue), 'en-In', 2, 2)} CR</td>
+                        <td>{item?.commodity}</td>
+                        <td>
+                          <span className={`${styles.status} ${styles.rejected}`} />
+                          In Process
+                        </td>
+                        {/* <td> 12</td> */}
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

@@ -570,7 +570,7 @@ function Index({
 
                             {port
                               .filter((val, index) => {
-                                if (val.Country.toLowerCase() == 'india') {
+                                if (val.Country.toLowerCase() == 'india'  && val.Approved=="YES") {
                                   return val;
                                 }
                               })
