@@ -23,11 +23,11 @@ function index ({ barName, openbar, download }) {
       </div>
       <div className={styles.navigate}>
         <span>2</span> / 10
-        <div style={{ color: '#66708559' }}> | </div>
+        <div className={styles.line_color}> | </div>
         <div className={styles.button} />
         <span className={styles.zoom}>80%</span>
         <img src='/static/add-3.svg' className='img-fluid' alt='Add' />
-        <div style={{ color: '#66708559' }}> |</div>
+        <div className={styles.line_color}> |</div>
         <img src='/static/expand.svg' className='img-fluid' alt='Expand' />
       </div>
       <div

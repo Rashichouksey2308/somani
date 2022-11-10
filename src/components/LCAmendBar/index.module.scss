@@ -111,6 +111,9 @@
       }
     }
 
+    .line_color {
+      color: #66708559;
+    }
     .button {
       width: 24px;
       height: 4px;
@@ -143,7 +146,7 @@
     cursor: pointer;
     width: 260px;
     height: 48px;
-    background: #3687e8 0% 0%;
+    background: #3687e8;
     border-radius: 5px;
     color: #ffffff;
     display: flex;

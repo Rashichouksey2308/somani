@@ -14,7 +14,6 @@ import Order from '../../src/components/Order';
 import Recommendations from '../../src/components/Recommendations';
 import ShipmentDetails from '../../src/components/ShipmentDetails';
 import styles from './reviewqueue.module.scss';
-
 import CommonSave from '../../src/components/CommonSave';
 import DownloadBar from '../../src/components/DownloadBar';
 import PreviousBar from '../../src/components/PreviousBar';
@@ -24,9 +23,8 @@ import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDeta
 import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails';
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings';
 import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern';
-
 import { GetCompanyDetails } from 'redux/companyDetail/action';
-import { GetAllOrders } from 'redux/registerBuyer/action';
+import { GetAllBuyer, GetAllOrders } from 'redux/registerBuyer/action';
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
 import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
 import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeStatement';
@@ -45,6 +43,7 @@ import {
 
 import { orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
 import { handleErrorToast } from '../../src/utils/helpers/global';
+
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCredit, UpdateCreditCalculate, UpdateOrderShipment } from '../../src/redux/buyerProfile/action';
@@ -58,6 +57,7 @@ import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
 import { McaReportFetch } from '../../src/redux/mcaReport/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { returnReadableNumber } from '@/utils/helpers/global'
 
 let alertObj = {
   isShell: 'Shell',
@@ -172,9 +172,11 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review);
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
+  const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
   const mcaReportAvailable =
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
+
 
   useEffect(() => {
     if (window) {
@@ -203,6 +205,7 @@ function Index() {
       if (sessionStorage.getItem('showCAM') == 'false' || sessionStorage.getItem('showCAM') == undefined) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
+        dispatch(GetAllBuyer(`?company=${id2}&limit=${6}`));
       }
     }
   }, [dispatch, fetchingKarzaGst]);
@@ -1114,11 +1117,11 @@ function Index() {
     dispatch(UpdateCam(obj, 'CAM REJECTED'));
   };
 
-  const initials = () => {
-    let name = orderList?.company?.companyName ?? 'N A';
-    let Initials = name?.split(' ');
-    return `${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`;
-  };
+  // const initials = () => {
+  //   let name = orderList?.company?.companyName ?? 'N A';
+  //   let Initials = name?.split(' ');
+  //   return `${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`;
+  // };
 
   const currentOpenLink = (e) => {
     if (e.target.attributes[4].nodeValue == 'Compliance') {
@@ -2872,6 +2875,7 @@ function Index() {
                 >
                   CUSTOMER NAME
                 </td>
+
                 {/* <td
                   style={{
                     fontSize: '15px',
@@ -2893,6 +2897,17 @@ function Index() {
                   }}
                 >
                   ORDER NO
+                </td>
+                <td
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  ORDER DATE
                 </td>
 
                 <td
@@ -2974,46 +2989,51 @@ function Index() {
                   </table>
                 </td>
               </tr>
-              <tr>
-                <td
-                  width="5%"
-                  height="60"
-                  style={{
-                    padding: '21px 12px 21px 35px',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: '28px',
-                      color: '#FF9D00',
-                      lineHeight: '34px',
-                      fontWeight: 'bold',
-                      background: '#FFECCF',
-                      borderRadius: '8px',
-                      padding: '13px 0',
-                      width: '60px',
-                      height: '60px',
-                      textAlign: 'center',
-                      display: 'inline-block',
-                    }}
-                  >
-                    {initials()}
-                  </span>{' '}
-                </td>
-                <td
-                  width="30%"
-                  style={{
-                    fontSize: '22px',
-                    color: '#111111',
-                    lineHeight: '27px',
-                    fontWeight: 'bold',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {camData?.company?.companyName}
-                </td>
-                {/* <td
+
+              {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
+                let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                let [fName, lName] = name?.split(' ');
+                return (
+                  <tr>
+                    <td
+                      width="5%"
+                      height="60"
+                      style={{
+                        padding: '21px 12px 21px 35px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: '28px',
+                          color: '#FF9D00',
+                          lineHeight: '34px',
+                          fontWeight: 'bold',
+                          background: '#FFECCF',
+                          borderRadius: '8px',
+                          padding: '13px 0',
+                          width: '60px',
+                          height: '60px',
+                          textAlign: 'center',
+                          display: 'inline-block',
+                        }}
+                      >
+                        {fName?.charAt(0)}{lName?.charAt(0)}
+                      </span>{' '}
+                    </td>
+                    <td
+                      width="30%"
+                      style={{
+                        fontSize: '22px',
+                        color: '#111111',
+                        lineHeight: '27px',
+                        fontWeight: 'bold',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.supplierName}
+                    </td>
+                    {/* <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
@@ -3024,77 +3044,88 @@ function Index() {
                 >
                   Customer Name
                 </td> */}
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {camData?.orderId}
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
-                  })}
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {camData?.commodity}
-                </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.orderId ? item?.orderId : item?.applicationId}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.commodity}
+                    </td>
 
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    fontWeight: '500',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  <span
-                    style={{
-                      padding: '7.5px',
-                      display: 'inline-block',
-                      background: '#FF9D00',
-                      borderRadius: '50%',
-                      marginRight: '10px',
-                    }}
-                  ></span>
-                  In Process
-                </td>
-                <td
-                  align="center"
-                  style={{
-                    fontSize: '19px',
-                    color: '#EA3F3F',
-                    lineHeight: '24px',
-                    fontWeight: 'bold',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  12
-                </td>
-              </tr>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        fontWeight: '500',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          padding: '7.5px',
+                          display: 'inline-block',
+                          background: '#FF9D00',
+                          borderRadius: '50%',
+                          marginRight: '10px',
+                        }}
+                      ></span>
+                      In Process
+                    </td>
+                    <td
+                      align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#EA3F3F',
+                        lineHeight: '24px',
+                        fontWeight: 'bold',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      12
+                    </td>
+                  </tr>
+                )
+              })}
             </table>
           </td>
         </tr>
@@ -7924,6 +7955,9 @@ function Index() {
       ]);
     }
   }, [companyData]);
+
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -8633,6 +8667,8 @@ function Index() {
                     suggestedCredit={suggestedCredit}
                     setGroupExposureData={setGroupExposureData}
                     setSanctionComment={setSanctionComment}
+                    allBuyerList={allBuyerList}
+
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
@@ -8664,6 +8700,7 @@ function Index() {
                     CreditAgency={CreditAgency}
                     litigationStatus={litigationStatus}
                     debtProfileColor={debtProfileColor}
+                    allBuyerList={allBuyerList}
                   />
                 </div>
               </div>

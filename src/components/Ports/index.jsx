@@ -66,18 +66,6 @@ function Index () {
                     </div>
                   </div>
                 </div>
-                {/* <div className={`${styles.form_group} col-lg-2 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="email"
-                    required
-                    className={`${styles.input_field} border_color input form-control`}
-                  />
-                  <label className={`${styles.label_heading} label_heading`} id="textInput">
-                    State
-                  </label>
-                </div> */}
                 <div className={`${styles.form_group} mt-1 col-lg-2 col-md-6 col-sm-6 `}>
                   <div className={`${styles.radio_form} ml-1`}>
                     <div className={`${styles.sub_heading} label_heading`}>
