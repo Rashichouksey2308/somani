@@ -10,6 +10,7 @@ import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
 import FilterBadge from '../../src/components/FilterBadge';
+import QueueStats from '../../src/components/QueueStats';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
@@ -76,6 +77,15 @@ function Index() {
       setSorting(-1);
     }
   };
+
+  const statData = {
+    'all': 3200,
+    'approved': 780,
+    'review': 800,
+    'rejected': 89,
+    'saved': 60
+  }
+
   return (
     <>
       {' '}
@@ -136,63 +146,8 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <div className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}>
-            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
-                </div>
-                <h3>
-                  <span> All </span>
-                  3,200
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/check.svg" className="img-fluid" alt="Check" />
-                </div>
-                <h3>
-                  <span>APPROVED</span>
-                  780
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
-                </div>
-                <h3>
-                  <span>REVIEW</span>
-                  800
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-                </div>
-                <h3>
-                  <span>REJECTED</span>
-                  89
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/bookmark.svg" className="img-fluid" alt="Bookmark" />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
-          </div>
+          <QueueStats data={statData}/>
+
           {/*leads table*/}
           <div className={`${styles.datatable} border datatable card`}>
             <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
@@ -270,20 +225,20 @@ function Index() {
                                 buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
+                                    ? styles.review
+                                    : buyer.queue === 'CreditQueue'
+                                      ? styles.approved
+                                      : styles.rejected
+                                }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
+                                ? 'Review'
+                                : buyer.queue === 'CreditQueue'
+                                  ? 'Approved'
+                                  : 'Rejected'}
                           </td>
                         </tr>
                       ))}
