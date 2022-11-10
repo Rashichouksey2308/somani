@@ -54,7 +54,7 @@ function Index() {
       name: '',
       designation: '',
       email: '',
-      phoneNo: '',
+      // phoneNo: '',
     },
   ]);
 
@@ -132,6 +132,8 @@ function Index() {
           bankDetails={bankDetails}
           deleteBank={deleteBank}
           updateBankDataArr={updateBankDataArr}
+          authorisedSignatoryDetails={authorisedSignatoryDetails}
+          setAuthorisedSignatoryDetails={setAuthorisedSignatoryDetails}
         />
       </Card>
     </div>
