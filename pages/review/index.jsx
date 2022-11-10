@@ -161,7 +161,7 @@ let alertObj = {
 
 function Index() {
   const dispatch = useDispatch();
-
+ 
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
@@ -273,7 +273,7 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
-
+ console.log(orderList,"orderList")
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',

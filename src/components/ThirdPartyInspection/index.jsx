@@ -160,7 +160,7 @@ export default function Index({ addButton }) {
       dischargeCertificateOfWeightStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
     });
   }, [inspectionData, allInspection]);
-console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarge', '')," _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarge', '')")
+  
   const [documents, setDocuments] = useState({
     certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
@@ -905,7 +905,6 @@ console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarg
     }
   };
 
-  console.log(inspectionDetails,"inceptionData")
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 `}>
@@ -1245,59 +1244,6 @@ console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarg
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={() => ChangeValue('on Hold')}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={() =>
-                                      setDocumentAction('Rejected')
-                                    }
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={() =>
-                                      setDocumentAction('Approved')
-                                    }
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
@@ -1398,54 +1344,6 @@ console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarg
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
@@ -1547,54 +1445,6 @@ console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarg
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
@@ -1866,54 +1716,6 @@ console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarg
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
@@ -2016,54 +1818,6 @@ console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarg
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select

@@ -199,8 +199,8 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="Inod International Trading Fzco">Indo International Trading Fzco</option>
-                            <option value="Balaji Traders">Balaji Traders</option>
+                            <option value="Indo Intertrade AG">Indo Intertrade AG</option>
+                  
                           </select>
                           <label className={`${styles.label_heading} label_heading`}>
                             (50) Applicant
@@ -548,45 +548,28 @@ function Index({
                         </div>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <div className="d-flex">
-                          <select
+
+                      <div className="d-flex">
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="text"
                             name="portOfDischarge"
+                            value={
+                              lcData?.portOfDischarge
+                                
+                            }
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value);
                             }}
-                            value={
-                              lcData?.portOfDischarge
-                               
-                            }
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option selected>Select an option</option>
-
-                            {port
-                              .filter((val, index) => {
-                                if (val.Country.toLowerCase() == 'india'  && val.Approved=="YES") {
-                                  return val;
-                                }
-                              })
-                              .map((val, index) => {
-                                return (
-                                  <option value={`${val.Port_Name},${val.Country}`}>
-                                    {val.Port_Name},{val.Country}
-                                  </option>
-                                );
-                              })}
-                          </select>
-
+                          />
                           <label className={`${styles.label_heading} label_heading`}>
-                            (44F) Port of Discharge
+                          (44F) Port of Discharge
                             <strong className="text-danger">*</strong>
                           </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
                         </div>
+
+              
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">

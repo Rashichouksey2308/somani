@@ -1911,7 +1911,7 @@ const index = ({
                         }}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
-                        GSTIN<strong className="text-danger">*</strong>
+                        GSTIN
                       </label>
                     </div>
                     <div

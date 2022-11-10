@@ -182,7 +182,7 @@ function Index(props) {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
-          setRemovedOption(obj.name);
+        
           return { ...obj, actions: 'false' };
         }
 
@@ -211,7 +211,7 @@ function Index(props) {
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
 
-    setRemovedOption(value.name);
+   
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
@@ -230,7 +230,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+   
   };
   // setRemovedOption(null)
 
@@ -242,16 +242,16 @@ function Index(props) {
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    // if (
+    //   val.name == 'Bhawana Jain' ||
+    //   val.name == 'Vipin Kumar' ||
+    //   val.name == 'Devesh Jain' ||
+    //   val.name == 'Fatima Yannoulis'
+    // ) {
+    //   let temp = [...options];
+    //   temp.push(val.name);
+    //   setOptions([...temp]);
+    // }
   };
   const handleInput = (name, value, key) => {
     const newInput = { ...buyerData };
@@ -828,20 +828,18 @@ function Index(props) {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
-                                  {val.addnew == 'false' ? (
+                                 
                                     <>
                                       <select
                                         value={val.name}
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
-                                          setRemovedOption(e.target.value);
+                                         
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
                                         <option>Select an option</option>
-                                        {removedOption != null ? (
-                                          <option value={removedOption}>{removedOption}</option>
-                                        ) : null}
+                                       
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
@@ -852,52 +850,7 @@ function Index(props) {
                                         alt="Search"
                                       />
                                     </>
-                                  ) : (
-                                    <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
-                                        <>
-                                          <select
-                                            value={val.name}
-                                            className={`${styles.customSelect} input`}
-                                            onChange={(e) => {
-                                              handleChangeInput(e.target.name, e.target.value, index);
-                                            }}
-                                          >
-                                            <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
-                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
-                                            <option value={'Devesh Jain'}>Devesh Jain</option>
-                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
-
-                                            {/* {options.map((val,i)=>{
-                                return(<option value={val}>{val}</option>)
-                              })} */}
-                                          </select>
-                                          <img
-                                            className={`${styles.arrow2} image_arrow img-fluid`}
-                                            src="/static/inputDropDown.svg"
-                                            alt="Search"
-                                          />
-                                        </>
-                                      ) : (
-                                        <>
-                                          <input
-                                            type="text"
-                                            className="input"
-                                            placeholder={'Add new'}
-                                            name="name"
-                                            value={val.name}
-                                            onChange={(e) => {
-                                              handleChangeInput2(e.target.name, e.target.value, index);
-                                            }}
-                                          />
-                                        </>
-                                      )}
-                                    </>
-                                  )}
+                                 
                                 </td>
                                 <td>
                                   <input

@@ -442,8 +442,10 @@ export default function Home () {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         await fetchInitialData()
-        dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
-        router.push(`/insurance/form`)
+       
+       
+        // dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
+        // router.push(`/insurance/form`)
       }
     }
   }
