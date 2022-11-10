@@ -131,7 +131,11 @@ export default function Index({ addButton }) {
         numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
           ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
-        inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+        inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort
+        ?
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort:
+        _get(inspectionData, 'order.lc.lcApplication.portOfLoading', '')
+        ,
         inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
@@ -140,7 +144,9 @@ export default function Index({ addButton }) {
         numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
-        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort?
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort:
+        _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', ''),
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
@@ -154,7 +160,7 @@ export default function Index({ addButton }) {
       dischargeCertificateOfWeightStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
     });
   }, [inspectionData, allInspection]);
-
+console.log( _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarge', '')," _get(inspectionData, 'data[0].order.lc.lcApplication.portOfDischarge', '')")
   const [documents, setDocuments] = useState({
     certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
@@ -899,6 +905,7 @@ export default function Index({ addButton }) {
     }
   };
 
+  console.log(inspectionDetails,"inceptionData")
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 `}>

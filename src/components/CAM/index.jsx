@@ -25,7 +25,7 @@ import _get from 'lodash/get';
 
 import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import { isArray } from 'lodash';
-import {returnReadableNumber} from '@/utils/helpers/global'
+import { returnReadableNumber } from '@/utils/helpers/global'
 
 Chart.register(
   ArcElement,
@@ -426,11 +426,7 @@ function Index({
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
-        if (
-          val.finalAmountSecured !== null ||
-          !val.dateOfSatisfactionOfChargeInFull ||
-          val.dateOfSatisfactionOfChargeInFull === ''
-        ) {
+        if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
           temp.push({
             name: val.nameOfChargeHolder1,
             value: val.finalAmountSecured,
@@ -564,7 +560,7 @@ function Index({
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating, darkMode)}
       {groupExposure(camData, camConversionunit)}
-      {orderSummary(camData, camConversionunit,allBuyerList)}
+      {orderSummary(camData, camConversionunit, allBuyerList)}
       {creditProfile(
         camData,
         openChargesLength,
@@ -1013,7 +1009,7 @@ const groupExposure = (camData, camConversionunit) => {
     </>
   );
 };
-const orderSummary = (camData, camConversionunit,allBuyerList) => {
+const orderSummary = (camData, camConversionunit, allBuyerList) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1047,30 +1043,30 @@ const orderSummary = (camData, camConversionunit,allBuyerList) => {
                   <div className={`${styles.dashedLine}`}></div>
                 </td>
               </tr> */}
-             {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
-                    let name = item?.supplierName?.toUpperCase() ?? 'N A';
-                    let [fName, lName] = name?.split(' ');
-                    return (
-                      <tr ke={index} className='table_row'>
-                        <td className={`d-flex justify-content-start align-items-center`}>
-                          <div className={`${styles.icon} `}>
-                            <span className={`d-flex justify-content-center align-items-center`}> {fName?.charAt(0)}{lName?.charAt(0)}</span>
-                          </div>
+              {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
+                let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                let [fName, lName] = name?.split(' ');
+                return (
+                  <tr ke={index} className='table_row'>
+                    <td className={`d-flex justify-content-start align-items-center`}>
+                      <div className={`${styles.icon} `}>
+                        <span className={`d-flex justify-content-center align-items-center`}> {fName?.charAt(0)}{lName?.charAt(0)}</span>
+                      </div>
 
-                          <span className={` ${styles.name} ml-4`}>{item?.supplierName}</span>
-                        </td>
-                        <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
-                        <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
-                        <td>{returnReadableNumber(convertValue(item?.orderValue,camConversionunit), 'en-In', 2, 2)} CR</td>
-                        <td>{item?.commodity}</td>
-                        <td>
-                          <span className={`${styles.status} ${styles.rejected}`} />
-                          In Process
-                        </td>
-                        <td> 12</td>
-                      </tr>
-                    )
-                  })}
+                      <span className={` ${styles.name} ml-4`}>{item?.supplierName}</span>
+                    </td>
+                    <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
+                    <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
+                    <td>{returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR</td>
+                    <td>{item?.commodity}</td>
+                    <td>
+                      <span className={`${styles.status} ${styles.rejected}`} />
+                      In Process
+                    </td>
+                    <td> 12</td>
+                  </tr>
+                )
+              })}
             </table>
           </div>
         </div>
@@ -1585,8 +1581,8 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                             style={{
                               backgroundColor: `${debtProfileColor(debt.conduct)}`,
                               width: `${(Number(debt.limit) / totalLimitDebt() > 1
-                                  ? 1
-                                  : Number(debt.limit) / totalLimitDebt()) * 100
+                                ? 1
+                                : Number(debt.limit) / totalLimitDebt()) * 100
                                 }%`,
                             }}
                             className={`${styles.fill}`}
@@ -1652,12 +1648,12 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                         </td>
                         <td
                           className={`${styles.conduct}  ${debt.conduct == 'Good'
-                              ? 'good'
-                              : debt.conduct == 'Satisfactory'
-                                ? 'satisfactory'
-                                : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : 'danger'
+                            ? 'good'
+                            : debt.conduct == 'Satisfactory'
+                              ? 'satisfactory'
+                              : debt.conduct == 'Average'
+                                ? 'average'
+                                : 'danger'
                             }`}
                         >
                           {debt?.conduct}
@@ -3650,28 +3646,28 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     className={`${styles.excellent}`}
                     style={{
                       background: `${filteredCreditRating?.length > 0
-                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#ff423045'
-                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                              ? '#ad7e0742'
-                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                                ? '#00b81e52'
-                                : 'rgba(0, 184, 31, 0.1882352941)'
-                          : null
+                        ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                          ? '#ff423045'
+                          : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#00b81e52'
+                              : 'rgba(0, 184, 31, 0.1882352941)'
+                        : null
                         }`,
                     }}
                   >
                     <span
                       style={{
                         color: `${filteredCreditRating?.length > 0
-                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                              ? '#ff4230'
-                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                                ? '#ffb700'
-                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                                  ? '#8ac41c'
-                                  : '00b81f30'
-                            : null
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff4230'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ffb700'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                ? '#8ac41c'
+                                : '00b81f30'
+                          : null
                           }`,
                       }}
                     >
@@ -3720,10 +3716,10 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         style={{
                           backgroundColor: '#FFB700',
                           width: `${filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating) *
-                              100
-                              : '0'
+                            ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
                             }%`,
                         }}
                         className={`${styles.fill}`}
@@ -3750,10 +3746,10 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         style={{
                           backgroundColor: '#FF4230',
                           width: `${filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating) *
-                              100
-                              : '0'
+                            ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
                             }%`,
                         }}
                         className={`${styles.fill}`}
@@ -3780,10 +3776,10 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         style={{
                           backgroundColor: '#83C400',
                           width: `${filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating) *
-                              100
-                              : '0'
+                            ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
                             }%`,
                         }}
                         className={`${styles.fill}`}
