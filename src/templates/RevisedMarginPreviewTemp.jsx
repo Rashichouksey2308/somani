@@ -2,6 +2,7 @@ import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
 
 export default function RevisedMarginPreviewTemp(marginData) {
+ 
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -39,7 +40,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                       opacity: '0.7',
                     }}
                   >
-                    {marginData?.order?.orderId}
+                    {marginData.marginData?.order?.orderId}
                   </span>
                 </span>
                 <br />
@@ -69,7 +70,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                       opacity: '0.7',
                     }}
                   >
-                    {marginData?.company?.companyName}
+                    {marginData.marginData?.company?.companyName}
                   </span>
                 </span>
               </td>
@@ -108,7 +109,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                       opacity: '0.7',
                     }}
                   >
-                    {moment(marginData?.createdAt).format('DD-MM-yy')}
+                    {moment(marginData.marginData?.createdAt).format('DD-MM-yy')}
                   </span>
                 </span>
               </td>
@@ -221,8 +222,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
-                            ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity?.toLocaleString(
+                          marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
+                            ? marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity?.toLocaleString(
                                 'en-In',
                                 {
                                   minimumFractionDigits: 2,
@@ -248,8 +249,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.quantity
-                            ? marginData?.order?.quantity?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.quantity
+                            ? marginData.marginData?.order?.quantity?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })
@@ -300,7 +301,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         USD{' '}
-                        {marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice?.toLocaleString(
+                        {marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice?.toLocaleString(
                           'en-EN',
                           {
                             minimumFractionDigits: 2,
@@ -322,7 +323,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         USD{' '}
-                        {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                        {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -368,7 +369,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate}
+                        {marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate}
                       </p>
                     </td>
                     <td align="left">
@@ -383,7 +384,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.conversionRate}
+                        {marginData.marginData?.conversionRate}
                       </p>
                     </td>
                   </tr>
@@ -427,7 +428,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
@@ -449,7 +450,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
@@ -499,7 +500,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
@@ -521,7 +522,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
@@ -571,8 +572,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.tolerance
-                            ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.tolerance
+                            ? Number(marginData.marginData?.order?.tolerance)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               })
@@ -595,8 +596,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.tolerance
-                            ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.tolerance
+                            ? Number(marginData.marginData?.order?.tolerance)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               })
@@ -647,8 +648,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                            ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })
@@ -671,8 +672,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            ? marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                            ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })
@@ -722,7 +723,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.numberOfPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.numberOfPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -740,7 +741,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.numberOfPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.numberOfPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -786,7 +787,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.additionalPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.additionalPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
@@ -804,7 +805,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {/* {marginData?.additionalPDC?.toLocaleString('en-In', {
+                        {/* {marginData.marginData?.additionalPDC?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })} */}
                       </p>
@@ -882,7 +883,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         USD{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString('en-EN', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString('en-EN', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -901,7 +902,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                         }}
                       >
                         USD{' '}
-                        {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {
+                        {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-EN', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -960,7 +961,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -983,7 +984,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1042,7 +1043,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1065,7 +1066,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1124,7 +1125,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1147,7 +1148,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1206,7 +1207,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.grossOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.grossOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1229,7 +1230,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1288,7 +1289,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.toleranceValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.toleranceValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1311,7 +1312,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1370,7 +1371,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.totalOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.totalOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1393,7 +1394,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1452,7 +1453,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.provisionalUnitPricePerTon?.toLocaleString(
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.provisionalUnitPricePerTon?.toLocaleString(
                           'en-In',
                           {
                             minimumFractionDigits: 2,
@@ -1478,7 +1479,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1537,7 +1538,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.marginMoney?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.marginMoney?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1560,7 +1561,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1632,7 +1633,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.revisedCalculation?.totalSPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.totalSPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1655,7 +1656,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1719,7 +1720,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1737,7 +1738,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1796,7 +1797,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1862,7 +1863,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1885,7 +1886,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1944,7 +1945,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -2010,7 +2011,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -2084,7 +2085,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString('en-In', {
+                        {marginData.marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
