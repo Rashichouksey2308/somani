@@ -48,7 +48,7 @@ useEffect(() => {
       let check=""
       if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Emergent Industrial Solutions Limited (EISL)"){
         check="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"
-      }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo GErman International Private Limited (IGPL)"){
+      }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
          check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
       }
          let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -56,6 +56,7 @@ useEffect(() => {
                   return val;
                 }
       });
+      console.log(check,"check",_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank"))
       console.log(filter,"filter")
       setBankName(filter)
 }
@@ -432,7 +433,7 @@ useEffect(() => {
             boeRate: val?.boeDetails?.boeRate,
             bankName: val?.boeDetails?.bankName,
             accessibleValue: val?.boeDetails?.accessibleValue,
-            adCode:""
+            adCode:val?.boeDetails?.adCode
           },
           // duty: val.duty,
 
@@ -1035,7 +1036,7 @@ useEffect(() => {
                                let check=""
                               if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Emergent Industrial Solutions Limited (EISL)"){
                                 check="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"
-                              }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo GErman International Private Limited (IGPL)"){
+                              }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
                                 check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
                               }
                                 let filter = getInternalCompaniesMasterData.filter((val, index) => {

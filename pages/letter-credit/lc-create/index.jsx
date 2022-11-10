@@ -53,7 +53,7 @@ function Index() {
         ? lcModuleData?.lcApplication?.beneficiary
         : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue ?? '',
-      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit ?? '',
+      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit || lcModuleData?.order?.orderCurrency ,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage
         ? lcModuleData?.lcApplication?.tolerancePercentage
         : lcModuleData?.order?.tolerance,
@@ -463,8 +463,8 @@ function Index() {
         });
       }
       let lcObj = { ...lcData };
-      lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue);
-      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage);
+      lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue).toString();
+      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage).toString();
       let obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],

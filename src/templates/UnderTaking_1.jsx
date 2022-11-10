@@ -7,26 +7,22 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
   return (
     <>
       <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
-        {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
         <p className="text-center text_sales">
           {' '}
           <strong>Undertaking for Post-dated Cheques issued by Associate Buyer</strong>
         </p>
-        <p className="text-center text_sales">
+        <p className="text-left text_sales ml-4 d-flex align-items-start">
           {' '}
-          <span>To:</span>{' '}
-          <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
+          <span className="mb-0">To:</span>{' '}
+          <span className="ml-4">
+            <u>
+              Indo German International Private Limited,
+              <br />
+              7A, Sagar Apartments, 6, Tilak Marg,
+              <br />
+              New Delhi
+            </u>
+          </span>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -42,18 +38,18 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </li>
           <li>
             <p className="text_sales">
-              That as requested by us, the Supplier shall sell the Goods to <strong>Indo</strong> and{' '}
-              <strong>Indo</strong> will establish Letter of Credit in favour of the Supplier and make payment to the
-              Supplier for the Goods. <strong>Indo</strong> shall sell the Goods to Seller and Seller shall sell the
-              same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the
-              Associateship Agreement shall jointly be referred to as “Contracts”.
+              That as requested by us, the Supplier shall sell the Goods to <u>Indo</u> and <u>Indo</u> will establish
+              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>Indo</u>{' '}
+              shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said
+              Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to
+              as “Contracts”.
             </p>
           </li>
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the Contracts being entered into by{' '}
-              <strong>Indo</strong> and Seller on our request. It is pertinent to mention that the terms of the
-              Associateship Agreement be read as a part of this Undertaking.
+              <u>Indo</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship
+              Agreement be read as a part of this Undertaking.
             </p>
           </li>
           <li>
@@ -67,11 +63,11 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
             <p className="text_sales">
               That, the undersigned being the Authorised Signatory of the Associate Buyer, do hereby undertake as under:
             </p>
-            <ul>
+            <ul type="disc">
               <li>
                 <p className="text_sales">
                   To pay the balance/outstanding amount in respect of the above-mentioned transaction on the first
-                  demand of Seller without recourse, demur and protest
+                  demand of Seller without recourse, demur and protest.
                 </p>
               </li>
               <li>
@@ -145,8 +141,52 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           {' '}
           <strong>Schedule I</strong>
         </p>
+        <p className="text_sales pb-3">
+          <u>Details of post-dated Cheque(s)-</u>
+        </p>
         <div className={`${styles.inputsContainer} border_black`}>
           <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>
+              <strong>S No</strong>
+            </Col>
+            <Col md={4} className={`${styles.left} border_black`}>
+              <strong>Bank Name</strong>
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              <strong>Cheque No</strong>
+            </Col>
+            <Col md={2} className={`${styles.left} border_black`}>
+              <strong>Cheque Date</strong>
+            </Col>
+            <Col md={3} className={styles.right}>
+              <strong>Amount</strong>
+            </Col>
+          </Row>
+
+          {data.cheque.length > 0 &&
+            data.cheque.map((val, index) => {
+              return (
+                <Row className={`${styles.row} border_black`}>
+                  <Col md={1} className={`${styles.left} border_black`}>
+                    {val.sNo}
+                  </Col>
+                  <Col md={4} className={`${styles.left} border_black`}>
+                    {val.bankName}
+                  </Col>
+                  <Col md={2} className={`${styles.left} border_black`}>
+                    {val.chequeNo}
+                  </Col>
+                  <Col md={2} className={`${styles.left} border_black`}>
+                    {moment(val.chequeDate).format('DD-MM-YYYY')}
+                  </Col>
+                  <Col md={3} className={styles.right}>
+                    {val.amount}
+                  </Col>
+                </Row>
+              );
+            })}
+
+          {/* <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Date of execution
             </Col>
@@ -175,8 +215,12 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               Address of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress?.fullAddress},{data.associateBuyerAddress?.city}{' '}
-              {data.associateBuyerAddress?.country}, {data.associateBuyerAddress?.pinCode}
+              {data.associateBuyerAddress?.fullAddress},
+              {data.associateBuyerAddress?.city}{" "} 
+              {data.associateBuyerAddress?.country},{" "}
+              
+              {data.associateBuyerAddress?.pinCode}
+             
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -200,21 +244,21 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               Signatory of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              <ol>
-                {data?.associateBuyerAuthorized?.length > 0 &&
-                  data?.associateBuyerAuthorized?.map((val, index) => {
-                    return (
-                      <li>
-                        <div>
-                          Name- <span>{val.name}</span>
-                        </div>
-                        <div>
-                          Designation- <span>{val.designation}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-              </ol>
+                <ol>
+              {data?.associateBuyerAuthorized?.length > 0 &&
+                data?.associateBuyerAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -230,7 +274,10 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               Address of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-              {data.stevedoreAddress?.fullAddress},{data.stevedoreAddress?.city} {data.stevedoreAddress?.country},{' '}
+             {data.stevedoreAddress?.fullAddress},
+              {data.stevedoreAddress?.city}{" "} 
+              {data.stevedoreAddress?.country},{" "}
+              
               {data.stevedoreAddress?.pinCode}
             </Col>
           </Row>
@@ -239,21 +286,21 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               Signatory of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-              <ol>
-                {data?.stevedoreAuthorized?.length > 0 &&
-                  data?.stevedoreAuthorized?.map((val, index) => {
-                    return (
-                      <li>
-                        <div>
-                          Name- <span>{val.name}</span>
-                        </div>
-                        <div>
-                          Designation- <span>{val.designation}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-              </ol>
+             <ol>
+              {data?.stevedoreAuthorized?.length > 0 &&
+                data?.stevedoreAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -269,7 +316,10 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               Address of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-              {data.cmaAddress?.fullAddress},{data.cmaAddress?.city} {data.cmaAddress?.country},{' '}
+              {data.cmaAddress?.fullAddress},
+              {data.cmaAddress?.city}{" "} 
+              {data.cmaAddress?.country},{" "}
+              
               {data.cmaAddress?.pinCode}
             </Col>
           </Row>
@@ -278,21 +328,21 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               Signatory of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-              <ol>
-                {data?.cmaAuthorized?.length > 0 &&
-                  data?.cmaAuthorized?.map((val, index) => {
-                    return (
-                      <li>
-                        <div>
-                          Name- <span>{val.name}</span>
-                        </div>
-                        <div>
-                          Designation- <span>{val.designation}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-              </ol>
+               <ol>
+              {data?.cmaAuthorized?.length > 0 &&
+                data?.cmaAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -350,21 +400,33 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
             <Col md={7} className={styles.right}>
               {data.storagePlot}
             </Col>
-          </Row>
+          </Row> */}
         </div>
 
-        <p className=" text_sales">
-          {' '}
-          <strong>SIGNATURE PAGE</strong>
-        </p>
         <div className={`row`}>
-          <Col md={12} className={`d-flex justify-content-around`}>
-            <p className="text_sales  m-0">(Seller)</p>
-            <p className="text_sales  m-0">(Buyer)</p>
+          <Col md={6} className="offset-md-6">
+            <p className="text_sales">FOR AND ON BEHALF OF</p>
           </Col>
-          <Col md={12} className={`d-flex justify-content-around`}>
-            {data.seller}
-            {data.buyer}
+        </div>
+        <div className={`row my-4`}>
+          <Col md={6}>
+            <p className="text_sales m-0">Place:</p>
+          </Col>
+          <Col md={6}>
+            <p className="text_sales m-0">
+              <strong>(Associate Buyer)</strong>
+              <br />
+              <br />
+              Name………………………
+            </p>
+          </Col>
+        </div>
+        <div className={`row my-4`}>
+          <Col md={6}>
+            <p className="text_sales m-0">Date : ………………</p>
+          </Col>
+          <Col md={6}>
+            <p className="text_sales m-0">AUTHORISED SIGNATORY</p>
           </Col>
         </div>
       </div>

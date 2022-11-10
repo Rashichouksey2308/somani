@@ -70,7 +70,7 @@ const Index = () => {
         ? insuranceData?.quotationRequest?.lossPayee
         : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
       storageDetails: {
-        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
+        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge ,
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
@@ -760,29 +760,20 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <h5>Storage Details</h5>
                         <Row>
-                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                            <div className="d-flex">
-                              <select
-                                name="storageDetails.placeOfStorage"
-                                onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
-                                value={quotationData.storageDetails.placeOfStorage}
-                                className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              >
-                                <option>Select an option</option>
-
-                                <option value="Visakhapatnam, AP, India">Visakhapatnam, AP, India</option>
-                                <option value="Mumbai, India">Mumbai, India</option>
-                              </select>
-                              <label className={`${styles.label_heading} label_heading`}>
-                                Place of Storage
-                                <strong className="text-danger">*</strong>
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
+                        <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              value={quotationData.storageDetails.placeOfStorage}
+                              name="storageDetails.placeOfStorage"
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Place of Storage
+                              <strong className="text-danger">*</strong>
+                            </label>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <input
