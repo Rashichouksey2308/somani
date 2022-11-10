@@ -151,28 +151,14 @@ function Index({
                     <div className={`${styles.dashboard_form} card-body`}>
                       <div className="row ">
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
-                          <div className="d-flex">
-                            <select
-                              disabled
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              onChange={(e) => shipmentTypeChangeHandler(e, index)}
-                              value={val.shipmentType}
-                            >
-                              <option>Select an option</option>
-                              <option value="Bulk">Bulk</option>
-                              <option value="Liner">Liner</option>
-                            </select>
-                            <label className={`${styles.label_heading} label_heading`}>
-                              Shipment Type
-                              <strong className="text-danger">*</strong>
-                            </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                         
+                             <div className={`${styles.label} text`}>
+                             Shipment Type 
                           </div>
-                        </div>
+                         <span className={styles.value}>{val.shipmentType}</span>
+                         
+                          </div>
+                        
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                           <input
                             className={`${styles.input_field} input form-control`}
