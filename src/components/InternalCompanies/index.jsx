@@ -650,7 +650,7 @@ function Index({
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-lg-3 col-sm-6`}>
-                      <div className="d-flex mt-2">
+                      <div className="d-flex align-items-center mt-2">
                         {/* <img
                           src="/static/mode_edit.svg"
                           className={`${styles.edit_image} mr-3`}
@@ -679,12 +679,12 @@ function Index({
                               )}
                         <img
                           src="/static/delete 2.svg"
-                          className={`${styles.delete_image} border-0 p-0`}
+                          className={`${styles.delete_image} mr-3 border-0 p-0`}
                           onClick={() => handleRemoveSignatory(index)}
                           alt="delete"
                         />
                         <img
-                          className={`${styles.plus_add} img-fluid`}
+                          className={`${styles.plus_add}`}
                           onClick={() => addMoreSignatoryRows()}
                           src="/static/add-btn.svg"
                           alt="Plus"
