@@ -11,6 +11,8 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer);
   const dispatch = useDispatch();
 
+  const handleClick = () => router.push('/vessel');
+
   useEffect(() => {
     const id1 = sessionStorage.getItem('VesselCompany');
     dispatch(GetOrders(`?company=${id1}`));
@@ -67,7 +69,7 @@ function Index() {
                 <tbody>
                   <tr className="table_row">
                     <td>124621</td>
-                    <td className={styles.buyerName} onClick={(e) => router.push('/vessel')}>
+                    <td className={styles.buyerName} onClick={handleClick}>
                       Iron
                     </td>
                     <td>Bulk</td>
@@ -79,7 +81,7 @@ function Index() {
                   </tr>
                   <tr className="table_row">
                     <td>124621</td>
-                    <td className={styles.buyerName} onClick={() => router.push('/vessel')}>
+                    <td className={styles.buyerName} onClick={handleClick}>
                       Iron
                     </td>
                     <td>Bulk</td>
@@ -91,12 +93,7 @@ function Index() {
                   </tr>
                   <tr className="table_row">
                     <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={(e) => {
-                        router.push('/vessel');
-                      }}
-                    >
+                    <td className={styles.buyerName} onClick={handleClick}>
                       Copper
                     </td>
                     <td>Liner</td>
