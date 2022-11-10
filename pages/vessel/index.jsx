@@ -119,7 +119,7 @@ export default function Home () {
             countryOfOrigin:
               _get(Vessel, 'data[0].vessels[0].transitDetails.countryOfOrigin', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.countryOfOrigin', '')
-                : _get(Vessel, 'data[0].order.countryOfOrigin', ''),
+                : _get(Vessel, 'data[0].order.termsheet.transactionDetails.countryOfOrigin', ''),
             portOfLoading:
               '' || _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '')

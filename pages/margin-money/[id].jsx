@@ -198,20 +198,25 @@ function Index() {
   const [invoiceData, setInvoiceData] = useState({});
   const [branchOptions, setBranchOptions] = useState([]);
 
-  const saveData = (name, value, name2, value2, value3, value4) => {
+  const saveData = (name, value, name2, value2, value3, value4,branchType,bankName) => {
     const newInput = { ...invoiceData };
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
     newInput.accountNo = value4;
+    newInput.branch = branchType;
+    newInput.bankName = bankName;
 
     setInvoiceData({ ...newInput });
   };
-  const savedataRevised = (name, value, name2, value2, value3) => {
+  const savedataRevised = (name, value, name2, value2, value3, value4,branchType,bankName) => {
     const newInput = { ...invoiceDataRevised };
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
+    newInput.accountNo = value4;
+    newInput.branch = branchType;
+    newInput.bankName = bankName;
 
     setInvoiceDataRevised({ ...newInput });
   };
@@ -230,6 +235,7 @@ function Index() {
   });
 
   const dropDownChange = (name, value) => {
+    console.log(value,"value")
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
@@ -1911,6 +1917,35 @@ function Index() {
                                   value={invoiceData?.bankName}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
+                                      let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                      if (val.Bank_Name == e.target.value && val.Company_Name ==invoiceData?.importerName) {
+                                        return val;
+                                      }
+                                    });
+                                    console.log(filter,"filter")
+                                    if(filter.length == 0) {
+                                      saveData(
+                                      'branchAddress',
+                                       "",
+                                      'IFSCcode',
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        ""
+                                    );
+                                      return
+                                    }
+                                    saveData(
+                                      'branchAddress',
+                                      filter[0].Branch_Address == undefined ? '' : filter[0].Branch_Address,
+                                      'IFSCcode',
+                                      filter[0].IFSC == undefined ? '' : filter[0].IFSC,
+                                      e.target.value,
+                                      filter[0].Account_No == undefined ? '' : filter[0].Account_No,
+                                      filter[0].Branch_Type == undefined ? '' : filter[0].Branch_Type,
+                                      filter[0].Bank_Name == undefined ? '' : filter[0].Bank_Name
+                                    );
                                   }}
                                 >
                                   <option>Select an option</option>
@@ -1939,56 +1974,23 @@ function Index() {
                               </div>
                             </div>
                             <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                              <div className="d-flex">
-                                <select
-                                  type="text"
-                                  id="Code"
-                                  name="branch"
-                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
-                                  value={invoiceData?.branch}
-                                  onChange={(e) => {
-                                    saveInvoiceData(e.target.name, e.target.value);
-                                    let filter = branchOptions.filter((val, index) => {
-                                      if (val.Branch_Type == e.target.value) {
-                                        return val;
-                                      }
-                                    });
-                                    console.log(filter[0].Branch_Address, 'filter');
-                                    saveData(
-                                      'branchAddress',
-                                      filter[0].Branch_Address == undefined ? '' : filter[0].Branch_Address,
-                                      'IFSCcode',
-                                      filter[0].IFSC == undefined ? '' : filter[0].IFSC,
-                                      e.target.value,
-                                      filter[0].Account_No == undefined ? '' : filter[0].Account_No,
-                                    );
-                                  }}
-                                >
-                                  <option selected>Select an option</option>
-                                  {branchOptions
-                                    .filter((val, index) => {
-                                      if (val.Branch_Type) {
-                                        return val;
-                                      }
-                                    })
-                                    .map((val, index) => {
-                                      return <option value={`${val.Branch_Type}`}>{val.Branch_Type}</option>;
-                                    })}
-                                  {/* <option value={`${invoiceData?.branch}`}>
-                                    {invoiceData?.branch}
-                                  </option> */}
-                                </select>
-                                <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                  Branch
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                                <img
-                                  className={`img-fluid image_arrow ${styles.arrow}`}
-                                  src="/static/inputDropDown.svg"
-                                ></img>
-                              </div>
+                              
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="branchAddress"
+                                onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                value={invoiceData?.branch}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label className={`${styles.label_heading} label_heading`} id="textInput">
+                               Branch
+                                <strong className="text-danger">*</strong>
+                              </label>
                             </div>
+                             
+                          
 
                             <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                               <input
@@ -2069,7 +2071,7 @@ function Index() {
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                         saveforCalculationRevised={saveforCalculationRevised}
-                        exportPDF={exportPDFRevised}
+                        exportPDF={()=>{}}
                         getBanksMasterData={getBanksMasterData}
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}
