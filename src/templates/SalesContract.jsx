@@ -495,7 +495,7 @@ export default function SalesContract(changeHandler, data, preview) {
               Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at
               the time this Contract is being entered into. Both Parties agree that they will use their commercially
               reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any
-              unforeseen circumstances in the spirit of mutual understanding and collaboration
+              unforeseen circumstances in the spirit of mutual understanding and collaboration.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

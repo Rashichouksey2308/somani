@@ -133,23 +133,23 @@ export default function AssignmentLetter(data) {
             <Col md={5} className={`${styles.left} border_black`}>
               Description of Goods
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
+            <Col md={7} className={`${styles.right}`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
                     <div className={styles.table_scroll_inner}>
-                      <table>
+                      <table className={styles.schedule_table}>
                         <tr>
                           {data?.spec &&
                             data?.spec.length > 0 &&
-                            Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
+                            Object.keys(data?.spec[0]).map((val, index) => <th className='text-color' key={index}>{val}</th>)}
                         </tr>
                         {data?.spec &&
                           data?.spec.length > 0 &&
                           data?.spec.map((item, index) => (
                             <tr>
                               {Object.values(item).map((value, id) => (
-                                <td key={id}>{value}</td>
+                                <td className='text-color' key={id}>{value}</td>
                               ))}
                             </tr>
                           ))}
@@ -157,7 +157,7 @@ export default function AssignmentLetter(data) {
                     </div>
                   </div>
                 </div>
-                {data?.specComment?.length > 0 ? <b>Comments</b> : null}
+                {data?.specComment?.length > 0 ? <strong>Comments</strong> : null}
                 <ol>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
