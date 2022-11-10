@@ -54,6 +54,7 @@ function Index(props) {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+  const [director,setDirectors] = useState([])
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -423,12 +424,30 @@ function Index(props) {
           }
         });
       }
+      
     }
+    
     setSidebar([...temp]);
   };
   useEffect(() => {
     setInitialSideBar();
   }, [props.genericData]);
+  useEffect(() => {
+    if(props.directors){
+      let temp=[]
+       props.directors.forEach((val,index)=>{
+         temp.push(
+          {
+          name: val.name,
+          designation: val.designation,
+          email: val.email,
+          phoneNo: '',
+         }
+         )
+       })
+       setDirectors([...temp])
+    }
+  },[props.directors])
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar));
     sessionStorage.setItem('setgenActive', val);
@@ -506,7 +525,8 @@ let masterList = [
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
-          masterList={masterList}
+          masterList={director}
+          
         
         />
       );

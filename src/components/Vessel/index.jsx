@@ -321,7 +321,7 @@ function Index({
                                 {val.portOfDischarge}
                               </option> */}
                               {port
-                                .filter((val) => val.Country.toLowerCase() === 'india')
+                                .filter((val) => val.Country.toLowerCase() === 'india' && val.Approved=="YES")
                                 .map((val, index) => {
                                   return (
                                     <option key={index} value={`${val.Port_Name},${val.Country}`}>

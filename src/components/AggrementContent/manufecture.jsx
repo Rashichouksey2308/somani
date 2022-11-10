@@ -754,7 +754,7 @@ function Index(props) {
           addNewAddress(setAddressType,setAddress,addressType,toShow,toView,handleAddressInput,cancelAddress,props.gettingPins,newAddress,handleData)
         )}
 
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,"input")}
 
         {props.multiPart == true ? (
           <>

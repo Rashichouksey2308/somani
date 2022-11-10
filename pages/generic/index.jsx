@@ -3,18 +3,20 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import SalesAgreement from '../../src/components/SalesAgreement';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import Router from 'next/router';
 import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 import { GetAllOrders } from '../../src/redux/registerBuyer/action';
+import _get from 'lodash/get'
 
 function Index(props) {
   const [genericData, setGenericData] = useState();
   const dispatch = useDispatch();
   const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
-
+  const { companyData,  } = useSelector((state) => state.companyDetails);
+ console.log(companyData)
   useEffect(() => {
     if (window) {
       dispatch(setPageName('generic'));
@@ -63,7 +65,7 @@ function Index(props) {
         <div className="row">
           <div className="col-md-12  accordion_body">
             <div className={`${styles.tabContent} tab-content`}>
-              <SalesAgreement genericData={genericData} setDate={setDate} />
+              <SalesAgreement genericData={genericData} setDate={setDate} directors={_get(companyData,"profile.directorDetail",[])} />
             </div>
           </div>
         </div>
