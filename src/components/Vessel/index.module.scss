@@ -962,3 +962,20 @@ img {
   line-height: 23px;
   text-transform: capitalize;
 }
+.label {
+  font-size: 16px;
+  letter-spacing: 0.53px;
+  line-height: 17px;
+  top: 22px;
+  font-weight: 500;
+  left: 30px;
+  margin-bottom: 15px;
+  color: #00000080;
+}
+
+.value {
+  font-size: 20px;
+  height: 60px;
+  line-height: 25px;
+  font-weight: 500;
+}

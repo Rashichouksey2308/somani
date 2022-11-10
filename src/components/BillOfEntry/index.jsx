@@ -14,6 +14,7 @@ import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import { toast } from 'react-toastify';
 import { checkNan } from '../../utils/helper';
 import { previewDocument } from '../../redux/ViewDoc/action';
+import {getInternalCompanies } from '../../../src/redux/masters/action';
 // import { set } from 'lodash'
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
 
@@ -21,13 +22,15 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
 
   const dispatch = useDispatch();
-
+   console.log(customData,)
   const [isFieldInFocus2, setIsFieldInFocus2] = useState({
     invoiceValue: false,
     invoiceQuantity: false,
     conversionRate: false,
   });
+  const [bankNameOptions,setBankName]=useState([])
 
+  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const [saveContactTable, setContactTable] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
   const [isFieldInFocus, setIsFieldInFocus] = useState([]);
@@ -37,7 +40,27 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
   }, []);
-
+useEffect(() => {
+   dispatch(getInternalCompanies());
+  }, []);
+  useEffect(() => {
+     if (customData) {
+      let check=""
+      if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Emergent Industrial Solutions Limited (EISL)"){
+        check="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"
+      }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
+         check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
+      }
+         let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                if (val.Company_Name == check) {
+                  return val;
+                }
+      });
+      console.log(check,"check",_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank"))
+      console.log(filter,"filter")
+      setBankName(filter)
+}
+  }, [getInternalCompaniesMasterData,customData]);
   const [billOfEntryData, setBillOfEntryData] = useState([
     {
       boeAssessment: '',
@@ -58,6 +81,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         boeRate: '',
         bankName: '',
         accessibleValue: 0,
+        adCode:""
       },
       duty: [
         {
@@ -71,6 +95,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       document3: null,
     },
   ]);
+  
 
   const totalCustomDuty = (index) => {
     let number = 0;
@@ -408,6 +433,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
             boeRate: val?.boeDetails?.boeRate,
             bankName: val?.boeDetails?.bankName,
             accessibleValue: val?.boeDetails?.accessibleValue,
+            adCode:val?.boeDetails?.adCode
           },
           // duty: val.duty,
 
@@ -437,7 +463,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
     } else {
       setDutyData([...duty11]);
     }
-  }, [customData]);
+  }, [customData,]);
 
   const getIndex = (index) => {
     return index + 1;
@@ -465,6 +491,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           boeRate: '',
           bankName: '',
           accessibleValue: 0,
+          adCode:""
         },
         // duty: [
         //   {
@@ -1005,13 +1032,44 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                           <div className="d-flex">
                             <select
                               name="boeDetails.bankName"
-                              onChange={(e) => saveBillOfEntryData(e.target.name, e.target.value, index)}
+                              onChange={(e) => {
+                               let check=""
+                              if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Emergent Industrial Solutions Limited (EISL)"){
+                                check="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"
+                              }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
+                                check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
+                              }
+                                let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                      if (val.Bank_Name == e.target.value && val.Company_Name == check  ) {
+                                        return val;
+                                      }
+                               });
+                               if(filter.length == 0){
+                                 return
+                               }
+                                
+                                 const newInput = [...billOfEntryData];
+
+                                
+                                 newInput[index].boeDetails.bankName=filter[0].Bank_Name
+                                 newInput[index].boeDetails.adCode=filter[0].AD_Code
+                               
+                                  setBillOfEntryData([...newInput]);
+                               
+                              }}
                               value={val?.boeDetails?.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option selected>Select Bank</option>
-                              <option value="HDFC">HDFC</option>
-                              <option value="SBI">SBI</option>
+                              <option >Select Bank</option>
+                               {bankNameOptions
+                                  .filter((val, index) => {
+                                    if (val.Bank_Name) {
+                                      return val;
+                                    }
+                                  })
+                             .map((val,index)=>{
+                                 return <option value={val.Bank_Name}>{val.Bank_Name}</option>
+                               })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>Bank Name</label>
                             <img
@@ -1025,7 +1083,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                           <div className={`${styles.label} text`}>
                             AD Code<strong className="text-danger">*</strong>{' '}
                           </div>
-                          <span className={styles.value}>22324</span>
+                          <span className={styles.value}>{val?.boeDetails?.adCode}</span>
                         </div>
                       </div>
 

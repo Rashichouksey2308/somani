@@ -340,7 +340,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     <option>Select an option</option>
                     {port
                       .filter((val, index) => {
-                        if (val.Country.toLowerCase() == 'india') {
+                        if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
                           return val;
                         }
                       })

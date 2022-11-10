@@ -724,11 +724,12 @@ export default function MarineInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.order?.generic?.buyer?.name} , <br></br>{' '}
-                        {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')} <br></br>
-                        {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')} <br></br>
-                        {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')} <br></br>
-                        {_get(insuranceData, 'order.generic.buyer.gstin', '')}
+                    {insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},
+                    {" "}{_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null},<br></br>
+                    GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                       </p>
                     </td>
                   </tr>

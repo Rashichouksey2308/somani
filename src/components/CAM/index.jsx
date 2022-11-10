@@ -25,6 +25,7 @@ import _get from 'lodash/get';
 
 import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import { isArray } from 'lodash';
+import { returnReadableNumber } from '@/utils/helpers/global'
 
 Chart.register(
   ArcElement,
@@ -61,6 +62,7 @@ function Index({
   CreditAgency,
   litigationStatus,
   debtProfileColor,
+  allBuyerList
 }) {
   const dispatch = useDispatch();
 
@@ -424,11 +426,7 @@ function Index({
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
-        if (
-          val.finalAmountSecured !== null ||
-          !val.dateOfSatisfactionOfChargeInFull ||
-          val.dateOfSatisfactionOfChargeInFull === ''
-        ) {
+        if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
           temp.push({
             name: val.nameOfChargeHolder1,
             value: val.finalAmountSecured,
@@ -562,7 +560,7 @@ function Index({
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating, darkMode)}
       {groupExposure(camData, camConversionunit)}
-      {orderSummary(camData, camConversionunit)}
+      {orderSummary(camData, camConversionunit, allBuyerList)}
       {creditProfile(
         camData,
         openChargesLength,
@@ -1011,10 +1009,7 @@ const groupExposure = (camData, camConversionunit) => {
     </>
   );
 };
-const orderSummary = (camData, camConversionunit) => {
-  let name = camData?.company?.companyName ?? 'N A';
-  let Initials = name?.split(' ');
-
+const orderSummary = (camData, camConversionunit, allBuyerList) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1032,8 +1027,9 @@ const orderSummary = (camData, camConversionunit) => {
           <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
-                <th>CUSTOMER NAME</th>
+                <th>SUPPLIER NAME</th>
                 <th>ORDER NO</th>
+                <th>ORDER DATE</th>
                 <th>ORDER VALUE</th>
                 <th>COMMODITY</th>
                 <th>STATUS</th>
@@ -1047,30 +1043,30 @@ const orderSummary = (camData, camConversionunit) => {
                   <div className={`${styles.dashedLine}`}></div>
                 </td>
               </tr> */}
-              <tr>
-                <td className={`d-flex justify-content-start align-content-center`}>
-                  <div className={`${styles.icon} `}>
-                    <span className={`d-flex justify-content-center align-content-center`}>
-                      {`${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`}
-                    </span>
-                  </div>
+              {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
+                let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                let [fName, lName] = name?.split(' ');
+                return (
+                  <tr ke={index} className='table_row'>
+                    <td className={`d-flex justify-content-start align-items-center`}>
+                      <div className={`${styles.icon} `}>
+                        <span className={`d-flex justify-content-center align-items-center`}> {fName?.charAt(0)}{lName?.charAt(0)}</span>
+                      </div>
 
-                  <span className={` ${styles.name} ml-3  `}>{camData?.company?.companyName}</span>
-                </td>
-                <td>{camData?.orderId}</td>
-                <td>
-                  {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
-                  })}
-                </td>
-                <td>{camData?.commodity}</td>
-                <td>In Process</td>
-
-                <td>12</td>
-              </tr>
-              <tr>
-                <td colSpan={6} height="10"></td>
-              </tr>
+                      <span className={` ${styles.name} ml-4`}>{item?.supplierName}</span>
+                    </td>
+                    <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
+                    <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
+                    <td>{returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR</td>
+                    <td>{item?.commodity}</td>
+                    <td>
+                      <span className={`${styles.status} ${styles.rejected}`} />
+                      In Process
+                    </td>
+                    <td> 12</td>
+                  </tr>
+                )
+              })}
             </table>
           </div>
         </div>
@@ -1304,9 +1300,9 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                           <td>
                             {share?.percentageShareHolding
                               ? (share?.percentageShareHolding * 100)?.toLocaleString('en-IN', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) + '%'
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) + '%'
                               : ''}
                           </td>
                           <td>{share?.director ? 'Yes' : 'No'}</td>
@@ -1584,11 +1580,10 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           <div
                             style={{
                               backgroundColor: `${debtProfileColor(debt.conduct)}`,
-                              width: `${
-                                (Number(debt.limit) / totalLimitDebt() > 1
-                                  ? 1
-                                  : Number(debt.limit) / totalLimitDebt()) * 100
-                              }%`,
+                              width: `${(Number(debt.limit) / totalLimitDebt() > 1
+                                ? 1
+                                : Number(debt.limit) / totalLimitDebt()) * 100
+                                }%`,
                             }}
                             className={`${styles.fill}`}
                           ></div>
@@ -1652,15 +1647,14 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           })}
                         </td>
                         <td
-                          className={`${styles.conduct}  ${
-                            debt.conduct == 'Good'
-                              ? 'good'
-                              : debt.conduct == 'Satisfactory'
+                          className={`${styles.conduct}  ${debt.conduct == 'Good'
+                            ? 'good'
+                            : debt.conduct == 'Satisfactory'
                               ? 'satisfactory'
                               : debt.conduct == 'Average'
-                              ? 'average'
-                              : 'danger'
-                          }`}
+                                ? 'average'
+                                : 'danger'
+                            }`}
                         >
                           {debt?.conduct}
                         </td>
@@ -1727,8 +1721,8 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                   </span>
@@ -1738,8 +1732,8 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                   </span>
@@ -1779,8 +1773,8 @@ const operationalDetails = (camData) => {
                     })} */}
                     {camData?.productSummary?.availableStock
                       ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.availableStock ? 'MT' : ''}
                   </span>
@@ -1797,8 +1791,8 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.AvgMonthlyElectricityBill
                       ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}
                   </span>
                 </Col>
@@ -1815,8 +1809,8 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                   </span>
@@ -1914,7 +1908,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                 <td>Related Party Sales</td>
                 <td>
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -1962,7 +1956,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                 <td>Intra Organization Sales</td>
                 <td>
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2300,15 +2294,15 @@ const financeDetails = (
                       {_get(companyData, 'financial.balanceSheet[0].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
-                            .format('MMM-YY')
-                            .toUpperCase()}
+                          .format('MMM-YY')
+                          .toUpperCase()}
                     </th>
                     <th>
                       {_get(companyData, 'financial.balanceSheet[1].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
-                            .format('MMM-YY')
-                            .toUpperCase()}
+                          .format('MMM-YY')
+                          .toUpperCase()}
                     </th>
                   </tr>
                   <tr>
@@ -2338,7 +2332,7 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
-                            _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
+                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2350,7 +2344,7 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
-                            _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
+                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2365,11 +2359,11 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                            '',
+                          ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2381,11 +2375,11 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                            '',
+                          ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2652,17 +2646,17 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
                   <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
-                    {[].forEach((l, index2) => {})}
+                    {[].forEach((l, index2) => { })}
                     {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !=
-                    ''
+                      ''
                       ? moment(
-                          _get(
-                            companyData,
-                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                            '',
-                          ),
-                          'MMyyyy',
-                        ).format('MM-yyyy')
+                        _get(
+                          companyData,
+                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                          '',
+                        ),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
@@ -3651,32 +3645,30 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                   <div
                     className={`${styles.excellent}`}
                     style={{
-                      background: `${
-                        filteredCreditRating?.length > 0
-                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#ff423045'
-                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                      background: `${filteredCreditRating?.length > 0
+                        ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                          ? '#ff423045'
+                          : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
                             ? '#ad7e0742'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                            ? '#00b81e52'
-                            : 'rgba(0, 184, 31, 0.1882352941)'
-                          : null
-                      }`,
+                              ? '#00b81e52'
+                              : 'rgba(0, 184, 31, 0.1882352941)'
+                        : null
+                        }`,
                     }}
                   >
                     <span
                       style={{
-                        color: `${
-                          filteredCreditRating?.length > 0
-                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                              ? '#ff4230'
-                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                        color: `${filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff4230'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                              ? '#8ac41c'
-                              : '00b81f30'
-                            : null
-                        }`,
+                                ? '#8ac41c'
+                                : '00b81f30'
+                          : null
+                          }`,
                       }}
                     >
                       {filteredCreditRating?.length > 0 ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ''}
@@ -3723,24 +3715,23 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#FFB700',
-                          width: `${
-                            filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                              : '0'
-                          }%`,
+                          width: `${filteredCreditRating?.length > 0
+                            ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
+                            }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                              Number(
-                                filteredCreditRating[0].businessProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            Number(
+                              filteredCreditRating[0].businessProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating,
+                            ) * 100
+                          ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3754,24 +3745,23 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#FF4230',
-                          width: `${
-                            filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                              : '0'
-                          }%`,
+                          width: `${filteredCreditRating?.length > 0
+                            ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
+                            }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                              Number(
-                                filteredCreditRating[0].revenueProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            Number(
+                              filteredCreditRating[0].revenueProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating,
+                            ) * 100
+                          ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3785,24 +3775,23 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#83C400',
-                          width: `${
-                            filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                              : '0'
-                          }%`,
+                          width: `${filteredCreditRating?.length > 0
+                            ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
+                            }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                              Number(
-                                filteredCreditRating[0].financialProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            Number(
+                              filteredCreditRating[0].financialProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating,
+                            ) * 100
+                          ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>

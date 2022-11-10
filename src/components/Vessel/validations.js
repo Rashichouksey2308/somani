@@ -1,8 +1,6 @@
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
-export const Validation = ({ list, containerExcel,
-  containerListDocument
-  vesselCertificate }) => {
+export const Validation = ({ list, containerExcel, containerListDocument, vesselCertificate }) => {
   let isOk = true;
   let toastMessage = '';
 

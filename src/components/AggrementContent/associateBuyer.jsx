@@ -16,6 +16,7 @@ function Index(props) {
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [removedOption, setRemovedOption] = useState(null);
+  console.log(props.masterList,"props")
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -47,7 +48,7 @@ function Index(props) {
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   const [list, setList] = useState([]);
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
+  const [options, setOptions] = useState([]);
   let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
  
   useEffect(() => {
@@ -163,6 +164,16 @@ function Index(props) {
       }
     }
   }, [props]);
+
+  useEffect(() => {
+    if(props.masterList.length>0){
+      let temp=[]
+      props.masterList.forEach((val,index)=>{
+          temp.push(val.name)
+      })
+      setOptions([...temp])
+    }
+  },[props.masterList])
 
   console.log(addressList,"addressList")
   // useEffect(() => {
@@ -297,16 +308,16 @@ function Index(props) {
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
-    if (
-      val?.name == 'Bhawana Jain' ||
-      val?.name == 'Vipin Kumar' ||
-      val?.name == 'Devesh Jain' ||
-      val?.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    // if (
+    //   val?.name == 'Bhawana Jain' ||
+    //   val?.name == 'Vipin Kumar' ||
+    //   val?.name == 'Devesh Jain' ||
+    //   val?.name == 'Fatima Yannoulis'
+    // ) {
+    //   let temp = [...options];
+    //   temp.push(val.name);
+    //   setOptions([...temp]);
+    // }
   };
   const removeDoc = (index) => {
     setDocList((prevState) => {
