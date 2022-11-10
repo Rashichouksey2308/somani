@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
@@ -60,7 +61,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     document: null,
   });
 
-  console.log(igmList, 'igmList')
+  console.log(igmList, 'igmListmain')
 
 
 
@@ -192,12 +193,27 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     return filter
   }
   useEffect(() => {
-    // if (_get(TransitDetails, `data[0].IGM.igmDetails`, []).length > 0) {
-    //   console.log(_get(TransitDetails, `data[0].IGM.igmDetails`, []),'igmDetails2')
-    //   let tempData = { ...igmList }
-    //   tempData.igmDetails = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [...igmList.igmDetails])))
-    //   setIgmList(tempData)
-    // }
+
+    if (_get(TransitDetails, `data[0].IGM.igmDetails`, []).length > 0) {
+      let igmData = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [])))
+      let tempData = { ...igmList }
+      tempData.igmDetails = igmData
+      console.log(tempData, 'igmDetails2')
+      setIgmList(tempData)
+    } else {
+      if (_get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '') !== '') {
+        const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
+          return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
+        });
+        let tempArray = { ...igmList };
+        tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
+        tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
+        tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
+        tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
+        setIgmList({ ...tempArray });
+      }
+    }
+
 
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({
@@ -238,17 +254,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
             TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress || TransitDetails?.data[0].order.marginMoney.invoiceDetail.companyAddress,
         });
       }
-      if (_get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '') !== '') {
-        const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
-          return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
-        });
-        let tempArray = { ...igmList };
-        tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
-        tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
-        tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
-        tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
-        setIgmList({ ...tempArray });
-      }
+
     }
   }, [TransitDetails]);
 
@@ -823,7 +829,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                             <strong className="text-danger ml-0">*</strong>
                           </td>
                           <td>
-                            {item?.document ? (
+                            {returnDocFormat(item?.document?.originalName)}
+                            {/* {item?.document ? (
                               item?.document?.originalName?.toLowerCase().endsWith('.xls') ||
                                 item?.document?.originalName?.toLowerCase().endsWith('.xlsx') ? (
                                 <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
@@ -833,7 +840,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                               ) : (
                                 <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                               )
-                            ) : null}
+                            ) : null} */}
                           </td>
                           <td className={styles.doc_row}>
                             {item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}
