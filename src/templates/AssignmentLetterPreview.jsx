@@ -17,7 +17,7 @@ export default function AssignmentLetterPreview(data) {
           <td valign="top" style={{ padding: '20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
-                <td align="center" style={{ padding: '15px 0' }}>
+                <td align="center" style={{ padding: '15px 0 30px' }}>
                   <p
                     style={{
                       fontSize: '12px',
@@ -535,33 +535,43 @@ export default function AssignmentLetterPreview(data) {
                           }}
                         >
                           <>
-                            <div>
-                              <div>
-                                <div>
-                                  <table>
-                                    <tr>
-                                      {data?.spec &&
-                                        data?.spec.length > 0 &&
-                                        Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
-                                    </tr>
-                                    {data?.spec &&
-                                      data?.spec.length > 0 &&
-                                      data?.spec.map((item, index) => (
-                                        <tr>
-                                          {Object.values(item).map((value, id) => (
-                                            <td key={id}>{value}</td>
-                                          ))}
-                                        </tr>
-                                      ))}
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            {data?.specComment?.length > 0 ? <b>Comments</b> : null}
-                            <ol>
+                            <table width="100%" cellPadding="5" cellSpacing="0" border="0" style={{border:'1px solid #000000'}}>
+                              <tr>
+                                {data?.spec &&
+                                  data?.spec.length > 0 &&
+                                  Object.keys(data?.spec[0]).map((val, index) => <th style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    borderBottom: '1px solid #000000',
+                                    borderRight: '1px solid #000000'
+                                  }} key={index}>{val}</th>)}
+                              </tr>
+                              {data?.spec &&
+                                data?.spec.length > 0 &&
+                                data?.spec.map((item, index) => (
+                                  <tr>
+                                    {Object.values(item).map((value, id) => (
+                                      <td style={{
+                                        fontSize: '12px',
+                                        lineHeight: '18px',
+                                        color: '#000000',
+                                        borderBottom: '1px solid #000000',
+                                        borderRight: '1px solid #000000'
+                                      }} key={id}>{value}</td>
+                                    ))}
+                                  </tr>
+                                ))}
+                            </table>
+                            {data?.specComment?.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000'}}>Comments</strong> : null}
+                            <ol style={{paddingLeft:'20px'}}>
                               {data.specComment.length > 0 &&
                                 data.specComment.map((val, index) => {
-                                  return <li>{val}</li>;
+                                  return <li style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000'
+                                  }}>{val}</li>;
                                 })}
                             </ol>
                           </>
