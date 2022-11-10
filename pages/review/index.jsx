@@ -1189,7 +1189,7 @@ function Index() {
   const handleMcaReport = (task) => {
     if (task === 'downlaod') {
       if (mcaReportAvailable) {
-        dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }));
+        dispatch(ViewDocument({ path: companyData?.mcaDocs[companyData?.mcaDocs?.length - 1].s3Path }));
       } else {
         let toastMessage = 'mca report not Available to download';
         if (!toast.isActive(toastMessage.toUpperCase())) {
