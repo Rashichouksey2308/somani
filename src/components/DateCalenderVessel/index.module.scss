@@ -1,19 +1,5 @@
 @import '../styles/Core/config';
 
-.calanderIcon {
-  margin-left: -40px;
-  margin-top: 15px;
-  width: 23px;
-  height: 26px;
-  z-index: 1;
-  pointer-events: none;
-  @include respond(lg-desktop) {
-    width: 18px;
-    margin-top: 9px;
-    margin-left: -33px;
-  }
-}
-
 .label_heading {
   font-size: 16px;
   letter-spacing: 0.53px;
@@ -49,10 +35,6 @@
     line-height: 15px;
     transform: translateY(-22px);
   }
-}
-
-.line {
-  border: 3px solid #d9dde8;
 }
 
 .input_field {
