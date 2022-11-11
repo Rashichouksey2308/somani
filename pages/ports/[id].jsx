@@ -20,10 +20,9 @@ function Index() {
 
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getStateMasterData } = useSelector((state) => state.MastersData);
-  console.log(getStateMasterData, 'state')
 
-  const { portResponse } = useSelector((state) => state.ports);
-  const portResponseData = _get(portResponse, 'data[0]', {});
+  const { portsResponse } = useSelector((state) => state.ports);
+  const portResponseData = _get(portsResponse, 'data[0]', {});
 
   let id = sessionStorage.getItem('portId');
 
@@ -33,14 +32,14 @@ function Index() {
   }, [dispatch]);
 
   const [portData, setPortData] = useState({
-    Country: '',
+    Country: 'India',
     Port_Name: '',
     State: '',
     Container_Handling: '',
     Approved: '',
   });
 
-  console.log(portData, 'PORT DATA', portResponseData)
+  console.log(portData, 'PORT DATA', portResponseData, 'id', id)
   useEffect(() => {
     if(id){
       setPortData({
@@ -91,7 +90,7 @@ function Index() {
           className={`${styles.head_container}  d-flex justify-content-between align-items-center border-0 p-0`}
         >
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/ports')} style={{ cursor: 'pointer' }}>
+            <div onClick={() => { sessionStorage.getItem('portId') && sessionStorage.removeItem('portId'); Router.push('/ports')}} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"

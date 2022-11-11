@@ -39,6 +39,9 @@ const index = () => {
   }, [currentPage, pageLimit]);
 
   const handleRoute = (id) => {
+    if(sessionStorage.getItem('portId')){
+      sessionStorage.removeItem('portId')
+    }
     sessionStorage.setItem('portId', id);
     dispatch(GetPorts(`?portId=${id}`));
     Router.push('/ports/id');

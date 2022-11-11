@@ -7,11 +7,10 @@ import Image from 'next/image';
 
 function Index({handleSubmit, savePortData, portData, country}) {
 
-  const [countryName, setCountryName] = useState('India');
 
   // const [portField, setPortField] = useState([
   //   {
-  //     countryName: '',
+  //     portData.Country: '',
   //     portName: '',
   //     state: '',
   //     conditionHandle: '',
@@ -23,7 +22,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
   //   setPortField([
   //     ...portField,
   //     {
-  //       countryName: '',
+  //       portData.Country: '',
   //       portName: '',
   //       state: '',
   //       conditionHandle: '',
@@ -63,8 +62,8 @@ function Index({handleSubmit, savePortData, portData, country}) {
                           onChange={(e) => {setCountryName(e.target.value); savePortData(e.target.name, e.target.value)}}
                         >
                           <option value="">Select an option</option>
-                            {country.map((options) => {
-                              return <option value={`${options.Country}`}>{options.Country}</option>;
+                            {country.map((options, index) => {
+                              return <option key={index}  value={`${options.Country}`}>{options.Country}</option>;
                             })}{' '}
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
@@ -88,7 +87,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
                         Port Name <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    {countryName === 'India' ? (
+                    {portData.Country === 'India' ? (
                       <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
                           <select
@@ -136,6 +135,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
                               className={styles.radio}
                               inline
                               onChange={(e)=>savePortData('Container_Handling', 'Yes')}
+                              defaultChecked={portData?.Container_Handling == 'Yes' ? true : false}
                               label="Yes"
                               name="group1"
                               type={type}
@@ -144,6 +144,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
                             <Form.Check
                               className={styles.radio}
                               inline
+                              defaultChecked={portData?.Container_Handling == 'No' ? true : false}
                               label="No"
                               onChange={(e)=>savePortData('Container_Handling', 'No')}
                               name="group1"
@@ -166,6 +167,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
                               inline
                               
                               label="Yes"
+                              defaultChecked={portData?.Approved == 'Yes' ? true : false}
                               onChange={(e)=>savePortData('Approved', 'Yes')}
                               name="group2"
                               type={type}
@@ -175,6 +177,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
                               className={styles.radio}
                               inline
                               label="No"
+                              defaultChecked={portData?.Approved == 'No' ? true : false}
                               name="group2"
                               onChange={(e)=>savePortData('Approved', 'No')}
                               type={type}
