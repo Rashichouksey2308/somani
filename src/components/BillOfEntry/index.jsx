@@ -404,7 +404,7 @@ useEffect(() => {
     await dispatch(UpdateCustomClearance({ fd, task }));
   };
 
-  // fuction to prevent negative values in input
+  // function to prevent negative values in input
   const preventMinus = (e) => {
     if (e.code === 'Minus') {
       e.preventDefault();
@@ -606,15 +606,6 @@ useEffect(() => {
                               <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
                             </button>
                           ) : null
-                          // <button className={styles.add_btn}
-                          // onClick={(e)=>{
-
-                          //     deleteNewRow(index)}}
-                          // >
-                          //   <span className={styles.add_sign}
-
-                          //   >-</span>Delete
-                          // </button>
                         }
                       </div>
                     </div>

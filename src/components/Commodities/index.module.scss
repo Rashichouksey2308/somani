@@ -10,11 +10,9 @@
 
   .header {
     background-color: rgb(0 0 0 / 0%);
-    border-bottom: none;
     font-weight: bold;
     font-size: 16px;
     line-height: 23px;
-    text-transform: capitalize;
     border-bottom: 2px solid #f2f5f9;
     padding: 12px 23px;
     @include respond(md-desktop) {

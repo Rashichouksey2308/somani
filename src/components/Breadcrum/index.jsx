@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import _get from 'lodash/get';
-import { setDynamicName } from '../../../src/redux/userData/action';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { settingCurrency, settingUnit } from '../../../src/redux/breadcrumb/action';
+import { setDynamicName } from '../../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 export default function Index({ isQuery }) {
   const dispatch = useDispatch();

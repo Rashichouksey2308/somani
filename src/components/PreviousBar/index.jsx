@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './index.module.scss'
+import styles from '../PreviewBar/index.module.scss'
 import { useSelector } from 'react-redux'
 
 function index (props) {

@@ -121,7 +121,6 @@
                 border-radius: 6px !important;
 
                 .head_container {
-                  border-bottom: 2px solid #cad6e6;
                   cursor: pointer;
                   border-bottom: none;
                   height: 80px;
@@ -183,7 +182,6 @@
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  margin-left: 1rem;
                   margin: 10px 35px !important;
                 }
               }
@@ -241,12 +239,9 @@
               flex-wrap: nowrap;
 
               .code_phone {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
                 font-size: 19px;
                 letter-spacing: 0.18px;
                 color: #3687e8;
-                text-transform: capitalize;
                 outline: none;
                 border-radius: 4px 0 0 4px;
                 @include respond(lg-desktop) {
