@@ -7,6 +7,7 @@ import moment from 'moment';
 import { convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 
 import DateCalender from '../DateCalender';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index({
   handleChange,
@@ -38,7 +39,7 @@ function Index({
   }, [reviewedProfile]);
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail'];
 
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+  const [isFieldInFocus, setIsFieldInFocus] = useState({ turnover: false, orderValue: false });
   const DropDown = (values, name, disabled) => {
     return (
       <div className="d-inline-flex align-items-center position-relative">
@@ -182,18 +183,19 @@ function Index({
                       <Form.Control
                         type="text"
                         onFocus={(e) => {
-                          setIsFieldInFocus(true), (e.target.type = 'number');
+                          setIsFieldInFocus({ ...isFieldInFocus, turnover: true }), (e.target.type = 'number');
                         }}
                         onBlur={(e) => {
-                          setIsFieldInFocus(false), (e.target.type = 'text');
+                          setIsFieldInFocus({ ...isFieldInFocus, turnover: false }), (e.target.type = 'text');
                         }}
+                        onWheel={(e) => e.target.blur()}
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name="turnOver"
                         id="textDate"
                         value={
-                          isFieldInFocus
+                          isFieldInFocus.turnover
                             ? payloadData?.turnOver
-                            : Number(payloadData?.turnOver ? payloadData?.turnOver : 0)?.toLocaleString('en-IN') + ` Cr`
+                            : returnReadableNumber(payloadData?.turnOver ? payloadData?.turnOver : 0, 'en-In', 2) + ` Cr`
                         }
                         className={`${styles.input} input`}
                         onChange={(e) => handleChange(e.target.name, Number(e.target.value))}
@@ -280,12 +282,24 @@ function Index({
                     {!reviewedProfile?.orderValue?.apiResponse && (
                       <Form.Control
                         type="number"
-                        onWheel={(event) => event.currentTarget.blur()}
                         name="orderValue"
+                        onFocus={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
+                        }}
+                        onWheel={(e) => e.target.blur()}
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        onChange={(e) => handleChange(e.target.name, Number(e.target.value))}
+                        value={
+                          isFieldInFocus.orderValue
+                            ? payloadData?.orderValue
+                            : returnReadableNumber(payloadData?.orderValue ? payloadData?.orderValue : 0, 'en-In', 2) + ` Cr`
+                        }
                         id="textDate"
                         className={`${styles.input} input`}
-                        onBlur={(e) => handleChange(e.target.name, Number(e.target.value * 10000000))}
+                        // onBlur={(e) => }
                         disabled={fields[4]?.isEdit}
                       />
                     )}
@@ -386,7 +400,7 @@ function Index({
                             <option value="">Select an option</option>
                             {port
                               .filter((val, index) => {
-                                if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                                if (val.Country.toLowerCase() == 'india' && val.Approved == "YES") {
                                   return val;
                                 }
                               })

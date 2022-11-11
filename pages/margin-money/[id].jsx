@@ -1133,7 +1133,7 @@ function Index() {
                                 <span>C</span>
                               </div>
                               <input
-                                type="number"
+                                type="text"
                                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                 id="textInput"
                                 name="conversionRate"
