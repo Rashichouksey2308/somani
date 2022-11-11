@@ -192,7 +192,6 @@
       padding: 20px 35px 25px 40px;
 
       .bill_landing {
-        //background: #FFFFFF;
         border: 2px solid #cad6e6;
         border-radius: 9px;
 
@@ -331,7 +330,6 @@
                 font-weight: bold;
                 line-height: 25px;
                 font-size: 20px;
-                //text-transform: capitalize;
                 padding-left: 35px;
                 @include respond(lg-desktop) {
                   font-size: 15px;
@@ -524,7 +522,6 @@
           letter-spacing: 0.19px;
           cursor: pointer;
           padding: 13px 30px 13px 17px;
-          // border: 1px solid #0000001f;
           &:invalid + label {
             transform: translateY(0);
           }
@@ -563,7 +560,6 @@
     }
 
     .search_container {
-      //background: #F0F0F0;
       height: 62px;
       padding-right: 1.5rem !important;
 
@@ -1002,7 +998,6 @@
   max-width: 562px;
   max-height: 463px;
   border-radius: 12px;
-  // background: #ffffff;
   box-shadow: none !important;
   padding-right: 0 !important;
   transform: translate(-50%, -50%);
@@ -1039,7 +1034,6 @@
 
     h4 {
       font-size: 20px;
-      //color: #111111;
       font-weight: bold;
       line-height: 25px;
       margin-bottom: 16px;
@@ -1047,7 +1041,6 @@
 
     p {
       font-size: 20px;
-      //color: #344054;
       font-weight: normal;
       line-height: 25px;
       letter-spacing: 0.19px;
@@ -1067,7 +1060,6 @@
       &.close {
         color: #3687e8;
         margin-right: 14px;
-        // background: #ffffff;
         border: 3px solid #3687e8;
 
         &:hover {
@@ -1219,7 +1211,6 @@
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }
 
 .upload_btn {
