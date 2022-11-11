@@ -1,5 +1,4 @@
 import jsPDF from 'jspdf';
-import { associateshipPrint, sellerPrint } from '../../../src/templates/agreementTemplate';
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -11,11 +10,12 @@ import DownloadBar from '../../../src/components/DownloadBar';
 import QPA from '../../../src/components/QPA';
 import TPAIGI from '../../../src/components/TPAIGI';
 import TPASeller from '../../../src/components/TPASeller';
+import { sellerPrint } from '../../../src/templates/agreementTemplate';
 import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
+import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
 import IGIAgreementPreview from '../../../src/templates/IGIAgreementPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
-import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
 
 function index() {
   const [data, setData] = useState({
@@ -108,7 +108,7 @@ function index() {
         dateOfExecution: dat,
         placeOfExecution: exe,
         details: data?.supplier?.name,
-        detailsOfEndBuyer: data.company.companyName,
+        detailsOfEndBuyer: data?.company.companyName,
         detailsOfComm: data?.order?.commodity,
         quan: data?.order?.quantity,
         unitPrice: data.order?.perUnitPrice,
