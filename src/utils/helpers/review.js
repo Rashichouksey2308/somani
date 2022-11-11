@@ -1,4 +1,5 @@
 import React from 'react'
+import { specialCharCheck } from '../helper'
 import { handleErrorToast } from './global'
 
 export const orderValidation = (orderDetails, shipment, approvedCredit) => {
@@ -58,8 +59,8 @@ export const orderValidation = (orderDetails, shipment, approvedCredit) => {
     handleErrorToast('the tolerance can not be Empty')
     return false
   }
-  if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
-    handleErrorToast('HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS')
+  if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined || !specialCharCheck(orderDetails?.hsnCode)) {
+    handleErrorToast('HSN CODE IS MANDATORY & SPECIAL CHARACTERS ARE NOT ALLOWED')
     return false
   }
   if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
