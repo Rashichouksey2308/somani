@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import Ports from '../../src/components/Ports';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CreatePorts } from '../../src/redux/ports/action';
 import { portValidtion } from '../../src/utils/helpers/review';
+import { getCountries } from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
+
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
 
   const [portData, setPortData] = useState({
     Country: '',
@@ -61,7 +68,7 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-        <Ports handleSubmit={handleSubmit} portData={portData} savePortData={savePortData} />
+        <Ports handleSubmit={handleSubmit} portData={portData} savePortData={savePortData} country={getCountriesMasterData} />
       </Card>
     </div>
   );

@@ -1,40 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../AddNewInternal/index.module.scss';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 
-function Index({handleSubmit, savePortData, portData}) {
+function Index({handleSubmit, savePortData, portData, country}) {
 
   const [countryName, setCountryName] = useState('India');
 
-  const [portField, setPortField] = useState([
-    {
-      countryName: '',
-      portName: '',
-      state: '',
-      conditionHandle: '',
-      approved: '',
-    },
-  ]);
+  // const [portField, setPortField] = useState([
+  //   {
+  //     countryName: '',
+  //     portName: '',
+  //     state: '',
+  //     conditionHandle: '',
+  //     approved: '',
+  //   },
+  // ]);
 
-  const onAddRow = () => {
-    setPortField([
-      ...portField,
-      {
-        countryName: '',
-        portName: '',
-        state: '',
-        conditionHandle: '',
-        approved: '',
-      },
-    ]);
-  };
+  // const onAddRow = () => {
+  //   setPortField([
+  //     ...portField,
+  //     {
+  //       countryName: '',
+  //       portName: '',
+  //       state: '',
+  //       conditionHandle: '',
+  //       approved: '',
+  //     },
+  //   ]);
+  // };
 
-  const onDeleteRow = (index) => {
-    setPortField([...portField.slice(0, index), ...portField.slice(index + 1)]);
-  };
+  // const onDeleteRow = (index) => {
+  //   setPortField([...portField.slice(0, index), ...portField.slice(index + 1)]);
+  // };
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -62,9 +62,10 @@ function Index({handleSubmit, savePortData, portData}) {
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                           onChange={(e) => {setCountryName(e.target.value); savePortData(e.target.name, e.target.value)}}
                         >
-                          <option value='' selected>Select</option>
-                          <option value="India">India</option>
-                          <option value="US">US</option>
+                          <option value="">Select an option</option>
+                            {country.map((options) => {
+                              return <option value={`${options.Country}`}>{options.Country}</option>;
+                            })}{' '}
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
                           Country <strong className="text-danger">*</strong>
@@ -163,7 +164,7 @@ function Index({handleSubmit, savePortData, portData}) {
                             <Form.Check
                               className={styles.radio}
                               inline
-                              defaultChecked
+                              
                               label="Yes"
                               onChange={(e)=>savePortData('Approved', 'Yes')}
                               name="group2"
