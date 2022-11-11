@@ -233,11 +233,6 @@ export default function Index({ inspectionData }) {
           <div className="0">
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
-          {/* <InspectionDocument
-            documentName="Plot Inspection Report"
-            uploadDocument1={uploadDocument1}
-            orderid={orderid} module="Loading-Transit-Unloading"
-          /> */}
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>

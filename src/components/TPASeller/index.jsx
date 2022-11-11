@@ -154,7 +154,6 @@ function Index(props) {
                 <span
                   onClick={(e) => {
                     sessionStorage.setItem('preview', JSON.stringify(data));
-
                     Router.push('agreement/preview');
                     props.setPreviewValue('TPASELLER');
                   }}
@@ -177,4 +176,3 @@ function Index(props) {
 }
 
 export default Index;
-

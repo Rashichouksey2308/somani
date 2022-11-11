@@ -245,27 +245,7 @@ function Index () {
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
-                  <div className='d-flex justify-content-between'>
-                    <div>
-                      <label className={styles.label}>Registered Office Address</label>
-                      <div className={styles.address_values}>
-                        <p>N-11, 29 Tilak Marg, New Delhi</p>
-                        <p>
-                          <span>GSTIN:</span> RTF67WTF76RT456
-                        </p>
-                      </div>
-                    </div>
-                    <div>
-                      <div className='d-flex'>
-                        <img className={`${styles.edit_image} img-fluid`} src='/static/mode_edit.svg' alt='Edit' />
-                        <div className={`${styles.delete_image} ml-3`}>
-                          <Image src='/static/delete.svg' width='40px' height='40px' alt='Bin' />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+               
               </div>
               <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                 <div
@@ -366,7 +346,6 @@ function Index () {
                 </div>
                 <button
                   className={`${styles.add_btn}`}
-                  // onClick={() => addData('address')}
                 >
                   Add
                 </button>

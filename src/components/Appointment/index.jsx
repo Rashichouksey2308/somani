@@ -204,45 +204,16 @@ export default function Index({ inspectionData, setDate, vendor }) {
                     <label className={`${styles.label_heading} label_heading`}>
                       Name<strong className="text-danger">*</strong>
                     </label>
-                    {/* <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    /> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
                   <div className="d-flex">
-                    {/* <DateCalender labelName='ETA at Discharge Port'/>
-                      <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      /> */}
-                    {/* <DatePicker
-                      name="dateOfAppointment"
-                      selected={
-                        moment(appointmentData?.dateOfAppointment).toDate()
-                          ? moment(appointmentData?.dateOfAppointment).toDate()
-                          : startDate
-                      }
-                      defaultDate={moment(inspectionData?.dateOfAppointment)}
-                      //min={moment().format('YYYY-MM-DD')}
-                      dateFormat="dd-MM-yyyy"
-                      className={`${styles.input_field} ${styles.cursor_none} input form-control`}
-                      onChange={(startDate) => {
-                        setStartDate(startDate)
-                        saveDate(startDate, 'dateOfAppointment')
-                      }}
-                      minDate={lastDate}
-                    /> */}
                     <DateCalender
                       name="dateOfAppointment"
                       defaultDate={
                         appointmentData?.dateOfAppointment ? moment(appointmentData?.dateOfAppointment).toDate() : null
                       }
                       dateFormat="dd-MM-yyyy"
-                      // startFrom={dateStartFrom.eta}
                       saveDate={saveDate}
                       labelName="Date of Appointment"
                     />
@@ -251,9 +222,6 @@ export default function Index({ inspectionData, setDate, vendor }) {
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
-                    {/* <label className={`${styles.label_heading} label_heading`}>
-                      Date of Appointment
-                    </label> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-12 `}>
@@ -315,7 +283,6 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
               name="address.addressType"
               value={addressData?.address?.addressType}
               onChange={(e) => {
-                // setAddressType(e.target.value)
                 handleEditInput(e.target.name, e.target.value);
               }}
             >

@@ -103,7 +103,7 @@ function Index(props) {
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
-          detailsOfEndBuyer: data.company.companyName,
+          detailsOfEndBuyer: data?.company.companyName,
           detailsOfComm: data?.order?.commodity,
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,

@@ -7,22 +7,21 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
   return (
     <>
       <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
-        <p className="text-center text_sales">
+        <p className="text-center text_sales my-5">
           {' '}
           <strong>Undertaking by Associate Buyer for Price, Quality &amp; Quantity</strong>
         </p>
-        <p className="text-left text_sales ml-4 d-flex align-items-start">
+        <p className="text-left text_sales ml-4 d-flex align-items-start text-capitalize">
           {' '}
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
             <u>
-              {data.buyer},
-              <br/>
-              {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "}
-              {data.buyerAddress?.country},{" "}
-              {data.buyerAddress?.pinCode}
-            </u>
+              {data.buyer},</u>
+              <br />
+              <u>{data.buyerAddress?.fullAddress}</u>,{" "}
+              <u>{data.buyerAddress?.city}</u>{" "} 
+              <u>{data.buyerAddress?.country}</u>,{" "}
+              <u>{data.buyerAddress?.pinCode}</u>            
           </span>
         </p>
         <p className="text-center text_sales">
@@ -75,219 +74,6 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
             </p>
           </li>
         </ol>
-        {/* <div className={`${styles.inputsContainer} border_black`}>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Date of execution
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.dateOfExecution}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Place of execution
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.placeOfExecution}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.associateBuyer}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Address of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress}
-             
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              GST of Associate Buyerager
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.associateBuyerGst}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              PAN of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.associateBuyerPan}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Signatory of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-                <ol>
-              {data?.associateBuyerAuthorized?.length > 0 &&
-                data?.associateBuyerAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of Stevedore
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.stevedore}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Address of Stevedore
-            </Col>
-            <Col md={7} className={styles.right}>
-             {data.stevedoreAddress?.fullAddress},
-              {data.stevedoreAddress?.city}{" "} 
-              {data.stevedoreAddress?.country},{" "}
-              
-              {data.stevedoreAddress?.pinCode}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Signatory of Stevedore
-            </Col>
-            <Col md={7} className={styles.right}>
-             <ol>
-              {data?.stevedoreAuthorized?.length > 0 &&
-                data?.stevedoreAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of CMA Agent
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.cma}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Address of CMA Agent
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.cmaAddress?.fullAddress},
-              {data.cmaAddress?.city}{" "} 
-              {data.cmaAddress?.country},{" "}
-              
-              {data.cmaAddress?.pinCode}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Signatory of CMA Agent
-            </Col>
-            <Col md={7} className={styles.right}>
-               <ol>
-              {data?.cmaAuthorized?.length > 0 &&
-                data?.cmaAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Commodity Details
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.detailsOfComm}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Quantity
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.quan}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of Supplier
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.supplier}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Details of Vessel
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.vessel}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Port of Loading
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.lordPort}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Port of Discharge
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.dischargePort}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} ${styles.last}`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Storage Plot allotted to IGI
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.storagePlot}
-            </Col>
-          </Row>
-        </div> */}
         <div className={`row`}>
           <Col md={6} className="offset-md-6">
             <p className="text_sales">
@@ -306,7 +92,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>
-                <u>Place: {data.placeOfExecution}</u>
+                <u>Place:</u> <u>{data.placeOfExecution}</u>
               </strong>
             </p>
           </Col>
@@ -315,13 +101,10 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               {
               data?.associateBuyerAuthorized?.length > 0 &&
               data?.associateBuyerAuthorized?.map((val, index) => {
-                return (
-                  
-                    <p className='mb-0'>
-                      Name : {val.name}
-                    </p>
-                    
-                  
+                return (                  
+                  <p className='mb-0'>                      
+                    <strong><u>Name :</u> <u>{val.name}</u></strong>
+                  </p>                  
                 );
               })
               }
@@ -333,7 +116,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>
-                <u>Date: {data.dateOfExecution}</u>
+                <u>Date:</u> <u>{data.dateOfExecution}</u>
               </strong>
             </p>
           </Col>
@@ -342,14 +125,11 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
                {
               data?.associateBuyerAuthorized?.length > 0 &&
               data?.associateBuyerAuthorized?.map((val, index) => {
-                return (
-                  
-                    <p className='mb-0'>
-                      Designation : {val.designation}
-                    </p>
-                    
-                  
-                );
+                return (                  
+                  <p className='mb-0'>
+                    <strong><u>Designation :</u> <u>{val.designation}</u></strong>
+                  </p>                  
+                );s
               })
               }
             </p>

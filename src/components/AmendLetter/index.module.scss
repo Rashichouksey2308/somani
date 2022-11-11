@@ -1,26 +1,20 @@
 @import '../styles/Core/config';
 
 .root_container {
-  margin: 28px;
-  // width: 100%;
-  margin-bottom: 152px;
+  margin: 28px 28px 152px 28px;
   border-bottom: none !important;
   @include respond(lg-desktop) {
-    margin: 20px;
-    margin-bottom: 144px;
+    margin: 20px 20px 144px 20px;
   }
   @include respond(sm-desktop) {
-    margin: 18px;
-    margin-bottom: 142px;
+    margin: 18px 18px 142px 18px;
   }
   @include respond(phone) {
-    margin: 15px;
-    margin-bottom: 121px;
+    margin: 15px 15px 121px 15px;
   }
 
   .head_container {
     width: 100%;
-
     .head_header {
       height: 48px;
       display: flex;
@@ -94,7 +88,6 @@
     }
 
     .sub_heading {
-      //color: #111111;
       font-size: 20px;
       line-height: 25px;
       font-weight: 500;
@@ -128,7 +121,6 @@
               line-height: 25px;
               padding: 24px 15px;
               border: 1px solid #cad6e6;
-              // white-space: nowrap;
               span {
                 opacity: 0.7;
                 line-height: 24px;
@@ -190,7 +182,6 @@
 
     .LC_draft_tabs {
       &.nav_tabs {
-        // margin-top: 51px;
         border: none;
 
         .nav_item {
@@ -360,13 +351,11 @@
           border-width: 1px;
 
           &:invalid + label {
-            // background: none;
             transform: translateY(0);
           }
 
           &:focus {
             & + label {
-              // background: #ffffff;
               transform: translateY(-30px);
               @include respond(lg-desktop) {
                 transform: translateY(-22px);
@@ -421,14 +410,10 @@
 
           .phone_card {
             display: flex;
-
             .code_phone {
-              border-top-right-radius: 0px;
-              border-bottom-right-radius: 0px;
               font-size: 19px;
               letter-spacing: 0.18px;
               color: #3687e8;
-              text-transform: capitalize;
               outline: none;
               border-radius: 8px 0 0 8px;
             }
@@ -485,5 +470,4 @@
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }

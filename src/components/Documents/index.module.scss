@@ -172,7 +172,7 @@
         @include respond(lg-desktop) {
           width: 30px;
           height: 30px;
-          line-height: 28px;
+          line-height: 26px;
         }
         @include respond(phone) {
           margin: 0 0 0 auto;
@@ -210,6 +210,7 @@
         margin-right: 15px;
         @include respond(lg-desktop) {
           width: 11px;
+          margin-right: 10px;
         }
       }
     }
@@ -242,12 +243,10 @@
       height: 38px;
       border: 3px solid #3687e8;
       border-radius: 5px;
-      color: var(--unnamed-color-3687e8);
       text-align: center;
       font-weight: bold;
       font-size: 18px;
       color: #3687e8;
-      text-transform: capitalize;
     }
     .certificate {
       font-size: 20px;

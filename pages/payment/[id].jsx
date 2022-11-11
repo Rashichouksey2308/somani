@@ -1,19 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
+import _get from 'lodash/get';
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import styles from './payment.module.scss';
-import ReleaseOrder from '../../src/components/ReleaseOrder';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import DeliveryOrder from '../../src/components/DeliveryOrder';
 import LiftingDetails from '../../src/components/LiftingDetails';
-import { useDispatch, useSelector } from 'react-redux';
-import Router from 'next/router';
-import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
-import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
+import ReleaseOrder from '../../src/components/ReleaseOrder';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
+import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
+import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
+import styles from './payment.module.scss';
 
 function Index() {
   const dispatch = useDispatch();
@@ -733,7 +733,6 @@ function Index() {
             </div>
           </div>
         </div>
-        {/* <DeliveryPreview/> */}
       </div>
     </>
   );

@@ -986,7 +986,7 @@ export default function Index({ addButton }) {
                       //   maximumFractionDigits: 2,
                       // })}
 
-                      type="number"
+                      type="text"
                       onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>

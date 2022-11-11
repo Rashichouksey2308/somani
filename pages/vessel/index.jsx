@@ -1,86 +1,77 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
-import Vessels from '../../src/components/Vessel'
+import Axios from 'axios';
+import Cookies from 'js-cookie';
+import _get from 'lodash/get';
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { settingSidebar } from 'redux/breadcrumb/action';
+import { removePrefixOrSuffix } from 'utils/helper';
+import Vessels from '../../src/components/Vessel';
+import VesselSaveBar from '../../src/components/VesselSaveBar';
+import { getCountries, getPorts } from '../../src/redux/masters/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { GetVessel, UpdateVessel } from '../../src/redux/vessel/action';
+import API from '../../src/utils/endpoints';
+// import { Validation } from '../../src/components/Vessel/validations'
 
-import _get from 'lodash/get'
-import VesselSaveBar from '../../src/components/VesselSaveBar'
-import { settingSidebar } from 'redux/breadcrumb/action'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetVessel, UpdateVessel } from '../../src/redux/vessel/action'
+export default function Home() {
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-import API from '../../src/utils/endpoints'
-import Cookies from 'js-cookie'
-import Axios from 'axios'
-import { toast } from 'react-toastify'
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action'
-import { removePrefixOrSuffix } from 'utils/helper'
-import moment from 'moment'
-import { useRouter } from 'next/router'
-import { getCountries, getPorts } from '../../src/redux/masters/action'
-
-import { Validation } from '../../src/components/Vessel/validations'
-
-export default function Home () {
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { Vessel1 } = useSelector((state) => state.vessel)
-
-  let id = sessionStorage.getItem('VesselId')
   useEffect(() => {
-    fetchInitialData()
-  }, [])
-  useEffect(() => {
-    dispatch(getCountries())
-    dispatch(getPorts())
-  }, [])
+    fetchInitialData();
+    dispatch(getCountries());
+    dispatch(getPorts());
+  }, []);
 
-  const { getPortsMasterData } = useSelector((state) => state.MastersData)
-  const { getCountriesMasterData } = useSelector((state) => state.MastersData)
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
 
   const fetchInitialData = async () => {
-    let id = sessionStorage.getItem('VesselId')
-    const data = await dispatch(GetVessel(`?vesselId=${id}`))
+    let id = sessionStorage.getItem('VesselId');
+    const data = await dispatch(GetVessel(`?vesselId=${id}`));
 
-    setData(data)
-    serVesselDataToAdd(data)
-    dispatch(setPageName('vessel'))
-    dispatch(setDynamicName(_get(data, 'data[0].company.companyName', 'Company Name')))
-    dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')))
-  }
+    setData(data);
+    serVesselDataToAdd(data);
+    dispatch(setPageName('vessel'));
+    dispatch(setDynamicName(_get(data, 'data[0].company.companyName', 'Company Name')));
+    dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')));
+  };
 
-  const [list, setList] = useState([])
-  const [containerExcel, setContainerExcel] = useState(null)
-  const [vesselCertificate, setVesselCertificate] = useState({})
-  const [containerListDocument, setContainerListDocument] = useState(null)
-  const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
-  const [companyName, setCompanyName] = useState('')
-  const [vesselUpdatedAt, setVesselUpdatedAt] = useState('')
-  const [partShipment, setPartshipment] = useState()
-  const [currency, setCurrency] = useState('USD')
-  const [VesselToAdd, serVesselDataToAdd] = useState()
-  const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
-  const [vesselData, setVesselData] = useState()
-  const [orderID, setOrderId] = useState('')
-  const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }])
+  const [list, setList] = useState([]);
+  const [containerExcel, setContainerExcel] = useState(null);
+  const [vesselCertificate, setVesselCertificate] = useState({});
+  const [containerListDocument, setContainerListDocument] = useState(null);
+  const [partShipmentAllowed, setPartShipmentAllowed] = useState();
+  const [companyName, setCompanyName] = useState('');
+  const [vesselUpdatedAt, setVesselUpdatedAt] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [VesselToAdd, serVesselDataToAdd] = useState();
+  const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk');
+  const [vesselData, setVesselData] = useState();
+  const [orderID, setOrderId] = useState('');
+  const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }]);
 
   const setData = (Vessel) => {
-    setOrderId(_get(Vessel, 'data[0].order._id', ''))
-
-    setCurrency(_get(Vessel, 'data[0].order.marginMoney.calculation.orderValueCurrency', 'USD'))
-    setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false))
-    setVesselData(Vessel)
-    setPartShipmentAllowed(_get(Vessel, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', 'No'))
+    setOrderId(_get(Vessel, 'data[0].order._id', ''));
+    setCurrency(_get(Vessel, 'data[0].order.marginMoney.calculation.orderValueCurrency', 'USD'));
+    setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
+    setVesselData(Vessel);
+    setPartShipmentAllowed(_get(Vessel, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', 'No'));
     if (list.length > 0) {
-      let temp = []
+      let temp = [];
       list.forEach(() => {
-        temp.push({ value: false })
-      })
+        temp.push({ value: false });
+      });
 
-      setIsFieldInFocus([...temp])
+      setIsFieldInFocus([...temp]);
     }
-    setCompanyName(_get(Vessel, 'data[0].company.companyName', ''))
+    setCompanyName(_get(Vessel, 'data[0].company.companyName', ''));
     if (_get(Vessel, 'data[0].vessels', []).length <= 1) {
-      setShipmentTypeBulk(_get(Vessel, 'data[0].order.termsheet.transactionDetails.shipmentType', 'Bulk'))
+      setShipmentTypeBulk(_get(Vessel, 'data[0].order.termsheet.transactionDetails.shipmentType', 'Bulk'));
       let vesselInfo = JSON.parse(
         JSON.stringify(
           _get(Vessel, 'data[0].vessels[0].vesselInformation', [
@@ -94,20 +85,20 @@ export default function Home () {
             },
           ]),
         ),
-      )
+      );
 
       vesselInfo[0].shippingLineOrCharter =
         vesselInfo[0].shippingLineOrCharter !== ''
           ? vesselInfo[0].shippingLineOrCharter
-          : _get(Vessel, 'data[0].order.generic.shippingLine.name', '')
+          : _get(Vessel, 'data[0].order.generic.shippingLine.name', '');
       vesselInfo[0].name =
         vesselInfo[0].name !== ''
           ? vesselInfo[0].name
-          : _get(Vessel, 'data[0].order.generic.shippingLine.vesselName', '')
+          : _get(Vessel, 'data[0].order.generic.shippingLine.vesselName', '');
 
-      setContainerExcel(_get(Vessel, 'data[0].containerExcel', null))
-      setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null))
-      setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null))
+      setContainerExcel(_get(Vessel, 'data[0].containerExcel', null));
+      setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null));
+      setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null));
       setList([
         {
           shipmentType: _get(Vessel, 'data[0].order.termsheet.transactionDetails.shipmentType', ''),
@@ -128,7 +119,7 @@ export default function Home () {
               _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '')
                 : _get(Vessel, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '') ||
-                _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', ''),
+                  _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', ''),
             laycanFrom:
               _get(Vessel, 'data[0].vessels[0].transitDetails.laycanFrom', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanFrom', '')
@@ -155,11 +146,11 @@ export default function Home () {
 
           vesselInformation: vesselInfo,
         },
-      ])
+      ]);
     } else {
-      setList(_get(Vessel, 'data[0].vessels', []))
+      setList(_get(Vessel, 'data[0].vessels', []));
     }
-  }
+  };
 
   const onAddVessel = () => {
     setList([
@@ -189,65 +180,65 @@ export default function Home () {
           },
         ],
       },
-    ])
-    setIsFieldInFocus([...isFieldInFocus, { value: false }])
-  }
+    ]);
+    setIsFieldInFocus([...isFieldInFocus, { value: false }]);
+  };
 
   const OnAddvesselInformation = () => {
-    const newArr = [...list]
+    const newArr = [...list];
     newArr[0].vesselInformation.push({
       name: '',
       IMONumber: '',
       flag: '',
       yearOfBuilt: '',
-    })
+    });
 
-    setList(newArr)
-  }
+    setList(newArr);
+  };
 
-  const [startDate, setStartDate] = useState(null)
-  const [lastDate, setlastDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(null);
+  const [lastDate, setlastDate] = useState(new Date());
 
   const shipmentTypeChangeHandler = (e, index) => {
     if (e.target.value === 'Liner') {
-      setList((prevState) => prevState.slice(0, 1))
+      setList((prevState) => prevState.slice(0, 1));
     }
-    setShipmentTypeBulk(e.target.value)
+    setShipmentTypeBulk(e.target.value);
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, shipmentType: e.target.value }
+          return { ...obj, shipmentType: e.target.value };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const OnVesselBasicFieldsChangeHandler = (e, index) => {
-    const name = e.target.id
-    const value = e.target.value
+    const name = e.target.id;
+    const value = e.target.value;
     if (name === 'quantity') {
       if (removePrefixOrSuffix(value) > _get(vesselData, 'data[0].order.quantity', 0)) {
-        let toastMessage = 'Quantity Cannot Exceed orignal Order QUantity'
+        let toastMessage = 'Quantity Cannot Exceed orignal Order QUantity';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
       }
     }
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, [name]: value }
+          return { ...obj, [name]: value };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
   const OnVesselTransitFieldsChangeHandler = (e, index) => {
-    const name = e.target.id
-    const value = e.target.value
+    const name = e.target.id;
+    const value = e.target.value;
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -258,23 +249,23 @@ export default function Home () {
               ...obj.transitDetails,
               [name]: value,
             },
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
-  const [dateStartFrom, setDateStartFrom] = useState([])
+        return obj;
+      });
+      return newState;
+    });
+  };
+  const [dateStartFrom, setDateStartFrom] = useState([]);
   useEffect(() => {
     if (_get(vesselData, 'data[0].vessels', []).length > 0) {
-      let temp = []
+      let temp = [];
       _get(vesselData, 'data[0].vessels', []).forEach((val) => {
-        temp.push(moment(new Date(val.transitDetails.laycanFrom).toISOString()).add(1, 'days').format('DD-MM-YYYY'))
-      })
-      setDateStartFrom(temp)
+        temp.push(moment(new Date(val.transitDetails.laycanFrom).toISOString()).add(1, 'days').format('DD-MM-YYYY'));
+      });
+      setDateStartFrom(temp);
     }
-  }, [vesselData])
+  }, [vesselData]);
 
   const saveDate = (startDate, name, index) => {
     setList((prevState) => {
@@ -286,26 +277,26 @@ export default function Home () {
               ...obj.transitDetails,
               [name]: startDate,
             },
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-    if (name == 'laycanFrom') setStartDate2(startDate, index)
-  }
+        return obj;
+      });
+      return newState;
+    });
+    if (name == 'laycanFrom') setStartDate2(startDate, index);
+  };
   const setStartDate2 = (val, index) => {
-    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY')
-    let temp = [...dateStartFrom]
-    temp[index] = new_date
-    setDateStartFrom([...temp])
-  }
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
+    let temp = [...dateStartFrom];
+    temp[index] = new_date;
+    setDateStartFrom([...temp]);
+  };
 
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
-    const name = e.target.id
-    let value = e.target.value
+    const name = e.target.id;
+    let value = e.target.value;
 
-    let array = { ...list[index].vesselInformation[0], [name]: value }
+    let array = { ...list[index].vesselInformation[0], [name]: value };
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -313,90 +304,90 @@ export default function Home () {
           return {
             ...obj,
             vesselInformation: [array],
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
-    const name = e.target.id
-    let value = e.target.value
+    const name = e.target.id;
+    let value = e.target.value;
 
-    let tempArr = [...list]
+    let tempArr = [...list];
     tempArr[0].vesselInformation.forEach((val, i) => {
       if (i == index) {
-        val[name] = value
+        val[name] = value;
       }
-    })
-    setList(tempArr)
-  }
+    });
+    setList(tempArr);
+  };
   const setOnFocus = (index) => {
-    let temp = [...isFieldInFocus]
+    let temp = [...isFieldInFocus];
     temp.forEach((val, i) => {
       if (i == index) {
-        val.value = true
+        val.value = true;
       }
-    })
-    setIsFieldInFocus([...temp])
-  }
+    });
+    setIsFieldInFocus([...temp]);
+  };
   const setOnBlur = (index) => {
-    let temp = [...isFieldInFocus]
+    let temp = [...isFieldInFocus];
     temp.forEach((val, i) => {
       if (i == index) {
-        val.value = false
+        val.value = false;
       }
-    })
-    setIsFieldInFocus([...temp])
-  }
+    });
+    setIsFieldInFocus([...temp]);
+  };
 
   const uploadDocHandler = async (e) => {
-    let uploadDocType = e.target.id
+    let uploadDocType = e.target.id;
 
-    let fd = new FormData()
-    fd.append('document', e.target.files[0])
+    let fd = new FormData();
+    fd.append('document', e.target.files[0]);
 
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     let headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
-    }
+    };
     try {
       let response = await Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
         headers: headers,
-      })
+      });
       if (response.data.code === 200) {
         if (uploadDocType == 'containerExcel') {
-          setContainerExcel(response.data.data)
+          setContainerExcel(response.data.data);
         }
         if (uploadDocType === 'Vessel Certificate') {
-          setVesselCertificate(response.data.data)
+          setVesselCertificate(response.data.data);
         }
         if (uploadDocType === 'Container List') {
-          setContainerListDocument(response.data.data)
+          setContainerListDocument(response.data.data);
         }
       } else {
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
       }
     } catch (error) {
-      let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
+      let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
-  }
+  };
 
   const shippingInfoChangeHandler = (e, index) => {
-    const name = e.target.id
-    const value = e.target.value
+    const name = e.target.id;
+    const value = e.target.value;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -406,40 +397,43 @@ export default function Home () {
               ...obj.shippingInformation,
               [name]: value,
             },
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const onSubmitHanler = async () => {
-    if (Validation({
-      list, containerExcel,
-      containerListDocument,
-      vesselCertificate
-    })) {
+    if (
+      Validation({
+        list,
+        containerExcel,
+        containerListDocument,
+        vesselCertificate,
+      })
+    ) {
       const payload = {
         vesselId: id,
         partShipmentAllowed: partShipmentAllowed,
         vessels: [...list],
-      }
+      };
       if (containerListDocument) {
-        payload.containerListDocument = containerListDocument
+        payload.containerListDocument = containerListDocument;
       }
       if (vesselCertificate) {
-        payload.vesselCertificate = vesselCertificate
+        payload.vesselCertificate = vesselCertificate;
       }
       if (containerExcel) {
-        payload.containerExcel = containerExcel
+        payload.containerExcel = containerExcel;
       }
 
-      let data = await dispatch(UpdateVessel(payload))
+      let data = await dispatch(UpdateVessel(payload));
       if (data == 200) {
-        let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
+        let toastMessage = 'VESSEL UPDATED SUCCESSFULLY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         await fetchInitialData()
        
@@ -448,44 +442,44 @@ export default function Home () {
         // router.push(`/insurance/form`)
       }
     }
-  }
+  };
 
   const onDeleteVessel = (index) => {
-    setList([...list.slice(0, index), ...list.slice(index + 1)])
-  }
+    setList([...list.slice(0, index), ...list.slice(index + 1)]);
+  };
   const OnAddvesselInformationDelete = (index) => {
-    let tempArr = [...list]
-    tempArr[0].vesselInformation.splice(index, 1)
+    let tempArr = [...list];
+    tempArr[0].vesselInformation.splice(index, 1);
 
-    setList(tempArr)
-  }
+    setList(tempArr);
+  };
 
   const onSaveHandler = async () => {
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
       vessels: [...list],
-    }
+    };
     if (containerListDocument) {
-      payload.containerListDocument = containerListDocument
+      payload.containerListDocument = containerListDocument;
     }
     if (vesselCertificate) {
-      payload.vesselCertificate = vesselCertificate
+      payload.vesselCertificate = vesselCertificate;
     }
     if (containerExcel) {
-      payload.containerExcel = containerExcel
+      payload.containerExcel = containerExcel;
     }
 
-    await dispatch(UpdateVessel(payload))
+    await dispatch(UpdateVessel(payload));
 
-    let toastMessage = `Vessel DATA SAVED`
+    let toastMessage = `Vessel DATA SAVED`;
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
-  }
+  };
   const handleExcelClose = () => {
-    setContainerExcel(null)
-  }
+    setContainerExcel(null);
+  };
   return (
     <>
       <Vessels
@@ -528,8 +522,8 @@ export default function Home () {
         port={getPortsMasterData}
       />
       <div className="mt-5">
-        <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler}/>
+        <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
       </div>
     </>
-  )
+  );
 }

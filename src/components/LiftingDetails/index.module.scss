@@ -151,7 +151,6 @@
         }
 
         .dropDown {
-          border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           line-height: 25px;
@@ -414,7 +413,6 @@
           left: 30px;
           margin-bottom: 0;
           position: absolute;
-          white-space: nowrap;
           pointer-events: none;
           box-sizing: border-box;
           transform: translateY(-30px);
@@ -821,10 +819,7 @@
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
-        text-transform: capitalize;
         position: absolute;
-        left: 15px;
-        top: -10px;
         line-height: 1;
         left: 30px;
         top: -8px;
@@ -969,7 +964,6 @@
               border-top: none;
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
-              white-space: nowrap;
               white-space: nowrap;
 
               &:first-child {
@@ -1213,10 +1207,7 @@
             padding: 24px 15px;
             border-top: none;
             vertical-align: middle;
-            // border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
-            white-space: nowrap;
-
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {

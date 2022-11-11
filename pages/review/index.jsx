@@ -4263,7 +4263,6 @@ function Index() {
                           <td
                             style={{
                               fontSize: '19px',
-                              color: '#EA3F3F',
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               paddingTop: '25px',
@@ -7486,6 +7485,11 @@ function Index() {
   const GstDataHandler = (data) => {
     setGstData(data);
   };
+  const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
+  const returnDataPeriodAndColour = (period, index) => {
+    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' }
+    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' }
+  }
 
   const handleGSTDownload = (value) => {
     let path = '';
@@ -8150,13 +8154,13 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
                     <Peer peerData={companyData} />
 

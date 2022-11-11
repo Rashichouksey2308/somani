@@ -7,23 +7,21 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
   return (
     <>
       <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
-        <p className="text-center text_sales">
+        <p className="text-center text_sales my-5">
           {' '}
           <strong>Undertaking for Post-dated Cheques issued by Associate Buyer</strong>
         </p>
-        <p className="text-left text_sales ml-4 d-flex align-items-start">
+        <p className="text-left text_sales ml-4 d-flex align-items-start text-capitalize">
           {' '}
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
             <u>
-              {data.buyer},
+              {data.buyer},</u>
               <br />
-              {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "}
-              {data.buyerAddress?.country},{" "}
-              {data.buyerAddress?.pinCode}
-              
-            </u>
+              <u>{data.buyerAddress?.fullAddress}</u>,{" "}
+              <u>{data.buyerAddress?.city}</u>{" "} 
+              <u>{data.buyerAddress?.country}</u>,{" "}
+              <u>{data.buyerAddress?.pinCode}</u>            
           </span>
         </p>
         <p className="text-center text_sales">
@@ -65,36 +63,36 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
             <p className="text_sales">
               That, the undersigned being the Authorised Signatory of the Associate Buyer, do hereby undertake as under:
             </p>
-            <ul type="disc">
+            <ul type="disc" className='pl-3'>
               <li>
-                <p className="text_sales">
+                <p className="text_sales mb-0">
                   To pay the balance/outstanding amount in respect of the above-mentioned transaction on the first
                   demand of Seller without recourse, demur and protest.
                 </p>
               </li>
               <li>
-                <p className="text_sales">To honour the cheque(s) on their presentation on due dates.</p>
+                <p className="text_sales mb-0">To honour the cheque(s) on their presentation on due dates.</p>
               </li>
               <li>
-                <p className="text_sales">
+                <p className="text_sales mb-0">
                   That we will not intimate the bankers to stop the payment of the aforesaid cheques delivered to Seller
                   under any circumstances.
                 </p>
               </li>
               <li>
-                <p className="text_sales">
+                <p className="text_sales mb-0">
                   That, we have duly complied with the Positive Payment Service as per RBI circular dated 25th September
                   2020 by intimating our bank about the details of the post-dated cheques issued to Seller.
                 </p>
               </li>
               <li>
-                <p className="text_sales">
+                <p className="text_sales mb-0">
                   That, we shall not close the account from which the cheques have been issued without the prior
                   permission of Seller in writing.
                 </p>
               </li>
               <li>
-                <p className="text_sales">
+                <p className="text_sales mb-0">
                   That, we, shall not give Seller any notice requesting them not to present the cheques delivered to
                   them.
                 </p>
@@ -186,223 +184,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                   </Col>
                 </Row>
               );
-            })}
-
-          {/* <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Date of execution
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.dateOfExecution}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Place of execution
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.placeOfExecution}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.associateBuyer}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Address of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress?.fullAddress},
-              {data.associateBuyerAddress?.city}{" "} 
-              {data.associateBuyerAddress?.country},{" "}
-              
-              {data.associateBuyerAddress?.pinCode}
-             
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              GST of Associate Buyerager
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.associateBuyerGst}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              PAN of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.associateBuyerPan}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Signatory of Associate Buyer
-            </Col>
-            <Col md={7} className={styles.right}>
-                <ol>
-              {data?.associateBuyerAuthorized?.length > 0 &&
-                data?.associateBuyerAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of Stevedore
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.stevedore}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Address of Stevedore
-            </Col>
-            <Col md={7} className={styles.right}>
-             {data.stevedoreAddress?.fullAddress},
-              {data.stevedoreAddress?.city}{" "} 
-              {data.stevedoreAddress?.country},{" "}
-              
-              {data.stevedoreAddress?.pinCode}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Signatory of Stevedore
-            </Col>
-            <Col md={7} className={styles.right}>
-             <ol>
-              {data?.stevedoreAuthorized?.length > 0 &&
-                data?.stevedoreAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of CMA Agent
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.cma}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Address of CMA Agent
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.cmaAddress?.fullAddress},
-              {data.cmaAddress?.city}{" "} 
-              {data.cmaAddress?.country},{" "}
-              
-              {data.cmaAddress?.pinCode}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Signatory of CMA Agent
-            </Col>
-            <Col md={7} className={styles.right}>
-               <ol>
-              {data?.cmaAuthorized?.length > 0 &&
-                data?.cmaAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <div>
-                        Name- <span>{val.name}</span>
-                      </div>
-                      <div>
-                        Designation- <span>{val.designation}</span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Commodity Details
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.detailsOfComm}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Quantity
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.quan}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Name of Supplier
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.supplier}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Details of Vessel
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.vessel}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Port of Loading
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.lordPort}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Port of Discharge
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data?.dischargePort}
-            </Col>
-          </Row>
-          <Row className={`${styles.row} ${styles.last}`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Storage Plot allotted to IGI
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.storagePlot}
-            </Col>
-          </Row> */}
+            })}          
         </div>
 
         <div className={`row`}>
