@@ -5,6 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
 import styles from './index.module.scss';
 
+function getPaymentStatus(isStatus) {
+  if (!isStatus) return <th>PAYMENT STATUS</th>;
+  return (
+    <th>
+      STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
+    </th>
+  );
+}
+
 function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(0);
@@ -44,13 +53,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
                 <th>VESSEL NAME</th>
                 <th>{pageType}</th>
                 <th>{dateHeading}</th>
-                {isStatus ? (
-                  <th>
-                    STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
-                  </th>
-                ) : (
-                  <th>PAYMENT STATUS</th>
-                )}
+                {getPaymentStatus(isStatus)}
                 <th>ACTION</th>
               </tr>
             </thead>

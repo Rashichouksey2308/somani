@@ -18,6 +18,7 @@ import DateCalender from '../../src/components/DateCalender';
 import SaveBar from '../../src/components/SaveBar';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp';
 import { setPageName } from '../../src/redux/userData/action';
+import { handleErrorToast } from '../../src/utils/helpers/global';
 import styles from './index.module.scss';
 
 function Index() {
@@ -25,12 +26,10 @@ function Index() {
   const { supplierResponse } = useSelector((state) => state.supplier);
 
   let id = sessionStorage.getItem('supplier');
+
   useEffect(() => {
-    if (id) {
-      dispatch(GetSupplier(`?supplierId=${id}`));
-    } else {
-      dispatch(ClearSupplier());
-    }
+    if (id) dispatch(GetSupplier(`?supplierId=${id}`));
+    else dispatch(ClearSupplier());
   }, [id]);
 
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
@@ -64,11 +63,6 @@ function Index() {
   }, [supplierResponse]);
 
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
-
-  const [saveShareTable, setSaveTable] = useState(false);
-  const [saveContactTable, setContactTable] = useState(false);
-  const [saveDirectorTable, setDirectorTable] = useState(false);
-  const [saveCommodityTable, setCommodityTable] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [sharedDoc, setSharedDoc] = useState({
@@ -121,20 +115,8 @@ function Index() {
     },
   ]);
 
-  const [signatory, setSignatory] = useState({
-    name: '',
-    nationality: '',
-    authoriztyToSign: '',
-  });
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
-  const [commodity, setCommidity] = useState([
-    {
-      hsnCode: '',
-      commodity: '',
-      action: false,
-    },
-  ]);
 
   const [info, setInfo] = useState('');
   const [infoArray, setInfoArray] = useState([]);
@@ -242,7 +224,7 @@ function Index() {
     ]);
   };
 
-  const handleShareDoc = async (doc) => {
+  const handleShareDoc = async () => {
     if (emailValidation(sharedDoc.data.receiver)) {
       let tempArr = { ...sharedDoc };
       tempArr.company = documentsFetched.company;
@@ -276,14 +258,6 @@ function Index() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
-    });
-  };
-
-  const onChangeHandler1 = (e) => {
-    const { name, value } = e.target;
-    setAddress({
-      ...address,
       [name]: value,
     });
   };
@@ -345,32 +319,18 @@ function Index() {
 
   const contactPersonDetailsValidation = () => {
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
-        toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
+        isOk = false;
       }
-
       if (person[i].contact === '' || person[i].contact === null || person[i].contact.length !== 10) {
-        toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
+        isOk = false;
       }
       if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
-        toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`please provide a valid email Id  in Contact Person Details ${i + 1} `);
+        isOk = false;
       }
     }
     return isOk;
@@ -378,15 +338,9 @@ function Index() {
 
   const shareholdersDetailsValidation = () => {
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= detail.length - 1; i++) {
       if (detail[i].shareHoldersName === '' || detail[i].shareHoldersName === null) {
-        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`shareHolders Name cannot be empty in shareHolder Details ${i + 1}`);
       }
 
       if (
@@ -394,12 +348,7 @@ function Index() {
         detail[i].ownershipPercentage === null ||
         detail[i].ownershipPercentage >= 100
       ) {
-        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`please provide a valid ownership Percentage in shareholder  Details ${i + 1}`);
       }
     }
     return isOk;
@@ -407,46 +356,25 @@ function Index() {
 
   const directorsAndAuthorisedSignatoryValidation = () => {
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (listDirector[i].name === '' || listDirector[i].name === null) {
-        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`Name cannot be empty in Directors And Authorized Signatory ${i + 1}`);
       }
       if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
-        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`nationality cannot be empty in Directors And Authorized Signatory ${i + 1}`);
       }
     }
     return isOk;
   };
   const commoditiesTradedValidation = () => {
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= listCommodity.length - 1; i++) {
       if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
-        toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`hsn code cannot be empty in Commodities Traded ${i + 1}`);
       }
       if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
-        toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`commodity cannot be empty in Commodities Traded ${i + 1}`);
+        break;
       }
     }
     return isOk;
@@ -454,34 +382,19 @@ function Index() {
 
   const supplierValidtaion = () => {
     if (!formData.supplierName || formData.supplierName === '') {
-      let toastMessage = `supplier Name cannot be empty`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`supplier Name cannot be empty`);
       return false;
     } else if (!formData.constitution || formData.constitution === '') {
-      let toastMessage = `please select a constitution`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please select a constitution`);
       return false;
     } else if (!formData.incorporationDate || formData.incorporationDate === '') {
-      let toastMessage = `please select a incorporation Date`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please select a incorporation Date`);
       return false;
     } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
-      let toastMessage = `please provide a country Of Incorporation`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please provide a country Of Incorporation`);
       return false;
     } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
-      let toastMessage = `please provide a national Identification Number`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please provide a national Identification Number`);
       return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
@@ -492,16 +405,10 @@ function Index() {
     } else if (!commoditiesTradedValidation()) {
       return false;
     } else if (!incumbencyDoc) {
-      let toastMessage = `please upload incumbency certificate`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please upload incumbency certificate`);
       return false;
     } else if (!thirdParty) {
-      let toastMessage = `please upload third party certificate`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please upload third party certificate`);
       return false;
     } else {
       return true;
@@ -722,17 +629,11 @@ function Index() {
         if (response.data.code === 200) {
           setdocs([...docs, response.data.data]);
         } else {
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
+          handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
         }
       });
     } catch (error) {
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
     }
   };
 
@@ -742,10 +643,7 @@ function Index() {
       fd.append('document', newDoc.document);
       docUploader(fd);
     } else {
-      let toastMessage = 'please upload a document first';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please upload a document first');
     }
   };
   const deleteDocumentHandler = ({ document, index }) => {
