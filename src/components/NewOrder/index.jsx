@@ -48,10 +48,11 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
               className={`${styles.options} accordion_DropDown`}
               name="unitOfQuantity"
               onChange={(e) => {
+                console.log(e.target.value,"Ssdd")
                 saveOrderData(e.target.name, e.target.value);
               }}
             >
-              <option>Select</option>
+              <option value= "">Select</option>
               <option selected value="MT">
                 MT
               </option>
@@ -67,7 +68,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
               style={{ paddingRight: '0px' }}
             >
-              <option>Select</option>
+               <option value= "">Select</option>
               <option value="Crores" selected>
                 Crores
               </option>
