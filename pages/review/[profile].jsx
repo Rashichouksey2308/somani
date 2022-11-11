@@ -85,7 +85,11 @@ const Index = () => {
     if (!buyerList?.commodity?.apiResponse) {
       if (!payloadData.hasOwnProperty('commodity')) return handleToast('Please select commodity');
     }
-
+    if (!buyerList?.turnOver?.apiResponse) {
+      if (!payloadData.hasOwnProperty('turnOver') || !payloadData.turnOver) {
+        return handleToast('Please add turnOver');
+      }
+    }
     if (!buyerList?.countryOfOrigin?.apiResponse) {
       if (!payloadData.hasOwnProperty('countryOfOrigin')) {
         return handleToast('Please select country');
@@ -93,7 +97,7 @@ const Index = () => {
     }
 
     if (!buyerList?.orderValue?.apiResponse) {
-      if (!payloadData.hasOwnProperty('orderValue')) {
+      if (!payloadData.hasOwnProperty('orderValue') || !payloadData.orderValue) {
         return handleToast('Please add order value');
       }
     }
@@ -108,11 +112,9 @@ const Index = () => {
         return handleToast('Please select transaction type');
       }
     }
-    if (!buyerList?.turnOver?.apiResponse) {
-      if (!payloadData.hasOwnProperty('turnOver')) {
-        return handleToast('Please add turnOver');
-      }
-    }
+ 
+
+
     if (!buyerList?.typeOfBusiness?.apiResponse) {
       if (!payloadData.hasOwnProperty('typeOfBusiness')) {
         return handleToast('Please select type of business');
@@ -144,9 +146,12 @@ const Index = () => {
     if (tempData.turnOver) {
       tempData.turnOver = Number(payloadData.turnOver) * 10000000;
     }
+    if (tempData.turnOver) {
+      tempData.orderValue = Number(payloadData.orderValue) * 10000000;
+    }
     const payload = { ...payloadData, orderReviewId: buyerList._id };
 
-    let code = await dispatch(UpdateBuyer(payload));
+    // let code = await dispatch(UpdateBuyer(payload));
     if (code == 200) {
       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'));
       await Router.push('/review');
