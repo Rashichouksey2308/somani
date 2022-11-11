@@ -830,17 +830,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           </td>
                           <td>
                             {returnDocFormat(item?.document?.originalName)}
-                            {/* {item?.document ? (
-                              item?.document?.originalName?.toLowerCase().endsWith('.xls') ||
-                                item?.document?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                              ) : item?.document?.originalName?.toLowerCase().endsWith('.doc') ||
-                                item?.document?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                              ) : (
-                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                              )
-                            ) : null} */}
                           </td>
                           <td className={styles.doc_row}>
                             {item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}
