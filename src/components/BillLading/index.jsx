@@ -882,32 +882,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   />{' '}
                                 </div>
                               )}
-                              {/* <div className="d-flex justify-content-start">
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    name={`containerDoc`}
-                                    id="containerDoc"
-                                    onChange={(e) =>
-                                      onChangeContainerDetailsDocHandler(
-                                        e,
-                                        index,
-                                      )
-                                    }
-                                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                    type="file"
-                                  />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload Excel
-                                  </button>
-                                </div>
-
-                                <div className={`${styles.upload_text}`}>
-                                  ONLY .XLSX FILES ARE ALLOWED
-                                  <br /> &amp; MAX FILE SIZE UP TO 50MB
-                                </div>
-                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -957,12 +931,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 {bolList[index]?.blDoc ? (
                                   bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') ||
                                   bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                    <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
                                   ) : bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') ||
                                     bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+                                    <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
                                   ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                                    <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
@@ -972,19 +946,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   : moment(bolList[index]?.blDoc.date).format('DD-MM-YYYY , h:mm a ')}
                               </td>
                               <td>
-                                {/* <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    name={`blSurrenderDoc`}
-                                    id="document1"
-                                    onChange={(e) => uploadDoc(e, index)}
-                                    type="file"
-                                  />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div> */}
                                 {bolList && bolList[index]?.blDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1025,16 +986,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                       bolList[index]?.containerNumberListDoc?.originalName
                                         ?.toLowerCase()
                                         .endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                        <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
                                       ) : bolList[index]?.containerNumberListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.doc') ||
                                         bolList[index]?.containerNumberListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+                                        <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
                                       ) : (
-                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                                        <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                                       )
                                     ) : null}
                                   </td>
@@ -1046,19 +1007,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         )}
                                   </td>
                                   <td>
-                                    {/* <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        name={`document2`}
-                                        id="document1"
-                                        onChange={(e) => uploadDoc(e, index)}
-                                        type="file"
-                                      />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div> */}
                                     {bolList && bolList[index]?.containerNumberListDoc == null ? (
                                       <>
                                         <div className={styles.uploadBtnWrapper}>
@@ -1100,9 +1048,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         bolList[index]?.packingListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+                                        <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
                                       ) : (
-                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                                        <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                                       )
                                     ) : null}
                                   </td>
@@ -1112,19 +1060,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                       : moment(bolList[index]?.packingListDoc.date).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
-                                    {/* <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        name={`documentName`}
-                                        id="document2"
-                                        onChange={(e) => uploadDoc(e, index)}
-                                        type="file"
-                                      />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div> */}
                                     {bolList && bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div className={styles.uploadBtnWrapper}>
@@ -1228,12 +1163,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 {bolList[index]?.blSurrenderDoc ? (
                                   bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') ||
                                   bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                    <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
                                   ) : bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') ||
                                     bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+                                    <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
                                   ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                                    <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
