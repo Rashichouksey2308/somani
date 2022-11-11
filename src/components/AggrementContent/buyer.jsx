@@ -468,8 +468,8 @@ function Index(props) {
           setGstin(otherData[0]?.GSTIN);
           setPan(otherData[0]?.PAN);
 
-          if (_get(otherData[0], 'Branch_Address', '') !== '') {
-            let add = otherData[0]?.Branch_Address?.split(',');
+          if (_get(otherData[0], 'Address', '') !== '') {
+            let add = otherData[0]?.Address?.split(',');
             let newAddress = [];
             add.forEach((val, index) => {
               if (index < add.length - 1) {
@@ -527,8 +527,8 @@ function Index(props) {
         if (otherData.length > 0) {
           setGstin(otherData[0].GSTIN);
           setPan(otherData[0].PAN);
-          if (_get(otherData[0], 'Branch_Address', '') !== '') {
-            let add = otherData[0]?.Branch_Address?.split(',');
+          if (_get(otherData[0], 'Address', '') !== '') {
+            let add = otherData[0]?.Address?.split(',');
             let newAddress = [];
             add.forEach((val, index) => {
               if (index < add.length - 1) {
