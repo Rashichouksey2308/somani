@@ -125,7 +125,7 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'partialShipment') {
+    } else if (e.target.value == 'partialShipment' || e.target.value == 'transhipments' || e.target.value == 'formOfDocumentaryCredit' || e.target.value == 'creditAvailableBy' || e.target.value == 'creditAvailablewith' || e.target.value == 'applicant') {
       setFieldType('drop');
     } else {
       setFieldType('');
@@ -465,7 +465,7 @@ function Index() {
                                 name="newValue"
                                 defaultDate={clauseObj?.newValue}
                                 saveDate={saveDropDownDate}
-                                // labelName="New Value"
+                              // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -486,12 +486,19 @@ function Index() {
                                 // }
                                 value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                              >
-                                <option selected>Select an option</option>
-
-                                <option value="Yes">Allowed</option>
-                                <option value="No">Not Allowed</option>
-                                <option value="Conditional">Conditional</option>
+                              >  {clauseObj.dropDownValue === '(50) Applicant' ? (<>        <option selected>Select an option</option>
+                                <option value="Indo intertrade AG">Indo intertrade AG</option>
+                              </>) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
+                                <> <option value="Irrevocable">Irrevocable</option>
+                                  <option value="Revocable">Revocable</option></>
+                              ) : clauseObj.dropDownValue === '(41A) Credit Available With' ? (<>  <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
+                                <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option></>) : clauseObj.dropDownValue === '(41A) Credit Available By' ? (<>   <option value="By Negotiation">By Negotiation</option>
+                                  <option value="By Payment">By Payment</option>
+                                  <option value="By Acceptance">By Acceptance</option>
+                                  <option value="By Deffered Payment">By Deffered Payment</option></>) : (<><option selected>Select an option</option>
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                    <option value="Conditional">Conditional</option></>)}
                               </select>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}

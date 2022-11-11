@@ -9,6 +9,7 @@ import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
 import UploadOther from '../UploadOther';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
@@ -302,7 +303,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         isFieldInFocus
                           ? list.quantity
                           : Number(list.quantity)?.toLocaleString('en-IN') +
-                            ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
+                          ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
                       }
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
@@ -443,25 +444,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          {cimsDetails[index]?.coalImportRegistrationDoc ? (
-                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xls') ||
-                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                              cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )
-                          ) : null}
+                          {cimsDetails[index]?.coalImportRegistrationDoc ? returnDocFormat(cimsDetails[index]?.coalImportRegistrationDoc?.originalName) : null}
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
@@ -500,21 +483,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       <tr className="table_row">
                         <td className={styles.doc_name}>CIMS Payment Receipt</td>
                         <td>
-                          {cimsDetails[index]?.cimsPaymentReceiptDoc ? (
-                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                              cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )
-                          ) : null}
+                          {cimsDetails[index]?.cimsPaymentReceiptDoc ? returnDocFormat(cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName) : null}
                         </td>
                         <td className={styles.doc_row}>
                           {' '}
