@@ -45,11 +45,6 @@ export default function Index({ addButton }) {
   const [documentAction2, setDocumentAction2] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const [portType, setPortType] = useState({
-    loadPortInspection: false,
-    dischargePortInspection: false,
-  });
-
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails };
     newInput[name] = value;
@@ -57,25 +52,14 @@ export default function Index({ addButton }) {
     setInspectionData(newInput);
   };
 
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false);
-    } else {
-      setEditInput(true);
-    }
-  };
-
-  const ChangeValue = (item) => {
-    document.getElementById('dropdownMenuButton').value = item;
-  };
-
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (inspectionData) {
       setExcelFile(_get(inspectionData, 'order.generic.productSpecifications.specificationTable', []));
     }
   }, [inspectionData]);
+
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -160,7 +144,7 @@ export default function Index({ addButton }) {
       dischargeCertificateOfWeightStatus: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
     });
   }, [inspectionData, allInspection]);
-  
+
   const [documents, setDocuments] = useState({
     certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
@@ -1002,7 +986,7 @@ export default function Index({ addButton }) {
                       //   maximumFractionDigits: 2,
                       // })}
 
-                      type="number"
+                      type="text"
                       onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>

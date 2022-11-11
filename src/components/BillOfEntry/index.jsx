@@ -36,22 +36,22 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const [isFieldInFocus, setIsFieldInFocus] = useState([]);
   const { customClearance } = useSelector((state) => state.Custom);
   const [bl,setbl]=useState([]);
-  useEffect(() => {
-    if(customData){
-      let temp=[]
-      _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
-        temp.push({
-           check:false,
-           blNumber:val.blNumber,
-           blDate:val.blDate,
-           blQuantity:val.blQuantity,
-           blDoc:val.blDoc
+  // useEffect(() => {
+  //   if(customData){
+  //     let temp=[]
+  //     _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
+  //       temp.push({
+  //          check:false,
+  //          blNumber:val.blNumber,
+  //          blDate:val.blDate,
+  //          blQuantity:val.blQuantity,
+  //          blDoc:val.blDoc
 
-        })
-      })
-      setbl([...temp])
-    }
-  },[customData])
+  //       })
+  //     })
+  //     setbl([...temp])
+  //   }
+  // },[customData])
   useEffect(() => {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
@@ -105,6 +105,7 @@ useEffect(() => {
           amount: '',
         },
       ],
+      bl:[],
 
       document1: null,
       document2: null,
@@ -362,6 +363,22 @@ useEffect(() => {
         }
       }
     }
+    isOk=false
+    bl.forEach((val,index)=>{
+      val.forEach((bl,index2)=>{
+        if(bl.check == true){
+            isOk = true;
+            
+        }
+      })
+    })
+    if(isOk==false){
+       let toastMessage = 'Pls select atleast one bl';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        return
+    }
     if (isOk) {
       let tempData = [...billOfEntryData];
       for (let i = 0; i < tempData.length; i++) {
@@ -369,6 +386,7 @@ useEffect(() => {
         tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceQuantity);
         tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceValue);
         tempData[i].duty = dutyData[i];
+        tempData[i].bl =bl[i]
       }
 
       const billOfEntry = { billOfEntry: tempData };
@@ -393,6 +411,7 @@ useEffect(() => {
       tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceQuantity);
       tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceValue);
       tempData[i].duty = dutyData[i];
+      tempData[i].bl =bl[i]
     }
     const billOfEntry = { billOfEntry: tempData };
     const fd = new FormData();
@@ -411,6 +430,7 @@ useEffect(() => {
     }
   };
   let duty11 = [];
+  let bltable = [];
   useEffect(() => {
     if (customData) {
       let total = 0;
@@ -459,6 +479,7 @@ useEffect(() => {
         });
 
         duty11.push(JSON.parse(JSON.stringify(val.duty)));
+        bltable.push(JSON.parse(JSON.stringify(val.bl||[])));
       });
 
       setBillOfEntryData([...tempArray]);
@@ -479,8 +500,26 @@ useEffect(() => {
     } else {
       setDutyData([...duty11]);
     }
-  }, [customData,]);
+    
+   if (bltable.length == 1) {
+    let temp=[]
+     _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
+        temp.push({
+           check:false,
+           blNumber:val.blNumber,
+           blDate:val.blDate,
+           blQuantity:val.blQuantity,
+           blDoc:val.blDoc
 
+        })
+      })
+      console.log(temp,"temp")
+      setbl([[...temp]])
+    } else {
+      setbl([...bltable]);
+    }
+  }, [customData,]);
+console.log(bl,"asdasd")
   const getIndex = (index) => {
     return index + 1;
   };
@@ -534,11 +573,29 @@ useEffect(() => {
         },
       ],
     ]);
+     let temp=[]
+     _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
+        temp.push({
+           check:false,
+           blNumber:val.blNumber,
+           blDate:val.blDate,
+           blQuantity:val.blQuantity,
+           blDoc:val.blDoc
+
+        })
+      })
+     setbl([
+      ...bl,
+      [
+       ...temp,
+      ],
+    ]);
   };
 
   const deleteNewRow = (index) => {
     setBillOfEntryData([...billOfEntryData.slice(0, index), ...billOfEntryData.slice(index + 1)]);
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)]);
+    setbl([...bl.slice(0, index), ...bl.slice(index + 1)]);
   };
 
   return (
@@ -1266,23 +1323,37 @@ useEffect(() => {
                       </div>
 
                       <div className="row ml-auto">
-                        {bl.map((bl, indexbl) => {
+                        {bl[index]?.length >0 && bl[index].map((blData, indexbl) => {
                           return (
                             <>
                               {' '}
                               <div key={indexbl} className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                                <Form.Check aria-label="option 1" />
+                               <Form.Check
+                               
+                                inline
+                               
+                                checked={blData.check}
+                                onChange={(e)=>{
+                                  let temp=[...bl]
+                                  console.log(temp[index][indexbl],"ASdasd")
+                                  temp[index][indexbl].check=!temp[index][indexbl].check
+                                  setbl([...temp])
+                                }}
+
+                               
+                                
+                                />
                                 <div className={`${styles.label} text ml-4`}>
                                   BL Number <strong className="text-danger ml-n1">*</strong>
                                 </div>
-                                <span className={`${styles.value} ml-4`}>{bl?.blNumber}</span>
+                                <span className={`${styles.value} ml-4`}>{blData?.blNumber}</span>
                               </div>
                               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                 <div className={`${styles.label} text`}>
                                   BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                                 </div>
                                 <span className={styles.value}>
-                                  {bl?.blDate ? moment(bl?.blDate).format('DD-MM-YYYY') : ''}
+                                  {blData?.blDate ? moment(blData?.blDate).format('DD-MM-YYYY') : ''}
                                 </span>
                               </div>
                               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
@@ -1290,7 +1361,7 @@ useEffect(() => {
                                   BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
                                 </div>
                                 <span className={styles.value}>
-                                  {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
+                                  {blData?.blQuantity ? Number(blData?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
                                   {customData?.order?.unitOfQuantity.toUpperCase()}
                                 </span>
                               </div>
@@ -1300,7 +1371,7 @@ useEffect(() => {
                                   className={`${styles.previewImg} img-fluid ml-n4`}
                                   alt="Preview"
                                   onClick={(e) => {
-                                    getDoc(bl?.blDoc?.path);
+                                    getDoc(blData?.blDoc?.path);
                                   }}
                                 />
                               </div>

@@ -11,6 +11,7 @@ import UploadOther from '../UploadOther';
 import { convertValue, removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
   let transId = _get(TransitDetails, 'data[0]', '');
@@ -928,17 +929,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blDoc ? (
-                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
-                                  ) : bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                  )
-                                ) : null}
+                                {bolList[index]?.blDoc ? returnDocFormat( bolList[index]?.blDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
@@ -979,25 +970,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.containerNumberListDoc ? (
-                                      bolList[index]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xls') ||
-                                      bolList[index]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
-                                      ) : bolList[index]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
-                                        bolList[index]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                      ) : (
-                                        <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                      )
-                                    ) : null}
+                                    {bolList[index]?.containerNumberListDoc ? returnDocFormat(bolList[index]?.containerNumberListDoc?.originalName) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.containerNumberListDoc == null
@@ -1038,21 +1011,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.packingListDoc ? (
-                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                      ) : bolList[index]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
-                                        bolList[index]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                      ) : (
-                                        <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                      )
-                                    ) : null}
+                                    {bolList[index]?.packingListDoc ? returnDocFormat(bolList[index]?.packingListDoc?.originalName) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
@@ -1160,17 +1119,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blSurrenderDoc ? (
-                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
-                                  ) : bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                  )
-                                ) : null}
+                                {bolList[index]?.blSurrenderDoc ? returnDocFormat(bolList[index]?.blSurrenderDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null
