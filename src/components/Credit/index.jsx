@@ -1896,7 +1896,7 @@ const index = ({
                         }}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
-                        Branch<strong className="text-danger">*</strong>
+                        Branch
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`}>
