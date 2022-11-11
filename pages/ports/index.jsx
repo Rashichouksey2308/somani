@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Router from 'next/router';
-import { GetAllSupplier } from 'redux/supplier/action';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
+import {GetAllPorts} from '../../src/redux/ports/action'
 
 const index = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,8 @@ const index = () => {
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
+
+  const {allPorts} = useSelector((state)=>state.ports)
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -27,10 +28,10 @@ const index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+    dispatch(GetPorts(`?company=${id}`));
   };
   useEffect(() => {
-    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetAllPorts(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
   const handleRoute = (id) => {
@@ -98,6 +99,7 @@ const index = () => {
             header4="APPROVED"
             isHeader={true}
             isDate={true}
+            selectorData={allPorts}
           />
         </div>
       </div>
