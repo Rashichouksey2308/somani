@@ -394,33 +394,39 @@ export const undertaking1Pdf = (data) => {
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                     {data?.cheque?.length > 0 &&
+            data.cheque.map((val, index) => {
+              return (
+                 <tr>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {val.sNo}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>{val.bankName}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>{val.chequeNo}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {moment(val.chequeDate).format('DD-MM-YYYY')}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {val.amount}</p>
                       </td>
                     </tr>
+              );
+            })} 
+                  
                   </table>
                 </td>
               </tr>
@@ -433,11 +439,24 @@ export const undertaking1Pdf = (data) => {
                     </tr>
                     <tr>
                       <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place: </p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place:  {data.placeOfExecution} </p>
                       </td>
                       <td valign='top' align='left' width='50%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>(Associate Buyer)</strong>
-                          <br /><br />Name -
+                                        {
+                                data?.associateBuyerAuthorized?.length > 0 &&
+                                data?.associateBuyerAuthorized?.map((val, index) => {
+                                  return (
+                                     <>
+                                     <br /><br />Name - {val.name}
+                                     </>
+                                      
+                                      
+                                  
+                                  );
+                                })
+                              }
+                          
                         </p>
                       </td>
                     </tr>
@@ -528,15 +547,42 @@ export const undertaking2Pdf = (data) => {
                     </tr>
                     <tr>
                       <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Place:</u> </strong></p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Place: {data.placeOfExecution}</u> </strong></p>
                       </td>
                       <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Name -</u> </strong></p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>
+                          
+                            {
+                            data?.associateBuyerAuthorized?.length > 0 &&
+                            data?.associateBuyerAuthorized?.map((val, index) => {
+                              return ( 
+                                <strong><u>Name - {val.name}</u> </strong>                
+                                             
+                              );
+                            })
+                            }
+                           
+                          <strong><u>Name -</u> </strong></p>
                       </td>
                     </tr>
                     <tr>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong><u>Date :</u> <u>{data.dateOfExecution}</u></strong></p></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong><u>Designation:</u></strong></p></td>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
+                        
+                           {
+                      data?.associateBuyerAuthorized?.length > 0 &&
+                      data?.associateBuyerAuthorized?.map((val, index) => {
+                        return (    
+                           <strong><u>Designation: {val.designation}</u></strong>              
+                                          
+                        );
+                      })
+                      }
+                       
+                        
+                        </p>
+                        
+                        </td>
                     </tr>
                   </table>
                 </td>

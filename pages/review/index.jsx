@@ -1295,7 +1295,7 @@ function Index() {
       return camData?._id === rating.order;
     });
     const getRotate = (rat = 1) => {
-      let r = Math.round(rat);
+      let r = Math.floor(rat);
       // let r = 4
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
@@ -2190,7 +2190,7 @@ function Index() {
                           }}
                         >
                           {checkNan(
-                            Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}
@@ -2271,7 +2271,7 @@ function Index() {
                                   }}
                                 >
                                   {checkNan(
-                                    Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
                                   )}

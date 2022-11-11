@@ -19,14 +19,14 @@ export const returnAuthToken = () => {
  */
 export const returnDocFormat = (name = '') => {
   if (name.toLowerCase().endsWith('.xls') || name.toLowerCase().endsWith('.xlsx')) {
-    return <img src="/static/excel.svg" className="img-fluid" alt="Pdf"/>
+    return <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
   }
 
   if (name.toLowerCase().endsWith('.doc') || name.toLowerCase().endsWith('.docx')) {
-    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf"/>
+    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
   }
 
-  return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>
+  return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
 }
 
 /**
@@ -39,8 +39,9 @@ export const returnDocFormat = (name = '') => {
  * @returns A function that takes in a number, locales, maximum, and minimum.
  */
 export const returnReadableNumber = (number, locales = undefined, maximum = 0, minimum = 0) => {
-  if (number) {
-    return number.toLocaleString(locales, {
+  let convertedNumber = Number(number);
+  if (convertedNumber) {
+    return convertedNumber.toLocaleString(locales, {
       maximumFractionDigits: maximum,
       minimumFractionDigits: minimum
     })

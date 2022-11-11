@@ -347,7 +347,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       .map((val, index) => {
                         return (
                           <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
+                           {val.Port_Name}, {val.Country}
                           </option>
                         );
                       })}
@@ -409,8 +409,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                  defaultValue={orderDetail?.hsnCode}
-                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+                  value={orderDetail?.hsnCode}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value)}}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   HSN code

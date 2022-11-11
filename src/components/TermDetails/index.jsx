@@ -411,7 +411,7 @@ const Index = ({
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                         {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -520,7 +520,7 @@ const Index = ({
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                          {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -647,7 +647,7 @@ const Index = ({
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                         {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}

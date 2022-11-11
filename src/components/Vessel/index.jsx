@@ -205,7 +205,7 @@ function Index({
                             value={currency}
                             required
                           >
-                            <option>Select</option>
+                            <option value= "">Select</option>
                             <option value="USD">USD</option>
                             <option value="INR">INR</option>
                             <option value="EURO">EURO</option>
@@ -292,7 +292,7 @@ function Index({
                                 .map((val, index) => {
                                   return (
                                     <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                                      {val.Port_Name},{val.Country}
+                                     {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}
@@ -325,7 +325,7 @@ function Index({
                                 .map((val, index) => {
                                   return (
                                     <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                                      {val.Port_Name},{val.Country}
+                                     {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}

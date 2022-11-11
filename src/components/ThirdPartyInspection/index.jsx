@@ -58,7 +58,8 @@ export default function Index({ addButton }) {
       setExcelFile(_get(inspectionData, 'order.generic.productSpecifications.specificationTable', []));
     }
   }, [inspectionData]);
-
+ 
+  console.log(documents,"ASdafsdf")
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -146,32 +147,50 @@ export default function Index({ addButton }) {
   }, [inspectionData, allInspection]);
 
   const [documents, setDocuments] = useState({
+    certificateOfQuality:  null,
+    certificateOfWeight:  null,
+    certificateOfOrigin: null,
+  });
+
+
+  const [dischargeDocuments, setDischargeDocuments] = useState({
+    dischargeCertificateOfQuality:  null,
+    dischargeCertificateOfWeight:  null,
+    dischargeCertificateOfOrigin: null,
+  });
+
+    useEffect(() => {
+    if(inspectionData){
+      setDocuments({
     certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
     certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
-  });
 
-  const [dischargeDocuments, setDischargeDocuments] = useState({
+ 
+  });
+    setDischargeDocuments({
     dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
     dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
     dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
-  });
+  })
+    }
+  },[inspectionData])
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality == null &&
-      documents.certificateOfWeight == null &&
-      documents.certificateOfOrigin == null
+      documents.certificateOfQuality  !== null ||
+      documents.certificateOfWeight  !== null ||
+      documents.certificateOfOrigin  !== null
     ) {
-      sethaveDoc(false);
+      sethaveDoc(true);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
-
+console.log(haveDoc,"haveDoc")
   useEffect(() => {
     if (
-      dischargeDocuments.dischargeCertificateOfQuality == null &&
-      dischargeDocuments.dischargeCertificateOfWeight == null &&
-      dischargeDocuments.dischargeCertificateOfOrigin == null
+      dischargeDocuments.dischargeCertificateOfQuality !== null ||
+      dischargeDocuments.dischargeCertificateOfWeight !== null ||
+      dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
       setHaveDischargeDoc(false);
     }
@@ -432,11 +451,12 @@ export default function Index({ addButton }) {
       }
     }
   };
-
+console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePortInspection,"inspectionDetails.dischargePortInspection")
   const handleSubmit = () => {
     if (!validation()) return;
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
+        console.log("herher1")
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
           let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
@@ -543,6 +563,7 @@ export default function Index({ addButton }) {
       }
 
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
+        console.log("herher")
         var noError2 = false;
         if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
@@ -597,7 +618,7 @@ export default function Index({ addButton }) {
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
           fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
+          fd.append('certificateOfOrigin',documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
           fd.append('certificateOfWeight', documents.certificateOfWeight);
 
@@ -608,6 +629,7 @@ export default function Index({ addButton }) {
       }
 
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
+        console.log("herher2")
         var noError3 = false;
         if (
           inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '' ||
@@ -963,7 +985,7 @@ export default function Index({ addButton }) {
                   'order.termsheet.transactionDetails.partShipmentAllowed',
                   '',
                 )?.toLocaleLowerCase() === 'yes' ? (
-                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+                  <div className={`${styles.form_group} col-lg-3 m-0 col-md-6 col-sm-6`}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required

@@ -165,3 +165,9 @@ export const addPrefixSymbol = (symbol = '') => {
 export const crConverter = (amount = 0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
   maximumFractionDigits: 2,
 })} Cr`
+
+
+export const specialCharCheck = (val) => {
+  let reg = /^[a-zA-Z0-9]{4,10}$/
+  return reg.test(val)
+}
