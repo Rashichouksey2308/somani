@@ -16,11 +16,13 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
             <u>
-              Indo German International Private Limited,
+              {data.buyer},
               <br />
-              7A, Sagar Apartments, 6, Tilak Marg,
-              <br />
-              New Delhi
+              {data.buyerAddress?.fullAddress},
+              {data.buyerAddress?.city}{" "}
+              {data.buyerAddress?.country},{" "}
+              {data.buyerAddress?.pinCode}
+              
             </u>
           </span>
         </p>
@@ -38,8 +40,8 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </li>
           <li>
             <p className="text_sales">
-              That as requested by us, the Supplier shall sell the Goods to <u>Indo</u> and <u>Indo</u> will establish
-              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>Indo</u>{' '}
+              That as requested by us, the Supplier shall sell the Goods to <u>{data.shortseller}</u> and <u>{data.shortseller}</u> will establish
+              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>{data.shortseller}</u>{' '}
               shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said
               Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to
               as “Contracts”.
@@ -48,7 +50,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the Contracts being entered into by{' '}
-              <u>Indo</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship
+              <u>{data.shortseller}</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship
               Agreement be read as a part of this Undertaking.
             </p>
           </li>
@@ -163,7 +165,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
             </Col>
           </Row>
 
-          {data.cheque.length > 0 &&
+          {data?.cheque?.length > 0 &&
             data.cheque.map((val, index) => {
               return (
                 <Row className={`${styles.row} border_black`}>
@@ -410,20 +412,32 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
         </div>
         <div className={`row my-4`}>
           <Col md={6}>
-            <p className="text_sales m-0">Place:</p>
+            <p className="text_sales m-0">Place: {data.placeOfExecution}</p>
           </Col>
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>(Associate Buyer)</strong>
               <br />
               <br />
-              Name………………………
+             {
+                data?.associateBuyerAuthorized?.length > 0 &&
+                data?.associateBuyerAuthorized?.map((val, index) => {
+                  return (
+                   
+                      <p className='mb-0'>
+                        Name - {val.name}
+                      </p>
+                      
+                   
+                  );
+                })
+              }
             </p>
           </Col>
         </div>
         <div className={`row my-4`}>
           <Col md={6}>
-            <p className="text_sales m-0">Date : ………………</p>
+            <p className="text_sales m-0">Date : {data.dateOfExecution}</p>
           </Col>
           <Col md={6}>
             <p className="text_sales m-0">AUTHORISED SIGNATORY</p>

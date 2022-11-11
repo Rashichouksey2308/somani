@@ -193,11 +193,11 @@ function index() {
       name = 'Associateship.pdf';
     }
     if (preview == 'UNDERTAKING1') {
-      toPrint = undertakingPrint(data);
+      toPrint = undertaking1Pdf(data);
       name = 'Undertaking1.pdf';
     }
-    if (preview == 'UNDERTAKING1') {
-      toPrint = undertaking2Print(data);
+    if (preview == 'UNDERTAKING2') {
+      toPrint = undertaking2Pdf(data);
       name = 'Undertaking2.pdf';
     }
     if (preview == 'TPASELLER') {
@@ -238,5 +238,1060 @@ function index() {
 export default index;
 
 export const undertaking1Pdf = (data) => {
-  return <></>;
+  return (
+    <>
+         
+      <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
+        <tr>
+          <td valign='top' style={{padding:'20px'}}>
+            <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+              <tr>
+                <td align='center' style={{padding:'15px 0'}}>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong>Undertaking for Post-dated Cheques issued by Associate Buyer</strong></p></td>
+              </tr>
+              <tr>
+                <td align='left' valign="top" style={{padding:'15px 0'}}>
+                  <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                    <tr>
+                      <td align='left' width="10%">
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>To:</p>
+                      </td>
+                      <td align='left'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><u>{data.buyer},<br/>{data.buyerAddress?.fullAddress},
+                              {data.buyerAddress?.city}{" "}
+                              {data.buyerAddress?.country},{" "}
+                              {data.buyerAddress?.pinCode}</u></p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align='center' style={{padding:'15px 0'}}>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong><u>UNDERTAKING</u></strong></p></td>
+              </tr>
+              <tr>
+                <td valign='top' align='justify'>
+                  <ol type='1' style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'16px'}}>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we, being the Associate Buyer have entered into the Associateship Agreement with Seller.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That as requested by us, the Supplier shall sell the Goods to <u>{data.shortseller}</u> and <u>{data.shortseller}</u> will establish Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>{data.shortseller}</u> shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to as “Contracts”.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the present Undertaking is being executed in pursuance of the Contracts being entered into by <u>I{data.shortseller}ndo</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship Agreement be read as a part of this Undertaking.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We enclose herewith the following post-dated Cheque(s) as per details in Schedule I. In pursuance of the above, we authorize Seller to present the post-dated cheques on due date and present the same with its Banker, without any notice to us.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, the undersigned being the Authorised Signatory of the Associate Buyer, do hereby undertake as under:</p>
+                      <ul style={{fontSize:'12px', lineHeight:'18px', color:'#000000', listStyle:'circle', paddingLeft:'20px'}}>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>To pay the balance/outstanding amount in respect of the above-mentioned transaction on the first demand of Seller without recourse, demur and protest.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>To honour the cheque(s) on their presentation on due dates.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we will not intimate the bankers to stop the payment of the aforesaid cheques delivered to Seller under any circumstances.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we have duly complied with the Positive Payment Service as per RBI circular dated 25th September 2020 by intimating our bank about the details of the post-dated cheques issued to Seller.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we shall not close the account from which the cheques have been issued without the prior permission of Seller in writing.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we, shall not give Seller any notice requesting them not to present the cheques delivered to them.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we, further undertake not to bring into effect any change in the Authorized Signatories without taking prior written consent of Seller or to do anything which makes the above cheques/claim of Seller redundant.</p>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We further confirm that we are very much aware of the liability that has accrued on us by way of the Associateship Agreement by virtue of which Seller has agreed to import the Goods.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We further confirm that if we fail to pay the due and outstanding amounts due to Seller, in respect of aforesaid Agreement, Seller will have unfettered/unconditional right to encash the said cheque(s), without any notice to us.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>The calculation of the Post-dated Cheques is based on the contract value, any additional amounts, if payable by us will be paid upfront. Further, Actual Stevedoring/CHA, Port Charges, Plot Rental, Wharfage etc. to be borne and paid by us directly.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>In any event of our failure to perform the Associateship Agreement in accordance with its terms including default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds whatsoever.</p>
+                    </li>
+                  </ol>
+                </td>
+              </tr>              
+              <tr>
+                <td style={{paddingTop:'20px'}}>
+                  <h3 align="center" style={{ fontSize: '15px', fontWeight: 'bold', color:'#000000', marginBottom:'20px'}}>Schedule I</h3>
+                  <table
+                    width="100%"
+                    cellPadding="10"
+                    style={{ border: '1px solid #000000' }}
+                    cellSpacing="0"
+                    border="0"
+                  >
+                    <tr>
+                      <td
+                        width="30%"
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Date of execution</p>
+                      </td>
+                      <td
+                        width="70%"
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          value
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Place of execution
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of Associate Buyer
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Address of Associate Buyer
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          GST of Associate Buyerager
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>PAN of Associate Buyer</p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Signatory of Associate Buyer
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of Stevedore
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Address of Stevedore</p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Signatory of Stevedore
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of CMA Agent
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Address of CMA Agent
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Signatory of CMA Agent
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Commodity Details
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Quantity
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of Supplier
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Details of Vessel
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Port of Loading
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Port of Discharge
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Storage Plot allotted to IGI
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td valign='top'>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='left' colSpan={2}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}><strong>SIGNATURE PAGE</strong></p></td>
+                    </tr>
+                    <tr>
+                      <td align='left' width='50%'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>.................................................</p></td>
+                      <td align='left' width='50%'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>.................................................</p></td>
+                    </tr>
+                    <tr>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Seller)</strong></p></td>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Buyer)</strong></p></td>
+                    </tr>
+                    <tr>
+                      <td align='left' colSpan={2}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>.................................................</p></td>
+                    </tr>
+                    <tr>
+                      <td align='left' colSpan={2}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Shipper)</strong></p></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </>
+  );
+};
+
+export const undertaking2Pdf = (data) => {
+  return (
+    <>
+         <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
+        <tr>
+          <td valign='top' style={{padding:'20px'}}>
+            <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+              <tr>
+                <td align='center' style={{padding:'15px 0'}}>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong>Undertaking by Associate Buyer for Price, Quality & Quantity</strong></p></td>
+              </tr>
+              <tr>
+                <td align='left' valign="top" style={{padding:'15px 0'}}>
+                  <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                    <tr>
+                      <td align='left' width="10%">
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>To:</p>
+                      </td>
+                      <td align='left'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><u>{data.buyer},<br/> {data.buyerAddress?.fullAddress},
+                          {data.buyerAddress?.city}{" "}
+                          {data.buyerAddress?.country},{" "}
+                          {data.buyerAddress?.pinCode}</u></p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align='center' style={{padding:'15px 0'}}>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong><u>UNDERTAKING</u></strong></p></td>
+              </tr>
+              <tr>
+                <td align='justify'>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>We being the Associate Buyer, do solemnly affirm and undertake as under:</p></td>
+              </tr>
+              <tr>
+                <td valign='top' align='justify'>
+                  <ol type='1' style={{fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'16px'}}>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have negotiated with the Supplier for supply of the Goods through Seller.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have requested  Seller to import on our behalf the Goods and sell the same to us on stock and sale basis as per Associateship Agreement. We confirm and undertake that all the terms & conditions of the Sales Contract entered into between <u>{data.shortseller}</u> and the Supplier (hereinafter referred to as “Sales Contract”) are acceptable and binding on us.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the price indicated in the Sales Contract is neither under-invoiced nor over-invoiced and is as per prevailing international rates for the above-mentioned item and is at par with prices at which item of similar quality being imported into India.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We undertake to ensure that the item to be shipped by the Supplier shall be strictly as per description & quality indicated in the Sales Contract notwithstanding the inspection report/ quality certificate/ Survey report furnished by the Supplier for the subject consignment. We shall be held solely liable and responsible for all consequences arising out of variation between item/quality/quantity contracted for & actually shipped and we undertake to indemnify and hold harmless Seller in this regard at all times.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We undertake to accept the goods from Seller on 'no complaint basis' with regard to quality, quantity and/or any other claims including shortage. Seller shall in no way be responsible or liable for the quality, quantity or any other claim pertaining to the Goods being supplied by the Supplier and/or any other claim relating to this transaction. It is our sole responsibility in settling the quality, quantity or other claims pertaining to this transaction directly with the Supplier and/or Custom House Agent (CHA), with no liability whatsoever upon Seller.</p>
+                      <ul style={{fontSize:'12px', lineHeight:'18px', color:'#000000', listStyle:'circle', paddingLeft:'20px'}}>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>To pay the balance/outstanding amount in respect of the above-mentioned transaction on the first demand of Seller without recourse, demur and protest.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>To honour the cheque(s) on their presentation on due dates.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we will not intimate the bankers to stop the payment of the aforesaid cheques delivered to Seller under any circumstances.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we have duly complied with the Positive Payment Service as per RBI circular dated 25th September 2020 by intimating our bank about the details of the post-dated cheques issued to Seller.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we shall not close the account from which the cheques have been issued without the prior permission of Seller in writing.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we, shall not give Seller any notice requesting them not to present the cheques delivered to them.</p>
+                        </li>
+                        <li>
+                          <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That, we, further undertake not to bring into effect any change in the Authorized Signatories without taking prior written consent of Seller or to do anything which makes the above cheques/claim of Seller redundant.</p>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We further confirm that we are very much aware of the liability that has accrued on us by way of the Associateship Agreement by virtue of which Seller has agreed to import the Goods.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We further confirm that if we fail to pay the due and outstanding amounts due to Seller, in respect of aforesaid Agreement, Seller will have unfettered/unconditional right to encash the said cheque(s), without any notice to us.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>The calculation of the Post-dated Cheques is based on the contract value, any additional amounts, if payable by us will be paid upfront. Further, Actual Stevedoring/CHA, Port Charges, Plot Rental, Wharfage etc. to be borne and paid by us directly.</p>
+                    </li>
+                    <li>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>In any event of our failure to perform the Associateship Agreement in accordance with its terms including default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds whatsoever.</p>
+                    </li>
+                  </ol>
+                </td>
+              </tr>              
+              <tr>
+                <td style={{paddingTop:'20px'}}>
+                  <h3 align="center" style={{ fontSize: '15px', fontWeight: 'bold', color:'#000000', marginBottom:'20px'}}>Schedule I</h3>
+                  <table
+                    width="100%"
+                    cellPadding="10"
+                    style={{ border: '1px solid #000000' }}
+                    cellSpacing="0"
+                    border="0"
+                  >
+                    <tr>
+                      <td
+                        width="30%"
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Date of execution</p>
+                      </td>
+                      <td
+                        width="70%"
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          value
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Place of execution
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of Associate Buyer
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Address of Associate Buyer
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          GST of Associate Buyerager
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>PAN of Associate Buyer</p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Signatory of Associate Buyer
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of Stevedore
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Address of Stevedore</p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Signatory of Stevedore
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of CMA Agent
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Address of CMA Agent
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Signatory of CMA Agent
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Commodity Details
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Quantity
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Name of Supplier
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Details of Vessel
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Port of Loading
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Port of Discharge
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                          Storage Plot allotted to IGI
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>Value</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td valign='top'>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='left' colSpan={2}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}><strong>SIGNATURE PAGE</strong></p></td>
+                    </tr>
+                    <tr>
+                      <td align='left' width='50%'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>.................................................</p></td>
+                      <td align='left' width='50%'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>.................................................</p></td>
+                    </tr>
+                    <tr>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Seller)</strong></p></td>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Buyer)</strong></p></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table> 
+    </>
+  );
 };

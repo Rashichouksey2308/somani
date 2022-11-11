@@ -1129,14 +1129,14 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               {data?.deliveryTerm}
             </Col>
           </Row>
-          <Row className={`${styles.row} ${styles.last}`}>
+          {/* <Row className={`${styles.row} ${styles.last}`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Provisional exchange rate for foriegn currency as per agreement
             </Col>
             <Col md={7} className={styles.right}>
               Value
             </Col>
-          </Row>
+          </Row> */}
         </div>
         <div className={`row`}>
           <Col md={6}>

@@ -446,9 +446,10 @@ function Index(props) {
   };
   const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
-    if (buyerData?.name) {
+    console.log( buyerData?.branchName,"buyerData?.branchName",buyerData?.name)
+    if (buyerData?.name || buyerData?.branchName) {
       let filter;
-
+    
       if (buyerData.name == 'Indo German International Private Limited') {
         setShotName('IGIPL');
 
@@ -507,19 +508,21 @@ function Index(props) {
           setPan('');
         }
       }
-      if (buyerData.name == 'Emergent Industrial Solution limited') {
+      if (buyerData.name == 'Emergent Industrial Solution Limited') {
         setShotName('EISL');
 
         filter = props.internal.filter((val) => {
+          console.log(val.Company_Name,"val.Company_Name")
           if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
             return val;
           }
         });
-        let otherData = props.internal.filter((val) => {
-          if (val.Branch == buyerData.branchName && val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+        let otherData = filter.filter((val) => {
+          if (val.Branch == buyerData.branchName ) {
             return val;
           }
         });
+        console.log(otherData,"otherData",buyerData.name)
 
         if (otherData.length > 0) {
           setGstin(otherData[0].GSTIN);
@@ -630,8 +633,8 @@ function Index(props) {
                     value={`Indo German International Private Limited`}
                   >{`Indo German International Private Limited`}</option>
                   <option
-                    value={`Emergent Industrial Solution limited`}
-                  >{`Emergent Industrial Solution limited`}</option>
+                    value={`Emergent Industrial Solution Limited`}
+                  >{`Emergent Industrial Solution Limited`}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Name<strong className="text-danger">*</strong>
@@ -659,7 +662,8 @@ function Index(props) {
                         return val;
                       }
                     });
-
+                     
+                    console.log(filter,"filter")
                     //  setGstin(props?.data.gstin||"")
                     //  setPan(props?.data.pan||"")
                     setBranchOptions([...filter]);
