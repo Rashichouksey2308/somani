@@ -244,6 +244,7 @@ const Index = ({
                   </div>
                   <input
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                    onWheel={(event) => event.currentTarget.blur()}
                     name="conversionRate"
                     id="conversionRate"
                     onFocus={(e) => {

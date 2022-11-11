@@ -15,6 +15,7 @@ import { checkNan, CovertvaluefromtoCR } from '../../utils/helper';
 import moment from 'moment';
 import Router from 'next/router';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../redux/masters/action';
+import { handleErrorToast } from '@/utils/helpers/global'
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -100,110 +101,47 @@ const Index = () => {
 
   const onOrderSave = () => {
     if (orderData?.transactionType?.trim() === '') {
-      let toastMessage = 'Invalid Transaction Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Invalid Transaction Type');
     } else if (orderData?.commodity?.trim() === '') {
-      let toastMessage = 'Commodity can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else if (orderData?.quantity === '') {
-      let toastMessage = 'Quantity can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Commodity can not be Empty');
+    } else if (orderData?.quantity === '' || !Number(orderData?.quantity)) {
+      handleErrorToast('Quantity can not be Empty');
     } else if (orderData?.unitOfQuantity?.trim() === '') {
-      let toastMessage = 'Please Provide unit Of Quantity';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else if (orderData?.orderValue === '') {
-      let toastMessage = 'Please check the Order value  ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else if (orderData?.unitOfValue?.trim() === '') {
-      let toastMessage = 'Please set the unit of value';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please Provide unit Of Quantity');
+    } else if (orderData?.orderValue === ''|| !Number(orderData?.orderValue) ) {
+      handleErrorToast('Please check the Order value');
+    } else if (orderData?.unitOfValue?.trim() === '' ) {
+      handleErrorToast('Please set the unit of value');
     } else if (orderData?.supplierName?.trim() === '') {
-      let toastMessage = 'Supplier Name cannot be empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Supplier Name cannot be empty');
     } else if (orderData.countryOfOrigin.trim() === '') {
-      let toastMessage = 'Country Of Origin can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Country Of Origin can not be Empty');
     } else if (orderData?.portOfDischarge?.trim() === '') {
-      let toastMessage = 'Port Of Discharge can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Port Of Discharge can not be Empty');
     } else if (orderData?.ExpectedDateOfShipment?.trim() === '') {
-      let toastMessage = 'Expected Date Of Shipment can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Expected Date Of Shipment can not be Empty');
     } else if (orderData?.incoTerm?.trim() === '') {
-      let toastMessage = 'the incoTerm can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('the incoTerm can not be Empty');
     } else if (orderData?.grade?.trim() === '') {
-      let toastMessage = 'Grade can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else if (orderData?.tolerance === '') {
-      let toastMessage = 'Tolerance can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Grade can not be Empty');
+    } else if (orderData?.tolerance === '' ) {
+      handleErrorToast('Tolerance can not be Empty');
     } else if (orderData?.transactionPeriodDays === '') {
-      let toastMessage = 'Transaction Period Days can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Transaction Period Days can not be Empty');
     } else if (shipment?.shipmentType?.trim() === '') {
-      let toastMessage = 'SHIPMENT TYPE  can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('SHIPMENT TYPE  can not be Empty');
     } else if (shipment?.loadPort?.fromDate === '') {
-      let toastMessage = 'laycan load port from can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('laycan load port from can not be Empty');
     } else if (shipment?.loadPort?.toDate?.trim() === '') {
-      let toastMessage = 'laycan load port to can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('laycan load port to can not be Empty');
     } else if (shipment?.lastDateOfShipment?.trim() === '') {
-      let toastMessage = 'last date of shipment can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('last date of shipment can not be Empty');
     } else if (shipment?.ETAofDischarge?.fromDate?.trim() === '') {
-      let toastMessage = 'Eta at Dischare Port from   can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Eta at Dischare Port from   can not be Empty');
     } else if (shipment?.ETAofDischarge?.toDate === '') {
-      let toastMessage = 'Eta at Dischare Port to   can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Eta at Dischare Port to   can not be Empty');
     } else if (shipment?.portOfLoading?.trim() === '') {
-      let toastMessage = 'Please Provide a port of loading';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please Provide a port of loading');
     } else {
       handleCurr();
       let orderDataNew = { ...orderData };
