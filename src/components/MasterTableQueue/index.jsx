@@ -3,7 +3,9 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
-import _get from 'lodash/get'
+import _get from 'lodash/get';
+import _ from 'lodash'
+
 
 
 
@@ -14,6 +16,34 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
   const [pageLimit, setPageLimit] = useState(10);
 
   console.log(selectorData, 'SELECTOR DATA')
+
+  let queueData;
+
+  if(tableName === 'Ports'){
+
+  queueData = _.map(selectorData?.data, (item, index) => {
+    return {
+      id: index + 1,
+      // prevDate: moment(item.Date).format('MMMD'),
+      col2: item.Country,
+      col1: item.Port_Name,
+      col3: item.State,
+      date: '11-11-2022',
+      status: item.Approved === 'Yes' ? 'Approved' : 'Pending'
+    }
+  })
+}else if (tableName === 'Internal Companies'){
+  queueData = _.map(selectorData?.data, (item, index) => {
+    return {
+      id: index + 1,
+      // prevDate: moment(item.Date).format('MMMD'),
+      col1: item.Company_Name,
+      col2: item.Short_Name,
+      col3: item.Country,
+      status: 'Approved'   
+    }
+  })
+}  
 
   
 
@@ -131,15 +161,15 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
                 </tr>
               </thead>
               <tbody>
-               {selectorData && selectorData?.data?.map((supplier, index) => <tr key={index} className={`${styles.table_row} table_row17`}>
-                  <td className={styles.buyerName}>{supplier.Company_Name}</td>
-                  <td>{supplier.Short_Name}</td>
-                  <td>{supplier.Country}</td>
-                  {isDate ? <td>22-02-2022</td> : ''}
+               {queueData && queueData?.map((supplier, index) => <tr key={index} className={`${styles.table_row} table_row17`}>
+                  <td className={styles.buyerName}>{supplier.col1}</td>
+                  <td>{supplier.col2}</td>
+                  <td>{supplier.col3}</td>
+                  {supplier?.date && <td>{supplier.date}</td>}
 
                   <td>
                     <img src="/static/active.svg" className="img-fluid" alt="active" />
-                    <span className="m-3">Approved</span>
+                    <span className="m-3">{supplier.status}</span>
                   </td>
 
                   <td>
