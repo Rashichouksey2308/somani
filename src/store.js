@@ -33,6 +33,7 @@ import McaReportReducer from 'redux/mcaReport/reducer'
 import SupplierReducer from 'redux/supplier/reducer'
 import CommodityReducer from 'redux/commodity/reducer'
 import InternalCompaniesReducer from 'redux/internalCompanies/reducer'
+import PortsReducer from 'redux/ports/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -78,6 +79,7 @@ export const createStore = (preloadedState) => {
       supplier: SupplierReducer,
       commodity: CommodityReducer,
       internalCompanies: InternalCompaniesReducer,
+      ports: PortsReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

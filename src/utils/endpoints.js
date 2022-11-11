@@ -141,6 +141,9 @@ export default {
   // Internal Companies
   getInternalCompanies: '/internal-company',
 
+  // PORTS
+  getPorts: '/port',
+
   // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
