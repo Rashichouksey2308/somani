@@ -4,25 +4,30 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import Ports from '../../src/components/Ports';
 import { useDispatch, useSelector } from 'react-redux';
-import { CreatePorts, GetPorts } from '../../src/redux/ports/action';
+import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action';
 import { portValidtion } from '../../src/utils/helpers/review';
-import { getCountries } from '../../src/redux/masters/action';
+import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
 
 function Index() {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(getCountries());
-  }, []);
+    dispatch(getState())
+  }, [dispatch]);
 
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getStateMasterData } = useSelector((state) => state.MastersData);
+  console.log(getStateMasterData, 'state')
 
   const { portResponse } = useSelector((state) => state.ports);
   const portResponseData = _get(portResponse, 'data[0]', {});
 
+  let id = sessionStorage.getItem('portId');
+
   useEffect(() => {
-    let id = sessionStorage.getItem('portId');
     if (!id) return;
     dispatch(GetPorts(`?portId=${id}`));
   }, [dispatch]);
@@ -34,6 +39,21 @@ function Index() {
     Container_Handling: '',
     Approved: '',
   });
+
+  console.log(portData, 'PORT DATA', portResponseData)
+  useEffect(() => {
+    if(id){
+      setPortData({
+        Country: portResponseData?.Country,
+        Port_Name: portResponseData?.Port_Name,
+        State: portResponseData?.State,
+        Container_Handling: portResponseData?.Container_Handling,
+        Approved: portResponseData?.Approved,
+      })
+    }
+    
+  }, [portData?.Country])
+  
 
   const savePortData = (name, value) => {
     let newInput = { ...portData };
@@ -50,6 +70,17 @@ function Index() {
       Container_Handling: portData.Container_Handling,
       Approved: portData.Approved,
     };
+    let data2 = {
+      Country: portData.Country,
+      Port_Name: portData.Port_Name,
+      State: portData.State,
+      Container_Handling: portData.Container_Handling,
+      Approved: portData.Approved,
+      portId: portResponseData._id
+    }
+    if(id){
+      dispatch(UpdatePorts(data2))
+    }
     dispatch(CreatePorts(data))
   };
 

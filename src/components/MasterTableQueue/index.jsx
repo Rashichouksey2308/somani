@@ -33,6 +33,7 @@ const index = ({
         col3: item.State,
         date: '11-11-2022',
         status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
+        id: item._id
       };
     });
   } else if (tableName === 'Internal Companies') {
@@ -44,9 +45,12 @@ const index = ({
         col2: item.Short_Name,
         col3: item.Country,
         status: 'Approved',
+        id: item._id
       };
     });
   }
+
+  console.log(queueData, 'QUEUE')
 
   return (
     <>
@@ -180,7 +184,7 @@ const index = ({
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
                             onClick={() => {
-                              handleRoute(supplier._id);
+                              handleRoute(supplier.id);
                             }}
                             height="40px"
                             width="40px"

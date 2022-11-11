@@ -47,29 +47,27 @@ function Index() {
       //getting addresses
       let addressArr = [];
       internalCompanyData?.keyAddresses?.forEach((element) => {
-      addressArr.push(element);
-    });
+        addressArr.push(element);
+      });
       setKeyAddData(addressArr);
 
       // getting authorised signatory
 
       let authorisedArr = [];
-    internalCompanyData?.authorisedSignatoryDetails?.forEach((element) => {
-      authorisedArr.push(element);
-    });
-    setAuthorisedSignatoryDetails(authorisedArr);
+      internalCompanyData?.authorisedSignatoryDetails?.forEach((element) => {
+        authorisedArr.push(element);
+      });
+      setAuthorisedSignatoryDetails(authorisedArr);
 
-    // getting bank details
+      // getting bank details
 
-    let bankArr = [];
-    internalCompanyData?.keyBanks?.forEach((element) => {
-      bankArr.push(element);
-    });
-    setBankDetails(bankArr);
-
-
+      let bankArr = [];
+      internalCompanyData?.keyBanks?.forEach((element) => {
+        bankArr.push(element);
+      });
+      setBankDetails(bankArr);
     }
-  }, [internalCompanyData]);
+  }, [companyData?.Country]);
 
   const saveCompanyData = (name, value) => {
     let newInput = { ...companyData };

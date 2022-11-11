@@ -36,11 +36,19 @@ export const getState = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
 
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*'
+  }
+
   dispatch({
     type: types.GET_STATE_MASTERS
   })
   try {
-    Axios.get(`${API.corebaseUrl}${API.getState}`).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.getState}${payload || ''}`, {
+      headers: headers
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_STATE_MASTERS_SUCCESS,
