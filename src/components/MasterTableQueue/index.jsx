@@ -8,33 +8,14 @@ import _get from 'lodash/get'
 
 
 const index = ({ tableName, header1, header2, header3, header4, isHeader, header, isDate, handleRoute, selectorData }) => {
-  const dispatch = useDispatch();
-  const [serachterm, setSearchTerm] = useState('');
+
+ 
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
-  const { searchedLeads } = useSelector((state) => state.order);
+  console.log(selectorData, 'SELECTOR DATA')
 
-  // const handleSearch = (e) => {
-  //   const query = `${e.target.value}`;
-  //   setSearchTerm(query);
-  //   if (query.length >= 3) {
-  //     dispatch(SearchLeads(query));
-  //   }
-  // };
-  // const handleFilteredData = (e) => {
-  //   setSearchTerm('');
-  //   const id = `${e.target.id}`;
-  //   dispatch(GetLcModule(`?company=${id}`));
-  // };
-  // useEffect(() => {
-  //   dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
-  // }, [currentPage, pageLimit]);
-
-  // const handleRoute = (id) => {
-  //   sessionStorage.setItem('supplier', id);
-  //   Router.push('/supplier');
-  // };
+  
 
   return (
     <>

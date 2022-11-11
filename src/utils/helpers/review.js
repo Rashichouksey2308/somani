@@ -232,3 +232,28 @@ export const bankValidtion = (data, countryName) => {
   return true;
 }
 };
+
+export const portValidtion = (data) => {
+  if (data.Country === null || data.Country === '' || data.Country === undefined) {
+    handleErrorToast('Please Select country');
+    return false;
+  }
+  if (data.Port_Name === null || data.Port_Name === '' || data.Port_Name === undefined) {
+    handleErrorToast('Please add Port Name');
+    return false;
+  }
+  if (data.State === null || data.State === '' || data.State === undefined) {
+    handleErrorToast('Please add state');
+    return false;
+  }
+  if (data.Container_Handling === null || data.Container_Handling === '' || data.Container_Handling === undefined) {
+    handleErrorToast('Please select Container Handling');
+    return false;
+  }
+  if (data.Approved === null || data.Approved === '' || data.Approved === undefined) {
+    handleErrorToast('Please select Approved or not');
+    return false;
+  }
+  return true;
+
+};

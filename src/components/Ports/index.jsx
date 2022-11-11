@@ -5,8 +5,10 @@ import styles from '../AddNewInternal/index.module.scss';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 
-function Index() {
+function Index({handleSubmit, savePortData, portData}) {
+
   const [countryName, setCountryName] = useState('India');
+
   const [portField, setPortField] = useState([
     {
       countryName: '',
@@ -49,15 +51,18 @@ function Index() {
           </div>
           <div id="authorisedDetails" aria-labelledby="authorisedDetails">
             <div className={`${styles.dashboard_form} card-body`}>
-              {portField &&
-                portField.map((val, index) => (
-                  <div key={index} className="row">
+              {/* {portField &&
+                portField.map((val, index) => ( */}
+                  <div className="row">
                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <select
+                          name='Country'
+                          value={portData?.Country}
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          onChange={(e) => setCountryName(e.target.value)}
+                          onChange={(e) => {setCountryName(e.target.value); savePortData(e.target.name, e.target.value)}}
                         >
+                          <option value='' selected>Select</option>
                           <option value="India">India</option>
                           <option value="US">US</option>
                         </select>
@@ -74,7 +79,9 @@ function Index() {
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         required
-                        name="supplierName"
+                        name="Port_Name"
+                        value={portData?.Port_Name}
+                        onChange={(e)=>savePortData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Port Name <strong className="text-danger">*</strong>
@@ -84,10 +91,14 @@ function Index() {
                       <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
                           <select
+                          name='State'
+                          onChange={(e)=>savePortData(e.target.name, e.target.value)}
+                          value={portData?.State}
                             className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                           >
-                            <option value="">Maharashtra</option>
-                            <option value="">Delhi</option>
+                            <option value='' selected >Select</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Delhi">Delhi</option>
                           </select>
                           <label className={`${styles.label_heading} label_heading`}>
                             State <strong className="text-danger">*</strong>
@@ -102,7 +113,9 @@ function Index() {
                         <input
                           type="text"
                           id="textInput"
-                          name="email"
+                          value={portData?.State}
+                          name="State"
+                          onChange={(e)=>savePortData(e.target.name, e.target.value)}
                           required
                           className={`${styles.input_field} border_color input form-control`}
                         />
@@ -121,7 +134,7 @@ function Index() {
                             <Form.Check
                               className={styles.radio}
                               inline
-                              defaultChecked
+                              onChange={(e)=>savePortData('Container_Handling', 'Yes')}
                               label="Yes"
                               name="group1"
                               type={type}
@@ -131,6 +144,7 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="No"
+                              onChange={(e)=>savePortData('Container_Handling', 'No')}
                               name="group1"
                               type={type}
                               id={`inline-${type}-2`}
@@ -151,7 +165,8 @@ function Index() {
                               inline
                               defaultChecked
                               label="Yes"
-                              name="group1"
+                              onChange={(e)=>savePortData('Approved', 'Yes')}
+                              name="group2"
                               type={type}
                               id={`inline-${type}-1`}
                             />
@@ -159,7 +174,8 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="No"
-                              name="group1"
+                              name="group2"
+                              onChange={(e)=>savePortData('Approved', 'No')}
                               type={type}
                               id={`inline-${type}-2`}
                             />
@@ -169,7 +185,7 @@ function Index() {
                     </div>
                     <div className={`${styles.form_group} col-lg-1 col-sm-6`}>
                       <div className="d-flex mt-2">
-                        {index > 0 && (
+                        {/* {index > 0 && (
                           <img
                             src="/static/delete 2.svg"
                             className={`${styles.delete_image} p-0 mr-4 border-0`}
@@ -178,19 +194,19 @@ function Index() {
                               onDeleteRow(index);
                             }}
                           />
-                        )}
+                        )} */}
                         <img
                           className={`${styles.plus_add}`}
                           src="/static/add-btn.svg"
                           alt="Plus"
-                          onClick={(e) => {
-                            onAddRow();
+                          onClick={() => {
+                            handleSubmit();
                           }}
                         />
                       </div>
                     </div>
                   </div>
-                ))}
+                 {/* ))} */}
             </div>
           </div>
         </div>
