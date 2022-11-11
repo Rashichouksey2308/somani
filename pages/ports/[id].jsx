@@ -4,9 +4,10 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import Ports from '../../src/components/Ports';
 import { useDispatch, useSelector } from 'react-redux';
-import { CreatePorts } from '../../src/redux/ports/action';
+import { CreatePorts, GetPorts } from '../../src/redux/ports/action';
 import { portValidtion } from '../../src/utils/helpers/review';
 import { getCountries } from '../../src/redux/masters/action';
+import _get from 'lodash/get';
 
 function Index() {
   const dispatch = useDispatch();
@@ -16,6 +17,15 @@ function Index() {
   }, []);
 
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+
+  const { portResponse } = useSelector((state) => state.ports);
+  const portResponseData = _get(portResponse, 'data[0]', {});
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('portId');
+    if (!id) return;
+    dispatch(GetPorts(`?portId=${id}`));
+  }, [dispatch]);
 
   const [portData, setPortData] = useState({
     Country: '',

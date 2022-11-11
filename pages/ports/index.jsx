@@ -6,17 +6,19 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Router from 'next/router';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
-import {GetAllPorts} from '../../src/redux/ports/action'
+import { GetAllPorts, GetPorts } from '../../src/redux/ports/action';
 
 const index = () => {
+
   const dispatch = useDispatch();
+  
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
 
-  const {allPorts} = useSelector((state)=>state.ports)
+  const { allPorts } = useSelector((state) => state.ports);
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -25,18 +27,21 @@ const index = () => {
       dispatch(SearchLeads(query));
     }
   };
+
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
     dispatch(GetPorts(`?company=${id}`));
   };
+
   useEffect(() => {
     dispatch(GetAllPorts(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
   const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id);
-    Router.push('/supplier');
+    sessionStorage.setItem('portId', id);
+    dispatch(GetPorts(`?portId=${id}`));
+    Router.push('/ports/id');
   };
 
   return (
@@ -83,7 +88,10 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
-              onClick={() => Router.push('/ports/id')}
+              onClick={() => {
+                sessionStorage.getItem('portId') && sessionStorage.removeItem('portId');
+                Router.push('/ports/id');
+              }}
             >
               <span className="ml-1 mr-2">Add</span>
             </button>
@@ -99,6 +107,7 @@ const index = () => {
             header4="APPROVED"
             isHeader={true}
             isDate={true}
+            handleRoute={handleRoute}
             selectorData={allPorts}
           />
         </div>
