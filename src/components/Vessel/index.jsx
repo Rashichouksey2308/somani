@@ -205,7 +205,7 @@ function Index({
                             value={currency}
                             required
                           >
-                            <option>Select</option>
+                            <option value= "">Select</option>
                             <option value="USD">USD</option>
                             <option value="INR">INR</option>
                             <option value="EURO">EURO</option>
