@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { emailValidation } from '@/utils/helper';
 import { dropDownOptionHandler, handleErrorToast, objectValidator, returnDocFormat } from '@/utils/helpers/global';
-import { modulesDropDown } from '@/utils/jsons/dropdownOptions';
+import { modulesDropDown } from '@/utils/jsons/dropdownOptions.json';
 import { uploadDocumentValidations } from '@/utils/validations/uploadDocument';
 import moment from 'moment';
 import { useEffect, useState } from 'react';

@@ -13,7 +13,7 @@ import TPASeller from '../../../src/components/TPASeller';
 import { sellerPrint } from '../../../src/templates/agreementTemplate';
 import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
 import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
-import IGIAgreementPreview from '../../../src/templates/IGIAgreementPreview';
+import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
 
@@ -204,7 +204,7 @@ function index() {
       name = 'TPA(Seller).pdf';
     }
     if (preview == 'TPAIGI') {
-      toPrint = IGIAgreementPreview(data);
+      toPrint = TPAIGIPreview(data);
       name = 'TPA(CAM).pdf';
     }
     if (preview == 'LETTER') {
