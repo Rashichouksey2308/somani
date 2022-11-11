@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action';
-import { SearchLeads } from 'redux/buyerProfile/action';
-import Filter from '../Filter';
 import moment from 'moment';
+import Router from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchLeads } from 'redux/buyerProfile/action';
+import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action';
+import Filter from '../Filter';
+import Pagination from '../Pagination/Index';
+import styles from './index.module.scss';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -92,48 +93,15 @@ function Index() {
               )}
             </div>
             <Filter />
-            {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a>
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a> */}
           </div>
           <div className={`${styles.datatable} border datatable table_container card`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">Margin Money</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(marginMoneyResponse?.totalCount / 7)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) return 
-                    else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(marginMoneyResponse?.totalCount / 7)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div>
-            </div>
+            <Pagination
+              data={marginMoneyResponse}
+              tableName="Margin Money"
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">

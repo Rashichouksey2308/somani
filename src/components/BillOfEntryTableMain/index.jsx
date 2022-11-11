@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import _get from 'lodash/get';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
+import Pagination from '../Pagination/Index';
 import styles from './index.module.scss';
 
 function getPaymentStatus(isStatus) {
@@ -35,10 +36,12 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
 
   return (
     <div className={`${styles.datatable} border datatable card`}>
-      <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-        <h3 className="heading_card">{tableName}</h3>
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        tableName={tableName}
+        data={allCustomClearance}
+      />
       <div className={styles.table_scroll_outer}>
         <div className={styles.table_scroll_inner}>
           <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
@@ -82,39 +85,6 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
           </table>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Pagination({ currentPage, setCurrentPage }) {
-  const { allCustomClearance } = useSelector((state) => state.Custom);
-
-  /* A function that returns the memoised value of total pages */
-  const totalPages = useMemo(() => {
-    return Math.ceil(allCustomClearance?.totalCount / 7);
-  }, [allCustomClearance?.totalCount]);
-
-  const handlePrev = () => {
-    if (currentPage === 0) return;
-    setCurrentPage((prev) => prev - 1);
-  };
-
-  const handleNext = () => {
-    if (currentPage + 1 >= totalPages) return;
-    setCurrentPage((prev) => prev + 1);
-  };
-
-  return (
-    <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-      <span>
-        Showing Page {currentPage + 1} out of {totalPages}
-      </span>
-      <button onClick={handlePrev} className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-      </button>
-      <button onClick={handleNext} className={`${styles.arrow} ${styles.rightArrow} arrow`}>
-        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-      </button>
     </div>
   );
 }

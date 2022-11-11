@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import DownloadBar from '../../src/components/DownloadBar';
 import Filter from '../../src/components/Filter';
 import { setPageName } from '../../src/redux/userData/action';
+import styles from './index.module.scss';
 
+import Pagination from '../../src/components/Pagination';
 import { GetAllVessel } from '../../src/redux/vessel/action';
 
 function Index() {
@@ -83,49 +84,14 @@ function Index() {
             </div>
           </div>
           <Filter />
-          {/* <a href="#" className={`${styles.filterList} filterList `}>
-            Bhutani Traders
-          <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-          </a>  */}
-
-          {/* <button className={styles.createBtn}
-          onClick={()=>{Router.push("/lc-module/lc-application")}}
-          style={{ position: "absolute", right: 25 }}>
-          Create</button> */}
         </div>
         <div className={`${styles.datatable} border datatable card`}>
-          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-            <h5 className="heading_card">Shipments</h5>
-            <div className={`${styles.pageList} d-flex align-items-center`}>
-              <div className={`${styles.showPage}`}>
-                Showing Page {currentPage + 1} out of {Math.ceil(allVessel?.totalCount / 7)}
-              </div>
-              <a
-                onClick={() => {
-                  if (currentPage === 0) return 
-                  else {
-                    setCurrentPage((prevState) => prevState - 1);
-                  }
-                }}
-                href="#"
-                className={`${styles.arrow} ${styles.leftArrow} arrow`}
-              >
-                {' '}
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-              <a
-                onClick={() => {
-                  if (currentPage + 1 < Math.ceil(allVessel?.totalCount / 7)) {
-                    setCurrentPage((prevState) => prevState + 1);
-                  }
-                }}
-                href="#"
-                className={`${styles.arrow} ${styles.rightArrow} arrow`}
-              >
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-            </div>
-          </div>
+          <Pagination
+            data={allVessel}
+            tableName="Shipments"
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

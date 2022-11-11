@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
@@ -184,38 +185,14 @@ function Index() {
           </div>
           {/*leads table*/}
           <div className={`${styles.datatable} border datatable card`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">Leads</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) return 
-                    else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div>
-            </div>
+            <Pagination
+              tableName="Leads"
+              data={allBuyerList?.data}
+              totalNumber={10}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

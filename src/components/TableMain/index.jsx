@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { GettingAllInsurance } from 'redux/insurance/action';
 import _get from 'lodash/get';
 import moment from 'moment/moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from 'redux/insurance/action';
+import Pagination from '../Pagination/Index';
+import styles from './index.module.scss';
 
 function Index({
   tableName,
@@ -18,8 +19,6 @@ function Index({
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
-
-  let d = new Date();
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
@@ -47,38 +46,13 @@ function Index({
   };
   return (
     <div className={`${styles.datatable} border datatable card`}>
-      <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-        <h3 className="heading_card">{tableName}</h3>
-        <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-          <span>
-            Showing Page {currentPage + 1} out of {Math.ceil(insuranceResponse?.totalCount / 7)}
-          </span>
-          <a
-            onClick={() => {
-              if (currentPage === 0) return 
-              else {
-                setCurrentPage((prevState) => prevState - 1);
-              }
-            }}
-            href="#"
-            className={`${styles.arrow} ${styles.leftArrow} arrow`}
-          >
-            {' '}
-            <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-          </a>
-          <a
-            onClick={() => {
-              if (currentPage + 1 < Math.ceil(insuranceResponse?.totalCount / 7)) {
-                setCurrentPage((prevState) => prevState + 1);
-              }
-            }}
-            href="#"
-            className={`${styles.arrow} ${styles.rightArrow} arrow`}
-          >
-            <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-          </a>
-        </div>
-      </div>
+      <Pagination
+        data={insuranceResponse}
+        tableName={tableName}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+
       <div className={styles.table_scroll_outer}>
         <div className={styles.table_scroll_inner}>
           <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
@@ -98,11 +72,7 @@ function Index({
                 </th>
                 <th>COMMODITY</th>
                 <th>{pageType}</th>
-                {/* {isVesselHeader ? (
-                  <th>VESSEL NAME</th>
-                ) : (
-                  <th>INSURANCE TYPE</th>
-                )} */}
+
                 <th>{dateHeading}</th>
 
                 {isStatus ? (
