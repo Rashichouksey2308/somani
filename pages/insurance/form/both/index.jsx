@@ -15,7 +15,7 @@ import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 
 import moment from 'moment/moment';
 import { getInternalCompanies } from '../../../../src/redux/masters/action';
-
+import {nameOfInsurerArray} from '../../../../src/utils/helpers/staticFiled'
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
@@ -578,8 +578,9 @@ const Index = () => {
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">Policy Bazaar</option>
-                              <option value="TATA AIG">TATA AIG</option>
+                              {nameOfInsurerArray.map((val,index)=>{
+                                return <option value={val}>{val}</option>
+                              })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>Name of Insurer</label>
                             <img
@@ -1002,8 +1003,9 @@ const Index = () => {
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">Policy Bazaar</option>
-                              <option value="TATA AIG">TATA AIG</option>
+                              {nameOfInsurerArray.map((val,index)=>{
+                                return <option value={val}>{val}</option>
+                              })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>
                               Name of Insurer
@@ -1411,8 +1413,9 @@ const Index = () => {
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">Policy Bazaar</option>
-                              <option value="TATA AIG">TATA AIG</option>
+                              {nameOfInsurerArray.map((val,index)=>{
+                                return <option value={val}>{val}</option>
+                              })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>
                               Name of Insurer
@@ -1698,8 +1701,9 @@ const Index = () => {
                               <option selected disabled>
                                 Select an option
                               </option>
-                              <option value="Policy Bazaar">Policy Bazaar</option>
-                              <option value="TATA AIG">TATA AIG</option>
+                               {nameOfInsurerArray.map((val,index)=>{
+                                return <option value={val}>{val}</option>
+                              })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>
                               Name of Insurer

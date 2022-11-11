@@ -90,7 +90,9 @@ const Index = () => {
                 : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
-              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              storageOfGoods: sheet?.transactionDetails?.storageOfGoods
+                ? sheet?.transactionDetails?.storageOfGoods
+                : sheet?.order?.portOfDischarge,
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
@@ -286,7 +288,7 @@ const Index = () => {
     }));
   };
 
-  const changePayment = () => {};
+  const changePayment = () => { };
 
   const handleSave = async () => {
     let tempSheet = { ...termsheetDetails };
@@ -1062,8 +1064,8 @@ const Index = () => {
                           <p className={`${styles.value} accordion_Text`}>
                             {sheet?.order?.cam?.approvedAt
                               ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format(
-                                  'DD-MM-YYYY',
-                                )
+                                'DD-MM-YYYY',
+                              )
                               : ''}
                           </p>
                         </div>
