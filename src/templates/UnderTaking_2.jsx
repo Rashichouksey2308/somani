@@ -16,11 +16,12 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
             <u>
-              Indo German International Private Limited,
-              <br />
-              7A, Sagar Apartments, 6, Tilak Marg,
-              <br />
-              New Delhi
+              {data.buyer},
+              <br/>
+              {data.buyerAddress?.fullAddress},
+              {data.buyerAddress?.city}{" "}
+              {data.buyerAddress?.country},{" "}
+              {data.buyerAddress?.pinCode}
             </u>
           </span>
         </p>
@@ -34,15 +35,15 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <p className="text_sales">We being the Associate Buyer, do solemnly affirm and undertake as under:</p>
           <li>
             <p className="text_sales">
-              That we have negotiated with the Supplier for supply of the Goods through Indo/ Seller.
+              That we have negotiated with the Supplier for supply of the Goods through Seller.
             </p>
           </li>
           <li>
             <p className="text_sales">
-              That we have requested <u>Indo German International Private Limited </u>
-              (“IGI/ Seller”) to import on our behalf the Goods and sell the same to us on stock and sale basis as per
+              That we have requested 
+              Seller to import on our behalf the Goods and sell the same to us on stock and sale basis as per
               Associateship Agreement. We confirm and undertake that all the terms &amp; conditions of the Sales
-              Contract entered into between <u>Indo</u> and the Supplier (hereinafter referred to as “Sales Contract”)
+              Contract entered into between <u>{data.shortseller}</u> and the Supplier (hereinafter referred to as “Sales Contract”)
               are acceptable and binding on us.
             </p>
           </li>
@@ -59,18 +60,18 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               &amp; quality indicated in the Sales Contract notwithstanding the inspection report/ quality certificate/
               Survey report furnished by the Supplier for the subject consignment. We shall be held solely liable and
               responsible for all consequences arising out of variation between item/quality/quantity contracted for
-              &amp; actually shipped and we undertake to indemnify and hold harmless Indo/Seller in this regard at all
+              &amp; actually shipped and we undertake to indemnify and hold harmless Seller in this regard at all
               times.
             </p>
           </li>
           <li>
             <p className="text_sales">
-              We undertake to accept the goods from Seller/<u>Indo</u> on 'no complaint basis' with regard to quality,
-              quantity and/or any other claims including shortage. Seller/<u>Indo</u> shall in no way be responsible or
+              We undertake to accept the goods from Seller on 'no complaint basis' with regard to quality,
+              quantity and/or any other claims including shortage. Seller shall in no way be responsible or
               liable for the quality, quantity or any other claim pertaining to the Goods being supplied by the Supplier
               and/or any other claim relating to this transaction. It is our sole responsibility in settling the
               quality, quantity or other claims pertaining to this transaction directly with the Supplier and/or Custom
-              House Agent (CHA), with no liability whatsoever upon Seller/<u>Indo</u>.
+              House Agent (CHA), with no liability whatsoever upon Seller.
             </p>
           </li>
         </ol>
@@ -305,15 +306,26 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>
-                <u>Place:</u>
+                <u>Place: {data.placeOfExecution}</u>
               </strong>
             </p>
           </Col>
           <Col md={6}>
             <p className="text_sales m-0">
-              <strong>
-                <u>Name:</u>
-              </strong>
+              {
+              data?.associateBuyerAuthorized?.length > 0 &&
+              data?.associateBuyerAuthorized?.map((val, index) => {
+                return (
+                  
+                    <p className='mb-0'>
+                      Name : {val.name}
+                    </p>
+                    
+                  
+                );
+              })
+              }
+             
             </p>
           </Col>
         </div>
@@ -321,15 +333,25 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>
-                <u>Date:</u>
+                <u>Date: {data.dateOfExecution}</u>
               </strong>
             </p>
           </Col>
           <Col md={6}>
             <p className="text_sales m-0">
-              <strong>
-                <u>Designation:</u>
-              </strong>
+               {
+              data?.associateBuyerAuthorized?.length > 0 &&
+              data?.associateBuyerAuthorized?.map((val, index) => {
+                return (
+                  
+                    <p className='mb-0'>
+                      Designation : {val.designation}
+                    </p>
+                    
+                  
+                );
+              })
+              }
             </p>
           </Col>
         </div>

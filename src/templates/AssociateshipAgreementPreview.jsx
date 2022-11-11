@@ -1669,7 +1669,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td
                         style={{
                           borderBottom: '1px solid #000000',
@@ -1690,7 +1690,7 @@ export default function AssociateshipAgreementPreview(data) {
                           Value
                         </p>
                       </td>
-                    </tr>
+                    </tr> */}
                   </table>
                 </td>
               </tr>
