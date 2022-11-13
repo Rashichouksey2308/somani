@@ -1,31 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
-import {
-  AddingDocument,
-  changeModuleDocument,
-  DeleteDocument,
-  GetDocuments,
-} from '../../../src/redux/creditQueueUpdate/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { emailValidation } from '@/utils/helper';
+import { dropDownOptionHandler, handleErrorToast, objectValidator, returnDocFormat } from '@/utils/helpers/global';
+import { modulesDropDown } from '@/utils/jsons/dropdownOptions.json';
+import { uploadDocumentValidations } from '@/utils/validations/uploadDocument';
 import moment from 'moment';
-import TermsheetPopUp from '../TermsheetPopUp';
+import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { ShareDocument } from 'redux/shareDoc/action';
-import { emailValidation } from 'utils/helper';
-import { handleErrorToast, returnDocFormat } from 'utils/helpers/global';
+import { changeModuleDocument, DeleteDocument, GetDocuments } from '../../redux/creditQueueUpdate/action';
+import TermSheetPopUp from '../TermsheetPopUp';
+import styles from './index.module.scss';
 
 const Index = ({ orderid, module, isDocumentName }) => {
-  const dispatch = useDispatch();
-
-  const { documentsFetched } = useSelector((state) => state.review);
-  const [manualDocModule, setManualDocModule] = useState(true);
-  const [newDoc, setNewDoc] = useState({
-    document: null,
+  const newDocInitialState = {
+    document: [],
     order: orderid,
     name: '',
     module: module,
-  });
+  };
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const { documentsFetched } = useSelector((state) => state.review);
+  const [manualDocModule, setManualDocModule] = useState(true);
+  const [moduleSelected, setModuleSelected] = useState(module);
+  const [filteredDoc, setFilteredDoc] = useState([]);
+  const [newDoc, setNewDoc] = useState(newDocInitialState);
 
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
@@ -38,13 +38,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
     },
   });
 
-  const [open, setOpen] = useState(false);
-
-  const [moduleSelected, setModuleSelected] = useState(module);
-  const [filteredDoc, setFilteredDoc] = useState([]);
   const fetchData = async () => {
     await dispatch(GetDocuments(`?order=${orderid}`));
   };
+
   const changeModule = async (id, name, value) => {
     await dispatch(
       changeModuleDocument({
@@ -54,76 +51,67 @@ const Index = ({ orderid, module, isDocumentName }) => {
       }),
     );
   };
-  useEffect(() => {
-    sessionStorage.setItem('docFetchID', orderid);
-    fetchData();
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase();
-    });
-    setFilteredDoc(tempArray);
-  }, [dispatch, orderid, moduleSelected]);
 
   useEffect(() => {
     if (documentsFetched) {
       const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
         return doc.module === moduleSelected;
-      })
-      tempArray?.forEach((obj) => obj.moving = false);
-
+      });
+      tempArray?.forEach((obj) => (obj.moving = false));
       setFilteredDoc(tempArray);
     }
   }, [orderid, documentsFetched]);
 
-  const DocDlt = (index) => {
-    let tempArray = filteredDoc;
-    tempArray.splice(index, 1);
-    setFilteredDoc(tempArray);
+  //   console.log({documentsFetched})
+  //   /* Filtering the documentsFetched array and setting the filteredDoc array. */
+  //   const filteredDocArray = documentsFetched?.documents
+  //     .filter((doc) => doc.module === moduleSelected)
+  //     .map(element => {
+  //       return {
+  //         ...element, moving: false
+  //       }
+  //     })
+  //   setFilteredDoc(filteredDocArray)
+  // }, [orderid, documentsFetched])
+
+  /** It deletes the document at the index.*/
+  const DocDlt = (index) => setFilteredDoc([...filteredDoc].splice(index, 1));
+
+  const handleNewDocModule = ({ target: { value } }) => {
+    if (value === 'others') return setManualDocModule(false);
+    document.getElementById('otherDocName').value = '';
+    setManualDocModule(true);
+    return setNewDoc({ ...newDoc, name: value });
   };
 
-  const handleNewDocModule = (e) => {
-    if (e.target.value === 'others') {
-      setManualDocModule(false);
-    } else {
-      document.getElementById('otherDocName').value = '';
-      setManualDocModule(true);
-      setNewDoc({ ...newDoc, name: e.target.value });
-    }
-  };
+  const handleCloseDoc = () => setNewDoc(newDocInitialState);
 
-  const handleCloseDoc = () => {
-    setNewDoc({
-      document: [],
-      order: orderid,
-      name: '',
-      module: module,
-    });
-  };
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc };
     newUploadDoc1.document = e.target.files[0];
     setNewDoc(newUploadDoc1);
   };
 
-  const uploadDocumentHandler = (e) => {
+  const uploadDocumentHandler = async (e) => {
     e.preventDefault();
-    if (newDoc.document === null) {
-      handleErrorToast('please select A Document')
-    } else if (newDoc.name === '') {
-      handleErrorToast('please provide a valid document name')
-    } else {
-      const fd = new FormData();
-      fd.append('document', newDoc.document);
-      fd.append('module', newDoc.module);
-      fd.append('order', orderid);
-      fd.append('name', newDoc.name);
-      dispatch(AddingDocument(fd));
-      setNewDoc({
-        document: null,
-        order: orderid,
-        name: '',
-        module: module,
-      });
-    }
+
+    console.log(await objectValidator({ doc: newDoc, validation: uploadDocumentValidations }));
+
+    // if (newDoc.document === null) {
+    //   handleErrorToast('please select A Document')
+    // } else if (newDoc.name === '') {
+    //   handleErrorToast('please provide a valid document name')
+    // } else {
+    //   const fd = new FormData()
+    //   fd.append('document', newDoc.document)
+    //   fd.append('module', newDoc.module)
+    //   fd.append('order', orderid)
+    //   fd.append('name', newDoc.name)
+    //   dispatch(AddingDocument(fd))
+    //   setNewDoc({
+    //     document: null, order: orderid, name: '', module: module,
+    //   })
+    // }
   };
 
   const filterDocBySearch = (val) => {
@@ -151,37 +139,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
         setOpen(false);
       }
     } else {
-      handleErrorToast('please provide a valid email')
+      handleErrorToast('please provide a valid email');
     }
   };
-
-  const modulesDropDown = [{ name: "Lead Onboarding & Order Approval", value: "LeadOnboarding&OrderApproval" },
-  { name: "Agreements, Insurance & LC Opening", value: "Agreements&Insurance&LC&Opening" },
-  { name: "Loading-Transit-Unloading", value: "Loading-Transit-Unloading" },
-  { name: "Custom Clearance And Warehousing", value: "customClearanceAndWarehousing" },
-  { name: "Payments Invoicing & Delivery", value: "Payments Invoicing & Delivery" },
-  { name: "Others", value: "Others" }]
-
-  const dropDownOptionLeadOnboarding = ["Certificate of Incorporation", "IEC Certificate", "Business Registration Certificate ", "PAN Card", "GST Certificate", "Bank Reference Letter", "Financial Year "]
-  const dropDownOptionLoading = ["Certificate Of Origin", "Certificate Of Quality", "Certificate Of Weight", "Plot Inspection Report", "BL ", "Container No List ", "Packing List ", "BL Acknowledgment Copy", "Forward Sales Contract", "Coal Import Registration Certificate"]
-  const dropDownOptionAgreements = ["Lc Draft", "lC Ammendment Draft", "vessel Certificate", "vessel Certificate Container List", "policy Document Marine", "policy Document Storage"]
-  const dropDownOptionCustomClearance = ["BOE Provisional", "BOE Final - in case of final assessment.", "Duty Paid Challan ", "PD Bond", "BOE Final", "BOE Provisional ", "BOE Final - in case of final assessment. ", "PD Bond", "Duty Paid Challan ", "Statements of Facts", "Discharge Confirmation", "BOE Final"]
-  const dropDownOptionPayments = ["RR", "eWay Bill"]
-
-  const dropDownOptionHandler = () => {
-    switch (module) {
-      case 'LeadOnboarding&OrderApproval':
-        return dropDownOptionLeadOnboarding;
-      case 'Loading-Transit-Unloading':
-        return dropDownOptionLoading;
-      case 'Agreements&Insurance&LC&Opening':
-        return dropDownOptionAgreements;
-      case 'customClearanceAndWarehousing':
-        return dropDownOptionCustomClearance;
-      default:
-        return dropDownOptionPayments;
-    }
-  }
 
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
@@ -250,10 +210,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       <option value="" disabled>
                         Select an option
                       </option>
-                      {dropDownOptionHandler()?.map((item) => (
-                        <option value={item} >
-                          {item}
-                        </option>
+                      {dropDownOptionHandler(module)?.map((item) => (
+                        <option value={item}>{item}</option>
                       ))}
                       <option value="others">Other</option>
                     </select>
@@ -296,9 +254,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   Select an option
                 </option>
                 {modulesDropDown.map((item) => (
-                  <option value={item.value}>
-                    {item.name}
-                  </option>
+                  <option value={item.value}>{item.name}</option>
                 ))}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
@@ -349,9 +305,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         return (
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>{document.name}</td>
-                            <td>
-                              {returnDocFormat(document?.originalName)}
-                            </td>
+                            <td>{returnDocFormat(document?.originalName)}</td>
                             <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
                             <td className={styles.doc_row}>
                               {document.uploadedBy?.fName} {document.uploadedBy?.lName}
@@ -413,10 +367,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                       }}
                                     >
                                       {modulesDropDown.map((item) => (
-                                        <option
-                                          disabled={moduleSelected === item.value}
-                                          value={item.value}
-                                        >
+                                        <option disabled={moduleSelected === item.value} value={item.value}>
                                           {item.name}
                                         </option>
                                       ))}
@@ -441,7 +392,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
         </div>
       </div>
       {!open ? (
-        <TermsheetPopUp
+        <TermSheetPopUp
           close={() => setOpen(false)}
           open={open}
           istermsheet

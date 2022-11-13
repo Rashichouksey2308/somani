@@ -13,6 +13,7 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux
 import BothType from '../../../src/templates/requestLetters/BothType';
 import { convertValue } from '../../../src/utils/helper';
 import styles from './index.module.scss';
+import Router from 'next/router'
 
 function Index() {
   const dispatch = useDispatch();
@@ -256,7 +257,7 @@ function Index() {
                     {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
                     {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},
                     {" "}{_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null},<br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
                     GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                     <br></br>
                   </Col>

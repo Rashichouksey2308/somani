@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import has from 'lodash/has'
+import dropdownJSONS from '@/utils/jsons/dropdownOptions.json'
+
 const _ = { has }
 
 export const returnAuthToken = () => {
@@ -10,15 +12,23 @@ export const returnAuthToken = () => {
   return jwtAccessToken
 }
 
-export const returnDocFormat = (name) => {
-  if (name?.toLowerCase()?.endsWith('.xls') || name?.toLowerCase()?.endsWith('.xlsx')) {
+/**
+ * It returns an image based on the file extension of the file name passed to it
+ * @param [name] - The name of the file.
+ * @returns A function that returns a JSX element.
+ */
+export const returnDocFormat = (name = '') => {
+  if (name.toLowerCase().endsWith('.xls') || name.toLowerCase().endsWith('.xlsx')) {
     return <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-  } else if (name?.toLowerCase()?.endsWith('.doc') || name?.toLowerCase()?.endsWith('.docx')) {
-    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-  } else {
-    return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
   }
+
+  if (name.toLowerCase().endsWith('.doc') || name.toLowerCase().endsWith('.docx')) {
+    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+  }
+
+  return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
 }
+
 /**
  * It takes a number, and returns a string with the number formatted with commas
  * @param number - The number you want to format.
@@ -29,8 +39,9 @@ export const returnDocFormat = (name) => {
  * @returns A function that takes in a number, locales, maximum, and minimum.
  */
 export const returnReadableNumber = (number, locales = undefined, maximum = 0, minimum = 0) => {
-  if (number) {
-    return number.toLocaleString(locales, {
+  let convertedNumber = Number(number);
+  if (convertedNumber) {
+    return convertedNumber.toLocaleString(locales, {
       maximumFractionDigits: maximum,
       minimumFractionDigits: minimum
     })
@@ -65,13 +76,31 @@ export const handleSuccessToast = (toastMessage) => {
  * @param [obj] - The object to be validated
  * @param [validation] - [{key: 'name', error: 'Name is required'}, {key: 'email', error: 'Email is required'}]
  */
-export const objectValidator = (obj = {}, validation = []) => {
-  validation.every(element => {
+export const objectValidator = async ({ obj = {}, validation = [] }) => {
+  let isValid = true
+  await validation.every(element => {
     const { key, error } = element
     if (!_.has(obj, key)) {
       handleErrorToast(error)
-      return false
+      isValid = false
+      return isValid
     }
-    return true
+    return isValid
   })
+  return isValid
+}
+
+export const dropDownOptionHandler = (module) => {
+  switch (module) {
+    case 'LeadOnboarding&OrderApproval':
+      return dropdownJSONS.dropDownOptionLeadOnboarding
+    case 'Loading-Transit-Unloading':
+      return dropdownJSONS.dropDownOptionLoading
+    case 'Agreements&Insurance&LC&Opening':
+      return dropdownJSONS.dropDownOptionAgreements
+    case 'customClearanceAndWarehousing':
+      return dropdownJSONS.dropDownOptionCustomClearance
+    default:
+      return dropdownJSONS.dropDownOptionPayments
+  }
 }

@@ -516,7 +516,7 @@ function Index({
   }, [filteredCreditRating]);
 
   const getRotate = (rat = 1) => {
-    let r = Math.round(rat);
+    let r = Math.floor(rat);
     // let r = 10;
     if (r == 0) {
       setRating(`rotate(90deg)`);
@@ -3635,7 +3635,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       style={{ transform: `${rating}` }}
                     ></img>
                     <div className={`${styles.score}`}>
-                      {checkNan(Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}
+                      {checkNan(Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}
                     </div>
                   </div>
                 </div>
@@ -3682,7 +3682,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div>
                         <span className={`${styles.score}`}>
                           {checkNan(
-                            Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}

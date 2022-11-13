@@ -1,5 +1,4 @@
 import jsPDF from 'jspdf';
-import { associateshipPrint, sellerPrint } from '../../../src/templates/agreementTemplate';
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -11,12 +10,12 @@ import DownloadBar from '../../../src/components/DownloadBar';
 import QPA from '../../../src/components/QPA';
 import TPAIGI from '../../../src/components/TPAIGI';
 import TPASeller from '../../../src/components/TPASeller';
+import { sellerPrint } from '../../../src/templates/agreementTemplate';
 import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
-import IGIAgreementPreview from '../../../src/templates/TPAIGIPreview';
+import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
+import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
-import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
-import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 
 function index() {
   const [data, setData] = useState({
@@ -114,7 +113,7 @@ function index() {
         dateOfExecution: dat,
         placeOfExecution: exe,
         details: data?.supplier?.name,
-        detailsOfEndBuyer: data.company.companyName,
+        detailsOfEndBuyer: data?.company.companyName,
         detailsOfComm: data?.order?.commodity,
         quan: data?.order?.quantity,
         unitPrice: data.order?.perUnitPrice,
@@ -205,7 +204,7 @@ function index() {
       name = 'TPA(Seller).pdf';
     }
     if (preview == 'TPAIGI') {
-      toPrint = IGIAgreementPreview(data);
+      toPrint = TPAIGIPreview(data);
       name = 'TPA(CAM).pdf';
     }
     if (preview == 'LETTER') {
@@ -395,33 +394,39 @@ export const undertaking1Pdf = (data) => {
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                     {data?.cheque?.length > 0 &&
+            data.cheque.map((val, index) => {
+              return (
+                 <tr>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {val.sNo}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>{val.bankName}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>{val.chequeNo}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {moment(val.chequeDate).format('DD-MM-YYYY')}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>value</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {val.amount}</p>
                       </td>
                     </tr>
+              );
+            })} 
+                  
                   </table>
                 </td>
               </tr>
@@ -434,11 +439,24 @@ export const undertaking1Pdf = (data) => {
                     </tr>
                     <tr>
                       <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place: </p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place:  {data.placeOfExecution} </p>
                       </td>
                       <td valign='top' align='left' width='50%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>(Associate Buyer)</strong>
-                          <br /><br />Name -
+                                        {
+                                data?.associateBuyerAuthorized?.length > 0 &&
+                                data?.associateBuyerAuthorized?.map((val, index) => {
+                                  return (
+                                     <>
+                                     <br /><br />Name - {val.name}
+                                     </>
+                                      
+                                      
+                                  
+                                  );
+                                })
+                              }
+                          
                         </p>
                       </td>
                     </tr>
@@ -529,15 +547,42 @@ export const undertaking2Pdf = (data) => {
                     </tr>
                     <tr>
                       <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Place:</u> </strong></p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Place: {data.placeOfExecution}</u> </strong></p>
                       </td>
                       <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Name -</u> </strong></p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>
+                          
+                            {
+                            data?.associateBuyerAuthorized?.length > 0 &&
+                            data?.associateBuyerAuthorized?.map((val, index) => {
+                              return ( 
+                                <strong><u>Name - {val.name}</u> </strong>                
+                                             
+                              );
+                            })
+                            }
+                           
+                          <strong><u>Name -</u> </strong></p>
                       </td>
                     </tr>
                     <tr>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong><u>Date :</u> <u>{data.dateOfExecution}</u></strong></p></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong><u>Designation:</u></strong></p></td>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
+                        
+                           {
+                      data?.associateBuyerAuthorized?.length > 0 &&
+                      data?.associateBuyerAuthorized?.map((val, index) => {
+                        return (    
+                           <strong><u>Designation: {val.designation}</u></strong>              
+                                          
+                        );
+                      })
+                      }
+                       
+                        
+                        </p>
+                        
+                        </td>
                     </tr>
                   </table>
                 </td>

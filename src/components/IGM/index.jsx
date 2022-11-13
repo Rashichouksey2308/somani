@@ -224,7 +224,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
+        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' || 
+         _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+        'Emergent Industrial Solutions Limited (EISL)' ||
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
         'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
@@ -242,6 +244,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
         'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
+        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+        'Indo German International Private Limited (IGPL)' ||
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
         'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {

@@ -883,32 +883,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   />{' '}
                                 </div>
                               )}
-                              {/* <div className="d-flex justify-content-start">
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    name={`containerDoc`}
-                                    id="containerDoc"
-                                    onChange={(e) =>
-                                      onChangeContainerDetailsDocHandler(
-                                        e,
-                                        index,
-                                      )
-                                    }
-                                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                    type="file"
-                                  />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload Excel
-                                  </button>
-                                </div>
-
-                                <div className={`${styles.upload_text}`}>
-                                  ONLY .XLSX FILES ARE ALLOWED
-                                  <br /> &amp; MAX FILE SIZE UP TO 50MB
-                                </div>
-                              </div> */}
                             </div>
                           </div>
                         </div>

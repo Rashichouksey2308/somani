@@ -10,13 +10,9 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 
 function Index() {
   const dispatch = useDispatch();
-
   const [currentPage, setCurrentPage] = useState(0);
-
   const [serachterm, setSearchTerm] = useState('');
-
   const { searchedLeads } = useSelector((state) => state.order);
-
   const { lcModule } = useSelector((state) => state.lc);
 
   useEffect(() => {
@@ -62,6 +58,45 @@ function Index() {
     }
   };
 
+  const LCTable = () => {
+    return (
+      <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+        <thead>
+          <tr className="table_row">
+            <th>
+              ORDER ID{' '}
+              <img
+                className={`mb-1`}
+                src="./static/icons8-sort-24.svg "
+                alt="Sort icon"
+                onClick={() => handleSort()}
+              />
+            </th>
+            <th>BUYER NAME</th>
+            <th>CREATED BY</th>
+            <th>STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {lcModule &&
+            lcModule?.data?.map((lc, index) => (
+              <tr key={index} className="table_row">
+                <td>{lc?.order?.orderId}</td>
+                <td className={styles.buyerName} onClick={() => handleRoute(lc)}>
+                  {lc?.company?.companyName}
+                </td>
+                <td>RM-Sales</td>
+                <td>
+                  <span className={`${styles.status} ${styles.review}`}></span>
+                  Pending
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    );
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -71,12 +106,8 @@ function Index() {
               <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
                 <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
-              <input
-                value={serachterm}
-                onChange={handleSearch}
-                type="text"
-                className={`${styles.formControl} border text_area form-control formControl `}
-                placeholder="Search"
+              <input value={serachterm} onChange={handleSearch} type="text"
+                className={`${styles.formControl} border text_area form-control formControl `} placeholder="Search"
               />
             </div>
             {searchedLeads && serachterm && (
@@ -92,12 +123,6 @@ function Index() {
             )}
           </div>
           <Filter />
-
-          {/* <a href="#" className={`${styles.filterList} filterList `}>
-          Bhutani Traders
-        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-        </a> */}
-
           <button
             className={styles.createBtn}
             style={{ position: 'absolute', right: 25 }}
@@ -118,8 +143,8 @@ function Index() {
               </span>
               <a
                 onClick={() => {
-                  if (currentPage === 0) {
-                  } else {
+                  if (currentPage === 0) return 
+                  else {
                     setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
@@ -144,40 +169,7 @@ function Index() {
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="./static/icons8-sort-24.svg "
-                        alt="Sort icon"
-                        onClick={() => handleSort()}
-                      />
-                    </th>
-                    <th>BUYER NAME</th>
-                    <th>CREATED BY</th>
-                    <th>STATUS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {lcModule &&
-                    lcModule?.data?.map((lc, index) => (
-                      <tr key={index} className="table_row">
-                        <td>{lc?.order?.orderId}</td>
-                        <td className={styles.buyerName} onClick={() => handleRoute(lc)}>
-                          {lc?.company?.companyName}
-                        </td>
-                        <td>RM-Sales</td>
-                        <td>
-                          <span className={`${styles.status} ${styles.review}`}></span>
-                          Pending
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+              <LCTable />
             </div>
           </div>
         </div>

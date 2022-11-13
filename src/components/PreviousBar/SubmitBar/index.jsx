@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import styles from './index.module.scss'
+import styles from '../../PreviewBar/index.module.scss'
 
 function Index ({ handleSubmit }) {
   const { updatingLcAmendment } = useSelector((state) => state.lc)

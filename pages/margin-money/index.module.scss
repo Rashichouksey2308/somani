@@ -319,9 +319,7 @@
         .unit_container {
           .unit_label {
             font-size: 18px;
-            text-transform: capitalize;
             font-weight: bold;
-            margin-top: 10px;
             line-height: 23px;
             margin: 0 50px 0 0;
             @include respond(lg-desktop) {
@@ -438,7 +436,6 @@
           padding-bottom: 14px;
 
           .radio_heading {
-            letter-spacing: 0.53px;
             color: #00000080;
             font-size: 16px;
             line-height: 17px;
