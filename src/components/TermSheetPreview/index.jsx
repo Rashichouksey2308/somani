@@ -1147,7 +1147,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                       color: '#111111',
                       lineHeight: '25px',
                       fontWeight: '500',
-                      padding: '10px 0 0 25px',
+                      padding: '10px 0 10px 25px',
                     }}
                   >
                     Order ID:{' '}
