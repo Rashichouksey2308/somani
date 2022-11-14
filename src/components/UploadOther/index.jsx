@@ -61,6 +61,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       setFilteredDoc(tempArray);
     }
   }, [orderid, documentsFetched]);
+
   useEffect(()=>{
     fetchData()
   },[orderid,moduleSelected])
