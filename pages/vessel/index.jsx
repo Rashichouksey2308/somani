@@ -15,7 +15,7 @@ import { getCountries, getPorts } from '../../src/redux/masters/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { GetVessel, UpdateVessel } from '../../src/redux/vessel/action';
 import API from '../../src/utils/endpoints';
-// import { Validation } from '../../src/components/Vessel/validations'
+import { Validation } from '../../src/components/Vessel/validations'
 
 export default function Home() {
   const router = useRouter();
@@ -163,11 +163,11 @@ export default function Home() {
         orderValue: _get(VesselToAdd, 'data[0].order.orderValue', ''),
         transitDetails: {
           countryOfOrigin: _get(VesselToAdd, 'data[0].order.countryOfOrigin', ''),
-          portOfLoading: '',
+          portOfLoading: _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.loadPort', ''),
           portOfDischarge: _get(VesselToAdd, 'data[0].order.portOfDischarge', ''),
-          laycanFrom: null,
-          laycanTo: null,
-          EDTatLoadPort: null,
+          laycanFrom: _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.fromDate', ''),
+          laycanTo: _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.toDate', ''),
+          EDTatLoadPort:  _get(VesselToAdd, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
           ETAatDischargePort: null,
         },
 

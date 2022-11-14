@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShareDocument } from 'redux/shareDoc/action';
-import { changeModuleDocument, DeleteDocument, GetDocuments } from '../../redux/creditQueueUpdate/action';
+import { changeModuleDocument, DeleteDocument, GetDocuments,AddingDocument } from '../../redux/creditQueueUpdate/action';
 import TermSheetPopUp from '../TermsheetPopUp';
 import styles from './index.module.scss';
 
@@ -61,9 +61,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
       setFilteredDoc(tempArray);
     }
   }, [orderid, documentsFetched]);
+  useEffect(()=>{
+    fetchData()
+  },[orderid,moduleSelected])
 
   //   console.log({documentsFetched})
-  //   /* Filtering the documentsFetched array and setting the filteredDoc array. */
+  //   
   //   const filteredDocArray = documentsFetched?.documents
   //     .filter((doc) => doc.module === moduleSelected)
   //     .map(element => {
@@ -95,23 +98,23 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const uploadDocumentHandler = async (e) => {
     e.preventDefault();
 
-    console.log(await objectValidator({ doc: newDoc, validation: uploadDocumentValidations }));
+    // console.log(await objectValidator({ doc: newDoc, validation: uploadDocumentValidations }));
 
-    // if (newDoc.document === null) {
-    //   handleErrorToast('please select A Document')
-    // } else if (newDoc.name === '') {
-    //   handleErrorToast('please provide a valid document name')
-    // } else {
-    //   const fd = new FormData()
-    //   fd.append('document', newDoc.document)
-    //   fd.append('module', newDoc.module)
-    //   fd.append('order', orderid)
-    //   fd.append('name', newDoc.name)
-    //   dispatch(AddingDocument(fd))
-    //   setNewDoc({
-    //     document: null, order: orderid, name: '', module: module,
-    //   })
-    // }
+    if (newDoc.document === null) {
+      handleErrorToast('please select A Document')
+    } else if (newDoc.name === '') {
+      handleErrorToast('please provide a valid document name')
+    } else {
+      const fd = new FormData()
+      fd.append('document', newDoc.document)
+      fd.append('module', newDoc.module)
+      fd.append('order', orderid)
+      fd.append('name', newDoc.name)
+      dispatch(AddingDocument(fd))
+      setNewDoc({
+        document: null, order: orderid, name: '', module: module,
+      })
+    }
   };
 
   const filterDocBySearch = (val) => {

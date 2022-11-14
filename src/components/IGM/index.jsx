@@ -326,7 +326,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let task = 'submit';
     let code = await dispatch(UpdateTransitDetails({ fd, task }));
     if (code == true) {
-      sessionStorage.setItem('docFetchID', _get(TransitDetails, 'order._id', ''));
+      sessionStorage.setItem('orderID', _get(TransitDetails, 'order._id', ''));
       sessionStorage.setItem('headgingId', _get(TransitDetails, 'order.transit', ''));
       dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'));
       router.push(`/forward-hedging`);

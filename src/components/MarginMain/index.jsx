@@ -40,6 +40,8 @@ function Index() {
 
   const handleRoute = (margin) => {
     sessionStorage.setItem('marginId', margin?.order?._id);
+    sessionStorage.setItem('orderID', margin?.order?._id);
+
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
     Router.push('/margin-money/id');
@@ -47,12 +49,14 @@ function Index() {
 
   const handlePreviewRoute = (margin) => {
     if (margin.revisedMarginMoney.isActive !== true) {
-      sessionStorage.setItem('marginId', margin?.order?._id);
+        sessionStorage.setItem('marginId', margin?.order?._id);
+           sessionStorage.setItem('orderID', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
       Router.push('/margin-preview');
     } else {
-      sessionStorage.setItem('marginId', margin?.order?._id);
+         sessionStorage.setItem('marginId', margin?.order?._id);
+             sessionStorage.setItem('orderID', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
       Router.push('/revised-margin-preview');
