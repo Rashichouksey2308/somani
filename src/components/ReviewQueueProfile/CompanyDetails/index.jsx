@@ -5,8 +5,10 @@ import { useDispatch } from 'react-redux';
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action';
 import { checkNan, CovertvaluefromtoCR } from '../../../utils/helper';
 import _get from 'lodash/get';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 function Index({ order, companyDetail }) {
+  console.log(companyDetail, 'companyDetail');
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
     referedBy: '',
@@ -32,12 +34,15 @@ function Index({ order, companyDetail }) {
   };
 
   const saveHandler = () => {
-    const payload = {
-      ...updateCompany,
-      _id: companyDetail?.company,
-    };
+    if (updateCompany.sourceChanel === '') handleErrorToast('please select a source channel');
+    else {
+      const payload = {
+        ...updateCompany,
+        _id: companyDetail?.company,
+      };
 
-    dispatch(UpdateCompanyDetails(payload));
+      dispatch(UpdateCompanyDetails(payload));
+    }
   };
 
   return (
@@ -117,7 +122,7 @@ function Index({ order, companyDetail }) {
                       : styles.warning
                   }`}
                 >
-                  {companyDetail?.activeCompliance == null
+                  {!companyDetail?.profile?.companyDetail?.activeCompliance
                     ? ''
                     : companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
                     ? 'Yes'
@@ -193,18 +198,6 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.registeredAddress}
                 </div>
               </div>
-              {/* <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className={`${styles.label} label_heading`}>
-                  Corporate Address
-                </div>
-                <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.registeredAddress}
-                </div>
-              </div> */}
-              {/* <div className="col-md-3">
-                                <div className={`${styles.label} label_heading`}>Referral Code</div>
-                                <div className={`${styles.value} accordion_Text`}>U55101UR19</div>
-                            </div> */}
             </div>
             <div className="row mt-3">
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
@@ -216,7 +209,9 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={updateCompany?.sourceChanel}
                   >
-                    <option value="">Select</option>
+                    <option value="" defaultChecked disabled>
+                      Select
+                    </option>
 
                     <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
@@ -236,6 +231,7 @@ function Index({ order, companyDetail }) {
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <select
+                    disabled
                     id="referedBy"
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -244,7 +240,9 @@ function Index({ order, companyDetail }) {
                   >
                     {updateCompany?.sourceChanel === 'Customs Associate' ? (
                       <>
-                        <option value="">Select</option>
+                        <option value="" defaultChecked disabled>
+                          Select
+                        </option>
                         <option value="CHA">{'CHA'}</option>
                         <option value="CMA">CMA</option>
                         <option value="Stevedore">{'Stevedore'}</option>{' '}
@@ -276,13 +274,14 @@ function Index({ order, companyDetail }) {
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <select
+                    disabled
                     id="referalName"
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                     value={updateCompany?.referalName}
                   >
-                    <option value="">Select</option>
+                    <option value="" defaultChecked disabled>Select</option>
                     <option value="Bhutani Traders">Bhutani Traders</option>
                     <option value="userName1">{'userName1'}</option>
                     <option value="userName2">userName2</option>

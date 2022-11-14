@@ -162,6 +162,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="quantity"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                   }}
@@ -190,6 +191,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="orderValue"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
                   }}
@@ -260,6 +262,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="tolerance"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
