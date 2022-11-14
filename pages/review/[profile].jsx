@@ -112,9 +112,6 @@ const Index = () => {
         return handleToast('Please select transaction type');
       }
     }
- 
-
-
     if (!buyerList?.typeOfBusiness?.apiResponse) {
       if (!payloadData.hasOwnProperty('typeOfBusiness')) {
         return handleToast('Please select type of business');
@@ -151,7 +148,7 @@ const Index = () => {
     }
     const payload = { ...payloadData, orderReviewId: buyerList._id };
 
-    // let code = await dispatch(UpdateBuyer(payload));
+    let code = await dispatch(UpdateBuyer(payload));
     if (code == 200) {
       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'));
       await Router.push('/review');

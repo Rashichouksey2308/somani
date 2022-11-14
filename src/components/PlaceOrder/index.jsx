@@ -43,9 +43,9 @@ const Index = () => {
   const [orderData, setOrderData] = useState({
     transactionType: 'Import',
     commodity: '',
-    quantity: null,
+    quantity: '',
     unitOfQuantity: 'MT',
-    orderValue: 0,
+    orderValue: '',
     orderCurrency: '',
     unitOfValue: 'Crores',
     supplierName: '',

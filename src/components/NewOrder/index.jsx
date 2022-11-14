@@ -196,7 +196,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   value={
                     isFieldInFocus.orderValue
                       ? orderData.orderValue
-                      : returnReadableNumber(orderData.orderValue,'en-In',2).toLocaleString('en-In') +
+                      : returnReadableNumber(orderData.orderValue,'en-In',2) +
                       ` ${orderData.unitOfValue == 'Crores'
                         ? 'Cr'
                         : orderData.unitOfValue == 'Million'
