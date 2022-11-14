@@ -55,6 +55,7 @@ function Index(props) {
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const [director,setDirectors] = useState([])
+   const [directorOptions,setDirectorsOptions] = useState([])
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -107,28 +108,33 @@ function Index(props) {
   const addressValidation = (type, data, check = true) => {
     if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
+        if(type!=="Supplier"){
         if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            let toastMessage = 'Please add gstin';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-        if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          if (data.state === '' || data.state == undefined) {
+            let toastMessage = 'Please add state';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-      }
-      if (data.city === '' || data.city == undefined) {
+          if (data.city === '' || data.city == undefined) {
         let toastMessage = 'Please add city';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         return false;
       }
+        }
+       
+       
+      }
+      
     }
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type';
@@ -158,7 +164,7 @@ function Index(props) {
       }
       return false;
     }
-
+  
     return true;
   };
   const addressValidation2 = (type, data, check = true) => {
@@ -435,6 +441,7 @@ function Index(props) {
   useEffect(() => {
     if(props.directors){
       let temp=[]
+      let options=[]
        props.directors.forEach((val,index)=>{
          temp.push(
           {
@@ -444,8 +451,11 @@ function Index(props) {
           phoneNo: '',
          }
          )
+          options.push(val.name)
        })
+      
        setDirectors([...temp])
+       setDirectorsOptions([...options])
     }
   },[props.directors])
   const setSideStateToLocal = (val = null) => {
@@ -526,6 +536,7 @@ let masterList = [
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
           masterList={director}
+          options={directorOptions}
           
         
         />

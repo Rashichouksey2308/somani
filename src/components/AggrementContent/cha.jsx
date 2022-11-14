@@ -182,6 +182,21 @@ function Index(props) {
   }, [props.saveData, props.submitData]);
 
 
+  const onEdit = (index) => {
+    let tempArr = list;
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          setRemovedOption(obj.name);
+          return { ...obj, actions: 'false' };
+        }
+        // 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
+  };
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -695,7 +710,7 @@ function Index(props) {
             </div>
           </div>
         )}
-       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );

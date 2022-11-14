@@ -128,32 +128,29 @@ export const addNewAddress = (
             </>
           ) : (
             <>
-              {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      name="gstin"
-                      value={newAddress.gstin}
-                      onChange={(e) => {
-                        setAddress(e.target.name,e.target.value)
-                      }}
-                    >
-                      <option>Select an option</option>
-                      <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                      
-                    </select>
-                    <Form.Label
-                      className={`${styles.label_heading} ${styles.select}  label_heading`}
-                    >
-                      GSTIN<strong className="text-danger"></strong>
-                    </Form.Label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </Form.Group> */}
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="gstin"
+                    value={newAddress.gstin}
+                    onChange={(e) => {
+                      setAddress(e.target.name, e.target.value);
+                    }}
+                  >
+                    <option>Select an option</option>
+                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  </select>
+                  <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                    GSTIN<strong className="text-danger"></strong>
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </Form.Group>
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
