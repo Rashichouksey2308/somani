@@ -1099,10 +1099,10 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               Advance Margin Money
             </Col>
             <Col md={7} className={styles.right}>
-              {data.orderValueCurrency}{' '}
+            
               {data.advanceMoney?.toLocaleString(`${data.orderValueCurrency == "INR" ? "en-IN" : "en-EN"}`, {
                 maximumFractionDigits: 2,
-              })}
+              })} %
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

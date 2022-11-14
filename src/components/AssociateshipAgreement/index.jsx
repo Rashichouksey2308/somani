@@ -186,8 +186,9 @@ function Index(props) {
           unitPrice: data.order?.perUnitPrice,
           tradeMargin: data.order?.termsheet?.commercials?.tradeMarginPercentage,
           deliveryTerm: data.deliveryTerms.deliveryTerm,
-          totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
-          advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
+          totalPrice: data?.order?.marginMoney?.calculation?.orderValue,
+          advanceMoney: data?.order?.termsheet?.transactionDetails?.marginMoney,
+                                     
           orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
           paymentTerm: data.deliveryTerms.paymentTerms,
           cheque: data.deliveryTerms?.cheque || [],

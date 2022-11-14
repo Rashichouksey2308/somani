@@ -1,8 +1,17 @@
 import _get from 'lodash/get';
 import moment from 'moment';
+import { addPrefixOrSuffix } from '@/utils/helper';
 
 export default function ApplicationLCTemp(lcModuleData, lcModule) {
+  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),"lcModuleData.lcModuleData",lcModule)
   let d = new Date();
+   const getIndex = (index) => {
+    if (_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0) {
+      return (index = index + 2);
+    } else {
+      return index + 1;
+    }
+  };
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -40,7 +49,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       opacity: '0.7',
                     }}
                   >
-                    {lcModuleData?.order?.orderId}
+                    {lcModuleData.lcModuleData?.order?.orderId}
                   </span>
                 </span>
                 <br />
@@ -70,7 +79,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       opacity: '0.7',
                     }}
                   >
-                    {lcModuleData?.company?.companyName}
+                    {lcModuleData.lcModuleData?.company?.companyName}
                   </span>
                 </span>
               </td>
@@ -133,7 +142,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
               <td valign="top" align="left">
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tbody>
-                    {lcModuleData && lcModuleData?.lcApplication?.formOfDocumentaryCredit ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.formOfDocumentaryCredit ? (
                       <tr>
                         <td
                           width="40%"
@@ -186,14 +195,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.applicableRules ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.applicableRules ? (
                       <tr>
                         <td
                           align="left"
@@ -244,14 +253,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.dateOfExpiry ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.dateOfExpiry ? (
                       <tr>
                         <td
                           align="left"
@@ -302,14 +311,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
+                            {moment(lcModuleData.lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.placeOfExpiry ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.placeOfExpiry ? (
                       <tr>
                         <td
                           align="left"
@@ -360,14 +369,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.lcIssuingBank ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.lcIssuingBank ? (
                       <tr>
                         <td
                           align="left"
@@ -418,14 +427,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.applicant ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.applicant ? (
                       <tr>
                         <td
                           align="left"
@@ -476,14 +485,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.applicant?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.beneficiary ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.beneficiary ? (
                       <tr>
                         <td
                           align="left"
@@ -535,14 +544,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.currecyCodeAndAmountValue ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue ? (
                       <tr>
                         <td
                           align="left"
@@ -594,8 +603,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             USD{' '}
-                            {lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                              ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                            {lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                              ? lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                               : 0}
                           </p>
                         </td>
@@ -603,7 +612,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.tolerancePercentage ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.tolerancePercentage ? (
                       <tr>
                         <td
                           align="left"
@@ -656,7 +665,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           >
                             {' '}
                             {addPrefixOrSuffix(
-                              lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString('en-IN', {
+                              lcModuleData.lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString('en-IN', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               }),
@@ -669,7 +678,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.creditAvailablewith ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.creditAvailablewith ? (
                       <tr>
                         <td
                           align="left"
@@ -721,14 +730,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.creditAvailableBy ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.creditAvailableBy ? (
                       <tr>
                         <td
                           align="left"
@@ -780,14 +789,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
+                            {lcModuleData.lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.atSight ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.atSight ? (
                       <tr>
                         <td
                           align="left"
@@ -820,7 +829,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             </span>
                             DRAFT AT
                             <br />
-                            {lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : `NO. OF DAYS`}
+                            {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : `NO. OF DAYS`}
                           </p>
                         </td>
                         <td
@@ -840,15 +849,15 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
-                            {lcModuleData?.lcApplication?.numberOfDays}
+                            {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
+                            {lcModuleData.lcModuleData?.lcApplication?.numberOfDays}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.drawee ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.drawee ? (
                       <tr>
                         <td
                           align="left"
@@ -900,14 +909,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.drawee?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.deferredPayment ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.deferredPayment ? (
                       <tr>
                         <td
                           align="left"
@@ -958,14 +967,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.partialShipment ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.partialShipment ? (
                       <tr>
                         <td
                           align="left"
@@ -1017,14 +1026,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.transhipments ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments ? (
                       <tr>
                         <td
                           align="left"
@@ -1075,14 +1084,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.shipmentForm ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.shipmentForm ? (
                       <tr>
                         <td
                           align="left"
@@ -1134,7 +1143,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
@@ -1143,7 +1152,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     )}
                   </tbody>
                   <tbody>
-                    {lcModuleData && lcModuleData?.lcApplication?.portOfLoading ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.portOfLoading ? (
                       <tr>
                         <td
                           align="left"
@@ -1195,14 +1204,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.portOfDischarge ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.portOfDischarge ? (
                       <tr>
                         <td
                           align="left"
@@ -1253,14 +1262,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.latestDateOfShipment ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.latestDateOfShipment ? (
                       <tr>
                         <td
                           align="left"
@@ -1312,7 +1321,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {moment(lcModuleData?.lcApplication?.latestDateOfShipment?.split('T')[0]).format(
+                            {moment(lcModuleData.lcModuleData?.lcApplication?.latestDateOfShipment?.split('T')[0]).format(
                               'DD-MM-YYYY',
                             )}
                           </p>
@@ -1321,7 +1330,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.DescriptionOfGoods ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.DescriptionOfGoods ? (
                       <tr>
                         <td
                           align="left"
@@ -1373,7 +1382,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
@@ -1396,8 +1405,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                         </h3>
                       </th>
                     </tr>
-                    {lcModuleData &&
-                      lcModuleData?.documentRequired?.map((doc, index) => (
+                    {lcModuleData.lcModuleData &&
+                      lcModuleData.lcModuleData?.documentRequired?.map((doc, index) => (
                         <tr>
                           <td
                             align="left"
@@ -1536,15 +1545,15 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                   lineHeight: '24px',
                                 }}
                               >
-                                {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
-                                  _get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
+                                {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
+                                  _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
                                     .length > 0 &&
                                   Object.keys(
                                     _get(
-                                      lcModule,
+                                      lcModuleData.lcModule,
                                       'data[0].order.generic.productSpecifications.specificationTable',
                                       [],
-                                    )[0],
+                                    ),
                                   ).map((val, index) => (
                                     <th
                                       key={index}
@@ -1557,11 +1566,11 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                     </th>
                                   ))}
                               </tr>
-                              {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
-                                _get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
+                              {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
+                                _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
                                   .length > 0 &&
                                 _get(
-                                  lcModule,
+                                  lcModuleData.lcModule,
                                   'data[0].order.generic.productSpecifications.specificationTable',
                                   [],
                                 ).map((item, index) => (
@@ -1591,8 +1600,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       </>
                     ) : null}
 
-                    {lcModuleData &&
-                      lcModuleData?.additionalConditions?.map((comment, index) => (
+                    {lcModuleData.lcModuleData &&
+                      lcModuleData.lcModuleData?.additionalConditions?.map((comment, index) => (
                         <tr>
                           <td
                             align="left"
@@ -1647,7 +1656,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           </td>
                         </tr>
                       ))}
-                    {lcModuleData && lcModuleData?.lcApplication?.presentaionPeriod ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.presentaionPeriod ? (
                       <tr>
                         <td
                           align="left"
@@ -1699,14 +1708,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.confirmationInstructions ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.confirmationInstructions ? (
                       <tr>
                         <td
                           align="left"
@@ -1758,14 +1767,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.reimbursingBank ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.reimbursingBank ? (
                       <tr>
                         <td
                           align="left"
@@ -1817,14 +1826,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.adviceThroughBank ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.adviceThroughBank ? (
                       <tr>
                         <td
                           align="left"
@@ -1876,14 +1885,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.secondAdvisingBank ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.secondAdvisingBank ? (
                       <tr>
                         <td
                           align="left"
@@ -1935,14 +1944,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.requestedConfirmationParty ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.requestedConfirmationParty ? (
                       <tr>
                         <td
                           align="left"
@@ -1994,14 +2003,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.charges ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.charges ? (
                       <tr>
                         <td
                           align="left"
@@ -2053,14 +2062,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.charges?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.charges?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.instructionToBank ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.instructionToBank ? (
                       <tr>
                         <td
                           align="left"
@@ -2112,14 +2121,14 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
-                    {lcModuleData && lcModuleData?.lcApplication?.senderToReceiverInformation ? (
+                    {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.senderToReceiverInformation ? (
                       <tr>
                         <td
                           align="left"
@@ -2165,7 +2174,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
                           </p>
                         </td>
                       </tr>
