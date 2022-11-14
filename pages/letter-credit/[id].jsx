@@ -549,8 +549,12 @@ function Index() {
                                 clauseArr?.map((clause, index) => (
                                   <tr key={index} className="table_row">
                                     <td>{clause.dropDownValue}</td>
-                                    <td>{getData(clause.existingValue, clause.dropDownValue)} </td>
-                                    <td>{getData(clause.newValue, clause.dropDownValue)}</td>
+                                    <td> {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getData(clause.existingValue, clause.dropDownValue)}  %`
+                                            : getData(clause.existingValue, clause.dropDownValue)}</td>
+                                   <td> {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
+                                            : getData(clause.newValue, clause.dropDownValue)}</td>
                                     <td>
                                       {/* <img
                                         src="/static/mode_edit.svg"
@@ -560,7 +564,7 @@ function Index() {
                                       /> */}
                                       <img
                                         src="/static/delete 2.svg"
-                                        className="img-fluid ml-3 mr-n5"
+                                        className={`${styles.delete_image} border-0 p-0`}
                                         alt="delete"
                                         onClick={() => removeFromArr(clause.dropDownValue)}
                                       />
