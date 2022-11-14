@@ -416,7 +416,7 @@ export default function Home() {
       })
     ) {
       const payload = {
-        vesselId: id,
+        vesselId:sessionStorage.getItem('VesselId') ,
         partShipmentAllowed: partShipmentAllowed,
         vessels: [...list],
       };
@@ -456,8 +456,9 @@ export default function Home() {
   };
 
   const onSaveHandler = async () => {
+    
     const payload = {
-      vesselId: id,
+      vesselId: sessionStorage.getItem('VesselId'),
       partShipmentAllowed: partShipmentAllowed,
       vessels: [...list],
     };

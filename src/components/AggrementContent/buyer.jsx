@@ -55,8 +55,10 @@ function Index(props) {
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   useEffect(() => {
+    console.log(props.internal,"SAdasda")
     if (window) {
-      if (sessionStorage.getItem('Buyer')) {
+      
+        if (sessionStorage.getItem('Buyer')) {
         let savedData = JSON.parse(sessionStorage.getItem('Buyer'));
         let buyer = {
           name: savedData.name || 'Indo German International Private Limited',
@@ -64,8 +66,13 @@ function Index(props) {
         };
         setGstin(savedData.gstin || '');
         setPan(savedData.pan || '');
+        if(savedData.addresses.length>0){
+           setAddressList(savedData.addresses);
+        }else{
+          getAddress(savedData.name,savedData.branchName)
+        }
        
-        setAddressList(savedData.addresses);
+        
         setList(
           savedData.authorisedSignatoryDetails?.length > 0
             ? savedData.authorisedSignatoryDetails
@@ -80,7 +87,7 @@ function Index(props) {
                 },
               ],
         );
-
+         
         setBuyerData(buyer);
         let tempArr = savedData?.authorisedSignatoryDetails;
         let optionArray = [...options];
@@ -101,12 +108,15 @@ function Index(props) {
         };
         setGstin(props?.data.gstin || '');
         setPan(props?.data.pan || '');
-        // if (props?.data?.branch == 'Delhi') {
-        //   setGstin('07AAACI3028D1Z4');
-        // } else if (props?.data?.branch == 'Andhra Pradesh') {
-        //   setGstin('37AAACI3028D2Z0');
-        // }
-        setAddressList(props?.data.addresses);
+      
+        if(props?.data.addresses.length>0){
+           setAddressList(props?.data.addresses);
+        }else{
+          getAddress(props?.data.name,props?.data.branchName)
+        }
+     
+        
+        
         setList(
           props?.data?.authorisedSignatoryDetails.length > 0
             ? props?.data?.authorisedSignatoryDetails
@@ -136,8 +146,9 @@ function Index(props) {
         });
         setOptions([...optionArray]);
       }
+     
     }
-  }, [props]);
+  }, [props,props.internal]);
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Buyer') {
@@ -166,7 +177,22 @@ function Index(props) {
       props.updateData('Buyer', data);
     }
   }, [props.saveData, props.submitData]);
+  
+ const onEdit = (index) => {
+    let tempArr = list;
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          setRemovedOption(obj.name);
+          return { ...obj, actions: 'false' };
+        }
+        // 👇️ otherwise return object as is
+        return obj;
+      });
 
+      return newState;
+    });
+  };
 
   const onEditRemove = (index, value) => {
     setList((prevState) => {
@@ -389,11 +415,10 @@ function Index(props) {
     setAddressType('Registered');
   };
   const [branchOptions, setBranchOptions] = useState([]);
-  useEffect(() => {
-    console.log( buyerData?.branchName,"buyerData?.branchName",buyerData?.name)
-    if (buyerData?.name || buyerData?.branchName) {
+ useEffect(() => {
+   if (buyerData.name || buyerData.branchName) {
       let filter;
-    
+     console.log(props.internal,"props.internal")
       if (buyerData.name == 'Indo German International Private Limited') {
         setShotName('IGIPL');
 
@@ -404,6 +429,49 @@ function Index(props) {
         });
         let otherData = props.internal.filter((val) => {
           if (val.Branch == buyerData.branchName) {
+            return val;
+          }
+        });
+
+      }
+      if (buyerData.name == 'Emergent Industrial Solution Limited') {
+        setShotName('EISL');
+
+        filter = props.internal.filter((val) => {
+          console.log(val.Company_Name,"val.Company_Name")
+          if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+            return val;
+          }
+        });
+        let otherData = filter.filter((val) => {
+          if (val.Branch == buyerData.branchName ) {
+            return val;
+          }
+        });
+      
+
+       
+
+      }
+
+      setBranchOptions([...filter]);
+    }
+ },[props.internal])
+ const getAddress = (name , branch) => {
+  console.log(name , branch,props.internal,"name , branch")
+   if (name || branch) {
+      let filter;
+     console.log(props.internal,"props.internal")
+      if (name == 'Indo German International Private Limited') {
+        setShotName('IGIPL');
+
+        filter = props.internal.filter((val) => {
+          if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
+            return val;
+          }
+        });
+        let otherData = props.internal.filter((val) => {
+          if (val.Branch == branch) {
             return val;
           }
         });
@@ -452,7 +520,7 @@ function Index(props) {
           setPan('');
         }
       }
-      if (buyerData.name == 'Emergent Industrial Solution Limited') {
+      if (name == 'Emergent Industrial Solution Limited') {
         setShotName('EISL');
 
         filter = props.internal.filter((val) => {
@@ -462,11 +530,11 @@ function Index(props) {
           }
         });
         let otherData = filter.filter((val) => {
-          if (val.Branch == buyerData.branchName ) {
+          if (val.Branch == branch ) {
             return val;
           }
         });
-        console.log(otherData,"otherData",buyerData.name)
+        console.log(otherData,"otherData",name)
 
         if (otherData.length > 0) {
           setGstin(otherData[0].GSTIN);
@@ -510,51 +578,12 @@ function Index(props) {
           setGstin('');
           setPan('');
         }
-        // if (buyerData.branchName == 'Delhi') {
-        //   setGstin('07AAACS8253L1Z0');
-        //   setAddressList([
-        //     {
-        //       addressType: 'Registered',
-        //       fullAddress: '8B, SAGAR, 6 TILAK MARG',
-        //       pinCode: '110001',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'DELHI',
-        //       city: 'NEW DELHI',
-        //     },
-        //   ]);
-        // } else if (buyerData.branchName == 'Vizag') {
-        //   setGstin('37AAACS8253L1ZX');
-        //   setAddressList([
-        //     {
-        //       addressType: 'Registered',
-        //       fullAddress: '8B, SAGAR, 6 TILAK MARG',
-        //       pinCode: '110001',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'DELHI',
-        //       city: 'NEW DELHI',
-        //     },
-        //     {
-        //       addressType: 'Branch',
-        //       fullAddress:
-        //         '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM',
-        //       pinCode: '530016',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: ' ANDHRA PRADESH',
-        //       city: 'VISAKHAPATNAM',
-        //     },
-        //   ]);
-        // } else {
-        //   setGstin('');
-        // }
+
       }
 
       setBranchOptions([...filter]);
     }
-  }, [buyerData.name, buyerData.branchName, props.internal]);
-
+ }
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -570,6 +599,7 @@ function Index(props) {
                   value={buyerData.name}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value);
+                    getAddress(e.target.value,buyerData.branchName)
                   }}
                 >
                   <option>Select an option</option>
@@ -606,6 +636,7 @@ function Index(props) {
              
                     setBranchOptions([...filter]);
                     handleInput(e.target.name, e.target.value);
+                      getAddress(buyerData.name,e.target.value)
                   }}
                 >
                   <option>Select an option</option>
@@ -658,7 +689,7 @@ function Index(props) {
         {isEdit == false && (
          addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,"noBranch")
         )}
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );
