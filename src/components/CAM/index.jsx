@@ -1535,7 +1535,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
           <span>+</span>
         </div>
         <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">
-          <div className={`${styles.order_wrapper} card-body`}>
+          <div className={`${styles.order_wrapper} ${styles.debt_profile} card-body`}>
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={`${styles.label} d-flex justify-content-between align-content-center  `}>
@@ -1548,14 +1548,14 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     })}
                   </span>
                 </div>
-                <div className={`${styles.bar}`}>
+                <div className={`${styles.bar} mb-4`}>
                   <div className={`${styles.fill}`} style={{ width: '100%' }}></div>
                 </div>
 
                 {camData &&
                   camData?.company?.debtProfile?.map((debt, index) => (
                     <>
-                      <div className={`mt-4 mb-4`} key={index}>
+                      <div className={`${styles.box}`} key={index}>
                         <div className={`${styles.label} d-flex justify-content-between align-content-center  `}>
                           <div className={`${styles.limit_box} `}>
                             <span className={`${styles.limit_label} text-uppercase`}>{debt.bankName}</span>
@@ -1567,16 +1567,6 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           </span>
                         </div>
                         <div className={`${styles.bar} ${styles.small_bar}`}>
-                          <span
-                            className={`${styles.conduct}  
-                   `}
-                            style={{
-                              color: ` 
-                      ${debtProfileColor(debt.conduct)}`,
-                            }}
-                          >
-                            {debt.limitType}
-                          </span>
                           <div
                             style={{
                               backgroundColor: `${debtProfileColor(debt.conduct)}`,
@@ -1588,6 +1578,15 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                             className={`${styles.fill}`}
                           ></div>
                         </div>
+                        <span
+                          className={`${styles.conduct}`}
+                          style={{
+                            color: ` 
+                          ${debtProfileColor(debt.conduct)}`,
+                          }}
+                        >
+                          {debt.limitType}
+                        </span>
                       </div>
                     </>
                   ))}

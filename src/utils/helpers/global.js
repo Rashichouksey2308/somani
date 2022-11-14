@@ -46,6 +46,7 @@ export const returnReadableNumber = (number, locales = undefined, maximum = 0, m
       minimumFractionDigits: minimum
     })
   }
+  return ''
 }
 
 /**

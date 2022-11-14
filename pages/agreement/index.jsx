@@ -19,6 +19,8 @@ function Index() {
     setPreview(val);
   };
   const [name, setName] = useState('');
+  const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+  console.log(data,'agreement')
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -170,7 +172,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">
                   <div className="accordion shadow-none" id="inspectionDocument">
-                    <InspectionDocument documentName="Sales Agreement" isOpen="false" setLcDoc />
+                    <InspectionDocument orderId={data?.order?._id} module='Agreements&Insurance&LC&Opening'  documentName="Sales Agreement" isOpen="false" setLcDoc />
                   </div>
                 </div>
               </div>

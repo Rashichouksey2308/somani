@@ -66,6 +66,10 @@ function Index({
 
   const clearData = () => {
     document.getElementById('ReviewProfileForm').reset();
+    // let tempArr = [...fields]
+    // tempArr.forEach((item)=> {
+    //   return item.isEdit = true
+    // })
   };
 
   const handleCheckBox = (index, name) => {

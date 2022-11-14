@@ -775,7 +775,7 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6 d-flex`}>
-              <div className={`${styles.value} input form-control w-25 disable border-right-0 rounded-left pt-3`}>
+              <div className={`${styles.value} input form-control w-25 disable d-flex align-items-center border-right-0 rounded-left`}>
                 {addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase())}
               </div>
               <input

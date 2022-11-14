@@ -76,6 +76,12 @@ export const predictiveSearch = (text) => {
   return regex.test(text);
 };
 
+export const checkForPlusSign = (text) => {
+  let regex = /[^a-zA-Z0-9 ]/g;
+  return regex.test(text);
+};
+
+
 /**
  * If the date is greater than today, return true.
  * @param date - The date to check
@@ -165,8 +171,6 @@ export const addPrefixSymbol = (symbol = '') => {
 export const crConverter = (amount = 0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
   maximumFractionDigits: 2,
 })} Cr`
-
-
 export const specialCharCheck = (val) => {
   let reg = /^[a-zA-Z0-9]{4,10}$/
   return reg.test(val)
