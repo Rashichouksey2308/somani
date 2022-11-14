@@ -344,7 +344,19 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex">
+            <input
+                id="lcOpeningBank"
+                className={`${styles.value} ${styles.marginPercent} input form-control`}
+                type="text"
+                value={termsheetDetails?.transactionDetails?.lcOpeningBank}
+                onChange={onChangeTransactionDetails}
+                required
+              />
+
+              <label className={`${styles.label} label_heading`}>
+              LC Opening Bank<strong className="text-danger">*</strong>
+              </label>
+              {/* <div className="d-flex">
                 <select
                   id="lcOpeningBank"
                   className={`${styles.value} ${styles.customSelect} 
@@ -364,7 +376,7 @@ const Index = ({
                   LC Opening Bank<strong className="text-danger">*</strong>
                 </label>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
-              </div>
+              </div> */}
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
