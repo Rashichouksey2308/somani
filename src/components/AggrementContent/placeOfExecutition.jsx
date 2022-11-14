@@ -196,7 +196,7 @@ function Index(props) {
                                       index={index}
                                     />
                                     <img
-                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                       src="/static/caldericon.svg"
                                       alt="Search"
                                     />
