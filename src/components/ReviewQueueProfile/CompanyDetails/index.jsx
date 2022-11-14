@@ -147,7 +147,7 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.numberOfShareholders}
+                  {companyDetail?.profile?.shareholdingPattern?.length ?? companyDetail?.profile?.companyDetail?.numberOfShareholders }
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -216,6 +216,7 @@ function Index({ order, companyDetail }) {
                     <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
                     <option value="Customs Associate"> Customs Associate</option>
+                    <option value="Internal Associate"> Internal Associate</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Sourcing Channel
