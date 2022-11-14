@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -48,11 +49,11 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
               className={`${styles.options} accordion_DropDown`}
               name="unitOfQuantity"
               onChange={(e) => {
-                console.log(e.target.value,"Ssdd")
+                console.log(e.target.value, "Ssdd")
                 saveOrderData(e.target.name, e.target.value);
               }}
             >
-              <option value= "">Select</option>
+              <option value="">Select</option>
               <option selected value="MT">
                 MT
               </option>
@@ -68,7 +69,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
               style={{ paddingRight: '0px' }}
             >
-               <option value= "">Select</option>
+              <option value="">Select</option>
               <option value="Crores" selected>
                 Crores
               </option>
@@ -133,15 +134,15 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                       <ul>
                         {toShow
                           ? toShow?.map((results, index) => (
-                              <li
-                                onClick={() => handleData('commodity', results.Commodity)}
-                                id={results._id}
-                                key={index}
-                                value={results.Commodity}
-                              >
-                                {results.Commodity}{' '}
-                              </li>
-                            ))
+                            <li
+                              onClick={() => handleData('commodity', results.Commodity)}
+                              id={results._id}
+                              key={index}
+                              value={results.Commodity}
+                            >
+                              {results.Commodity}{' '}
+                            </li>
+                          ))
                           : ''}
                       </ul>
                     </div>
@@ -168,7 +169,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   value={
                     isFieldInFocus.quantity
                       ? orderData.quantity
-                      : Number(orderData.quantity).toLocaleString('en-In') + ` ${orderData.unitOfQuantity}`
+                      : returnReadableNumber(orderData.quantity, 'en-In', 2) + ` ${orderData.unitOfQuantity}`
                   }
                   name="quantity"
                   onChange={(e) => {
@@ -195,14 +196,13 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   value={
                     isFieldInFocus.orderValue
                       ? orderData.orderValue
-                      : Number(orderData.orderValue).toLocaleString('en-In') +
-                        ` ${
-                          orderData.unitOfValue == 'Crores'
-                            ? 'Cr'
-                            : orderData.unitOfValue == 'Million'
-                            ? 'Mn'
-                            : orderData.unitOfValue
-                        }`
+                      : returnReadableNumber(orderData.orderValue,'en-In',2).toLocaleString('en-In') +
+                      ` ${orderData.unitOfValue == 'Crores'
+                        ? 'Cr'
+                        : orderData.unitOfValue == 'Million'
+                          ? 'Mn'
+                          : orderData.unitOfValue
+                      }`
                   }
                   name="orderValue"
                   onChange={(e) => {
@@ -272,10 +272,10 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     isFieldInFocus.tolerance
                       ? orderData.tolerance
                       : '± ' +
-                        Number(orderData.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) +
-                        ' %'
+                      Number(orderData.tolerance)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }) +
+                      ' %'
                   }
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -354,7 +354,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     <option selected>Select an option</option>
                     {port
                       .filter((val, index) => {
-                        if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                        if (val.Country.toLowerCase() == 'india' && val.Approved == "YES") {
                           return val;
                         }
                       })
