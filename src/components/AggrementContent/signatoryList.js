@@ -10,6 +10,7 @@ export const signatoryList = (
   onEditRemove,
   handleRemove,
   addMoreRows,
+  onEdit,
   type,
 ) => {
   return (

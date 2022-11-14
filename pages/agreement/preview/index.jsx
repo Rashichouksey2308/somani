@@ -16,6 +16,7 @@ import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipA
 import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
+import TPASellerPreview from '../../../src/templates/SalesContractPreview';
 
 function index() {
   const [data, setData] = useState({
@@ -165,8 +166,8 @@ function index() {
         unitPrice: data.order?.perUnitPrice,
         tradeMargin: data.order?.termsheet?.commercials?.tradeMarginPercentage,
         deliveryTerm: data.deliveryTerms.deliveryTerm,
-        totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
-        advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
+        totalPrice: data?.order?.marginMoney?.calculation?.orderValue,
+        advanceMoney: data?.order?.termsheet?.transactionDetails?.marginMoney,
         orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
         paymentTerm: data.deliveryTerms.paymentTerms,
         cheque: data.deliveryTerms?.cheque || [],
