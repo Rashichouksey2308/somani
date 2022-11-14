@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
@@ -9,20 +9,30 @@ import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
+import FilterBadge from '../../src/components/FilterBadge';
+import QueueStats from '../../src/components/QueueStats';
+import Table from '../../src/components/Table';
+import QueueStatusSymbol from "../../src/components/QueueStatusSymbol";
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(10);
   const dispatch = useDispatch();
 
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
 
+  const [open, setOpen] = useState(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`));
-  }, [dispatch, currentPage]);
+    dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
+  }, [dispatch, currentPage, pageLimit]);
 
   useEffect(() => {
     dispatch(setPageName('leads'));
@@ -71,6 +81,47 @@ function Index() {
     }
   };
 
+  const statData = {
+    'all': allBuyerList?.data?.totalCount,
+    'approved': allBuyerList?.data?.approved,
+    'review': allBuyerList?.data?.reviewed,
+    'rejected': allBuyerList?.data?.rejected,
+    'pending': allBuyerList?.data?.pending
+  }
+
+  const tableColumns = useMemo(() => [
+    {
+      Header: "Customer Id",
+      accessor: "company.customerId",
+    },
+    {
+      Header: "Buyer Name",
+      accessor: "company.companyName",
+      Cell: ({ cell: { value }, row: { original } }) => <span onClick={() => { handleRoute(original) }} className="font-weight-bold text-primary">{value}</span>
+    },
+    {
+      Header: "Created By",
+      accessor: "createdBy.userRole",
+      Cell: ({ value }) => value ? value : 'RM'
+    },
+    {
+      Header: "Username",
+      accessor: "createdBy.fName"
+    },
+    {
+      Header: "Existing Customer",
+      accessor: "existingCustomer",
+      Cell: ({ value }) => {
+        return value ? 'Yes' : 'No'
+      }
+    },
+    {
+      Header: "Status",
+      accessor: "queue",
+      Cell: ({ value }) => <QueueStatusSymbol status={value} />
+    }
+  ])
+
   return (
     <>
       {' '}
@@ -104,6 +155,12 @@ function Index() {
               )}
             </div>
             <Filter />
+
+            {open && <FilterBadge label="Bhutani Traders" onClose={handleClose} />}
+            <FilterBadge label="Aluminium" />
+            <FilterBadge label="Approved" />
+            <FilterBadge label="15437556" />
+
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -125,162 +182,24 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <div className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}>
-            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
-                </div>
-                <h3>
-                  <span> All </span>
-                  3,200
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/check.svg" className="img-fluid" alt="Check" />
-                </div>
-                <h3>
-                  <span>APPROVED</span>
-                  780
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
-                </div>
-                <h3>
-                  <span>REVIEW</span>
-                  800
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-                </div>
-                <h3>
-                  <span>REJECTED</span>
-                  89
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/bookmark.svg" className="img-fluid" alt="Bookmark" />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
-          </div>
-          {/*leads table*/}
-          <div className={`${styles.datatable} border datatable card`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">Leads</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div>
-            </div>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <thead>
-                    <tr className="table_row">
-                      <th>
-                        CUSTOMER ID{' '}
-                        <img className={`mb-1`} src="/static/icons8-sort-24.svg" onClick={() => handleSort()} />
-                      </th>
-                      <th>BUYER NAME</th>
-                      <th>CREATED BY</th>
-                      <th>USERNAME</th>
-                      <th>EXISTING CUSTOMER</th>
-                      <th>STATUS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allBuyerList &&
-                      allBuyerList.data?.data?.map((buyer, index) => (
-                        <tr key={index} className={`${styles.table_row} table_row`}>
-                          <td>
-                            {buyer?.company?.customerId
-                              ? buyer?.company?.customerId
-                              : buyer?.company?.temporaryCustomerId}
-                          </td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer);
-                            }}
-                          >
-                            {buyer.company.companyName}
-                          </td>
-                          <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
-                          <td>{buyer.createdBy.fName}</td>
-                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
-                            ></span>
+          <QueueStats data={statData} />
 
-                            {buyer.queue === 'Rejected'
-                              ? 'Rejected'
-                              : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          {/*leads table*/}
+          {
+            allBuyerList?.data?.data &&
+            (
+              <Table
+                tableHeading="Leads"
+                currentPage={currentPage}
+                totalCount={allBuyerList?.data?.totalCount}
+                setCurrentPage={setCurrentPage}
+                columns={tableColumns}
+                data={allBuyerList?.data?.data}
+                pageLimit={pageLimit}
+                setPageLimit={setPageLimit}
+              />
+            )
+          }
         </div>
       </div>
     </>
