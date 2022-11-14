@@ -66,10 +66,16 @@ function Index({
 
   const clearData = () => {
     document.getElementById('ReviewProfileForm').reset();
-    // let tempArr = [...fields]
-    // tempArr.forEach((item)=> {
-    //   return item.isEdit = true
-    // })
+    let inputs = document.querySelectorAll('#checkBoxId');
+    inputs.forEach((item)=> item.checked = false)
+    let tempArr = [...fields]
+    tempArr.forEach((item)=> {
+      return item.isEdit = true
+    })
+    setFields(tempArr)
+    setPayloadData({
+      action: 'APPROVE',
+    })
   };
 
   const handleCheckBox = (index, name) => {
@@ -124,6 +130,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.transactionType?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(0, 'transactionType')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -150,6 +157,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.typeOfBusiness?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(1, 'typeOfBusiness')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -176,6 +184,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(2, 'turnOver')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -224,6 +233,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse ? (
                       <input
+                      id='checkBoxId'
                         onChange={(e) => handleCheckBox(3, 'commodity')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -276,6 +286,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.orderValue?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(4, 'orderValue')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -327,6 +338,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(5, 'countryOfOrigin')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -380,6 +392,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(6, 'portOfDischarge')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -445,6 +458,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(7, 'ExpectedDateOfShipment')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -498,7 +512,8 @@ function Index({
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                         <input
-                          onChange={(e) => handleCheckBox(8, 'ExpectedDateOfShipment')}
+                          id='checkBoxId'
+                        onChange={(e) => handleCheckBox(8, 'ExpectedDateOfShipment')}
                           className={styles.checkBox}
                           type="checkbox"
                         />

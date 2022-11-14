@@ -246,7 +246,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  const id = sessionStorage.getItem('docFetchID')
+  const id = sessionStorage.getItem('orderID')
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {

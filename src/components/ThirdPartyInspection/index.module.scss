@@ -390,9 +390,9 @@
           }
 
           @include respond(lg-desktop) {
-            top: 22px;
+            top: 15px;
             font-size: 14px;
-            line-height: 16px;
+            line-height: 14px;
             transform: translateY(-22px);
           }
         }
@@ -410,9 +410,10 @@
           border-radius: 4px;
           position: relative;
           box-sizing: border-box;
+          white-space: nowrap;
           letter-spacing: 0.19px;
+          cursor: pointer;
           padding: 13px 30px 13px 17px;
-
           &:invalid + label {
             transform: translateY(0);
           }
@@ -420,6 +421,9 @@
           &:focus {
             & + label {
               transform: translateY(-30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-22px);
+              }
             }
           }
 

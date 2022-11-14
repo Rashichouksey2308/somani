@@ -156,7 +156,8 @@ const index = ({
 
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const unique = [...new Set(filtered.map((item) => item.nameOfChargeHolder))];
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
   };

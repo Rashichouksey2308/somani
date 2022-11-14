@@ -493,9 +493,9 @@
           }
 
           @include respond(lg-desktop) {
-            top: 14px;
+            top: 15px;
             font-size: 14px;
-            line-height: 15px;
+            line-height: 14px;
             transform: translateY(-22px);
           }
         }

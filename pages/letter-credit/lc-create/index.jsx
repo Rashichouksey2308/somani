@@ -32,6 +32,8 @@ function Index() {
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
+
+  console.log(lcData,'lcData')
   useEffect(() => {
     dispatch(setPageName('Lc'));
 

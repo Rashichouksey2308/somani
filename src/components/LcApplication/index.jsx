@@ -159,32 +159,18 @@ function Index({
                         <label className={`${styles.label_heading} label_heading`}>(31D) Place Of Expiry</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <div className="d-flex">
-                          <select
-                            name="lcIssuingBank"
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
-                            }}
-                            value={
-                              lcData?.lcIssuingBank
-                               
-                            }
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            <option value="First Class European Bank">First Class European Bank</option>
-                            <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                            <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                          </select>
-                          <label className={`${styles.label_heading} label_heading`}>(51D) LC Issuing Bank</label>
-                          <img
-                            className={`${styles.arrow}  image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
+                      <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="text"
+                          name="lcIssuingBank"
+                          value={lcData?.lcIssuingBank}
+                          onChange={(e) => {
+                            saveLcData(e.target.name, e.target.value);
+                          }}
+                        />
+                        <label className={`${styles.label_heading} label_heading`}>(51D) LC Issuing Bank</label>
+                
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
@@ -234,6 +220,7 @@ function Index({
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          onWheel={(event) => event.currentTarget.blur()}
                           onFocus={(e) => {
                             setIsFieldInFocus({
                               ...isFieldInFocus,
@@ -273,6 +260,7 @@ function Index({
                           required
                           type="text"
                           name="tolerancePercentage"
+                          onWheel={(event) => event.currentTarget.blur()}
                           onFocus={(e) => {
                             setIsFieldInFocus({
                               ...isFieldInFocus,
