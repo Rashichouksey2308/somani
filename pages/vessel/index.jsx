@@ -29,9 +29,10 @@ export default function Home() {
 
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  let id = sessionStorage.getItem('VesselId');
 
   const fetchInitialData = async () => {
-    let id = sessionStorage.getItem('VesselId');
+   
     const data = await dispatch(GetVessel(`?vesselId=${id}`));
 
     setData(data);
