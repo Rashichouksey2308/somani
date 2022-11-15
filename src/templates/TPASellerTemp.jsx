@@ -142,7 +142,7 @@ export default function TPASeller(data) {
               Name of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyer}
+              {data.associateBuyer}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -150,11 +150,8 @@ export default function TPASeller(data) {
               Address of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "}
-              {data.buyerAddress?.country},{" "}
-
-              {data.buyerAddress?.pinCode}
+              {data.associateBuyerAddress}
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
