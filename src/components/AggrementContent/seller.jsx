@@ -38,7 +38,7 @@ function Index(props) {
     city: '',
   });
   const [options, setOptions] = useState(['Devesh Jain']);
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
+ 
   const [docList, setDocList] = useState([]);
 
   const [addressType, setAddressType] = useState('Registered');
@@ -98,7 +98,7 @@ function Index(props) {
             }
           }
         });
-        setOptions([...optionArray]);
+    
       } else {
         let buyer = {
           name: props?.data?.name,
@@ -151,7 +151,7 @@ function Index(props) {
             }
           }
         });
-        setOptions([...optionArray]);
+        
       }
     }
   }, [props]);
@@ -209,15 +209,7 @@ function Index(props) {
 
       return newState;
     });
-    let temp = [...options];
-    var indexOption = temp.indexOf(value.name);
-
-   
-    if (indexOption !== -1) {
-      temp.splice(indexOption, 1);
-    }
-
-    setOptions([...temp]);
+ 
   };
   const addMoreRows = () => {
     setList([
@@ -345,15 +337,16 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+  const handleEditAddressInput = (index,addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
-
+  
+    setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: val.addressType,
+          addressType: addresstype,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -364,6 +357,7 @@ function Index(props) {
       }
     });
   };
+  console.log(EditAddress,"EditAddress")
   const editNewAddress = (name, value) => {
     setIsEdit(true);
     const newInput = { ...EditAddress };
@@ -381,6 +375,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress, false)) {
@@ -560,10 +556,14 @@ function Index(props) {
                                         }}
                                       >
                                         <option>Select an option</option>
-                                       
-                                        {options.map((val, i) => {
+                                      {list.length==0 || list.length==1?
+                                       options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
-                                        })}
+                                        })
+                                      :
+                                      null
+                                      }
+                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}

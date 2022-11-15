@@ -227,7 +227,7 @@ export default function AssignmentLetter(data) {
               Month of loading of Cargo
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.loadingCargo}
+              {data?.loadingCargo2}
             </Col>
           </Row>
           <Row className={`${styles.row} ${styles.last}`}>

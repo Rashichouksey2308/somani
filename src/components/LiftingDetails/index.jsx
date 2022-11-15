@@ -31,7 +31,7 @@ export default function Index(props) {
     let text = d.toISOString();
     props.handleChange(name, value, index, index2);
   };
-
+ console.log(props.liftingData,"liftingData")
   const uploadDoc = async (e, type, index1, index2) => {
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
@@ -69,9 +69,11 @@ export default function Index(props) {
     }
     return returned;
   };
-  const getIndex = (index) => {
-    return index + 1;
+ const getIndex = (index) => {
+    let sno=index
+    return sno + 1;
   };
+  
   return (
     <>
       {/* <div className={`${styles.dashboardTab} w-100`}> */}
@@ -176,6 +178,7 @@ export default function Index(props) {
               )}
             </div>
           </div>
+          
           {props.liftingData &&
             props.liftingData.map((val, index) => {
               return (
@@ -215,6 +218,7 @@ export default function Index(props) {
                     data-parent={`#upload${index}`}
                   >
                     {val.detail.map((val2, index2) => {
+                     { console.log(val2,"val2")}
                       return (
                         <div className={`${styles.dashboard_form} mt-3 card-body`}>
                           <div className={`${styles.bill_landing} border_color`}>
@@ -223,12 +227,7 @@ export default function Index(props) {
                                 <div className={`${styles.form_heading}`}>Listing Details {getIndex(index2)}</div>
                                 {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity) >= 0 && (
                                   <>
-                                    {/* <button
-                                    className={styles.add_btn}
-                                   
-                                  >
-                                    Add
-                                  </button> */}
+                                 
                                     <div className={`d-flex `}>
                                       <button
                                         onClick={(e) => {
@@ -315,17 +314,18 @@ export default function Index(props) {
                                       Mode of Transportation
                                       <strong className="text-danger">*</strong>
                                     </div>
-                                    {['radio'].map((type, index) => (
+                                    {console.log(val.detail[index2]?.modeOfTransportation,"val2?.modeOfTransportation")}
+                                 
                                       <div key={index} className={styles.radio_group}>
                                         <Form.Check
                                           className={styles.radio}
                                           inline
                                           label="RR"
                                           name="modeOfTransportation"
-                                          type={type}
-                                          id={`inline-${type}-1`}
+                                          type={"radio"}
+                                          id={`inline-${"radio"}-${index}-${index2}-RR`}
                                           value={'RR'}
-                                          checked={val2?.modeOfTransportation === 'RR' ? true : false}
+                                          checked={val2?.modeOfTransportation == 'RR' ? "checked" : ''}
                                           onChange={(e) => {
                                             props.handleChange(e.target.name, e.target.value, index, index2);
                                           }}
@@ -335,16 +335,16 @@ export default function Index(props) {
                                           inline
                                           label="LR"
                                           name="modeOfTransportation"
-                                          type={type}
-                                          id={`inline-${type}-2`}
+                                          type={"radio"}
+                                          id={`inline-${"radio"}-${index}-${index2}-LR`}
                                           value={'LR'}
-                                          checked={val2.modeOfTransportation !== 'RR' ? true : false}
+                                          checked={val2.modeOfTransportation == 'LR' ? "checked" : ''}
                                           onChange={(e) => {
                                             props.handleChange(e.target.name, e.target.value, index, index2);
                                           }}
                                         />
                                       </div>
-                                    ))}
+                                    
                                   </div>
                                 </div>
                                 {val2.modeOfTransportation === 'checked' ? (

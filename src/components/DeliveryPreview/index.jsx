@@ -18,8 +18,9 @@ function Index() {
   const [quantity, setQuantity] = useState(0);
   const [balanceQuantity, setbalanceQuantity] = useState(0);
   const [releasedQuantity, setreleasedQuantity] = useState(0);
+   const [signatoryList, setSignatoryList] = useState([]);
   const DeliveryNo = sessionStorage.getItem('dono');
-
+   
   const { ReleaseOrderData } = useSelector((state) => state.Release);
 
   useEffect(() => {
@@ -47,9 +48,35 @@ function Index() {
 
         setreleasedQuantity(balance);
         setbalanceQuantity(Number(number) - Number(balance));
+
+        let sig=[];
+        _get(ReleaseOrderData, 'data[0].order.generic.buyer.authorisedSignatoryDetails').forEach((val, index) => {
+          sig.push([val.name]);
+        });
+        setSignatoryList([...sig])
       }
     }
   }, [ReleaseOrderData]);
+   const [emailAdd, setEmailAdd] = useState([{ emailID: '' }]);
+  const [insuranceAdd, setinsuranceAdd] = useState([{ insurance: '' }]);
+
+  const addMoreRows = (val) => {
+    if (val == 'email') {
+      setEmailAdd([
+        ...emailAdd,
+        {
+          emailID: '',
+        },
+      ]);
+    } else {
+      setinsuranceAdd([
+        ...insuranceAdd,
+        {
+          insurance: '',
+        },
+      ]);
+    }
+  };
   return (
     <>
       <div className={`${styles.root} card container-fluid`}>
@@ -214,9 +241,18 @@ function Index() {
             </p>
             <div>
               <p className={`${styles.bold}`}>Authorised Signatory</p>
-              <select>
-                <option>Vipin Rajput</option>
-              </select>
+               <select>
+                 <option>Select an Option</option>
+                {
+                signatoryList.length>0?
+                 signatoryList.map((val,index)=>{
+                  return(
+                    <option value={val}>{val}</option>
+                  )
+                 })  :null
+                }
+                </select>
+             
             </div>
           </div>
         </div>
@@ -296,7 +332,10 @@ function Index() {
                     role="tabpanel"
                     aria-labelledby="email-address"
                   >
-                    <div className={`${styles.each_input} form-group`}>
+                    {emailAdd.map((val,index)=>{
+                      return(
+                        <>
+                        <div className={`${styles.each_input} form-group`}>
                       <div className="d-flex">
                         <select
                           id="email"
@@ -319,33 +358,14 @@ function Index() {
                         />
                       </div>
                     </div>
-                    <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
-                          id="email"
-                          name="email"
-                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                          selected
-                        >
-                          <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                          htmlFor="email"
-                        >
-                          Email
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
+                        </>
+                      )
+                    })}
+                  
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows();
+                         addMoreRows('email');
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -363,7 +383,10 @@ function Index() {
                     </div>
                   </div>
                   <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
-                    <div className={`${styles.each_input} ${styles.phone} form-group`}>
+                    {insuranceAdd.map((val,index)=>{
+                      return(
+                        <>
+                        <div className={`${styles.each_input} ${styles.phone} form-group`}>
                       <div className={styles.phone_card}>
                         <select
                           name="callingCode"
@@ -389,6 +412,9 @@ function Index() {
                         </label>
                       </div>
                     </div>
+                        </>
+                      )
+                    })}
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
@@ -396,7 +422,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows();
+                        addMoreRows('number');
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
