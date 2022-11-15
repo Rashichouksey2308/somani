@@ -237,7 +237,169 @@ const Index = () => {
       });
     }
   }, [isInsurerSameData]);
-
+ 
+  const marineValidation=()=>{
+    console.log( marineData.nameOfInsurer,"marineData")
+     let toastMessage = '';
+           if (
+         marineData.policyNumber == '' ||  marineData.policyNumber == undefined || 
+         marineData.policyNumber == null
+      ) {
+       
+        toastMessage = 'PLEASE ADD marine policy number';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+        if (
+         marineData.nameOfInsurer == '' ||  marineData.nameOfInsurer == undefined || 
+         marineData.nameOfInsurer == null
+      ) {
+         console.log("asdasdasdasd")
+        toastMessage = 'PLEASE ADD  marine name Of Insurer';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+         if (
+         marineData.nameOfInsured == '' ||  marineData.nameOfInsured == undefined || 
+         marineData.nameOfInsured == null
+      ) {
+        toastMessage = 'PLEASE ADD  marine name Of Insured';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+      
+          if (
+         marineData.gstOfInsured == '' ||  marineData.gstOfInsured == undefined || 
+         marineData.gstOfInsured == null
+      ) {
+        toastMessage = 'PLEASE ADD  marine gst Of Insured';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         marineData.insuranceFrom == '' ||  marineData.insuranceFrom == undefined || 
+         marineData.insuranceFrom == null
+      ) {
+        toastMessage = 'PLEASE ADD  marine insurance From';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         marineData.insuranceTo == '' ||  marineData.insuranceTo == undefined || 
+         marineData.insuranceTo == null
+      ) {
+        toastMessage = 'PLEASE ADD  marine insurance To';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         marineData.lossPayee == '' ||  marineData.lossPayee == undefined || 
+         marineData.lossPayee == null
+      ) {
+        toastMessage = 'PLEASE ADD  marine loss Payee';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+  }
+  const storageValidation=()=>{
+      console.log(storageData,"storage")
+     let toastMessage = '';
+           if (
+         storageData.policyNumber == '' ||  storageData.policyNumber == undefined || 
+         storageData.policyNumber == null
+      ) {
+        toastMessage = 'PLEASE ADD storage policy number';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+        if (
+         storageData.nameOfInsurer == '' ||  storageData.nameOfInsurer == undefined || 
+         storageData.nameOfInsurer == null
+      ) {
+        toastMessage = 'PLEASE ADD storage name Of Insurer';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         storageData.gstOfInsurer == '' ||  storageData.gstOfInsurer == undefined || 
+         storageData.gstOfInsurer == null
+      ) {
+        toastMessage = 'PLEASE ADD storage gst Of Insurer';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+         if (
+         storageData.nameOfInsured == '' ||  storageData.nameOfInsured == undefined || 
+         storageData.nameOfInsured == null
+      ) {
+        toastMessage = 'PLEASE ADD storage name Of Insured';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+       
+          if (
+         storageData.gstOfInsured == '' ||  storageData.gstOfInsured == undefined || 
+         storageData.gstOfInsured == null
+      ) {
+        toastMessage = 'PLEASE ADD storage gst Of Insured';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         storageData.insuranceFrom == '' ||  storageData.insuranceFrom == undefined || 
+         storageData.insuranceFrom == null
+      ) {
+        toastMessage = 'PLEASE ADD storage insurance From';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         storageData.insuranceTo == '' ||  storageData.insuranceTo == undefined || 
+         storageData.insuranceTo == null
+      ) {
+        toastMessage = 'PLEASE ADD storage insurance To';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+           if (
+         storageData.lossPayee == '' ||  storageData.lossPayee == undefined || 
+         storageData.lossPayee == null
+      ) {
+        toastMessage = 'PLEASE ADD storage loss Payee';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
+        }
+      }
+  }
   const validate = () => {
     let toastMessage = '';
 
@@ -266,6 +428,7 @@ const Index = () => {
           return false;
         }
       }
+      
       if (marineData.insuranceFrom == '' || marineData.insuranceFrom == undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -288,8 +451,11 @@ const Index = () => {
           return false;
         }
       }
+     
+     if(marineValidation()==false){
+      return false
 
-      return true;
+     }
     }
     if (insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance') {
       if (
@@ -330,7 +496,10 @@ const Index = () => {
           return false;
         }
       }
+   if(storageValidation()==false){
+      return false
 
+     }
       if (insuranceDocument.storagePolicyDocument == null) {
         toastMessage = 'Documents are Mandatory';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -338,7 +507,7 @@ const Index = () => {
           return false;
         }
       }
-      return true;
+  
     }
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance') {
       if (
@@ -385,6 +554,14 @@ const Index = () => {
           return false;
         }
       }
+        if(marineValidation()==false){
+        return false
+
+        }
+        if(storageValidation()==false){
+        return false
+
+        }
       if (insuranceDocument.marinePolicyDocument == null || insuranceDocument.storagePolicyDocument == null) {
         toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -392,8 +569,11 @@ const Index = () => {
           return false;
         }
       }
-      return true;
+      
     }
+
+
+     return true;
   };
 
   const handleInsuranceUpdate = async () => {
@@ -575,7 +755,7 @@ const Index = () => {
                               value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option selected disabled>
+                              <option selected value=''>
                                 Select an option
                               </option>
                               {nameOfInsurerArray.map((val,index)=>{
@@ -1000,7 +1180,7 @@ const Index = () => {
                               value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option selected disabled>
+                              <option selected value =''>
                                 Select an option
                               </option>
                               {nameOfInsurerArray.map((val,index)=>{
@@ -1410,7 +1590,7 @@ const Index = () => {
                               value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option selected disabled>
+                              <option selected value =''>
                                 Select an option
                               </option>
                               {nameOfInsurerArray.map((val,index)=>{
@@ -1698,7 +1878,7 @@ const Index = () => {
                               value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option selected disabled>
+                             <option selected value =''>
                                 Select an option
                               </option>
                                {nameOfInsurerArray.map((val,index)=>{

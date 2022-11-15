@@ -197,6 +197,7 @@ function Index() {
 
   const [invoiceData, setInvoiceData] = useState({});
   const [branchOptions, setBranchOptions] = useState([]);
+  console.log(invoiceData,'invoiceData')
 
   const saveData = (name, value, name2, value2, value3, value4,branchType,bankName) => {
     const newInput = { ...invoiceData };
@@ -1684,7 +1685,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerAddress"
-                                value={marginData?.invoiceDetail?.buyerAddress}
+                                value={invoiceData?.buyerAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}

@@ -7,6 +7,8 @@ export const addressLists = (val, index, handleEditAddressInput, onAddressRemove
         <span>{val.addressType} Address</span>
         <div className={`${styles.address_text}`}>
           {val.fullAddress} {val.city} {val.state} {val.country} {val.pinCode}
+          <br></br>
+          {val.gstin ? `GSTIN No- ${val.gstin}` : ''}
         </div>
       </div>
       <div className={`d-flex ${styles.actions} `}>

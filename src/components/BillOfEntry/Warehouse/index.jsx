@@ -78,12 +78,12 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
 
   const onSaveDischarge = async () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails;
-    if (warehouseDetailpayload.quantity === '') {
+    if (warehouseDetailpayload.quantity === '' || warehouseDetailpayload.quantity === undefined|| warehouseDetailpayload.quantity === null) {
       let toastMessage = 'quantity CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else if (warehouseDetailpayload.dateOfStorage === null) {
+      } 
+    } else if (warehouseDetailpayload.dateOfStorage === null || warehouseDetailpayload.dateOfStorage === ''||warehouseDetailpayload.dateOfStorage === undefined) {
       let toastMessage = 'DATE OF STORAGE  CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

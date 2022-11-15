@@ -78,6 +78,8 @@ function Index(props) {
           supplierEmail: data?.buyerEmail,
           endBuyer: data.endBuyer,
           supplier: data?.supplier,
+          associateBuyer: data.associateBuyer,
+          associateBuyerAddress: data.associateBuyerAddress,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -137,6 +139,8 @@ function Index(props) {
           financialBank: '',
           financialAddress: '',
           endBuyer: data.company.companyName,
+          associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
         });
       }
     }

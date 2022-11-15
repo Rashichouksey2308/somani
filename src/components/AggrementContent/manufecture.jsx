@@ -140,7 +140,7 @@ function Index(props) {
                 },
               ],
         );
-
+        console.log(savedData.addresses,"savedData.addresses")
         setAddressList(savedData.addresses);
         setMultiList(savedData.multiPartyAddresses);
         setSupplierState(supplier);
@@ -157,41 +157,51 @@ function Index(props) {
         });
         setOptions([...optionArray]);
 
-        if (props.data?.authorisedSignatoryDetails.length > 0) {
-          let tempArr = props.data?.authorisedSignatoryDetails;
-          let optionArray = [...options];
-          tempArr.forEach((val, index) => {
-            val.actions = 'true';
-            if (tempArr?.length > 0) {
-              let index = optionArray.indexOf(val.name);
-              if (index > -1) {
-                optionArray.splice(index, 1);
-              }
-            }
-          });
-          setOptions([...optionArray]);
-          setList(tempArr);
-        } else {
-          setList([
-            {
-              name: '',
-              designation: '',
-              email: '',
-              phone: '',
-              actions: 'false',
-              addnew: 'false',
-            },
-          ]);
-        }
+      
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
-        setAddressList(props.data?.addresses);
-        setMultiList(props.data?.multiPartyAddresses);
+      
         setSupplierState(supplier);
+      }else{
+        
+        let supplier = {
+          name: props.data.name || props?.order?.supplierName,
+          shortName: props.data.shortName,
+          bankDetails: {
+            bankName: props?.data?.bankDetails?.bankName,
+            accountNo: props?.data?.bankDetails?.accountNo,
+            swiftCode: props?.data?.bankDetails?.swiftCode,
+            city: props.data?.bankDetails?.city,
+          },
+          addresses: props.data.addresses,
+          authorisedSignatoryDetails: props.data.authorisedSignatoryDetails,
+          multiParty: props.data.multiParty,
+          multiPartyName: props.data.multiPartyName,
+          multiPartyAddresses: props.data.multiPartyAddresses,
+        };
+        setList(
+          props.data.authorisedSignatoryDetails?.length > 0
+            ? props.data.authorisedSignatoryDetails
+            : [
+                {
+                  name: '',
+                  designation: '',
+                  email: '',
+                  phone: '',
+                  actions: 'false',
+                  addnew: 'false',
+                },
+              ],
+        );
+        console.log(props.data.addresses,"props.data.addresses")
+        setAddressList(props.data.addresses);
+        setMultiList(props.data.multiPartyAddresses);
+        setSupplierState(supplier);
+       
       }
     }
-  }, [props.data]);
-
+  }, [props]);
+console.log(addressList,"aasdads")
   useEffect(() => {
     if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData);
@@ -563,6 +573,21 @@ function Index(props) {
       city: '',
     });
   };
+   const onEdit = (index) => {
+    let tempArr = list;
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+         
+          return { ...obj, actions: 'false' };
+        }
+        // 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
+  };
 
   return (
     <>
@@ -708,7 +733,7 @@ function Index(props) {
            addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true)
         )}
 
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,"input")}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,"input")}
 
         {props.multiPart == true ? (
           <>

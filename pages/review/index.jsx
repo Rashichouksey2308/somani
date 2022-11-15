@@ -59,6 +59,7 @@ import { McaReportFetch } from '../../src/redux/mcaReport/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { returnReadableNumber } from '@/utils/helpers/global'
 
+
 let alertObj = {
   isShell: 'Shell',
   isCompanyUnderLiquidation: 'Company Under Liquidation',
@@ -1256,6 +1257,8 @@ function Index() {
     openBankChargeChartImg,
     debtProfileColor,
   ) => {
+
+    console.log(camData,'camData')
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -2617,10 +2620,11 @@ function Index() {
                 <td valign="top" style={{ padding: '27px' }}>
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
-                      {camData?.company.groupExposureData?.map((exp, index) => {
-                        let name = exp?.name?.split(' ') ?? 'NA';
+                      {camData?.company?.groupExposureDetail?.map((exp, index) => {
+                        console.log(exp,'Group Exposure Details')
+                        let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td valign="top" width="33.33%">
+                          <td key={index} valign="top" width="33.33%">
                             <table
                               width="100%"
                               cellPadding="0"
@@ -2654,7 +2658,7 @@ function Index() {
                                       display: 'inline-block',
                                     }}
                                   >
-                                    {isArray(name) &&
+                                    {Array.isArray(name) &&
                                       name?.map((item, index) => {
                                         if (index < 2) {
                                           return item?.charAt(0).toUpperCase();

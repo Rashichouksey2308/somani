@@ -13,6 +13,7 @@ import DateCalender from '../DateCalender';
 import MultiSelect from '../MutilSelect';
 import AddressComponent from './addressComponent';
 import styles from './index.module.scss';
+import { getPincodes } from 'redux/masters/action'; 
 
 const index = ({
   creditDetail,
@@ -42,7 +43,8 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false);
 
   const { gstDocument } = useSelector((state) => state.buyer);
-
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -56,7 +58,7 @@ const index = ({
   });
 
   const { updatingCreditCalculate } = useSelector((state) => state.review);
-
+   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
@@ -156,7 +158,8 @@ const index = ({
 
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const unique = [...new Set(filtered.map((item) => item.nameOfChargeHolder))];
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
   };
@@ -194,7 +197,18 @@ const index = ({
     }
     setKeyPersonData([...newInput]);
   };
-
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
+    }
+  }, [getPincodesMasterData]);
+const gettingPins=(value)=>{
+   dispatch(getPincodes(value));
+ }
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData);
   };
@@ -1525,9 +1539,32 @@ const index = ({
                           onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? '' : keyAddressData.pinCode}
                           onChange={(e) => {
+                             gettingPins(e.target.value);
                             handleChange(e.target.name, e.target.value);
                           }}
                         />
+                        { toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() =>{
+                                             handleChange('pinCode', results.Pincode)
+                                             setToShow([])
+                                             setToView(false)
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1782,9 +1819,32 @@ const index = ({
                           name="pinCode"
                           defaultValue={editData.pinCode}
                           onChange={(e) => {
+                               gettingPins(e.target.value);
                             changeData(e.target.name, e.target.value);
                           }}
                         />
+                          { toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() =>{
+                                             changeData('pinCode', results.Pincode)
+                                             setToShow([])
+                                             setToView(false)
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>

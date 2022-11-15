@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import _get from 'lodash/get';
 import moment from 'moment';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 function Index() {
   const dispatch = useDispatch();
@@ -149,7 +150,6 @@ function Index() {
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
-  console.log(clauseObj, 'clauseObj')
 
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
@@ -163,7 +163,14 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'partialShipment' || e.target.value == 'transhipments' || e.target.value == 'formOfDocumentaryCredit' || e.target.value == 'creditAvailableBy' || e.target.value == 'creditAvailablewith' || e.target.value == 'applicant') {
+    } else if (
+      e.target.value == 'partialShipment' ||
+      e.target.value == 'transhipments' ||
+      e.target.value == 'formOfDocumentaryCredit' ||
+      e.target.value == 'creditAvailableBy' ||
+      e.target.value == 'creditAvailablewith' ||
+      e.target.value == 'applicant'
+    ) {
       setFieldType('drop');
     } else {
       setFieldType('');
@@ -199,33 +206,24 @@ function Index() {
   };
 
   const addToArr = () => {
-    if (fieldType == 'date' || fieldType == 'drop') {
-      setFieldType('');
-    }
-    inputRef1.current.value = '';
-    setClauseObj(initialState);
-    const newArr = [...clauseArr];
-    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '') {
-      let toastMessage = 'please select a dropdown value first ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    } else {
-      if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)) {
-        let toastMessage = 'CLAUSE ALREADY ADDED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage, { toastId: toastMessage });
+    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '') handleErrorToast('please select a clause to update value ');
+    else if (clauseObj.newValue === 'Select an option' || clauseObj.newValue === '') handleErrorToast('Please specify a new value first');
+    else  if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))  handleErrorToast('CLAUSE ALREADY ADDED');
+      else {
+        const newArr = [...clauseArr];
+        if (fieldType == 'date' || fieldType == 'drop') {
+          setFieldType('');
         }
-      } else {
+        inputRef1.current.value = '';
+        setClauseObj(initialState);
         newArr.push(clauseObj);
-
         setClauseArr(newArr);
         // setClauseObj({
         //   existingValue: '',
         //   dropDownValue: '',
         //   newValue: '',
         // })
-      }
+      
     }
   };
 
@@ -298,6 +296,8 @@ function Index() {
       }
       if (value == '') {
         setExistingValue('');
+      } else {
+        setExistingValue(value);
       }
     } else {
       setExistingValue(value);
@@ -376,9 +376,7 @@ function Index() {
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="First Class European Bank">First Class European Bank</option>
-                            <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                            <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
+                            <option value="ING Bank">ING Bank</option>
                           </select>
 
                           <label className={`${styles.label_heading} label_heading`}>
@@ -498,7 +496,7 @@ function Index() {
                                 name="newValue"
                                 defaultDate={clauseObj?.newValue}
                                 saveDate={saveDropDownDate}
-                              // labelName="New Value"
+                                // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -517,19 +515,40 @@ function Index() {
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                {clauseObj.dropDownValue === '(50) Applicant' ? (<>        <option selected>Select an option</option>
-                                  <option value="Indo intertrade AG">Indo intertrade AG</option>
-                                </>) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
-                                    <> <option value="Irrevocable">Irrevocable</option>
-                                      <option value="Revocable">Revocable</option></>
-                                  ) : clauseObj.dropDownValue === '(41A) Credit Available With' ? (<>  <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
-                                    <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option></>) : clauseObj.dropDownValue === '(41A) Credit Available By' ? (<>   <option value="By Negotiation">By Negotiation</option>
-                                      <option value="By Payment">By Payment</option>
-                                      <option value="By Acceptance">By Acceptance</option>
-                                      <option value="By Deffered Payment">By Deffered Payment</option></>) : (<><option selected>Select an option</option>
-                                        <option value="Yes">Allowed</option>
-                                        <option value="No">Not Allowed</option>
-                                        <option value="Conditional">Conditional</option></>)}
+                                <option selected>Select an option</option>
+                                {clauseObj.dropDownValue === '(50) Applicant' ? (
+                                  <>
+                                    <option value="Indo intertrade AG">Indo intertrade AG</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Irrevocable">Irrevocable</option>
+                                    <option value="Revocable">Revocable</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(41A) Credit Available With' ? (
+                                  <>
+                                    {' '}
+                                    <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">
+                                      BNP PARIBAS PARIBAS _ BNPAFRPPS
+                                    </option>
+                                    <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(41A) Credit Available By' ? (
+                                  <>
+                                    {' '}
+                                    <option value="By Negotiation">By Negotiation</option>
+                                    <option value="By Payment">By Payment</option>
+                                    <option value="By Acceptance">By Acceptance</option>
+                                    <option value="By Deffered Payment">By Deffered Payment</option>
+                                  </>
+                                ) : (
+                                  <>
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                    <option value="Conditional">Conditional</option>
+                                  </>
+                                )}
                               </select>
 
                               <img
@@ -662,7 +681,7 @@ function Index() {
                                                   name="newValue"
                                                   // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                                   saveDate={saveDropDownDate}
-                                                // labelName="New Value"
+                                                  // labelName="New Value"
                                                 />
                                               </>
                                             )}

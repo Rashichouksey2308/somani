@@ -54,26 +54,23 @@ function Index(props) {
           addresses: savedData.addresses,
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails,
         };
-        let temp = [];
-        savedData.addresses.forEach((val) => {
-          temp.push(val);
-        });
-        temp.forEach((val) => {
-          if (val.fullAddress == 'Industriestrasse 16' && val.pinCode == '6300') {
-          } else {
-            temp.push({
-              addressType: 'Registered',
-              fullAddress: 'Industriestrasse 16',
-              pinCode: '6300',
-              country: 'Switzerland',
-              gstin: '',
-              state: '',
-              city: 'Zug',
-            });
-          }
-        });
+        if(savedData.addresses.length > 0) {
+          setAddressList(savedData.addresses);
+        }else{
+      
 
-        setAddressList(temp);
+        setAddressList([
+           {addressType: 'Registered',
+                    fullAddress: 'Industriestrasse 16',
+                    pinCode: '6300',
+                    country: 'Switzerland',
+                    gstin: '',
+                    state: '',
+                    city: 'Zug',
+                  }
+        ]);
+        }
+        
         setList(
           savedData.authorisedSignatoryDetails?.length > 0
             ? savedData.authorisedSignatoryDetails
@@ -110,20 +107,21 @@ function Index(props) {
           addresses: props?.data?.addresses,
           authorisedSignatoryDetails: props?.data?.authorisedSignatoryDetails,
         };
-
-        let temp = [];
-
-        setAddressList([
-          {
-            addressType: 'Registered',
-            fullAddress: 'Industriestrasse 16',
-            pinCode: '6300',
-            country: 'Switzerland',
-            gstin: '',
-            state: '',
-            city: 'Zug',
-          },
-        ]);
+         if(props.data.addresses.length > 0) {
+          setAddressList(props.data.addresses);
+        }else{
+             setAddressList([
+           {addressType: 'Registered',
+                    fullAddress: 'Industriestrasse 16',
+                    pinCode: '6300',
+                    country: 'Switzerland',
+                    gstin: '',
+                    state: '',
+                    city: 'Zug',
+                  }
+        ])
+        }
+      
 
         setList(
           props?.data?.authorisedSignatoryDetails.length > 0

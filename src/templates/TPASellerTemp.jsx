@@ -88,7 +88,7 @@ export default function TPASeller(data) {
               Name of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.seller}
+              {data.supplier}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -96,11 +96,11 @@ export default function TPASeller(data) {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.sellerAddress?.fullAddress},{" "}
-              {data.sellerAddress?.city}{" "}
-              {data.sellerAddress?.country},{" "}
+              {data.supplierAddress?.fullAddress},{" "}
+              {data.supplierAddress?.city}{" "}
+              {data.supplierAddress?.country},{" "}
 
-              {data.sellerAddress?.pinCode}
+              {data.supplierAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -142,7 +142,7 @@ export default function TPASeller(data) {
               Name of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyer}
+              {data.associateBuyer}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -150,11 +150,8 @@ export default function TPASeller(data) {
               Address of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyerAddress?.fullAddress},
-              {data.buyerAddress?.city}{" "}
-              {data.buyerAddress?.country},{" "}
-
-              {data.buyerAddress?.pinCode}
+              {data.associateBuyerAddress}
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

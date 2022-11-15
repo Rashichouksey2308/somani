@@ -985,7 +985,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                   'order.termsheet.transactionDetails.partShipmentAllowed',
                   '',
                 )?.toLocaleLowerCase() === 'yes' ? (
-                  <div className={`${styles.form_group} col-lg-3 m-0 col-md-6 col-sm-6`}>
+                  <div className={`${styles.form_group} mt-1 col-lg-3 m-0 col-md-6 col-sm-6`}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
