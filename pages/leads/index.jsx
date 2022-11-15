@@ -120,13 +120,18 @@ function Index() {
             </div>
             <Filter />
 
-            {searchedLeads && searchedLeads.data.data.map((results,index)=>{
-            const {companyName, status, commodity } = results;
-            return(<> {companyName && open && <FilterBadge label={companyName} onClose={handleClose}  />}
-            {status && <FilterBadge label={status} onClose={handleClose} /> }
-            { commodity && <FilterBadge label={commodity} onClose={handleClose}/> }
-            </>)
-})}
+            {searchedLeads &&
+              searchedLeads.data.data.map((results, index) => {
+                const { companyName, status, commodity,orderId } = results;
+                return (
+                  <>
+                    {companyName && open && <FilterBadge label={companyName} onClose={handleClose} />}
+                    {status && open && <FilterBadge label={status} onClose={handleClose} />}
+                    {commodity && open && <FilterBadge label={commodity} onClose={handleClose} />}
+                    {orderId && open && <FilterBadge label={orderId} onClose={handleClose} />}
+                  </>
+                );
+              })}
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
