@@ -16,7 +16,7 @@ function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('lcPreviewId');
+    let id = sessionStorage.getItem('lcAmmend');
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
