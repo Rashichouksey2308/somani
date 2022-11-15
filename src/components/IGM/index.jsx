@@ -310,8 +310,85 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let task = 'save';
     dispatch(UpdateTransitDetails({ fd, task }));
   };
+ const validation=()=>{
+  console.log(igmList,"igmList")
+  let toastMessage = ''
+  for(let i=0;i<igmList.igmDetails.length;i++){
+  if (igmList.igmDetails[i].igmNumber == '' || igmList.igmDetails[i].igmNumber == undefined || igmList.igmDetails[i].igmNumber == null) {
+         toastMessage = 'PLS ADD IGM NUMBER';
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage });
+        }
+         return false 
+      }
+      if (igmList.igmDetails[i].igmFiling == '' || igmList.igmDetails[i].igmFiling == undefined || igmList.igmDetails[i].igmFiling == null) {
+         toastMessage = 'PLS ADD IMG FILING DATE ';
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage });
+        }
+         return false
+      }
+      for(let j=0;j<igmList.igmDetails[i].blNumber.length;j++){
+        if (igmList.igmDetails[i].blNumber[j].blNumber == '' || igmList.igmDetails[i].blNumber[j].blNumber == undefined || igmList.igmDetails[i].blNumber[j].blNumber == null) {
+                toastMessage = 'PLS SELECT BL NUMBER ';
+                if (!toast.isActive(toastMessage)) {
+                  toast.error(toastMessage, { toastId: toastMessage });
+                }
+                return false
+        }
+         if (igmList.igmDetails[i].blNumber[j].blDate == '' || igmList.igmDetails[i].blNumber[j].blDate == undefined || igmList.igmDetails[i].blNumber[j].blDate == null) {
+                toastMessage = 'PLS SELECT BL NUMBER ';
+                if (!toast.isActive(toastMessage)) {
+                  toast.error(toastMessage, { toastId: toastMessage });
+                }
+                return false
+        }
+         if (igmList.igmDetails[i].blNumber[j].blQuantity == '' || igmList.igmDetails[i].blNumber[j].blQuantity == undefined || igmList.igmDetails[i].blNumber[j].blQuantity == null) {
+                toastMessage = 'PLS SELECT BL NUMBER ';
+                if (!toast.isActive(toastMessage)) {
+                  toast.error(toastMessage, { toastId: toastMessage });
+                }
+                return false
+        }
+         if (igmList.igmDetails[i].blNumber[j].noOfContainers == '' || igmList.igmDetails[i].blNumber[j].noOfContainers == undefined || igmList.igmDetails[i].blNumber[j].noOfContainers == null) {
+                toastMessage = 'PLS ADD IMG FILING DATE ';
+                if (!toast.isActive(toastMessage)) {
+                  toast.error(toastMessage, { toastId: toastMessage });
+                }
+                return false
+        }
+      }
+         if (igmList.igmDetails[i].document == '' || igmList.igmDetails[i].document == undefined || igmList.igmDetails[i].document == null) {
+         toastMessage = 'PLS UPLOAD IGM COPY';
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage });
+        }
+         return false
+      }
 
+      return true
+  }
+    
+ }
   const handleSubmit = async () => {
+     console.log("Asdasdasdasd",consigneeInfo)
+    if (consigneeInfo.name == '' || consigneeInfo.name == undefined || consigneeInfo.name == null) {
+      let toastMessage = 'PLS ADD CONSIGNEE NAME';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+      return
+    }
+     if (consigneeInfo.branch == '' || consigneeInfo.branch == undefined || consigneeInfo.branch == null) {
+      let toastMessage = 'PLS ADD CONSIGNEE BRANCH';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+       return
+    }
+    if(validation()==false){
+      return
+    }
     const igmDetails = { ...igmList };
     igmDetails.shipmentType = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '');
     igmDetails.shipmentDetails = {
@@ -327,7 +404,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let code = await dispatch(UpdateTransitDetails({ fd, task }));
     if (code == true) {
       sessionStorage.setItem('orderID', _get(TransitDetails, 'order._id', ''));
-      sessionStorage.setItem('headgingId', _get(TransitDetails, 'order.transit', ''));
+     
       dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'));
       router.push(`/forward-hedging`);
     }

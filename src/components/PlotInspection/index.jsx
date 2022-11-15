@@ -58,12 +58,19 @@ export default function Index({ inspectionData }) {
   };
 
   const handleSubmit = async () => {
-    if (plotInspectionData.plotInspectionDate == '') {
+     console.log(plotInspectionData,"plotInspectionData")
+    if (plotInspectionData.plotInspectionDate == '' || plotInspectionData.plotInspectionDate == undefined || plotInspectionData.plotInspectionDate == null) {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else {
+    }else if(plotInspectionData.plotInspectionReport == '' || plotInspectionData.plotInspectionReport == undefined || plotInspectionData.plotInspectionReport == null){
+       let toastMessage = 'PLOT INSPECTION REPORT IS MANDATORY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+    }
+     else {
       let obj = {
         plotInspectionDate: plotInspectionData?.plotInspectionDate,
       };

@@ -4095,7 +4095,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getC
                                     ? checkNan(sales)?.toLocaleString('en-In', {
                                         maximumFractionDigits: 2,
                                         minimumFractionDigits: 2,
-                                      }) + ' %' ?? ''
+                                      }) + '%' ?? ''
                                     : 'NA'}{' '}
                                 </td>
                               ))}
@@ -4426,7 +4426,7 @@ const gstPurchase = (
                                     ? checkNan(sales)?.toLocaleString('en-In', {
                                         maximumFractionDigits: 2,
                                         minimumFractionDigits: 2,
-                                      }) + ' %' ?? ''
+                                      }) + '%' ?? ''
                                     : 'NA'}{' '}
                                 </td>
                               ))}

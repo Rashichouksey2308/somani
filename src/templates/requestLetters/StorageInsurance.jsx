@@ -65,7 +65,7 @@ export default function StorageInsurance(insuranceData) {
                         >
                           Order ID:{' '}
                         </span>
-                        {insuranceData?.order?.orderId}
+                        {insuranceData.insuranceData?.order?.orderId}
                       </p>
                     </td>
                   </tr>
@@ -118,7 +118,7 @@ export default function StorageInsurance(insuranceData) {
                         >
                           Type of Insurance:{' '}
                         </span>
-                        {insuranceData?.quotationRequest?.insuranceType}
+                        {insuranceData.insuranceData?.quotationRequest?.insuranceType}
                       </p>
                     </td>
                   </tr>
@@ -182,7 +182,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
+                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                       </p>
                     </td>
                   </tr>
@@ -223,7 +223,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
+                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
                       </p>
                     </td>
                   </tr>
@@ -264,7 +264,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(
+                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(
                           0,
                           4,
                         )}
@@ -309,7 +309,7 @@ export default function StorageInsurance(insuranceData) {
                         }}
                       >
                         INR{' '}
-                        {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN', {
+                        {Number(convertValue(insuranceData.insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN', {
                           minimumFractionDigits: 2,
                         })}{' '}
                         Crores (Including 110%)
@@ -353,7 +353,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.order?.commodity}
+                        {insuranceData.insuranceData?.order?.commodity}
                       </p>
                     </td>
                   </tr>
@@ -394,7 +394,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
+                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
                       </p>
                     </td>
                   </tr>
@@ -435,8 +435,8 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-IN')} MTs. (+/
-                        {insuranceData?.order?.tolerance ?? 0}%)
+                        BL Weight {insuranceData.insuranceData?.order?.quantity?.toLocaleString('en-IN')} MTs. (+/
+                        {insuranceData.insuranceData?.order?.tolerance ?? 0}%)
                       </p>
                     </td>
                   </tr>
@@ -477,7 +477,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
+                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
                       </p>
                     </td>
                   </tr>
@@ -518,7 +518,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                       </p>
                     </td>
                   </tr>
@@ -559,7 +559,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
+                        {insuranceData.insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
                       </p>
                     </td>
                   </tr>
@@ -600,7 +600,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress}
+                        {insuranceData.insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress}
                       </p>
                     </td>
                   </tr>
@@ -641,7 +641,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance}
+                        {insuranceData.insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance}
                         {'  Days '}
                       </p>
                     </td>
@@ -684,8 +684,8 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {moment(insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} -{' '}
-                        {moment(insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} -{' '}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                       </p>
                     </td>
                   </tr>
@@ -726,7 +726,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
                       </p>
                     </td>
                   </tr>
@@ -767,7 +767,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
                       </p>
                     </td>
                   </tr>
@@ -849,12 +849,12 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                    {insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},
-                    {" "}{_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
-                    GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
+                    {insuranceData.insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
+                    {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
+                    {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].state', '')},
+                    {" "}{_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].country', '')}
+                    {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
+                    GSTIN NO - {_get(insuranceData.insuranceData, 'order.generic.buyer.gstin', '')}
                       </p>
                     </td>
                   </tr>
@@ -895,7 +895,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.quotationRequest?.lossPayee}
+                        {insuranceData.insuranceData?.quotationRequest?.lossPayee}
                       </p>
                     </td>
                   </tr>
@@ -936,7 +936,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData?.quotationRequest?.additionalInfo}
+                        {insuranceData.insuranceData?.quotationRequest?.additionalInfo}
                       </p>
                     </td>
                   </tr>

@@ -57,6 +57,7 @@ export default function Home() {
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }]);
 
   const setData = (Vessel) => {
+    console.log(_get(Vessel, 'data[0].vesselCertificate', null),"SAdsda")
     setOrderId(_get(Vessel, 'data[0].order._id', ''));
     setCurrency(_get(Vessel, 'data[0].order.marginMoney.calculation.orderValueCurrency', 'USD'));
     setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
@@ -150,6 +151,9 @@ export default function Home() {
         },
       ]);
     } else {
+      setContainerExcel(_get(Vessel, 'data[0].containerExcel', null));
+      setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null));
+      setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null));
       setList(_get(Vessel, 'data[0].vessels', []));
     }
   };
@@ -439,9 +443,9 @@ export default function Home() {
         }
         await fetchInitialData()
        
-       
-        // dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
-        // router.push(`/insurance/form`)
+      
+        dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
+        router.push(`/insurance/form`)
       }
     }
   };

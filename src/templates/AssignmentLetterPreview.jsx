@@ -387,7 +387,7 @@ export default function AssignmentLetterPreview(data) {
                           }}
                         >
                           {' '}
-                          {data.buyer}
+                          {data.associateBuyer}
                         </p>
                       </td>
                     </tr>
@@ -423,8 +423,7 @@ export default function AssignmentLetterPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
-                          {data.buyerAddress?.pinCode}
+                          {data.associateBuyerAddress}
                         </p>
                       </td>
                     </tr>

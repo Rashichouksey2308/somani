@@ -85,7 +85,12 @@ function Index(props) {
           loadingCargo: data.loadingCargo,
           dateOfContract: data.dateOfContract,
           financialAddress: data?.financialAddress,
-          orderValueCurrency:data.orderValueCurrency
+          orderValueCurrency:data.orderValueCurrency,
+           associateBuyer: data.associateBuyer,
+          associateBuyerAddress:data. associateBuyerAddress,
+         
+          associateBuyerAuthorized:data.associateBuyerAuthorized,
+          
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -151,6 +156,10 @@ function Index(props) {
           loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
           dateOfContract: dateOfContract,
           orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
+          associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
+         
+          associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
           
         });
       }
