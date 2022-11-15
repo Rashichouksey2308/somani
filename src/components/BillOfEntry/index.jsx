@@ -364,6 +364,9 @@ useEffect(() => {
         }
       }
     }
+    if(isOk==false){
+      return
+    }
     isOk=false
     bl.forEach((val,index)=>{
       val.forEach((bl,index2)=>{
