@@ -371,7 +371,7 @@ function Index({
                                   Select an option
                                 </option>
                                 <option value="AT SIGHT">AT SIGHT</option>
-                                <option value="SPECIFY">SPECIFY</option>
+                                <option value="Usuance">Usuance</option>
                               </select>
 
                               <label className={`${styles.label_heading} label_heading`}>

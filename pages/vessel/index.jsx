@@ -87,6 +87,7 @@ export default function Home() {
           ]),
         ),
       );
+      
 
       vesselInfo[0].shippingLineOrCharter =
         vesselInfo[0].shippingLineOrCharter !== ''

@@ -771,16 +771,8 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? marineData?.premiumAmount
-                                : `${
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : marineData?.insuranceFromType === 'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(marineData?.premiumAmount)?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined,
-                                  )
+                                : 'INR ' +
+                                  Number(marineData?.premiumAmount)?.toLocaleString('en-In')
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
@@ -1200,13 +1192,8 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
-                                : `${
-                                    storageData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : storageData?.insuranceFromType === 'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` + Number(storageData?.premiumAmount)?.toLocaleString()
+                                : 
+                                   'INR ' + Number(storageData?.premiumAmount)?.toLocaleString('en-In')
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) => saveStorageData(e.target.name, e.target.value)}
@@ -1602,16 +1589,8 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? marineData?.premiumAmount
-                                : `${
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : marineData?.insuranceFromType === 'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(marineData?.premiumAmount)?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined,
-                                  )
+                                :'INR ' +
+                                  Number(marineData?.premiumAmount)?.toLocaleString( 'en-In')
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) => saveMarineData(e.target.name, e.target.value)}
@@ -1888,16 +1867,8 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
-                                : `${
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : marineData?.insuranceFromType === 'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(storageData?.premiumAmount)?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined,
-                                  )
+                                : 'INR '+
+                                  Number(storageData?.premiumAmount)?.toLocaleString('en-In')
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) => saveStorageData(e.target.name, e.target.value)}
