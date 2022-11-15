@@ -802,7 +802,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                             </div>
                             {shipmentTypeBulk ? (
                               <>
-                                <div className="col-lg-4 col-md-6 col-sm-6" style={{ top: '35px' }}>
+                                <div className="col-lg-4 col-md-6 col-sm-6 align-self-center">
                                   <div className={`${styles.label} text`}>
                                     BL Date <strong className="text-danger ml-n1">*</strong>
                                   </div>
@@ -810,16 +810,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
                                   </span>
                                 </div>
-                                <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
+                                <div className="col-lg-2 col-md-4 col-sm-6 align-self-center">
                                   <div className={`${styles.label} text`}>
                                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                                   </div>
                                   <span className={styles.value}>
-                                    <span className="mr-2">{blEntry.blQuantity} </span>
+                                    <span>{blEntry.blQuantity} </span>
                                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                   </span>
                                 </div>
-                                <div className="col-lg-2 col-md-4 col-sm-6" style={{ top: '35px' }}>
+                                <div className="col-lg-2 col-md-4 col-sm-6 align-self-center">
                                   <div className="d-flex align-items-center">
                                     <img
                                       src="/static/preview.svg"
@@ -847,7 +847,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                               </>
                             ) : (
                               <>
-                                <div className="col-lg-4 col-md-6 col-sm-6" style={{ top: '35px' }}>
+                                <div className="col-lg-4 col-md-6 col-sm-6 align-self-center">
                                   <div className="row">
                                     <div className="col-md-6">
                                       <div className={`${styles.label} text`}>
@@ -865,14 +865,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     </div>
                                   </div>
                                 </div>
-                                <div className="col-lg-4 col-md-4 col-sm-6" style={{ top: '35px' }}>
+                                <div className="col-lg-4 col-md-4 col-sm-6 align-self-center">
                                   <div className="row align-items-center">
                                     <div className="col-md-6">
                                       <div className={`${styles.label} text`}>
                                         BL Quantity <strong className="text-danger ml-n1">*</strong>
                                       </div>
                                       <span className={styles.value}>
-                                        <span className="mr-2">{blEntry?.blQuantity}</span>
+                                        <span>{blEntry?.blQuantity}</span>
                                         {blEntry?.blQuantity &&
                                           _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                       </span>

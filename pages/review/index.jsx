@@ -8455,7 +8455,7 @@ function Index() {
                           <Row>
                             <Col md={4}>
                               <p className={`mb-3 text`}>Filter by</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div className={`flex-wrap d-flex align-items-center justify-content-start`}>
                                 <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
@@ -8506,7 +8506,7 @@ function Index() {
                             </Col>
                             <Col md={4}>
                               <p className={`mb-3 text`}>Select a Party</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div className={`d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"

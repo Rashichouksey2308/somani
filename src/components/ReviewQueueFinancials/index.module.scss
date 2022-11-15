@@ -501,6 +501,9 @@ img {
     position: absolute;
     right: 60px;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+    @include respond(lg-desktop) {
+      width: 10px !important;
+    }
   }
 }
 

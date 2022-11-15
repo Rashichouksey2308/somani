@@ -246,7 +246,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           {cimsDetails.map((list, index) => (
             <div key={index} className={`${styles.main} mb-4 border_color card `}>
               <div
-                className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
                 <div className="d-flex">
@@ -476,7 +476,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                               <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>{cimsDetails[index]?.coalImportRegistrationDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image}  image_arrow mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
                                   alt="Close"
@@ -518,7 +518,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                               <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>{cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image} image_arrow mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
                                   alt="Close"

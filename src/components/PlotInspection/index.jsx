@@ -218,7 +218,7 @@ export default function Index({ inspectionData }) {
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{plotInspectionData?.plotInspectionReport?.name}</span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"
