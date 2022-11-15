@@ -812,7 +812,16 @@ const cancelEditAddress = () => {
                                       />
                                     </>
                                   ) : (
-                                   null
+                                    <input
+                                    type="text"
+                                    className="input"
+                                    value={val.name}
+                                    name="name"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput(e.target.name, e.target.value, index);
+                                    }}
+                                  />
                                   )}
                                 </td>
                                 <td>
