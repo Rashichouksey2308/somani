@@ -120,11 +120,13 @@ function Index() {
             </div>
             <Filter />
 
-            {open && <FilterBadge label="Bhutani Traders" onClose={handleClose} />}
-            <FilterBadge label="Aluminium" />
-            <FilterBadge label="Approved" />
-            <FilterBadge label="15437556" />
-
+            {searchedLeads && searchedLeads.data.data.map((results,index)=>{
+            const {companyName, status, commodity } = results;
+            return(<> {companyName && open && <FilterBadge label={companyName} onClose={handleClose}  />}
+            {status && <FilterBadge label={status} onClose={handleClose} /> }
+            { commodity && <FilterBadge label={commodity} onClose={handleClose}/> }
+            </>)
+})}
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
