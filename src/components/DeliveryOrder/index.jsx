@@ -4,12 +4,21 @@ import styles from './index.module.scss';
 import SaveBar from '../SaveBar';
 import _get from 'lodash/get';
 import Router from 'next/router';
-
+import { toast } from 'react-toastify';
 export default function Index(props) {
   const [show, setShow] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val) => {
+    console.log(val,"val")
+    if(val.Quantity==""){
+       let toastMessage = 'PLS SELECT ADD QUANTITY RELEASED';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                
+        }
+        return
+    }
     sessionStorage.setItem('dono', val.deliveryOrderNo);
 
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));

@@ -13,20 +13,30 @@ import styles from './index.module.scss';
 
 function Index() {
   const [preview, setPreview] = useState('');
-
+const [agreementDoc, setagreementDoc] = useState({
+      lcDraftDoc: null,
+  });
   const setPreviewValue = (val) => {
     sessionStorage.setItem('agreementPreview', val);
     setPreview(val);
   };
   const [name, setName] = useState('');
+   const [orderId, setOrderID] = useState('');
   const data = JSON.parse(sessionStorage.getItem('genericSelected'))
   console.log(data,'agreement')
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      setOrderID(data.order._id)
       setName(data.company.companyName);
     }
   });
+  console.log(orderId,"orderId")
+   const uploadDocument1 = (e) => {
+    const newInput = { ...agreementDoc };
+    newInput.lcDraftDoc = e.target.files[0];
+    setagreementDoc(newInput);
+  };
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
@@ -172,7 +182,15 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">
                   <div className="accordion shadow-none" id="inspectionDocument">
-                    <InspectionDocument orderId={data?.order?._id} module='Agreements&Insurance&LC&Opening'  documentName="Sales Agreement" isOpen="false" setLcDoc />
+                    <InspectionDocument 
+                    orderId={orderId} 
+                    module='Agreements&Insurance&LC&Opening'  
+                    documentName="Sales Agreement" 
+                    isOpen="false" 
+                    setLcDoc={setagreementDoc} 
+                    lcDoc={agreementDoc}
+                    uploadDocument1={uploadDocument1}
+                    />
                   </div>
                 </div>
               </div>

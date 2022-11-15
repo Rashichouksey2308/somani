@@ -13,7 +13,9 @@ export const addNewAddress = (
   toView,
   pinCode,
   type,
+  viewSet,
 ) => {
+  console.log(toView, 'toView');
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
 
   return (
@@ -79,6 +81,7 @@ export const addNewAddress = (
                   onChange={(e) => {
                     if (pinCode) {
                       gettingPins(e.target.value);
+                      viewSet();
                     }
                     setAddress(e.target.name, e.target.value);
                   }}

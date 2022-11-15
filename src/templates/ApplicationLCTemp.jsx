@@ -1321,7 +1321,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {moment(lcModuleData.lcModuleData?.lcApplication?.latestDateOfShipment?.split('T')[0]).format(
+                            {moment(lcModuleData.lcModuleData?.lcApplication?.latestDateOfShipment).format(
                               'DD-MM-YYYY',
                             )}
                           </p>

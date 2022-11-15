@@ -203,15 +203,21 @@ function Index(props) {
   }, [props]);
 console.log(addressList,"aasdads")
   useEffect(() => {
+    
     if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData);
-      setToView(true);
+       setToView(true)
     } else {
+      console.log("hewer")
       setToShow([]);
       setToView(false);
     }
   }, [getPincodesMasterData]);
- 
+ const viewSet=()=>{
+
+     setToView(true)
+ }
+ console.log(toView,"SAdasd")
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -404,7 +410,7 @@ console.log(addressList,"aasdads")
     setToEditIndex(index);
     setAddressEditType(val);
     let tempArr = addressList;
-
+  setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
@@ -425,7 +431,7 @@ console.log(addressList,"aasdads")
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+ const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -436,6 +442,8 @@ console.log(addressList,"aasdads")
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const cancelAddress = () => {
     setNewAddress({
@@ -730,7 +738,7 @@ console.log(addressList,"aasdads")
             toView,
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
         )}
 
         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,"input")}
@@ -786,7 +794,7 @@ console.log(addressList,"aasdads")
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
-                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true)
+                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
                   
                 )}
               </div>

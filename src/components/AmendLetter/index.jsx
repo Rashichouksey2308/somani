@@ -58,7 +58,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
-
+console.log(lcModuleData,"sdasds")
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
