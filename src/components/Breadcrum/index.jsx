@@ -57,6 +57,7 @@ export default function Index({ isQuery }) {
       isQuery == '/track-shipment' ||
       isQuery?.match('/forward-hedging') ||
       router.pathname?.match('/leads') ||
+      router.pathname?.match('/insurance') ||
       router.pathname?.match('/order-list') ||
       router.pathname?.match('/new-order') ||
       router.pathname?.match('/termsheet-preview') ||
@@ -98,13 +99,15 @@ export default function Index({ isQuery }) {
       isQuery?.match('/vessel') ||
       isQuery?.match('/third-party') ||
       isQuery?.match('/transit/id') ||
+      isQuery?.match('/bill-of-entry/id') ||
       router.pathname?.match('/credit-queue') ||
       router.pathname?.match('/termsheet') ||
       router.pathname?.match('/margin-money') ||
       router.pathname?.match('/review') ||
       router.pathname?.match('/vessel') ||
       router.pathname?.match('/third-party') ||
-      router.pathname?.match('/transit/id')
+      router.pathname?.match('/transit/id') ||
+      router.pathname?.match('/loi-preview')
     ) {
       show.units = false;
       show.currency = true;

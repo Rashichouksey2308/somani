@@ -264,21 +264,7 @@
       height: 40px;
       box-shadow: none;
     }
-    img {
-      &.arrow2 {
-        width: 13px;
-        margin-left: -25px;
-
-        pointer-events: none;
-        filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
-
-        input[type='date']::-webkit-inner-spin-button,
-        input[type='date']::-webkit-calendar-picker-indicator {
-          display: none;
-          -webkit-appearance: none;
-        }
-      }
-    }
+    
     .searchBarContainer {
       position: relative;
 
@@ -305,7 +291,21 @@
       }
     }
   }
+  img {
+    &.arrow2 {
+      width: 13px;
+      margin-left: -25px;
 
+      pointer-events: none;
+      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+
+      input[type='date']::-webkit-inner-spin-button,
+      input[type='date']::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+      }
+    }
+  }
   .table_container {
     background-color: #fafafb;
 
