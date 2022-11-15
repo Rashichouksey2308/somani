@@ -53,7 +53,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                 saveOrderData(e.target.name, e.target.value);
               }}
             >
-              <option value="">Select</option>
+              <option value="" disabled>Select</option>
               <option selected value="MT">
                 MT
               </option>
@@ -69,7 +69,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
               style={{ paddingRight: '0px' }}
             >
-              <option value="">Select</option>
+              <option value="" disabled>Select</option>
               <option value="Crores" selected>
                 Crores
               </option>
