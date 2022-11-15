@@ -162,6 +162,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="quantity"
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key)  && evt.preventDefault()}
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
@@ -177,6 +178,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                         }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   onChange={(e) => {
+                    console.log(e,'quantityty')
                     saveOrderData(e.target.name, e.target.value);
                   }}
                 />
