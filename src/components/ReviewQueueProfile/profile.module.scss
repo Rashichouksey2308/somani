@@ -833,6 +833,9 @@
   img {
     opacity: 0.7;
     height: 20px;
+    @include respond(lg-desktop) {
+      height: 15px;
+    }
   }
 }
 

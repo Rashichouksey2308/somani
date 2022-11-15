@@ -1,10 +1,13 @@
 import { toast } from 'react-toastify';
 
 export const Validation = ({ list, containerExcel, containerListDocument, vesselCertificate }) => {
+  
   let isOk = true;
   let toastMessage = '';
 
   for (let i = 0; i < list.length; i++) {
+  
+
     if (list[i].shipmentType == '' || list[i].shipmentType == undefined) {
       toastMessage = `Please Select shipment Type of Vessel Information ${i}  `;
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -140,8 +143,8 @@ export const Validation = ({ list, containerExcel, containerListDocument, vessel
       if (
         list[i].vesselInformation[0].yearOfBuilt == '' ||
         list[i].vesselInformation[0].yearOfBuilt == undefined ||
-        list[i].vesselInformation[0].yearOfBuilt == null ||
-        list[i].vesselInformation[0].yearOfBuilt.length !== 4
+        list[i].vesselInformation[0].yearOfBuilt == null  ||
+        list[i].vesselInformation[0].yearOfBuilt.slice(0,4).length !== 4
       ) {
         toastMessage = `Please add a valid year Of Built  of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {

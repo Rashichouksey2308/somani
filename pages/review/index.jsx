@@ -7780,7 +7780,7 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
+        supremeCourt?.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7788,7 +7788,7 @@ function Index() {
             return civilfilter(val);
           });
       highCourt =
-        highCourt.length <= 0
+        highCourt?.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7797,7 +7797,7 @@ function Index() {
           });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7805,7 +7805,7 @@ function Index() {
             return civilfilter(val);
           });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -8428,7 +8428,7 @@ function Index() {
                             <Col md={4}>
                               <p className={`mb-3 text`}>Filter by</p>
                               <div className={` d-flex align-items-center justify-content-start`}>
-                                <div className="form-check">
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8441,10 +8441,10 @@ function Index() {
                                     checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Pending ({totalCourt.pending})
+                                    Pending<span className='pl-1'>({totalCourt.pending})</span>
                                   </label>
                                 </div>
-                                <div className="form-check ml-4">
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8456,10 +8456,10 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault1">
-                                    Disposed ({totalCourt.disposed})
+                                    Disposed<span className='pl-1'>({totalCourt.disposed})</span>
                                   </label>
                                 </div>
-                                <div className="form-check  ml-4">
+                                <div className="form-check">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8471,7 +8471,7 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault3">
-                                    Total Cases ({totalCourt.total})
+                                    Total Cases<span className='pl-1'>({totalCourt.total})</span>
                                   </label>
                                 </div>
                               </div>

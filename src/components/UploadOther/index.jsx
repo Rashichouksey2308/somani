@@ -395,7 +395,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
           </div>
         </div>
       </div>
-      {!open ? (
+      {open ? (
         <TermSheetPopUp
           close={() => setOpen(false)}
           open={open}

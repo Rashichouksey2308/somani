@@ -129,7 +129,7 @@ function Index(props) {
               value={value}
             />
             <img
-              className="ml-4"
+              className={`${styles.add_btn} ml-4`}
               src="/static/add-btn.svg"
               alt="add button"
               onClick={() => {

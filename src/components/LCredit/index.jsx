@@ -183,6 +183,7 @@ function Index() {
     setDrop(val2);
 
     newInput['existingValue'] = lcData[e.target.value] || '';
+    if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
     newInput['dropDownValue'] = val1 || '';
     newInput['newValue'] = '';
 
@@ -206,24 +207,26 @@ function Index() {
   };
 
   const addToArr = () => {
-    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '') handleErrorToast('please select a clause to update value ');
-    else if (clauseObj.newValue === 'Select an option' || clauseObj.newValue === '') handleErrorToast('Please specify a new value first');
-    else  if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))  handleErrorToast('CLAUSE ALREADY ADDED');
-      else {
-        const newArr = [...clauseArr];
-        if (fieldType == 'date' || fieldType == 'drop') {
-          setFieldType('');
-        }
-        inputRef1.current.value = '';
-        setClauseObj(initialState);
-        newArr.push(clauseObj);
-        setClauseArr(newArr);
-        // setClauseObj({
-        //   existingValue: '',
-        //   dropDownValue: '',
-        //   newValue: '',
-        // })
-      
+    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '')
+      handleErrorToast('please select a clause to update value ');
+    else if (clauseObj.newValue === 'Select an option' || clauseObj.newValue === '')
+      handleErrorToast('Please specify a new value first');
+    else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
+      handleErrorToast('CLAUSE ALREADY ADDED');
+    else {
+      const newArr = [...clauseArr];
+      if (fieldType == 'date' || fieldType == 'drop') {
+        setFieldType('');
+      }
+      inputRef1.current.value = '';
+      setClauseObj(initialState);
+      newArr.push(clauseObj);
+      setClauseArr(newArr);
+      // setClauseObj({
+      //   existingValue: '',
+      //   dropDownValue: '',
+      //   newValue: '',
+      // })
     }
   };
 

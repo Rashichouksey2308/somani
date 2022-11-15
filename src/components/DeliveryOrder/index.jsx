@@ -123,6 +123,8 @@ export default function Index(props) {
                                   disabled={!val.isDelete}
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 >
+                                  <option disabled  value="">Select an option</option>
+                                  
                                   {_get(props, 'ReleaseOrder.data[0].releaseDetail', []).map((option, index) => (
                                     <option value={option.orderNumber} key={index}>
                                       {option.orderNumber}
