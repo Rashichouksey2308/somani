@@ -91,6 +91,7 @@ function index() {
         }
       });
       let comment = [];
+      let month=""
       data?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName == toCheck) {
           comment.push(val.comment);
@@ -98,6 +99,7 @@ function index() {
           if (toCheck == 'Assignment Letter') {
             
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
+             month= val?.monthOfLoadingCargo
           }
         }
       });
@@ -172,6 +174,7 @@ function index() {
         paymentTerm: data.deliveryTerms.paymentTerms,
         cheque: data.deliveryTerms?.cheque || [],
         cmaShort: data?.CMA?.shortName,
+        loadingCargo2: month ,
       });
     }
   }, []);
