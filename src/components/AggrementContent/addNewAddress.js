@@ -14,8 +14,9 @@ export const addNewAddress = (
   pinCode,
   type,
   viewSet,
+  isgst,
 ) => {
-  console.log(toView, 'toView');
+  console.log(isgst, viewSet, type, 'toView');
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
 
   return (
@@ -145,7 +146,7 @@ export const addNewAddress = (
                     <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                   </select>
                   <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
-                    GSTIN<strong className="text-danger"></strong>
+                    GSTIN {isgst ? <strong className="text-danger">*</strong> : null}
                   </Form.Label>
                   <img
                     className={`${styles.arrow} image_arrow img-fluid`}

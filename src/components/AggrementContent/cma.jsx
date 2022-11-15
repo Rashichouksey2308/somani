@@ -564,7 +564,7 @@ const cancelEditAddress = () => {
             setAddressEditType,
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,null,null,"gst")
         )}
          {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>

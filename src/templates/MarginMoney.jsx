@@ -366,7 +366,11 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                        {marginData?.marginData?.order?.termsheet
+                                    ? marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString(
+                                        'en-In',
+                                      ) + ' %'
+                                    : ''}
                       </p>
                     </td>
                   </tr>
@@ -407,16 +411,8 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
-                          marginData.marginData?.order?.tolerance
-                            ? marginData.marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
-                            : 0,
-                          '%',
-                          '',
-                        )}
+                         {marginData?.marginData?.order?.tolerance ? marginData.marginData?.order?.tolerance + ' %' : 0}
+                       
                       </p>
                     </td>
                   </tr>
@@ -457,13 +453,11 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
-                          marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            : 0,
-                          '%',
-                          '',
-                        )}
+                        {marginData.marginData?.order?.termsheet
+                                    ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString(
+                                        'en-In',
+                                      ) + ' %'
+                                    : ''}
                       </p>
                     </td>
                   </tr>
@@ -508,7 +502,7 @@ export default function MarginMoney(marginData) {
                       </p>
                     </td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                       <p
                         style={{
@@ -548,7 +542,7 @@ export default function MarginMoney(marginData) {
                         {marginData.marginData?.additionalPDC}
                       </p>
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <td width="33%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
                       <h3
