@@ -18,8 +18,9 @@ function Index() {
   const [quantity, setQuantity] = useState(0);
   const [balanceQuantity, setbalanceQuantity] = useState(0);
   const [releasedQuantity, setreleasedQuantity] = useState(0);
+   const [signatoryList, setSignatoryList] = useState([]);
   const DeliveryNo = sessionStorage.getItem('dono');
-
+   
   const { ReleaseOrderData } = useSelector((state) => state.Release);
 
   useEffect(() => {
@@ -47,6 +48,12 @@ function Index() {
 
         setreleasedQuantity(balance);
         setbalanceQuantity(Number(number) - Number(balance));
+
+        let sig=[];
+        _get(ReleaseOrderData, 'data[0].order.generic.buyer.authorisedSignatoryDetails').forEach((val, index) => {
+          sig.push([val.name]);
+        });
+        setSignatoryList([...sig])
       }
     }
   }, [ReleaseOrderData]);
@@ -234,9 +241,18 @@ function Index() {
             </p>
             <div>
               <p className={`${styles.bold}`}>Authorised Signatory</p>
-              <select>
-                <option>Vipin Rajput</option>
-              </select>
+               <select>
+                 <option>Select an Option</option>
+                {
+                signatoryList.length>0?
+                 signatoryList.map((val,index)=>{
+                  return(
+                    <option value={val}>{val}</option>
+                  )
+                 })  :null
+                }
+                </select>
+             
             </div>
           </div>
         </div>
