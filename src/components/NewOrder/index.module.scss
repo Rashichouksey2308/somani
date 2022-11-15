@@ -143,6 +143,9 @@
           input {
             margin-right: 15px;
             transform: scale(1.5);
+            @include respond(lg-desktop) {
+              transform: scale(1.2);
+            }
           }
         }
       }
