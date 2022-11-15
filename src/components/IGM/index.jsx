@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
-import { returnDocFormat } from '@/utils/helpers/global';
+import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
@@ -29,7 +29,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false;
 
   const [consigneeName, setConsigneeName] = useState('');
-  const [branchOptions, setBranchOptions] = useState([])
+  const [branchOptions, setBranchOptions] = useState([]);
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
@@ -47,6 +47,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       {
         vesselName: '',
         igmNumber: '',
+        document: null,
         igmFiling: null,
         blNumber: [
           {
@@ -61,13 +62,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     document: null,
   });
 
-  console.log(igmList, 'igmListmain')
-
-
+  console.log(igmList, 'igmListmain');
 
   const [orderData, setOrderData] = useState();
   useEffect(() => {
-
     dispatch(getInternalCompanies());
   }, []);
   const checkRemainingBalance = () => {
@@ -168,38 +166,36 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         address: '',
       });
       setConsigneeName('INDO GERMAN INTERNATIONAL PRIVATE LIMITED');
-      setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'))
+      setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
     } else if (e.target.value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       setConsigneeInfo({
         name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
         branch: '',
-        address:
-          '',
+        address: '',
       });
       setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
-      setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'))
+      setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
     } else {
       setConsigneeInfo({ name: '', branch: '', address: '' });
       setConsigneeName('');
     }
   };
-  console.log(consigneeInfo, "consigneeInfo")
+  console.log(consigneeInfo, 'consigneeInfo');
   const filterBranch = (company) => {
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
       if (val.Company_Name == company) {
-        return val
+        return val;
       }
-    })
-    return filter
-  }
+    });
+    return filter;
+  };
   useEffect(() => {
-
     if (_get(TransitDetails, `data[0].IGM.igmDetails`, []).length > 0) {
-      let igmData = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [])))
-      let tempData = { ...igmList }
-      tempData.igmDetails = igmData
-      console.log(tempData, 'igmDetails2')
-      setIgmList(tempData)
+      let igmData = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [])));
+      let tempData = { ...igmList };
+      tempData.igmDetails = igmData;
+
+      setIgmList(tempData);
     } else {
       if (_get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '') !== '') {
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
@@ -214,7 +210,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       }
     }
 
-
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({
         name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '',
@@ -224,41 +219,45 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' || 
-         _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-        'Emergent Industrial Solutions Limited (EISL)' ||
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
+        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Emergent Industrial Solutions Limited (EISL)' ||
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
         setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
 
-
-        setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'))
+        setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
         setConsigneeInfo({
           name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-          branch: TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch || TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice,
+          branch:
+            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch ||
+            TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice,
           address:
-            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress || TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail?.companyAddress,
+            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress ||
+            TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail?.companyAddress,
         });
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
         _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-        'Indo German International Private Limited (IGPL)' ||
+          'Indo German International Private Limited (IGPL)' ||
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {
         setConsigneeName('INDO GERMAN INTERNATIONAL PRIVATE LIMITED');
-        setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'))
+        setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
         setConsigneeInfo({
           name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-          branch: TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch || TransitDetails?.data[0].order.marginMoney.invoiceDetail.branchOffice,
+          branch:
+            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch ||
+            TransitDetails?.data[0].order.marginMoney.invoiceDetail.branchOffice,
           address:
-            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress || TransitDetails?.data[0].order.marginMoney.invoiceDetail.companyAddress,
+            TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress ||
+            TransitDetails?.data[0].order.marginMoney.invoiceDetail.companyAddress,
         });
       }
-
     }
   }, [TransitDetails]);
 
@@ -310,84 +309,115 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let task = 'save';
     dispatch(UpdateTransitDetails({ fd, task }));
   };
- const validation=()=>{
-  console.log(igmList,"igmList")
-  let toastMessage = ''
-  for(let i=0;i<igmList.igmDetails.length;i++){
-  if (igmList.igmDetails[i].igmNumber == '' || igmList.igmDetails[i].igmNumber == undefined || igmList.igmDetails[i].igmNumber == null) {
-         toastMessage = 'PLS ADD IGM NUMBER';
+  const validation = () => {
+    console.log(igmList, 'igmList');
+    if (checkRemainingBalance() < 0) {
+      handleErrorToast('igm cannot be greater than order quantity');
+      return false;
+    }
+    let toastMessage = '';
+    for (let i = 0; i < igmList.igmDetails.length; i++) {
+      if (
+        igmList.igmDetails[i].igmNumber == '' ||
+        igmList.igmDetails[i].igmNumber == undefined ||
+        igmList.igmDetails[i].igmNumber == null
+      ) {
+        toastMessage = 'PLS ADD IGM NUMBER';
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage });
         }
-         return false 
+        return false;
       }
-      if (igmList.igmDetails[i].igmFiling == '' || igmList.igmDetails[i].igmFiling == undefined || igmList.igmDetails[i].igmFiling == null) {
-         toastMessage = 'PLS ADD IMG FILING DATE ';
+      if (
+        igmList.igmDetails[i].igmFiling == '' ||
+        igmList.igmDetails[i].igmFiling == undefined ||
+        igmList.igmDetails[i].igmFiling == null
+      ) {
+        toastMessage = 'PLS ADD IMG FILING DATE ';
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage });
         }
-         return false
+        return false;
       }
-      for(let j=0;j<igmList.igmDetails[i].blNumber.length;j++){
-        if (igmList.igmDetails[i].blNumber[j].blNumber == '' || igmList.igmDetails[i].blNumber[j].blNumber == undefined || igmList.igmDetails[i].blNumber[j].blNumber == null) {
-                toastMessage = 'PLS SELECT BL NUMBER ';
-                if (!toast.isActive(toastMessage)) {
-                  toast.error(toastMessage, { toastId: toastMessage });
-                }
-                return false
+      for (let j = 0; j < igmList.igmDetails[i].blNumber.length; j++) {
+        if (
+          igmList.igmDetails[i].blNumber[j].blNumber == '' ||
+          igmList.igmDetails[i].blNumber[j].blNumber == undefined ||
+          igmList.igmDetails[i].blNumber[j].blNumber == null
+        ) {
+          toastMessage = 'PLS SELECT BL NUMBER ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return false;
         }
-         if (igmList.igmDetails[i].blNumber[j].blDate == '' || igmList.igmDetails[i].blNumber[j].blDate == undefined || igmList.igmDetails[i].blNumber[j].blDate == null) {
-                toastMessage = 'PLS SELECT BL NUMBER ';
-                if (!toast.isActive(toastMessage)) {
-                  toast.error(toastMessage, { toastId: toastMessage });
-                }
-                return false
+        if (
+          igmList.igmDetails[i].blNumber[j].blDate == '' ||
+          igmList.igmDetails[i].blNumber[j].blDate == undefined ||
+          igmList.igmDetails[i].blNumber[j].blDate == null
+        ) {
+          toastMessage = 'PLS SELECT BL NUMBER ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return false;
         }
-         if (igmList.igmDetails[i].blNumber[j].blQuantity == '' || igmList.igmDetails[i].blNumber[j].blQuantity == undefined || igmList.igmDetails[i].blNumber[j].blQuantity == null) {
-                toastMessage = 'PLS SELECT BL NUMBER ';
-                if (!toast.isActive(toastMessage)) {
-                  toast.error(toastMessage, { toastId: toastMessage });
-                }
-                return false
+        if (
+          igmList.igmDetails[i].blNumber[j].blQuantity == '' ||
+          igmList.igmDetails[i].blNumber[j].blQuantity == undefined ||
+          igmList.igmDetails[i].blNumber[j].blQuantity == null
+        ) {
+          toastMessage = 'PLS SELECT BL NUMBER ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return false;
         }
-         if (igmList.igmDetails[i].blNumber[j].noOfContainers == '' || igmList.igmDetails[i].blNumber[j].noOfContainers == undefined || igmList.igmDetails[i].blNumber[j].noOfContainers == null) {
-                toastMessage = 'PLS ADD IMG FILING DATE ';
-                if (!toast.isActive(toastMessage)) {
-                  toast.error(toastMessage, { toastId: toastMessage });
-                }
-                return false
+        if (
+          igmList.igmDetails[i].blNumber[j].noOfContainers == '' ||
+          igmList.igmDetails[i].blNumber[j].noOfContainers == undefined ||
+          igmList.igmDetails[i].blNumber[j].noOfContainers == null
+        ) {
+          toastMessage = 'PLS ADD IMG FILING DATE ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return false;
         }
       }
-         if (igmList.igmDetails[i].document == '' || igmList.igmDetails[i].document == undefined || igmList.igmDetails[i].document == null) {
-         toastMessage = 'PLS UPLOAD IGM COPY';
+      if (
+        igmList.igmDetails[i].document == '' ||
+        igmList.igmDetails[i].document == undefined ||
+        igmList.igmDetails[i].document == null
+      ) {
+        toastMessage = 'PLS UPLOAD IGM COPY';
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage });
         }
-         return false
+        return false;
       }
 
-      return true
-  }
-    
- }
+      return true;
+    }
+  };
   const handleSubmit = async () => {
-     console.log("Asdasdasdasd",consigneeInfo)
+    console.log('Asdasdasdasd', consigneeInfo);
     if (consigneeInfo.name == '' || consigneeInfo.name == undefined || consigneeInfo.name == null) {
       let toastMessage = 'PLS ADD CONSIGNEE NAME';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-      return
+      return;
     }
-     if (consigneeInfo.branch == '' || consigneeInfo.branch == undefined || consigneeInfo.branch == null) {
+    if (consigneeInfo.branch == '' || consigneeInfo.branch == undefined || consigneeInfo.branch == null) {
       let toastMessage = 'PLS ADD CONSIGNEE BRANCH';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-       return
+      return;
     }
-    if(validation()==false){
-      return
+    if (validation() == false) {
+      return;
     }
     const igmDetails = { ...igmList };
     igmDetails.shipmentType = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '');
@@ -404,7 +434,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let code = await dispatch(UpdateTransitDetails({ fd, task }));
     if (code == true) {
       sessionStorage.setItem('orderID', _get(TransitDetails, 'order._id', ''));
-     
+
       dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'));
       router.push(`/forward-hedging`);
     }
@@ -416,10 +446,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   const isBlSelected = (index, blnumber) => {
     const filterData = _get(igmList, `igmDetails[${index}].blNumber`, []).filter((item) => {
       return item.blNumber === blnumber;
-    })
+    });
     if (filterData.length > 0) return true;
     return false;
-  }
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -560,8 +590,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       value={consigneeName}
                     >
                       <option value="">Select an option</option>
-                      <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">INDO GERMAN INTERNATIONAL PRIVATE LIMITED</option>
-                      <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">EMERGENT INDUSTRIAL SOLUTIONS LIMITED</option>
+                      <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
+                        INDO GERMAN INTERNATIONAL PRIVATE LIMITED
+                      </option>
+                      <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
+                        EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+                      </option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Consignee Name<strong className="text-danger">*</strong>
@@ -579,15 +613,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       onChange={(e) => {
                         let filter = getInternalCompaniesMasterData.filter((val, index) => {
                           if (val.Branch == e.target.value && val.Company_Name == consigneeName) {
-                            return val
+                            return val;
                           }
-                        })
-                        console.log(filter, "sdasds")
+                        });
+                        console.log(filter, 'sdasds');
                         setConsigneeInfo({
                           name: consigneeName,
                           branch: e.target.value,
-                          address: filter[0].Address || ""
-
+                          address: filter[0].Address || '',
                         });
                       }}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -595,7 +628,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     >
                       <option value="">Select an option</option>
                       {branchOptions.map((val, index) => {
-                        return <option value={`${val.Branch}`}>{val.Branch}</option>
+                        return <option value={`${val.Branch}`}>{val.Branch}</option>;
                       })}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
@@ -658,7 +691,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           value={item.vesselName}
                           disabled={
                             _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
-                            'Bulk' &&
+                              'Bulk' &&
                             _get(
                               TransitDetails,
                               `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
@@ -668,17 +701,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                         >
                           {shipmentTypeBulk
                             ? _get(TransitDetails, 'data[0].order.vessel.vessels', []).map((vessel, index) => (
-                              <option value={vessel?.vesselInformation[0]?.name} key={index}>
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
-                            : _get(TransitDetails, 'data[0].order.vessel.vessels[0].vesselInformation', []).map(
-                              (vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
+                                <option value={vessel?.vesselInformation[0]?.name} key={index}>
+                                  {vessel?.vesselInformation[0]?.name}
                                 </option>
-                              ),
-                            )}
+                              ))
+                            : _get(TransitDetails, 'data[0].order.vessel.vessels[0].vesselInformation', []).map(
+                                (vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ),
+                              )}
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
                           Vessel Name
@@ -746,7 +779,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                 >
                                   <option value="select an option">Select an option</option>
                                   {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => (
-                                    <option key={index3} disabled={isBlSelected(index, bl.blNumber)} value={`${bl.blNumber}-${index}-${index2}`}>
+                                    <option
+                                      key={index3}
+                                      disabled={isBlSelected(index, bl.blNumber)}
+                                      value={`${bl.blNumber}-${index}-${index2}`}
+                                    >
                                       {bl.blNumber}
                                     </option>
                                   ))}
@@ -836,7 +873,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       </div>
                                       <span className={styles.value}>
                                         <span className="mr-2">{blEntry?.blQuantity}</span>
-                                        {blEntry?.blQuantity && _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
+                                        {blEntry?.blQuantity &&
+                                          _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                       </span>
                                     </div>
                                     <div className="col-md-6">
@@ -909,14 +947,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                             IGM Copy
                             <strong className="text-danger ml-0">*</strong>
                           </td>
-                          <td>
-                            {returnDocFormat(item?.document?.originalName)}
-                          </td>
+                          <td>{returnDocFormat(item?.document?.originalName)}</td>
                           <td className={styles.doc_row}>
                             {item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}
                           </td>
                           <td>
-                            {item.document === null ? (
+                            {item.document === null || !item.document ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input

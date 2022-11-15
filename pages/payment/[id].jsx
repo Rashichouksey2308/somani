@@ -45,6 +45,12 @@ function Index() {
     );
   }, [ReleaseOrderData]);
 
+  const generateDoNumber = (index) => {
+    let orderDONumber = index < 10 ? `0${index}` : index;
+    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
+    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
+    return `${string}/${orderDONumber}`;
+  };
   useEffect(() => {
     let temp = [];
     if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
@@ -77,9 +83,7 @@ function Index() {
   useEffect(() => {
     getOrderData();
   }, [dispatch]);
-  useEffect(() => {
-    getOrderData();
-  }, []);
+
   const getOrderData = async () => {
     let id = sessionStorage.getItem('ROrderID');
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
@@ -315,7 +319,7 @@ function Index() {
 
   const [deliveryOrder, setDeliveryOrder] = useState([
     {
-      orderNumber: 1,
+      orderNumber: '',
       unitOfMeasure: 'MT',
       isDelete: false,
       Quantity: '',
@@ -324,6 +328,8 @@ function Index() {
       status: '',
     },
   ]);
+
+
   useEffect(() => {
     let tempArr = [];
     if (_get(ReleaseOrderData, 'data[0].deliveryDetail', []).length > 0) {
@@ -365,7 +371,7 @@ function Index() {
     setDeliveryOrder([
       ...deliveryOrder,
       {
-        orderNumber: 1,
+        orderNumber: '',
         unitOfMeasure: 'MT',
         isDelete: false,
         Quantity: '',
@@ -404,12 +410,7 @@ function Index() {
     setDeliveryOrder([...tempArr]);
   };
 
-  const generateDoNumber = (index) => {
-    let orderDONumber = index < 10 ? `0${index}` : index;
-    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
-    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
-    return `${string}/${orderDONumber}`;
-  };
+
 
   const BalanceQuantity = () => {
     let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
@@ -506,8 +507,16 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= deliveryOrder.length - 1; i++) {
+      if (deliveryOrder[i]?.orderNumber == '' || deliveryOrder[i]?.orderNumber == null) {
+        toastMessage = `please select an release order number for DO ${i + 1}  `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
       if (deliveryOrder[i]?.Quantity == '' || deliveryOrder[i]?.Quantity == null) {
-        toastMessage = `please provide quantity for delivery  order   ${i + 1}  `;
+        toastMessage = `please provide quantity for delivery  order for DO  ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
