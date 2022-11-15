@@ -147,7 +147,8 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.shareholdingPattern?.length ?? companyDetail?.profile?.companyDetail?.numberOfShareholders }
+                  {companyDetail?.profile?.shareholdingPattern?.length ??
+                    companyDetail?.profile?.companyDetail?.numberOfShareholders}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -175,7 +176,10 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Employee Count</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.financial?.other?.employeeCount
+                  {Array.isArray(companyDetail?.profile?.shareholdingPattern) &&
+                  companyDetail?.profile?.shareholdingPattern.length > 0
+                    ? companyDetail?.profile?.shareholdingPattern.length
+                    : companyDetail?.financial?.other?.employeeCount
                     ? companyDetail?.financial?.other?.employeeCount
                     : companyDetail?.profile.companyDetail.employeeCount}
                 </div>
@@ -257,6 +261,7 @@ function Index({ order, companyDetail }) {
                       </>
                     ) : (
                       <>
+                       <option value="">Select</option>
                         <option value="Website">Website</option>
                       </>
                     )}
@@ -282,7 +287,9 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={updateCompany?.referalName}
                   >
-                    <option value="" defaultChecked disabled>Select</option>
+                    <option value="" defaultChecked disabled>
+                      Select
+                    </option>
                     <option value="Bhutani Traders">Bhutani Traders</option>
                     <option value="userName1">{'userName1'}</option>
                     <option value="userName2">userName2</option>
