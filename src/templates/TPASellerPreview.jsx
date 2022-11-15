@@ -653,7 +653,43 @@ export default function TPASellerPreview(data) {
                           marginBottom: '0',
                         }}
                       >
-                        {data?.endBuyer}
+                        {data.associateBuyer}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={{
+                        borderBottom: '1px solid #000000',
+                        borderRight: '1px solid #000000',
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                          marginBottom: '0',
+                        }}
+                      >
+                        Address of End Buyer
+                      </p>
+                    </td>
+                    <td
+                      style={{
+                        borderBottom: '1px solid #000000',
+                        borderRight: '1px solid #000000',
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                          marginBottom: '0',
+                        }}
+                      >
+                        {data.associateBuyerAddress}
                       </p>
                     </td>
                   </tr>
