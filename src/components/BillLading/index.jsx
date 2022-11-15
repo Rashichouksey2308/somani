@@ -348,6 +348,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+          toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
         if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
           toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -427,6 +435,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+          toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;

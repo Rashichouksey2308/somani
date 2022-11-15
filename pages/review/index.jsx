@@ -7780,7 +7780,7 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
+        supremeCourt?.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7788,7 +7788,7 @@ function Index() {
             return civilfilter(val);
           });
       highCourt =
-        highCourt.length <= 0
+        highCourt?.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7797,7 +7797,7 @@ function Index() {
           });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7805,7 +7805,7 @@ function Index() {
             return civilfilter(val);
           });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })

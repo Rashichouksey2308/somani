@@ -29,6 +29,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       cimsPaymentReceiptDoc: null,
     },
   ]);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   const [isFieldInFocusCMS, setIsFieldInFocusCMS] = useState(false);
 
@@ -299,11 +300,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       onBlur={(e) => {
                         setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
+                      onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocus
                           ? list.quantity
                           : Number(list.quantity)?.toLocaleString('en-IN') +
-                          ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
+                            ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
                       }
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
@@ -362,6 +364,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         setIsFieldInFocusCMS(false), (e.target.type = 'text');
                       }}
                       onChange={(e) => onChangeCims(e, index)}
+                      onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocusCMS
                           ? list.cimsCharges
@@ -383,7 +386,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option checked>Select an option</option>
+                        <option value="" disabled defaultChecked>
+                          Select an option
+                        </option>
                         <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
                           INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                         </option>
@@ -444,7 +449,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          {cimsDetails[index]?.coalImportRegistrationDoc ? returnDocFormat(cimsDetails[index]?.coalImportRegistrationDoc?.originalName) : null}
+                          {cimsDetails[index]?.coalImportRegistrationDoc
+                            ? returnDocFormat(cimsDetails[index]?.coalImportRegistrationDoc?.originalName)
+                            : null}
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
@@ -483,7 +490,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       <tr className="table_row">
                         <td className={styles.doc_name}>CIMS Payment Receipt</td>
                         <td>
-                          {cimsDetails[index]?.cimsPaymentReceiptDoc ? returnDocFormat(cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName) : null}
+                          {cimsDetails[index]?.cimsPaymentReceiptDoc
+                            ? returnDocFormat(cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName)
+                            : null}
                         </td>
                         <td className={styles.doc_row}>
                           {' '}

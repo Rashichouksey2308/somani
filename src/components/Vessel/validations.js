@@ -146,7 +146,7 @@ export const Validation = ({ list, containerExcel, containerListDocument, vessel
         list[i].vesselInformation[0].yearOfBuilt == null  ||
         list[i].vesselInformation[0].yearOfBuilt.slice(0,4).length !== 4
       ) {
-        toastMessage = `Please add a valid year Of Built  of Vessel Information1 ${i}  `;
+        toastMessage = `Please add a valid year Of Built  of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
