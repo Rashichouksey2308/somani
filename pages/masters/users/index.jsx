@@ -158,43 +158,25 @@ const index = () => {
                       <td>Finance</td>
 
                       <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
+                        {/* <div className={`${styles.theme} d-flex align-items-center`}>
+                          <img src="/static/check.svg" className={`${styles.toggle_check} img_fluid`} alt="check" />
+                          <label className={styles.switch}>
+                            <input type="checkbox" />
+                            <span className={`${styles.slider} ${styles.round}`}></span>
+                          </label>
 
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
+                          <img src="/static/close-b.svg" className={`${styles.toggle_close} img_fluid`} alt="close" />
+                        </div>{' '} */}
+                        <div className={`${styles.tw_toggle}`}>
+  <input type="radio" name="toggle" value="false"/>
+  <label className={`${styles.toggle} ${styles.toggle_yes}`}><img src="/static/check.svg" className={`${styles.toggle_check} img_fluid`} alt="check" /></label>
+  <input checked type="radio" name="toggle" value="-1"/>
+  <label className={`${styles.toggle} ${styles.toggle_yes}`}></label>
+  <input type="radio" name="toggle" value="true"/>
+  <label className={`${styles.toggle} ${styles.toggle_yes}`}><img src="/static/close-b.svg" className={`${styles.toggle_close} img_fluid`} alt="close" /></label>
+  <span></span>  
+</div>
+             </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>

@@ -79,7 +79,7 @@ function Index() {
     }
     if(id){
       dispatch(UpdatePorts(data2))
-    }
+    } 
     dispatch(CreatePorts(data))
   };
 
@@ -87,7 +87,7 @@ function Index() {
     <div className="container-fluid p-0 border-0">
       <Card className={`${styles.card}`}>
         <Card.Header
-          className={`${styles.head_container}  d-flex justify-content-between align-items-center border-0 p-0`}
+          className={`${styles.head_container} d-flex justify-content-between align-items-center border-0 p-0`}
         >
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => { sessionStorage.getItem('portId') && sessionStorage.removeItem('portId'); Router.push('/ports')}} style={{ cursor: 'pointer' }}>

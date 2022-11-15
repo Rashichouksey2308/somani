@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../add-new-user/user.module.scss';
+import styles from './index.module.scss'
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddCommodity from '../../src/components/AddCommodity';
@@ -17,18 +17,10 @@ function Index() {
                 alt="ArrowRight"
               />
             </div>
-            <h1 className={styles.heading}>Add New Commodity</h1>
-          </div>
-          <div className="d-flex align-items-center">
-            <div className={`${styles.lastModified} text `}>
-              <span style={{ marginRight: '7px' }} className="accordion_Text">
-                Last Modified:
-              </span>
-              Balakrishna SGF001 - 28 Jan,11:34am
-            </div>
+            <h1 className={styles.heading}>Go No Go Logic</h1>
           </div>
         </Card.Header>
-        <AddCommodity />
+        {/* <AddCommodity /> */}
       </Card>
     </div>
   );

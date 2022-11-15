@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import styles from '../AddNewInternal/index.module.scss';
+import styles from '../AddCommodity/index.module.scss';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 
@@ -124,7 +124,31 @@ function Index({handleSubmit, savePortData, portData, country}) {
                         </label>
                       </div>
                     )}
-                    <div className={`${styles.form_group} mt-1 col-lg-2 col-md-6 col-sm-6 `}>
+                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                  <div className={`${styles.theme} d-flex align-items-center`}>
+                    <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
+                    <label className={styles.switch}>
+                      <input type="checkbox" />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                    <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
+                  </div>
+                  <label className={`${styles.label_heading} label_heading`}
+                  style={{left:'15px'}}>Container Handling <strong className="text-danger">*</strong></label>
+                </div>
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                  <div className={`${styles.theme} d-flex align-items-center`}>
+                    <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
+                    <label className={styles.switch}>
+                      <input type="checkbox" />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                    <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
+                  </div>
+                  <label className={`${styles.label_heading} label_heading`}
+                  style={{left:'15px'}}>Approved <strong className="text-danger">*</strong></label>
+                </div>
+                    {/* <div className={`${styles.form_group} mt-1 col-lg-2 col-md-6 col-sm-6 `}>
                       <div className={`${styles.radio_form} ml-1`}>
                         <div className={`${styles.sub_heading} label_heading`}>
                           Container Handling <strong className="text-danger">*</strong>
@@ -186,7 +210,7 @@ function Index({handleSubmit, savePortData, portData, country}) {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </div> */}
                     <div className={`${styles.form_group} col-lg-1 col-sm-6`}>
                       <div className="d-flex mt-2">
                         {/* {index > 0 && (
