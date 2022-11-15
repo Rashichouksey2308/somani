@@ -541,7 +541,7 @@ function Index() {
                     %{' '}
                   </li>
                   <li>
-                    {`USD`}{' '}
+                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
