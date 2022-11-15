@@ -14,7 +14,7 @@ function Index({ data }) {
         } else if (key == STATISTICS_TYPES.REJECTED) {
             statData.push({ 'type': key, 'img-url': '/static/close-b.svg', 'value': data[key] });
         } else if (key == STATISTICS_TYPES.PENDING) {
-            statData.push({ 'type': key, 'img-url': '/static/pending.svg', 'value': data[key] });
+            statData.push({ 'type': key, 'img-url': '/static/pending_actions.svg', 'value': data[key] });
         }
     }
     return (
@@ -34,8 +34,6 @@ function Index({ data }) {
                     </div>
                 )
             })}
-        </div>
-    )
+        </div>   )
 }
-
 export default Index

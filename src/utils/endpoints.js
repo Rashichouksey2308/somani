@@ -19,7 +19,7 @@ export default {
   exposureSummary: '/analytics/exposure-summary',
   //  leads
   registerCompany: '/lead/company-details',
-  getBuyers: '/lead/get-all-leads',
+  getBuyers: '/lead/getleads',
   uploadDocuments: '/order/doc-upoad',
   search: '/lead/search?searchTerm=',
   getPanGst: '/get-company',
