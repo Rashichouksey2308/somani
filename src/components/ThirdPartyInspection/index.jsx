@@ -934,7 +934,9 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                     {_get(inspectionData, 'order.termsheet.transactionDetails.partShipmentAllowed', '')}
                   </div>
 
-                  <button className={styles.add_btn}>Add</button>
+                  <button className={styles.add_btn}>
+                    <span className={styles.add_sign}>+</span>Add
+                  </button>
                 </div>
               </div>
             </div>
@@ -1054,7 +1056,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                   className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Inspection Details</h3>
-                  <button onClick={handleShow} className={styles.product_btn} type="button">
+                  <button onClick={handleShow} className={`${styles.product_btn} d-flex align-items-center`} type="button">
                     {' '}
                     Product Specification
                     <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />
@@ -1170,7 +1172,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           {inspectionDetails.loadPortInspection && (
             <div className={`${styles.main} vessel_card card border_color`}>
               <div
-                className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
+                className={`${styles.head_container} border-0 align-items-center head_container d-flex justify-content-between`}
                 data-toggle="collapse"
                 data-target="#upload"
                 aria-expanded="true"
@@ -1307,7 +1309,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseO()}
                                       alt="Close"
@@ -1407,7 +1409,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseQ()}
                                       alt="Close"
@@ -1508,7 +1510,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseW()}
                                       alt="Close"
@@ -1535,7 +1537,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           {inspectionDetails.dischargePortInspection && (
             <div className={`${styles.main} vessel_card card border_color`}>
               <div
-                className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
+                className={`${styles.head_container} border-0 align-items-center head_container d-flex justify-content-between`}
                 data-toggle="collapse"
                 data-target="#uploaddischarge"
                 aria-expanded="true"
@@ -1678,7 +1680,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseO2()}
                                       alt="Close"
@@ -1779,7 +1781,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseQ2()}
                                       alt="Close"
@@ -1881,7 +1883,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseW2()}
                                       alt="Close"
@@ -1970,7 +1972,7 @@ const Discharge = (
         className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
       >
         <h3 className={`${styles.heading}`}>Inspection Details</h3>
-        <button onClick={handleShow} className={styles.product_btn} type="button">
+        <button onClick={handleShow} className={`${styles.product_btn} d-flex align-items-center`} type="button">
           {' '}
           Product Specification
           <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />

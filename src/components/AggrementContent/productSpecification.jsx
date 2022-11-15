@@ -243,7 +243,7 @@ function Index(props) {
                       )}
                       <img
                         src="/static/delete 2.svg"
-                        className="img-fluid"
+                        className={`${styles.delete}`}
                         alt="delete"
                         onClick={() => {
                           onAddressRemove(index);

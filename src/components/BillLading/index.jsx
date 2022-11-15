@@ -616,7 +616,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         onBolAdd();
                       }}
                       className={`${styles.add_btn} mr-0`}
-                      style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
