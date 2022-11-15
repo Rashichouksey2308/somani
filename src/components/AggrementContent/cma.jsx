@@ -401,15 +401,16 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+   const handleEditAddressInput = (index,addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
-
+  
+    setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: val.addressType,
+          addressType: addresstype,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -426,7 +427,7 @@ function Index(props) {
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -437,6 +438,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
