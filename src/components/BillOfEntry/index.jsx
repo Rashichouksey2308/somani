@@ -52,6 +52,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   //     setbl([...temp])
   //   }
   // },[customData])
+  console.log(bl,"Sasdasd")
   useEffect(() => {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
@@ -501,7 +502,7 @@ useEffect(() => {
       setDutyData([...duty11]);
     }
     
-   if (bltable.length == 1) {
+   if (bltable.length == 0) {
     let temp=[]
      _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
         temp.push({
