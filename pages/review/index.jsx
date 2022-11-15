@@ -610,22 +610,50 @@ function Index() {
   };
 
   const [debtData, setDebtData] = useState([]);
+   const FilterUniqueBank = () => {
+    let filtered = _get(companyData, 'financial.openCharges', []);
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
+
+    return unique;
+  };
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
+     let filter = FilterUniqueBank()
+     console.log(filter,"filter")
+      console.log(orderList?.company?.debtProfile,"orderList?.company?.debtProfile")
       orderList?.company?.debtProfile.forEach((val, index) => {
-        temp.push({
-          bankName: val?.bankName,
-          conduct: val?.conduct,
-          limit: val?.limit,
-          limitType: val?.limitType,
-          primaryBank: val?.primaryBank,
-        });
+        console.log(val,"val")
+        filter.forEach((fil,index)=>{
+          console.log(val.bankName==fil,"val.bankName==fil")
+          if(val.bankName==fil){
+            temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"false"
+          })
+          }else{
+            temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"true"
+          })
+                  }
+        })
+       
+      
       });
       setDebtData([...temp]);
     }
-  }, [orderList?.company?.debtProfile]);
-
+  }, [orderList?.company?.debtProfile,companyData]);
+ console.log(debtData,"debtData")
   const [personData, setPersonData] = useState([]);
 
   useEffect(() => {

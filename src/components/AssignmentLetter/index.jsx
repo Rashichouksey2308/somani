@@ -83,6 +83,7 @@ function Index(props) {
           buyerEmail: data.buyerEmail,
           supplierEmail: data.supplierEmail,
           loadingCargo: data.loadingCargo,
+          loadingCargo2:data.loadingCargo2,
           dateOfContract: data.dateOfContract,
           financialAddress: data?.financialAddress,
           orderValueCurrency:data.orderValueCurrency,
@@ -107,10 +108,12 @@ function Index(props) {
         });
         let comment = [];
         let dateOfContract = '';
+        let month = '';
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Assignment Letter') {
             comment.push(val.comment);
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
+            month= val?.monthOfLoadingCargo
           }
         });
 
@@ -154,6 +157,7 @@ function Index(props) {
           specComment: data?.productSpecifications.comments,
           priceOfGoods: data?.order?.perUnitPrice,
           loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
+          loadingCargo2: month ,
           dateOfContract: dateOfContract,
           orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
           associateBuyer: _get(data, 'company.companyName', ''),

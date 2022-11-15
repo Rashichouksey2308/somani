@@ -119,6 +119,7 @@ const index = ({
         conduct: '',
         limit: null,
         action: false,
+        addnew:"false"
       },
     ]);
   };
@@ -128,13 +129,17 @@ const index = ({
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
+        if (value == 'addnew') {
+           val.addnew="true"
+        }
+
       } else {
         if (name == 'primaryBank') {
           val[name] = false;
         }
       }
     });
-
+     
     setDebtData([...tempArr]);
   };
 
@@ -2063,6 +2068,7 @@ const gettingPins=(value)=>{
                             style={{ marginTop: '12px' }}
                           />
                         </td>
+                        {profile.addnew=="false"?
                         <td>
                           <select
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
@@ -2078,28 +2084,27 @@ const gettingPins=(value)=>{
                                 <option value={item}>{item}</option>
                               </>
                             ))}
+                            <option value="addnew">Add new</option>
                           </select>
                         </td>
-                        <td>
-                          <select
-                            onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            value={profile?.limitType}
-                            name="limitType"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option selected disabled>
-                              Select
-                            </option>
-                            <option value="Cash Credit">Cash Credit</option>
-                            <option value="Bank Guarantee">Bank Guarantee</option>
-                            <option value="Post Ship Credit">Post Ship Credit</option>
-                            <option value="LC Limits">LC Limits</option>
-                            <option value="Buyers Credit">Buyers Credit</option>
-                            <option value="Term Loan">Term Loan</option>
-                            <option value="Packing Credit">Packing Credit</option>
-                          </select>
-                        </td>
+                        :
+                       <td>
+                      <input
+                        type="text"
+                        className="input"
+                         disabled={!profile.actions}
+                        value={profile.bankName}
+                        name="bankName"
+                        placeholder={"Add new"}
+                        // readOnly={val.addnew!="true"?true:false}
+                        onChange={(e) => {
+                          handleDebtChange(e.target.name, e.target.value, index);
+                        }}
+                      />
+                    </td>
+                        }
+                        
+                        
 
                         <td>
                           <input

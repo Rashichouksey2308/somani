@@ -836,7 +836,7 @@ export default function AssignmentLetterPreview(data) {
                           }}
                         >
                           {' '}
-                          {data?.loadingCargo}
+                          {data?.loadingCargo2}
                         </p>
                       </td>
                     </tr>
