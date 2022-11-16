@@ -9,6 +9,7 @@ import Router from 'next/router';
 import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 import { GetAllOrders } from '../../src/redux/registerBuyer/action';
 import _get from 'lodash/get'
+import moment from 'moment';
 
 function Index(props) {
   const [genericData, setGenericData] = useState();
@@ -55,7 +56,7 @@ function Index(props) {
         <div className={'ml-auto d-flex'}>
           <div className="ml-auto  mr-2">
             <div className={`${styles.lastModified} text `}>
-              <span className="accordion_Text">Last Modified:</span> {lastModified}
+              <span className="accordion_Text">Last Modified:</span>  {moment(companyData?.updatedAt).format(' D MMM, h:mm a')}
             </div>
           </div>
         </div>
