@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Router from 'next/router';
 import { GetAllCommodity, GetCommodity } from '../../src/redux/commodity/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import ToggleSwitch from '../../src/components/ToggleSwitch'
 
 const index = () => {
   const dispatch = useDispatch();
@@ -201,7 +202,8 @@ const index = () => {
                           <td>{commodity.Chapter_Name}</td>
 
                           <td>{commodity.Chapter_Code}</td>
-                          {commodity && commodity.Approved_Commodity == 'Yes' ? (
+                          <td> <ToggleSwitch/></td>
+                          {/* {commodity && commodity.Approved_Commodity == 'Yes' ? (
                             <td>
                               <img src="/static/active.svg" className="img-fluid" alt="active" />
                               <span className="m-3">{'Yes'}</span>
@@ -211,7 +213,7 @@ const index = () => {
                               <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
                               <span className="m-3">No</span>
                             </td>
-                          )}
+                          )} */}
                           <td>
                             {' '}
                             <div className={`${styles.edit_image} img-fluid`} onClick={() => handleRoute(commodity)}>
