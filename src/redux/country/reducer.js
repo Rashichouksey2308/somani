@@ -6,7 +6,7 @@ const initialState = {
   gettingCountry: false,
   countryResponse: null,
   updatingCountry: false,
-  updateportsResponse: false,
+  updateCountryResponse: false,
   creatingCountry: false,
   createdCountry: null
 }
@@ -43,7 +43,7 @@ function CountryReducer (state = initialState, action) {
       return {
         ...state,
         gettingCountry: false,
-        portsResponse: action.payload
+        countryResponse: action.payload
       }
 
     case types.GET_COUNTRY_FAILED:
@@ -56,19 +56,19 @@ function CountryReducer (state = initialState, action) {
       return {
         ...state,
         updatingCountry: true,
-        updateportsResponse: null
+        updateCountryResponse: null
       }
     case types.UPDATE_COUNTRY_SUCCESS:
       return {
         ...state,
         updatingCountry: false,
-        updateportsResponse: action.payload
+        updateCountryResponse: action.payload
       }
     case types.UPDATE_COUNTRY_FAILED:
       return {
         ...state,
         updatingCountry: false,
-        updateportsResponse: null
+        updateCountryResponse: null
       }
 
     case types.CREATE_COUNTRY:

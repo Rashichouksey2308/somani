@@ -254,7 +254,7 @@ export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
               toastId: toastMessage
             })
           }
-          sessionStorage.removeItem('internalCompanyId')
+        //   sessionStorage.removeItem('internalCompanyId')
           dispatch(setNotLoading())
         } else {
           dispatch(updateCountryFailed())
