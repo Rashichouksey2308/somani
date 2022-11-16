@@ -5,6 +5,7 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
 import _get from 'lodash/get';
 import _ from 'lodash';
+import ToggleSwitch from '../ToggleSwitch';
 
 const index = ({
   tableName,
@@ -33,7 +34,7 @@ const index = ({
         col3: item.State,
         date: '11-11-2022',
         status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
-        id: item._id
+        id: item._id,
       };
     });
   } else if (tableName === 'Internal Companies') {
@@ -45,12 +46,12 @@ const index = ({
         col2: item.Short_Name,
         col3: item.Country,
         status: 'Approved',
-        id: item._id
+        id: item._id,
       };
     });
   }
 
-  console.log(queueData, 'QUEUE')
+  console.log(queueData, 'QUEUE');
 
   return (
     <>
@@ -173,10 +174,8 @@ const index = ({
                       <td>{supplier.col2}</td>
                       <td>{supplier.col3}</td>
                       {supplier?.date && <td>{supplier.date}</td>}
-
                       <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">{supplier.status}</span>
+                        <ToggleSwitch />
                       </td>
 
                       <td>
@@ -194,7 +193,7 @@ const index = ({
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  ))}               
               </tbody>
             </table>
           </div>
