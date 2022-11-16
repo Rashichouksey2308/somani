@@ -125,6 +125,8 @@ function Index() {
         { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
         { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
         { name: 'Ports', image: '/static/vendors.svg', route: '/ports' },
+        { name: 'Document Masters', image: '/static/vendors.svg', route: '/document-master' },
+
 
         {
           name: 'Insurance Company',
