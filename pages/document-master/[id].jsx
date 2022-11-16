@@ -17,11 +17,11 @@ function Index () {
   const {documentResponse} = useSelector((state)=>state.document)
 
   const documentData = _get(documentResponse, 'data[0]', {})
-  console.log(documentData, 'doc1')
 
   const [documentField, setDocumentField] = useState(
     {
       Document_Name: '',
+      Sub_Module: '',
       Module: '',
     }
   );
@@ -40,9 +40,10 @@ function Index () {
 
   useEffect(() => {
     setDocumentField({
-      Document_Name: ''
+      Document_Name: documentData?.Document_Name,
+      Module: documentData?.Module
     })
-  }, [documentField.Document_Name])
+  }, [documentField.Sub_Module])
   
   
 
@@ -69,7 +70,7 @@ function Index () {
       documentMasterId: documentData._id
     }
     if(Id){
-      dispatch(UpdateDocument(data))
+      dispatch(UpdateDocument(data2))
     }else{
     dispatch(CreateDocument(data))
     }
