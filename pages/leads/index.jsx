@@ -16,6 +16,7 @@ import QueueStats from '../../src/components/QueueStats';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
+  const [showBadges, setShowBadges] = useState(false)
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ function Index() {
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
+    setShowBadges(true);
     setSearchTerm(query);
     if (query.length >= 3) {
       dispatch(SearchLeads(query));
@@ -120,8 +122,8 @@ function Index() {
             </div>
             <Filter />
 
-            {searchedLeads &&
-              searchedLeads.data.data.map((results, index) => {
+            {showBadges &&
+              searchedLeads?.data?.data?.map((results, index) => {
                 const { companyName, status, commodity,orderId } = results;
                 return (
                   <>
