@@ -215,10 +215,10 @@ function Index({ TransitDetails }) {
             {'  '}
             <div className={`ml-3 ${styles.noadd} text-left text-uppercase`}>
               {_get(TransitDetails, 'data[0].order.generic.seller.name')}
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
+            {" "}  {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
             </div>
           </div>
           <div className="w-25 text-right">

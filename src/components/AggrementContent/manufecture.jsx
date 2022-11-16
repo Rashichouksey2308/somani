@@ -200,7 +200,7 @@ function Index(props) {
        
       }
     }
-  }, [props]);
+  }, [props.data]);
 console.log(addressList,"aasdads")
   useEffect(() => {
     
