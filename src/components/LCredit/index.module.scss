@@ -836,16 +836,17 @@
 }
 
 .calanderIcon {
-  margin-left: -40px;
-  margin-top: 15px;
+  // margin-top: 15px;
   width: 23px;
-  height: 26px;
   z-index: 1;
+  margin-left: -40px;
   pointer-events: none;
+  height: 60px !important;
   @include respond(lg-desktop) {
     width: 18px;
-    margin-top: 9px;
+    // margin-top: 9px;
     margin-left: -33px;
+    height: 45px !important;
   }
 }
 

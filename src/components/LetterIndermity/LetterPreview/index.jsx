@@ -148,7 +148,7 @@ function Index() {
                               padding: '0 35px 30px 15px',
                             }}
                           >
-                            DATE:{' '}
+                            DATE :{' '}
                             {moment(
                               _get(transitDetails, 'data[0].LOI.loiIssueDate', '').slice(0, 10).replace(/-/g, '/'),
                             ).format('DD-MM-YYYY')}
@@ -170,11 +170,11 @@ function Index() {
                             <span style={{ fontWeight: 'normal' }}>Dear Sir,</span>
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Ship: </span>
+                            <span style={{ fontWeight: 'normal' }}>Ship : </span>
                             {_get(transitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Voyage: </span>
+                            <span style={{ fontWeight: 'normal' }}>Voyage : </span>
                             FROM {_get(
                               transitDetails,
                               'data[0].BL.billOfLanding[0].vesselName',
@@ -190,7 +190,7 @@ function Index() {
                             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
                                 <td align="left" width="13%">
-                                  <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading:</span>
+                                  <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading :</span>
                                 </td>
                                 <td align="left" width="87%">
                                   <div>
