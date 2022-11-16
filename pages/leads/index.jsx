@@ -13,6 +13,7 @@ import FilterBadge from '../../src/components/FilterBadge';
 import QueueStats from '../../src/components/QueueStats';
 import Table from '../../src/components/Table';
 import QueueStatusSymbol from "../../src/components/QueueStatusSymbol";
+import slugify from 'slugify';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
@@ -75,8 +76,6 @@ function Index() {
     const id = `${e.target.id}`;
     dispatch(GetAllBuyer(`?company=${id}`));
   };
-
-  var slugify = require('slugify')
 
   const handleSort = (column) => {
     let columnName = slugify(column.Header, { lower: true });
