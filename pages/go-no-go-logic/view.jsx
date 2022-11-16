@@ -82,6 +82,7 @@ function Index() {
                               inline
                               label="Import"
                               name="group1"
+                              checked={gngData?.transactionType?.includes('Import')}
                               type={type}
                               value="Import"
                               id={`inline-${type}-1`}
@@ -91,6 +92,7 @@ function Index() {
                               inline
                               label="Export"
                               name="group1"
+                              checked={gngData?.transactionType?.includes('Export')}
                               type={type}
                               value="Export"
                               id={`inline-${type}-2`}
@@ -99,6 +101,7 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Domestic"
+                              checked={gngData?.transactionType?.includes('Domestic')}
                               name="group1"
                               type={type}
                               value="Domestic"
@@ -121,9 +124,10 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Manufacturer"
+                              checked={gngData?.typeOfBusiness?.includes('Manufacturer')}
                               name="group1"
                               type={type}
-                              value="Import"
+                              value="Manufacturer"
                               id={`inline-${type}-1`}
                             />
                             <Form.Check
@@ -131,8 +135,9 @@ function Index() {
                               inline
                               label="Trader"
                               name="group1"
+                              checked={gngData?.typeOfBusiness?.includes('Trader')}
                               type={type}
-                              value="Export"
+                              value="Trader"
                               id={`inline-${type}-2`}
                             />
                             <Form.Check
@@ -140,8 +145,9 @@ function Index() {
                               inline
                               label="Wholesaler"
                               name="group1"
+                              checked={gngData?.typeOfBusiness?.includes('Wholesaler')}
                               type={type}
-                              value="Domestic"
+                              value="Wholesaler"
                               id={`inline-${type}-2`}
                             />
                             <Form.Check
@@ -150,7 +156,8 @@ function Index() {
                               label="Service"
                               name="group1"
                               type={type}
-                              value="Domestic"
+                              checked={gngData?.typeOfBusiness?.includes('Service')}
+                              value="Service"
                               id={`inline-${type}-2`}
                             />
                             <Form.Check
@@ -158,8 +165,9 @@ function Index() {
                               inline
                               label="Retailer"
                               name="group1"
+                              checked={gngData?.typeOfBusiness?.includes('Retailter')}
                               type={type}
-                              value="Domestic"
+                              value="Retailer"
                               id={`inline-${type}-2`}
                             />
                           </div>
@@ -234,7 +242,7 @@ function Index() {
           </div>
         </Card>
       </div>
-      <DownloadBar downLoadButtonName={`Download`} isApprove={true} />
+      <DownloadBar downLoadButtonName={`Download`} />
     </>
   );
 }
