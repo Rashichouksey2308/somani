@@ -13,6 +13,7 @@ import FilterBadge from '../../src/components/FilterBadge';
 import QueueStats from '../../src/components/QueueStats';
 import Table from '../../src/components/Table';
 import QueueStatusSymbol from "../../src/components/QueueStatusSymbol";
+import slugify from 'slugify';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
@@ -21,6 +22,11 @@ function Index() {
   const [showBadges, setShowBadges] = useState(false)
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
+
   const dispatch = useDispatch();
 
   const { allBuyerList } = useSelector((state) => state.buyer);
@@ -71,17 +77,23 @@ function Index() {
     dispatch(GetAllBuyer(`?company=${id}`));
   };
 
-  const [sorting, setSorting] = useState(1);
-
-  const handleSort = () => {
-    if (sorting == -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting == 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
-      setSorting(-1);
+  const handleSort = (column) => {
+    let columnName = slugify(column.Header, { lower: true });
+    let sortOrder = '';
+    if (column.id === sortByState.column) {
+      setSortByState((state) => {
+        let updatedOrder = !state.order;
+        sortOrder = updatedOrder ? 'asc' : 'desc';
+        return { ...state, order: updatedOrder }
+      })
     }
-  };
+    else {
+      let data = { column: column.id, order: column.isSortedDesc };
+      sortOrder = data.order ? 'asc' : 'desc';
+      setSortByState(data);
+    }
+    dispatch(GetAllBuyer(`?page=${currentPage}&column=${columnName}&order=${sortOrder}`));
+  }
 
   const statData = {
     'all': allBuyerList?.data?.totalCount,
@@ -120,6 +132,7 @@ function Index() {
     {
       Header: "Status",
       accessor: "queue",
+      disableSortBy: true,
       Cell: ({ value }) => <QueueStatusSymbol status={value} />
     }
   ])
@@ -206,6 +219,8 @@ function Index() {
                 data={allBuyerList?.data?.data}
                 pageLimit={pageLimit}
                 setPageLimit={setPageLimit}
+                handleSort={handleSort}
+                sortByState={sortByState}
               />
             )
           }
