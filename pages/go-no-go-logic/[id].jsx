@@ -5,12 +5,17 @@ import Router from 'next/router';
 import Image from 'next/image';
 import DownloadBar from '../../src/components/DownloadBar';
 import { useDispatch } from 'react-redux';
-import { GetGoNoGo } from '../../src/redux/goNoGo/action';
+import { GetGoNoGo, UpdateGoNoGo } from '../../src/redux/goNoGo/action';
 import { useSelector } from 'react-redux';
 import _get from 'lodash/get';
 
 function Index() {
   const dispatch = useDispatch();
+
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    minTurnOver: false,
+    minOrderValue: false,
+  })
 
   useEffect(() => {
     let id = sessionStorage.getItem('gngMasterId');
@@ -39,6 +44,45 @@ function Index() {
     remarks: gngResponseData?.remarks
     })
   }, [gngResponseData]);
+
+  const saveGngData = (name, value) => {
+    let newInput = {...gngData}
+    newInput[name] = value
+    setGngData(newInput)
+  }
+
+  const handleTransaction = (e) => {
+    let transactionArr = { ...gngData };
+    if (e.target.checked) {
+      transactionArr.transactionType.push(e.target.name);
+    } else {
+      transactionArr.transactionType.pop(e.target.name);
+    }
+    setGngData(transactionArr);
+  };
+
+  const handleTypeOfBusiness = (e) => {
+    let businessArr = { ...gngData };
+    if (e.target.checked) {
+      businessArr.typeOfBusiness.push(e.target.name);
+    } else {
+      businessArr.typeOfBusiness.pop(e.target.name);
+    }
+    setGngData(businessArr);
+  };
+
+  const handleApproval = () => {
+    let data = {
+      transactionType: gngData?.transactionType,
+      typeOfBusiness: gngData?.typeOfBusiness,
+      minOrderValue: gngData?.minOrderValue,
+      minTurnOver: gngData?.minTurnOver,
+      remarks: gngData?.remarks,
+      daysAllowedInExpectedDateOfShipment: gngData?.daysAllowedInExpectedDateOfShipment,
+      gngMasterId: gngResponseData?._id
+    }
+    dispatch(UpdateGoNoGo(data))
+  }
 
   return (
     <>
@@ -82,7 +126,8 @@ function Index() {
                               inline
                               label="Import"
                               name="group1"
-                              checked={gngData?.transactionType?.includes('Import')}
+                              defaultChecked={gngData?.transactionType?.includes('Import')}
+                              onChange={(e)=>handleTransaction(e)}
                               type={type}
                               value="Import"
                               id={`inline-${type}-1`}
@@ -92,7 +137,8 @@ function Index() {
                               inline
                               label="Export"
                               name="group1"
-                              checked={gngData?.transactionType?.includes('Export')}
+                              defaultChecked={gngData?.transactionType?.includes('Export')}
+                              onChange={(e)=>handleTransaction(e)}
                               type={type}
                               value="Export"
                               id={`inline-${type}-2`}
@@ -101,7 +147,8 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Domestic"
-                              checked={gngData?.transactionType?.includes('Domestic')}
+                              defaultChecked={gngData?.transactionType?.includes('Domestic')}
+                              onChange={(e)=>handleTransaction(e)}
                               name="group1"
                               type={type}
                               value="Domestic"
@@ -124,7 +171,8 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Manufacturer"
-                              checked={gngData?.typeOfBusiness?.includes('Manufacturer')}
+                              defaultChecked={gngData?.typeOfBusiness?.includes('Manufacturer')}
+                              onChange={(e)=>handleTypeOfBusiness(e)}
                               name="group1"
                               type={type}
                               value="Manufacturer"
@@ -135,7 +183,8 @@ function Index() {
                               inline
                               label="Trader"
                               name="group1"
-                              checked={gngData?.typeOfBusiness?.includes('Trader')}
+                              defaultChecked={gngData?.typeOfBusiness?.includes('Trader')}
+                              onChange={(e)=>handleTypeOfBusiness(e)}
                               type={type}
                               value="Trader"
                               id={`inline-${type}-2`}
@@ -145,7 +194,8 @@ function Index() {
                               inline
                               label="Wholesaler"
                               name="group1"
-                              checked={gngData?.typeOfBusiness?.includes('Wholesaler')}
+                              defaultChecked={gngData?.typeOfBusiness?.includes('Wholesaler')}
+                              onChange={(e)=>handleTypeOfBusiness(e)}
                               type={type}
                               value="Wholesaler"
                               id={`inline-${type}-2`}
@@ -156,7 +206,8 @@ function Index() {
                               label="Service"
                               name="group1"
                               type={type}
-                              checked={gngData?.typeOfBusiness?.includes('Service')}
+                              defaultChecked={gngData?.typeOfBusiness?.includes('Service') ? true : false}
+                              onChange={(e)=>handleTypeOfBusiness(e)}
                               value="Service"
                               id={`inline-${type}-2`}
                             />
@@ -165,7 +216,8 @@ function Index() {
                               inline
                               label="Retailer"
                               name="group1"
-                              checked={gngData?.typeOfBusiness?.includes('Retailter')}
+                              defaultChecked={gngData?.typeOfBusiness?.includes('Retailter') ? true : false}
+                              onChange={(e)=>handleTypeOfBusiness(e)}
                               type={type}
                               value="Retailer"
                               id={`inline-${type}-2`}
@@ -186,7 +238,22 @@ function Index() {
                           className={`${styles.input_value} border_color input form-control`}
                           type="text"
                           name="minTurnOver"
-                          value={gngData?.minTurnOver}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                          onWheel={(event) => event.currentTarget.blur()}
+                          onFocus={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, minTurnOver: true }), (e.target.type = 'number');
+                          }}
+                          onBlur={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, minTurnOver: false }), (e.target.type = 'text');
+                          }}
+                          value={
+                            isFieldInFocus.minTurnOver
+                              ? gngData?.minTurnOver
+                              : Number(gngData?.minTurnOver).toLocaleString('en-In') +
+                                ` CR`
+                          }
+                          onChange={(e)=>saveGngData(e.target.name, e.target.value)}
+                          // value={gngData?.minTurnOver}
                         />
                       </div>
                     </div>
@@ -202,7 +269,22 @@ function Index() {
                           className={`${styles.input_value} border_color input form-control`}
                           type="text"
                           name="minOrderValue"
-                          value={gngData?.minOrderValue}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                          onWheel={(event) => event.currentTarget.blur()}
+                          onFocus={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, minOrderValue: true }), (e.target.type = 'number');
+                          }}
+                          onBlur={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, minOrderValue: false }), (e.target.type = 'text');
+                          }}
+                          value={
+                            isFieldInFocus.minOrderValue
+                              ? gngData?.minOrderValue
+                              : Number(gngData?.minOrderValue).toLocaleString('en-In') +
+                                ` CR`
+                          }
+                          onChange={(e)=>saveGngData(e.target.name, e.target.value)}
+                          // value={gngData?.minOrderValue}
                         />
                       </div>
                     </div>
@@ -216,9 +298,10 @@ function Index() {
                         <div className={`${styles.show_record}`}>less than or equal to</div>
                         <input
                           className={`${styles.input_value} border_color input form-control`}
-                          type="text"
+                          type="number"
                           name="daysAllowedInExpectedDateOfShipment"
                           value={gngData?.daysAllowedInExpectedDateOfShipment}
+                          onChange={(e)=>saveGngData(e.target.name, e.target.value)}
                         />
                       </div>
                     </div>
@@ -232,6 +315,7 @@ function Index() {
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         name="remarks"
+                        onChange={(e)=>saveGngData(e.target.name, e.target.value)}
                         value={gngData?.remarks}
                       />
                     </div>
@@ -242,7 +326,7 @@ function Index() {
           </div>
         </Card>
       </div>
-      <DownloadBar downLoadButtonName={`Download`} isApprove={true} rightButtonName={`Send For Approval`} />
+      <DownloadBar downLoadButtonName={`Download`} handleApprove={handleApproval} isApprove={true} rightButtonName={`Send For Approval`} />
     </>
   );
 }

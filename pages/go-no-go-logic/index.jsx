@@ -27,7 +27,6 @@ const index = () => {
   });
 
   const statusArr = allGoNoGo?.data?.map((val, index) => {return val.verification.status} )
-  console.log(statusArr, 'status')
 
   const handleRoute = (val) => {
     sessionStorage.setItem('gngMasterId', val._id)
