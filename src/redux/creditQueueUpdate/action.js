@@ -242,7 +242,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-export const AddingDocument = (payload) => async (dispatch, getState, api) => {
+export const AddingDocument = (payload, id) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -256,26 +256,26 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
   };
 
   try {
-    Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
+    let response = await Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
       headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(addingDocumentsSuccess(response.data.data));
-        dispatch(GetDocuments(`?order=${id}`));
-        const toastMessage = 'Document Successfully Added';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      } else {
-        dispatch(addingDocumentsFailed(response.data.data));
-        const toastMessage = response.data.message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      }
     });
+    if (response.data.code === 200) {
+      dispatch(addingDocumentsSuccess(response.data.data));
+
+      const toastMessage = 'Document Successfully Added';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return response.data.code;
+    } else {
+      dispatch(addingDocumentsFailed(response.data.data));
+      const toastMessage = response.data.message;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
   } catch (error) {
     dispatch(addingDocumentsFailed());
     const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
@@ -298,25 +298,24 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.put(`${API.corebaseUrl}${API.deleteDocument}`, payload, {
+    let response = await Axios.put(`${API.corebaseUrl}${API.deleteDocument}`, payload, {
       headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(deleteDocumentsSuccess(response.data.data));
-        const toastMessage = 'Document Successfully DELETED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      } else {
-        dispatch(deleteDocumentsFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      }
     });
+    if (response.data.code === 200) {
+      dispatch(deleteDocumentsSuccess(response.data.data));
+      const toastMessage = 'Document Successfully DELETED';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(deleteDocumentsFailed(response.data.data));
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
   } catch (error) {
     dispatch(deleteDocumentsFailed());
     const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';

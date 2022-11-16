@@ -108,14 +108,17 @@ const Index = ({ orderid, module, isDocumentName }) => {
     } else {
       const fd = new FormData()
       fd.append('document', newDoc.document)
-      fd.append('module', newDoc.module)
+      fd.append('module', moduleSelected)
       fd.append('order', orderid)
       fd.append('name', newDoc.name)
-      await  dispatch(AddingDocument(fd))
+    let code =  await  dispatch(AddingDocument(fd,orderid))
+      if(code==200){
       setNewDoc({
-        document: null, order: orderid, name: '', module: module,
-      })
-      await  fetchData()
+              document: null, order: orderid, name: '', module: module,
+            })
+            await  fetchData()
+      }
+      
     }
   };
 
@@ -128,6 +131,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     });
     setFilteredDoc(tempArray);
   };
+  console.log(filteredDoc,"filteredDoc")
   const handleDocModuleChange = (index) => {
     let tempArray = [...filteredDoc];
     tempArray[index].moving = true;
