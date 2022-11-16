@@ -17,6 +17,9 @@ function Index(props) {
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [removedOption, setRemovedOption] = useState(null);
+  const [removedArr, setRemovedArr] = useState([]);
+  const [masterList,setmasterList] = useState([])
+  const [options,setOptions] = useState([])
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -49,7 +52,26 @@ function Index(props) {
   const [addressEditType, setAddressEditType] = useState('Registered');
   const [list, setList] = useState([]);
  
-
+  useEffect(() => {
+    if(props.directors){
+      let temp=[]
+      let options=[]
+       props.directors.forEach((val,index)=>{
+         temp.push(
+          {
+          name: val.name,
+          designation: val.designation,
+          email: val.email,
+          phoneNo: '',
+         }
+         )
+          options.push(val.name)
+       })
+      
+       setmasterList([...temp])
+       setOptions([...options])
+    }
+  },[props.directors])
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Associate')) {
@@ -253,14 +275,18 @@ function Index(props) {
       });
 
       return newState;
+      
     });
-    // let temp = [...options];
-    // var indexOption = temp.indexOf(value.name);
-    // setRemovedOption(value.name);
-    // if (indexOption !== -1) {
-    //   temp.splice(indexOption, 1);
-    // }
-    // setOptions([...temp]);
+    let temp = [...options];
+    var indexOption = temp.indexOf(value.name);
+
+    if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+    }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
+    setOptions([...temp]);
   };
   const addMoreRows = () => {
     setList([
@@ -274,7 +300,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    // setRemovedOption(null);
+   
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
@@ -283,7 +309,20 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
+    
+     masterList.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
    
   };
   const removeDoc = (index) => {
@@ -360,7 +399,7 @@ function Index(props) {
         };
       }
     } else {
-      props.masterList.forEach((val, index) => {
+      masterList.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation;
@@ -798,8 +837,8 @@ const cancelEditAddress = () => {
                                         }}
                                       >
                                         <option>Select an option</option>
-                                       
-                                        {props.options.map((val, i) => {
+                                      
+                                        {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
 
