@@ -66,6 +66,7 @@ let alertObj = {
   isVanishing: 'Vanishing',
   NA: 'Non-Genuine Dealers of Mahavat',
   isSebiDebarred: 'SEBI Debarred',
+  // file deepcode ignore DuplicateObjectProperty: Alert Object
   NA: 'BSE Disciplinary Action',
   isNseCompanySuspended: 'NSE Company Suspended',
   isNseExpelled: 'NSE Expelled',
