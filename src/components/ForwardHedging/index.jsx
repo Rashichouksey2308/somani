@@ -293,7 +293,7 @@ export default function Index() {
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => Router.push('/forward-table')} style={{ cursor: 'pointer' }}>
               <img
-                className={`${styles.arrow} image_arrow mr-2 img-fluid`}
+                className={`${styles.back_arrow} image_arrow mr-3 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />

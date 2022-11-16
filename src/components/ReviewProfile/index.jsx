@@ -423,7 +423,7 @@ function Index({
                               })
                               .map((options) => {
                                 return (
-                                  <option value={`${options.Port_Name},${options.Country}`}>
+                                  <option value={`${options.Port_Name}`}>
                                     {options.Port_Name},{options.Country}
                                   </option>
                                 );

@@ -16,7 +16,7 @@ import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipA
 import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
-import TPASellerPreview from '../../../src/templates/SalesContractPreview';
+import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 
 function index() {
   const [data, setData] = useState({
@@ -183,6 +183,7 @@ function index() {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
     let toPrint = SalesContractPreview(data);
     let name = 'SalesAgreement';
+    console.log(preview,"preview")
     if (preview == 'Sales') {
       toPrint = SalesContractPreview(data);
       name = 'SalesAgreement.pdf';

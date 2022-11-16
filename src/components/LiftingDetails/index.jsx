@@ -224,7 +224,7 @@ export default function Index(props) {
                           <div className={`${styles.bill_landing} border_color`}>
                             <div className={`${styles.vessel_card}`}>
                               <div className="justify-content-between d-flex mt-4">
-                                <div className={`${styles.form_heading}`}>Listing Details {getIndex(index2)}</div>
+                                <div className={`${styles.form_heading}`}>Lifting Details {getIndex(index2)}</div>
                                 {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity) >= 0 && (
                                   <>
                                  
@@ -314,33 +314,33 @@ export default function Index(props) {
                                       Mode of Transportation
                                       <strong className="text-danger">*</strong>
                                     </div>
-                                    {console.log(val.detail[index2]?.modeOfTransportation,"val2?.modeOfTransportation")}
+                                    {console.log(val2?.modeOfTransportation,"val2?.modeOfTransportation")}
                                  
                                       <div key={index} className={styles.radio_group}>
                                         <Form.Check
                                           className={styles.radio}
                                           inline
                                           label="RR"
-                                          name="modeOfTransportation"
+                                          name={`inline-${"radio"}-${index}-${index2}`}
                                           type={"radio"}
-                                          id={`inline-${"radio"}-${index}-${index2}-RR`}
+                                          id={`inline-${"radio"}-${index}-${index2}`}
                                           value={'RR'}
-                                          checked={val2?.modeOfTransportation == 'RR' ? "checked" : ''}
+                                          checked={val2.modeOfTransportation == 'RR' ? "checked" : ''}
                                           onChange={(e) => {
-                                            props.handleChange(e.target.name, e.target.value, index, index2);
+                                            props.handleChange("modeOfTransportation", e.target.value, index, index2);
                                           }}
                                         />
                                         <Form.Check
                                           className={`${styles.radio} ml-4`}
                                           inline
                                           label="LR"
-                                          name="modeOfTransportation"
+                                          name={`inline-${"radio"}-${index}-${index2}`}
                                           type={"radio"}
-                                          id={`inline-${"radio"}-${index}-${index2}-LR`}
+                                          id={`inline-${"radio"}-${index}-${index2}`}
                                           value={'LR'}
                                           checked={val2.modeOfTransportation == 'LR' ? "checked" : ''}
                                           onChange={(e) => {
-                                            props.handleChange(e.target.name, e.target.value, index, index2);
+                                            props.handleChange("modeOfTransportation", e.target.value, index, index2);
                                           }}
                                         />
                                       </div>
