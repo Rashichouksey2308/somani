@@ -26,6 +26,9 @@ const index = () => {
     dispatch(setDynamicOrder(null));
   });
 
+  const statusArr = allGoNoGo?.data?.map((val, index) => {return val.verification.status} )
+  console.log(statusArr, 'status')
+
   const handleRoute = (val) => {
     sessionStorage.setItem('gngMasterId', val._id)
     Router.push('/go-no-go-logic/id')
@@ -157,7 +160,7 @@ const index = () => {
                             <span className="m-3">{val.verification.status}</span>
                           </td>
                           <td>
-                            <div className={`${styles.edit_image} img-fluid`}>
+                          {(statusArr?.includes('Pending') ? val.verification.status === 'Pending' : val.verification.status === 'Active') && <div className={`${styles.edit_image} img-fluid`}>
                               <Image
                                 onClick={() => handleRoute(val)}
                                 height="40px"
@@ -165,7 +168,7 @@ const index = () => {
                                 src="/static/mode_edit.svg"
                                 alt="Edit"
                               />
-                            </div>
+                            </div>}
                           </td>
                         </tr>
                       ))}
