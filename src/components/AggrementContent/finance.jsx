@@ -60,35 +60,44 @@ function Index(props) {
           <div className="row border_color ">
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
               <div className="d-flex">
-                <input
+                <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="name"
                   value={financeData.name}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value);
                   }}
-                />
+                >
+                  <option>Select an option</option>
+                  <option value="Ing Bank N.V">Ing Bank N.V</option>
+                </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Name<strong className="text-danger">*</strong>
                 </Form.Label>
-            
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
-                <input
+                <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="branchName"
                   value={financeData.branchName}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value);
                   }}
-                />
-                 
+                >
+                  <option>Select an option</option>
+                  <option value="Amsterdam">Amsterdam</option>
+                </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Branch<strong className="text-danger">*</strong>
                 </Form.Label>
-              
+                <img
+                  className={`${styles.arrow}  image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
               </div>
             </Form.Group>
 

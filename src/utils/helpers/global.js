@@ -40,6 +40,10 @@ export const returnDocFormat = (name = '') => {
  */
 export const returnReadableNumber = (number, locales = undefined, maximum = 0, minimum = 0) => {
   let convertedNumber = Number(number);
+  if (number === 0) return number.toLocaleString(locales, {
+    maximumFractionDigits: maximum,
+    minimumFractionDigits: minimum
+  });
   if (convertedNumber) {
     return convertedNumber.toLocaleString(locales, {
       maximumFractionDigits: maximum,
