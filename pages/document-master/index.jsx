@@ -44,6 +44,11 @@ const index = () => {
     dispatch(GetDocument(`?documentMasterId=${id}`));
   };
 
+  const handleRoute = (doc) => {
+    sessionStorage.setItem('documentMasterId', doc._id)
+    Router.push('/document-master/id')
+  }
+
   return (
     <>
       <div className="container-fluid p-0 border-0">
@@ -88,7 +93,7 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/document-master/id')}
+              onClick={() => { sessionStorage.getItem('documentMasterId') && sessionStorage.removeItem('documentMasterId'); Router.push('/document-master/id')}}
             >
               Add
             </button>
@@ -153,7 +158,7 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th width="25%" className={`${styles.table_heading} table_heading`}>
+                      {/* <th width="25%" className={`${styles.table_heading} table_heading`}>
                         SUB-MODULE{' '}
                         <Image
                           width="9px"
@@ -162,7 +167,7 @@ const index = () => {
                           src="/static/icons8-sort-24.svg"
                           alt="Sort icon"
                         />
-                      </th>
+                      </th> */}
 
                       <th className={`${styles.table_heading} table_heading`}>
                         DOCUMENT NAME{' '}
@@ -181,12 +186,12 @@ const index = () => {
                   <tbody>
                   {allDocument && allDocument?.data?.map((doc, index) => (<tr key={index} className={`${styles.table_row} table_row17`}>
                       <td>{doc.Module}</td>
-                      <td>{doc.Sub_Module}</td>
+                      {/* <td>{doc.Sub_Module}</td> */}
                       <td className={styles.buyerName}>{doc.Document_Name}</td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
+                          <Image onClick={()=>handleRoute(doc)} height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>))}

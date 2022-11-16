@@ -4,6 +4,7 @@ import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import * as types from './actionType'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { Router } from 'next/router'
 
 function getDocument () {
   return {
@@ -254,7 +255,8 @@ export const UpdateDocument = (payload) => async (dispatch, getState, api) => {
               toastId: toastMessage
             })
           }
-        //   sessionStorage.removeItem('internalCompanyId')
+          sessionStorage.removeItem('documentMasterId')
+          Router.push('/document-master')
           dispatch(setNotLoading())
         } else {
           dispatch(updateDocumentFailed())
