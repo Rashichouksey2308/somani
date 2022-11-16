@@ -5,7 +5,7 @@
   box-shadow: none !important;
   background: none !important;
   margin: 28px;
-  margin-bottom: 68px;
+  margin-bottom: 165px;
   @include respond(sm-desktop) {
     margin: 20px;
     margin-bottom: 60px;
@@ -107,158 +107,18 @@
     .dashboard_form {
       padding: 20px 35px 25px 40px;
 
-      .bill_landing {
-        //background: #FFFFFF;
-        border: 2px solid #cad6e6;
-        border-radius: 9px;
-
-        .vessel_card {
-          padding: 0px 35px 0px 35px;
-
-          .main {
-            margin-bottom: 26px;
-            border-radius: 6px !important;
-
-            .head_container {
-              border-bottom: 2px solid #cad6e6;
-              cursor: pointer;
-              border-bottom: none;
-              height: 80px;
-              padding: 25px 35px !important;
-
-              .heading {
-                color: #3687e8;
-                font-weight: bold;
-                font-size: 22px;
-                text-transform: capitalize;
-                @include respond(md-desktop) {
-                  font-size: 20px;
-                }
-                @include respond(sm-desktop) {
-                  font-size: 18px;
-                }
-                @include respond(phone) {
-                  font-size: 15px;
-                }
-              }
-
-              span {
-                font-size: 45px;
-                color: #3687e8;
-                font-weight: normal;
-                line-height: 20px;
-                @include respond(lg-desktop) {
-                  font-size: 35px;
-                }
-                @include respond(sm-desktop) {
-                  font-size: 32px;
-                }
-                @include respond(phone) {
-                  font-size: 30px;
-                }
-              }
-            }
-
-            .add_row {
-              text-align: center;
-              font-size: 18px;
-              line-height: 23px;
-              font-weight: bold;
-              color: #3687e8;
-              cursor: pointer;
-
-              span {
-                margin-right: 15px;
-              }
-            }
-
-            .submit {
-              cursor: pointer;
-              width: 260px;
-              height: 48px;
-              background: #3687e8;
-              border-radius: 5px;
-              color: #ffffff;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-left: 1rem;
-              margin: 10px 35px !important;
-            }
-          }
-        }
-      }
-
       .form_group {
         margin-top: 40px;
         position: relative;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
 
         .search_image {
           margin-left: -40px;
         }
-
-        .label_heading {
-          font-size: 16px;
-          letter-spacing: 0.53px;
-          line-height: 17px;
-          top: 22px;
-          left: 30px;
-          margin-bottom: 0;
-          position: absolute;
-          pointer-events: none;
-          box-sizing: border-box;
-          transform: translateY(-30px);
-          transition: 0.3s all ease-in-out;
-          z-index: 1;
-          max-width: 77%;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
-          &::before {
-            top: 51%;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            content: '';
-            z-index: -1;
-            position: absolute;
-            transform: translateY(-50%);
-          }
-
-          @include respond(lg-desktop) {
-            top: 15px;
-            font-size: 14px;
-            line-height: 15px;
-            transform: translateY(-22px);
-          }
+        .sub_heading {
+          font-size: 19px;
+          line-height: 23px;
         }
-
-        .phone_card {
-          display: flex;
-          flex-wrap: nowrap;
-
-          .code_phone {
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-            font-size: 19px;
-            letter-spacing: 0.18px;
-            color: #3687e8;
-            text-transform: capitalize;
-            outline: none;
-            border-radius: 4px 0 0 4px;
-            @include respond(lg-desktop) {
-              font-size: 15px;
-              line-height: 1.3;
-            }
-          }
-        }
-
-        .line {
-          border: 3px solid #d9dde8;
-        }
-
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -292,29 +152,116 @@
             line-height: 1.3;
           }
         }
-      }
-
-      .phone {
-        .label_heading {
-          left: 90px;
-          transform: translate(-61px, -30px);
+        .show_record {
+          letter-spacing: 0.19px;
+          color: #111111;
+          font-size: 20px;
+          line-height: 25px;
+          margin-right: 20px;
           @include respond(lg-desktop) {
-            transform: translate(-61px, -22px);
+            // padding-right: 0px;
+            font-size: $font_size_mobile_input_label;
+          }
+          @include respond(md-desktop) {
+            font-size: 19px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 15px;
           }
         }
+        .input_value {
+          width: 104px;
+          height: 46px;
+          background: #c3c3c31f;
+          border: 1px solid #0000001f;
+          border-radius: 4px;
+          margin-top: -8px;
+          letter-spacing: 0.19px;
+          font-size: 20px;
+          line-height: 25px;
+        }
+        .radio_form {
+          .radio_group {
+            display: flex;
+            @include respond(phone) {
+              justify-content: space-between;
+            }
 
-        .input_field {
-          border-top-left-radius: 0px;
-          border-bottom-left-radius: 0px;
-
-          &:focus {
-            & + label {
-              transform: translate(-61px, -30px);
+            .radio {
+              font-size: 20px;
+              color: #111111;
+              letter-spacing: 0.19px;
+              line-height: 25px;
+              padding-right: 60px;
               @include respond(lg-desktop) {
-                transform: translate(-61px, -22px);
+                padding-right: 15px;
+              }
+
+              input {
+                width: 15px;
+                height: 15px;
+                margin-right: 12px;
+                transform: scale(1);
+                @include respond(lg-desktop) {
+                  width: 13px;
+                  height: 13px;
+                }
+                // @include respond(sm-desktop) {
+                //     font-size: 14px;
+                //     padding-right: 0px;
+                // }
+                // @include respond(phone) {
+                //     font-size: 12px;
+                // }
+              }
+
+              // @include respond(xl-desktop) {
+              //     padding-right: 0px;
+
+              // }
+              @include respond(lg-desktop) {
+                // padding-right: 0px;
+                font-size: $font_size_mobile_input_label;
+              }
+              @include respond(md-desktop) {
+                font-size: 19px;
+                padding-right: 0px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 19px;
+                padding-right: 0px;
+              }
+              @include respond(phone) {
+                font-size: 15px;
+                padding-right: 0px;
+              }
+
+              label {
+                white-space: nowrap;
+                @include respond(lg-desktop) {
+                  padding-right: 0px;
+                  font-size: $font_size_mobile_input_label;
+                }
+                @include respond(md-desktop) {
+                  font-size: 14px;
+                  padding-right: 0px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 14px;
+                  padding-right: 0px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
               }
             }
           }
+        }
+        .line {
+          border: 3px solid #d9dde8;
         }
       }
     }
@@ -326,7 +273,6 @@
   height: 80px;
   cursor: pointer;
 
-  
   .heading {
     color: #3687e8;
     font-weight: bold;
@@ -334,60 +280,18 @@
     text-transform: capitalize;
     line-height: 27px;
   }
-
-  .status_heading {
-    letter-spacing: 0.53px;
-    color: #00000080;
-    font-size: 16px;
-    line-height: 17px;
+  .version_heading {
+    font-size: 18px;
+    line-height: 23px;
     font-weight: 500;
-
-    .active {
-      color: #43c34d;
-      font-size: 22px;
-      line-height: 27px;
-      font-weight: bold;
-      margin-left: 12px;
+    color: #718096;
+    span {
+      letter-spacing: 0.17px;
+      font-size: 18px;
+      line-height: 25px;
+      color: #111111;
+      font-weight: normal !important;
     }
-  }
-
-  span {
-    font-size: 45px;
-    color: #3687e8;
-    font-weight: normal;
-    line-height: 20px;
-    @include respond(lg-desktop) {
-      font-size: 35px;
-    }
-  }
-}
-
-img {
-  &.arrow2 {
-    width: 13px !important;
-    right: 12px;
-    height: 38px;
-    position: absolute;
-    pointer-events: none;
-
-    input[type='date']::-webkit-inner-spin-button,
-    input[type='date']::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
-  }
-}
-
-.img_arrow {
-  transform: translateY(30%);
-  top: 30%;
-  margin-left: -40px;
-  pointer-events: none;
-
-  input[type='date']::-webkit-inner-spin-button,
-  input[type='date']::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
   }
 }
 

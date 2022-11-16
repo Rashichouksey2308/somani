@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Router from 'next/router';
 import { GetAllCommodity, GetCommodity } from '../../src/redux/commodity/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { round } from 'lodash';
 
 const index = () => {
   const dispatch = useDispatch();
@@ -118,7 +119,9 @@ const index = () => {
                   </thead>
                   <tbody>
                     <tr key={index} className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>1.6</td>
+                      <td className={styles.buyerName}
+                      style={{cursor:'pointer'}}
+                      onClick={() => Router.push('/go-no-go-logic/id')}>1.6</td>
                       <td>22-02-2022</td>
 
                       <td>
