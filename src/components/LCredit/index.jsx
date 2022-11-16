@@ -133,7 +133,7 @@ function Index() {
     newInput[name] = value;
     setLcData(newInput);
   };
-
+ console.log(lcData,"adasdasd")
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -270,8 +270,10 @@ function Index() {
       }
     } else {
       let sendLcData = { ...clauseData };
+      sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber
+      sendLcData.dateOfIssue = lcData.dateOfIssue
       setLcData(clauseData);
-
+      console.log(sendLcData,"sendLcData")
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));

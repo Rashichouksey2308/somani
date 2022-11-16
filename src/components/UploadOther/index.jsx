@@ -111,10 +111,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
       fd.append('module', newDoc.module)
       fd.append('order', orderid)
       fd.append('name', newDoc.name)
-      dispatch(AddingDocument(fd))
+      await  dispatch(AddingDocument(fd))
       setNewDoc({
         document: null, order: orderid, name: '', module: module,
       })
+      await  fetchData()
     }
   };
 
@@ -237,7 +238,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   />
                   <Form.Label className={`${styles.label} label_heading`}>Please Specify Document Name</Form.Label>
                 </Form.Group>
-                <div onClick={(e) => uploadDocumentHandler(e)} className={styles.uploadBtnWrapper}>
+                <div onClick={async (e) => {
+                 uploadDocumentHandler(e)
+                 
+                }
+                 
+                } className={styles.uploadBtnWrapper}>
                   <button className={`${styles.upload_button} btn`}>Upload</button>
                 </div>
               </div>
@@ -320,14 +326,16 @@ const Index = ({ orderid, module, isDocumentName }) => {
                             </td>
                             <td colSpan="2">
                               <img
-                                onClick={(e) => {
+                                onClick={async (e) => {
                                   DocDlt(index);
-                                  dispatch(
-                                    DeleteDocument({
-                                      orderDocumentId: documentsFetched._id,
-                                      name: document.name,
-                                    }),
-                                  );
+                                    await  dispatch(
+                                        DeleteDocument({
+                                          orderDocumentId: documentsFetched._id,
+                                          name: document.name,
+                                        }),
+                                                                  
+                                        );
+                                        await  fetchData()
                                 }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} mr-3`}

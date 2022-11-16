@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
-
+import { previewDocument } from '../../redux/ViewDoc/action';
 import UploadOther from '../UploadOther';
 import DateCalender from '../DateCalender';
 import _get from 'lodash/get';
@@ -55,6 +55,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
             blDate: null,
             blQuantity: '',
             noOfContainers: '',
+            blDoc:""
           },
         ],
       },
@@ -63,7 +64,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   });
 
   console.log(igmList, 'igmListmain');
-
+  const getDoc = (payload) => {
+    dispatch(
+      previewDocument({
+        path: payload,
+        order: _get(TransitDetails, 'data[0].order._id', ''),
+        company: _get(TransitDetails, 'data[0].company._id', ''),
+      }),
+    );
+  };
   const [orderData, setOrderData] = useState();
   useEffect(() => {
     dispatch(getInternalCompanies());
@@ -109,6 +118,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           blDate: '',
           quantity: '',
           noOfContainers: '',
+          blDoc:""
         },
       ],
     });
@@ -147,6 +157,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       blNumber: number,
       blDate: null,
       quantity: '',
+      blDoc:""
     });
     setIgmList(newIgmList);
   };
@@ -206,6 +217,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
         tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
         tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
+        tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0].containerDetails?.blDoc;
         setIgmList({ ...tempArray });
       }
     }
@@ -450,6 +462,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     if (filterData.length > 0) return true;
     return false;
   };
+  
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -763,6 +776,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="row">
                     {item?.blNumber?.length > 0 &&
                       item.blNumber.map((blEntry, index2) => {
+                        {console.log(blEntry,"blEntry")}
                         return (
                           <>
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
@@ -825,6 +839,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       src="/static/preview.svg"
                                       className={`${styles.previewImg} ml-n4`}
                                       alt="Preview"
+                                        onClick={(e) => {
+                                    getDoc(blEntry?.blDoc?.path);
+                                  }}
                                     />
                                     {item.blNumber.length >= index2 ? (
                                       <img
@@ -882,6 +899,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                         src="/static/preview.svg"
                                         className={`${styles.previewImg} ml-n4`}
                                         alt="Preview"
+                                          onClick={(e) => {
+                                    getDoc(blEntry?.blDoc?.path);
+                                  }}
                                       />
                                       {item.blNumber.length >= index2 ? (
                                         <img
