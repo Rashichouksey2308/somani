@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { GetGoNoGo, UpdateGoNoGo } from '../../src/redux/goNoGo/action';
 import { useSelector } from 'react-redux';
 import _get from 'lodash/get';
+import { removePrefixOrSuffix } from '../../src/utils/helper';
 
 function Index() {
   const dispatch = useDispatch();
@@ -31,19 +32,21 @@ function Index() {
     remarks: '',
   });
 
+  console.log(gngData, 'DATA')
+
   const { goNoGoResponse } = useSelector((state) => state.Gng);
-  const gngResponseData = _get(goNoGoResponse, 'data[0]', {});
+  const gngResponseData = JSON.parse(JSON.stringify(_get(goNoGoResponse, 'data[0]', {})));
 
   useEffect(() => {
     setGngData({
-    transactionType: gngResponseData?.transactionType,
-    typeOfBusiness: gngResponseData?.typeOfBusiness,
-    minTurnOver: gngResponseData?.minTurnOver,
-    minOrderValue: gngResponseData?.minOrderValue,
+    transactionType: gngResponseData?.transactionType ? gngResponseData?.transactionType : [],
+    typeOfBusiness: gngResponseData?.typeOfBusiness ? gngResponseData?.typeOfBusiness : [],
+    minTurnOver: gngResponseData?.minTurnOver ? Number(gngResponseData?.minTurnOver)/10000000 : '',
+    minOrderValue: gngResponseData?.minOrderValue ? Number(gngResponseData?.minOrderValue)/10000000 : '',
     daysAllowedInExpectedDateOfShipment: gngResponseData?.daysAllowedInExpectedDateOfShipment,
     remarks: gngResponseData?.remarks
     })
-  }, [gngResponseData]);
+  }, [gngResponseData._id]);
 
   const saveGngData = (name, value) => {
     let newInput = {...gngData}
@@ -72,15 +75,19 @@ function Index() {
   };
 
   const handleApproval = () => {
+    let dataToSend = {...gngData}
+    dataToSend.minOrderValue = removePrefixOrSuffix(gngData.minOrderValue) * 10000000;
+    dataToSend.minTurnOver = removePrefixOrSuffix(gngData.minTurnOver) * 10000000;
     let data = {
-      transactionType: gngData?.transactionType,
-      typeOfBusiness: gngData?.typeOfBusiness,
-      minOrderValue: gngData?.minOrderValue,
-      minTurnOver: gngData?.minTurnOver,
+      transactionType: [...gngData?.transactionType],
+      typeOfBusiness: [...gngData?.typeOfBusiness],
+      minOrderValue: dataToSend?.minOrderValue,
+      minTurnOver: dataToSend?.minTurnOver,
       remarks: gngData?.remarks,
       daysAllowedInExpectedDateOfShipment: gngData?.daysAllowedInExpectedDateOfShipment,
       gngMasterId: gngResponseData?._id
     }
+    console.log(data, 'data2')
     dispatch(UpdateGoNoGo(data))
   }
 
@@ -125,33 +132,33 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Import"
-                              name="group1"
-                              defaultChecked={gngData?.transactionType?.includes('Import')}
+                              name="Import"
+                              checked={gngData?.transactionType?.includes('Import')}
                               onChange={(e)=>handleTransaction(e)}
                               type={type}
-                              value="Import"
+                              // value="Import"
                               id={`inline-${type}-1`}
                             />
                             <Form.Check
                               className={styles.radio}
                               inline
                               label="Export"
-                              name="group1"
-                              defaultChecked={gngData?.transactionType?.includes('Export')}
+                              name="Export"
+                              checked={gngData?.transactionType?.includes('Export')}
                               onChange={(e)=>handleTransaction(e)}
                               type={type}
-                              value="Export"
+                              // value="Export"
                               id={`inline-${type}-2`}
                             />
                             <Form.Check
                               className={styles.radio}
                               inline
                               label="Domestic"
-                              defaultChecked={gngData?.transactionType?.includes('Domestic')}
+                              checked={gngData?.transactionType?.includes('Domestic')}
                               onChange={(e)=>handleTransaction(e)}
-                              name="group1"
+                              name="Domestic"
                               type={type}
-                              value="Domestic"
+                              // value="Domestic"
                               id={`inline-${type}-2`}
                             />
                           </div>
@@ -171,42 +178,42 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Manufacturer"
-                              defaultChecked={gngData?.typeOfBusiness?.includes('Manufacturer')}
+                              checked={gngData?.typeOfBusiness?.includes('Manufacturer')}
                               onChange={(e)=>handleTypeOfBusiness(e)}
-                              name="group1"
+                              name="Manufacturer"
                               type={type}
-                              value="Manufacturer"
+                              // value="Manufacturer"
                               id={`inline-${type}-1`}
                             />
                             <Form.Check
                               className={styles.radio}
                               inline
                               label="Trader"
-                              name="group1"
-                              defaultChecked={gngData?.typeOfBusiness?.includes('Trader')}
+                              name="Trader"
+                              checked={gngData?.typeOfBusiness?.includes('Trader')}
                               onChange={(e)=>handleTypeOfBusiness(e)}
                               type={type}
-                              value="Trader"
+                              // value="Trader"
                               id={`inline-${type}-2`}
                             />
                             <Form.Check
                               className={styles.radio}
                               inline
                               label="Wholesaler"
-                              name="group1"
-                              defaultChecked={gngData?.typeOfBusiness?.includes('Wholesaler')}
+                              name="Wholesaler"
+                              checked={gngData?.typeOfBusiness?.includes('Wholesaler')}
                               onChange={(e)=>handleTypeOfBusiness(e)}
                               type={type}
-                              value="Wholesaler"
+                              // value="Wholesaler"
                               id={`inline-${type}-2`}
                             />
                             <Form.Check
                               className={styles.radio}
                               inline
                               label="Service"
-                              name="group1"
+                              name="Service"
                               type={type}
-                              defaultChecked={gngData?.typeOfBusiness?.includes('Service') ? true : false}
+                              checked={gngData?.typeOfBusiness?.includes('Service')}
                               onChange={(e)=>handleTypeOfBusiness(e)}
                               value="Service"
                               id={`inline-${type}-2`}
@@ -215,11 +222,11 @@ function Index() {
                               className={styles.radio}
                               inline
                               label="Retailer"
-                              name="group1"
-                              defaultChecked={gngData?.typeOfBusiness?.includes('Retailter') ? true : false}
+                              name="Retailer"
+                              checked={gngData?.typeOfBusiness?.includes('Retailer')}
                               onChange={(e)=>handleTypeOfBusiness(e)}
                               type={type}
-                              value="Retailer"
+                              // value="Retailer"
                               id={`inline-${type}-2`}
                             />
                           </div>
