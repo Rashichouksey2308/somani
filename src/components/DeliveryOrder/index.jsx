@@ -200,7 +200,7 @@ export default function Index(props) {
                                   <div className={`${styles.form_group} col-lg-6`} style={{ marginLeft: '-48px' }}>
                                     <img
                                       src="/static/save-3.svg"
-                                      className={`${styles.shareImg} ml-3`}
+                                      className={`${styles.shareImg}`}
                                       alt="Save"
                                       onClick={(e) => {
                                         props.onEdit(index, false);
@@ -208,13 +208,13 @@ export default function Index(props) {
                                     />
                                     <img
                                       src="/static/cancel-3.svg"
-                                      className={`${styles.shareImg} ml-3`}
+                                      className={`${styles.shareImg} ml-2`}
                                       alt="Cancel"
                                     />
 
                                     {props.releaseOrderData.length > 1 && (
                                       <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2`}
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {

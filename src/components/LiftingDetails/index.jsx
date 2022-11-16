@@ -224,7 +224,7 @@ export default function Index(props) {
                           <div className={`${styles.bill_landing} border_color`}>
                             <div className={`${styles.vessel_card}`}>
                               <div className="justify-content-between d-flex mt-4">
-                                <div className={`${styles.form_heading}`}>Listing Details {getIndex(index2)}</div>
+                                <div className={`${styles.form_heading}`}>Lifting Details {getIndex(index2)}</div>
                                 {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity) >= 0 && (
                                   <>
                                  

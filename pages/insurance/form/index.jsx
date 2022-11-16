@@ -832,7 +832,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      <div className={`${styles.req_letter}`}>
+        <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      </div>
     </>
   );
 };
