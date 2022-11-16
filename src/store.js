@@ -35,6 +35,7 @@ import CommodityReducer from 'redux/commodity/reducer'
 import InternalCompaniesReducer from 'redux/internalCompanies/reducer'
 import PortsReducer from 'redux/ports/reducer'
 import CountryReducer from 'redux/country/reducer'
+import DocumentReducer from 'redux/documentMaster/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -82,6 +83,7 @@ export const createStore = (preloadedState) => {
       internalCompanies: InternalCompaniesReducer,
       ports: PortsReducer,
       country: CountryReducer,
+      documentMaster: DocumentReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

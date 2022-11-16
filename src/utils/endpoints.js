@@ -150,6 +150,9 @@ export default {
   // COUNTRY
   getCountry: '/country-master',
 
+  // DOCUMENT MASTER
+  getDocument: '/document-master',
+
   // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
