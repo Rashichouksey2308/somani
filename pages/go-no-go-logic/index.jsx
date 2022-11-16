@@ -5,27 +5,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
 import Router from 'next/router';
-import { GetAllCommodity, GetCommodity } from '../../src/redux/commodity/action';
+import { GetAllGoNoGo } from '../../src/redux/goNoGo/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { round } from 'lodash';
 
 const index = () => {
+
   const dispatch = useDispatch();
 
-  const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { allCommodity } = useSelector((state) => state.commodity);
+  const { allGoNoGo } = useSelector((state) => state.Gng);
 
   useEffect(() => {
-    dispatch(GetAllCommodity(`?page=${currentPage}&limit=${10}`));
+    dispatch(GetAllGoNoGo(`?page=${currentPage}&limit=${10}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
-    dispatch(setPageName('commodity'));
+    dispatch(setPageName('GO-NO-GO'));
     dispatch(setDynamicName(null));
     dispatch(setDynamicOrder(null));
   });
+
+  const handleRoute = (val) => {
+    sessionStorage.setItem('gngMasterId', val._id)
+    Router.push('/go-no-go-logic/id')
+  }
+
+  const handleChangeRoute = (val) => {
+    sessionStorage.setItem('gngMasterId', val._id)
+    Router.push('/go-no-go-logic/view')
+  }
 
   return (
     <>
@@ -49,7 +58,7 @@ const index = () => {
               <div className="d-flex align-items-center">
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>
-                    Showing Page {currentPage + 1} out of {Math.ceil(allCommodity?.totalCount / 7)}
+                    Showing Page {currentPage + 1} out of {Math.ceil(allGoNoGo?.totalCount / 7)}
                   </span>
                   <a
                     onClick={() => {
@@ -66,7 +75,7 @@ const index = () => {
                   </a>
                   <a
                     onClick={() => {
-                      if (currentPage + 1 < Math.ceil(allCommodity?.totalCount / 7)) {
+                      if (currentPage + 1 < Math.ceil(allGoNoGo?.totalCount / 7)) {
                         setCurrentPage((prevState) => prevState + 1);
                       }
                     }}
@@ -118,33 +127,48 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr key={index} className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}
-                      style={{cursor:'pointer'}}
-                      onClick={() => Router.push('/go-no-go-logic/id')}>1.6</td>
-                      <td>22-02-2022</td>
+                    {allGoNoGo &&
+                      allGoNoGo?.data?.map((val, index) => (
+                        <tr key={index} className={`${styles.table_row} table_row17`}>
+                          <td
+                            className={styles.buyerName}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleChangeRoute(val)}
+                          >
+                            {val.version}
+                          </td>
+                          <td>22-02-2022</td>
 
-                      <td>
-                        {' '}
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">{'Active'}</span>
-                      </td>
-                      {/* <td>
-                        {' '}
-                        <img src="/static/pending2.svg" className="img-fluid" alt="pending" />
-                        <span className="m-3">{'Pending'}</span>
-                      </td> */}
-                      {/* <td>
-                        <img src="/static/inactive.svg" className="img-fluid" alt="inactive" />
-                        <span className="m-3">Inactive</span>
-                      </td> */}
-
-                      <td>
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
+                          <td>
+                            {' '}
+                            <img
+                              src={`${
+                                val.verification.status === 'Active'
+                                  ? '/static/active.svg'
+                                  : val.verification.status === 'Inactive'
+                                  ? '/static/inactive.svg'
+                                  : val.verification.status === 'Pending'
+                                  ? '/static/pending2.svg'
+                                  : '/static/inactive.svg'
+                              }`}
+                              className="img-fluid"
+                              alt="active"
+                            />
+                            <span className="m-3">{val.verification.status}</span>
+                          </td>
+                          <td>
+                            <div className={`${styles.edit_image} img-fluid`}>
+                              <Image
+                                onClick={() => handleRoute(val)}
+                                height="40px"
+                                width="40px"
+                                src="/static/mode_edit.svg"
+                                alt="Edit"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

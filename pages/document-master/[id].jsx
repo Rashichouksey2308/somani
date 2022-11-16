@@ -39,10 +39,12 @@ function Index () {
   }, [dispatch])
 
   useEffect(() => {
+    if(Id){
     setDocumentField({
       Document_Name: documentData?.Document_Name,
       Module: documentData?.Module
     })
+  }
   }, [documentField.Sub_Module])
   
   
