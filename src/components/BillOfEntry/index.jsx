@@ -1326,31 +1326,30 @@ console.log(bl,"asdasd")
                         </div>
                       </div>
 
-                      <div className="row ml-auto">
+                      <div className="row ml-auto align-items-center">
                         {bl[index]?.length >0 && bl[index].map((blData, indexbl) => {
                           return (
                             <>
                               {' '}
                               <div key={indexbl} className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                               <Form.Check
-                               
-                                inline
-                               
-                                checked={blData.check}
-                                onChange={(e)=>{
-                                  let temp=[...bl]
-                                  console.log(temp[index][indexbl],"ASdasd")
-                                  temp[index][indexbl].check=!temp[index][indexbl].check
-                                  setbl([...temp])
-                                }}
-
-                               
-                                
-                                />
-                                <div className={`${styles.label} text ml-4`}>
-                                  BL Number <strong className="text-danger ml-n1">*</strong>
+                                <div className='d-flex align-items-center'>
+                                  <Form.Check
+                                    inline
+                                    checked={blData.check}
+                                    onChange={(e)=>{
+                                      let temp=[...bl]
+                                      console.log(temp[index][indexbl],"ASdasd")
+                                      temp[index][indexbl].check=!temp[index][indexbl].check
+                                      setbl([...temp])
+                                    }}
+                                    />
+                                  <div>
+                                    <div className={`${styles.label} text ml-2`}>
+                                      BL Number <strong className="text-danger ml-n1">*</strong>
+                                    </div>
+                                    <span className={`${styles.value} ml-2`}>{blData?.blNumber}</span>
+                                  </div>
                                 </div>
-                                <span className={`${styles.value} ml-4`}>{blData?.blNumber}</span>
                               </div>
                               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                                 <div className={`${styles.label} text`}>
@@ -1369,7 +1368,7 @@ console.log(bl,"asdasd")
                                   {customData?.order?.unitOfQuantity.toUpperCase()}
                                 </span>
                               </div>
-                              <div className="col-lg-3 col-md-4 col-sm-6 text-center" style={{ top: '40px' }}>
+                              <div className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 text-center`}>
                                 <img
                                   src="/static/preview.svg"
                                   className={`${styles.previewImg} img-fluid ml-n4`}

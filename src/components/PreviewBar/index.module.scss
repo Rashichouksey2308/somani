@@ -1,5 +1,4 @@
 @import '../styles/Core/config';
-
 .root {
   left: 0;
   right: 0;
@@ -35,7 +34,6 @@
     bottom: 55px;
     height: auto;
   }
-
   .reject {
     cursor: pointer;
     width: 260px;
@@ -55,7 +53,6 @@
       font-size: 12px;
     }
   }
-
   .approve {
     cursor: pointer;
     width: 260px;
@@ -76,11 +73,9 @@
     }
   }
 }
-
 .no_sidebar {
   margin-left: 102px !important;
 }
-
 .no_sidebar_mobile {
   margin-left: 0px !important;
 }
