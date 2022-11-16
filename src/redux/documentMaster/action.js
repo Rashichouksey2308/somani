@@ -5,83 +5,83 @@ import Cookies from 'js-cookie'
 import * as types from './actionType'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getCountry () {
+function getDocument () {
   return {
-    type: types.GET_COUNTRY
+    type: types.GET_DOCUMENT
   }
 }
 
-function getCountrySuccess (payload) {
+function getDocumentSuccess (payload) {
   return {
-    type: types.GET_COUNTRY_SUCCESS,
+    type: types.GET_DOCUMENT_SUCCESS,
     payload
   }
 }
 
-function getCountryFailed () {
+function getDocumentFailed () {
   return {
-    type: types.GET_COUNTRY_FAILED
+    type: types.GET_DOCUMENT_FAILED
   }
 }
 
-function getAllCountry () {
+function getAllDocument () {
   return {
-    type: types.GET_ALL_COUNTRY
+    type: types.GET_ALL_DOCUMENT
   }
 }
 
-function getAllCountrySuccess (payload) {
+function getAllDocumentSuccess (payload) {
   return {
-    type: types.GET_ALL_COUNTRY_SUCCESS,
+    type: types.GET_ALL_DOCUMENT_SUCCESS,
     payload
   }
 }
 
-function getAllCountryFailed () {
+function getAllDocumentFailed () {
   return {
-    type: types.GET_ALL_COUNTRY_FAILED
+    type: types.GET_ALL_DOCUMENT_FAILED
   }
 }
 
-function updateCountry () {
+function updateDocument () {
   return {
-    type: types.UPDATE_COUNTRY
+    type: types.UPDATE_DOCUMENT
   }
 }
 
-function updateCountrySuccess (payload) {
+function updateDocumentSuccess (payload) {
   return {
-    type: types.UPDATE_COUNTRY_SUCCESS,
+    type: types.UPDATE_DOCUMENT_SUCCESS,
     payload
   }
 }
 
-function updateCountryFailed () {
+function updateDocumentFailed () {
   return {
-    type: types.UPDATE_COUNTRY_FAILED
+    type: types.UPDATE_DOCUMENT_FAILED
   }
 }
 
-function createCountry () {
+function createDocument () {
   return {
-    type: types.CREATE_COUNTRY
+    type: types.CREATE_DOCUMENT
   }
 }
 
-function createCountrySuccess (payload) {
+function createDocumentSuccess (payload) {
   return {
-    type: types.CREATE_COUNTRY_SUCCESS,
+    type: types.CREATE_DOCUMENT_SUCCESS,
     payload
   }
 }
 
-function createCountryFailed () {
+function createDocumentFailed () {
   return {
-    type: types.CREATE_COUNTRY_FAILED
+    type: types.CREATE_DOCUMENT_FAILED
   }
 }
 
-export const GetAllCountry = (payload) => async (dispatch, getState, api) => {
+export const GetAllDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -92,15 +92,15 @@ export const GetAllCountry = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getCountry}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getDocument}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(getAllCountrySuccess(response.data.data))
+          dispatch(getAllDocumentSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
-          dispatch(getAllCountryFailed())
+          dispatch(getAllDocumentFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -109,7 +109,7 @@ export const GetAllCountry = (payload) => async (dispatch, getState, api) => {
         }
       })
       .catch((error) => {
-        dispatch(getAllCountryFailed())
+        dispatch(getAllDocumentFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -117,9 +117,9 @@ export const GetAllCountry = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(getAllCountryFailed())
+    dispatch(getAllDocumentFailed())
 
-    const toastMessage = 'COULD NOT GET COUNTRY AT THIS TIME'
+    const toastMessage = 'COULD NOT GET DOCUMENT AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -127,7 +127,7 @@ export const GetAllCountry = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-export const GetCountry = (payload) => async (dispatch, getState, api) => {
+export const GetDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -139,15 +139,15 @@ export const GetCountry = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getCountry}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getDocument}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(getCountrySuccess(response.data.data))
+          dispatch(getDocumentSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
-          dispatch(getCountryFailed())
+          dispatch(getDocumentFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -156,7 +156,7 @@ export const GetCountry = (payload) => async (dispatch, getState, api) => {
         }
       })
       .catch((error) => {
-        dispatch(getCountryFailed())
+        dispatch(getDocumentFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -164,9 +164,9 @@ export const GetCountry = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(getCountryFailed())
+    dispatch(getDocumentFailed())
 
-    const toastMessage = 'COULD NOT GET COUNTRY AT THIS TIME'
+    const toastMessage = 'COULD NOT GET DOCUMENT AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -174,7 +174,7 @@ export const GetCountry = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-export const CreateCountry = (payload) => async (dispatch, getState, api) => {
+export const CreateDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -186,12 +186,12 @@ export const CreateCountry = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.getCountry}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.getDocument}`, payload, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(createCountrySuccess(response.data.data))
+          dispatch(createDocumentSuccess(response.data.data))
 
           const toastMessage = 'created  SUCCESSFULLY'
 
@@ -202,7 +202,7 @@ export const CreateCountry = (payload) => async (dispatch, getState, api) => {
           }
           dispatch(setNotLoading())
         } else {
-          dispatch(createCountryFailed())
+          dispatch(createDocumentFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -211,7 +211,7 @@ export const CreateCountry = (payload) => async (dispatch, getState, api) => {
         }
       })
       .catch((error) => {
-        dispatch(createCountryFailed())
+        dispatch(createDocumentFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -219,7 +219,7 @@ export const CreateCountry = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(createCountryFailed())
+    dispatch(createDocumentFailed())
 
     const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -229,7 +229,7 @@ export const CreateCountry = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
+export const UpdateDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -241,12 +241,12 @@ export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.getCountry}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.getDocument}`, payload, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(updateCountrySuccess(response.data.data))
+          dispatch(updateDocumentSuccess(response.data.data))
 
           const toastMessage = 'updated  SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -257,7 +257,7 @@ export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
         //   sessionStorage.removeItem('internalCompanyId')
           dispatch(setNotLoading())
         } else {
-          dispatch(updateCountryFailed())
+          dispatch(updateDocumentFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -266,7 +266,7 @@ export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
         }
       })
       .catch((error) => {
-        dispatch(updateCountryFailed())
+        dispatch(updateDocumentFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -274,9 +274,9 @@ export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(updateCountryFailed())
+    dispatch(updateDocumentFailed())
 
-    const toastMessage = 'COULD NOT UPDATE COUNTRY AT THIS TIME'
+    const toastMessage = 'COULD NOT UPDATE DOCUMENT AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
