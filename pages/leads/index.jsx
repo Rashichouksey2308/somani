@@ -18,6 +18,7 @@ import QueueStatusSymbol from "../../src/components/QueueStatusSymbol";
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
+  const [showBadges, setShowBadges] = useState(false)
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function Index() {
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
+    setShowBadges(true);
     setSearchTerm(query);
     if (query.length >= 3) {
       dispatch(SearchLeads(query));
@@ -156,11 +158,18 @@ function Index() {
             </div>
             <Filter />
 
-            {open && <FilterBadge label="Bhutani Traders" onClose={handleClose} />}
-            <FilterBadge label="Aluminium" />
-            <FilterBadge label="Approved" />
-            <FilterBadge label="15437556" />
-
+            {showBadges &&
+              searchedLeads?.data?.data?.map((results, index) => {
+                const { companyName, status, commodity,orderId } = results;
+                return (
+                  <>
+                    {companyName && open && <FilterBadge label={companyName} onClose={handleClose} />}
+                    {status && open && <FilterBadge label={status} onClose={handleClose} />}
+                    {commodity && open && <FilterBadge label={commodity} onClose={handleClose} />}
+                    {orderId && open && <FilterBadge label={orderId} onClose={handleClose} />}
+                  </>
+                );
+              })}
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
