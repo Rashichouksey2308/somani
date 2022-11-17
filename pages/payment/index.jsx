@@ -16,7 +16,7 @@ function Index() {
   const [open, setOpen] = useState(true);
   const handleClose = () => {
     setOpen(false);
-    };
+  };
 
   const { searchedLeads } = useSelector((state) => state.order);
 
