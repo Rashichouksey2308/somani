@@ -23,19 +23,25 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   let lcModuleData = _get(lcModule, 'data[0]', {});
-  const [emailAdd, setEmailAdd] = useState([
-    {
-      emailID: '',
-    },
-  ]);
-  const addMoreRows = () => {
-    setEmailAdd([
-      ...emailAdd,
-      {
-        emailID: '',
-      },
-    ]);
-  };
+   const [emailAdd, setEmailAdd] = useState([{ emailID: '' }]);
+  const [insuranceAdd, setinsuranceAdd] = useState([{ insurance: '' }]);
+const addMoreRows = (val) => {
+    if (val == 'email') {
+      setEmailAdd([
+        ...emailAdd,
+        {
+          emailID: '',
+        },
+      ]);
+    } else {
+      setinsuranceAdd([
+        ...insuranceAdd,
+        {
+          insurance: '',
+        },
+      ]);
+    }
+  };;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -281,7 +287,7 @@ console.log(lcModuleData,"sdasds")
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows();
+                        addMoreRows("email");
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -299,32 +305,62 @@ console.log(lcModuleData,"sdasds")
                     </div>
                   </div>
                   <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
-                    <div className={`d-flex align-items-center form-group`}>
-                      <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
-                        <div className={styles.phone_card}>
-                          <select
-                            name="callingCode"
-                            id="Code"
-                            className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                          >
-                            <option>+91</option>
-                            <option>+1</option>
-                            <option>+92</option>
-                            <option>+95</option>
-                            <option>+24</option>
-                          </select>
-                          <input
-                            type="tel"
-                            id="textNumber"
-                            name="primary"
-                            className={`${styles.formControl} input form-control border-left-0`}
-                            required
-                          />
-                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                            Phone Number
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </div>
+                     {insuranceAdd.map((val, index) => {
+                      return (
+                        <>
+                          <div className={`${styles.each_input} ${styles.phone} form-group`}>
+                      <div className={styles.phone_card}>
+                        <select
+                          name="callingCode"
+                          id="Code"
+                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                        >
+                          <option>+91</option>
+                          <option>+1</option>
+                          <option>+92</option>
+                          <option>+95</option>
+                          <option>+24</option>
+                        </select>
+                        <input
+                          type="tel"
+                          id="textNumber"
+                          name="primary"
+                          className={`${styles.formControl} input form-control border-left-0`}
+                          required
+                        />
+                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                          Phone Number
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                    </div>
+                        </>
+                      );
+                    })}
+                    <div className={`${styles.each_input} ${styles.phone} form-group`}>
+                      <div className={styles.phone_card}>
+                        <select
+                          name="callingCode"
+                          id="Code"
+                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                        >
+                          <option>+91</option>
+                          <option>+1</option>
+                          <option>+92</option>
+                          <option>+95</option>
+                          <option>+24</option>
+                        </select>
+                        <input
+                          type="tel"
+                          id="textNumber"
+                          name="primary"
+                          className={`${styles.formControl} input form-control border-left-0`}
+                          required
+                        />
+                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                          Phone Number
+                          <strong className="text-danger">*</strong>
+                        </label>
                       </div>
                       <img
                           src="/static/delete 2.svg"
@@ -333,10 +369,7 @@ console.log(lcModuleData,"sdasds")
                           className="ml-3"
                       />
                     </div>
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
+                   
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {

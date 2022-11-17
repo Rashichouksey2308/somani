@@ -142,7 +142,7 @@ export const addNewAddress = (
                       setAddress(e.target.name, e.target.value);
                     }}
                   >
-                    <option>Select an option</option>
+                    <option value="">Select an option</option>
                     <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                   </select>
                   <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>

@@ -46,6 +46,7 @@ function Index(props) {
   });
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
+   const [toView2, setToView2] = useState(false);
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -217,6 +218,10 @@ console.log(addressList,"aasdads")
     
      setToView(true)
  }
+  const viewSet2=()=>{
+    
+     setToView2(true)
+ }
  console.log(toView,"SAdasd")
   const onEditRemove = (index, value) => {
     setList((prevState) => {
@@ -363,6 +368,7 @@ console.log(addressList,"aasdads")
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   const handleData = (name, value) => {
+    console.log("thsss")
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';
@@ -370,6 +376,16 @@ console.log(addressList,"aasdads")
     newInput.state = value.State;
     setNewAddress(newInput);
     setToView(false);
+  };
+   const handleData2 = (name, value) => {
+    console.log("thsss")
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setNewMultiAddress(newInput);
+    setToView2(false);
   };
   const handleDataEdit = (name, value) => {
     const newInput = { ...EditAddress };
@@ -396,7 +412,7 @@ console.log(addressList,"aasdads")
     newInput.city = value.City;
     newInput.state = value.State;
     setMultiEditAddress(newInput);
-    setToView(false);
+    setToView2(false);
   };
   const setAddress = (name, value) => {
     const newInput = { ...newAddress };
@@ -423,9 +439,10 @@ console.log(addressList,"aasdads")
           state: val.state,
           city: val.city,
         });
+         setAddressEditType(val.addressType)
       }
     });
-     setAddressEditType(addressType)
+    
   };
   const editNewAddress = (name, value) => {
     setIsEdit(true);
@@ -792,11 +809,12 @@ console.log(addressList,"aasdads")
                   handleDataEditMines,
                   dispatch,
                   toShow,
-                  toView,
+                  toView2,
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
-                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
+                 
+                  addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2)
                   
                 )}
               </div>

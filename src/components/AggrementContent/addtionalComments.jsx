@@ -174,6 +174,7 @@ function Index(props) {
                     <>
                       <th width="20%" className="border-0 generic_th">
                         Month of loading of Cargo
+                        <strong className="text-danger">*</strong>
                        
                       </th>
                       <th width="15%" className="border-0 generic_th">

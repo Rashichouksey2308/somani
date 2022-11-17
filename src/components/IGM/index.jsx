@@ -329,6 +329,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
     let toastMessage = '';
     for (let i = 0; i < igmList.igmDetails.length; i++) {
+      console.log( igmList.igmDetails[i].igmFiling,"")
       if (
         igmList.igmDetails[i].igmNumber == '' ||
         igmList.igmDetails[i].igmNumber == undefined ||
@@ -385,17 +386,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           }
           return false;
         }
-        if (
-          igmList.igmDetails[i].blNumber[j].noOfContainers == '' ||
-          igmList.igmDetails[i].blNumber[j].noOfContainers == undefined ||
-          igmList.igmDetails[i].blNumber[j].noOfContainers == null
-        ) {
-          toastMessage = 'PLS ADD IMG FILING DATE ';
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
-          }
-          return false;
-        }
+        // if (
+        //   igmList.igmDetails[i].blNumber[j].noOfContainers == '' ||
+        //   igmList.igmDetails[i].blNumber[j].noOfContainers == undefined ||
+        //   igmList.igmDetails[i].blNumber[j].noOfContainers == null
+        // ) {
+        //   toastMessage = 'PLS ADD NUMBER OF CONTAINERS ';
+        //   if (!toast.isActive(toastMessage)) {
+        //     toast.error(toastMessage, { toastId: toastMessage });
+        //   }
+        //   return false;
+        // }
       }
       if (
         igmList.igmDetails[i].document == '' ||
@@ -888,7 +889,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       <div className={`${styles.label} text`}>
                                         BL Quantity <strong className="text-danger ml-n1">*</strong>
                                       </div>
-                                      <span className={styles.value}>
+                                       <span className={styles.value}>
                                         <span>{blEntry?.blQuantity}</span>
                                         {blEntry?.blQuantity &&
                                           _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
@@ -900,7 +901,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                         className={`${styles.previewImg} ml-n4`}
                                         alt="Preview"
                                           onClick={(e) => {
-                                    getDoc(blEntry?.blDoc?.path);
+                                      getDoc(blEntry?.blDoc?.path);
                                   }}
                                       />
                                       {item.blNumber.length >= index2 ? (
