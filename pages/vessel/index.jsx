@@ -161,19 +161,41 @@ export default function Home() {
   const onAddVessel = () => {
     setList([
       ...list,
-      {
-        shipmentType: 'Bulk',
-        commodity: _get(VesselToAdd, 'data[0].order.commodity', ''),
-        quantity: _get(VesselToAdd, 'data[0].order.quantity', ''),
-        orderValue: _get(VesselToAdd, 'data[0].order.orderValue', ''),
-        transitDetails: {
-          countryOfOrigin: _get(VesselToAdd, 'data[0].order.countryOfOrigin', ''),
-          portOfLoading: _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.loadPort', ''),
-          portOfDischarge: _get(VesselToAdd, 'data[0].order.portOfDischarge', ''),
-          laycanFrom: _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.fromDate', ''),
-          laycanTo: _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.toDate', ''),
-          EDTatLoadPort:  _get(VesselToAdd, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
-          ETAatDischargePort: null,
+       {
+         shipmentType: _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.shipmentType', ''),
+          commodity: _get(VesselToAdd, 'data[0].order.commodity', ''),
+          quantity: _get(VesselToAdd, 'data[0].order.quantity', ''),
+          orderCurrency: _get(VesselToAdd, 'data[0].order.orderCurrency', ''),
+          orderValue: _get(VesselToAdd, 'data[0].order.marginMoney.calculation.orderValue', ''),
+          transitDetails: {
+            countryOfOrigin:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.countryOfOrigin', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.countryOfOrigin', '')
+                : _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.countryOfOrigin', ''),
+            portOfLoading:
+              '' || _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfLoading', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfLoading', '')
+                : _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.loadPort', ''),
+            portOfDischarge:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfDischarge', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfDischarge', '')
+                : _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '') ||
+                  _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfDischarge', ''),
+            laycanFrom:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanFrom', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanFrom', '')
+                : _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.fromDate', '') || '',
+            laycanTo:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanTo', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanTo', '')
+                : _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
+
+            EDTatLoadPort:
+              '' || _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
+                : _get(VesselToAdd, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
+            ETAatDischargePort: _get(VesselToAdd, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
+       
         },
 
         vesselInformation: [

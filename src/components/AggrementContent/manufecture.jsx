@@ -410,9 +410,10 @@ console.log(addressList,"aasdads")
     setToEditIndex(index);
     setAddressEditType(val);
     let tempArr = addressList;
-  setAddressEditType(addresstype)
+   
     tempArr.forEach((val, i) => {
       if (i == index) {
+        console.log(val,"val")
         setEditAddress({
           addressType: val.addressType,
           fullAddress: val.fullAddress,
@@ -424,6 +425,7 @@ console.log(addressList,"aasdads")
         });
       }
     });
+     setAddressEditType(addresstype)
   };
   const editNewAddress = (name, value) => {
     setIsEdit(true);

@@ -44,7 +44,7 @@ const index = () => {
     }
     sessionStorage.setItem('portId', id);
     dispatch(GetPorts(`?portId=${id}`));
-    Router.push('/ports/id');
+    Router.push('/currency-master/id');
   };
 
   return (
@@ -59,7 +59,7 @@ const index = () => {
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
-              <h1 className={styles.heading}>Ports</h1>
+              <h1 className={styles.heading}>Currency</h1>
             </div>
             <div className={`${styles.search}`}>
               <div className="input-group">
@@ -102,14 +102,11 @@ const index = () => {
 
           {/*UserTable*/}
           <MasterTableQueue
-            tableName="Ports"
-            header1="PORT NAME"
-            header2="COUNTRY"
-            header3="STATE"
-            header="APPROVED DATE"
-            header4="APPROVED"
-            isHeader={true}
-            isDate={true}
+            tableName="Currency"
+            header1="Currency"
+            header2="Currency Name"
+            header4="STATUS"   
+            isCurrency={true} 
             handleRoute={handleRoute}
             selectorData={allPorts}
             currentPage={currentPage}

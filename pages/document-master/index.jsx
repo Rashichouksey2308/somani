@@ -205,7 +205,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      <DownloadMasterBar btnName="Download" downloadFormat={true} />
+      <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
 };

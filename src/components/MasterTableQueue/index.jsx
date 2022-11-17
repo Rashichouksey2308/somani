@@ -16,11 +16,16 @@ const index = ({
   isHeader,
   header,
   isDate,
+  isCurrency,
   handleRoute,
   selectorData,
+  currentPage,
+  setCurrentPage,
+  pageLimit,
+  setPageLimit
 }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const [pageLimit, setPageLimit] = useState(10);
 
   let queueData;
 
@@ -50,8 +55,6 @@ const index = ({
       };
     });
   }
-
-  console.log(queueData, 'QUEUE');
 
   return (
     <>
@@ -91,7 +94,7 @@ const index = ({
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(selectorData?.totalCount / 7)) {
+                  if (currentPage + 1 < Math.ceil(selectorData?.totalCount / pageLimit)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
@@ -129,6 +132,9 @@ const index = ({
                       alt="Sort icon"
                     />
                   </th>
+                  {isCurrency ? 
+''
+                  :
                   <th className={`${styles.table_heading} table_heading`}>
                     {header3}{' '}
                     <Image
@@ -139,6 +145,7 @@ const index = ({
                       alt="Sort icon"
                     />
                   </th>
+ }
                   {isHeader ? (
                     <th className={`${styles.table_heading} table_heading`}>
                       {header}{' '}
