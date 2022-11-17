@@ -81,7 +81,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   };
   const [openDropdown, setDropdown] = useState(false);
 
-  const uploadDocumentHandler = (e) => {
+  const uploadDocumentHandler = async (e) => {
     e.preventDefault();
     if (newDoc.document === null) {
       let toastMessage = 'please select A Document';
@@ -97,19 +97,22 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       const fd = new FormData();
 
       fd.append('document', newDoc.document);
-      fd.append('module', newDoc.module);
+      fd.append('module', moduleSelected);
       fd.append('order', orderId);
       // fd.append('type', newDoc.type))
       fd.append('name', newDoc.name);
 
-      dispatch(AddingDocument(fd));
-
-      setNewDoc({
-        document: null,
-        order: orderId,
-        name: '',
-        module: module ? module : 'Agreements&Insurance&LC&Opening',
-      });
+      let code = await   dispatch(AddingDocument(fd));
+      if(code==200){
+        setNewDoc({
+                document: null,
+                order: orderId,
+                name: '',
+                module: module ? module : 'Agreements&Insurance&LC&Opening',
+              });
+       await  dispatch(GetDocuments(`?order=${orderId}`));
+      }
+      
     }
   };
 
@@ -563,14 +566,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                             </td>
                             <td colSpan="2">
                               <img
-                                onClick={(e) => {
+                                onClick={async (e) => {
                                   DocDlt(index);
-                                  dispatch(
+                                 await   dispatch(
                                     DeleteDocument({
                                       orderDocumentId: documentsFetched._id,
                                       name: document.name,
                                     }),
                                   );
+                                await  dispatch(GetDocuments(`?order=${orderId}`));
                                 }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} mr-3`}
@@ -602,14 +606,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                   <div className="d-flex align-items-center">
                                     <select
                                       value={moduleSelected}
-                                      onChange={(e) => {
-                                        dispatch(
+                                      onChange={async (e) => {
+                                       await  dispatch(
                                           changeModuleDocument({
                                             orderDocumentId: documentsFetched._id,
                                             name: document.name,
                                             module: e.target.value,
                                           }),
                                         );
+                                        await dispatch(GetDocuments(`?order=${orderId}`));
                                         DocDlt(index);
                                       }}
                                       className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}

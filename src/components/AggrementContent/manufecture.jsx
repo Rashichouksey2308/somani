@@ -206,15 +206,15 @@ console.log(addressList,"aasdads")
     
     if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData);
-       setToView(true)
+      
     } else {
-      console.log("hewer")
+     
       setToShow([]);
-      setToView(false);
+      // setToView(false);
     }
   }, [getPincodesMasterData]);
  const viewSet=()=>{
-
+    
      setToView(true)
  }
  console.log(toView,"SAdasd")

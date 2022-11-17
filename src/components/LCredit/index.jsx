@@ -58,7 +58,7 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: 'ING Bank',
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
@@ -95,7 +95,7 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: 'ING Bank',
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
@@ -133,7 +133,7 @@ function Index() {
     newInput[name] = value;
     setLcData(newInput);
   };
- console.log(lcData,"adasdasd")
+
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -270,10 +270,8 @@ function Index() {
       }
     } else {
       let sendLcData = { ...clauseData };
-      sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber
-      sendLcData.dateOfIssue = lcData.dateOfIssue
       setLcData(clauseData);
-      console.log(sendLcData,"sendLcData")
+
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
@@ -311,7 +309,7 @@ function Index() {
   const getValue = (value, toCheck) => {
     if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (toCheck == '(43P) Partial Shipment') {
+    } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments' ) {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -547,7 +545,18 @@ function Index() {
                                     <option value="By Acceptance">By Acceptance</option>
                                     <option value="By Deffered Payment">By Deffered Payment</option>
                                   </>
-                                ) : (
+                                ) 
+                                
+                                 :
+                                 clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                    
+                                  </>
+                                ) :
+                                 (
                                   <>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
@@ -720,6 +729,9 @@ function Index() {
                                           {arr.dropDownValue === '(32B) Currency Code & Amount'
                                             ? `${lcModuleData?.order?.orderCurrency} `
                                             : ''}
+                                            {arr.dropDownValue === '(43T) Transhipments'
+                                          ? `${lcModuleData?.lcApplication?.transhipments} `
+                                          : ''}
                                           {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                             ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %`
                                             : getValue(arr.existingValue, arr.dropDownValue)}

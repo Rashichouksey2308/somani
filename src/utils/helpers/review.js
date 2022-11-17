@@ -1,6 +1,6 @@
-import React from 'react'
-import { specialCharCheck } from '../helper'
-import { handleErrorToast } from './global'
+import React from 'react';
+import { specialCharCheck } from '../helper';
+import { handleErrorToast } from './global';
 
 export const orderValidation = (orderDetails, shipment, approvedCredit) => {
   if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
@@ -60,8 +60,8 @@ export const orderValidation = (orderDetails, shipment, approvedCredit) => {
     return false;
   }
   if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined || !specialCharCheck(orderDetails?.hsnCode)) {
-    handleErrorToast('HSN CODE IS MANDATORY & SPECIAL CHARACTERS ARE NOT ALLOWED')
-    return false
+    handleErrorToast('HSN CODE IS MANDATORY & SPECIAL CHARACTERS ARE NOT ALLOWED');
+    return false;
   }
   if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
     handleErrorToast('add shipment Type');

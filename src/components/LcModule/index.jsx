@@ -9,6 +9,7 @@ import Filter from '../Filter';
 import _get from 'lodash/get';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -45,6 +46,14 @@ function Index() {
     }
   };
   const handleLcAmmendRoute = (lc) => {
+  
+    if(lc.ifFormFilled==false){
+      let toastMessage = 'PLS FILL LC FIRST';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return;
+      }
+    }
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
     sessionStorage.setItem('lcAmmend', lc.order.lc);
     Router.push('/lc-module/lc-application');
