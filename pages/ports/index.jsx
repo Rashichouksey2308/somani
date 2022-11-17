@@ -112,6 +112,10 @@ const index = () => {
             isDate={true}
             handleRoute={handleRoute}
             selectorData={allPorts}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageLimit={pageLimit}
+            setPageLimit={setPageLimit}
           />
         </div>
       </div>
