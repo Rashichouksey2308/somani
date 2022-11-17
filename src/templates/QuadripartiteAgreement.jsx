@@ -474,10 +474,10 @@ export default function QuadripartiteAgreement(data) {
       </div>
       <div className={`row`}>
         <Col md={6}>
-          <p className="w-50"><u><strong>({data.seller})</strong></u></p>
+          <p className="w-50 text-capitalize"><u><strong>({data.seller})</strong></u></p>
         </Col>
         <Col md={6}>
-          <p className="w-50"><strong>({data.buyer})</strong></p>
+          <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
         </Col>
       </div>
       <div className={`row`}>
@@ -490,10 +490,10 @@ export default function QuadripartiteAgreement(data) {
       </div>
       <div className={`row`}>
         <Col md={6}>
-          <p className="w-50"><strong>({data.seller})</strong></p>
+          <p className="w-50 text-capitalize"><strong>({data.seller})</strong></p>
         </Col>
         <Col md={6}>
-          <p className="w-50"><strong>({data.buyer})</strong></p>
+          <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
         </Col>
       </div>
     </div>

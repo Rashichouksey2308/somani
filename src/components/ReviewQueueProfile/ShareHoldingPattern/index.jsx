@@ -37,6 +37,7 @@ function Index({ shareHolding }) {
 
   let totalEquityShare = 0;
   let totalEquitySharePercentage = 0;
+
   const equityCapital = () => {
     const values = shareHolding
       ?.filter((item) => {
@@ -72,7 +73,8 @@ function Index({ shareHolding }) {
     });
   equityCapital()?.forEach((equity) => {
     totalEquityShare += equity.numberOfShares;
-    totalEquitySharePercentage += equity.percentageShareHolding;
+    totalEquitySharePercentage = totalEquitySharePercentage +  equity.percentageShareHolding;
+
   });
 
   const prefrenceValues = shareHolding?.filter((item) => {
@@ -266,7 +268,9 @@ function Index({ shareHolding }) {
                         <td className="border-top-0 border_color"></td>
                         <td>{totalEquityShare !== 0 ? Number(totalEquityShare).toLocaleString('en-In') : ''}</td>
                         <td>
-                          {totalEquitySharePercentage ? Number(totalEquitySharePercentage * 100).toFixed(2) + '%' : ''}
+                          {totalEquitySharePercentage !== 0 && totalEquitySharePercentage !== undefined ?
+                             (isNaN(Number(totalEquitySharePercentage)) * 100).toFixed(2) + '%'
+                            : ''}
                         </td>
                         <td className="border-top-0 border_color"></td>
                         <td className="border-top-0 border_color"></td>

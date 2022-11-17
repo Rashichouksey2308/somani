@@ -1567,6 +1567,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
                           <strong>{data.seller}</strong>
@@ -1578,6 +1579,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
                           <strong>{data.buyer}</strong>
@@ -1615,6 +1617,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
                           <strong>{data.seller}</strong>
@@ -1626,6 +1629,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
                           <strong>{data.buyer}</strong>
