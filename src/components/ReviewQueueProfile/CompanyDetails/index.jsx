@@ -243,28 +243,12 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={updateCompany?.referedBy}
                   >
-                    {updateCompany?.sourceChanel === 'Customs Associate' ? (
-                      <>
-                        <option value="" defaultChecked disabled>
-                          Select
-                        </option>
-                        <option value="CHA">{'CHA'}</option>
-                        <option value="CMA">CMA</option>
-                        <option value="Stevedore">{'Stevedore'}</option>{' '}
-                      </>
-                    ) : updateCompany?.sourceChanel === 'Sales Assocaite' ? (
+                  
                       <>
                         <option value="">Select</option>
-                        <option value="userName1">{'userName1'}</option>
-                        <option value="userName2">userName2</option>
-                        <option value="USerName3">{'USerName3'}</option>
-                      </>
-                    ) : (
-                      <>
-                       <option value="">Select</option>
                         <option value="Website">Website</option>
                       </>
-                    )}
+                   
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Referred By

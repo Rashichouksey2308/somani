@@ -12,7 +12,7 @@ import { GetLcModule } from 'redux/lcModule/action';
 import { checkNan } from 'utils/helper';
 import LCAmendBar from '../LCAmendBar';
 import styles from './index.module.scss';
-
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 function Index() {
   const dispatch = useDispatch();
 
@@ -26,7 +26,12 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
+useEffect(() => {
+    dispatch(setPageName('Lc'));
 
+    dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')));
+    dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')));
+  }, [lcModuleData]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [what, setWhat] = useState('email');

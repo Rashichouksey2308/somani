@@ -25,7 +25,7 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
 import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
-
+import Router from 'next/router';
 function Index(props) {
   const dispatch = useDispatch();
 
@@ -1878,6 +1878,24 @@ let masterList = [
     }
     if (key == 'Additional Comments') {
       let list = [];
+      let isOK=true
+       for(let i=0;i<data.addressList.length;i++){
+          if(data.addressList[i].name=="Assignment Letter"){
+             if(data.addressList[i].monthOfLoadingCargo=="" || data.addressList[i].monthOfLoadingCargo==undefined){
+                toastMessage = `Please add month of Loading cargo `;
+                  if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                    isOK=false
+                   
+                  
+                  }
+             }
+          }
+       }
+       if(isOK==false){
+         setSubmitData(false);
+         return
+       }
       data.addressList.forEach((val, index) => {
         list.push({
           agreementName: val.name,
@@ -2117,6 +2135,10 @@ let masterList = [
     setSidebar([...tempArr]);
 
     setSideStateToLocal(key);
+     setSideStateToLocal(key);
+      if (key == 'Additional Comments') {
+        Router.push('/agreement')
+      }
   };
 
   const sendData = async (key, data) => {
@@ -2420,7 +2442,7 @@ let masterList = [
 
     setSubmitData(false);
 
-    setSideStateToLocal(key);
+   
   };
   const onShowSideBar = () => {
     setIsSideBarOpen(true);
