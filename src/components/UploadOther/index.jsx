@@ -53,7 +53,18 @@ const Index = ({ orderid, module, isDocumentName }) => {
   };
 
   useEffect(() => {
+  
     if (documentsFetched) {
+        if(isSearch){
+          const tempArray = documentsFetched?.documents?.filter((doc) => {
+            if (doc.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+              return doc;
+            }
+          });
+    
+    setFilteredDoc(tempArray);
+       return
+    }
       const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
         return doc.module === moduleSelected;
       });
@@ -121,14 +132,18 @@ const Index = ({ orderid, module, isDocumentName }) => {
       
     }
   };
-
+ const [isSearch,setIsSearch]=useState(false)
+ const [searchTerm,setSearchTerms]=useState('')
   const filterDocBySearch = (val) => {
+    
     if (!val.length >= 3) return;
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc;
       }
     });
+    setIsSearch(true)
+   
     setFilteredDoc(tempArray);
   };
   console.log(filteredDoc,"filteredDoc")
@@ -261,7 +276,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
             <div className="d-flex align-items-center">
               <select
                 value={moduleSelected}
-                onChange={(e) => setModuleSelected(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerms('')
+                  setIsSearch(false)
+                  setModuleSelected(e.target.value)
+                }}
                 className={`${styles.dropDown} ${styles.customSelect} input form-control`}
               >
                 <option selected disabled>
@@ -279,8 +298,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 className={`${styles.searchBar} statusBox border_color input form-control`}
                 placeholder="Search"
                 onChange={(e) => {
+                  setSearchTerms(e.target.value)
                   filterDocBySearch(e.target.value);
                 }}
+                value={searchTerm}
               ></input>
             </div>
           </div>

@@ -757,7 +757,7 @@ const gettingPins=(value)=>{
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex position-relative">
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
@@ -868,7 +868,7 @@ const gettingPins=(value)=>{
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex position-relative">
                   <MultiSelect
                     placeholder="Existing CHA(s)"
                     emails={emails}

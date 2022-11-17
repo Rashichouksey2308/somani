@@ -121,7 +121,8 @@ function Index(props) {
       focused: true,
     });
 
-  return (
+  return (    
+  <>
     <div
       className={`${state.className} react_multi_email input ${state.noClass ? '' : `${styles.react_multi_email}`} ${
         state.focused ? 'focused' : ''
@@ -133,9 +134,6 @@ function Index(props) {
         }
       }}
     >
-      {props.placeholder ? (
-        <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span>
-      ) : null}
       {state?.emails?.length > 0 &&
         state?.emails?.map((email, index) => {
           return (
@@ -149,7 +147,7 @@ function Index(props) {
               </span>
             </>
           );
-        })}
+      })}
       <input
         ref={emailInputRef}
         type="text"
@@ -186,6 +184,10 @@ function Index(props) {
         </div>
       )}
     </div>
+    {props.placeholder ? (
+      <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span>
+    ) : null}
+  </>
   );
 }
 

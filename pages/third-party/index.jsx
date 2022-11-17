@@ -155,11 +155,12 @@ function Index() {
                 </div>
                 {inspectionData && inspectionData?.thirdPartyInspectionRequired == true ? (
                   <>
+                  
                     {' '}
                     {addTPI?.map((e, index) => (
-                      <div key={index} className="tab-pane fade" id="thirdParty" role="tabpanel">
-                        <div className={`${styles.card}  accordion_body`}>
-                           {componentId === 2 && (
+                       <div className="tab-pane show active fade" id="appointment" role="tabpanel">
+                          <div className={`${styles.card}  accordion_body`}>
+                          {componentId === 2 && (
                           <ThirdPartyInspection
                             inspectionData={inspectionData}
                             addButton={() => setAddTPI(addTPI + 1)}
@@ -167,10 +168,25 @@ function Index() {
                              setComponentId={setComponentId}
                              componentId={componentId}
                           />
-                     )}
+                          )}
+
+                          </div>
+                          </div>
+                       
+                    //   <div key={index} className="tab-pane fade" id="thirdParty" role="tabpanel">
+                    //     <div className={`${styles.card}  accordion_body`}>
+                    //        {componentId === 2 && (
+                    //       <ThirdPartyInspection
+                    //         inspectionData={inspectionData}
+                    //         addButton={() => setAddTPI(addTPI + 1)}
+                    //         setDate={setDate}
+                    //          setComponentId={setComponentId}
+                    //          componentId={componentId}
+                    //       />
+                    //  )}
                          
-                        </div>
-                      </div>
+                    //     </div>
+                    //   </div>
                     ))}{' '}
                   </>
                 ) : (
