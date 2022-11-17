@@ -55,7 +55,7 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
+       lcIssuingBank: 'ING Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
