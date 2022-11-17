@@ -33,7 +33,7 @@ function Index() {
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
 
-  console.log(lcData,'lcData')
+
   useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -104,7 +104,7 @@ function Index() {
     });
     setExcelFile(_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []));
   }, [lcModuleData, lcModule]);
-
+console.log()
   const saveLcData = (name, value) => {
     const newInput = { ...lcData };
     newInput[name] = value;

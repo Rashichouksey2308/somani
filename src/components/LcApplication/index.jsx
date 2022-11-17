@@ -394,7 +394,7 @@ function Index({
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               disabled={lcData?.atSight == 'AT SIGHT' || lcData?.atSight == undefined ? true : false}
                               name="numberOfDays"
-                              value={lcData?.numberOfDays}
+                              value={lcData?.numberOfDays==undefined ? '' : lcData?.numberOfDays}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
                               }}
