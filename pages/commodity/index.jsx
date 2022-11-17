@@ -232,7 +232,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      <DownloadMasterBar btnName="Download" />
+      <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
 };

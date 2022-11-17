@@ -5,19 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Router from 'next/router';
-import {GetAllInternalCompanies, GetInternalCompanies} from '../../src/redux/internalCompanies/action'
 import MasterTableQueue from '../../src/components/MasterTableQueue';
+import { GetAllPorts, GetPorts } from '../../src/redux/ports/action';
 
 const index = () => {
-  
+
   const dispatch = useDispatch();
+  
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
 
-  const { allInternalCompanies } = useSelector((state) => state.internalCompanies);
+  const { allPorts } = useSelector((state) => state.ports);
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -30,17 +31,20 @@ const index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetInternalCompanies(`?company=${id}`));
+    dispatch(GetPorts(`?company=${id}`));
   };
 
   useEffect(() => {
-    dispatch(GetAllInternalCompanies(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetAllPorts(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
   const handleRoute = (id) => {
-    sessionStorage.setItem('internalCompanyId', id);
-    dispatch(GetInternalCompanies(`?internalCompanyId=${id}`))
-    Router.push('/internal-companies/id');
+    if(sessionStorage.getItem('portId')){
+      sessionStorage.removeItem('portId')
+    }
+    sessionStorage.setItem('portId', id);
+    dispatch(GetPorts(`?portId=${id}`));
+    Router.push('/currency-master/id');
   };
 
   return (
@@ -49,13 +53,13 @@ const index = () => {
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={`${styles.head_header} mr-3 align-items-center`}>
+            <div className={`${styles.head_header} align-items-center`}>
               <img
                 className={`${styles.arrow} image_arrow mr-3 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
-              <h1 className={styles.heading}>Internal Companies</h1>
+              <h1 className={styles.heading}>Currency</h1>
             </div>
             <div className={`${styles.search}`}>
               <div className="input-group">
@@ -87,22 +91,28 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
-              onClick={() => { sessionStorage.getItem('internalCompanyId') && sessionStorage.removeItem('internalCompanyId'); Router.push('/internal-companies/id')}}
+              onClick={() => {
+                sessionStorage.getItem('portId') && sessionStorage.removeItem('portId');
+                Router.push('/ports/id');
+              }}
             >
-              {/* <span className={styles.add_supplier}>+</span> */}
               <span className="ml-1 mr-2">Add</span>
             </button>
           </div>
 
           {/*UserTable*/}
           <MasterTableQueue
-            tableName="Internal Companies"
-            header1="COMPANY NAME"
-            header2="SHORT NAME"
-            header3="COUNTRY"
-            header4="STATUS"
-            handleRoute={handleRoute}    
-            selectorData={allInternalCompanies}      
+            tableName="Currency"
+            header1="Currency"
+            header2="Currency Name"
+            header4="STATUS"   
+            isCurrency={true} 
+            handleRoute={handleRoute}
+            selectorData={allPorts}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageLimit={pageLimit}
+            setPageLimit={setPageLimit}
           />
         </div>
       </div>

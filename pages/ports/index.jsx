@@ -119,7 +119,7 @@ const index = () => {
           />
         </div>
       </div>
-      <DownloadMasterBar downloadFormat={true} btnName="Download" />
+      <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
 };

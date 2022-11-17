@@ -16,6 +16,7 @@ const index = ({
   isHeader,
   header,
   isDate,
+  isCurrency,
   handleRoute,
   selectorData,
   currentPage,
@@ -131,6 +132,9 @@ const index = ({
                       alt="Sort icon"
                     />
                   </th>
+                  {isCurrency ? 
+''
+                  :
                   <th className={`${styles.table_heading} table_heading`}>
                     {header3}{' '}
                     <Image
@@ -141,6 +145,7 @@ const index = ({
                       alt="Sort icon"
                     />
                   </th>
+ }
                   {isHeader ? (
                     <th className={`${styles.table_heading} table_heading`}>
                       {header}{' '}
