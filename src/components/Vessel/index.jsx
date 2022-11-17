@@ -223,7 +223,7 @@ function Index({
                             id="orderValue"
                             type="text"
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                            className={`${styles.input_field} border-left-0 input form-control`}
+                            className={`${styles.input_field} border-left-0 px-2 input form-control`}
                             value={
                               orderValueinFocus
                                 ? val.orderValue

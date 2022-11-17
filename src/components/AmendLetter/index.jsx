@@ -52,7 +52,7 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('AmendLetter.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
@@ -246,28 +246,36 @@ console.log(lcModuleData,"sdasds")
                     aria-labelledby="email-address"
                   >
                     {emailAdd.map((val, index) => (
-                      <div key={index} className={`${styles.each_input} form-group`}>
-                        <div className="d-flex">
-                          <select
-                            id="email"
-                            name="email"
-                            className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                            selected
-                          >
-                            <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                            htmlFor="email"
-                          >
-                            Email
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                      <div className={`d-flex align-items-center form-group`}>
+                        <div key={index} className={`${styles.each_input} flex-grow-1`}>
+                          <div className="d-flex">
+                            <select
+                              id="email"
+                              name="email"
+                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                              selected
+                            >
+                              <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                              htmlFor="email"
+                            >
+                              Email
+                            </label>
+                            <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                         </div>
+                        <img
+                            src="/static/delete 2.svg"
+                            alt="delete"
+                            role="button"
+                            className="ml-3"
+                        />
                       </div>
                     ))}
                     <div
@@ -279,43 +287,51 @@ console.log(lcModuleData,"sdasds")
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
-                      Add more rows
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
                   </div>
                   <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
-                    <div className={`${styles.each_input} ${styles.phone} form-group`}>
-                      <div className={styles.phone_card}>
-                        <select
-                          name="callingCode"
-                          id="Code"
-                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                        >
-                          <option>+91</option>
-                          <option>+1</option>
-                          <option>+92</option>
-                          <option>+95</option>
-                          <option>+24</option>
-                        </select>
-                        <input
-                          type="tel"
-                          id="textNumber"
-                          name="primary"
-                          className={`${styles.formControl} input form-control border-left-0`}
-                          required
-                        />
-                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                          Phone Number
-                          <strong className="text-danger">*</strong>
-                        </label>
+                    <div className={`d-flex align-items-center form-group`}>
+                      <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
+                        <div className={styles.phone_card}>
+                          <select
+                            name="callingCode"
+                            id="Code"
+                            className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                          >
+                            <option>+91</option>
+                            <option>+1</option>
+                            <option>+92</option>
+                            <option>+95</option>
+                            <option>+24</option>
+                          </select>
+                          <input
+                            type="tel"
+                            id="textNumber"
+                            name="primary"
+                            className={`${styles.formControl} input form-control border-left-0`}
+                            required
+                          />
+                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                            Phone Number
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
                       </div>
+                      <img
+                          src="/static/delete 2.svg"
+                          alt="delete"
+                          role="button"
+                          className="ml-3"
+                      />
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -330,13 +346,13 @@ console.log(lcModuleData,"sdasds")
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
-                      Add more rows
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -362,10 +378,10 @@ console.log(lcModuleData,"sdasds")
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                     Close
                   </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                     Download
                   </button>
                 </div>

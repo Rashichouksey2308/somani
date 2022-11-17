@@ -70,7 +70,7 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<MarineInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('RequestLetter.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
@@ -90,21 +90,21 @@ function Index() {
             </div>
             <h1 className={`${styles.heading} heading`}>{insuranceData?.company?.companyName}</h1>
           </div>
-          <div className={`${styles.card_body} card-body`}>
+          <div className={`${styles.card_body} card-body border_color`}>
             <p className={`${styles.centerHeading} heading`}>Request for Insurance Quotation</p>
             <div className={`${styles.details}`}>
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Order ID:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>{insuranceData?.order?.orderId}</span>
               </div>
-              <div className={`${styles.details_content} mb-1`}>
+              <div className={`${styles.details_content} mb-1 pt-2`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
                   {/* {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')} */}
                   {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>
-              <div className={`${styles.details_content} mb-1`}>
+              <div className={`${styles.details_content} mb-1 pt-2`}>
                 <span className={`${styles.details_head}`}>Type of Insurance:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
                   {insuranceData?.quotationRequest?.insuranceType}
@@ -265,7 +265,7 @@ function Index() {
               <p className={`${styles.salutations} heading m-0 pt-0`}> 8-B, Sagar, 6-Tilak Marg</p>
               <p className={`${styles.salutations} heading m-0 pt-0`}> New Delhi-110001</p>
               <p className={`${styles.salutations} heading m-0 pt-0`}> Mobile No - 9312251303 </p>
-              <p className={`${styles.salutations} heading m-0 pt-0 mb-5`}> Email ID - vipinrajput@gmail.com</p>
+              <p className={`${styles.salutations} heading m-0 pt-0 pb-5`}> Email ID - vipinrajput@gmail.com</p>
             </div>
           </div>
         </div>
@@ -404,44 +404,52 @@ function Index() {
                       add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
                   </div>
                   <div className="tab-pane fade" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
-                    <div className={`${styles.each_input} form-group`}>
                       {emailAdd.map((val, index) => {
                         return (
                           <>
-                            <div className="d-flex">
-                              <select
-                                id="email"
-                                name="email"
-                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                                selected
-                              >
-                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                              </select>
-                              <label
-                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                                htmlFor="email"
-                              >
-                                Email
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                          <div className="d-flex align-items-center form-group">
+                            <div className={`${styles.each_input} flex-grow-1`}>
+                              <div className="d-flex">
+                                <select
+                                  id="email"
+                                  name="email"
+                                  className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                  selected
+                                >
+                                  <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
+                                </select>
+                                <label
+                                  className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                  htmlFor="email"
+                                >
+                                  Email
+                                </label>
+                                <img
+                                  className={`${styles.arrow} image_arrow img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="Search"
+                                />
+                              </div>
                             </div>
+                            <img
+                              src="/static/delete 2.svg"
+                              alt="delete"
+                              role="button"
+                              className="ml-3"
+                            />
+                          </div>
                           </>
                         );
                       })}
-                    </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
@@ -458,10 +466,10 @@ function Index() {
                       add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -488,10 +496,10 @@ function Index() {
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                     Close
                   </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                     Download
                   </button>
                 </div>

@@ -6,7 +6,7 @@ export default function AmendLetterTemp(lcModuleData) {
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
-        <td valign="top" style={{ paddingBottom: '20px' }}>
+        <td valign="top" style={{ paddingBottom: '5px' }}>
           <table
             width="100%"
             bgColor="#D8EAFF"
