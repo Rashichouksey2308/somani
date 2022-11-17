@@ -1107,7 +1107,7 @@ function Index() {
         rightButtonTitle="Send To Buyer"
         leftButtonTitle="Transaction Summary"
       />
-      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} /> : null}
+      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail}/> : null}
     </>
   );
 }

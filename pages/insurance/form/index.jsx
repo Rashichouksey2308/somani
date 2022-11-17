@@ -741,6 +741,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
+                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured

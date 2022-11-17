@@ -122,8 +122,9 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   };
 
   const netQuantityChange = (e, index) => {
+    
     if (
-      Number(_get(ReleaseOrderData, 'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity', 0)) <
+      Number(boeTotalQuantity) <
       Number(e.target.value)
     ) {
       const toastMessage = 'net quantity Realesed cannot be Greater than net bALance Quantity';

@@ -51,7 +51,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-
+   
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -95,7 +95,7 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
+      lcIssuingBank: 'ING Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
@@ -190,6 +190,7 @@ function Index() {
     setClauseObj(newInput);
   };
 
+
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj };
     newInput[name] = value;
@@ -270,6 +271,9 @@ function Index() {
       }
     } else {
       let sendLcData = { ...clauseData };
+     
+      sendLcData.documentaryCreditNumber=lcData.documentaryCreditNumber
+      sendLcData.dateOfIssue=lcData.dateOfIssue
       setLcData(clauseData);
 
       let fd = new FormData();
@@ -277,7 +281,7 @@ function Index() {
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('document1', lcDoc.lcDraftDoc);
 
-      dispatch(UpdateLcAmendment(fd));
+      // dispatch(UpdateLcAmendment(fd));
     }
   };
   const [existingValue, setExistingValue] = useState('');
@@ -329,7 +333,21 @@ function Index() {
   useEffect(() => {
     getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
+const [isDisabled,setDisabled]=useState(false)
+ useEffect(() => {
+ 
+  if(clauseObj?.dropDownValue=="(42C) DRAFT AT"){
+   
+    if( lcModuleData.lcApplication.atSight=="AT SIGHT"){
+    
+      setDisabled(true)
+    }
+  }else{
+    setDisabled(false)
+  }
 
+ },[clauseObj])
+ console.log(isDisabled,"isDisabled")
   return (
     <>
       {' '}
@@ -399,7 +417,7 @@ function Index() {
                           required
                           type="text"
                           name="documentaryCreditNumber"
-                          defaultValue={lcData?.documentaryCreditNumber}
+                          value={lcData?.documentaryCreditNumber}
                           onChange={(e) => saveAmendmentData(e.target.name, e.target.value)}
                         />
                         <label className={`${styles.label_heading} label_heading`}>
@@ -411,7 +429,7 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfIssue"
-                            defaultDate={lcData?.dateOfIssue}
+                            value={lcData?.dateOfIssue}
                             saveDate={saveDate}
                             labelName="(31C) Date Of Issue"
                           />
@@ -488,6 +506,7 @@ function Index() {
                               required
                               type="text"
                               value={clauseObj?.newValue}
+                              disabled={isDisabled}
                               onChange={(e) => {
                                 arrChange('newValue', e.target.value);
                               }}

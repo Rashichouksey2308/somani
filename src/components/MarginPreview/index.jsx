@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import _get from 'lodash/get';
 import moment from 'moment';
 import Router from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef , useState} from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import ReactDOMServer from 'react-dom/server';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,11 +12,13 @@ import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/act
 import { addPrefixOrSuffix } from 'utils/helper';
 import MarginBar from '../MarginBar';
 import styles from './index.module.scss';
+import TermsheetPopUp from '../TermsheetPopUp'
 
 function Index() {
   const toPrint = useRef();
   const dispatch = useDispatch();
-
+  const [open, setOpen] = useState(false);
+ 
   const { margin } = useSelector((state) => state.marginMoney);
 
   const marginData = _get(margin, 'data.data[0]', {});
@@ -452,7 +454,13 @@ function Index() {
         </Card>
       </div>
 
-      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'} rightButtonTitle={'Send to Buyer'} />
+      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'} />
+
+      {open ? <TermsheetPopUp
+      close={() => setOpen(false)}
+      open={open} 
+      isMargin 
+     /> : null} 
     </>
   );
 }
