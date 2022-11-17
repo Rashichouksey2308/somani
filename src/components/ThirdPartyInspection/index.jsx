@@ -185,14 +185,14 @@ export default function Index({ addButton }) {
       sethaveDoc(true);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
-console.log(haveDoc,"haveDoc")
+console.log(haveDischargeDoc,"haveDoc")
   useEffect(() => {
     if (
       dischargeDocuments.dischargeCertificateOfQuality !== null ||
       dischargeDocuments.dischargeCertificateOfWeight !== null ||
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
-      setHaveDischargeDoc(false);
+      setHaveDischargeDoc(true);
     }
   }, [
     dischargeDocuments.dischargeCertificateOfQuality,

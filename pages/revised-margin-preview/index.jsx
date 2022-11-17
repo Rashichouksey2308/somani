@@ -602,8 +602,7 @@ function Index() {
       {open ? <TermsheetPopUp 
       close={() => setOpen(false)} 
       open={open} 
-      isMargin 
-      popupHeading={'Revised Margin Money'}/> : null}
+      isMargin /> : null}
     </>
   );
 }

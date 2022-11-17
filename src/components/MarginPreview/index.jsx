@@ -460,7 +460,7 @@ function Index() {
       close={() => setOpen(false)}
       open={open} 
       isMargin 
-      popupHeading={'Margin Money'}/> : null} 
+     /> : null} 
     </>
   );
 }
