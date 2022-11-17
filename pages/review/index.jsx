@@ -7515,6 +7515,7 @@ function Index() {
   };
 
   const GstDataHandler = (data) => {
+    console.log("sdfsfsdfs")
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
