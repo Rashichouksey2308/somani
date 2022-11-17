@@ -102,7 +102,11 @@ const index = () => {
             header3="COUNTRY"
             header4="STATUS"
             handleRoute={handleRoute}    
-            selectorData={allInternalCompanies}      
+            selectorData={allInternalCompanies}     
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageLimit={pageLimit}
+            setPageLimit={setPageLimit} 
           />
         </div>
       </div>
