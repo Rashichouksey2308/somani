@@ -12,7 +12,8 @@ import MarginBar from '../../src/components/MarginBar';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
 import { addPrefixOrSuffix } from '../../src/utils/helper';
 import styles from './index.module.scss';
-import { returnReadableNumber } from '@/utils/helpers/global'
+import { returnReadableNumber } from '@/utils/helpers/global';
+import TermsheetPopUp from '../../src/components/TermsheetPopUp'
 
 function Index() {
   const dispatch = useDispatch();
@@ -32,13 +33,6 @@ function Index() {
 
   const [open, setOpen] = useState(false);
 
-  const openbar = () => {
-    setOpen(true);
-  };
-
-  const close = () => {
-    setOpen(false);
-  };
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
@@ -107,12 +101,12 @@ function Index() {
                       {addPrefixOrSuffix(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
                           ? Number(marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity)?.toLocaleString(
-                            'en-In',
-                            {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            },
-                          )
+                              'en-In',
+                              {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              },
+                            )
                           : 0,
                         'MT',
                         '',
@@ -123,9 +117,9 @@ function Index() {
                       {addPrefixOrSuffix(
                         marginData?.order?.quantity
                           ? Number(marginData?.order?.quantity)?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })
                           : 0,
                         'MT',
                         '',
@@ -139,12 +133,13 @@ function Index() {
                     </td>
                     <td className={`${styles.good} `}>
                       USD{' '}
-                      {returnReadableNumber(marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice, 'en-In', 2) ?? 0}
+                      {returnReadableNumber(
+                        marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice,
+                        'en-In',
+                        2,
+                      ) ?? 0}
                     </td>
-                    <td>
-                      USD{' '}
-                      {returnReadableNumber(marginData?.order?.perUnitPrice, 'en-In', 2) ?? 0}
-                    </td>
+                    <td>USD {returnReadableNumber(marginData?.order?.perUnitPrice, 'en-In', 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -152,7 +147,11 @@ function Index() {
                       <span className={`ml-2`}>Conversion Rate</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {returnReadableNumber(marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate, 'en-In', 2) ?? 0}
+                      {returnReadableNumber(
+                        marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate,
+                        'en-In',
+                        2,
+                      ) ?? 0}
                     </td>
                     <td>{returnReadableNumber(marginData?.conversionRate, 'en-In', 2) ?? 0}</td>
                   </tr>
@@ -287,11 +286,15 @@ function Index() {
                     </td>
                     <td className="pt-4">
                       USD{' '}
-                      {returnReadableNumber(marginData?.revisedMarginMoney?.revisedCalculation?.orderValue, 'en-EN', 2, 2)}
+                      {returnReadableNumber(
+                        marginData?.revisedMarginMoney?.revisedCalculation?.orderValue,
+                        'en-EN',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td className="pt-4">
-                      USD{' '}
-                      {returnReadableNumber(marginData?.calculation?.orderValue, 'en-EN', 2, 2) ?? 0}
+                      USD {returnReadableNumber(marginData?.calculation?.orderValue, 'en-EN', 2, 2) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -302,12 +305,14 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {returnReadableNumber(marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR, 'en-EN', 2, 2) ?? 0}
+                      {returnReadableNumber(
+                        marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR,
+                        'en-EN',
+                        2,
+                        2,
+                      ) ?? 0}
                     </td>
-                    <td>
-                      ₹{' '}
-                      {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-EN', 2, 2) ?? 0}
-                    </td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-EN', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -317,12 +322,14 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {returnReadableNumber(marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest, 'en-EN', 2, 2) ?? 0}
+                      {returnReadableNumber(
+                        marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest,
+                        'en-EN',
+                        2,
+                        2,
+                      ) ?? 0}
                     </td>
-                    <td>
-                      ₹{' '}
-                      {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-EN', 2, 2) ?? 0}
-                    </td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-EN', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -332,12 +339,14 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {returnReadableNumber(marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin, 'en-EN', 2, 2) ?? 0}
+                      {returnReadableNumber(
+                        marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin,
+                        'en-EN',
+                        2,
+                        2,
+                      ) ?? 0}
                     </td>
-                    <td>
-                      ₹{' '}
-                      {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-EN', 2, 2) ?? 0}
-                    </td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-EN', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -588,8 +597,13 @@ function Index() {
         exportPDF={exportPDF}
         leftButtonTitle={'Revised Margin Money'}
         rightButtonTitle={'Send to Buyer'}
-        openbar={() => { }}
+        openbar={() => setOpen(true)}
       />
+      {open ? <TermsheetPopUp 
+      close={() => setOpen(false)} 
+      open={open} 
+      isMargin 
+      popupHeading={'Revised Margin Money'}/> : null}
     </>
   );
 }
