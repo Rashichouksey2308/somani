@@ -15,10 +15,6 @@ export const orderValidation = (orderDetails, shipment, approvedCredit) => {
     handleErrorToast('Quantity can not be Empty ');
     return false;
   }
-  if (Number(orderDetails?.quantity) === 0) {
-    handleErrorToast('Quantity can not be 0 ');
-    return false;
-  }
   if (orderDetails?.unitOfQuantity?.trim() === '' || orderDetails?.unitOfQuantity == undefined) {
     handleErrorToast('Please Provide a unit Of Quantity  ');
     return false;
@@ -159,4 +155,106 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
       return <img src="/static/trend-red-113.svg" alt="Loss" className="img-fluid" />;
     }
   }
+};
+
+export const addressValidtion = (data) => {
+  if (data.addressType === null || data.addressType === '' || data.addressType === undefined) {
+    handleErrorToast('Please Select addresss Type');
+    return false;
+  }
+  if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
+    handleErrorToast('Please add pin code');
+    return false;
+  }
+  // if (data.state === null || data.state === '' || data.state === undefined) {
+  //   handleErrorToast('Please add state');
+  //   return false;
+  // }
+  if (data.city === null || data.city === '' || data.city === undefined) {
+    handleErrorToast('Please add city');
+    return false;
+  }
+  if (data.email === null || data.email === '' || data.email === undefined) {
+    handleErrorToast('Please add email');
+
+    return false;
+  }
+  if (
+    !String(data.email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      )
+  ) {
+    handleErrorToast('Please add valid email id');
+    return false;
+  }
+  if (data.email === null || data.email === '' || data.email === undefined) {
+    handleErrorToast('Please add email');
+
+    return false;
+  }
+  if (data.fullAddress === null || data.fullAddress === '' || data.fullAddress === undefined) {
+    handleErrorToast('Please add address');
+    return false;
+  }
+  return true;
+};
+
+export const bankValidtion = (data, countryName) => {
+
+  if(countryName == 'India') {
+  if (data.Bank_Name === null || data.Bank_Name === '' || data.Bank_Name === undefined) {
+    handleErrorToast('Please add bank name');
+    return false;
+  }
+  if (data.IFSC === null || data.IFSC === '' || data.IFSC === undefined) {
+    handleErrorToast('Please add ifsc');
+    return false;
+  }
+  if (data.Account_No === null || data.Account_No === '' || data.Account_No === undefined) {
+    handleErrorToast('Please add account no.');
+    return false;
+  }
+  return true;
+}else {
+  if (data.Bank_Name === null || data.Bank_Name === '' || data.Bank_Name === undefined) {
+    handleErrorToast('Please add bank name');
+    return false;
+  }
+  if (data.Swift_Code === null || data.Swift_Code === '' || data.Swift_Code === undefined) {
+    handleErrorToast('Please add swift code');
+    return false;
+  }
+  if (data.Account_No === null || data.Account_No === '' || data.Account_No === undefined) {
+    handleErrorToast('Please add account no.');
+    return false;
+  }
+  return true;
+}
+};
+
+export const portValidtion = (data) => {
+  if (data.Country === null || data.Country === '' || data.Country === undefined) {
+    handleErrorToast('Please Select country');
+    return false;
+  }
+  if (data.Port_Name === null || data.Port_Name === '' || data.Port_Name === undefined) {
+    handleErrorToast('Please add Port Name');
+    return false;
+  }
+  if (data.State === null || data.State === '' || data.State === undefined) {
+    handleErrorToast('Please add state');
+    return false;
+  }
+  if (data.Container_Handling === null || data.Container_Handling === '' || data.Container_Handling === undefined) {
+    handleErrorToast('Please select Container Handling');
+    return false;
+  }
+  if (data.Approved === null || data.Approved === '' || data.Approved === undefined) {
+    handleErrorToast('Please select Approved or not');
+    return false;
+  }
+  return true;
+
 };

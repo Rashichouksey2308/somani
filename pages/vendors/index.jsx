@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './index.module.scss';
+import styles from '../commodity/index.module.scss';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';

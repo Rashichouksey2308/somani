@@ -3,38 +3,55 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
-import Router from 'next/router';
-import { GetAllSupplier } from 'redux/supplier/action';
+import _get from 'lodash/get';
+import _ from 'lodash';
+import ToggleSwitch from '../ToggleSwitch';
 
-const index = ({ tableName, header1, header2, header3, header4, isHeader, header, isDate }) => {
-  const dispatch = useDispatch();
-  const [serachterm, setSearchTerm] = useState('');
+const index = ({
+  tableName,
+  header1,
+  header2,
+  header3,
+  header4,
+  isHeader,
+  header,
+  isDate,
+  handleRoute,
+  selectorData,
+}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
-  const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
+  let queueData;
 
-  const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
-    if (query.length >= 3) {
-      dispatch(SearchLeads(query));
-    }
-  };
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
-  };
-  useEffect(() => {
-    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
-  }, [currentPage, pageLimit]);
+  if (tableName === 'Ports') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        // prevDate: moment(item.Date).format('MMMD'),
+        col2: item.Country,
+        col1: item.Port_Name,
+        col3: item.State,
+        date: '11-11-2022',
+        status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
+        id: item._id,
+      };
+    });
+  } else if (tableName === 'Internal Companies') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        // prevDate: moment(item.Date).format('MMMD'),
+        col1: item.Company_Name,
+        col2: item.Short_Name,
+        col3: item.Country,
+        status: 'Approved',
+        id: item._id,
+      };
+    });
+  }
 
-  const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id);
-    Router.push('/supplier');
-  };
+  console.log(queueData, 'QUEUE');
 
   return (
     <>
@@ -58,7 +75,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
                 {' '}
-                Showing Page {currentPage + 1} out of {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
+                Showing Page {currentPage + 1} out of {Math.ceil(selectorData?.totalCount / pageLimit)}
               </span>
               <a
                 onClick={() => {
@@ -74,7 +91,7 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(allSupplierResponse?.totalCount / 7)) {
+                  if (currentPage + 1 < Math.ceil(selectorData?.totalCount / 7)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
@@ -150,39 +167,40 @@ const index = ({ tableName, header1, header2, header3, header4, isHeader, header
                 </tr>
               </thead>
               <tbody>
-                <tr className={`${styles.table_row} table_row17`}>
-                  <td className={styles.buyerName}>Indo German Private Limited</td>
-                  <td>IGPL</td>
-                  <td>India</td>
-                  {isDate ? <td>22-02-2022</td> : ''}
+                {queueData &&
+                  queueData?.map((supplier, index) => (
+                    <tr key={index} className={`${styles.table_row} table_row17`}>
+                      <td className={styles.buyerName}>{supplier.col1}</td>
+                      <td>{supplier.col2}</td>
+                      <td>{supplier.col3}</td>
+                      {supplier?.date && <td>{supplier.date}</td>}
+                      <td>
+                        <ToggleSwitch />
+                      </td>
 
-                  <td>
-                    <img src="/static/active.svg" className="img-fluid" alt="active" />
-                    <span className="m-3">Approved</span>
-                  </td>
-
-                  <td>
-                    {' '}
-                    <div className={`${styles.edit_image} img-fluid`}>
-                      <Image
-                        onClick={() => {
-                          handleRoute(supplier._id);
-                        }}
-                        height="40px"
-                        width="40px"
-                        src="/static/mode_edit.svg"
-                        alt="Edit"
-                      />
-                    </div>
-                  </td>
-                </tr>
+                      <td>
+                        {' '}
+                        <div className={`${styles.edit_image} img-fluid`}>
+                          <Image
+                            onClick={() => {
+                              handleRoute(supplier.id);
+                            }}
+                            height="40px"
+                            width="40px"
+                            src="/static/mode_edit.svg"
+                            alt="Edit"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}               
               </tbody>
             </table>
           </div>
         </div>
       </div>
       <div className={`${styles.total_count}`}>
-        Total Count: <span>{allSupplierResponse?.totalCount}</span>
+        Total Count: <span>{selectorData?.totalCount}</span>
       </div>
     </>
   );

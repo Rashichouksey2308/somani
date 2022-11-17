@@ -124,6 +124,11 @@ function Index() {
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
         { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
         { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
+        { name: 'Ports', image: '/static/vendors.svg', route: '/ports' },
+        { name: 'Document Masters', image: '/static/vendors.svg', route: '/document-master' },
+        { name: 'Go No Go Logic', image: '/static/vendors.svg', route: '/go-no-go-logic' },
+
+
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',
@@ -132,11 +137,6 @@ function Index() {
         { name: 'Commodity', image: '/static/commodity.svg', route: '/commodity' },
         { name: 'GL', image: '/static/gl.svg', route: '' },
         { name: 'Others', image: '/static/others.svg', route: '' },
-        {
-          name: 'Third-Party Inspection',
-          image: '/static/Review Queue.svg',
-          route: '',
-        },
       ],
       image: '/static/Masters.svg',
       route: '',

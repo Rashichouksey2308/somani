@@ -271,6 +271,7 @@ img {
   border-radius: 4px;
   padding: 9px;
   width: 40px;
+  cursor: pointer;
   height: 40px;
   @include respond(lg-desktop) {
     width: 30px;
