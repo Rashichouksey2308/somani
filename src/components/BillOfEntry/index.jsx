@@ -1069,7 +1069,7 @@ console.log(bl,"asdasd")
                             value={
                               val?.boeDetails?.accessibleValue == 'INR 0'
                                 ? ''
-                                : addPrefixOrSuffix(val?.boeDetails?.accessibleValue, 'INR', 'front')
+                                : `INR ${val?.boeDetails?.accessibleValue}`
                             }
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           />

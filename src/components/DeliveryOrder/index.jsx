@@ -183,7 +183,7 @@ export default function Index(props) {
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order No.</div>
-                              <span className={styles.value}>{val.deliveryOrderNo}</span>
+                              <span className={`${styles.value} text-nowrap`}>{val.deliveryOrderNo}</span>
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order Date</div>
@@ -197,7 +197,7 @@ export default function Index(props) {
                                 </div>
 
                                 {val.isDelete ? (
-                                  <div className={`${styles.form_group} col-lg-6`} style={{ marginLeft: '-48px' }}>
+                                  <div className={`${styles.form_group} col-md-7`}>
                                     <img
                                       src="/static/save-3.svg"
                                       className={`${styles.shareImg}`}

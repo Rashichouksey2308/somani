@@ -621,14 +621,12 @@ function Index() {
               style={{ cursor: 'pointer' }}
             />
             <h1 className={`${styles.title} heading`}>
-              <span style={{ textTransform: 'capitalize' }}>
-                {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
-                  ReleaseOrderData,
-                  'data[0].order.orderId',
-                  '',
-                ).slice(8)}`}
-              </span>
+              {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
+              {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+                ReleaseOrderData,
+                'data[0].order.orderId',
+                '',
+              ).slice(8)}`}
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>

@@ -71,6 +71,7 @@ function Index({
     OrderValue: false,
   });
 
+  console.log(gstData,"gstData")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -505,7 +506,7 @@ function Index({
 
     setChartData(data);
     setChartData2(data2);
-  }, [chartRef.current, chartRef2.current]);
+  }, [chartRef.current, chartRef2.current,gstData]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
   useEffect(() => {

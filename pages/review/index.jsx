@@ -7515,6 +7515,7 @@ function Index() {
   };
 
   const GstDataHandler = (data) => {
+    console.log("sdfsfsdfs")
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
@@ -8453,7 +8454,7 @@ function Index() {
                       <div className={` ${styles.cardBody_litigations} card-body border_color`}>
                         <div className={`${styles.checkbox_Container}`} data-toggle="collapse">
                           <Row>
-                            <Col md={4}>
+                            <Col md={6}>
                               <p className={`mb-3 text`}>Filter by</p>
                               <div className={`flex-wrap d-flex align-items-center justify-content-start`}>
                                 <div className="form-check mr-4">
@@ -8504,7 +8505,7 @@ function Index() {
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3}>
                               <p className={`mb-3 text`}>Select a Party</p>
                               <div className={`d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
@@ -8539,7 +8540,7 @@ function Index() {
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3} className="pl-5">
                               <p className={`mb-3 text`}>Classification</p>
                               <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">

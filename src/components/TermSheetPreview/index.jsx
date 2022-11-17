@@ -234,7 +234,7 @@ function Index() {
             <Col md={4} className={`d-flex justify-content-start align-items-start`}>
               {termsheet &&
                 termsheet?.data?.map((sheet, index) => (
-                  <div key={index}>
+                  <div key={index} className='mb-2'>
                     <div>
                       <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
                       <span className={`${styles.termValue} text-color`}>{sheet.order.orderId}</span>
