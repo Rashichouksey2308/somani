@@ -425,7 +425,7 @@ console.log(addressList,"aasdads")
         });
       }
     });
-     setAddressEditType(addresstype)
+     setAddressEditType(addressType)
   };
   const editNewAddress = (name, value) => {
     setIsEdit(true);

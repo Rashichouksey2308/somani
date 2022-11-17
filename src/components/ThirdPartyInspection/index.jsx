@@ -14,7 +14,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther/index';
 import styles from './index.module.scss';
 
-export default function Index({ addButton }) {
+export default function Index({ addButton , setComponentId,componentId }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -909,6 +909,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         }
       }
     }
+    setComponentId(componentId + 1);
   };
 
   return (
