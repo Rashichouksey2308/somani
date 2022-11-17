@@ -60,6 +60,7 @@ export default function Index({ isQuery }) {
       router.pathname?.match('/insurance') ||
       router.pathname?.match('/order-list') ||
       router.pathname?.match('/new-order') ||
+      router.pathname?.match('/go-no-go-logic') ||
       router.pathname?.match('/termsheet-preview') ||
       router.pathname?.match('/letter-table/letter-amend/id') ||
       router.pathname == '/agreement/preview' ||

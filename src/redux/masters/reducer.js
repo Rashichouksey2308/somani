@@ -2,6 +2,8 @@ import * as types from './actionType'
 
 const initialState = {
   getCountriesMasterData: [],
+  gettingState: false,
+  getStateMasterData: [],
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
@@ -29,6 +31,22 @@ function MastersReducer (state = initialState, action) {
       return {
         ...state,
         getCountriesMasterData: []
+      }
+    case types.GET_STATE_MASTERS:
+      return {
+        ...state,
+        gettingState: true,
+        getStateMasterData: []
+      }
+    case types.GET_STATE_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getStateMasterData: action.payload
+      }
+    case types.GET_STATE_MASTERS_FAILURE:
+      return {
+        ...state,
+        getStateMasterData: []
       }
 
     case types.GET_PORTS_MASTERS:

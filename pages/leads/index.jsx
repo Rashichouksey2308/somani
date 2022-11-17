@@ -119,7 +119,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-              <span style={{ fontSize: '28px' }}>+</span>
+              <span className={styles.plus_sign}>+</span>
               <span className={`ml-1 mr-2`}>New Customer</span>
             </button>
           </div>
