@@ -58,7 +58,7 @@ const addMoreRows = (val) => {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('AmendLetter.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
@@ -252,28 +252,36 @@ console.log(lcModuleData,"sdasds")
                     aria-labelledby="email-address"
                   >
                     {emailAdd.map((val, index) => (
-                      <div key={index} className={`${styles.each_input} form-group`}>
-                        <div className="d-flex">
-                          <select
-                            id="email"
-                            name="email"
-                            className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                            selected
-                          >
-                            <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                            htmlFor="email"
-                          >
-                            Email
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                      <div className={`d-flex align-items-center form-group`}>
+                        <div key={index} className={`${styles.each_input} flex-grow-1`}>
+                          <div className="d-flex">
+                            <select
+                              id="email"
+                              name="email"
+                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                              selected
+                            >
+                              <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                              htmlFor="email"
+                            >
+                              Email
+                            </label>
+                            <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                         </div>
+                        <img
+                            src="/static/delete 2.svg"
+                            alt="delete"
+                            role="button"
+                            className="ml-3"
+                        />
                       </div>
                     ))}
                     <div
@@ -285,13 +293,13 @@ console.log(lcModuleData,"sdasds")
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
-                      Add more rows
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -354,6 +362,12 @@ console.log(lcModuleData,"sdasds")
                           <strong className="text-danger">*</strong>
                         </label>
                       </div>
+                      <img
+                          src="/static/delete 2.svg"
+                          alt="delete"
+                          role="button"
+                          className="ml-3"
+                      />
                     </div>
                    
                     <div
@@ -365,13 +379,13 @@ console.log(lcModuleData,"sdasds")
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
-                      Add more rows
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -397,10 +411,10 @@ console.log(lcModuleData,"sdasds")
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                     Close
                   </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                     Download
                   </button>
                 </div>

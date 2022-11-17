@@ -986,6 +986,10 @@
         }
       }
     }
+    &:disabled {
+      opacity: 1;
+      background-color: #e1e1e1;
+    }
 
     @include respond(lg-desktop) {
       height: 45px;
