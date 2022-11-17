@@ -425,9 +425,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           <option value="eWay Bill"> eWay Bill</option>
                         </>
                       )} */}
-                      <option value="" disabled>
+                      {/* <option value="" disabled>
                         Select an option
-                      </option>
+                      </option> */}
                       {dropDownOptionHandler(module)?.map((item) => (
                         <option value={item}>{item}</option>
                       ))}
