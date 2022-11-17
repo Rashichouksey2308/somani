@@ -87,6 +87,7 @@
     border-radius: 6px;
     @include respond(lg-desktop) {
       height: 100px;
+      margin-bottom: 20px;
     }
 
     span {
@@ -94,7 +95,7 @@
       line-height: 41px;
       font-weight: bold;
       @include respond(lg-desktop) {
-        font-size: 24px;
+        font-size: 21px;
         line-height: 1.3;
       }
     }
