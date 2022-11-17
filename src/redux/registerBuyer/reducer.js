@@ -20,6 +20,8 @@ const initialState = {
   orderList: null,
   gettingSingleOrder: false,
   singleOrder: [],
+  gettingOrderLeads: false,
+  getOrderLeads: [],
 };
 
 function BuyerReducer(state = initialState, action) {
@@ -64,7 +66,24 @@ function BuyerReducer(state = initialState, action) {
         gettingAllBuyerList: false,
         allBuyerList: [],
       };
-
+    case types.GET_ORDER_LEADS:
+      return {
+        ...state,
+        gettingOrderLeads: true,
+        getOrderLeads: [],
+      };
+    case types.GET_ORDER_LEADS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingOrderLeads: true,
+        getOrderLeads: action.payload,
+      };
+    case types.GET_ORDER_LEADS_FAILED:
+      return {
+        ...state,
+        gettingOrderLeads: true,
+        getOrderLeads: [],
+      };
     case types.GET_ALL_ORDER:
       return {
         ...state,

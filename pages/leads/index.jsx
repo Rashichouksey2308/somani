@@ -5,21 +5,21 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
+import { GetAllBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
 import FilterBadge from '../../src/components/FilterBadge';
 import QueueStats from '../../src/components/QueueStats';
 import Table from '../../src/components/Table';
-import QueueStatusSymbol from "../../src/components/QueueStatusSymbol";
+import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import slugify from 'slugify';
 
 // import { getPincodes } from '../../src/redux/masters/action';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
-  const [showBadges, setShowBadges] = useState(false)
+  const [showBadges, setShowBadges] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -31,6 +31,7 @@ function Index() {
 
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
+  const { getOrderLeads } = useSelector((state) => state.buyer);
 
   const [open, setOpen] = useState(true);
   const handleClose = () => {
@@ -52,6 +53,10 @@ function Index() {
       sessionStorage.setItem('openList', 1);
     }
   }, []);
+
+  useEffect(() => {
+    dispatch(GetOrderLeads());
+  }, [dispatch]);
 
   const handleRoute = (buyer) => {
     sessionStorage.setItem('orderId', buyer._id);
@@ -84,58 +89,66 @@ function Index() {
       setSortByState((state) => {
         let updatedOrder = !state.order;
         sortOrder = updatedOrder ? 'asc' : 'desc';
-        return { ...state, order: updatedOrder }
-      })
-    }
-    else {
+        return { ...state, order: updatedOrder };
+      });
+    } else {
       let data = { column: column.id, order: column.isSortedDesc };
       sortOrder = data.order ? 'asc' : 'desc';
       setSortByState(data);
     }
     dispatch(GetAllBuyer(`?page=${currentPage}&column=${columnName}&order=${sortOrder}`));
-  }
+  };
 
-  const statData = {
-    'all': allBuyerList?.data?.totalCount,
-    'approved': allBuyerList?.data?.approved,
-    'review': allBuyerList?.data?.reviewed,
-    'rejected': allBuyerList?.data?.rejected,
-    'pending': allBuyerList?.data?.pending
-  }
+  const statLeadsData = {
+    all: getOrderLeads?.totalCount,
+    approved: getOrderLeads?.approved,
+    review: getOrderLeads?.reviewed,
+    rejected: getOrderLeads?.rejected,
+    pending: getOrderLeads?.pending,
+  };
 
   const tableColumns = useMemo(() => [
     {
-      Header: "Customer Id",
-      accessor: "company.customerId",
+      Header: 'Customer Id',
+      accessor: 'company.customerId',
     },
     {
-      Header: "Buyer Name",
-      accessor: "company.companyName",
-      Cell: ({ cell: { value }, row: { original } }) => <span onClick={() => { handleRoute(original) }} className="font-weight-bold text-primary">{value}</span>
+      Header: 'Buyer Name',
+      accessor: 'company.companyName',
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+          className="font-weight-bold text-primary"
+        >
+          {value}
+        </span>
+      ),
     },
     {
-      Header: "Created By",
-      accessor: "createdBy.userRole",
-      Cell: ({ value }) => value ? value : 'RM'
+      Header: 'Created By',
+      accessor: 'createdBy.userRole',
+      Cell: ({ value }) => (value ? value : 'RM'),
     },
     {
-      Header: "Username",
-      accessor: "createdBy.fName"
+      Header: 'Username',
+      accessor: 'createdBy.fName',
     },
     {
-      Header: "Existing Customer",
-      accessor: "existingCustomer",
+      Header: 'Existing Customer',
+      accessor: 'existingCustomer',
       Cell: ({ value }) => {
-        return value ? 'Yes' : 'No'
-      }
+        return value ? 'Yes' : 'No';
+      },
     },
     {
-      Header: "Status",
-      accessor: "queue",
+      Header: 'Status',
+      accessor: 'queue',
       disableSortBy: true,
-      Cell: ({ value }) => <QueueStatusSymbol status={value} />
-    }
-  ])
+      Cell: ({ value }) => <QueueStatusSymbol status={value} />,
+    },
+  ]);
 
   return (
     <>
@@ -173,7 +186,7 @@ function Index() {
 
             {showBadges &&
               searchedLeads?.data?.data?.map((results, index) => {
-                const { companyName, status, commodity,orderId } = results;
+                const { companyName, status, commodity, orderId } = results;
                 return (
                   <>
                     {companyName && open && <FilterBadge label={companyName} onClose={handleClose} />}
@@ -204,26 +217,23 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <QueueStats data={statData} />
+          <QueueStats data={statLeadsData} />
 
           {/*leads table*/}
-          {
-            allBuyerList?.data?.data &&
-            (
-              <Table
-                tableHeading="Leads"
-                currentPage={currentPage}
-                totalCount={allBuyerList?.data?.totalCount}
-                setCurrentPage={setCurrentPage}
-                columns={tableColumns}
-                data={allBuyerList?.data?.data}
-                pageLimit={pageLimit}
-                setPageLimit={setPageLimit}
-                handleSort={handleSort}
-                sortByState={sortByState}
-              />
-            )
-          }
+          {allBuyerList?.data?.data && (
+            <Table
+              tableHeading="Leads"
+              currentPage={currentPage}
+              totalCount={allBuyerList?.data?.totalCount}
+              setCurrentPage={setCurrentPage}
+              columns={tableColumns}
+              data={allBuyerList?.data?.data}
+              pageLimit={pageLimit}
+              setPageLimit={setPageLimit}
+              handleSort={handleSort}
+              sortByState={sortByState}
+            />
+          )}
         </div>
       </div>
     </>
