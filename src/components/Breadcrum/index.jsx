@@ -362,7 +362,7 @@ export default function Index({ isQuery }) {
       }
     });
   }, [pageName, id, order, upperTabs, companyId]);
-
+console.log(pageName,id,order,companyId,"Ssadsdasd");
   return (
     <div className={`${styles.main_container} row background1 align-items-center`}>
       <div className="col-md-7">
