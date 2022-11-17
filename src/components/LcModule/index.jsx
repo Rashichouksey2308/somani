@@ -18,6 +18,7 @@ function Index() {
 
   const dispatch = useDispatch();
 
+
   const { lcModule } = useSelector((state) => state.lc);
 
   useEffect(() => {
@@ -131,7 +132,7 @@ function Index() {
             </h3>
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
-                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 10)}
+                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 7)}
               </span>
               <a
                 onClick={() => {
@@ -148,7 +149,7 @@ function Index() {
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 10)) {
+                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 7)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
