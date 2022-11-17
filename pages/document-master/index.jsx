@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
-import styles from './index.module.scss';
+import React, { useState, useEffect } from 'react';
+import styles from '../commodity/index.module.scss';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Image from 'next/image';
 import Router from 'next/router';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import {GetAllDocument, GetDocument} from '../../src/redux/documentMaster/action'
 
 const index = () => {
+
   const dispatch = useDispatch();
+
   const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
   const { searchedLeads } = useSelector((state) => state.order);
+
+  const { allDocument } = useSelector((state) => state.document);
+
+  useEffect(() => {
+    dispatch(GetAllDocument(`?page=${currentPage}&limit=${10}`));
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    dispatch(setPageName('documentMaster'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  });
+  
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -22,8 +41,13 @@ const index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+    dispatch(GetDocument(`?documentMasterId=${id}`));
   };
+
+  const handleRoute = (doc) => {
+    sessionStorage.setItem('documentMasterId', doc._id)
+    Router.push('/document-master/id')
+  }
 
   return (
     <>
@@ -69,13 +93,12 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/document-master/id')}
+              onClick={() => { sessionStorage.getItem('documentMasterId') && sessionStorage.removeItem('documentMasterId'); Router.push('/document-master/id')}}
             >
               Add
             </button>
           </div>
-
-          {/*UserTable*/}
+        {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
             <div className={`${styles.tableFilter} d-flex justify-content-between`}>
               <h3 className="heading_card">Document Master</h3>
@@ -90,11 +113,31 @@ const index = () => {
                 </div>
 
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                  <span>Showing Page 1 out of 10</span>
-                  <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
+                  <span>
+                    Showing Page {currentPage + 1} out of {Math.ceil(allDocument?.totalCount / 7)}
+                  </span>
+                  <a
+                    onClick={() => {
+                      if (currentPage === 0) return
+                       else {
+                        setCurrentPage((prevState) => prevState - 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                  >
+                    {' '}
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
-                  <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+                  <a
+                    onClick={() => {
+                      if (currentPage + 1 < Math.ceil(allDocument?.totalCount / 7)) {
+                        setCurrentPage((prevState) => prevState + 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                  >
                     <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
@@ -115,7 +158,7 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th width="25%" className={`${styles.table_heading} table_heading`}>
+                      {/* <th width="25%" className={`${styles.table_heading} table_heading`}>
                         SUB-MODULE{' '}
                         <Image
                           width="9px"
@@ -124,7 +167,7 @@ const index = () => {
                           src="/static/icons8-sort-24.svg"
                           alt="Sort icon"
                         />
-                      </th>
+                      </th> */}
 
                       <th className={`${styles.table_heading} table_heading`}>
                         DOCUMENT NAME{' '}
@@ -141,83 +184,28 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
+                  {allDocument && allDocument?.data?.map((doc, index) => (<tr key={index} className={`${styles.table_row} table_row17`}>
+                      <td>{doc.Module}</td>
+                      {/* <td>{doc.Sub_Module}</td> */}
+                      <td className={styles.buyerName}>{doc.Document_Name}</td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
+                          <Image onClick={()=>handleRoute(doc)} height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>Leads</td>
-                      <td>Credit Queue</td>
-                      <td className={styles.buyerName}>Document 1</td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
+                    </tr>))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <div className={`${styles.total_count}`}>
-            Total Count: <span>280</span>
+            Total Count: <span>{allDocument?.totalCount}</span>
           </div>
         </div>
       </div>
-      <DownloadMasterBar btnName="Download" downloadFormat={true} />
+      <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
 };

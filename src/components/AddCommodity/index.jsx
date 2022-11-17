@@ -84,7 +84,19 @@ function Index () {
                   Chapter Code <strong className='text-danger'>*</strong>
                 </label>
               </div>
-              <div className={`${styles.form_group} mt-0 col-lg-2 col-md-6 col-sm-6 `}>
+              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                  <div className={`${styles.theme} d-flex align-items-center`}>
+                    <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
+                    <label className={styles.switch}>
+                      <input type="checkbox" />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                    <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
+                  </div>
+                  <label className={`${styles.label_heading} label_heading`}
+                  style={{left:'15px'}}>Approved Commodity</label>
+                </div>
+              {/* <div className={`${styles.form_group} mt-0 col-lg-2 col-md-6 col-sm-6 `}>
                 <div className={`${styles.radio_form} ml-1`}>
                   <div className={`${styles.sub_heading} label_heading`}>Approved Commodity</div>
                   {['radio'].map((type, index) => (
@@ -110,15 +122,7 @@ function Index () {
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                <div className='d-flex'>
-                  <DateCalender name='Approved_Date' saveDate={saveDate} labelName='Approved Date ' />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image width='22px' height='24px' src='/static/caldericon.svg' alt='Calender' />
-                  </div>
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

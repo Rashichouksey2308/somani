@@ -8,10 +8,10 @@ import Image from 'next/image';
 import UploadOther from '../UploadOther';
 
 function Index() {
-  const [vendorRadio, setVendorRadio] = useState('');
+  const [vendorRadio, setVendorRadio] = useState('domestic');
   return (
     <div className={`${styles.backgroundMain}`}>
-      <div className={`${styles.vessel_card} border_color`}>
+      <div className={`${styles.vessel_card} mt-4 border_color`}>
         <div className={`${styles.main} vessel_card card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
@@ -124,25 +124,9 @@ function Index() {
               ) : (
                 ''
               )}
-              <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                <div className="d-flex">
-                  <DateCalender labelName="Activation Date" />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
-                  </div>
-                </div>
-              </div>
-              <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                <div className="d-flex">
-                  <DateCalender labelName="Deactivation Date" isRequired={true} />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
-                  </div>
-                </div>
-              </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <div className="d-flex">
-                  <DateCalender labelName="Blacklisted Date" isRequired={true} />
+                  <DateCalender labelName="Activation Date" />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                   </div>
@@ -180,6 +164,22 @@ function Index() {
                 />
                 <label className={`${styles.label_heading} label_heading`}>Website</label>
               </div>
+              {vendorRadio === 'domestic' ? (
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                  <div className={`${styles.theme} d-flex align-items-center`}>
+                    <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
+                    <label className={styles.switch}>
+                      <input type="checkbox" />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                    <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
+                  </div>
+                  <label className={`${styles.label_heading} label_heading`}>Blacklisted</label>
+                </div>
+              ) : (
+                ''
+              )}
+
               <div className={`${styles.form_group} col-lg-8 col-md-12 `}>
                 <div className="input-group">
                   <input
@@ -195,6 +195,21 @@ function Index() {
                   </div>
                 </div>
               </div>
+              {vendorRadio === 'international' ? (
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                  <div className={`${styles.theme} d-flex align-items-center`}>
+                    <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
+                    <label className={styles.switch}>
+                      <input type="checkbox" />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                    <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
+                  </div>
+                  <label className={`${styles.label_heading} label_heading`}>Blacklisted</label>
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           </div>
 

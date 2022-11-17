@@ -138,6 +138,24 @@ export default {
   // Commodity
   getCommodity: '/commodity',
 
+  // Internal Companies
+  getInternalCompanies: '/internal-company',
+
+  // PORTS
+  getPorts: '/port',
+
+  // City State
+  getState: '/city-master',
+
+  // COUNTRY
+  getCountry: '/country-master',
+
+  // DOCUMENT MASTER
+  getDocument: '/document-master',
+
+  // GO NO GO
+  getGoNoGo: '/gng-master',
+
   // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',

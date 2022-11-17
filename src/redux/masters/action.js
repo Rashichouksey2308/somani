@@ -2,6 +2,7 @@ import * as types from './actionType'
 import Axios from 'axios'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI')
@@ -27,6 +28,43 @@ export const getCountries = (payload) => async (dispatch, getState, api) => {
     })
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const getState = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*'
+  }
+
+  dispatch({
+    type: types.GET_STATE_MASTERS
+  })
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getState}${payload || ''}`, {
+      headers: headers
+    }).then((response) => {
+      if (response.status === 200) {
+        dispatch({
+          type: types.GET_STATE_MASTERS_SUCCESS,
+          payload: response.data
+        })
+      } else {
+        dispatch({
+          type: types.GET_STATE_MASTERS_FAILURE,
+          payload: response.data
+        })
+      }
+    }).catch((error) => {
+      handleErrorToast('COULD NOT GET A RESPONSE')
+    })
+  } catch (error) {
+    handleErrorToast('COULD NOT GET STATE')
   }
 }
 
