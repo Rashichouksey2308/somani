@@ -766,11 +766,11 @@ function Index() {
                           <button
                             onClick={handleClose}
                             type="button"
-                            className={`${styles.close} ${styles.btn} btn w-50`}
+                            className={`${styles.close} ${styles.btn} btn mr-2 w-50`}
                           >
                             Close
                           </button>
-                          <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                          <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                             Share
                           </button>
                         </div>
@@ -843,14 +843,14 @@ function Index() {
                           <button
                             onClick={handleClose}
                             type="button"
-                            className={`${styles.close} ${styles.btn} btn w-50`}
+                            className={`${styles.close} ${styles.btn} btn mr-2 w-50`}
                           >
                             Close
                           </button>
                           <button
                             onClick={handleClose}
                             type="button"
-                            className={`${styles.submit} ${styles.btn} btn w-50`}
+                            className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}
                           >
                             Share
                           </button>
@@ -882,10 +882,10 @@ function Index() {
                       </div>
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Download
                       </button>
                     </div>
