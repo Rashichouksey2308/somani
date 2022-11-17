@@ -21,7 +21,7 @@ function Index() {
 
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
-              <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+              <div className={`${styles.form_group} mt-0 col-lg-4 col-md-6 col-sm-6 `}>
                 <div className={`${styles.radio_form}`}>
                   <div className={`${styles.sub_heading} label_heading`}>
                     Vendor <strong className="text-danger">*</strong>

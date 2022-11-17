@@ -13,6 +13,7 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux
 import BothType from '../../../src/templates/requestLetters/BothType';
 import { convertValue } from '../../../src/utils/helper';
 import styles from './index.module.scss';
+import Router from 'next/router'
 
 function Index() {
   const dispatch = useDispatch();
@@ -252,11 +253,11 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.generic?.buyer?.name} , <br></br>{' '}
+                     {insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
                     {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},<br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')} -
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')},<br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},
+                    {" "}{_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
                     GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                     <br></br>
                   </Col>

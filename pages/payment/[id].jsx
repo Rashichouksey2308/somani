@@ -1,19 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
+import _get from 'lodash/get';
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import styles from './payment.module.scss';
-import ReleaseOrder from '../../src/components/ReleaseOrder';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import DeliveryOrder from '../../src/components/DeliveryOrder';
 import LiftingDetails from '../../src/components/LiftingDetails';
-import { useDispatch, useSelector } from 'react-redux';
-import Router from 'next/router';
-import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
-import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
+import ReleaseOrder from '../../src/components/ReleaseOrder';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
+import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
+import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
+import styles from './payment.module.scss';
 
 function Index() {
   const dispatch = useDispatch();
@@ -45,6 +45,12 @@ function Index() {
     );
   }, [ReleaseOrderData]);
 
+  const generateDoNumber = (index) => {
+    let orderDONumber = index < 10 ? `0${index}` : index;
+    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
+    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
+    return `${string}/${orderDONumber}`;
+  };
   useEffect(() => {
     let temp = [];
     if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
@@ -77,9 +83,7 @@ function Index() {
   useEffect(() => {
     getOrderData();
   }, [dispatch]);
-  useEffect(() => {
-    getOrderData();
-  }, []);
+
   const getOrderData = async () => {
     let id = sessionStorage.getItem('ROrderID');
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
@@ -139,7 +143,8 @@ function Index() {
     setLifting([...tempArr]);
   };
   const handleChange = (name, value, index, index2) => {
-    let tempArr = lifting;
+    let tempArr = [...lifting];
+    console.log(tempArr,"tempArr")
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
@@ -315,7 +320,7 @@ function Index() {
 
   const [deliveryOrder, setDeliveryOrder] = useState([
     {
-      orderNumber: 1,
+      orderNumber: '',
       unitOfMeasure: 'MT',
       isDelete: false,
       Quantity: '',
@@ -324,6 +329,8 @@ function Index() {
       status: '',
     },
   ]);
+
+
   useEffect(() => {
     let tempArr = [];
     if (_get(ReleaseOrderData, 'data[0].deliveryDetail', []).length > 0) {
@@ -365,7 +372,7 @@ function Index() {
     setDeliveryOrder([
       ...deliveryOrder,
       {
-        orderNumber: 1,
+        orderNumber: '',
         unitOfMeasure: 'MT',
         isDelete: false,
         Quantity: '',
@@ -404,12 +411,7 @@ function Index() {
     setDeliveryOrder([...tempArr]);
   };
 
-  const generateDoNumber = (index) => {
-    let orderDONumber = index < 10 ? `0${index}` : index;
-    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
-    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
-    return `${string}/${orderDONumber}`;
-  };
+
 
   const BalanceQuantity = () => {
     let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
@@ -506,8 +508,16 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= deliveryOrder.length - 1; i++) {
+      if (deliveryOrder[i]?.orderNumber == '' || deliveryOrder[i]?.orderNumber == null) {
+        toastMessage = `please select an release order number for DO ${i + 1}  `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
       if (deliveryOrder[i]?.Quantity == '' || deliveryOrder[i]?.Quantity == null) {
-        toastMessage = `please provide quantity for delivery  order   ${i + 1}  `;
+        toastMessage = `please provide quantity for delivery  order for DO  ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -611,14 +621,12 @@ function Index() {
               style={{ cursor: 'pointer' }}
             />
             <h1 className={`${styles.title} heading`}>
-              <span style={{ textTransform: 'capitalize' }}>
-                {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
-                  ReleaseOrderData,
-                  'data[0].order.orderId',
-                  '',
-                ).slice(8)}`}
-              </span>
+              {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
+              {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+                ReleaseOrderData,
+                'data[0].order.orderId',
+                '',
+              ).slice(8)}`}
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -733,7 +741,6 @@ function Index() {
             </div>
           </div>
         </div>
-        {/* <DeliveryPreview/> */}
       </div>
     </>
   );

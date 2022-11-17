@@ -215,14 +215,14 @@ function Index({ TransitDetails }) {
             {'  '}
             <div className={`ml-3 ${styles.noadd} text-left text-uppercase`}>
               {_get(TransitDetails, 'data[0].order.generic.seller.name')}
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
+            {" "}  {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
             </div>
           </div>
           <div className="w-25 text-right">
-            <span>DATE:</span> {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format('DD-MM-YYYY')}
+            <span>DATE: </span> {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format('DD-MM-YYYY')}
           </div>
         </div>
         <div className={`${styles.salutations}`}>
@@ -281,18 +281,14 @@ function Index({ TransitDetails }) {
                   {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
                   {bolArray.length - 1 > index1 ? (
                     index1 === billsofLanding.length - 1 ? (
-                      <button onClick={() => onAddClick()} className={styles.add_btn}>
-                        <span className={styles.add_sign}>+</span>Add
+                      <button onClick={() => onAddClick()} 
+                      className={`${styles.add_btn}`}
+                      >
+                        <span className={`${styles.add_sign}`}>+</span>Add
                       </button>
                     ) : null
                   ) : null}
                   {index1 > 0 ? (
-                    // <button
-                    //   onClick={() => onDeleteClick(index1)}
-                    //   className={`${styles.add_btn}`}
-                    // >
-                    //   <span className={styles.add_sign}>-</span>Delete
-                    // </button>
                     <div className={`${styles.delete_image} ml-3`} onClick={() => onDeleteClick(index1)}>
                       <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                     </div>

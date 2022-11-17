@@ -11,6 +11,7 @@ import UploadOther from '../UploadOther';
 import { convertValue, removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
   let transId = _get(TransitDetails, 'data[0]', '');
@@ -347,6 +348,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+          toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
         if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
           toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -426,6 +435,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+          toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
@@ -599,7 +616,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         onBolAdd();
                       }}
                       className={`${styles.add_btn} mr-0`}
-                      style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
@@ -882,32 +898,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   />{' '}
                                 </div>
                               )}
-                              {/* <div className="d-flex justify-content-start">
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    name={`containerDoc`}
-                                    id="containerDoc"
-                                    onChange={(e) =>
-                                      onChangeContainerDetailsDocHandler(
-                                        e,
-                                        index,
-                                      )
-                                    }
-                                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                    type="file"
-                                  />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload Excel
-                                  </button>
-                                </div>
-
-                                <div className={`${styles.upload_text}`}>
-                                  ONLY .XLSX FILES ARE ALLOWED
-                                  <br /> &amp; MAX FILE SIZE UP TO 50MB
-                                </div>
-                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -954,17 +944,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blDoc ? (
-                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                                {bolList[index]?.blDoc ? returnDocFormat( bolList[index]?.blDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
@@ -972,19 +952,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   : moment(bolList[index]?.blDoc.date).format('DD-MM-YYYY , h:mm a ')}
                               </td>
                               <td>
-                                {/* <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    name={`blSurrenderDoc`}
-                                    id="document1"
-                                    onChange={(e) => uploadDoc(e, index)}
-                                    type="file"
-                                  />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div> */}
                                 {bolList && bolList[index]?.blDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1018,25 +985,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.containerNumberListDoc ? (
-                                      bolList[index]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xls') ||
-                                      bolList[index]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                      ) : bolList[index]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
-                                        bolList[index]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                      ) : (
-                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                      )
-                                    ) : null}
+                                    {bolList[index]?.containerNumberListDoc ? returnDocFormat(bolList[index]?.containerNumberListDoc?.originalName) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.containerNumberListDoc == null
@@ -1046,19 +995,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         )}
                                   </td>
                                   <td>
-                                    {/* <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        name={`document2`}
-                                        id="document1"
-                                        onChange={(e) => uploadDoc(e, index)}
-                                        type="file"
-                                      />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div> */}
                                     {bolList && bolList[index]?.containerNumberListDoc == null ? (
                                       <>
                                         <div className={styles.uploadBtnWrapper}>
@@ -1090,21 +1026,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.packingListDoc ? (
-                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                      ) : bolList[index]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
-                                        bolList[index]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                      ) : (
-                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                      )
-                                    ) : null}
+                                    {bolList[index]?.packingListDoc ? returnDocFormat(bolList[index]?.packingListDoc?.originalName) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
@@ -1112,19 +1034,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                       : moment(bolList[index]?.packingListDoc.date).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
-                                    {/* <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        name={`documentName`}
-                                        id="document2"
-                                        onChange={(e) => uploadDoc(e, index)}
-                                        type="file"
-                                      />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div> */}
                                     {bolList && bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div className={styles.uploadBtnWrapper}>
@@ -1225,17 +1134,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blSurrenderDoc ? (
-                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                                {bolList[index]?.blSurrenderDoc ? returnDocFormat(bolList[index]?.blSurrenderDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null

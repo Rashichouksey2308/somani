@@ -344,7 +344,19 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex">
+            <input
+                id="lcOpeningBank"
+                className={`${styles.value} ${styles.marginPercent} input form-control`}
+                type="text"
+                value={termsheetDetails?.transactionDetails?.lcOpeningBank}
+                onChange={onChangeTransactionDetails}
+                required
+              />
+
+              <label className={`${styles.label} label_heading`}>
+              LC Opening Bank<strong className="text-danger">*</strong>
+              </label>
+              {/* <div className="d-flex">
                 <select
                   id="lcOpeningBank"
                   className={`${styles.value} ${styles.customSelect} 
@@ -364,7 +376,7 @@ const Index = ({
                   LC Opening Bank<strong className="text-danger">*</strong>
                 </label>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
-              </div>
+              </div> */}
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
@@ -411,7 +423,7 @@ const Index = ({
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                         {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -520,7 +532,7 @@ const Index = ({
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                          {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -647,7 +659,7 @@ const Index = ({
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                         {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -775,7 +787,7 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6 d-flex`}>
-              <div className={`${styles.value} input form-control w-25 disable border-right-0 rounded-left pt-3`}>
+              <div className={`${styles.value} input form-control w-25 disable d-flex align-items-center border-right-0 rounded-left`}>
                 {addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase())}
               </div>
               <input

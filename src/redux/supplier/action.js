@@ -266,7 +266,7 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: returnAuthToken(), Cache: 'no-cache' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
       headers: headers

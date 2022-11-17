@@ -53,16 +53,22 @@ const Index = ({
       setInvoiceDataRevised({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
+      
       if (val.Company_Name == value) {
         return val;
       }
     });
     setBranchOptions(filter);
   };
-  console.log(branchOptions,"Sadasd");
-  useEffect(() => {
-    dropDownChange('name', invoiceDataRevised.importerName);
-  }, [invoiceDataRevised.importerName]);
+
+  useEffect(() => { 
+    dropDownChange('name',   marginData?.invoiceDetail?.invoiceDetail?.importerName
+        ? marginData?.invoiceDetail?.invoiceDetail?.importerName
+        : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') || '');
+  }, [  marginData?.revisedMarginMoney?.invoiceDetail?.importerName, marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ||
+      '']);
   const routeChange = () => {
     Router.push('/revised-margin-preview');
   };
@@ -238,6 +244,7 @@ const Index = ({
                   </div>
                   <input
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                    onWheel={(event) => event.currentTarget.blur()}
                     name="conversionRate"
                     id="conversionRate"
                     onFocus={(e) => {
@@ -1079,7 +1086,7 @@ const Index = ({
                                         return val;
                                       }
                                     });
-                                    console.log(filter,"filter")
+                              
                                     if(filter.length == 0) {
                                       savedataRevised(
                                       'branchAddress',

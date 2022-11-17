@@ -623,10 +623,7 @@
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
-        text-transform: capitalize;
         position: absolute;
-        left: 15px;
-        top: -10px;
         line-height: 1;
         left: 30px;
         top: -8px;
@@ -769,7 +766,6 @@
               border-top: none;
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
-              white-space: nowrap;
               white-space: nowrap;
 
               &:first-child {
@@ -1011,7 +1007,6 @@
             border-top: none;
             vertical-align: middle;
             border-bottom: 2px solid #f2f5f9;
-            white-space: nowrap;
             white-space: nowrap;
 
             &:first-child {

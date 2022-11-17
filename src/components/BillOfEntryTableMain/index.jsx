@@ -1,66 +1,43 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
+import _get from 'lodash/get';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
-import _get from 'lodash/get';
+import styles from './index.module.scss';
+
+function getPaymentStatus(isStatus) {
+  if (!isStatus) return <th>PAYMENT STATUS</th>;
+  return (
+    <th>
+      STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
+    </th>
+  );
+}
 
 function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
   const dispatch = useDispatch();
-
   const [currentPage, setCurrentPage] = useState(0);
-
+  const [sorting, setSorting] = useState(1);
   const { allCustomClearance } = useSelector((state) => state.Custom);
+
+  const handleSort = () => {
+    function sort(value) {
+      dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
+      setSorting(value);
+    }
+    if (sorting === -1) sort(1);
+    else sort(-1);
+  };
 
   useEffect(() => {
     dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`));
   }, [dispatch, currentPage]);
 
-  const [sorting, setSorting] = useState(1);
-
-  const handleSort = () => {
-    if (sorting == -1) {
-      dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting == 1) {
-      dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(-1);
-    }
-  };
-
   return (
     <div className={`${styles.datatable} border datatable card`}>
       <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
         <h3 className="heading_card">{tableName}</h3>
-        <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-          <span>
-            Showing Page {currentPage + 1} out of {Math.ceil(allCustomClearance?.totalCount / 7)}
-          </span>
-          <a
-            onClick={() => {
-              if (currentPage === 0) {
-              } else {
-                setCurrentPage((prevState) => prevState - 1);
-              }
-            }}
-            href="#"
-            className={`${styles.arrow} ${styles.leftArrow} arrow`}
-          >
-            {' '}
-            <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-          </a>
-          <a
-            onClick={() => {
-              if (currentPage + 1 < Math.ceil(allCustomClearance?.totalCount / 7)) {
-                setCurrentPage((prevState) => prevState + 1);
-              }
-            }}
-            href="#"
-            className={`${styles.arrow} ${styles.rightArrow} arrow`}
-          >
-            <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-          </a>
-        </div>
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </div>
       <div className={styles.table_scroll_outer}>
         <div className={styles.table_scroll_inner}>
@@ -69,22 +46,14 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
               <tr className="table_row">
                 <th>
                   ORDER ID{' '}
-                  <img
-                    className={`mb-1`}
-                    src="/static/icons8-sort-24.svg"
-                    alt="Sort icon"
-                    onClick={() => handleSort()}
-                  />{' '}
+                  <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" onClick={handleSort} />{' '}
                 </th>
                 <th>BUYER NAME</th>
                 <th>COMMODITY</th>
                 <th>VESSEL NAME</th>
                 <th>{pageType}</th>
                 <th>{dateHeading}</th>
-                {isStatus ? (<th>
-                  STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
-                </th>
-                ) : (<th>PAYMENT STATUS</th>)}
+                {getPaymentStatus(isStatus)}
                 <th>ACTION</th>
               </tr>
             </thead>
@@ -93,12 +62,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
                 allCustomClearance?.data?.map((insured, index) => (
                   <tr key={index} className="table_row">
                     <td>{insured?.order?.orderId}</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        handleRoute(insured);
-                      }}
-                    >
+                    <td className={styles.buyerName} onClick={() => handleRoute(insured)}>
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>
@@ -118,6 +82,39 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
           </table>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Pagination({ currentPage, setCurrentPage }) {
+  const { allCustomClearance } = useSelector((state) => state.Custom);
+
+  /* A function that returns the memoised value of total pages */
+  const totalPages = useMemo(() => {
+    return Math.ceil(allCustomClearance?.totalCount / 7);
+  }, [allCustomClearance?.totalCount]);
+
+  const handlePrev = () => {
+    if (currentPage === 0) return;
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage + 1 >= totalPages) return;
+    setCurrentPage((prev) => prev + 1);
+  };
+
+  return (
+    <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
+      <span>
+        Showing Page {currentPage + 1} out of {totalPages}
+      </span>
+      <button onClick={handlePrev} className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
+      </button>
+      <button onClick={handleNext} className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
+      </button>
     </div>
   );
 }

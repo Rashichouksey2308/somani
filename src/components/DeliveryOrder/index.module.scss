@@ -1,31 +1,24 @@
 @import '../styles/Core/config';
-
 .backgroundMain {
   .vessel_card {
     border-radius: 6px;
-
     h2 {
       font-size: 22px;
       color: #3687e8;
       font-weight: bold;
       line-height: 27px;
-
       @include respond(md-desktop) {
         font-size: 22px;
       }
-
       @include respond(sm-desktop) {
         font-size: 18px;
       }
-
       @include respond(phone) {
         font-size: 15px;
       }
     }
-
     .main {
       border-radius: 6px;
-
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -38,15 +31,12 @@
         margin: 0 15px 0 30px;
         width: 97px;
         height: 38px;
-
         @include respond(md-desktop) {
           font-size: 16px;
         }
-
         @include respond(sm-desktop) {
           font-size: 14px;
         }
-
         @include respond(phone) {
           font-size: 12px;
           width: 50px;
@@ -54,7 +44,6 @@
           text-align: center;
           border-radius: 3px;
         }
-
         .add_sign {
           font-size: 24px;
           font-weight: bold;
@@ -62,7 +51,6 @@
           margin-right: 5px;
         }
       }
-
       .head_container {
         padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
@@ -71,7 +59,6 @@
         @include respond(lg-desktop) {
           min-height: 60px;
         }
-
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -92,7 +79,6 @@
             margin: 13px 0;
           }
         }
-
         span {
           font-size: 45px;
           color: #3687e8;
@@ -108,9 +94,7 @@
             font-size: 30px;
           }
         }
-
         .dropDown {
-          border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           line-height: 25px;
@@ -125,7 +109,6 @@
             font-size: 17px;
           }
         }
-
         .dropDown_label {
           letter-spacing: 0.53px;
           font-weight: 500;
@@ -134,47 +117,38 @@
         }
       }
     }
-
     .dashboard_form {
       padding: 20px 35px 25px 40px;
-
       .table_scroll_outer {
         width: 100%;
         display: table;
         table-layout: fixed;
-
         .table_scroll_inner {
           display: table-cell;
           overflow-x: auto;
-
           .form_heading {
             font-size: 22px;
             line-height: 27px;
             font-weight: bold;
             text-transform: capitalize;
-
             @include respond(md-desktop) {
               font-size: 18px;
             }
-
             @include respond(sm-desktop) {
               font-size: 16px;
               line-height: 20px;
             }
-
             @include respond(phone) {
               font-size: 14px;
               line-height: 15px;
             }
           }
-
           .total_quantity {
             letter-spacing: 0.53px;
             color: #00000080;
             font-size: 16px;
             line-height: 17px;
             font-weight: 500;
-
             span {
               // color: #111111;
               font-size: 20px;
@@ -182,15 +156,12 @@
               font-weight: 500;
             }
           }
-
           .bill_landing {
             //background: #FFFFFF;
             border: 2px solid #cad6e6;
             border-radius: 9px;
-
             .vessel_card {
               padding: 0px 35px 0px 35px;
-
               .add_btn {
                 color: #3687e8;
                 text-transform: capitalize;
@@ -203,15 +174,12 @@
                 margin: 0 15px 0 30px;
                 width: 78px;
                 height: 36px;
-
                 @include respond(md-desktop) {
                   font-size: 16px;
                 }
-
                 @include respond(sm-desktop) {
                   font-size: 14px;
                 }
-
                 @include respond(phone) {
                   font-size: 12px;
                   width: 50px;
@@ -221,16 +189,13 @@
                 }
               }
             }
-
             .table_scroll_outer {
               width: 100%;
               display: table;
               table-layout: fixed;
-
               .table_scroll_inner {
                 display: table-cell;
                 overflow-x: auto;
-
                 .table {
                   th {
                     font-size: 15px;
@@ -242,15 +207,12 @@
                     vertical-align: middle;
                     text-transform: uppercase;
                     white-space: nowrap;
-
                     &:first-child {
                       padding-left: 35px;
-
                       @include respond(md-desktop) {
                         padding-left: 15px;
                       }
                     }
-
                     .sort_img {
                       opacity: 0.4;
                       width: 14px;
@@ -260,7 +222,6 @@
                         height: 12px;
                       }
                     }
-
                     @include respond(lg-desktop) {
                       height: 50px;
                       font-size: 14px;
@@ -269,17 +230,14 @@
                     @include respond(sm-desktop) {
                       font-size: 13px;
                     }
-
                     @include respond(phone) {
                       font-size: 12px;
                     }
                   }
-
                   tr {
                     &:last-child {
                       border-bottom: none;
                     }
-
                     td {
                       font-size: 19px;
                       font-weight: 500;
@@ -297,7 +255,6 @@
                         font-size: 14px;
                         padding: 10px;
                       }
-
                       .upload_btn {
                         text-align: center;
                         color: #3687e8;
@@ -309,16 +266,13 @@
                         background: transparent;
                         text-transform: capitalize;
                         padding: 8px 30px 8px 30px;
-
                         @include respond(md-desktop) {
                           font-size: 16px;
                         }
-
                         @include respond(sm-desktop) {
                           font-size: 14px;
                           padding: 4px 25px 4px 25px;
                         }
-
                         @include respond(phone) {
                           font-size: 12px;
                           padding: 0px 15px 0 15px;
@@ -326,7 +280,6 @@
                       }
                     }
                   }
-
                   span {
                     margin-left: 20px;
                     text-decoration: underline;
@@ -335,7 +288,6 @@
                     line-height: 25px;
                     font-size: 20px;
                   }
-
                   .input_field {
                     background: #c3c3c31f;
                     border-radius: 4px;
@@ -353,7 +305,6 @@
                       font-size: 16px;
                     }
                   }
-
                   .doc_name {
                     font-weight: bold;
                     line-height: 25px;
@@ -361,7 +312,6 @@
                     text-transform: capitalize;
                     padding-left: 35px;
                   }
-
                   .doc_row {
                     font-size: 19px;
                     line-height: 24px;
@@ -372,13 +322,11 @@
               }
             }
           }
-
           .eta_heading {
             font-size: 20px;
             line-height: 25px;
             font-weight: bold;
           }
-
           .previewImg {
             background: #c3c3c31f;
             border: 1px solid #0000001f;
@@ -387,7 +335,6 @@
             height: 40px;
             padding: 5px;
           }
-
           .label {
             font-size: 16px;
             letter-spacing: 0.53px;
@@ -395,7 +342,7 @@
             top: 22px;
             font-weight: 500;
             left: 30px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             color: #00000080;
             white-space: nowrap;
             @include respond(lg-desktop) {
@@ -406,7 +353,6 @@
               font-size: 13px;
             }
           }
-
           .value {
             font-size: 20px;
             height: 60px;
@@ -417,12 +363,10 @@
               line-height: 1.3;
             }
           }
-
           .form_group {
             margin-top: 41px;
             position: relative;
             margin-bottom: 10px;
-
             .label_heading {
               font-size: 16px;
               letter-spacing: 0.53px;
@@ -436,11 +380,10 @@
               transform: translateY(-30px);
               transition: 0.3s all ease-in-out;
               z-index: 1;
-              max-width: 77%;
+              max-width: 73%;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-
               &::before {
                 top: 51%;
                 left: 0;
@@ -451,7 +394,6 @@
                 position: absolute;
                 transform: translateY(-50%);
               }
-
               @include respond(lg-desktop) {
                 top: 15px;
                 font-size: 14px;
@@ -462,11 +404,9 @@
                 font-size: 13px;
               }
             }
-
             .line {
               border: 3px solid #d9dde8;
             }
-
             .input_field {
               font-size: 20px;
               height: 60px;
@@ -480,11 +420,9 @@
               letter-spacing: 0.19px;
               padding: 13px 30px 13px 17px;
               // border: 1px solid #0000001f;
-
               &:invalid + label {
                 transform: translateY(0);
               }
-
               &:focus {
                 & + label {
                   transform: translateY(-30px);
@@ -493,7 +431,6 @@
                   }
                 }
               }
-
               @include respond(lg-desktop) {
                 height: 45px;
                 font-size: 15px;
@@ -504,38 +441,31 @@
         }
       }
     }
-
     .dashboard_form {
       padding: 20px 35px 25px 40px;
-
       .form_heading {
         font-size: 22px;
         line-height: 27px;
         font-weight: bold;
         text-transform: capitalize;
-
         @include respond(md-desktop) {
           font-size: 18px;
         }
-
         @include respond(sm-desktop) {
           font-size: 16px;
           line-height: 20px;
         }
-
         @include respond(phone) {
           font-size: 14px;
           line-height: 15px;
         }
       }
-
       .total_quantity {
         letter-spacing: 0.53px;
         color: #00000080;
         font-size: 16px;
         line-height: 17px;
         font-weight: 500;
-
         span {
           // color: #111111;
           font-size: 20px;
@@ -543,15 +473,12 @@
           font-weight: 500;
         }
       }
-
       .bill_landing {
         //background: #FFFFFF;
         border: 2px solid #cad6e6;
         border-radius: 9px;
-
         .vessel_card {
           padding: 0px 35px 0px 35px;
-
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -564,15 +491,12 @@
             margin: 0 15px 0 30px;
             width: 78px;
             height: 36px;
-
             @include respond(md-desktop) {
               font-size: 16px;
             }
-
             @include respond(sm-desktop) {
               font-size: 14px;
             }
-
             @include respond(phone) {
               font-size: 12px;
               width: 50px;
@@ -582,16 +506,13 @@
             }
           }
         }
-
         .table_scroll_outer {
           width: 100%;
           display: table;
           table-layout: fixed;
-
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
-
             .table {
               th {
                 font-size: 15px;
@@ -603,15 +524,12 @@
                 vertical-align: middle;
                 text-transform: uppercase;
                 white-space: nowrap;
-
                 &:first-child {
                   padding-left: 35px;
-
                   @include respond(md-desktop) {
                     padding-left: 15px;
                   }
                 }
-
                 .sort_img {
                   opacity: 0.4;
                   width: 14px;
@@ -621,7 +539,6 @@
                     height: 12px;
                   }
                 }
-
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -630,17 +547,14 @@
                 @include respond(sm-desktop) {
                   font-size: 13px;
                 }
-
                 @include respond(phone) {
                   font-size: 12px;
                 }
               }
-
               tr {
                 &:last-child {
                   border-bottom: none;
                 }
-
                 td {
                   font-size: 19px;
                   font-weight: 500;
@@ -658,7 +572,6 @@
                     font-size: 14px;
                     padding: 10px;
                   }
-
                   .upload_btn {
                     text-align: center;
                     color: #3687e8;
@@ -670,16 +583,13 @@
                     background: transparent;
                     text-transform: capitalize;
                     padding: 8px 30px 8px 30px;
-
                     @include respond(md-desktop) {
                       font-size: 16px;
                     }
-
                     @include respond(sm-desktop) {
                       font-size: 14px;
                       padding: 4px 25px 4px 25px;
                     }
-
                     @include respond(phone) {
                       font-size: 12px;
                       padding: 0px 15px 0 15px;
@@ -691,13 +601,11 @@
           }
         }
       }
-
       .eta_heading {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
       }
-
       .previewImg {
         background: #c3c3c31f;
         border: 1px solid #0000001f;
@@ -706,7 +614,6 @@
         height: 40px;
         padding: 5px;
       }
-
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -722,7 +629,6 @@
           line-height: 15px;
         }
       }
-
       .value {
         font-size: 20px;
         height: 60px;
@@ -733,12 +639,10 @@
           line-height: 1.3;
         }
       }
-
       .form_group {
         margin-top: 40px;
         position: relative;
         margin-bottom: 10px;
-
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -752,11 +656,10 @@
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
           z-index: 1;
-          max-width: 77%;
+          max-width: 73%;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-
           &::before {
             top: 51%;
             left: 0;
@@ -767,7 +670,6 @@
             position: absolute;
             transform: translateY(-50%);
           }
-
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -778,11 +680,9 @@
             font-size: 13px;
           }
         }
-
         .line {
           border: 3px solid #d9dde8;
         }
-
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -796,11 +696,9 @@
           letter-spacing: 0.19px;
           padding: 13px 30px 13px 17px;
           // border: 1px solid #0000001f;
-
           &:invalid + label {
             transform: translateY(0);
           }
-
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -809,7 +707,6 @@
               }
             }
           }
-
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -822,13 +719,11 @@
       }
     }
   }
-
   .wrapper {
     margin-bottom: 1rem;
     border-radius: 6px !important;
   }
 }
-
 .shareImg {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -842,20 +737,16 @@
     height: 30px;
   }
 }
-
 .add_image {
   width: 36px;
   height: 36px;
-
   @include respond(sm-desktop) {
     height: 28px;
   }
-
   @include respond(phone) {
     height: 25px;
   }
 }
-
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -869,36 +760,29 @@
     margin-left: -33px;
   }
 }
-
 .close_image {
   margin-left: -30px;
-
   @include respond(phone) {
   }
 }
-
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
   border-radius: 4px;
   padding: 9px;
-
   @include respond(md-desktop) {
     height: 30px;
     padding: 7px;
   }
-
   @include respond(sm-desktop) {
     height: 28px;
     padding: 6px;
   }
-
   @include respond(phone) {
     height: 25px;
     padding: 5px;
   }
 }
-
 .shipment_type {
   letter-spacing: 0.19px;
   color: #111111;
@@ -911,7 +795,6 @@
     font-size: 16px;
   }
 }
-
 .share_lc {
   top: 50%;
   left: 50%;
@@ -924,27 +807,21 @@
   border-radius: 12px;
   padding-right: 0 !important;
   transform: translate(-50%, -50%);
-
   & > div {
     margin: 0;
     max-width: none;
-
     & > div {
       border: none;
     }
   }
-
   .card_body {
     padding: 0;
-
     .LC_draft_tabs {
       &.nav_tabs {
         // margin-top: 51px;
         border: none;
-
         .nav_item {
           width: 50%;
-
           .nav_link {
             font-size: 22px;
             line-height: 27px;
@@ -952,18 +829,15 @@
             padding: 24px 10px;
             height: 75px;
             text-align: center;
-
             img {
               margin-right: 14px;
             }
           }
-
           &:first-child {
             .nav_link {
               border-radius: 12px 0 0 0;
             }
           }
-
           &:last-child {
             .nav_link {
               border-radius: 0 12px 0 0;
@@ -972,10 +846,8 @@
         }
       }
     }
-
     .tab_content {
       margin: 22px 35px;
-
       h3 {
         font-size: 20px;
         color: #344054;
@@ -984,7 +856,6 @@
         margin: 0 0 16px;
         letter-spacing: 0.19px;
       }
-
       .box {
         width: 49%;
         height: 97px;
@@ -992,15 +863,12 @@
         padding: 21px 15px;
         border-radius: 8px;
         margin-bottom: 41px;
-
         &.lc_document {
           background: #f8acac24;
         }
-
         &.word_document {
           background: #f3f7fe;
         }
-
         label {
           font-size: 14px;
           color: #667085;
@@ -1009,7 +877,6 @@
           white-space: nowrap;
           margin: 10px 0 0;
           letter-spacing: 0.13px;
-
           span {
             font-size: 12px;
             color: #1e1e1e;
@@ -1018,19 +885,15 @@
             letter-spacing: 0.11px;
           }
         }
-
         input {
           transform: scale(1.3);
         }
       }
-
       .share_via {
         &.nav_tabs {
           border-bottom: 1px solid #d2d7e5;
-
           .nav_item {
             width: 50%;
-
             .nav_link {
               font-size: 20px;
               line-height: 25px;
@@ -1039,7 +902,6 @@
               border-radius: 0;
               letter-spacing: 0.19px;
               background: transparent;
-
               img {
                 margin-right: 14px;
               }
@@ -1047,14 +909,11 @@
           }
         }
       }
-
       .tab_content {
         margin: 25px 0;
       }
-
       .each_input {
         position: relative;
-
         .label_heading {
           top: 22px;
           left: 17px;
@@ -1073,7 +932,6 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-
           &::before {
             top: 51%;
             left: 0;
@@ -1084,7 +942,6 @@
             position: absolute;
             transform: translateY(-50%);
           }
-
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -1095,7 +952,6 @@
             font-size: 13px;
           }
         }
-
         .formControl {
           font-size: 20px;
           line-height: 25px;
@@ -1110,12 +966,10 @@
           padding: 19px 30px 19px 17px;
           background: none;
           border-width: 1px;
-
           &:invalid + label {
             // background: none;
             transform: translateY(0);
           }
-
           &:focus {
             & + label {
               // background: #ffffff;
@@ -1125,7 +979,6 @@
               }
             }
           }
-
           &:-webkit-autofill,
           &:-webkit-autofill:hover,
           &:-webkit-autofill:focus,
@@ -1133,21 +986,18 @@
             box-shadow: 0 0 0 30px #f8f8f8 inset !important;
             -webkit-box-shadow: 0 0 0 30px #f8f8f8 inset !important;
           }
-
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
             line-height: 1.3;
           }
         }
-
         img {
           top: 50%;
           right: 14px;
           position: absolute;
           transform: translateY(-50%);
         }
-
         &.phone {
           .label_heading {
             left: 78px;
@@ -1156,11 +1006,9 @@
               transform: translate(-61px, -22px);
             }
           }
-
           .formControl {
             border-top-left-radius: 0px;
             border-bottom-left-radius: 0px;
-
             &:focus {
               & + label {
                 transform: translate(-61px, -30px);
@@ -1170,31 +1018,24 @@
               }
             }
           }
-
           .phone_card {
             display: flex;
-
             .code_phone {
-              border-top-right-radius: 0px;
-              border-bottom-right-radius: 0px;
               font-size: 19px;
               letter-spacing: 0.18px;
               color: #3687e8;
-              text-transform: capitalize;
               outline: none;
               border-radius: 8px 0 0 8px;
             }
           }
         }
       }
-
       .password {
         label {
           top: 22px;
         }
       }
     }
-
     .btn {
       font-size: 20px;
       font-weight: bold;
@@ -1206,13 +1047,11 @@
       @include respond(md-desktop) {
         font-size: 16px;
       }
-
       &.close {
         color: #4d4d4d;
         background: #ffffff;
         border: 3px solid #d5d5d5;
       }
-
       &.submit {
         color: #ffffff;
         background: #3687e8;
@@ -1221,7 +1060,6 @@
     }
   }
 }
-
 .addMoreRows {
   color: #3687e8;
   margin-bottom: 30px;
@@ -1231,24 +1069,20 @@
   cursor: pointer;
   display: block;
 }
-
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
-
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
-
   @include respond(lg-desktop) {
     width: 10px;
     margin-left: -25px;
   }
 }
-
 .customSelect {
   appearance: none;
   // position: relative;

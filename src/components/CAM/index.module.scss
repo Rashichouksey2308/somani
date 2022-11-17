@@ -73,7 +73,6 @@
       font-size: 20px;
       line-height: 24px;
       margin-right: 2%;
-      // opacity: 0.7;
       @include respond(lg-desktop) {
         font-size: 15px;
         line-height: 1.3;
@@ -85,7 +84,6 @@
       font-size: 20px;
       line-height: 24px;
       font-weight: 500;
-      // white-space: nowrap;
       opacity: 1;
       @include respond(lg-desktop) {
         font-size: 15px;
@@ -130,12 +128,10 @@
   border-top: 2px solid red !important;
 
   .exposureCard {
-    padding: 25px 35px !important;
     height: fit-content;
-    //background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
-    padding: 1rem;
+    padding: 25px 35px !important;
     @include respond(lg-desktop) {
       padding: 17px 20px !important;
     }
@@ -174,7 +170,6 @@
       font-size: 22px;
       line-height: 27px;
       font-weight: bold;
-      //color: #111111;
       align-items: center;
       justify-content: center;
       display: flex;
@@ -201,7 +196,6 @@
           height: 33px;
           background: #bababa3c;
           border-radius: 5px;
-          // opacity: 0.15;
 
           .limit_label {
             display: flex;
@@ -211,6 +205,7 @@
             line-height: 19px;
             opacity: 1;
             height: 100%;
+            display: inline-block;
             @include respond(lg-desktop) {
               font-size: 14px;
               line-height: 15px;
@@ -290,7 +285,6 @@
     }
 
     .button {
-      // margin-bottom: 2rem;
       width: 190px;
       height: 48px;
       border: 3px solid #3687e8;
@@ -327,9 +321,6 @@
 
   .doc_container {
     height: 108px;
-
-    // background: var(--unnamed-color-ffffff);
-    // background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
 
@@ -338,10 +329,6 @@
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
-
-      span {
-        // color: black !important;
-      }
 
       .highlight {
         font-size: 16px;
@@ -462,12 +449,6 @@
         width: 50%;
         background: #3687e8;
         border-radius: 2px;
-      }
-
-      span {
-        position: absolute;
-        top: 1rem;
-        right: 0;
       }
     }
 
@@ -612,6 +593,26 @@
       }
     }
   }
+  &.debt_profile {
+    .box {
+      position: relative;
+      margin-bottom: 40px;
+      .conduct {
+        right: 0;
+        bottom: -25px;
+        position: absolute;
+      }
+    }
+    .label {
+      font-size: 15px;
+      line-height: 18px;
+      margin-bottom: 10px;
+    }
+    .bar {
+      margin-bottom: 5px;
+    }
+    
+  }
 }
 
 .order_wrapper2 {
@@ -621,7 +622,6 @@
     padding: 0px;
 
     padding-left: 15px;
-    // border-top: 2px solid red !important;
     border-right: 2px solid red !important;
 
     .chart {
@@ -648,8 +648,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
-        letter-spacing: 0px;
         top: 0px;
         left: 0px;
 
@@ -659,7 +657,9 @@
 
       .highlight {
         color: #61c554;
-        font: normal normal bold 17px/21px Helvetica;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 21px;
       }
     }
 
@@ -839,7 +839,6 @@
         font-size: 22px;
         font-weight: 500;
         line-height: 27px;
-        //color: #111111;
         @include respond(lg-desktop) {
           font-size: 18px;
           line-height: 1.3;
@@ -879,8 +878,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
-        letter-spacing: 0px;
         top: 0px;
         left: 0px;
 
@@ -939,7 +936,6 @@
 
   .rightCol {
     border-top: 2px solid red !important;
-    // border-right: 2px solid red !important;
     .head_wrapper {
       padding: 25px 35px !important;
       height: 67px;
@@ -960,7 +956,6 @@
 
       .child {
         font-size: 22px;
-        //color: #111111;
         font-weight: 500;
         line-height: 27px;
         @include respond(lg-desktop) {
@@ -1002,8 +997,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
-        letter-spacing: 0px;
         top: 0px;
         left: 0px;
 
@@ -1020,7 +1013,6 @@
     }
 
     .name {
-      // height: 60px;
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
@@ -1065,7 +1057,6 @@
 
 .unit_label {
   font-size: 18px !important;
-  // color: #2837566A;
   text-transform: capitalize;
   font-weight: bold;
 
@@ -1121,7 +1112,6 @@
     overflow-x: auto;
 
     .sectionTable {
-      //    border-top: 2px solid red !important;
       border: none;
 
       tr {
@@ -1340,12 +1330,10 @@
         width: 100%;
         max-width: 287px;
         height: 107px;
-        //background: #ffffff;
         border: 1px solid #d2d7e5;
         border-radius: 6px;
         padding: 22px;
         display: flex;
-        // justify-content: space-evenly;
         align-items: center;
         @include respond(lg-desktop) {
           height: 80px;
@@ -1419,11 +1407,9 @@
 
   .rightCol {
     border-top: 2px solid red !important;
-    // border-right: 2px solid red !important;
     padding: 25px 35px !important;
 
     .fillWrapper {
-      //background: #ffffff;
       border: 1px solid #d2d7e5;
       border-radius: 6px;
       height: 106px;
@@ -1505,5 +1491,4 @@ img {
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }

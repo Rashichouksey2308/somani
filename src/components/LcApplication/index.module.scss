@@ -213,7 +213,7 @@
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
-            line-height: 15px;
+            line-height: 14px;
             transform: translateY(-22px);
           }
           @include respond(phone) {
@@ -232,7 +232,6 @@
           box-sizing: border-box;
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
-          white-space: nowrap;
           white-space: nowrap;
           z-index: 0;
           max-width: 77%;

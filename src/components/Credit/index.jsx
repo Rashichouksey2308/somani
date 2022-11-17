@@ -13,6 +13,7 @@ import DateCalender from '../DateCalender';
 import MultiSelect from '../MutilSelect';
 import AddressComponent from './addressComponent';
 import styles from './index.module.scss';
+import { getPincodes } from 'redux/masters/action'; 
 
 const index = ({
   creditDetail,
@@ -42,7 +43,8 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false);
 
   const { gstDocument } = useSelector((state) => state.buyer);
-
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -56,7 +58,7 @@ const index = ({
   });
 
   const { updatingCreditCalculate } = useSelector((state) => state.review);
-
+   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
@@ -117,6 +119,7 @@ const index = ({
         conduct: '',
         limit: null,
         action: false,
+        addnew:"false"
       },
     ]);
   };
@@ -126,13 +129,17 @@ const index = ({
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
+        if (value == 'addnew') {
+           val.addnew="true"
+        }
+
       } else {
         if (name == 'primaryBank') {
           val[name] = false;
         }
       }
     });
-
+     
     setDebtData([...tempArr]);
   };
 
@@ -156,7 +163,8 @@ const index = ({
 
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const unique = [...new Set(filtered.map((item) => item.nameOfChargeHolder))];
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
   };
@@ -194,7 +202,18 @@ const index = ({
     }
     setKeyPersonData([...newInput]);
   };
-
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
+    }
+  }, [getPincodesMasterData]);
+const gettingPins=(value)=>{
+   dispatch(getPincodes(value));
+ }
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData);
   };
@@ -1525,9 +1544,32 @@ const index = ({
                           onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? '' : keyAddressData.pinCode}
                           onChange={(e) => {
+                             gettingPins(e.target.value);
                             handleChange(e.target.name, e.target.value);
                           }}
                         />
+                        { toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() =>{
+                                             handleChange('pinCode', results.Pincode)
+                                             setToShow([])
+                                             setToView(false)
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1782,9 +1824,32 @@ const index = ({
                           name="pinCode"
                           defaultValue={editData.pinCode}
                           onChange={(e) => {
+                               gettingPins(e.target.value);
                             changeData(e.target.name, e.target.value);
                           }}
                         />
+                          { toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() =>{
+                                             changeData('pinCode', results.Pincode)
+                                             setToShow([])
+                                             setToView(false)
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1896,7 +1961,7 @@ const index = ({
                         }}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
-                        Branch<strong className="text-danger">*</strong>
+                        Branch
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1911,7 +1976,7 @@ const index = ({
                         }}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
-                        GSTIN<strong className="text-danger">*</strong>
+                        GSTIN
                       </label>
                     </div>
                     <div
@@ -2003,6 +2068,7 @@ const index = ({
                             style={{ marginTop: '12px' }}
                           />
                         </td>
+                        {profile.addnew=="false"?
                         <td>
                           <select
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
@@ -2018,28 +2084,27 @@ const index = ({
                                 <option value={item}>{item}</option>
                               </>
                             ))}
+                            <option value="addnew">Add new</option>
                           </select>
                         </td>
-                        <td>
-                          <select
-                            onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            value={profile?.limitType}
-                            name="limitType"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option selected disabled>
-                              Select
-                            </option>
-                            <option value="Cash Credit">Cash Credit</option>
-                            <option value="Bank Guarantee">Bank Guarantee</option>
-                            <option value="Post Ship Credit">Post Ship Credit</option>
-                            <option value="LC Limits">LC Limits</option>
-                            <option value="Buyers Credit">Buyers Credit</option>
-                            <option value="Term Loan">Term Loan</option>
-                            <option value="Packing Credit">Packing Credit</option>
-                          </select>
-                        </td>
+                        :
+                       <td>
+                      <input
+                        type="text"
+                        className="input"
+                         disabled={!profile.actions}
+                        value={profile.bankName}
+                        name="bankName"
+                        placeholder={"Add new"}
+                        // readOnly={val.addnew!="true"?true:false}
+                        onChange={(e) => {
+                          handleDebtChange(e.target.name, e.target.value, index);
+                        }}
+                      />
+                    </td>
+                        }
+                        
+                        
 
                         <td>
                           <input

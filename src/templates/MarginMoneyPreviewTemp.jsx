@@ -2,6 +2,7 @@ import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
 
 export default function MarginMoneyPreviewTemp(marginData) {
+
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -39,7 +40,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                       opacity: '0.7',
                     }}
                   >
-                    {marginData?.order?.orderId}
+                    {marginData.marginData?.order?.orderId}
                   </span>
                 </span>
                 <br />
@@ -69,7 +70,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                       opacity: '0.7',
                     }}
                   >
-                    {marginData?.company?.companyName}
+                    {marginData.marginData?.company?.companyName}
                   </span>
                 </span>
               </td>
@@ -109,7 +110,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                       opacity: '0.7',
                     }}
                   >
-                    {moment(marginData?.createdAt).format('DD-MM-yy')}
+                    {moment(marginData.marginData?.createdAt).format('DD-MM-yy')}
                   </span>
                 </span>
               </td>
@@ -202,7 +203,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                        {addPrefixOrSuffix(marginData.marginData?.order?.quantity ? marginData.marginData?.order?.quantity : 0, 'MT', '')}
                       </p>
                     </td>
                   </tr>
@@ -244,7 +245,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                         }}
                       >
                         USD{' '}
-                        {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                        {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -288,7 +289,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.conversionRate}
+                        {marginData.marginData?.conversionRate}
                       </p>
                     </td>
                   </tr>
@@ -329,7 +330,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                        {addPrefixOrSuffix(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
                       </p>
                     </td>
                   </tr>
@@ -370,7 +371,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                        {addPrefixOrSuffix(marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
                       </p>
                     </td>
                   </tr>
@@ -412,8 +413,8 @@ export default function MarginMoneyPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.tolerance
-                            ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                          marginData.marginData?.order?.tolerance
+                            ? marginData.marginData?.order?.tolerance?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
                               })
@@ -462,8 +463,8 @@ export default function MarginMoneyPreviewTemp(marginData) {
                         }}
                       >
                         {addPrefixOrSuffix(
-                          marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                          marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                            ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
                             : 0,
                           '%',
                           '',
@@ -508,7 +509,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData?.numberOfPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.numberOfPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -552,7 +553,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {/* {marginData?.additionalPDC} */}
+                        {/* {marginData.marginData?.additionalPDC} */}
                       </p>
                     </td>
                   </tr>
@@ -619,7 +620,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                         }}
                       >
                         USD{' '}
-                        {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -676,7 +677,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -733,7 +734,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -790,7 +791,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -846,7 +847,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -902,7 +903,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -958,7 +959,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1014,7 +1015,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1070,7 +1071,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1132,7 +1133,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -1192,7 +1193,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           alt="Rupee"
                           height="13"
                         />{' '}
-                        {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
+                        {marginData.marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}

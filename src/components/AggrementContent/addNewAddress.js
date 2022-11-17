@@ -1,17 +1,24 @@
 import styles from './index.module.scss';
-import { Col, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 export const addNewAddress = (
   setAddressType,
   setAddress,
   addressType,
-  toShow,
-  toView,
   handleAddressInput,
   cancelAddress,
-  gettingPins,
   newAddress,
+  gettingPins,
   handleData,
+  toShow,
+  toView,
+  pinCode,
+  type,
+  viewSet,
+  isgst,
 ) => {
+  console.log(isgst, viewSet, type, 'toView');
+  let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
+
   return (
     <div className={`${styles.newAddressContainer} card m-0 border_color`}>
       <div className={`${styles.newAddressHead} border_color`}>
@@ -32,9 +39,13 @@ export const addNewAddress = (
                 }}
               >
                 <option disabled>Select an option</option>
-                <option value="Registered">Registered Office</option>
-                <option value="Branch">Branch</option>
-                <option value="Supplier">Supplier Address</option>
+                {addressTypeArr.map((val, index) => {
+                  if (type == 'noBranch' && val == 'Branch') {
+                    return null;
+                  } else {
+                    return <option value={`${val}`}>{val}</option>;
+                  }
+                })}
               </select>
               <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                 Address Type<strong className="text-danger">*</strong>
@@ -69,11 +80,14 @@ export const addNewAddress = (
 
                   value={newAddress?.pinCode}
                   onChange={(e) => {
-                    gettingPins(e.target.value);
+                    if (pinCode) {
+                      gettingPins(e.target.value);
+                      viewSet();
+                    }
                     setAddress(e.target.name, e.target.value);
                   }}
                 />
-                {toShow.length > 0 && toView && (
+                {pinCode && toShow.length > 0 && toView && (
                   <div className={styles.searchResults}>
                     <ul>
                       {toShow
@@ -118,32 +132,29 @@ export const addNewAddress = (
             </>
           ) : (
             <>
-              {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      name="gstin"
-                      value={newAddress.gstin}
-                      onChange={(e) => {
-                        setAddress(e.target.name,e.target.value)
-                      }}
-                    >
-                      <option>Select an option</option>
-                      <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                      
-                    </select>
-                    <Form.Label
-                      className={`${styles.label_heading} ${styles.select}  label_heading`}
-                    >
-                      GSTIN<strong className="text-danger"></strong>
-                    </Form.Label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </Form.Group> */}
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="gstin"
+                    value={newAddress.gstin}
+                    onChange={(e) => {
+                      setAddress(e.target.name, e.target.value);
+                    }}
+                  >
+                    <option>Select an option</option>
+                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  </select>
+                  <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                    GSTIN {isgst ? <strong className="text-danger">*</strong> : null}
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </Form.Group>
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
@@ -154,11 +165,13 @@ export const addNewAddress = (
                   // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                   onChange={(e) => {
-                    gettingPins(e.target.value);
+                    if (pinCode) {
+                      gettingPins(e.target.value);
+                    }
                     setAddress(e.target.name, e.target.value);
                   }}
                 />
-                {toShow.length > 0 && toView && (
+                {pinCode && toShow.length > 0 && toView && (
                   <div className={styles.searchResults}>
                     <ul>
                       {toShow

@@ -16,7 +16,7 @@ function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('lcPreviewId');
+    let id = sessionStorage.getItem('lcAmmend');
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
@@ -58,7 +58,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
-
+console.log(lcModuleData,"sdasds")
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -73,10 +73,10 @@ function Index() {
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div>
-        <div className={`${styles.term_container} previewCard border_color container-fluid`}>
+        <div className={`${styles.term_container} download-pdf-bg border_color container-fluid`}>
           <Row className={`h-50`}>
             <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-              <h3>AMENDED LETTER OF CREDIT</h3>
+              <h3 className='download-pdf-title'>AMENDED LETTER OF CREDIT</h3>
             </Col>
           </Row>
 

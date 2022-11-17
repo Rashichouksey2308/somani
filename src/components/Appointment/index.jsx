@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { UpdateInspection } from 'redux/Inspections/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 export default function Index({ inspectionData, setDate, vendor }) {
   const dispatch = useDispatch();
@@ -107,31 +108,19 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
   const handleOnAdd = () => {
     if (addressData.address.addressType === '' || addressData.address.addressType == undefined) {
-      let toastMessage = 'Please add address Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address Type');
       return false;
     }
     if (addressData.address.fullAddress === '' || addressData.address.fullAddress == undefined) {
-      let toastMessage = 'Please add address';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address');
       return false;
     }
     if (addressData.address.pinCode === '' || addressData.address.pinCode == undefined) {
-      let toastMessage = 'Please add pin Code';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add pin code');
       return false;
     }
     if (addressData.address.country === '' || addressData.address.country == undefined) {
-      let toastMessage = 'Please add country';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add country');
       return false;
     }
     setAppointmentData(addressData);
@@ -139,12 +128,11 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const validation = () => {
-    let toastMessage = '';
     if (appointmentData.name == '' || appointmentData.name == undefined) {
-      toastMessage = 'NAME IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+      handleErrorToast('name is mandatory');
+      return false;
+    } else if (appointmentData?.dateOfAppointment == '' || !appointmentData?.dateOfAppointment) {
+      handleErrorToast('date is mandatory');
       return false;
     }
     return true;
@@ -160,7 +148,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleSubmit = () => {
-    if (!validation()) <return></return>;
+    if (!validation()) return;
 
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
@@ -204,45 +192,16 @@ export default function Index({ inspectionData, setDate, vendor }) {
                     <label className={`${styles.label_heading} label_heading`}>
                       Name<strong className="text-danger">*</strong>
                     </label>
-                    {/* <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    /> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
                   <div className="d-flex">
-                    {/* <DateCalender labelName='ETA at Discharge Port'/>
-                      <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      /> */}
-                    {/* <DatePicker
-                      name="dateOfAppointment"
-                      selected={
-                        moment(appointmentData?.dateOfAppointment).toDate()
-                          ? moment(appointmentData?.dateOfAppointment).toDate()
-                          : startDate
-                      }
-                      defaultDate={moment(inspectionData?.dateOfAppointment)}
-                      //min={moment().format('YYYY-MM-DD')}
-                      dateFormat="dd-MM-yyyy"
-                      className={`${styles.input_field} ${styles.cursor_none} input form-control`}
-                      onChange={(startDate) => {
-                        setStartDate(startDate)
-                        saveDate(startDate, 'dateOfAppointment')
-                      }}
-                      minDate={lastDate}
-                    /> */}
                     <DateCalender
                       name="dateOfAppointment"
                       defaultDate={
                         appointmentData?.dateOfAppointment ? moment(appointmentData?.dateOfAppointment).toDate() : null
                       }
                       dateFormat="dd-MM-yyyy"
-                      // startFrom={dateStartFrom.eta}
                       saveDate={saveDate}
                       labelName="Date of Appointment"
                     />
@@ -251,9 +210,6 @@ export default function Index({ inspectionData, setDate, vendor }) {
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
-                    {/* <label className={`${styles.label_heading} label_heading`}>
-                      Date of Appointment
-                    </label> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-12 `}>
@@ -315,7 +271,6 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
               name="address.addressType"
               value={addressData?.address?.addressType}
               onChange={(e) => {
-                // setAddressType(e.target.value)
                 handleEditInput(e.target.name, e.target.value);
               }}
             >

@@ -127,7 +127,7 @@ function Index(props) {
           unitPrice: data.order?.perUnitPrice,
           totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
-          dischargePort: data?.order?.portOfDischarge,
+        
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
@@ -161,6 +161,7 @@ function Index(props) {
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: data?.shippingLine?.vesselName,
           storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         });
       }
     }

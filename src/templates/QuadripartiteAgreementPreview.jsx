@@ -935,6 +935,7 @@ export default function QuadripartiteAgreementPreview(data) {
                               fontSize: '12px',
                               lineHeight: '18px',
                               color: '#000000',
+                              paddingLeft: '10px'
                             }}
                           >
                             {data?.associateBuyerAuthorized?.length > 0 &&
@@ -949,7 +950,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                         marginBottom: '0',
                                       }}
                                     >
-                                      Name- <span>{val.name}</span>
+                                      Name - {val.name}
                                     </p>
                                     <p
                                       style={{
@@ -959,7 +960,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                         marginBottom: '0',
                                       }}
                                     >
-                                      Designation- <span>{val.designation}</span>
+                                      Designation - {val.designation}
                                     </p>
                                   </li>
                                 );
@@ -1078,6 +1079,7 @@ export default function QuadripartiteAgreementPreview(data) {
                               fontSize: '12px',
                               lineHeight: '18px',
                               color: '#000000',
+                              paddingLeft: '10px'
                             }}
                           >
                             {data?.stevedoreAuthorized?.length > 0 &&
@@ -1092,7 +1094,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                         marginBottom: '0',
                                       }}
                                     >
-                                      Name- <span>{val.name}</span>
+                                      Name - {val.name}
                                     </p>
                                     <p
                                       style={{
@@ -1102,7 +1104,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                         marginBottom: '0',
                                       }}
                                     >
-                                      Designation- <span>{val.designation}</span>
+                                      Designation - {val.designation}
                                     </p>
                                   </li>
                                 );
@@ -1222,6 +1224,7 @@ export default function QuadripartiteAgreementPreview(data) {
                               fontSize: '12px',
                               lineHeight: '18px',
                               color: '#000000',
+                              paddingLeft: '10px'
                             }}
                           >
                             {data?.cmaAuthorized?.length > 0 &&
@@ -1236,7 +1239,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                         marginBottom: '0',
                                       }}
                                     >
-                                      Name- <span>{val.name}</span>
+                                      Name - {val.name}
                                     </p>
                                     <p
                                       style={{
@@ -1246,7 +1249,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                         marginBottom: '0',
                                       }}
                                     >
-                                      Designation- <span>{val.designation}</span>
+                                      Designation - {val.designation}
                                     </p>
                                   </li>
                                 );

@@ -24,7 +24,7 @@ import API from '../../../src/utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
-import { getInternalCompanies, getVendors } from '../../redux/masters/action';
+import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
 
 function Index(props) {
   const dispatch = useDispatch();
@@ -54,6 +54,7 @@ function Index(props) {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+ 
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -106,28 +107,33 @@ function Index(props) {
   const addressValidation = (type, data, check = true) => {
     if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
+        if(type!=="Supplier"){
         if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            let toastMessage = 'Please add gstin';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-        if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          if (data.state === '' || data.state == undefined) {
+            let toastMessage = 'Please add state';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-      }
-      if (data.city === '' || data.city == undefined) {
+          if (data.city === '' || data.city == undefined) {
         let toastMessage = 'Please add city';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         return false;
       }
+        }
+       
+       
+      }
+      
     }
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type';
@@ -157,7 +163,7 @@ function Index(props) {
       }
       return false;
     }
-
+  
     return true;
   };
   const addressValidation2 = (type, data, check = true) => {
@@ -423,12 +429,15 @@ function Index(props) {
           }
         });
       }
+      
     }
+    
     setSidebar([...temp]);
   };
   useEffect(() => {
     setInitialSideBar();
   }, [props.genericData]);
+
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar));
     sessionStorage.setItem('setgenActive', val);
@@ -506,7 +515,8 @@ let masterList = [
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
-          masterList={masterList}
+          directors={props.directors}
+          
         
         />
       );

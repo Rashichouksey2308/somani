@@ -417,7 +417,7 @@ function Index() {
                           <div className={`${styles.content_header} background2 `}>47A ADDITIONAL CONDITIONS:</div>
                         </td>
                       </tr>
-                      {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length >
+                      {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length >
                       0 ? (
                         <>
                           <tr className="table_row">
@@ -435,18 +435,18 @@ function Index() {
                                       <tbody>
                                         <tr className="table_row">
                                           {_get(
-                                            lcModule,
+                                            lcModuleData.lcModule,
                                             'data[0].order.generic.productSpecifications.specificationTable',
                                             [],
                                           ) &&
                                             _get(
-                                              lcModule,
+                                              lcModuleData.lcModule,
                                               'data[0].order.generic.productSpecifications.specificationTable',
                                               [],
                                             ).length > 0 &&
                                             Object.keys(
                                               _get(
-                                                lcModule,
+                                                lcModuleData.lcModule,
                                                 'data[0].order.generic.productSpecifications.specificationTable',
                                                 [],
                                               )[0],
@@ -457,17 +457,17 @@ function Index() {
                                             ))}
                                         </tr>
                                         {_get(
-                                          lcModule,
+                                         lcModuleData. lcModule,
                                           'data[0].order.generic.productSpecifications.specificationTable',
                                           [],
                                         ) &&
                                           _get(
-                                            lcModule,
+                                            lcModuleData.lcModule,
                                             'data[0].order.generic.productSpecifications.specificationTable',
                                             [],
                                           ).length > 0 &&
                                           _get(
-                                            lcModule,
+                                            lcModuleData.lcModule,
                                             'data[0].order.generic.productSpecifications.specificationTable',
                                             [],
                                           ).map((item, index) => (

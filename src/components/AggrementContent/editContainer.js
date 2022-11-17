@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import { Col, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 export const editData = (
   addressEditType,
   EditAddress,
@@ -9,7 +9,10 @@ export const editData = (
   saveNewAddress,
   setAddressEditType,
   type,
+  pinCode,
 ) => {
+  let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
+  console.log(addressEditType, 'addressEditType');
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>
@@ -28,9 +31,13 @@ export const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier">Supplier</option>
+              {addressTypeArr.map((val, index) => {
+                if (type == 'noBranch' && val == 'Branch') {
+                  return null;
+                } else {
+                  return <option value={`${val}`}>{val}</option>;
+                }
+              })}
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -38,7 +45,7 @@ export const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Supplier' ? (
+        {addressEditType == 'Supplier' || addressEditType == 'Registered' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Col, Form } from 'react-bootstrap';
-import { getPincodes } from '../../redux/masters/action';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {editData} from './editContainer'
 import {addressLists} from './addressList'
@@ -140,7 +140,7 @@ function Index(props) {
                 },
               ],
         );
-
+        console.log(savedData.addresses,"savedData.addresses")
         setAddressList(savedData.addresses);
         setMultiList(savedData.multiPartyAddresses);
         setSupplierState(supplier);
@@ -157,72 +157,67 @@ function Index(props) {
         });
         setOptions([...optionArray]);
 
-        if (props.data?.authorisedSignatoryDetails.length > 0) {
-          let tempArr = props.data?.authorisedSignatoryDetails;
-          let optionArray = [...options];
-          tempArr.forEach((val, index) => {
-            val.actions = 'true';
-            if (tempArr?.length > 0) {
-              let index = optionArray.indexOf(val.name);
-              if (index > -1) {
-                optionArray.splice(index, 1);
-              }
-            }
-          });
-          setOptions([...optionArray]);
-          setList(tempArr);
-        } else {
-          setList([
-            {
-              name: '',
-              designation: '',
-              email: '',
-              phone: '',
-              actions: 'false',
-              addnew: 'false',
-            },
-          ]);
-        }
+      
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
-        setAddressList(props.data?.addresses);
-        setMultiList(props.data?.multiPartyAddresses);
+      
         setSupplierState(supplier);
+      }else{
+        
+        let supplier = {
+          name: props.data.name || props?.order?.supplierName,
+          shortName: props.data.shortName,
+          bankDetails: {
+            bankName: props?.data?.bankDetails?.bankName,
+            accountNo: props?.data?.bankDetails?.accountNo,
+            swiftCode: props?.data?.bankDetails?.swiftCode,
+            city: props.data?.bankDetails?.city,
+          },
+          addresses: props.data.addresses,
+          authorisedSignatoryDetails: props.data.authorisedSignatoryDetails,
+          multiParty: props.data.multiParty,
+          multiPartyName: props.data.multiPartyName,
+          multiPartyAddresses: props.data.multiPartyAddresses,
+        };
+        setList(
+          props.data.authorisedSignatoryDetails?.length > 0
+            ? props.data.authorisedSignatoryDetails
+            : [
+                {
+                  name: '',
+                  designation: '',
+                  email: '',
+                  phone: '',
+                  actions: 'false',
+                  addnew: 'false',
+                },
+              ],
+        );
+        console.log(props.data.addresses,"props.data.addresses")
+        setAddressList(props.data.addresses);
+        setMultiList(props.data.multiPartyAddresses);
+        setSupplierState(supplier);
+       
       }
     }
   }, [props.data]);
-
+console.log(addressList,"aasdads")
   useEffect(() => {
+    
     if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData);
-      setToView(true);
+       setToView(true)
     } else {
+      console.log("hewer")
       setToShow([]);
       setToView(false);
     }
   }, [getPincodesMasterData]);
-  const onEdit = (index) => {
-    let tempArr = list;
-    // tempArr[index].actions.edit="false"
+ const viewSet=()=>{
 
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        // 👇️ if id equals 2, update country property
-        if (i == index) {
-          setRemovedOption(obj.name);
-          return { ...obj, actions: 'false' };
-        }
-
-        // 👇️ otherwise return object as is
-        return obj;
-      });
-
-      return newState;
-    });
-    // let temp=[...options]
-    // var indexOption = temp.indexOf(value.name);
-    //  setRemovedOption(value.name)
-  };
+     setToView(true)
+ }
+ console.log(toView,"SAdasd")
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -334,32 +329,7 @@ function Index(props) {
       return newState;
     });
   };
-  const addDoc = (e, index) => {
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: e };
-        }
-
-        return obj;
-      });
-
-      return newState;
-    });
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (obj.document) {
-          if ((obj.document = 'new')) {
-            return { ...obj, document: e };
-          }
-        }
-
-        return obj;
-      });
-
-      return newState;
-    });
-  };
+ 
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -440,7 +410,7 @@ function Index(props) {
     setToEditIndex(index);
     setAddressEditType(val);
     let tempArr = addressList;
-
+  setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
@@ -461,7 +431,7 @@ function Index(props) {
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+ const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -472,6 +442,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const cancelAddress = () => {
     setNewAddress({
@@ -609,6 +581,21 @@ function Index(props) {
       city: '',
     });
   };
+   const onEdit = (index) => {
+    let tempArr = list;
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+         
+          return { ...obj, actions: 'false' };
+        }
+        // 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
+  };
 
   return (
     <>
@@ -744,17 +731,17 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
-            getPincodes,
+            props.gettingPins,
             handleDataEdit,
             dispatch,
             toShow,
             toView,
           )}
         {isEdit == false && (
-          addNewAddress(setAddressType,setAddress,addressType,toShow,toView,handleAddressInput,cancelAddress,props.gettingPins,newAddress,handleData)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
         )}
 
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,"input")}
 
         {props.multiPart == true ? (
           <>
@@ -799,7 +786,7 @@ function Index(props) {
                   cancelEditMultiAddress,
                   saveNewMultiAddress,
                   setMultiAddressType,
-                  getPincodes,
+                  props.gettingPins,
                   handleDataEditMines,
                   dispatch,
                   toShow,
@@ -807,7 +794,7 @@ function Index(props) {
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
-                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,toShow,toView,handleAddressMultiInput,cancelAddress,props.gettingPins,newMultiAddress,handleData)
+                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
                   
                 )}
               </div>

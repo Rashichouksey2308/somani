@@ -59,6 +59,7 @@ import { McaReportFetch } from '../../src/redux/mcaReport/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { returnReadableNumber } from '@/utils/helpers/global'
 
+
 let alertObj = {
   isShell: 'Shell',
   isCompanyUnderLiquidation: 'Company Under Liquidation',
@@ -162,7 +163,7 @@ let alertObj = {
 
 function Index() {
   const dispatch = useDispatch();
-
+ 
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
@@ -274,7 +275,7 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
-
+ console.log(orderList,"orderList")
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -610,22 +611,50 @@ function Index() {
   };
 
   const [debtData, setDebtData] = useState([]);
+   const FilterUniqueBank = () => {
+    let filtered = _get(companyData, 'financial.openCharges', []);
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
+
+    return unique;
+  };
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
+     let filter = FilterUniqueBank()
+     console.log(filter,"filter")
+      console.log(orderList?.company?.debtProfile,"orderList?.company?.debtProfile")
       orderList?.company?.debtProfile.forEach((val, index) => {
-        temp.push({
-          bankName: val?.bankName,
-          conduct: val?.conduct,
-          limit: val?.limit,
-          limitType: val?.limitType,
-          primaryBank: val?.primaryBank,
-        });
+        console.log(val,"val")
+        filter.forEach((fil,index)=>{
+          console.log(val.bankName==fil,"val.bankName==fil")
+          if(val.bankName==fil){
+            temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"false"
+          })
+          }else{
+            temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"true"
+          })
+                  }
+        })
+       
+      
       });
       setDebtData([...temp]);
     }
-  }, [orderList?.company?.debtProfile]);
-
+  }, [orderList?.company?.debtProfile,companyData]);
+ console.log(debtData,"debtData")
   const [personData, setPersonData] = useState([]);
 
   useEffect(() => {
@@ -1190,7 +1219,7 @@ function Index() {
   const handleMcaReport = (task) => {
     if (task === 'downlaod') {
       if (mcaReportAvailable) {
-        dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }));
+        dispatch(ViewDocument({ path: companyData?.mcaDocs[companyData?.mcaDocs?.length - 1].s3Path }));
       } else {
         let toastMessage = 'mca report not Available to download';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1257,6 +1286,8 @@ function Index() {
     openBankChargeChartImg,
     debtProfileColor,
   ) => {
+
+    console.log(camData,'camData')
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -1296,7 +1327,7 @@ function Index() {
       return camData?._id === rating.order;
     });
     const getRotate = (rat = 1) => {
-      let r = Math.round(rat);
+      let r = Math.floor(rat);
       // let r = 4
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
@@ -2191,7 +2222,7 @@ function Index() {
                           }}
                         >
                           {checkNan(
-                            Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}
@@ -2272,7 +2303,7 @@ function Index() {
                                   }}
                                 >
                                   {checkNan(
-                                    Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
                                   )}
@@ -2618,10 +2649,11 @@ function Index() {
                 <td valign="top" style={{ padding: '27px' }}>
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
-                      {camData?.company.groupExposureData?.map((exp, index) => {
-                        let name = exp?.name?.split(' ') ?? 'NA';
+                      {camData?.company?.groupExposureDetail?.map((exp, index) => {
+                        console.log(exp,'Group Exposure Details')
+                        let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td valign="top" width="33.33%">
+                          <td key={index} valign="top" width="33.33%">
                             <table
                               width="100%"
                               cellPadding="0"
@@ -2655,7 +2687,7 @@ function Index() {
                                       display: 'inline-block',
                                     }}
                                   >
-                                    {isArray(name) &&
+                                    {Array.isArray(name) &&
                                       name?.map((item, index) => {
                                         if (index < 2) {
                                           return item?.charAt(0).toUpperCase();
@@ -2998,24 +3030,25 @@ function Index() {
                   <tr>
                     <td
                       width="5%"
-                      height="60"
+                      height="30"
                       style={{
-                        padding: '21px 12px 21px 35px',
+                        padding: '14px 11px 14px 32px',
                       }}
                     >
                       <span
                         style={{
-                          fontSize: '28px',
+                          fontSize: '24px',
                           color: '#FF9D00',
-                          lineHeight: '34px',
+                          lineHeight: '30px',
                           fontWeight: 'bold',
                           background: '#FFECCF',
                           borderRadius: '8px',
-                          padding: '13px 0',
-                          width: '60px',
-                          height: '60px',
+                          padding: '9px 0',
+                          width: '50px',
+                          height: '50px',
                           textAlign: 'center',
                           display: 'inline-block',
+                          // marginBottom: '15px'
                         }}
                       >
                         {fName?.charAt(0)}{lName?.charAt(0)}
@@ -3102,7 +3135,7 @@ function Index() {
                     >
                       <span
                         style={{
-                          padding: '7.5px',
+                          padding: '5.5px',
                           display: 'inline-block',
                           background: '#FF9D00',
                           borderRadius: '50%',
@@ -4263,7 +4296,6 @@ function Index() {
                           <td
                             style={{
                               fontSize: '19px',
-                              color: '#EA3F3F',
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               paddingTop: '25px',
@@ -7486,6 +7518,11 @@ function Index() {
   const GstDataHandler = (data) => {
     setGstData(data);
   };
+  const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
+  const returnDataPeriodAndColour = (period, index) => {
+    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' }
+    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' }
+  }
 
   const handleGSTDownload = (value) => {
     let path = '';
@@ -7772,7 +7809,7 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
+        supremeCourt?.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7780,7 +7817,7 @@ function Index() {
             return civilfilter(val);
           });
       highCourt =
-        highCourt.length <= 0
+        highCourt?.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7789,7 +7826,7 @@ function Index() {
           });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7797,7 +7834,7 @@ function Index() {
             return civilfilter(val);
           });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -8150,13 +8187,13 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
                     <Peer peerData={companyData} />
 
@@ -8417,10 +8454,10 @@ function Index() {
                       <div className={` ${styles.cardBody_litigations} card-body border_color`}>
                         <div className={`${styles.checkbox_Container}`} data-toggle="collapse">
                           <Row>
-                            <Col md={4}>
+                            <Col md={6}>
                               <p className={`mb-3 text`}>Filter by</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
-                                <div className="form-check">
+                              <div className={`flex-wrap d-flex align-items-center justify-content-start`}>
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8433,10 +8470,10 @@ function Index() {
                                     checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Pending ({totalCourt.pending})
+                                    Pending<span className='pl-1'>({totalCourt.pending})</span>
                                   </label>
                                 </div>
-                                <div className="form-check ml-4">
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8448,10 +8485,10 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault1">
-                                    Disposed ({totalCourt.disposed})
+                                    Disposed<span className='pl-1'>({totalCourt.disposed})</span>
                                   </label>
                                 </div>
-                                <div className="form-check  ml-4">
+                                <div className="form-check">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8463,14 +8500,14 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault3">
-                                    Total Cases ({totalCourt.total})
+                                    Total Cases<span className='pl-1'>({totalCourt.total})</span>
                                   </label>
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3}>
                               <p className={`mb-3 text`}>Select a Party</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div className={`d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -8503,7 +8540,7 @@ function Index() {
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3} className="pl-5">
                               <p className={`mb-3 text`}>Classification</p>
                               <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
@@ -8765,7 +8802,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
       </button>
       <div className={`${styles.lastModified} text `}>
         <span className="accordion_Text">Last Modified:</span>
-        {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
+        {moment(companyData?.updatedAt).format(' D MMM, h:mm a')}
       </div>
     </>
   );

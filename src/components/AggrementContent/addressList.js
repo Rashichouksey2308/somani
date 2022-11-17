@@ -1,12 +1,14 @@
 import styles from './index.module.scss';
-import { Col, Form } from 'react-bootstrap';
+
 export const addressLists = (val, index, handleEditAddressInput, onAddressRemove) => {
   return (
     <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
       <div className={`${styles.registeredAddressHeading}`}>
         <span>{val.addressType} Address</span>
         <div className={`${styles.address_text}`}>
-          {val.fullAddress} {val.pinCode} {val.country}
+          {val.fullAddress} {val.city} {val.state} {val.country} {val.pinCode}
+          <br></br>
+          {val.gstin ? `GSTIN No- ${val.gstin}` : ''}
         </div>
       </div>
       <div className={`d-flex ${styles.actions} `}>

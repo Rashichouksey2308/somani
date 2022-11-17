@@ -1,5 +1,4 @@
 @import '../../../src/components/styles/Core/config';
-
 .accordion_body {
   margin: 28px;
   margin-bottom: 126px;
@@ -15,7 +14,6 @@
     margin: 15px;
     margin-bottom: 104px;
   }
-
   .head_container {
     min-height: 48px;
     display: flex;
@@ -35,12 +33,10 @@
       margin-top: 15px;
       margin-bottom: -20px;
     }
-
     .head_header {
       display: flex;
       justify-content: space-around;
       flex-direction: row;
-
       .back_arrow {
         width: 13px;
         height: 21px;
@@ -51,7 +47,6 @@
           height: auto;
         }
       }
-
       .heading {
         font-size: 34px;
         font-weight: bold;
@@ -59,15 +54,12 @@
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
-
         &:first-letter {
           text-transform: uppercase;
         }
-
         &:first-line {
           text-transform: capitalize;
         }
-
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -81,7 +73,6 @@
         }
       }
     }
-
     .clear_btn {
       width: 116px;
       height: 38px;
@@ -103,10 +94,8 @@
       }
     }
   }
-
   .vessel_card {
     border-radius: 6px;
-
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -123,14 +112,11 @@
         font-size: 15px;
       }
     }
-
     .radio_form {
       // padding: 26px 0px 20px 35px;
       margin-left: 94px;
-
       .radio_group {
         display: flex;
-
         .radio {
           font-size: 20px;
           color: #111111;
@@ -143,20 +129,17 @@
           @include respond(phone) {
             font-size: 14px;
           }
-
           label {
             padding-left: 10px;
           }
-
           input {
             transform: scale(1.5);
             @include respond(lg-desktop) {
-              transform: scale(1.3);
+              transform: scale(1.2);
             }
           }
         }
       }
-
       .sub_heading {
         font-size: 16px;
         line-height: 17px;
@@ -175,14 +158,12 @@
       }
     }
   }
-
   .wrapper {
     margin-bottom: 26px;
     border-radius: 6px !important;
     @include respond(lg-desktop) {
       margin-bottom: 20px;
     }
-
     .insurance_type {
       min-height: 80px;
       padding: 0 35px;
@@ -192,7 +173,6 @@
       }
     }
   }
-
   .cardHeader {
     min-height: 80px;
     cursor: pointer;
@@ -201,7 +181,6 @@
     @include respond(lg-desktop) {
       min-height: 60px;
     }
-
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -218,7 +197,6 @@
         font-size: 15px;
       }
     }
-
     span {
       font-size: 45px;
       color: #3687e8;
@@ -235,16 +213,13 @@
       }
     }
   }
-
   .cardBody {
     padding: 0px;
     //border-top: 2px solid red !important;
     .content {
       border-top: 2px solid #d2d7e5;
-
       .body {
         padding: 25px 35px !important;
-
         h5 {
           font-size: 22px;
           line-height: 27px;
@@ -261,7 +236,6 @@
             font-size: 15px;
           }
         }
-
         .col_header {
           font-weight: 500;
           font-size: 16px;
@@ -276,7 +250,6 @@
             font-size: 12px;
           }
         }
-
         .col_body {
           font-weight: bold;
           font-size: 20px;
@@ -291,7 +264,6 @@
             font-size: 14px;
           }
         }
-
         .label_heading {
           top: 22px;
           left: 30px;
@@ -308,7 +280,6 @@
           max-width: 77%;
           overflow: hidden;
           text-overflow: ellipsis;
-
           &::before {
             top: 51%;
             left: 0;
@@ -319,7 +290,6 @@
             position: absolute;
             transform: translateY(-50%);
           }
-
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -330,7 +300,6 @@
             font-size: 12px;
           }
         }
-
         .input_field {
           height: 60px;
           //background-color: #c3c3c31f;
@@ -342,11 +311,9 @@
           box-shadow: none;
           position: relative;
           box-sizing: border-box;
-
           &:invalid + label {
             transform: translateY(0);
           }
-
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -355,7 +322,6 @@
               }
             }
           }
-
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -367,7 +333,6 @@
         }
       }
     }
-
     .remark_field {
       margin: 25px 0 35px 0;
       padding: 20px;
@@ -389,7 +354,6 @@
     }
   }
 }
-
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -403,20 +367,30 @@
     margin-left: -33px;
   }
 }
-
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
-
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
-
 .customSelect {
   appearance: none;
   // position: relative;
+}
+.req_letter {
+  & > div {
+    & > div {
+      & + div {
+        @include respond(lg-desktop) {
+          min-width: 200px;
+          width: auto !important;
+          padding: 0 15px;
+        }
+      }
+    }
+  }
 }

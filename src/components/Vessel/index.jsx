@@ -47,7 +47,7 @@ function Index({
   port,
 }) {
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
-
+ console.log(vesselCertificate,"containerListDocument")
   const dispatch = useDispatch();
 
   const getSn = (index) => {
@@ -205,7 +205,7 @@ function Index({
                             value={currency}
                             required
                           >
-                            <option>Select</option>
+                            <option value= "">Select</option>
                             <option value="USD">USD</option>
                             <option value="INR">INR</option>
                             <option value="EURO">EURO</option>
@@ -292,7 +292,7 @@ function Index({
                                 .map((val, index) => {
                                   return (
                                     <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                                      {val.Port_Name},{val.Country}
+                                     {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}
@@ -321,11 +321,11 @@ function Index({
                                 {val.portOfDischarge}
                               </option> */}
                               {port
-                                .filter((val) => val.Country.toLowerCase() === 'india')
+                                .filter((val) => val.Country.toLowerCase() === 'india' && val.Approved=="YES")
                                 .map((val, index) => {
                                   return (
                                     <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                                      {val.Port_Name},{val.Country}
+                                     {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}

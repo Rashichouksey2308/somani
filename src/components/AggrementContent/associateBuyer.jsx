@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
-import {editData} from './editContainer'
+
 let associate = {
   branchName: '',
   shortName: '',
@@ -11,11 +11,15 @@ let associate = {
 };
 
 function Index(props) {
+
   const [associateData, setAssociateData] = useState(associate);
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [removedOption, setRemovedOption] = useState(null);
+  const [removedArr, setRemovedArr] = useState([]);
+  const [masterList,setmasterList] = useState([])
+  const [options,setOptions] = useState([])
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -47,9 +51,27 @@ function Index(props) {
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   const [list, setList] = useState([]);
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
  
+  useEffect(() => {
+    if(props.directors){
+      let temp=[]
+      let options=[]
+       props.directors.forEach((val,index)=>{
+         temp.push(
+          {
+          name: val.name,
+          designation: val.designation,
+          email: val.email,
+          phoneNo: '',
+         }
+         )
+          options.push(val.name)
+       })
+      
+       setmasterList([...temp])
+       setOptions([...options])
+    }
+  },[props.directors])
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Associate')) {
@@ -60,21 +82,14 @@ function Index(props) {
 
           gstin: savedData.gstin,
         };
-        setAddressList(savedData.addresses.length>0?savedData.addresses: [{
-        addressType: 'Registered',
-        fullAddress: props.address,
-        pinCode: '',
-        country: '',
-        gstin: '',
-        state: '',
-        city: '',
-      }]);
+        setAddressList(savedData.addresses);
         setList(savedData.authorisedSignatoryDetails);
         let temp = [];
-
+  
         if (savedData.authorisedSignatoryDetails?.length > 0) {
           savedData.authorisedSignatoryDetails.forEach((val, index) => {
             if (val.document) {
+            
               temp.push({ attachDoc: val.document });
             }
           });
@@ -90,39 +105,30 @@ function Index(props) {
             },
           ]);
         }
-
+      
         setDocList(temp);
         setAssociateData(buyer);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       } else {
+
         let buyer = {
           branchName: props?.data?.branch,
           shortName: props?.data?.shortName,
 
           gstin: props?.data?.gstin || props?.selectedGST,
         };
-        console.log(props?.data?.addresses.length,"props?.data?.addresses.length")
-        setAddressList(props?.data?.addresses.length > 0 ? props?.data?.addresses :
-          [{
-          addressType: 'Registered',
-          fullAddress: props.address,
-          pinCode: '',
-          country: '',
-          gstin: '',
-          state: '',
-          city: '',
-        }]);
+        setAddressList(props?.data?.addresses ? props?.data?.addresses : []);
         setList(props?.data?.authorisedSignatoryDetails ? props?.data?.authorisedSignatoryDetails : []);
         let temp = [];
         if (props?.data?.authorisedSignatoryDetails.length > 0) {
@@ -148,38 +154,37 @@ function Index(props) {
 
         setAssociateData(buyer);
         let tempArr = props.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        // setAddressList(props?.data.addresses);
-        setOptions([...optionArray]);
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        setAddressList(props?.data.addresses);
+        // setOptions([...optionArray]);
       }
     }
   }, [props]);
 
-  console.log(addressList,"addressList")
-  // useEffect(() => {
-  //   if (props?.address) {
-  //     let a = {
-  //       addressType: 'Registered',
-  //       fullAddress: props.address,
-  //       pinCode: '',
-  //       country: '',
-  //       gstin: '',
-  //       state: '',
-  //       city: '',
-  //     };
+  useEffect(() => {
+    if (props?.address) {
+      let a = {
+        addressType: 'Registered',
+        fullAddress: props.address,
+        pinCode: '',
+        country: '',
+        gstin: '',
+        state: '',
+        city: '',
+      };
 
-  //     setCompanyAddress(a);
-  //   }
-  // }, [props.address]);
+      setCompanyAddress(a);
+    }
+  }, [props.address]);
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Associate Buyer') {
@@ -192,6 +197,7 @@ function Index(props) {
       props.sendData('Associate Buyer', data);
     }
     if (props.submitData == true && props.active == 'Associate Buyer') {
+     
       let data = {
         associate: associateData,
         address: addressList,
@@ -217,6 +223,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
+         
           if ((obj.document = 'new')) {
             return { ...obj, document: e };
           }
@@ -244,7 +251,7 @@ function Index(props) {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
-          setRemovedOption(obj.name);
+         
           return { ...obj, actions: 'false' };
         }
 
@@ -256,6 +263,8 @@ function Index(props) {
     });
   };
   const onEditRemove = (index, value) => {
+
+
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -266,13 +275,17 @@ function Index(props) {
       });
 
       return newState;
+      
     });
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    setRemovedOption(value.name);
+
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -287,7 +300,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+   
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
@@ -296,19 +309,24 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
-    if (
-      val?.name == 'Bhawana Jain' ||
-      val?.name == 'Vipin Kumar' ||
-      val?.name == 'Devesh Jain' ||
-      val?.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    
+     masterList.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
+   
   };
   const removeDoc = (index) => {
+
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -370,6 +388,7 @@ function Index(props) {
         };
         setDocList([...docList, { attachDoc: '', index: index }]);
       } else {
+
         arrayToSave = {
           name: '',
           designation: '',
@@ -380,7 +399,7 @@ function Index(props) {
         };
       }
     } else {
-      props.masterList.forEach((val, index) => {
+      masterList.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation;
@@ -412,15 +431,16 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+    const handleEditAddressInput = (index,addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
-
+  
+    setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: val.addressType,
+          addressType: addresstype,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -437,7 +457,7 @@ function Index(props) {
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -448,12 +468,16 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
+
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
+
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -576,7 +600,18 @@ function Index(props) {
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
-          
+            {companyAddress.fullAddress !== '' ? (
+              <>
+                <div className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
+                  <div className={`${styles.registeredAddressHeading}`}>
+                    <span>{companyAddress.addressType} Address</span>
+                    <div className={`${styles.address_text}`}>
+                      {companyAddress.fullAddress} {companyAddress.pinCode} {companyAddress.country}
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : null}
             {addressList?.map((val, index) => {
               return (
                 <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
@@ -586,10 +621,9 @@ function Index(props) {
                       {val.fullAddress} {val.pinCode} {val.country}
                     </div>
                   </div>
-                   
+                  {props.address !== val.fullAddress ? (
                     <div className={`d-flex ${styles.actions} `}>
-                    {index==0? null: 
-                     <div
+                      <div
                         className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                         onClick={() => {
                           handleEditAddressInput(index);
@@ -597,18 +631,16 @@ function Index(props) {
                       >
                         <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
                       </div>
-                      }
                       <div
                         className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                         onClick={() => {
                           onAddressRemove(index);
                         }}
                       >
-                         <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
-                        
+                        <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
                       </div>
                     </div>
-                  
+                  ) : null}
                 </div>
               );
             })}
@@ -800,14 +832,12 @@ function Index(props) {
                                         value={val.name}
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
-                                          setRemovedOption(e.target.value);
+                                     
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
                                         <option>Select an option</option>
-                                        {removedOption != null ? (
-                                          <option value={removedOption}>{removedOption}</option>
-                                        ) : null}
+                                      
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
@@ -821,52 +851,16 @@ function Index(props) {
                                       />
                                     </>
                                   ) : (
-                                    <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
-                                        <>
-                                          <select
-                                            value={val.name}
-                                            className={`${styles.customSelect} input`}
-                                            onChange={(e) => {
-                                              handleChangeInput(e.target.name, e.target.value, index);
-                                            }}
-                                          >
-                                            <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
-                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
-                                            <option value={'Devesh Jain'}>Devesh Jain</option>
-                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
-
-                                            {/* {options.map((val,i)=>{
-                                return(<option value={val}>{val}</option>)
-                              })} */}
-
-                                            <option value={'addnew'}>{'Add New'}</option>
-                                          </select>
-                                          <img
-                                            className={`${styles.arrow2} image_arrow img-fluid`}
-                                            src="/static/inputDropDown.svg"
-                                            alt="Search"
-                                          />
-                                        </>
-                                      ) : (
-                                        <>
-                                          <input
-                                            type="text"
-                                            className="input"
-                                            placeholder={'Add new'}
-                                            name="name"
-                                            value={val.name}
-                                            onChange={(e) => {
-                                              handleChangeInput2(e.target.name, e.target.value, index);
-                                            }}
-                                          />
-                                        </>
-                                      )}
-                                    </>
+                                    <input
+                                    type="text"
+                                    className="input"
+                                    value={val.name}
+                                    name="name"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput(e.target.name, e.target.value, index);
+                                    }}
+                                  />
                                   )}
                                 </td>
                                 <td>
@@ -1069,4 +1063,120 @@ function Index(props) {
 }
 
 export default Index;
+const editData = (
+  addressEditType,
+  EditAddress,
+  setEditAddress,
+  editNewAddress,
+  cancelEditAddress,
+  saveNewAddress,
+  setAddressEditType,
+) => {
+  return (
+    <div className={`${styles.newAddressContainer}`}>
+      <div className={styles.newAddressHead}>
+        <span className={`mb-3`}>Add Edit address</span>
+      </div>
+      <div className={`${styles.newAddressContent} row`}>
+        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+          <div className="d-flex">
+            <select
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+              name="addressType"
+              value={EditAddress.addressType}
+              onChange={(e) => {
+                setAddressEditType(e.target.value);
+                editNewAddress(e.target.name, e.target.value);
+              }}
+            >
+              <option>Select an option</option>
+              <option value="Registered">Registered</option>
+              <option value="Branch">Branch</option>
+              <option value="Supplier">Supplier</option>
+            </select>
+            <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+              Address Type<strong className="text-danger">*</strong>
+            </Form.Label>
+            <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
+          </div>
+        </Form.Group>
 
+        <>
+          <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
+            <Form.Control
+              className={`${styles.input_field} input form-control`}
+              required
+              type="text"
+              name="fullAddress"
+              value={EditAddress.fullAddress}
+              onChange={(e) => {
+                editNewAddress(e.target.name, e.target.value);
+              }}
+            />
+            <Form.Label className={`${styles.label_heading} label_heading`}>
+              Address<strong className="text-danger">*</strong>
+            </Form.Label>
+          </Form.Group>
+          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+            <Form.Control
+              className={`${styles.input_field} input form-control`}
+              required
+              type="number"
+              onWheel={(event) => event.currentTarget.blur()}
+              name="pinCode"
+              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+              value={EditAddress.pinCode}
+              onChange={(e) => {
+                editNewAddress(e.target.name, e.target.value);
+              }}
+            />
+            <Form.Label className={`${styles.label_heading} label_heading`}>
+              Pin Code<strong className="text-danger">*</strong>
+            </Form.Label>
+            <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+          </Form.Group>
+          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+            <Form.Control
+              className={`${styles.input_field} input form-control`}
+              required
+              type="text"
+              value={EditAddress.country}
+              name="country"
+              onChange={(e) => {
+                let temp = e.target.value;
+               
+               
+                editNewAddress(e.target.name, temp);
+              }}
+              onKeyDown={(evt) =>
+                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+              }
+            />
+            <Form.Label className={`${styles.label_heading} label_heading`}>
+              Country<strong className="text-danger">*</strong>
+            </Form.Label>
+            <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+          </Form.Group>
+        </>
+      </div>
+      <div className="d-flex">
+        <div
+          className={`${styles.add} d-flex justify-content-center align-items-center`}
+          onClick={() => {
+            saveNewAddress();
+          }}
+        >
+          <span>Update</span>
+        </div>
+        <div
+          className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+          onClick={() => {
+            cancelEditAddress();
+          }}
+        >
+          <span>Cancel</span>
+        </div>
+      </div>
+    </div>
+  );
+};

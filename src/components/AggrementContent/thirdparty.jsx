@@ -122,10 +122,7 @@ function Index(props) {
 
   const handleInput = (name, value, key) => {
     setDeliveryData(value);
-    let dataToSend2 = {
-      deliveryTerms: value,
-    };
-    // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
+   
   };
   const handleChangeInput = (name, value, index) => {
     let temp = [...listContact];

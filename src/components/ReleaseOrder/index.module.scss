@@ -25,6 +25,10 @@
 
     .main {
       border-radius: 6px;
+      margin-bottom: 26px;
+      @include respond(lg-desktop) {
+        margin-bottom: 20px;
+      }
 
       .add_btn {
         color: #3687e8;
@@ -110,7 +114,6 @@
         }
 
         .dropDown {
-          border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           line-height: 25px;
@@ -654,10 +657,7 @@
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
-        text-transform: capitalize;
         position: absolute;
-        left: 15px;
-        top: -10px;
         line-height: 1;
         left: 30px;
         top: -8px;
@@ -800,7 +800,6 @@
               border-top: none;
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
-              white-space: nowrap;
               white-space: nowrap;
 
               &:first-child {

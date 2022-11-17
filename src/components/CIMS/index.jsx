@@ -9,6 +9,7 @@ import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
 import UploadOther from '../UploadOther';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
@@ -28,6 +29,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       cimsPaymentReceiptDoc: null,
     },
   ]);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   const [isFieldInFocusCMS, setIsFieldInFocusCMS] = useState(false);
 
@@ -244,7 +246,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           {cimsDetails.map((list, index) => (
             <div key={index} className={`${styles.main} mb-4 border_color card `}>
               <div
-                className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
                 <div className="d-flex">
@@ -298,6 +300,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       onBlur={(e) => {
                         setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
+                      onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocus
                           ? list.quantity
@@ -361,6 +364,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         setIsFieldInFocusCMS(false), (e.target.type = 'text');
                       }}
                       onChange={(e) => onChangeCims(e, index)}
+                      onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocusCMS
                           ? list.cimsCharges
@@ -382,7 +386,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option checked>Select an option</option>
+                        <option value="" disabled defaultChecked>
+                          Select an option
+                        </option>
                         <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
                           INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                         </option>
@@ -443,25 +449,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          {cimsDetails[index]?.coalImportRegistrationDoc ? (
-                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xls') ||
-                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                              cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )
-                          ) : null}
+                          {cimsDetails[index]?.coalImportRegistrationDoc
+                            ? returnDocFormat(cimsDetails[index]?.coalImportRegistrationDoc?.originalName)
+                            : null}
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
@@ -486,7 +476,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                               <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>{cimsDetails[index]?.coalImportRegistrationDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image}  image_arrow mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
                                   alt="Close"
@@ -500,21 +490,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       <tr className="table_row">
                         <td className={styles.doc_name}>CIMS Payment Receipt</td>
                         <td>
-                          {cimsDetails[index]?.cimsPaymentReceiptDoc ? (
-                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                              cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )
-                          ) : null}
+                          {cimsDetails[index]?.cimsPaymentReceiptDoc
+                            ? returnDocFormat(cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName)
+                            : null}
                         </td>
                         <td className={styles.doc_row}>
                           {' '}
@@ -540,7 +518,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                               <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>{cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image} image_arrow mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
                                   alt="Close"

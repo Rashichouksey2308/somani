@@ -89,12 +89,7 @@ function Index(props) {
   const handleRemove = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
   };
-  const handleInput = (name, value, key) => {
-    const newInput = { ...cmaState };
-
-    newInput[name] = value;
-    setCmaState(newInput);
-  };
+ 
 
   const handleChangeInput = (name, value, index) => {
     setList((prevState) => {
@@ -110,23 +105,7 @@ function Index(props) {
     });
   };
 
-  const handleAddressInput = () => {
-    // let tempArr=[...addressList]
-    setAddressList((current) => [...current, newAddress]);
-    // setAddressList([...addressList],newAddress)
-    setNewAddress({
-      addressType: '',
-      fullAddress: '',
-      pinCode: '',
-      country: '',
-      gstin: '',
-      state: '',
-      city: '',
-    });
-  };
-  const onAddressRemove = (index) => {
-    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
-  };
+
 
   return (
     <>
@@ -217,7 +196,7 @@ function Index(props) {
                                       index={index}
                                     />
                                     <img
-                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                       src="/static/caldericon.svg"
                                       alt="Search"
                                     />

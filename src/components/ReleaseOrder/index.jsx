@@ -22,6 +22,11 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
 
   useEffect(() => {
     setorderId(_get(ReleaseOrderData, 'data[0].order._id', ''));
+    let tempArray = []
+    releaseDetail.forEach((item) => {
+      tempArray.push(false)
+    })
+    setIsFieldInFocus(tempArray)
   }, [ReleaseOrderData]);
 
   let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', []);
@@ -31,7 +36,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
 
   const [editInput, setEditInput] = useState(true);
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(boeTotalQuantity);
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+  const [isFieldInFocus, setIsFieldInFocus] = useState([]);
 
   useEffect(() => {
     if (releaseDetail) {
@@ -135,7 +140,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       }
       return;
     }
-    handlereleaseDetailChange(e.target.id, e.target.value, index);
+    handlereleaseDetailChange(e.target.id, Number(e.target.value), index);
   };
 
   const getData = () => {
@@ -227,6 +232,12 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     }
   };
 
+  const changeFiledFocus = (value, index) => {
+    let tempArray = [...isFieldInFocus]
+    tempArray[index] = value
+    setIsFieldInFocus(tempArray)
+  }
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -309,24 +320,22 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                           <input
                             onFocus={(e) => {
-                              setIsFieldInFocus(true), (e.target.type = 'number');
+                              changeFiledFocus(true, index), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text');
+                              changeFiledFocus(false, index), (e.target.type = 'text');
                             }}
                             onWheel={(event) => event.currentTarget.blur()}
                             type="text"
                             onChange={(e) => {
-                              e.target.value;
-
                               netQuantityChange(e, index);
                             }}
                             id="netQuantityReleased"
                             value={
-                              isFieldInFocus
-                                ? item.netQuantityReleased
+                              isFieldInFocus[index]
+                                ? Number(item.netQuantityReleased)
                                 : Number(item.netQuantityReleased)?.toLocaleString('en-IN') +
-                                  ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`
+                                ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`
                             }
                             className={`${styles.input_field} input form-control`}
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
@@ -461,10 +470,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
               </div>
             </div>
           </div>
-
-          <div className="mt-4">
-            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" isDocumentName={true} />
-          </div>
+          <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" isDocumentName={true} />
         </div>
 
         <SaveBar handleSave={onSaveHAndler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />

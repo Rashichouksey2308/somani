@@ -492,8 +492,7 @@ const Index = ({
               </div>
             </div>
           </div>
-          <span className={styles.view_order} onClick={() => setShow(true)}>View Past Orders</span>
-
+          <span className={styles.view_order} role="button" onClick={() => setShow(true)}>View Past Orders</span>
           <hr className={`${styles.line} border-0 mt-5`}></hr>
           <div className={`${styles.dashboard_form} border_color p-0`}>
             <div className={`${styles.comment_inner}`}>
@@ -835,7 +834,7 @@ const Index = ({
       >
         <Modal.Header className={`${styles.card_header} background`}>
           <Modal.Title>
-            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+            <div className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}>
               <h5 className='heading_card'>Order Summary - Last 6 Orders</h5>
               <div className={`${styles.pageList} d-flex align-items-center`}
                 onClick={() => setShow(false)}>

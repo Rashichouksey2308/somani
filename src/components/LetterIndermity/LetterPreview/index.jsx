@@ -130,10 +130,10 @@ function Index() {
                               To:
                             </span>
                             {_get(transitDetails, 'data[0].order.generic.seller.name')}
-                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')}
+                           {" "} {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
+                           {" "} {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')}
                             <br />
-                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')}
+                          {" "}  {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')}
                             <br />
                             {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].country')}
                           </td>
@@ -148,7 +148,7 @@ function Index() {
                               padding: '0 35px 30px 15px',
                             }}
                           >
-                            DATE:{' '}
+                            DATE :{' '}
                             {moment(
                               _get(transitDetails, 'data[0].LOI.loiIssueDate', '').slice(0, 10).replace(/-/g, '/'),
                             ).format('DD-MM-YYYY')}
@@ -170,14 +170,14 @@ function Index() {
                             <span style={{ fontWeight: 'normal' }}>Dear Sir,</span>
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Ship: </span>
+                            <span style={{ fontWeight: 'normal' }}>Ship : </span>
                             {_get(transitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Voyage: </span>
+                            <span style={{ fontWeight: 'normal' }}>Voyage : </span>
                             FROM {_get(
                               transitDetails,
-                              'data[0].BL.billOfLanding[0].vesselName',
+                              'data[0].order.termsheet.transactionDetails.loadPort',
                               '',
                             ).toUpperCase()} TO{' '}
                             {_get(
@@ -187,10 +187,16 @@ function Index() {
                             ).toUpperCase()}{' '}
                             <br />
                             <br />
+                             <span style={{ fontWeight: 'normal' }}>Cargo: </span>
+                              {_get(transitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{' '}
+                              {_get(transitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
+                              {_get(transitDetails, 'data[0].order.commodity', '').toUpperCase()}
+                              <br></br>
+                               <br />
                             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
                                 <td align="left" width="13%">
-                                  <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading:</span>
+                                  <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading :</span>
                                 </td>
                                 <td align="left" width="87%">
                                   <div>

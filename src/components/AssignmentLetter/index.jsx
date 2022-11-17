@@ -83,8 +83,15 @@ function Index(props) {
           buyerEmail: data.buyerEmail,
           supplierEmail: data.supplierEmail,
           loadingCargo: data.loadingCargo,
+          loadingCargo2:data.loadingCargo2,
           dateOfContract: data.dateOfContract,
           financialAddress: data?.financialAddress,
+          orderValueCurrency:data.orderValueCurrency,
+           associateBuyer: data.associateBuyer,
+          associateBuyerAddress:data. associateBuyerAddress,
+         
+          associateBuyerAuthorized:data.associateBuyerAuthorized,
+          
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -101,10 +108,12 @@ function Index(props) {
         });
         let comment = [];
         let dateOfContract = '';
+        let month = '';
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Assignment Letter') {
             comment.push(val.comment);
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
+            month= val?.monthOfLoadingCargo
           }
         });
 
@@ -126,7 +135,7 @@ function Index(props) {
           unitPrice: data.order?.perUnitPrice,
           totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
-          dischargePort: data?.order?.portOfDischarge,
+           dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
@@ -148,7 +157,14 @@ function Index(props) {
           specComment: data?.productSpecifications.comments,
           priceOfGoods: data?.order?.perUnitPrice,
           loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
+          loadingCargo2: month ,
           dateOfContract: dateOfContract,
+          orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
+          associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
+         
+          associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
+          
         });
       }
     }

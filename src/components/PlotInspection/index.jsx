@@ -58,12 +58,19 @@ export default function Index({ inspectionData }) {
   };
 
   const handleSubmit = async () => {
-    if (plotInspectionData.plotInspectionDate == '') {
+     console.log(plotInspectionData,"plotInspectionData")
+    if (plotInspectionData.plotInspectionDate == '' || plotInspectionData.plotInspectionDate == undefined || plotInspectionData.plotInspectionDate == null) {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else {
+    }else if(plotInspectionData.plotInspectionReport == '' || plotInspectionData.plotInspectionReport == undefined || plotInspectionData.plotInspectionReport == null){
+       let toastMessage = 'PLOT INSPECTION REPORT IS MANDATORY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+    }
+     else {
       let obj = {
         plotInspectionDate: plotInspectionData?.plotInspectionDate,
       };
@@ -211,7 +218,7 @@ export default function Index({ inspectionData }) {
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{plotInspectionData?.plotInspectionReport?.name}</span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"
@@ -233,11 +240,6 @@ export default function Index({ inspectionData }) {
           <div className="0">
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
-          {/* <InspectionDocument
-            documentName="Plot Inspection Report"
-            uploadDocument1={uploadDocument1}
-            orderid={orderid} module="Loading-Transit-Unloading"
-          /> */}
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>

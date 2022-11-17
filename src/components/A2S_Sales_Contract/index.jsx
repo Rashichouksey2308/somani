@@ -103,7 +103,7 @@ function Index(props) {
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
-          detailsOfEndBuyer: data.company.companyName,
+          detailsOfEndBuyer: data?.company.companyName,
           detailsOfComm: data?.order?.commodity,
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
@@ -121,7 +121,7 @@ function Index(props) {
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
-          totalPrice: data?.order.marginMoney.calculation.totalOrderValue,
+          totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
           advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
         });
       }

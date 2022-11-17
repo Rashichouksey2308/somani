@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import _get from 'lodash/get';
-import { setDynamicName } from '../../../src/redux/userData/action';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { settingCurrency, settingUnit } from '../../../src/redux/breadcrumb/action';
+import { setDynamicName } from '../../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 export default function Index({ isQuery }) {
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ export default function Index({ isQuery }) {
       isQuery == '/track-shipment' ||
       isQuery?.match('/forward-hedging') ||
       router.pathname?.match('/leads') ||
+      router.pathname?.match('/insurance') ||
       router.pathname?.match('/order-list') ||
       router.pathname?.match('/new-order') ||
       router.pathname?.match('/go-no-go-logic') ||
@@ -99,13 +100,15 @@ export default function Index({ isQuery }) {
       isQuery?.match('/vessel') ||
       isQuery?.match('/third-party') ||
       isQuery?.match('/transit/id') ||
+      isQuery?.match('/bill-of-entry/id') ||
       router.pathname?.match('/credit-queue') ||
       router.pathname?.match('/termsheet') ||
       router.pathname?.match('/margin-money') ||
       router.pathname?.match('/review') ||
       router.pathname?.match('/vessel') ||
       router.pathname?.match('/third-party') ||
-      router.pathname?.match('/transit/id')
+      router.pathname?.match('/transit/id') ||
+      router.pathname?.match('/loi-preview')
     ) {
       show.units = false;
       show.currency = true;

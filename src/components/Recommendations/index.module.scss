@@ -1,12 +1,10 @@
 @import '../../../src/components/styles/Core/config';
-
 .main {
   margin-bottom: 26px;
   border-radius: 6px !important;
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
-
   .head_container {
     min-height: 80px;
     cursor: pointer;
@@ -15,7 +13,6 @@
     @include respond(lg-desktop) {
       min-height: 60px;
     }
-
     .heading {
       font-size: 22px;
       color: #3687e8;
@@ -34,7 +31,6 @@
         margin: 13px 0;
       }
     }
-
     span {
       font-size: 45px;
       color: #3687e8;
@@ -51,19 +47,15 @@
       }
     }
   }
-
   .line {
     border: 1px solid #cad6e6;
   }
-
   .dashboard_form {
     padding: 25px 35px;
     border-top: 2px solid #cad6e6;
-
     .comment_inner {
       padding: 25px 35px;
     }
-
     .sub_heading {
       font-size: 20px;
       line-height: 25px;
@@ -74,7 +66,6 @@
         line-height: 1.3;
       }
     }
-
     .strength {
       text-decoration: underline;
       letter-spacing: 0.63px;
@@ -84,7 +75,6 @@
       text-transform: capitalize;
       padding: 25px 0px 25px 0px;
     }
-
     .comment_para {
       padding: 20px;
       border-radius: 4px;
@@ -93,7 +83,6 @@
       @include respond(lg-desktop) {
         padding: 10px;
       }
-
       .comment {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -108,11 +97,9 @@
         }
       }
     }
-
     .textarea_main {
       padding: 20px 0;
       border-bottom: 1px solid #d9dde8;
-
       .paragraph {
         line-height: 25px;
         letter-spacing: 0.19px;
@@ -126,13 +113,11 @@
           line-height: 1.3;
         }
       }
-
       &:last-child {
         padding-bottom: 0;
         border-bottom: none;
       }
     }
-
     .label_heading {
       font-size: 16px;
       font-weight: 500;
@@ -149,7 +134,6 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
       &::before {
         top: 51%;
         left: 0;
@@ -160,7 +144,6 @@
         position: absolute;
         transform: translateY(-50%);
       }
-
       @include respond(lg-desktop) {
         top: 15px;
         font-size: 14px;
@@ -168,7 +151,6 @@
         transform: translateY(-22px);
       }
     }
-
     .comment_field {
       height: 106px;
       border-radius: 4px;
@@ -183,7 +165,6 @@
         line-height: 1.3;
       }
     }
-
     .add_btn {
       @include respond(lg-desktop) {
         width: 30px;
@@ -196,10 +177,8 @@
       }
     }
   }
-
   .sanction_terms {
     padding: 20px 0 20px 35px;
-
     .sanction_heading {
       font-size: 20px;
       line-height: 25px;
@@ -210,7 +189,6 @@
         line-height: 1.3;
       }
     }
-
     .limit_container {
       .limit {
         text-align: right;
@@ -224,7 +202,6 @@
           font-size: 15px;
           line-height: 1.3;
         }
-
         span {
           text-align: center;
           color: #111111;
@@ -239,10 +216,8 @@
       }
     }
   }
-
   .form_group {
     position: relative;
-
     .label_sanction {
       letter-spacing: 0.53px;
       color: #00000080;
@@ -250,7 +225,6 @@
       font-size: 16px;
       line-height: 17px;
     }
-
     .label_heading {
       top: 22px;
       left: 20px;
@@ -268,7 +242,6 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
       &::before {
         top: 51%;
         left: 0;
@@ -279,7 +252,6 @@
         position: absolute;
         transform: translateY(-50%);
       }
-
       @include respond(lg-desktop) {
         top: 15px;
         font-size: 14px;
@@ -287,7 +259,6 @@
         transform: translateY(-22px);
       }
     }
-
     .input_field {
       width: 306px;
       height: 60px;
@@ -298,12 +269,10 @@
       box-shadow: none;
       position: relative;
       box-sizing: border-box;
-
       &:invalid + label {
         background: none;
         transform: translateY(0);
       }
-
       &:focus {
         & + label {
           transform: translateY(-30px);
@@ -312,7 +281,6 @@
           }
         }
       }
-
       @include respond(lg-desktop) {
         height: 45px;
         font-size: 15px;
@@ -320,11 +288,9 @@
       }
     }
   }
-
   .datatable {
     border-radius: 6px;
     margin: 67px 35px 40px;
-
     h5 {
       font-size: 20px;
       font-weight: bold;
@@ -338,19 +304,15 @@
         min-height: 60px;
       }
     }
-
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
-
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
-
         .table {
           margin-bottom: 0;
-
           th {
             font-size: 15px;
             color: #8492a6;
@@ -361,21 +323,18 @@
             border-bottom: none;
             vertical-align: middle;
             text-transform: uppercase;
-
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
-
             &:last-child {
               padding-right: 35px;
               @include respond(md-desktop) {
                 padding-right: 15px;
               }
             }
-
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -389,7 +348,6 @@
               font-size: 12px;
             }
           }
-
           tr {
             td {
               font-size: 19px;
@@ -399,21 +357,18 @@
               border: none;
               opacity: 0.7;
               white-space: nowrap;
-
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
               }
-
               &:last-child {
                 padding-right: 35px;
                 @include respond(md-desktop) {
                   padding-right: 15px;
                 }
               }
-
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -423,7 +378,6 @@
                 font-size: 14px;
                 padding: 10px;
               }
-
               .input {
                 height: 40px;
                 font-size: 19px;
@@ -441,7 +395,6 @@
               }
             }
           }
-
           .number {
             color: #3687e8;
             text-transform: uppercase;
@@ -453,7 +406,6 @@
               line-height: 1.3;
             }
           }
-
           .dropDown {
             background: transparent;
             border: none;
@@ -465,7 +417,6 @@
               line-height: 1.3;
             }
           }
-
           .dropDown_Satisfy {
             background: transparent;
             border: none;
@@ -480,7 +431,6 @@
         }
       }
     }
-
     .add_image {
       text-align: center;
       font-size: 18px;
@@ -492,7 +442,6 @@
         font-size: 15px;
         line-height: 1.3;
       }
-
       span {
         font-size: 24px;
         line-height: 0.7;
@@ -503,7 +452,6 @@
       }
     }
   }
-
   .view_order {
     text-decoration: underline;
     letter-spacing: 0px;
@@ -512,13 +460,12 @@
     font-weight: bold;
     color: #3687e8;
     text-transform: capitalize;
-    padding-left: 30px;
+    padding-left: 35px;
     @include respond(lg-desktop) {
       font-size: 18px;
       line-height: 1.3;
     }
   }
-
   .edit_image {
     background: #c3c3c31f;
     border: 1px solid #0000001f;
@@ -540,7 +487,6 @@
       padding: 5px;
     }
   }
-
   .delete_image {
     @include respond(lg-desktop) {
       height: 30px;
@@ -553,26 +499,21 @@
     }
   }
 }
-
 .table_scroll_outer {
   width: 100%;
   display: table;
   table-layout: fixed;
-
   .table_scroll_inner {
     display: table-cell;
     overflow-x: auto;
-
     .sectionTable {
       border: none;
-
       tr {
         height: 67px;
         border: none !important;
         @include respond(lg-desktop) {
           height: 45px;
         }
-
         th {
           text-align: center;
           vertical-align: middle;
@@ -582,19 +523,16 @@
           border: none !important;
           color: #8492a6;
           background: #fafafb;
-
           :first-child {
             width: 15%;
             text-align: left;
             padding-left: 35px;
           }
-
           @include respond(lg-desktop) {
             font-size: 14px;
             line-height: 1.2;
           }
         }
-
         td {
           vertical-align: baseline;
           text-align: center;
@@ -603,21 +541,17 @@
             font-size: 14px;
             line-height: 1.2;
           }
-
           &:first-child {
             padding-left: 35px;
             text-align: left;
           }
-
           input {
             width: 19px;
             height: 14px;
           }
-
           .text {
             width: 135px;
             height: 50px;
-
             border-radius: 4px;
             outline: none;
             padding-left: 10px;
@@ -627,7 +561,6 @@
               line-height: 1.3;
             }
           }
-
           select {
             width: 11rem;
           }
@@ -636,7 +569,6 @@
     }
   }
 }
-
 .arrow {
   top: 50%;
   right: 30px;
@@ -645,19 +577,15 @@
   position: absolute;
   pointer-events: none;
   transform: translateY(-50%);
-  pointer-events: none;
-
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
-
   @include respond(lg-desktop) {
     height: 34px;
   }
 }
-
 .customSelect {
   appearance: none;
 }
@@ -673,46 +601,39 @@
   box-shadow: none !important;
   padding-right: 0 !important;
   transform: translate(-50%, -50%);
-
   & > div {
     margin: 0;
     max-width: none;
-
     & > div {
       border: none;
     }
   }
-
   .card_header {
     padding: 0px;
     display: inline-block !important;
     .tableFilter {
+      min-height: 75px;
       padding: 0 15px 0 35px;
-      @include respond(md-desktop) {
-        padding: 0 15px 0 15px;
+      @include respond(lg-desktop) {
+        padding: 0 15px;
+        min-height: 60px;
       }
-
       h5 {
         font-size: 22px;
         font-weight: bold;
         line-height: 27px;
-        margin: 24px 0;
+        margin: 0;
         color: #3687e8;
         text-transform: capitalize;
-        @include respond(sm-desktop) {
-          font-size: 18px !important;
+        @include respond(lg-desktop) {
+          font-size: 20px;
           line-height: 1.3;
-          margin: 20px 0;
         }
         @include respond(phone) {
-          font-size: 16px !important;
-          margin: 13px 0;
+          font-size: 16px;
         }
       }
-
       .pageList {
-        
-
         .arrow {
           width: 50px;
           height: 50px;
@@ -732,7 +653,6 @@
             height: 28px;
             line-height: 25px;
           }
-
           img {
             height: 18px;
             @include respond(sm-desktop) {
@@ -742,29 +662,21 @@
               height: 10px;
             }
           }
-
-         
-          
         }
       }
     }
   }
-
   .card_body {
     padding: 0px;
-
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
-
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
-
         .table {
           margin-bottom: 0;
-
           th {
             font-size: 15px;
             font-weight: bold;
@@ -774,14 +686,12 @@
             white-space: nowrap;
             vertical-align: middle;
             text-transform: uppercase;
-
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
-
             img {
               width: 14px;
               height: 14px;
@@ -790,7 +700,6 @@
                 height: 12px;
               }
             }
-
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -803,12 +712,10 @@
               font-size: 12px;
             }
           }
-
           tr {
             &:last-child {
               border-bottom: none;
             }
-
             td {
               font-size: 19px;
               font-weight: 500;
@@ -817,14 +724,12 @@
               border-top: none;
               white-space: nowrap;
               vertical-align: middle;
-
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
               }
-
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -834,14 +739,17 @@
                 font-size: 14px;
                 padding: 10px;
               }
-
               .icon {
-                background: #ffeccf;
-                border-radius: 8px;
                 width: 60px;
                 height: 60px;
-                padding: 0px;
-
+                padding: 0;
+                border-radius: 8px;
+                background: #ffeccf;
+                @include respond(lg-desktop) {
+                  width: 50px;
+                  height: 50px;
+                  min-width: 50px;
+                }
                 span {
                   font-size: 28px;
                   line-height: 34px;
@@ -852,13 +760,15 @@
                   justify-content: flex-start;
                   align-items: center;
                   padding: 0px;
+                  @include respond(lg-desktop) {
+                    font-size: 22px;
+                    line-height: 1.3;
+                  }
                 }
-
                 .span_approved {
                   color: #43c34d !important;
                   opacity: 1 !important;
                 }
-
                 .name {
                   height: 60px;
                   font-size: 22px;
@@ -870,12 +780,10 @@
                   display: flex;
                 }
               }
-
               .span_icon {
                 background: rgba(181, 215, 221, 1);
               }
             }
-
             .status {
               width: 15px;
               height: 15px;
@@ -883,28 +791,26 @@
               border-radius: 50%;
               display: inline-block;
               vertical-align: middle;
+              @include respond(lg-desktop) {
+                width: 12px;
+                height: 12px;
+              }
             }
-
             .approved {
               background: #26dd73;
             }
-
             .rejected {
               background: #ff9d00;
             }
-
             .review {
               background: #ffce00;
             }
-
             .closed {
               background: #a1a1a1;
             }
-
             .open {
               background: #3687e8;
             }
-
             .expired {
               background: #ea3f3f;
             }

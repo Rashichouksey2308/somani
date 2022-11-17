@@ -162,6 +162,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="quantity"
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key)  && evt.preventDefault()}
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                   }}
@@ -176,6 +178,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                         }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   onChange={(e) => {
+                    console.log(e,'quantityty')
                     saveOrderData(e.target.name, e.target.value);
                   }}
                 />
@@ -190,6 +193,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="orderValue"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
                   }}
@@ -260,6 +264,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="tolerance"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
@@ -346,8 +351,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       })
                       .map((val, index) => {
                         return (
-                          <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
+                          <option value={`${val.Port_Name}`}>
+                           {val.Port_Name}, {val.Country}
                           </option>
                         );
                       })}
@@ -409,8 +414,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                  defaultValue={orderDetail?.hsnCode}
-                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+                  value={orderDetail?.hsnCode}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value)}}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   HSN code
