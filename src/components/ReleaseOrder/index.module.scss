@@ -25,6 +25,10 @@
 
     .main {
       border-radius: 6px;
+      margin-bottom: 26px;
+      @include respond(lg-desktop) {
+        margin-bottom: 20px;
+      }
 
       .add_btn {
         color: #3687e8;

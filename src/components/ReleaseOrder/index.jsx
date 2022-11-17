@@ -470,10 +470,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
               </div>
             </div>
           </div>
-
-          <div className="mt-4">
-            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" isDocumentName={true} />
-          </div>
+          <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" isDocumentName={true} />
         </div>
 
         <SaveBar handleSave={onSaveHAndler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
