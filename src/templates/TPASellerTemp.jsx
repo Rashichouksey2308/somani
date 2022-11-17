@@ -235,14 +235,12 @@ export default function TPASeller(data) {
             </p>
           </Col>
           <Col md={6}>
-            <p className="text_sales">
+            <p className="text_sales mb-0">
                {data?.buyerAuthorized?.length > 0 &&
                   data?.buyerAuthorized?.map((val, index) => {
                       return (
                       <>
                       <span>{val.name}, {val.designation}</span>
-                      <br></br>
-                      <br></br>
                       </>
                     )
                   })}
@@ -251,24 +249,18 @@ export default function TPASeller(data) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-          
-            <p className="text_sales">
-             
-              
-           
+          <Col md={6}>          
+            <p className="text_sales">           
               <strong>Supplier</strong>
             </p>
           </Col>
           <Col md={6}>
-            <p className="text_sales">
+            <p className="text_sales mb-0">
              {data?.supplierAuthorized?.length > 0 &&
                   data?.supplierAuthorized?.map((val, index) => {
                      return (
                       <>
                       <span>{val.name}, {val.designation}</span>
-                      <br></br>
-                      <br></br>
                       </>
                     )
                   })}
@@ -277,22 +269,18 @@ export default function TPASeller(data) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-           
-            <p className="text_sales">
-                
+          <Col md={6}>           
+            <p className="text_sales">                
               <strong>End Buyer</strong>
             </p>
           </Col>
           <Col md={6}>
-             <p className="text_sales">
+            <p className="text_sales mb-0">
              {data?.associateBuyerAuthorized?.length > 0 &&
                   data?.associateBuyerAuthorized?.map((val, index) => {
                     return (
                       <>
                       <span>{val.name}, {val.designation}</span>
-                      <br></br>
-                      <br></br>
                       </>
                     )
                     

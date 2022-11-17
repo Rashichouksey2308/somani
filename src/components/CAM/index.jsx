@@ -1868,7 +1868,7 @@ const revenuDetails = (gstData, camConversionunit) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th></th>
-                <th>TREND</th>
+                <th className='text-center'>TREND</th>
                 <th>LATEST YEAR</th>
                 <th>PREVIOUS YEAR</th>
                 <th>GROWTH</th>

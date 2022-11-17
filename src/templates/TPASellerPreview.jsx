@@ -868,7 +868,7 @@ export default function TPASellerPreview(data) {
               <td valign="top" style={{ paddingTop: '30px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <td align="left" width="50%">
+                    <td align="left" valign="top" width="50%" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -879,12 +879,13 @@ export default function TPASellerPreview(data) {
                         Buyer
                       </p>
                     </td>
-                    <td align="left" width="50%">
+                    <td align="left" valign="top" width="50%" style={{paddingTop:'20px'}}>
                        <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         {data?.buyerAuthorized?.length > 0 &&
@@ -892,11 +893,9 @@ export default function TPASellerPreview(data) {
                       return (
                       <>
                       <span>{val.name}, {val.designation}</span>
-                      <br></br>
-                      <br></br>
                       </>
-                    )
-                  })}
+                      )
+                      })}
                       </p>
                       <p
                         style={{
@@ -910,7 +909,7 @@ export default function TPASellerPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left">
+                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -921,12 +920,13 @@ export default function TPASellerPreview(data) {
                         Supplier
                       </p>
                     </td>
-                    <td align="left">
+                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         {data?.supplierAuthorized?.length > 0 &&
@@ -934,11 +934,9 @@ export default function TPASellerPreview(data) {
                       return (
                       <>
                       <span>{val.name}, {val.designation}</span>
-                      <br></br>
-                      <br></br>
                       </>
-                    )
-                  })}
+                        )
+                      })}
                       </p>
                       <p
                         style={{
@@ -952,7 +950,7 @@ export default function TPASellerPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left">
+                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -964,12 +962,13 @@ export default function TPASellerPreview(data) {
                         End Buyer
                       </p>
                     </td>
-                    <td align="left">
+                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
                          <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         {data?.associateBuyerAuthorized?.length > 0 &&
@@ -977,11 +976,9 @@ export default function TPASellerPreview(data) {
                       return (
                       <>
                       <span>{val.name}, {val.designation}</span>
-                      <br></br>
-                      <br></br>
                       </>
-                    )
-                  })}
+                      )
+                      })}
                       </p>
                       <p
                         style={{

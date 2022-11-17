@@ -2065,7 +2065,6 @@ const gettingPins=(value)=>{
                             type="checkbox"
                             checked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
-                            style={{ marginTop: '12px' }}
                           />
                         </td>
                         {profile.addnew=="false"?
@@ -2093,7 +2092,7 @@ const gettingPins=(value)=>{
                         type="text"
                         className="input"
                          disabled={!profile.actions}
-                        value={profile.bankName}
+                        // value={profile.bankName}
                         name="bankName"
                         placeholder={"Add new"}
                         // readOnly={val.addnew!="true"?true:false}

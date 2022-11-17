@@ -14,10 +14,10 @@ export default function AssignmentLetterPreview(data) {
         border="0"
       >
         <tr>
-          <td valign="top" style={{ padding: '20px' }}>
+          <td valign="top" style={{ padding: '10px 20px 20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
-                <td align="center" style={{ padding: '15px 0 30px' }}>
+                <td align="center" style={{ padding: '15px 0 20px' }}>
                   <p
                     style={{
                       fontSize: '12px',
@@ -186,7 +186,7 @@ export default function AssignmentLetterPreview(data) {
                 </td>
               </tr>
               <tr>
-                <td style={{ paddingTop: '20px' }}>
+                <td>
                   <h3
                     align="center"
                     style={{
@@ -200,7 +200,7 @@ export default function AssignmentLetterPreview(data) {
                   </h3>
                   <table
                     width="100%"
-                    cellPadding="10"
+                    cellPadding="5"
                     style={{ border: '1px solid #000000' }}
                     cellSpacing="0"
                     border="0"
