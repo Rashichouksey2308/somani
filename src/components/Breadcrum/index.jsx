@@ -60,6 +60,7 @@ export default function Index({ isQuery }) {
       router.pathname?.match('/insurance') ||
       router.pathname?.match('/order-list') ||
       router.pathname?.match('/new-order') ||
+      router.pathname?.match('/go-no-go-logic') ||
       router.pathname?.match('/termsheet-preview') ||
       router.pathname?.match('/letter-table/letter-amend/id') ||
       router.pathname == '/agreement/preview' ||
@@ -362,7 +363,7 @@ export default function Index({ isQuery }) {
       }
     });
   }, [pageName, id, order, upperTabs, companyId]);
-
+console.log(pageName,id,order,companyId,"Ssadsdasd");
   return (
     <div className={`${styles.main_container} row background1 align-items-center`}>
       <div className="col-md-7">

@@ -38,7 +38,7 @@ function Index() {
   const [otherTermConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState(null);
   const date = new Date();
-
+  const [email,setEmail]=useState(``);
   useEffect(() => {
     {
       termsheet &&
@@ -1107,7 +1107,7 @@ function Index() {
         rightButtonTitle="Send To Buyer"
         leftButtonTitle="Transaction Summary"
       />
-      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail}/> : null}
+      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} setEmail={setEmail}/> : null}
     </>
   );
 }
