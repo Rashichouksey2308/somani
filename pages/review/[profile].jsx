@@ -8,7 +8,7 @@ import Router from 'next/router'
 import router from 'next/router'
 import styles from './profile.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetBuyer, UpdateBuyer } from '../../src/redux/registerBuyer/action'
+import { GetBuyer, UpdateBuyer,GetOrderLeads } from '../../src/redux/registerBuyer/action'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action'
 import { toast } from 'react-toastify'
 import { settingSidebar } from '../../src/redux/breadcrumb/action'
@@ -59,6 +59,7 @@ const Index = () => {
     const orderId = sessionStorage.getItem('orderID')
     const companyId = sessionStorage.getItem('company')
     dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
+    dispatch(GetOrderLeads())
   }, [dispatch])
 
   useEffect(() => {

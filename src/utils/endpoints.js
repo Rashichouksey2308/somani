@@ -19,10 +19,11 @@ export default {
   exposureSummary: '/analytics/exposure-summary',
   //  leads
   registerCompany: '/lead/company-details',
-  getBuyers: '/lead/get-all-leads',
+  getBuyers: '/lead/getleads',
   uploadDocuments: '/order/doc-upoad',
   search: '/lead/search?searchTerm=',
   getPanGst: '/get-company',
+  getOrderLeads: '/lead/getleads',
 
   // orders
   getBuyerOrder: '/lead/order-review',
@@ -136,7 +137,7 @@ export default {
   preview: '/document/access/preview',
 
   //ALL MASTER URL's
-  masterBaseUrl:'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
+  masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
   portsMaster: 'ports.json',
   commoditiesMaster: 'commodity.json',
