@@ -444,8 +444,8 @@ export default function Home() {
         await fetchInitialData()
        
       
-        dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
-        router.push(`/insurance/form`)
+        // dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
+        // router.push(`/insurance/form`)
       }
     }
   };
