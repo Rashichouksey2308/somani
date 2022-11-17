@@ -374,7 +374,7 @@ function Index(props) {
       actions: 'false',
       addnew: 'false',
     };
-
+console.log("ASda",value)
     if (value == 'addnew') {
       if (docList.length < 1) {
         arrayToSave = {
@@ -421,6 +421,7 @@ function Index(props) {
       return newState;
     });
   };
+  console.log(list,"asdasd")
   const onAddressRemove = (index) => {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
@@ -826,6 +827,7 @@ const cancelEditAddress = () => {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
+                                  {console.log(val.addnew,"val.addnew ")}
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
@@ -858,7 +860,7 @@ const cancelEditAddress = () => {
                                     name="name"
                                     // readOnly={val.addnew!="true"?true:false}
                                     onChange={(e) => {
-                                      handleChangeInput(e.target.name, e.target.value, index);
+                                      handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
                                   />
                                   )}
