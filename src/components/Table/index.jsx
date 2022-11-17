@@ -12,9 +12,9 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
         <>
             {data?.length ? (<>
                 <div className={`${styles.datatable} border datatable card`}>
-                    <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
+                    {tableHeading && totalCount >= 0 && <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
                         <h3 className="heading_card">{tableHeading}</h3>
-                        <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
+                        {totalCount >= 0 && <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                             <div className='align-items-baseline d-flex'>
                                 <div className={`${styles.show_record}`}>Show Records:</div>
                                 <div className="d-flex align-items-center position-relative ml-2">
@@ -57,8 +57,9 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
                             >
                                 <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                             </a>
-                        </div>
+                        </div>}
                     </div>
+                    }
                     <div className={styles.table_scroll_outer}>
                         <div className={styles.table_scroll_inner}>
                             <table
@@ -111,9 +112,9 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
                         </div>
                     </div>
                 </div>
-                <div className={`${styles.total_count}`}>
+                {totalCount && <div className={`${styles.total_count}`}>
                     Total Count: <span>{totalCount}</span>
-                </div>
+                </div>}
             </>
             ) : (
                 <div className='h2 text-center'>No records found</div>
