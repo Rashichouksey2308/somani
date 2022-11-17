@@ -154,12 +154,10 @@
         }
         .show_record {
           letter-spacing: 0.19px;
-          color: #111111;
           font-size: 20px;
           line-height: 25px;
           margin-right: 20px;
           @include respond(lg-desktop) {
-            // padding-right: 0px;
             font-size: $font_size_mobile_input_label;
           }
           @include respond(md-desktop) {
@@ -175,7 +173,6 @@
         .input_value {
           width: 104px;
           height: 46px;
-          background: #c3c3c31f;
           border: 1px solid #0000001f;
           border-radius: 4px;
           margin-top: -8px;

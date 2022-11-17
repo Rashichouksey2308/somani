@@ -5,6 +5,7 @@
     height: 40px;
     border-radius: 20px;
     position: relative;
+   
     border: 1px solid #0000001f;
   }
   
@@ -47,9 +48,6 @@
     background: #3687e8;
     display: block;
     position: absolute;
-   // left: 22px;
-    border: 3px solid #ffffff;
-    top: 0px;
     transition: all 0.3s ease-in-out;
   }
   .toggle_check {
@@ -64,41 +62,35 @@
 
   }
   .tw_toggle .toggle_left:checked ~ span {
-    background: #3687e8;
     left: 0px;
    
   }
   
   .tw_toggle .toggle_between:checked ~ span {
-    background: #3687e8;
     left: 50%;
     transform: translateX(-50%);
     
   }
   .tw_toggle .toggle_right:checked ~ span {
-    background: #3687e8;
     right: 0;
   }
   
   .tw_toggle .toggle_left:checked + label,
   .tw_toggle .toggle_right:checked + label {
    
-    cursor: pointer;
+    //cursor: pointer;
   }
   .tw_toggle .toggle_between:checked + label {
    
-    cursor: pointer;
+    //cursor: pointer;
   }
   .toggle_left {
-    background: #3687e8;
     left: 0px;
   }
   .toggle_between {
-    background: #3687e8;
     left: 50%;
     transform: translateX(-50%);
   }
   .toggle_right {
-    background: #3687e8;
     right: 0;
   }
