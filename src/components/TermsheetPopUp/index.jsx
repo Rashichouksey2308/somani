@@ -14,7 +14,7 @@ function Index(props) {
     >
       <Modal.Header className={styles.head}>
         {props.isMargin ? (
-          <Modal.Title id="contained-modal-title-vcenter">Share {props.popupHeading} with buyer</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Share Margin Money with buyer</Modal.Title>
         ) : (
           <Modal.Title id="contained-modal-title-vcenter">
             Share {props.istermsheet ? '' : 'transaction summary'} with buyer
