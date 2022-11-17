@@ -11,7 +11,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { handleErrorToast } from '@/utils/helpers/global';
 
-export default function Index({ inspectionData, setDate, vendor }) {
+export default function Index({ inspectionData, setDate, vendor,required ,setComponentId,componentId}) {
   const dispatch = useDispatch();
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -156,6 +156,14 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
     let task = 'submit';
     dispatch(UpdateInspection({ fd, task }));
+     
+    if(required){
+     
+       setComponentId(componentId + 1);
+    }else{
+      
+       setComponentId(componentId + 2);
+    }
   };
   const emptyData = () => {
     const temp = { ...appointmentData };
@@ -164,6 +172,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     temp.address.pinCode = '';
     temp.address.country = '';
     setAppointmentData({ ...temp });
+   
   };
 
   return (

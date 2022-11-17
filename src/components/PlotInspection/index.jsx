@@ -12,7 +12,7 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 
-export default function Index({ inspectionData }) {
+export default function Index({ inspectionData ,setComponentId}) {
   let dispatch = useDispatch();
   const router = useRouter();
 

@@ -51,7 +51,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-   
+
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -86,8 +86,10 @@ function Index() {
       charges: lcModuleData?.lcApplication?.charges,
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
       senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
-      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber,
-      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber
+        ? lcModuleData?.lcApplication?.documentaryCreditNumber
+        : '',
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue ? lcModuleData?.lcApplication?.dateOfIssue : '',
     });
 
     setClauseData({
@@ -123,16 +125,12 @@ function Index() {
       charges: lcModuleData?.lcApplication?.charges,
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
       senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
-      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber,
-      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber
+        ? lcModuleData?.lcApplication?.documentaryCreditNumber
+        : '',
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue ? lcModuleData?.lcApplication?.dateOfIssue : '',
     });
   }, [lcModuleData]);
-
-  const saveAmendmentData = (name, value) => {
-    const newInput = { ...lcData };
-    newInput[name] = value;
-    setLcData(newInput);
-  };
 
   const saveDate = (value, name) => {
     const d = new Date(value);
@@ -141,6 +139,12 @@ function Index() {
   };
 
   const [clauseData, setClauseData] = useState();
+
+  const saveAmendmentData = (name, value) => {
+    const newInput = { ...lcData };
+    newInput[name] = value;
+    setLcData(newInput);
+  };
 
   const initialState = {
     existingValue: '',
@@ -189,7 +193,6 @@ function Index() {
 
     setClauseObj(newInput);
   };
-
 
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj };
@@ -248,41 +251,51 @@ function Index() {
     setLcDoc(newInput);
   };
 
-  const handleSubmit = () => {
+  const validation = () => {
     if (lcData.documentaryCreditNumber === '' || lcData.documentaryCreditNumber == undefined) {
       let toastMessage = 'DOCUMENTARY CREDIT NUMBER IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
+      return false
     } else if (lcData.lcIssuingBank === '' || lcData.lcIssuingBank == undefined) {
       let toastMessage = 'SELECT LC ISSUING BANK FROM DROPDOWN';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
+      return false
     } else if (lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined) {
       let toastMessage = 'DATE OF ISSUE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
+      return false
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
       let toastMessage = 'PLEASE UPLOAD LC DRAFT';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else {
+      return false
+    } 
+    return true
+  }
+
+  const handleSubmit = () => {
+  if(!validation) return
+  
       let sendLcData = { ...clauseData };
-     
-      sendLcData.documentaryCreditNumber=lcData.documentaryCreditNumber
-      sendLcData.dateOfIssue=lcData.dateOfIssue
-      setLcData(clauseData);
+
+      sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
+      sendLcData.dateOfIssue = lcData.dateOfIssue;
+      // setLcData(sendLcData);
 
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('document1', lcDoc.lcDraftDoc);
 
-      // dispatch(UpdateLcAmendment(fd));
-    }
+      dispatch(UpdateLcAmendment(fd));
+
   };
   const [existingValue, setExistingValue] = useState('');
   const getDataFormDropDown = (value) => {
@@ -313,7 +326,7 @@ function Index() {
   const getValue = (value, toCheck) => {
     if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments' ) {
+    } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -333,21 +346,17 @@ function Index() {
   useEffect(() => {
     getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
-const [isDisabled,setDisabled]=useState(false)
- useEffect(() => {
- 
-  if(clauseObj?.dropDownValue=="(42C) DRAFT AT"){
-   
-    if( lcModuleData.lcApplication.atSight=="AT SIGHT"){
-    
-      setDisabled(true)
+  const [isDisabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
+      if (lcModuleData.lcApplication.atSight == 'AT SIGHT') {
+        setDisabled(true);
+      }
+    } else {
+      setDisabled(false);
     }
-  }else{
-    setDisabled(false)
-  }
-
- },[clauseObj])
- console.log(isDisabled,"isDisabled")
+  }, [clauseObj]);
+  
   return (
     <>
       {' '}
@@ -564,18 +573,13 @@ const [isDisabled,setDisabled]=useState(false)
                                     <option value="By Acceptance">By Acceptance</option>
                                     <option value="By Deffered Payment">By Deffered Payment</option>
                                   </>
-                                ) 
-                                
-                                 :
-                                 clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
                                   <>
                                     {' '}
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
-                                    
                                   </>
-                                ) :
-                                 (
+                                ) : (
                                   <>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
@@ -748,9 +752,9 @@ const [isDisabled,setDisabled]=useState(false)
                                           {arr.dropDownValue === '(32B) Currency Code & Amount'
                                             ? `${lcModuleData?.order?.orderCurrency} `
                                             : ''}
-                                            {arr.dropDownValue === '(43T) Transhipments'
-                                          ? `${lcModuleData?.lcApplication?.transhipments} `
-                                          : ''}
+                                          {arr.dropDownValue === '(43T) Transhipments'
+                                            ? `${lcModuleData?.lcApplication?.transhipments} `
+                                            : ''}
                                           {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                             ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %`
                                             : getValue(arr.existingValue, arr.dropDownValue)}
