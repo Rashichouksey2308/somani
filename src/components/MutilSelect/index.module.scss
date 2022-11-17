@@ -25,6 +25,7 @@
   align-items: center;
   align-content: flex-start;
   background: rgba(195, 195, 195, 0.1215686275);
+  overflow-y: auto;
   @include respond(lg-desktop) {
     max-height: 45px;
     min-height: 45px;
@@ -228,4 +229,47 @@
       }
     }
   }
+}
+.label_heading {
+  top: 22px;
+  left: 15px;
+  font-size: 16px;
+  line-height: 17px;
+  margin-bottom: 0;
+  letter-spacing: 0.53px;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  transform: translateY(-30px);
+  transition: 0.3s all ease-in-out;
+  z-index: 0;
+  max-width: 77%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &::before {
+    top: 51%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    content: '';
+    z-index: -1;
+    position: absolute;
+    transform: translateY(-50%);
+  }
+
+  @include respond(lg-desktop) {
+    top: 14px;
+    font-size: 14px;
+    line-height: 15px;
+    transform: translateY(-22px);
+  }
+  // @include respond(sm-desktop) {
+  //   font-size: 16px;
+  // }
+  // @include respond(phone) {
+  //   font-size: 14px;
+  //   //top: 20px;
+  // }
 }

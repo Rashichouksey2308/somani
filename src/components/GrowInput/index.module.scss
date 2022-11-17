@@ -1,3 +1,4 @@
+@import '../styles/Core/config';
 .input {
   width: auto;
   max-width: 700px;
@@ -10,4 +11,8 @@
   line-height: 25px;
   padding: 5px 8px;
   margin: 0 10px;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
+  }
 }

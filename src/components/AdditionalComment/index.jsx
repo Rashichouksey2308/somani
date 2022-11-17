@@ -265,7 +265,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                   {commentType !== 'select an Option' && (
                     <img
                       src="/static/add-btn.svg"
-                      className="img-fluid"
+                      className={styles.add_btn}
                       alt="Add"
                       onClick={() => {
                         addComment();
