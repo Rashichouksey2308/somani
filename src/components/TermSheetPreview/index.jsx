@@ -2566,8 +2566,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. will
-                          provide proof of all expenses to the Buyer.
+                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. {otherTermConditions?.buyer?.bank} will provide proof of all expenses to the Buyer.
                         </p>
                       </td>
                     </tr>

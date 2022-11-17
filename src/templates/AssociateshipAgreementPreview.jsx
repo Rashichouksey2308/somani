@@ -1219,7 +1219,7 @@ export default function AssociateshipAgreementPreview(data) {
                   </h3>
                   <table
                     width="100%"
-                    cellPadding="10"
+                    cellPadding="5"
                     style={{ border: '1px solid #000000' }}
                     cellSpacing="0"
                     border="0"

@@ -531,17 +531,17 @@ export default function TPAIGITemp(data) {
           <strong>SIGNATURE PAGE</strong>
         </p>
         <div className={`row`}>
-          <Col md={12} className='my-4'>
-            <p className="text_sales">Signed by:_______________________________</p>
-            <p className="text_sales">For and on behalf of "<strong>{data.shortbuyer}</strong>"</p>
+          <Col md={12} className='my-3'>
+            <p className="text_sales mb-0">Signed by:_______________________________</p>
+            <p className="text_sales mb-2">For and on behalf of "<strong>{data.shortbuyer}</strong>"</p>
           </Col>
-          <Col md={12} className='my-4'>
-            <p className="text_sales">Signed by:_______________________________</p>
-            <p className="text_sales">For and on behalf of "<strong>{data.cmaShort}</strong>"</p>
+          <Col md={12} className='my-3'>
+            <p className="text_sales mb-0">Signed by:_______________________________</p>
+            <p className="text_sales mb-2">For and on behalf of "<strong>{data.cmaShort}</strong>"</p>
           </Col>
-          <Col md={12} className='my-4'>
-            <p className="text_sales">Signed by:_______________________________</p>
-            <p className="text_sales">For and on behalf of "<strong>{data.shortseller}</strong>"</p>
+          <Col md={12} className='my-3'>
+            <p className="text_sales mb-0">Signed by:_______________________________</p>
+            <p className="text_sales mb-2">For and on behalf of "<strong>{data.shortseller}</strong>"</p>
           </Col>
         </div>
       </div>

@@ -258,7 +258,7 @@ export default function AssignmentLetter(data) {
               <strong>.................................................</strong>
             </p>
             <p className="text_sales">
-              <strong></strong>
+              <strong>(Buyer)</strong>
             </p>
           </Col>
           <Col md={6}>
