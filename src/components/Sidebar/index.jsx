@@ -141,6 +141,22 @@ function Index() {
       route: '',
     },
     {
+      main: 'Checker',
+      Other: [
+        {
+          name: 'Users',
+          image: '/static/credit-queue.svg',
+          route: '/masters/users',
+        },
+        { name: 'Vendors', image: '/static/review-queue.svg', route: '' },
+        { name: 'Commodity', image: '/static/review-queue.svg', route: '' },
+        { name: 'Internal Companies', image: '/static/review-queue.svg', route: '' },
+        { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },
+      ],
+      image: '/static/Masters.svg',
+      route: '',
+    },
+    {
       main: 'Supplier Onboarding',
       Other: [],
       image: '/static/Masters.svg',
