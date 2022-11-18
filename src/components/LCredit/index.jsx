@@ -349,7 +349,7 @@ function Index() {
   const [isDisabled, setDisabled] = useState(false);
   useEffect(() => {
     if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
-      if (lcModuleData.lcApplication.atSight == 'AT SIGHT') {
+      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
         setDisabled(true);
       }
     } else {
