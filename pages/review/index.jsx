@@ -7340,7 +7340,7 @@ function Index() {
                           })
                           .map((val, index) => {
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
+                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
                             </td>;
                           })}
                       </td>
