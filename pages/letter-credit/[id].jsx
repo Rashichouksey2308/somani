@@ -114,7 +114,7 @@ function Index() {
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
-  console.log(clauseObj, 'clauseObj');
+
 
   const [clauseArr, setClauseArr] = useState([]);
 
@@ -128,7 +128,11 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (
+
+    }else if(e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage'){
+      setFieldType('number')
+    } 
+    else if (
       e.target.value == 'partialShipment' ||
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
@@ -181,7 +185,7 @@ function Index() {
       handleErrorToast('CLAUSE ALREADY ADDED');
     else {
       const newArr = [...clauseArr];
-      if (fieldType == 'date' || fieldType == 'drop') {
+      if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
         setFieldType('');
       }
       inputRef1.current.value = '';
@@ -195,7 +199,7 @@ function Index() {
       // })
     }
   };
-console.log(clauseObj,"xzxcxzc")
+
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
       return item.dropDownValue !== arr;
@@ -308,7 +312,7 @@ console.log(clauseObj,"xzxcxzc")
   const [isDisabled, setDisabled] = useState(false);
   useEffect(() => {
     if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
-      if (lcModuleData.lcApplication.atSight == 'AT SIGHT') {
+      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
         setDisabled(true);
       }
     } else {
@@ -482,6 +486,23 @@ console.log(clauseObj,"xzxcxzc")
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
+                              ref={inputRef}
+                              // defaultValue={
+                              //   editInput ? editCurrent?.newValue : ''
+                              // }
+                              value={clauseObj?.newValue}
+                               disabled={isDisabled}
+                              onChange={(e) => {
+                                // inputRef.current.value = ''
+                                arrChange('newValue', e.target.value);
+                              }}
+                            />
+                          ) : null}
+                          {fieldType == 'number' ? (
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
                               ref={inputRef}
                               // defaultValue={
                               //   editInput ? editCurrent?.newValue : ''

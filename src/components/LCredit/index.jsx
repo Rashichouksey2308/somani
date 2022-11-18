@@ -167,7 +167,10 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (
+    }else if(e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage'){
+      setFieldType('number')
+    }  
+    else if (
       e.target.value == 'partialShipment' ||
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
@@ -219,7 +222,7 @@ function Index() {
       handleErrorToast('CLAUSE ALREADY ADDED');
     else {
       const newArr = [...clauseArr];
-      if (fieldType == 'date' || fieldType == 'drop') {
+      if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
         setFieldType('');
       }
       inputRef1.current.value = '';
@@ -364,9 +367,9 @@ function Index() {
        return  lcModuleData?.lcApplication?.transhipments== undefined ? '':lcModuleData?.lcApplication?.transhipments
     }
     else if(value === '(39A) Tolerance (+/-) Percentage'){
-      return `(+/-) ${getData(existing, value)}  %`
+      return `(+/-) ${getValue(existing, value)}  %`
     }else{
-      return getData(existing, value)
+      return getValue(existing, value)
     }
 
   }
@@ -534,6 +537,18 @@ function Index() {
                               }}
                             />
                           ) : null}
+                          {fieldType == 'number' ? (
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              value={clauseObj?.newValue}
+                              disabled={isDisabled}
+                              onChange={(e) => {
+                                arrChange('newValue', e.target.value);
+                              }}
+                            />
+                          ) : null}
                           {fieldType == 'date' ? (
                             <>
                               <DateCalender
@@ -559,7 +574,7 @@ function Index() {
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option selected>Select an option</option>
+                                <option value='' selected>Select an option</option>
                                 {clauseObj.dropDownValue === '(50) Applicant' ? (
                                   <>
                                     <option value="Indo intertrade AG">Indo intertrade AG</option>

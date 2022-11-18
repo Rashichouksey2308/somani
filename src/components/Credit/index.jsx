@@ -1659,7 +1659,7 @@ const gettingPins=(value)=>{
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" />
+                        {/* <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" /> */}
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -1932,7 +1932,7 @@ const gettingPins=(value)=>{
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" />
+                        {/* <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" /> */}
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-8 col-sm-6`}>
