@@ -81,7 +81,7 @@ function Index(props) {
     setAddressList([
       ...addressList,
       {
-        name: 'Sales Agreement',
+        name: '',
         comment: '',
         dateOfExecution: null,
         dateOfContract: null,
@@ -219,7 +219,7 @@ function Index(props) {
                                     name="name"
                                     onChange={(e) => {
                                       handleChangeInput(e.target.name, e.target.value, index),
-                                        setIsAssignment(e.target.value);
+                                      setIsAssignment(e.target.value);
                                     }}
                                   >
                                     <option value="">Select an option</option>

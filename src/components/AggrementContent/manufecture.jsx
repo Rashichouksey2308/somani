@@ -202,6 +202,10 @@ function Index(props) {
       }
     }
   }, [props.data]);
+  
+  useEffect(() => {
+    setMultiList([])
+  },[props.data.multiParty])
 console.log(addressList,"aasdads")
   useEffect(() => {
     

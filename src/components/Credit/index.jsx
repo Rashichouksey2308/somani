@@ -1047,6 +1047,7 @@ const gettingPins=(value)=>{
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
                     startFrom={'noLimit'}
+                    maxDate={new Date()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
