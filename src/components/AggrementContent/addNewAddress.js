@@ -20,7 +20,7 @@ export const addNewAddress = (
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
 
   return (
-    <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+    <div className={`${styles.newAddressContainer} card border_color`}>
       <div className={`${styles.newAddressHead} border_color`}>
         <span>Add a new address</span>
       </div>
