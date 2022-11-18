@@ -284,9 +284,10 @@ img {
 .calender {
   position: relative;
 
-  img {
+  .calanderIcon {
     top: 0.3rem;
     position: absolute;
     left: 9.5rem;
+    pointer-events: none;
   }
 }
