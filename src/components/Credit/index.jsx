@@ -741,7 +741,7 @@ const gettingPins=(value)=>{
                       saveProductData(e.target.name, e.target.value);
                     }}
                   >
-                    <option selected>Select an option</option>
+                    <option selected value='' disabled>Select an option</option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
                   </select>

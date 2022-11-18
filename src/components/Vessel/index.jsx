@@ -203,6 +203,7 @@ function Index({
                             className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
                             value={currency}
+                            disabled
                             required
                           >
                             <option value= "">Select</option>

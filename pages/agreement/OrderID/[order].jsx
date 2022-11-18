@@ -62,6 +62,13 @@ function Index() {
       ]);
     }
   };
+  const deleteArr=(val,index)=>{
+  if(val=="email"){
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+  }else{
+    setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
+  }
+}
   dispatch(setPageName('insurance Request Letter'));
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')));
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
@@ -441,6 +448,9 @@ function Index() {
                               </div>
                             </div>
                             <img
+                              onClick={(e)=>{
+                                deleteArr("email",index)
+                              }}
                               src="/static/delete 2.svg"
                               alt="delete"
                               role="button"
