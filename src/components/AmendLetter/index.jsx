@@ -308,59 +308,69 @@ console.log(lcModuleData,"sdasds")
                      {insuranceAdd.map((val, index) => {
                       return (
                         <>
-                          <div className={`${styles.each_input} ${styles.phone} form-group`}>
-                      <div className={styles.phone_card}>
-                        <select
-                          name="callingCode"
-                          id="Code"
-                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                        >
-                          <option>+91</option>
-                          <option>+1</option>
-                          <option>+92</option>
-                          <option>+95</option>
-                          <option>+24</option>
-                        </select>
-                        <input
-                          type="tel"
-                          id="textNumber"
-                          name="primary"
-                          className={`${styles.formControl} input form-control border-left-0`}
-                          required
-                        />
-                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                          Phone Number
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                    </div>
+                        <div className={`d-flex align-items-center form-group`}>
+                          <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
+                            <div className={styles.phone_card}>
+                              <select
+                                name="callingCode"
+                                id="Code"
+                                className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                              >
+                                <option>+91</option>
+                                <option>+1</option>
+                                <option>+92</option>
+                                <option>+95</option>
+                                <option>+24</option>
+                              </select>
+                              <input
+                                type="tel"
+                                id="textNumber"
+                                name="primary"
+                                className={`${styles.formControl} input form-control border-left-0`}
+                                required
+                              />
+                              <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                                Phone Number
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                          </div>
+                          <img
+                              src="/static/delete 2.svg"
+                              alt="delete"
+                              role="button"
+                              className="ml-3"
+                          />
+                        </div>
                         </>
                       );
                     })}
-                    <div className={`${styles.each_input} ${styles.phone} form-group`}>
-                      <div className={styles.phone_card}>
-                        <select
-                          name="callingCode"
-                          id="Code"
-                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                        >
-                          <option>+91</option>
-                          <option>+1</option>
-                          <option>+92</option>
-                          <option>+95</option>
-                          <option>+24</option>
-                        </select>
-                        <input
-                          type="tel"
-                          id="textNumber"
-                          name="primary"
-                          className={`${styles.formControl} input form-control border-left-0`}
-                          required
-                        />
-                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                          Phone Number
-                          <strong className="text-danger">*</strong>
-                        </label>
+                    <div className={`d-flex align-items-center form-group`}>
+                      <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
+                        <div className={styles.phone_card}>
+                          <select
+                            name="callingCode"
+                            id="Code"
+                            className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                          >
+                            <option>+91</option>
+                            <option>+1</option>
+                            <option>+92</option>
+                            <option>+95</option>
+                            <option>+24</option>
+                          </select>
+                          <input
+                            type="tel"
+                            id="textNumber"
+                            name="primary"
+                            className={`${styles.formControl} input form-control border-left-0`}
+                            required
+                          />
+                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                            Phone Number
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
                       </div>
                       <img
                           src="/static/delete 2.svg"

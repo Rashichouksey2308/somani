@@ -373,6 +373,7 @@
               letter-spacing: 0.18px;
               color: #3687e8;
               outline: none;
+              padding: 0 10px;
               border-radius: 8px 0 0 8px;
               @include respond(lg-desktop) {
                 font-size: 15px;
