@@ -275,7 +275,7 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
- console.log(orderList,"orderList")
+
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -622,12 +622,9 @@ function Index() {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
      let filter = FilterUniqueBank()
-     console.log(filter,"filter")
-      console.log(orderList?.company?.debtProfile,"orderList?.company?.debtProfile")
       orderList?.company?.debtProfile.forEach((val, index) => {
-        console.log(val,"val")
         filter.forEach((fil,index)=>{
-          console.log(val.bankName==fil,"val.bankName==fil")
+         
           if(val.bankName==fil){
             temp.push({
             bankName: val?.bankName,
@@ -654,7 +651,7 @@ function Index() {
       setDebtData([...temp]);
     }
   }, [orderList?.company?.debtProfile,companyData]);
- console.log(debtData,"debtData")
+
   const [personData, setPersonData] = useState([]);
 
   useEffect(() => {
@@ -1287,7 +1284,7 @@ function Index() {
     debtProfileColor,
   ) => {
 
-    console.log(camData,'camData')
+  
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -2650,7 +2647,7 @@ function Index() {
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company?.groupExposureDetail?.map((exp, index) => {
-                        console.log(exp,'Group Exposure Details')
+                      
                         let name = exp?.name?.split(' ') ?? 'N A';
                         return (
                           <td key={index} valign="top" width="33.33%">
@@ -7516,7 +7513,7 @@ function Index() {
   };
 
   const GstDataHandler = (data) => {
-    console.log("sdfsfsdfs")
+
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
