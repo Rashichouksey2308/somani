@@ -1254,7 +1254,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfOriginStatus === 'On Hold'
@@ -1354,7 +1354,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfQualityStatus === 'On Hold'
@@ -1455,7 +1455,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfWeightStatus === 'On Hold'
@@ -1625,7 +1625,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfOriginStatus === 'On Hold'
@@ -1726,7 +1726,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfQualityStatus === 'On Hold'
@@ -1828,7 +1828,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfWeightStatus === 'On Hold'
