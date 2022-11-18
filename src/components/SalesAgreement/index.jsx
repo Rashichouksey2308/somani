@@ -25,6 +25,7 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
 import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
+import {gSTINValidation} from '../../utils/helper'
 import Router from 'next/router';
 function Index(props) {
   const dispatch = useDispatch();
@@ -1802,6 +1803,20 @@ let masterList = [
           return;
         }
       }
+    if(data.shippingData.gstin!==""){
+      let valid=  gSTINValidation(data.shippingData.gstin)
+      if(valid==false){
+         toastMessage = `Add valid gstin `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          setSubmitData(false);
+          return;
+        }
+      }
+    }
+   
+  
+      
     }
     if (key == 'Delivery Terms') {
       console.log(data.listContact, 'data.listContact');

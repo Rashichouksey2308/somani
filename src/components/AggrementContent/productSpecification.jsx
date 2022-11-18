@@ -93,10 +93,11 @@ function Index(props) {
   };
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
-    console.log(selectedFile,"selectedFile")
+   
     if( e.target.files[0]){
     let extention =  e.target.files[0].name.split('.')
-    if(extention[extention.length-1]== "pdf"|| extention[extention.length-1]== "docx" ){
+    
+    if(extention[extention.length-1] !== "xls"){
       let  toastMessage = `Please add valid file `;
         toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
@@ -106,7 +107,7 @@ function Index(props) {
      }
     }
     
-      console.log(extention,"extention")
+      
    
     if (selectedFile) {
       let reader = new FileReader();

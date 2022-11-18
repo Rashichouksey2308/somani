@@ -70,7 +70,7 @@ export const editData = (
                 onWheel={(event) => event.currentTarget.blur()}
                 name="pinCode"
                 value={EditAddress.pinCode}
-                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                onKeyDown={(evt) => [';', '/', '-', '+'].includes(evt.key) && evt.preventDefault()}
                 onChange={(e) => {
                   editNewAddress(e.target.name, e.target.value);
                 }}

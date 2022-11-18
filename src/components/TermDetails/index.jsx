@@ -312,6 +312,7 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
+                disabled
               />
 
               <label className={`${styles.label} label_heading`}>

@@ -1130,7 +1130,7 @@ function Index() {
         let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
         if (code == 200) {
-          dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'));
+          dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
       }
