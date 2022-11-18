@@ -145,6 +145,7 @@
     font-weight: bold;
     width: 257px;
     height: 40px;
+    outline: none;
     @include respond(lg-desktop) {
       font-size: 15px;
       line-height: 1.3;
