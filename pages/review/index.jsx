@@ -1130,7 +1130,7 @@ function Index() {
         let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
         if (code == 200) {
-          dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'));
+          dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
       }
@@ -7340,7 +7340,7 @@ function Index() {
                           })
                           .map((val, index) => {
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
+                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
                             </td>;
                           })}
                       </td>

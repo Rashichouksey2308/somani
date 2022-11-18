@@ -677,7 +677,7 @@ console.log(addressList,"aasdads")
                 Bank Name
                 <strong className="text-danger">*</strong>
               </label>
-              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+             
             </Col>
             <Col md={4} sm={12} className={`${styles.form_group}`}>
               <Form.Control

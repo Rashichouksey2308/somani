@@ -19,8 +19,9 @@ export default function Index(props) {
         }
         return
     }
+    sessionStorage.setItem('deliveryPreviewId',val.deliveryOrderNo);
     sessionStorage.setItem('dono', val.deliveryOrderNo);
-
+    
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
     Router.push('/delivery-preview');
   };
