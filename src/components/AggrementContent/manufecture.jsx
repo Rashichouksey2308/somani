@@ -815,9 +815,9 @@ console.log(addressList,"aasdads")
                   toShow,
                   toView2,
                 )}
-              <div className={`row`}>
+              <div className={`${styles.multi_address}`}>
                 {isEditMulti == false && (
-                 
+                
                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2)
                   
                 )}
