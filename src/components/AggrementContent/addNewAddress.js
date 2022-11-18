@@ -76,8 +76,7 @@ export const addNewAddress = (
                   required
                   type="text"
                   name="pinCode"
-                  // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                  onKeyDown={(evt) => [';', '/', '-', '+'].includes(evt.key) && evt.preventDefault()}
                   value={newAddress?.pinCode}
                   onChange={(e) => {
                     if (pinCode) {
