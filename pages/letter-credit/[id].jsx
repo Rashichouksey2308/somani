@@ -13,7 +13,6 @@ import { toast } from 'react-toastify';
 import moment from 'moment/moment';
 import { handleErrorToast } from '@/utils/helpers/global';
 
-
 ///REDUX/////
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action';
@@ -55,7 +54,7 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-       lcIssuingBank: 'ING Bank',
+      lcIssuingBank: 'ING Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
@@ -115,7 +114,6 @@ function Index() {
 
   const [clauseObj, setClauseObj] = useState(initialState);
 
-
   const [clauseArr, setClauseArr] = useState([]);
 
   const [drop, setDrop] = useState('');
@@ -128,11 +126,9 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-
-    }else if(e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage'){
-      setFieldType('number')
-    } 
-    else if (
+    } else if (e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage') {
+      setFieldType('number');
+    } else if (
       e.target.value == 'partialShipment' ||
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
@@ -192,11 +188,6 @@ function Index() {
       setClauseObj(initialState);
       newArr.push(clauseObj);
       setClauseArr(newArr);
-      // setClauseObj({
-      //   existingValue: '',
-      //   dropDownValue: '',
-      //   newValue: '',
-      // })
     }
   };
 
@@ -275,22 +266,34 @@ function Index() {
   };
 
   const getData = (value, type) => {
-     if (type == '(43P) Partial Shipment'  && value == 'Conditional') {
-      return 'Conditional'
+    if (type == '(43P) Partial Shipment' && value == 'Conditional') {
+      return 'Conditional';
     }
     if (type == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (type == '(43P) Partial Shipment'  || type == '(43T) Transhipments') {
+    } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
+    }else if(type == '(32B) Currency Code & Amount'){
+      return Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
     } 
- else {
+     else {
       return value;
     }
   };
+
   const getDataFormDropDown = (value) => {
     if (fieldType == 'date') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (fieldType == 'drop') {
+    } else if(fieldType == 'number'){
+      return Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    }
+    else if (fieldType == 'drop') {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -305,11 +308,14 @@ function Index() {
       } else {
         return value;
       }
-    } else {
+    }
+     else {
       return value;
     }
   };
+
   const [isDisabled, setDisabled] = useState(false);
+
   useEffect(() => {
     if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
@@ -319,20 +325,22 @@ function Index() {
       setDisabled(false);
     }
   }, [clauseObj]);
-  const getExistingValue = (value,existing)=>{
-    if(value === '(32B) Currency Code & Amount'){
-       return lcModuleData?.order?.orderCurrency
-    }
-    else if(value === '(43T) Transhipments'){
-       return  lcModuleData?.lcApplication?.transhipments== undefined ? '':lcModuleData?.lcApplication?.transhipments
-    }
-    else if(value === '(39A) Tolerance (+/-) Percentage'){
-      return `(+/-) ${getData(existing, value)}  %`
-    }else{
-      return getData(existing, value)
-    }
 
-  }
+  const getExistingValue = (value, existing) => {
+    if (value === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(lcModuleData?.lcApplication?.currecyCodeAndAmountValue)?.toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
+    } else if (value === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${getData(existing, value)}  %`;
+    } else {
+      return getData(existing, value);
+    }
+  };
+
   return (
     <>
       {' '}
@@ -491,7 +499,7 @@ function Index() {
                               //   editInput ? editCurrent?.newValue : ''
                               // }
                               value={clauseObj?.newValue}
-                               disabled={isDisabled}
+                              disabled={isDisabled}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value);
@@ -508,7 +516,7 @@ function Index() {
                               //   editInput ? editCurrent?.newValue : ''
                               // }
                               value={clauseObj?.newValue}
-                               disabled={isDisabled}
+                              disabled={isDisabled}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value);
@@ -575,13 +583,13 @@ function Index() {
                                 ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
                                   <>
                                     {' '}
-                                    <option value=''>Select an Option</option>
+                                    <option value="">Select an Option</option>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
                                 ) : (
                                   <>
-                                   <option value=''>Select an Option</option>
+                                    <option value="">Select an Option</option>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                     <option value="Conditional">Conditional</option>
@@ -635,34 +643,29 @@ function Index() {
                             <tbody>
                               {clauseArr &&
                                 clauseArr?.map((clause, index) => (
-                                 <>
-                                      <tr key={index} className="table_row">
-                                        <td>{clause.dropDownValue}</td>
-                                        <td>
-                                         { getExistingValue(clause.dropDownValue,clause.existingValue)}
-                                       
-                                        </td>
-                                        <td>
-                                          {clause.dropDownValue === '(32B) Currency Code & Amount'
-                                            ? `${lcModuleData?.order?.orderCurrency} `
-                                            : ''}
-                                          {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                            ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
-                                            : getData(clause.newValue, clause.dropDownValue)}
-                                        </td>
-                                        <td>
-                                         
-                                          <img
-                                            src="/static/delete 2.svg"
-                                            className="ml-3"
-                                            alt="delete"
-                                            onClick={() => removeFromArr(clause.dropDownValue)}
-                                          />
-                                        </td>
-                                      </tr>
-                                    </>
+                                  <>
+                                    <tr key={index} className="table_row">
+                                      <td>{clause.dropDownValue}</td>
+                                      <td>{getExistingValue(clause.dropDownValue, clause.existingValue)}</td>
+                                      <td>
+                                        {clause.dropDownValue === '(32B) Currency Code & Amount'
+                                          ? `${lcModuleData?.order?.orderCurrency} `
+                                          : ''}
+                                        {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                          ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
+                                          : getData(clause.newValue, clause.dropDownValue)}
+                                      </td>
+                                      <td>
+                                        <img
+                                          src="/static/delete 2.svg"
+                                          className="ml-3"
+                                          alt="delete"
+                                          onClick={() => removeFromArr(clause.dropDownValue)}
+                                        />
+                                      </td>
+                                    </tr>
+                                  </>
                                 ))}
-                            
                             </tbody>
                           </table>
                         </div>

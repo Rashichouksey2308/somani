@@ -51,7 +51,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
- console.log(lcData,clauseObj,"clauseObj")
+  console.log(lcData, clauseObj, 'clauseObj');
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -167,10 +167,9 @@ function Index() {
   const dropDownChange = (e) => {
     if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    }else if(e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage'){
-      setFieldType('number')
-    }  
-    else if (
+    } else if (e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage') {
+      setFieldType('number');
+    } else if (
       e.target.value == 'partialShipment' ||
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
@@ -260,51 +259,60 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (lcData.lcIssuingBank === '' || lcData.lcIssuingBank == undefined) {
       let toastMessage = 'SELECT LC ISSUING BANK FROM DROPDOWN';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined) {
       let toastMessage = 'DATE OF ISSUE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
+      return false;
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
       let toastMessage = 'PLEASE UPLOAD LC DRAFT';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
-    } 
-    return true
-  }
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = () => {
-  if(!validation()) return
-  
-      let sendLcData = { ...clauseData };
+    if (!validation()) return;
 
-      sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
-      sendLcData.dateOfIssue = lcData.dateOfIssue;
-      // setLcData(sendLcData);
+    let sendLcData = { ...clauseData };
 
-      let fd = new FormData();
-      fd.append('lcApplication', JSON.stringify(sendLcData));
-      fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-      fd.append('document1', lcDoc.lcDraftDoc);
+    sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
+    sendLcData.dateOfIssue = lcData.dateOfIssue;
+    // setLcData(sendLcData);
 
-      dispatch(UpdateLcAmendment(fd));
+    let fd = new FormData();
+    fd.append('lcApplication', JSON.stringify(sendLcData));
+    fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
+    fd.append('document1', lcDoc.lcDraftDoc);
 
+    dispatch(UpdateLcAmendment(fd));
   };
+
   const [existingValue, setExistingValue] = useState('');
+
   const getDataFormDropDown = (value) => {
     if (fieldType == 'date') {
       setExistingValue(moment(value).format('DD-MM-YYYY'));
-    } else if (fieldType == 'drop') {
+    }
+     if(fieldType == 'number') {
+       setExistingValue(Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }))
+    }
+
+   else if (fieldType == 'drop') {
       if (value == 'Yes') {
         setExistingValue('Allowed');
         return;
@@ -327,9 +335,11 @@ function Index() {
     }
   };
   const getValue = (value, toCheck) => {
+
     if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
+    }
+    else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -342,14 +352,24 @@ function Index() {
       if (value == '') {
         return '';
       }
-    } else {
+
+    }else if(toCheck == '(32B) Currency Code & Amount'){
+      return Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    } 
+    else {
       return value;
     }
   };
+
   useEffect(() => {
     getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
+
   const [isDisabled, setDisabled] = useState(false);
+
   useEffect(() => {
     if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
@@ -359,20 +379,24 @@ function Index() {
       setDisabled(false);
     }
   }, [clauseObj]);
-    const getExistingValue = (value,existing)=>{
-    if(value === '(32B) Currency Code & Amount'){
-       return lcModuleData?.order?.orderCurrency
-    }
-    else if(value === '(43T) Transhipments'){
-       return  lcModuleData?.lcApplication?.transhipments== undefined ? '':lcModuleData?.lcApplication?.transhipments
-    }
-    else if(value === '(39A) Tolerance (+/-) Percentage'){
-      return `(+/-) ${getValue(existing, value)}  %`
-    }else{
-      return getValue(existing, value)
-    }
 
-  }
+  const getExistingValue = (value, existing) => {
+    if (value === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
+    } else if (value === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${getValue(existing, value)}  %`;
+    } else {
+      return getValue(existing, value);
+    }
+  };
+
   return (
     <>
       {' '}
@@ -574,7 +598,9 @@ function Index() {
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option value='' selected>Select an option</option>
+                                <option value="" selected>
+                                  Select an option
+                                </option>
                                 {clauseObj.dropDownValue === '(50) Applicant' ? (
                                   <>
                                     <option value="Indo intertrade AG">Indo intertrade AG</option>
@@ -776,9 +802,7 @@ function Index() {
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>
-                                            { getExistingValue(arr.dropDownValue,arr.existingValue)}
-                                        </td>
+                                        <td>{getExistingValue(arr.dropDownValue, arr.existingValue)}</td>
                                         <td>
                                           {arr.dropDownValue === '(32B) Currency Code & Amount'
                                             ? `${lcModuleData?.order?.orderCurrency} `
