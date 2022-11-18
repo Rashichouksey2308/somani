@@ -3,10 +3,11 @@ import { useTable, useSortBy } from 'react-table';
 import Image from 'next/image';
 import styles from './index.module.scss';
 
-function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimit, setPageLimit, tableHooks = () => { }, columns = [], data = [], handleSort, sortByState }) {
+function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimit, setPageLimit, tableHooks = () => { }, columns = [], data = [], handleSort = () => { }, sortByState = {}, serverSortEnabled = false }) {
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
         columns,
-        data
+        data,
+        manualSortBy: !serverSortEnabled
     }, tableHooks, useSortBy);
     return (
         <>
@@ -77,12 +78,15 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
                                                         <th
                                                             className={`table_heading text-uppercase`} {...column.getHeaderProps(column.getSortByToggleProps())}>
                                                             {column.render('Header').split("_").join(" ")}
-                                                            {column.isSorted ? handleSort(column) : sortByState.column === column.id ? sortByState.order ? " ▾" : " ▴" : !column.disableSortBy ? <>{' '} <Image
-                                                                width="9px"
-                                                                height="14px"
-                                                                src="/static/icons8-sort-24.svg"
-                                                                alt="Sort icon"
-                                                            /></> : ''}
+                                                            {serverSortEnabled ?
+                                                                column.isSorted ? handleSort(column) : sortByState.column === column.id ? sortByState.order ? " ▾" : " ▴" : !column.disableSortBy ? <>{' '} <Image
+                                                                    width="9px"
+                                                                    height="14px"
+                                                                    src="/static/icons8-sort-24.svg"
+                                                                    alt="Sort icon"
+                                                                /></> : ''
+                                                                : ''}
+
                                                         </th>
                                                     ))
                                                 }
