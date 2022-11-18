@@ -195,7 +195,7 @@ function Index() {
       // })
     }
   };
-
+console.log(clauseObj,"xzxcxzc")
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
       return item.dropDownValue !== arr;
@@ -271,11 +271,15 @@ function Index() {
   };
 
   const getData = (value, type) => {
+     if (type == '(43P) Partial Shipment'  && value == 'Conditional') {
+      return 'Conditional'
+    }
     if (type == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (type == '(43P) Partial Shipment') {
+    } else if (type == '(43P) Partial Shipment'  || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
-    } else {
+    } 
+ else {
       return value;
     }
   };
@@ -301,6 +305,30 @@ function Index() {
       return value;
     }
   };
+  const [isDisabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
+      if (lcModuleData.lcApplication.atSight == 'AT SIGHT') {
+        setDisabled(true);
+      }
+    } else {
+      setDisabled(false);
+    }
+  }, [clauseObj]);
+  const getExistingValue = (value,existing)=>{
+    if(value === '(32B) Currency Code & Amount'){
+       return lcModuleData?.order?.orderCurrency
+    }
+    else if(value === '(43T) Transhipments'){
+       return  lcModuleData?.lcApplication?.transhipments== undefined ? '':lcModuleData?.lcApplication?.transhipments
+    }
+    else if(value === '(39A) Tolerance (+/-) Percentage'){
+      return `(+/-) ${getData(existing, value)}  %`
+    }else{
+      return getData(existing, value)
+    }
+
+  }
   return (
     <>
       {' '}
@@ -459,6 +487,7 @@ function Index() {
                               //   editInput ? editCurrent?.newValue : ''
                               // }
                               value={clauseObj?.newValue}
+                               disabled={isDisabled}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value);
@@ -522,9 +551,16 @@ function Index() {
                                     <option value="By Acceptance">By Acceptance</option>
                                     <option value="By Deffered Payment">By Deffered Payment</option>
                                   </>
+                                ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                  <>
+                                    {' '}
+                                    <option value=''>Select an Option</option>
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                  </>
                                 ) : (
                                   <>
-                                    <option selected>Select an option</option>
+                                   <option value=''>Select an Option</option>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                     <option value="Conditional">Conditional</option>
@@ -578,54 +614,34 @@ function Index() {
                             <tbody>
                               {clauseArr &&
                                 clauseArr?.map((clause, index) => (
-                                  <tr key={index} className="table_row">
-                                    <td>{clause.dropDownValue}</td>
-                                    <td>
-                                      {' '}
-                                      {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                        ? `(+/-) ${getData(clause.existingValue, clause.dropDownValue)}  %`
-                                        : getData(clause.existingValue, clause.dropDownValue)}
-                                    </td>
-                                    <td>
-                                      {' '}
-                                      {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                        ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
-                                        : getData(clause.newValue, clause.dropDownValue)}
-                                    </td>
-                                    <td>
-                                      {/* <img
-                                        src="/static/mode_edit.svg"
-                                        className="img-fluid ml-n5"
-                                        alt="edit"
-                                        onClick={() => handleEdit(clause)}
-                                      /> */}
-                                      <img
-                                        src="/static/delete 2.svg"
-                                        className={`${styles.delete_image} border-0 p-0`}
-                                        alt="delete"
-                                        onClick={() => removeFromArr(clause.dropDownValue)}
-                                      />
-                                    </td>
-                                  </tr>
+                                 <>
+                                      <tr key={index} className="table_row">
+                                        <td>{clause.dropDownValue}</td>
+                                        <td>
+                                         { getExistingValue(clause.dropDownValue,clause.existingValue)}
+                                       
+                                        </td>
+                                        <td>
+                                          {clause.dropDownValue === '(32B) Currency Code & Amount'
+                                            ? `${lcModuleData?.order?.orderCurrency} `
+                                            : ''}
+                                          {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
+                                            : getData(clause.newValue, clause.dropDownValue)}
+                                        </td>
+                                        <td>
+                                         
+                                          <img
+                                            src="/static/delete 2.svg"
+                                            className="ml-3"
+                                            alt="delete"
+                                            onClick={() => removeFromArr(clause.dropDownValue)}
+                                          />
+                                        </td>
+                                      </tr>
+                                    </>
                                 ))}
-                              {/* <tr className="table_row">
-                                <td>(44A) SHIPMENT FROM </td>
-                                <td>Owendo </td>
-                                <td>Russia</td>
-                                <td>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className="img-fluid ml-n5"
-                                    alt="edit"
-                                  />
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid ml-3 mr-n5"
-                                    alt="delete"
-                                   
-                                  />
-                                </td>
-                              </tr> */}
+                            
                             </tbody>
                           </table>
                         </div>

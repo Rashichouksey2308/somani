@@ -178,8 +178,8 @@ export default function Index({ addButton , setComponentId,componentId }) {
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality  !== null ||
-      documents.certificateOfWeight  !== null ||
+      documents.certificateOfQuality  !== null &&
+      documents.certificateOfWeight  !== null &&
       documents.certificateOfOrigin  !== null
     ) {
       sethaveDoc(true);
@@ -188,8 +188,8 @@ export default function Index({ addButton , setComponentId,componentId }) {
 console.log(haveDischargeDoc,"haveDoc")
   useEffect(() => {
     if (
-      dischargeDocuments.dischargeCertificateOfQuality !== null ||
-      dischargeDocuments.dischargeCertificateOfWeight !== null ||
+      dischargeDocuments.dischargeCertificateOfQuality !== null &&
+      dischargeDocuments.dischargeCertificateOfWeight !== null &&
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
       setHaveDischargeDoc(true);
@@ -566,7 +566,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher")
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -672,7 +672,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -794,7 +794,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -881,7 +881,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -1527,7 +1527,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      Any one document is mandatory
+                      All document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1900,7 +1900,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      Any one document is mandatory
+                      All document is mandatory
                     </div>
                   </div>
                 </div>
