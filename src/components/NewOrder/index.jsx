@@ -11,6 +11,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
     orderValue: false,
     tolerance: false,
   });
+  let numberArr=["1","2","3","4","5","6","7","8","9","0","."]
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -129,7 +130,9 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     type="text"
                     name="commodity"
                     value={orderData.commodity}
+                     onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
+                    
                       filterCommodity(e.target.value);
                       saveOrderData(e.target.name, e.target.value);
                     }}
@@ -176,6 +179,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                       ? orderData.quantity
                       : returnReadableNumber(orderData.quantity, 'en-In', 2) + ` ${orderData.unitOfQuantity}`
                   }
+                  
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -299,6 +303,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     required
                     type="text"
                     name="supplierName"
+                    onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
@@ -333,6 +338,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     required
                     type="text"
                     name="manufacturerName"
+                    onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
@@ -446,7 +452,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-',"."].includes(evt.key) && evt.preventDefault()}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)

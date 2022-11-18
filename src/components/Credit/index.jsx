@@ -741,7 +741,7 @@ const gettingPins=(value)=>{
                       saveProductData(e.target.name, e.target.value);
                     }}
                   >
-                    <option selected>Select an option</option>
+                    <option selected value='' disabled>Select an option</option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
                   </select>
@@ -1047,6 +1047,7 @@ const gettingPins=(value)=>{
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
                     startFrom={'noLimit'}
+                    maxDate={new Date()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}

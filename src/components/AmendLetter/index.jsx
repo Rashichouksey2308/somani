@@ -41,8 +41,14 @@ const addMoreRows = (val) => {
         },
       ]);
     }
-  };;
-
+  };
+const deleteArr=(val,index)=>{
+  if(val=="email"){
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+  }else{
+    setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
+  }
+}
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -64,7 +70,7 @@ const addMoreRows = (val) => {
       autoPaging: 'text',
     });
   };
-console.log(lcModuleData,"sdasds")
+
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -281,6 +287,9 @@ console.log(lcModuleData,"sdasds")
                             alt="delete"
                             role="button"
                             className="ml-3"
+                            onClick={()=>{
+                              deleteArr('email',index)
+                            }}
                         />
                       </div>
                     ))}
@@ -336,6 +345,9 @@ console.log(lcModuleData,"sdasds")
                             </div>
                           </div>
                           <img
+                            onClick={()=>{
+                                  deleteArr('rest',index)
+                                }}
                               src="/static/delete 2.svg"
                               alt="delete"
                               role="button"
@@ -345,40 +357,7 @@ console.log(lcModuleData,"sdasds")
                         </>
                       );
                     })}
-                    <div className={`d-flex align-items-center form-group`}>
-                      <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
-                        <div className={styles.phone_card}>
-                          <select
-                            name="callingCode"
-                            id="Code"
-                            className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                          >
-                            <option>+91</option>
-                            <option>+1</option>
-                            <option>+92</option>
-                            <option>+95</option>
-                            <option>+24</option>
-                          </select>
-                          <input
-                            type="tel"
-                            id="textNumber"
-                            name="primary"
-                            className={`${styles.formControl} input form-control border-left-0`}
-                            required
-                          />
-                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                            Phone Number
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </div>
-                      </div>
-                      <img
-                          src="/static/delete 2.svg"
-                          alt="delete"
-                          role="button"
-                          className="ml-3"
-                      />
-                    </div>
+                   
                    
                     <div
                       className={`${styles.addMoreRows}`}

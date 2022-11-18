@@ -51,7 +51,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-
+ console.log(lcData,clauseObj,"clauseObj")
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -281,7 +281,7 @@ function Index() {
   }
 
   const handleSubmit = () => {
-  if(!validation) return
+  if(!validation()) return
   
       let sendLcData = { ...clauseData };
 
@@ -356,7 +356,20 @@ function Index() {
       setDisabled(false);
     }
   }, [clauseObj]);
-  
+    const getExistingValue = (value,existing)=>{
+    if(value === '(32B) Currency Code & Amount'){
+       return lcModuleData?.order?.orderCurrency
+    }
+    else if(value === '(43T) Transhipments'){
+       return  lcModuleData?.lcApplication?.transhipments== undefined ? '':lcModuleData?.lcApplication?.transhipments
+    }
+    else if(value === '(39A) Tolerance (+/-) Percentage'){
+      return `(+/-) ${getData(existing, value)}  %`
+    }else{
+      return getData(existing, value)
+    }
+
+  }
   return (
     <>
       {' '}
@@ -749,15 +762,7 @@ function Index() {
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
                                         <td>
-                                          {arr.dropDownValue === '(32B) Currency Code & Amount'
-                                            ? `${lcModuleData?.order?.orderCurrency} `
-                                            : ''}
-                                          {arr.dropDownValue === '(43T) Transhipments'
-                                            ? `${lcModuleData?.lcApplication?.transhipments} `
-                                            : ''}
-                                          {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                            ? `(+/-) ${getValue(arr.existingValue, arr.dropDownValue)}  %`
-                                            : getValue(arr.existingValue, arr.dropDownValue)}
+                                            { getExistingValue(arr.dropDownValue,arr.existingValue)}
                                         </td>
                                         <td>
                                           {arr.dropDownValue === '(32B) Currency Code & Amount'
