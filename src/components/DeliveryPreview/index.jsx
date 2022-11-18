@@ -278,7 +278,7 @@ function Index() {
           </div>
         </div>
       </div>
-      <SaveBar rightBtn={'Send For Approval'} rightBtnClick={handlePopup} />
+      <SaveBar rightBtn={'Send'} rightBtnClick={handlePopup} />
 
       <Modal show={show} className={`${styles.share_lc} vessel_card card share_lc`}>
         <Modal.Body className={`${styles.card_body} card-body`}>
