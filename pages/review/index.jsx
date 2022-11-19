@@ -2225,16 +2225,37 @@ function Index() {
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
-                        <div align="center">
+                      <td width="50%" style={{ padding: '35px 35px 35px 17px', }}>
+                        <div  align="center">
                           <span
                             style={{
                               fontSize: '20px',
-                              color: '#00B81E',
+                              color: `${
+                                filteredCreditRating?.length > 0
+                                  ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ff4230'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#ffb700'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#8ac41c'
+                                    : '00b81f30'
+                                  : null
+                              }`,
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
                               background: '#CFF2D5',
+                              // background: `${
+                              //   filteredCreditRating?.length > 0
+                              //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              //       ? '#ff423045'
+                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              //       ? '#ad7e0742'
+                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              //       ? '#00b81e52'
+                              //       : 'rgba(0, 184, 31, 0.1882352941)'
+                              //     : null
+                              // }`
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
@@ -2297,7 +2318,9 @@ function Index() {
                                     color: '#111111',
                                     lineHeight: '37px',
                                     display: 'inline-block',
+                                   
                                   }}
+                                 
                                 >
                                   {checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),

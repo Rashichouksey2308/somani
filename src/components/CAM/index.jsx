@@ -398,7 +398,7 @@ function Index({
         temp.push({ name: val.fullName, value: val.numberOfShares });
       });
       let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-      let length = 3;
+      let length = data.length < 3 ? data.length : 3;
       let lable = [];
       let dataSet = [];
       let total = 0;
