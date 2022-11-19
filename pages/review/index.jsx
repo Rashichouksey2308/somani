@@ -622,11 +622,22 @@ function Index() {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
      let filter = FilterUniqueBank()
+     
       orderList?.company?.debtProfile.forEach((val, index) => {
-        filter.forEach((fil,index)=>{
+        
+        filter.forEach((fil,index2)=>{
          
-          if(val.bankName==fil){
-            temp.push({
+          // if(val.bankName==fil){
+          //   temp.push({
+          //   bankName: val?.bankName,
+          //   conduct: val?.conduct,
+          //   limit: val?.limit,
+          //   limitType: val?.limitType,
+          //   primaryBank: val?.primaryBank,
+          //   addnew:"false"
+          // })
+          // }
+      temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
@@ -634,20 +645,16 @@ function Index() {
             primaryBank: val?.primaryBank,
             addnew:"false"
           })
-          }else{
-            temp.push({
-            bankName: val?.bankName,
-            conduct: val?.conduct,
-            limit: val?.limit,
-            limitType: val?.limitType,
-            primaryBank: val?.primaryBank,
-            addnew:"true"
-          })
-                  }
+         
+         
         })
        
       
       });
+  
+      
+      
+      console.log(temp,"temp")
       setDebtData([...temp]);
     }
   }, [orderList?.company?.debtProfile,companyData]);

@@ -152,6 +152,15 @@ function Index() {
     newInput['dropDownValue'] = val1 || '';
 
     setClauseObj(newInput);
+    if (e.target.value == 'draftAt') {
+      
+      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
+     
+        setDisabled(true);
+      }
+    } else {
+      setDisabled(false);
+    }
   };
 
   const arrChange = (name, value) => {
@@ -315,17 +324,11 @@ function Index() {
   };
 
   const [isDisabled, setDisabled] = useState(false);
-
+  
   useEffect(() => {
-    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
-      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
-        setDisabled(true);
-      }
-    } else {
-      setDisabled(false);
-    }
+    
   }, [clauseObj]);
-
+ console.log(isDisabled,"isDisabled",lcModuleData?.lcApplication?.atSight,clauseObj?.dropDownValue)
   const getExistingValue = (value, existing) => {
     if (value === '(32B) Currency Code & Amount') {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(lcModuleData?.lcApplication?.currecyCodeAndAmountValue)?.toLocaleString('en-In', {

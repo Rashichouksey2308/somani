@@ -183,9 +183,11 @@ export default function Index({ addButton , setComponentId,componentId }) {
       documents.certificateOfOrigin  !== null
     ) {
       sethaveDoc(true);
+    }else{
+       sethaveDoc(false);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
-console.log(haveDischargeDoc,"haveDoc")
+console.log(haveDischargeDoc,"haveDoc",haveDoc)
   useEffect(() => {
     if (
       dischargeDocuments.dischargeCertificateOfQuality !== null &&
@@ -193,6 +195,8 @@ console.log(haveDischargeDoc,"haveDoc")
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
       setHaveDischargeDoc(true);
+    }else{
+       setHaveDischargeDoc(false);
     }
   }, [
     dischargeDocuments.dischargeCertificateOfQuality,
@@ -205,7 +209,7 @@ console.log(haveDischargeDoc,"haveDoc")
     newUploadDoc.certificateOfQuality = e.target.files[0];
 
     setDocuments(newUploadDoc);
-    sethaveDoc(true);
+    
   };
 
   const uploadDocument2 = (e) => {
@@ -213,7 +217,7 @@ console.log(haveDischargeDoc,"haveDoc")
     newUploadDoc1.certificateOfWeight = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    sethaveDoc(true);
+  
   };
 
   const uploadDocument3 = (e) => {
@@ -221,7 +225,7 @@ console.log(haveDischargeDoc,"haveDoc")
     newUploadDoc1.certificateOfOrigin = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    sethaveDoc(true);
+    
   };
 
   const uploadDischargeDocument1 = (e) => {
@@ -229,7 +233,7 @@ console.log(haveDischargeDoc,"haveDoc")
     newUploadDoc.dischargeCertificateOfQuality = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc);
-    setHaveDischargeDoc(true);
+    
   };
 
   const uploadDischargeDocument2 = (e) => {
@@ -237,7 +241,7 @@ console.log(haveDischargeDoc,"haveDoc")
     newUploadDoc1.dischargeCertificateOfWeight = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
+  
   };
 
   const uploadDischargeDocument3 = (e) => {
@@ -245,7 +249,7 @@ console.log(haveDischargeDoc,"haveDoc")
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
+
   };
 
   const handleCloseW = () => {
@@ -353,7 +357,7 @@ console.log(haveDischargeDoc,"haveDoc")
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
           if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            let toastMessage = 'ALL DOCUMENT ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
             if (!toast.isActive(toastMessage)) {
               toast.error(toastMessage, { toastId: toastMessage });
             }
@@ -404,7 +408,7 @@ console.log(haveDischargeDoc,"haveDoc")
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -459,7 +463,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher1")
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -706,7 +710,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
