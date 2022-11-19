@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
+import moment from 'moment';
 
 let associate = {
   branchName: '',
@@ -330,7 +331,7 @@ function Index(props) {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: '' };
+          return { ...obj, attachDoc: '',date:"" };
         }
 
         return obj;
@@ -376,7 +377,7 @@ function Index(props) {
     };
 console.log("ASda",value)
     if (value == 'addnew') {
-      if (docList.length < 1) {
+      if (docList.length == 0) {
         arrayToSave = {
           name: '',
           designation: '',
@@ -1005,6 +1006,7 @@ const cancelEditAddress = () => {
 
                   {docList.length > 0 &&
                     docList.map((val, index) => {
+                      console.log(val,"ASdasd")
                       return (
                         <>
                           <tr key={index} className="table_row">
@@ -1018,7 +1020,8 @@ const cancelEditAddress = () => {
                               <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                               {/* {val.designation} */}
                             </td>
-                            <td>{`28-02-2022,5:30 PM`}</td>
+                            <td>{val.attachDoc.date?moment(val.attachDoc.date).format("DD-MM-YYYY,h:mm A"):""}</td>
+                          
                             <td>
                               {val.attachDoc == '' || val.attachDoc == 'new' ? (
                                 <div className={styles.uploadBtnWrapper}>
