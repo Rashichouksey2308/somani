@@ -12,7 +12,7 @@ const Index = ({ data = [] }) => {
     return data.map((val, index) => {
       const percentageValue = companyValue(val.total)
       return <div key={index} className={styles.each_progress}>
-        <h1 className={styles.country}>{val._id.toUpperCase() || ''}</h1>
+        <h4 className={styles.country}>{val._id.toUpperCase() || ''}</h4>
         <div className={styles.bar_container}>
           <div className={styles.progress_bar}>
             <div className={`${styles.bar}`}>
@@ -23,10 +23,10 @@ const Index = ({ data = [] }) => {
             </div>
           </div>
           <div className={styles.number_container}>
-            <h3 className={styles.percent}>{percentageValue}%</h3>
-            <h3 className={`${styles.amount} text1`}>
+            <h5 className={styles.percent}>{percentageValue}%</h5>
+            <h5 className={`${styles.amount} text1`}>
               {crConverter(val.total)}
-            </h3>
+            </h5>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ const Index = ({ data = [] }) => {
 
   return (<div className={`${styles.main} border card`}>
     <div className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}>
-      <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
+      <h3 className={styles.title}>Top 5 Countries Of Origin </h3>
     </div>
     <div className={`${styles.country_container} card-body`}>
       {countriesListing()}

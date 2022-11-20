@@ -23,7 +23,9 @@ const Index = ({ data }) => {
   const graphData = useMemo(() => getGraph(data), [data])
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header} border_color heading_card`}>Top 5 Commodities </Card.Header>
+      <Card.Header className={`${styles.header} border_color heading_card`}>
+        <h3 className={styles.title}>Top 5 Commodities</h3>
+      </Card.Header>
       <Card.Body className={styles.body}>
         {graphData}
       </Card.Body>

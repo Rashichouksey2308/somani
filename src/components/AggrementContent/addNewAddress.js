@@ -15,6 +15,7 @@ export const addNewAddress = (
   type,
   viewSet,
   isgst,
+  gstArr,
 ) => {
   console.log(isgst, viewSet, type, 'toView');
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
@@ -142,7 +143,14 @@ export const addNewAddress = (
                     }}
                   >
                     <option value="">Select an option</option>
-                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+
+                    {gstArr.length > 0 ? (
+                      gstArr.map((val, index) => {
+                        return <option value={`${val}`}>{val}</option>;
+                      })
+                    ) : (
+                      <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                    )}
                   </select>
                   <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                     GSTIN {isgst ? <strong className="text-danger">*</strong> : null}
