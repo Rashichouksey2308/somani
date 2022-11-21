@@ -55,7 +55,22 @@ const index = ({
       };
     });
   }
+  else if (tableName === 'Vendor Management') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item?.vendorDetails?.vendorType,
+        col2: item?.vendorDetails?.vendor,
+        col3: item?.vendorDetails?.Country,
+        col4:item?.vendorDetails?.activationDate,
+        status: 'Approved',
+        id: item._id,
+      };
+    });
 
+  }
+  
+ 
   return (
     <>
       {/*UserTable*/}
@@ -180,6 +195,7 @@ const index = ({
                       <td className={styles.buyerName}>{supplier.col1}</td>
                       <td>{supplier.col2}</td>
                       <td>{supplier.col3}</td>
+                      <td>{supplier.col4}</td>
                       {supplier?.date && <td>{supplier.date}</td>}
                       <td>
                         <ToggleSwitch />

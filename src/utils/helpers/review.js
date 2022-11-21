@@ -198,6 +198,10 @@ export const addressValidtion = (data) => {
     handleErrorToast('Please add address');
     return false;
   }
+  if (data.address === null || data.fullAddress === '' || data.fullAddress === undefined) {
+    handleErrorToast('Please add address');
+    return false;
+  }
   return true;
 };
 
