@@ -260,16 +260,18 @@ export const getVendors = (payload) => async (dispatch, getState, api) => {
     type: types.GET_VENDORS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.vendorsMaster}`).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.vendorsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_VENDORS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_VENDORS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
