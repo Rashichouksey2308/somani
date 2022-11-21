@@ -163,7 +163,7 @@ export default {
   commoditiesMaster: '/commodity',
   documentsMaster: '/document-master/',
   currencyMaster: '/currency-master/',
-  internalCompaniesMaster: 'internalCompanies.json',
+  internalCompaniesMaster: '/internal-company/',
   vendorsMaster: 'vendors.json',
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',

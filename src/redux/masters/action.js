@@ -227,7 +227,9 @@ export const getInternalCompanies = (payload) => async (dispatch, getState, api)
     type: types.GET_INTERNAL_COMPANIES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.internalCompaniesMaster}`).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.internalCompaniesMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_SUCCESS,
@@ -339,7 +341,7 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     type: types.GET_PINCODES_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
+    Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_PINCODES_MASTERS_SUCCESS,
