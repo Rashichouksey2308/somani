@@ -1937,6 +1937,7 @@ function Index() {
                                     );
                                       return
                                     }
+                                    console.log(filter[0].keyBanks[0].branchType,"filter[0].keyBanks[0]")
                                     saveData(
                                       'branchAddress',
                                       filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
@@ -1944,7 +1945,7 @@ function Index() {
                                       filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
                                       e.target.value,
                                       filter[0].keyBanks[0].Account_No == undefined ? '' : filter[0].keyBanks[0].Account_No,
-                                      filter[0].keyBanks[0].Branch_Type == undefined ? '' : filter[0].keyBanks[0].branchType,
+                                      filter[0].keyBanks[0].branchType == undefined ? '' : filter[0].keyBanks[0].branchType,
                                       filter[0].keyBanks[0].Bank_Name == undefined ? '' : filter[0].keyBanks[0].Bank_Name
                                     );
                                   }}
@@ -1979,7 +1980,7 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="branchAddress"
+                                name="branch"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.branch}
                                 className={`${styles.input_field} input form-control`}
