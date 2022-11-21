@@ -174,7 +174,7 @@ function Index(props) {
         // setOptions([...optionArray]);
       }
     }
-  }, [props]);
+  }, [props.data]);
 
   useEffect(() => {
     if (props?.address) {
@@ -477,11 +477,11 @@ console.log("ASda",value)
     setToEditIndex(index);
     let tempArr = addressList;
   
-    setAddressEditType(addresstype)
+    
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: addresstype,
+          addressType: val.addressType,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -489,6 +489,7 @@ console.log("ASda",value)
           state: val.state,
           city: val.city,
         });
+        setAddressEditType(val.addressType)
       }
     });
   };
