@@ -22,6 +22,7 @@ export default {
   getBuyers: '/lead/getleads',
   uploadDocuments: '/order/doc-upoad',
   search: '/lead/search?searchTerm=',
+  filter: '/lead/search-leads?',
   getPanGst: '/get-company',
   getOrderLeads: '/lead/getleads',
 

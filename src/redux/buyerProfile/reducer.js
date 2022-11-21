@@ -9,6 +9,8 @@ const initialState = {
   updatingOrderResponse: null,
   searchingLeads: false,
   searchedLeads: null,
+  filterLeads: false,
+  filteredLeads: null,
   gettingTermsheet: false,
   updatingTermsheet: false,
   termsheet: [],
@@ -92,6 +94,24 @@ function OrderReducer(state = initialState, action) {
         ...state,
         searchingLeads: false,
         searchedLeads: null,
+      };
+
+      case types.FILTER_LEADS:
+      return {
+        ...state,
+        filterLeads: true,
+      };
+    case types.FILTER_LEADS_SUCCESSFULL:
+      return {
+        ...state,
+        filterLeads: false,
+        filteredLeads: action.payload,
+      };
+    case types.FILTER_LEADS_FAILED:
+      return {
+        ...state,
+        filterLeads: false,
+        filteredLeads: null,
       };
 
     case types.UPDATE_CREDIT:
