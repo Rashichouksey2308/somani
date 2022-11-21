@@ -9,7 +9,7 @@ function Index({ status }) {
                     ? styles.rejected
                     : status === 'ReviewQueue'
                         ? styles.review
-                        : status === 'CreditQueue'
+                        : status === 'CreditQueue'||'Approved'
                             ? styles.approved
                             : styles.rejected
                     }`}
@@ -19,7 +19,7 @@ function Index({ status }) {
                 ? 'Rejected'
                 : status === 'ReviewQueue'
                     ? 'Review'
-                    : status === 'CreditQueue'
+                    : status === 'CreditQueue'||'Approved'
                         ? 'Approved'
                         : 'Rejected'}
         </>

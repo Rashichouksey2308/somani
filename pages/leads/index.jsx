@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { SearchLeads, FilterLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
 import FilterBadge from '../../src/components/FilterBadge';
@@ -19,6 +19,7 @@ import slugify from 'slugify';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
+  const [filterItem, setFilterItem] = useState({});
   const [showBadges, setShowBadges] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
@@ -32,6 +33,7 @@ function Index() {
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
   const { getOrderLeads } = useSelector((state) => state.buyer);
+  const { filteredLeads } = useSelector((state) => state.order);
 
   const [open, setOpen] = useState(true);
   const handleClose = () => {
@@ -73,13 +75,40 @@ function Index() {
     setSearchTerm(query);
     if (query.length >= 3) {
       dispatch(SearchLeads(query));
+      handleFilteredData(query);
     }
   };
 
   const handleFilteredData = (e) => {
     setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetAllBuyer(`?company=${id}`));
+    const id = typeof e === 'object' ? e.target.id : e;
+    let queryParams = '';
+    if (filterItem) {
+      Object.keys(filterItem).forEach((item) => {
+        const isTrue = filterItem[item];
+        if (isTrue) {
+          queryParams += `${item}=${id}&`;
+        }
+      });
+    }
+    console.log('QueryParam', queryParams);
+    // dispatch(GetAllBuyer(`?company=${id}`));
+    dispatch(FilterLeads(`${queryParams}`));
+  };
+
+  const handleBoolean = (value) => {
+    if (value.toLowerCase() === 'true') return true;
+    if (value.toLowerCase() === 'false') return false;
+    return value;
+  };
+
+  const handleFilterChange = (e) => {
+    console.log(e.target.checked);
+    const { name, value, checked } = e.target;
+    setFilterItem((prevState) => ({
+      ...prevState,
+      [name]: handleBoolean(checked.toString()),
+    }));
   };
 
   const handleSort = (column) => {
@@ -150,6 +179,48 @@ function Index() {
     },
   ]);
 
+  const filterTableColumns = useMemo(() => [
+    {
+      Header: 'Customer Id',
+      accessor: 'customerId',
+    },
+    {
+      Header: 'Buyer Name',
+      accessor: 'companyName',
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+          className="font-weight-bold text-primary"
+        >
+          {value}
+        </span>
+      ),
+    },
+    {
+      Header: 'Created By',
+      accessor: 'createdBy.userRole',
+      Cell: ({ value }) => (value ? value : 'RM'),
+    },
+    {
+      Header: 'Username',
+      accessor: 'createdBy.fName',
+    },
+    {
+      Header: 'Existing Customer',
+      accessor: 'existingCustomer',
+      Cell: ({ value }) => {
+        return value ? 'Yes' : 'No';
+      },
+    },
+    {
+      Header: 'Status',
+      accessor: 'status',
+      disableSortBy: true,
+      Cell: ({ value }) => <QueueStatusSymbol status={value} />,
+    },
+  ]);
   return (
     <>
       {' '}
@@ -182,7 +253,7 @@ function Index() {
                 </div>
               )}
             </div>
-            <Filter />
+            <Filter {...{ filterItem, handleFilterChange }} />
 
             {showBadges &&
               searchedLeads?.data?.data?.map((results, index) => {
@@ -220,7 +291,7 @@ function Index() {
           <QueueStats data={statLeadsData} />
 
           {/*leads table*/}
-          {allBuyerList?.data?.data && (
+          {allBuyerList?.data?.data && !filteredLeads?.data && (
             <Table
               tableHeading="Leads"
               currentPage={currentPage}
@@ -228,6 +299,20 @@ function Index() {
               setCurrentPage={setCurrentPage}
               columns={tableColumns}
               data={allBuyerList?.data?.data}
+              pageLimit={pageLimit}
+              setPageLimit={setPageLimit}
+              handleSort={handleSort}
+              sortByState={sortByState}
+            />
+          )}
+          {filteredLeads?.data && (
+            <Table
+              tableHeading="Leads"
+              currentPage={currentPage}
+              totalCount={filteredLeads?.data?.totalCount}
+              setCurrentPage={setCurrentPage}
+              columns={filterTableColumns}
+              data={filteredLeads?.data}
               pageLimit={pageLimit}
               setPageLimit={setPageLimit}
               handleSort={handleSort}
