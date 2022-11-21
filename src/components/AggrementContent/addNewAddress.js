@@ -17,7 +17,7 @@ export const addNewAddress = (
   isgst,
   gstArr,
 ) => {
-  console.log(isgst, viewSet, type, 'toView');
+  console.log(gstArr, 'toView');
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
 
   return (
@@ -144,10 +144,16 @@ export const addNewAddress = (
                   >
                     <option value="">Select an option</option>
 
-                    {gstArr.length > 0 ? (
-                      gstArr.map((val, index) => {
-                        return <option value={`${val}`}>{val}</option>;
-                      })
+                    {gstArr?.length > 0 && gstArr !== undefined > 0 ? (
+                      gstArr
+                        .filter((val) => {
+                          if (val !== undefined) {
+                            return val;
+                          }
+                        })
+                        .map((val, index) => {
+                          return <option value={`${val}`}>{val}</option>;
+                        })
                     ) : (
                       <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                     )}
