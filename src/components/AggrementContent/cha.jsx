@@ -47,12 +47,13 @@ function Index(props) {
 
   useEffect(() => {
     if (window) {
+      setOptions(props.vendor.options)
       if (sessionStorage.getItem('Cha')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
-          name: savedData.name || props?.vendor?.field4,
+          name: savedData.name || props?.vendor?.name,
           shortName: savedData.shortName,
-          gstin: savedData.gstin || props?.vendor?.field22,
+          gstin: savedData.gstin || props?.vendor?.gstin,
           addresses: savedData.addresses,
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails,
         };
@@ -70,25 +71,34 @@ function Index(props) {
                 },
               ],
         );
-        setAddressList(savedData.addresses);
+      if(savedData?.addresses?.length==0){
+      let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
+        }
+        }else{
+          setAddressList( savedData?.addresses)
+        }
         setChaState(supplier);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+       
       } else {
         let supplier = {
-          name: props.data?.name || props?.vendor?.field4,
+          name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName,
-          gstin: props.data?.gstin || props?.vendor?.field22,
+          gstin: props.data?.gstin || props?.vendor?.gstin,
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails,
         };
@@ -106,43 +116,62 @@ function Index(props) {
                 },
               ],
         );
-
-        setAddressList(props.data?.addresses !== undefined ? props.data?.addresses : []);
+        if(props.data?.addresses?.length==0){
+           let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
+          }
+            }else{
+              setAddressList( props.data?.addresses)
+            }
         setChaState(supplier);
         let tempArr = props.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
-        let add = props?.vendor?.field23.split(',');
-        let newAddress = [];
-        add.forEach((val, index) => {
-          if (index < add.length - 1) {
-            newAddress.push(val);
-          }
-        });
-        let pincode = add[add.length - 1].split('-');
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
+        // let add = props?.vendor?.field23.split(',');
+        // let newAddress = [];
+        // add.forEach((val, index) => {
+        //   if (index < add.length - 1) {
+        //     newAddress.push(val);
+        //   }
+        // });
+        // let pincode = add[add.length - 1].split('-');
 
-        setAddressList([
-          ...addressList,
-          {
-            addressType: 'Registered',
-            fullAddress: newAddress.join(),
-            pinCode: pincode[1],
-            country: 'India',
-            gstin: '',
-            state: pincode[0],
-            city: add[4],
-          },
-        ]);
+        // setAddressList([
+        //   ...addressList,
+        //   {
+        //     addressType: 'Registered',
+        //     fullAddress: newAddress.join(),
+        //     pinCode: pincode[1],
+        //     country: 'India',
+        //     gstin: '',
+        //     state: pincode[0],
+        //     city: add[4],
+        //   },
+        // ]);
       }
+      
     }
   }, [props.data]);
 
@@ -279,12 +308,12 @@ function Index(props) {
       };
       setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
-      props.masterList.forEach((val, index) => {
+      props.vendor.signatory.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
-          arrayToSave.designation = val.designation;
-          arrayToSave.email = val.email;
-          arrayToSave.phoneNo = val.phoneNo;
+          arrayToSave.designation = val.designation||val.designation;
+          arrayToSave.email = val.email ||val.emailId;
+          arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
         }
       });
     }

@@ -57,8 +57,106 @@ function Index(props) {
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   
   const getVendor=(value)=>{
-
+   getVendorsMasterData
   }
+  const [chaDetails,setChaDetails]=useState({})
+  const [cmaDetails,setCmaDetails]=useState({})
+  const [steveDoreDetails,setsteveDoreDetails]=useState({})
+  useEffect(() => {
+    if(getVendorsMasterData?.length>0){
+      let cmaAddress=[]
+      let cmaAutorized=[]
+      let cmaOptions=[]
+      let cmaName=''
+      let cmagstin=[]
+
+      let chaAddress=[]
+      let chaAutorized=[]
+      let chaOptions=[]
+      let chaName=''
+      let chagstin=[]
+
+      let stevedoreAddress=[]
+      let stevedoreAutorized=[]
+      let stevedoreOptions=[]
+      let stevedoreName=''
+      let stevedoregstin=[]
+      
+      getVendorsMasterData.filter((val,index)=>{
+        if(val.vendorDetails.vendor=="CMA"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+               cmaAddress.push(add)
+               cmagstin.push(add.gstin)
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  cmaAutorized.push(sig)
+                  cmaOptions.push(sig.name)
+              }
+               
+           })
+           cmaName=val.vendorDetails.companyName
+        }
+         if(val.vendorDetails.vendor=="CHA"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+               chaAddress.push(add)
+               chagstin.push(add.gstin)
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  chaAutorized.push(sig)
+                  chaOptions.push(sig.name)
+              }
+               
+           })
+           chaName=val.vendorDetails.companyName
+        }
+         if(val.vendorDetails.vendor=="Stevedore"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+               stevedoreAddress.push(add)
+               stevedoregstin.push(add.gstin)
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  stevedoreAutorized.push(sig)
+                  stevedoreOptions.push(sig.name)
+              }
+               
+           })
+           stevedoreName=val.vendorDetails.companyName
+        }
+      })
+      let tempCma={
+        name:cmaName,
+        options:cmaOptions||[],
+        signatory:cmaAutorized||[],
+        address:cmaAddress||[],
+        gstin:cmagstin||[]
+      }
+      let tempCha={
+        name:chaName,
+        options:chaOptions||[],
+        signatory:chaAutorized||[],
+        address:chaAddress||[],
+        gstin:chagstin||[]
+      }
+      let tempsteved={
+        name:stevedoreName,
+        options:stevedoreOptions||[],
+        signatory:stevedoreAutorized||[],
+        address:stevedoreAddress||[],
+        gstin:stevedoregstin||[]
+      }
+      console.log(tempCma,"tempCma")
+      setCmaDetails({...tempCma})
+      setChaDetails({...tempCha})
+      setsteveDoreDetails({...tempsteved})
+    }
+  },[getBanksMasterData])
+  console.log(cmaDetails,"cmaDetails")
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -555,7 +653,7 @@ let masterList = [
           data={props?.genericData?.CHA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
-          vendor={getVendor("CHA")}
+           vendor={chaDetails}
           masterList={masterList}
           gettingPins={gettingPins}
           
@@ -575,7 +673,7 @@ let masterList = [
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
           termsheet={props?.genericData?.order?.termsheet}
-           vendor={getVendor("CMA")}
+          vendor={cmaDetails}
           masterList={masterList}
           gettingPins={gettingPins}
           
@@ -640,7 +738,7 @@ let masterList = [
           active={active}
           addressValidation={addressValidation}
           sameAsCHA={sameAsCHA}
-          vendor={getVendor("Stevedore")}
+           vendor={steveDoreDetails}
           masterList={masterList}
           gettingPins={gettingPins}
           

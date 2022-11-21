@@ -164,7 +164,7 @@ export default {
   documentsMaster: '/document-master/',
   currencyMaster: '/currency-master/',
   internalCompaniesMaster: '/internal-company/',
-  vendorsMaster: 'vendors.json',
+  vendorsMaster: '/vendor/',
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
