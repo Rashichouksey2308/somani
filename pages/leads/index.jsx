@@ -91,7 +91,6 @@ function Index() {
         }
       });
     }
-    console.log('QueryParam', queryParams);
     // dispatch(GetAllBuyer(`?company=${id}`));
     dispatch(FilterLeads(`${queryParams}`));
   };
@@ -103,7 +102,6 @@ function Index() {
   };
 
   const handleFilterChange = (e) => {
-    console.log(e.target.checked);
     const { name, value, checked } = e.target;
     setFilterItem((prevState) => ({
       ...prevState,
