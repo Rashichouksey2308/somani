@@ -193,6 +193,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
   console.log(consigneeInfo, 'consigneeInfo');
   const filterBranch = (company) => {
+    console.log(company,'filer')
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
       if (val.Company_Name == company) {
         return val;
@@ -207,6 +208,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       tempData.igmDetails = igmData;
 
       setIgmList(tempData);
+
     } else {
       if (_get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '') !== '') {
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
@@ -274,10 +276,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
     setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
-
+  console.log(consigneeName,branchOptions,'sdasds1')
   useEffect(()=>{
     console.log(consigneeName,'sdasds1')
-   if(consigneeName!=='') setBranchOptions(filterBranch(consigneeName));
+    setBranchOptions(filterBranch(consigneeName));
   },[consigneeName])
 
   const onChangeBlDropDown = (e) => {
