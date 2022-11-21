@@ -848,7 +848,7 @@ function Index() {
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"
-              module="Agreements&Insurance&LC&Opening"
+              module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
             />
           </div>
         </div>

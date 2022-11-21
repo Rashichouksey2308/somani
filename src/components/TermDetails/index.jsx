@@ -19,6 +19,7 @@ const Index = ({
   country,
   currency,
 }) => {
+  console.log(currency,"currency")
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
   console.log(port,"port")

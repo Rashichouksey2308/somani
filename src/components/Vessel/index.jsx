@@ -775,7 +775,7 @@ function Index({
               setContainerListDocument={setContainerListDocument}
             />
 
-            <UploadOther module="Agreements&Insurance&LC&Opening" orderid={id1} />
+            <UploadOther module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  } orderid={id1} />
           </div>
         </div>
       </div>

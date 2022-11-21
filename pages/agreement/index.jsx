@@ -184,7 +184,7 @@ const [agreementDoc, setagreementDoc] = useState({
                   <div className="accordion shadow-none" id="inspectionDocument">
                     <InspectionDocument 
                     orderId={orderId} 
-                    module='Agreements&Insurance&LC&Opening'  
+                    module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
                     documentName="Sales Agreement" 
                     isOpen="false" 
                     setLcDoc={setagreementDoc} 

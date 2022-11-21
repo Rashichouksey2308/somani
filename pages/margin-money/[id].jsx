@@ -2084,7 +2084,8 @@ function Index() {
 
                 <div className="tab-pane fade" id="Documents" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <UploadOther orderid={id} module="LeadOnboarding&OrderApproval" />
+                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
+                    
                   </div>
                 </div>
               </div>

@@ -11,7 +11,7 @@ import { ShareDocument } from 'redux/shareDoc/action';
 import { changeModuleDocument, DeleteDocument, GetDocuments,AddingDocument } from '../../redux/creditQueueUpdate/action';
 import TermSheetPopUp from '../TermsheetPopUp';
 import styles from './index.module.scss';
-
+import { getDocuments } from '../../redux/masters/action';
 const Index = ({ orderid, module, isDocumentName }) => {
   const newDocInitialState = {
     document: [],
@@ -26,7 +26,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [moduleSelected, setModuleSelected] = useState(module);
   const [filteredDoc, setFilteredDoc] = useState([]);
   const [newDoc, setNewDoc] = useState(newDocInitialState);
-
+    const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -37,7 +37,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
       receiver: '',
     },
   });
-
+ useEffect(() => {
+    
+    dispatch(getDocuments());
+  }, []);
   const fetchData = async () => {
     await dispatch(GetDocuments(`?order=${orderid}`));
   };
@@ -166,7 +169,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       handleErrorToast('please provide a valid email');
     }
   };
-
+  console.log(module,"module")
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -234,9 +237,16 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       <option value="" disabled>
                         Select an option
                       </option>
-                      {dropDownOptionHandler(module)?.map((item) => (
-                        <option value={item}>{item}</option>
-                      ))}
+                    {getDocumentsMasterData
+                          ?.filter((val, index) => {
+                          
+                            if (module.includes(val.Sub_Module)) {
+                              return val;
+                            }
+                          })
+                          ?.map((val, index) => {
+                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                          })}
                       <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>

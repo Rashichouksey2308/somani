@@ -1803,7 +1803,8 @@ let masterList = [
           return;
         }
       }
-    if(data.shippingData.gstin!==""){
+      console.log(data.shippingData.gstin,"data.shippingData.gstin")
+    if(data.shippingData.gstin!=="" && data.shippingData.gstin!==undefined){
       let valid=  gSTINValidation(data.shippingData.gstin)
       if(valid==false){
          toastMessage = `Add valid gstin `;

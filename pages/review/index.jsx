@@ -8713,7 +8713,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module="LeadOnboarding&OrderApproval" orderid={id} />
+                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
