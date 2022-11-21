@@ -10,6 +10,7 @@ export const editData = (
   setAddressEditType,
   type,
   pinCode,
+  gstArr,
 ) => {
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
   console.log(addressEditType, 'addressEditType');
@@ -113,7 +114,13 @@ export const editData = (
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  {gstArr.length > 0 ? (
+                    gstArr.map((val, index) => {
+                      return <option value={`${val}`}>{val}</option>;
+                    })
+                  ) : (
+                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  )}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
