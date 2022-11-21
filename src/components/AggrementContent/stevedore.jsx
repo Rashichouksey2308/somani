@@ -562,7 +562,7 @@ function Index(props) {
                   }}
                 >
                   <option>Select an option</option>
-                  {props?.vendor?.gstin.length > 0 && props.vendor.gstin.map((val,index)=>{
+                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
                   
@@ -697,7 +697,7 @@ function Index(props) {
                           }}
                         >
                           <option>Select an option</option>
-                          {props?.vendor?.gstin.length > 0 && props.vendor.gstin.map((val,index)=>{
+                          {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                               return <option value={`${val}`}>{val}</option>
                           })}
                         </select>
