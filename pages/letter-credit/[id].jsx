@@ -152,6 +152,15 @@ function Index() {
     newInput['dropDownValue'] = val1 || '';
 
     setClauseObj(newInput);
+    if (e.target.value == 'draftAt') {
+      
+      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
+     
+        setDisabled(true);
+      }
+    } else {
+      setDisabled(false);
+    }
   };
 
   const arrChange = (name, value) => {
@@ -179,6 +188,7 @@ function Index() {
       handleErrorToast('Please specify a new value first');
     else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
       handleErrorToast('CLAUSE ALREADY ADDED');
+   
     else {
       const newArr = [...clauseArr];
       if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
@@ -315,17 +325,11 @@ function Index() {
   };
 
   const [isDisabled, setDisabled] = useState(false);
-
+  
   useEffect(() => {
-    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
-      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
-        setDisabled(true);
-      }
-    } else {
-      setDisabled(false);
-    }
+    
   }, [clauseObj]);
-
+ console.log(isDisabled,"isDisabled",lcModuleData?.lcApplication?.atSight,clauseObj?.dropDownValue)
   const getExistingValue = (value, existing) => {
     if (value === '(32B) Currency Code & Amount') {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(lcModuleData?.lcApplication?.currecyCodeAndAmountValue)?.toLocaleString('en-In', {
@@ -467,6 +471,18 @@ function Index() {
                             <option value="portOfDischarge"> (44F) Port of Discharge</option>
                             <option value="latestDateOfShipment">(44C) Latest Date Of Shipment</option>
                             <option value="DescriptionOfGoods"> (45A) Description Of The Goods</option>
+                            <option value="lcDocuments">46A DOCUMENT REQUIRED</option>
+                            <option value="lcComments"> 47A ADDITIONAL CONDITIONS</option>
+                            <option value="presentaionPeriod"> (48) Presentation Period</option>
+                            <option value="reimbursingBank">  (53A) Reimbursing Bank</option>
+                            <option value="adviceThroughBank">  (57) Advise Through Bank</option>
+                            <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
+                            <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
+                            <option value="charges">   (71B) Charges</option>
+                            <option value="instructionToBank">  (78) Instructions To Paying / Accepting / Negotiating Bank</option>
+                            <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
+
+
                           </select>
 
                           <label className={`${styles.label_heading} label_heading`}>Clause</label>
@@ -683,7 +699,7 @@ function Index() {
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC AMENDMENT DRAFT"
-            module="Agreements&Insurance&LC&Opening"
+           module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
             setLcDoc={setLcDoc}
           />
         </div>

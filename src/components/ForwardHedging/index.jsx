@@ -661,7 +661,7 @@ export default function Index() {
             </div>
 
             <div className="mt-4">
-              <UploadOther module="Loading-Transit-Unloading" orderid={hedgingData?.order?._id} />
+              <UploadOther module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } orderid={hedgingData?.order?._id} />
             </div>
           </div>
         </div>

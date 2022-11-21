@@ -26,7 +26,7 @@ function Index(props) {
 
   const [gstin, setGstin] = useState('');
   const [list, setList] = useState([]);
-  const [shortName, setShotName] = useState('IGI');
+  const [shortName, setShotName] = useState('');
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
@@ -50,8 +50,8 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
-  
+  const [options, setOptions] = useState([]);
+  const [signatoryDetails,setSignatoryDetails] = useState([])
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   useEffect(() => {
@@ -149,7 +149,7 @@ function Index(props) {
      
     }
   }, [props,props.internal]);
-
+ console.log(branchOptions,"setbranchOptions")
   useEffect(() => {
     if (props.saveData == true && props.active == 'Buyer') {
       let data = {
@@ -276,7 +276,7 @@ function Index(props) {
       };
       setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
-      props.masterList.forEach((val, index) => {
+      signatoryDetails.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation;
@@ -423,19 +423,28 @@ function Index(props) {
       let filter;
      console.log(props.internal,"props.internal")
       if (buyerData.name == 'Indo German International Private Limited') {
-        setShotName('IGIPL');
+         
 
         filter = props.internal.filter((val) => {
           if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
             return val;
           }
         });
-        let otherData = props.internal.filter((val) => {
-          if (val.Branch == buyerData.branchName) {
-            return val;
+       
+      if(filter.length > 0) {
+        let tempOptions=[];
+        let tempDetail=[]
+         setShotName(filter[0].Short_Name)
+        filter.forEach((val,index)=>{
+          console.log(val,"val")
+          if(val.authorisedSignatoryDetails[0].name!==""){
+          tempDetail.push(val.authorisedSignatoryDetails[0])  
+          tempOptions.push(val.authorisedSignatoryDetails[0].name)
           }
-        });
-
+        })
+        setOptions([...tempOptions])
+        setSignatoryDetails([...tempDetail])
+       }
       }
       if (buyerData.name == 'Emergent Industrial Solution Limited') {
         setShotName('EISL');
@@ -446,13 +455,22 @@ function Index(props) {
             return val;
           }
         });
-        let otherData = filter.filter((val) => {
-          if (val.Branch == buyerData.branchName ) {
-            return val;
+       
+        
+       if(filter.length > 0) {
+        let tempOptions=[];
+        let tempDetail=[]
+        setShotName(filter[0].Short_Name)
+        filter.forEach((val,index)=>{
+          console.log(val,"val")
+          if(val.authorisedSignatoryDetails[0].name!==""){
+          tempDetail.push(val.authorisedSignatoryDetails[0])  
+          tempOptions.push(val.authorisedSignatoryDetails[0].name)
           }
-        });
-      
-
+        })
+        setOptions([...tempOptions])
+        setSignatoryDetails([...tempDetail])
+       }
        
 
       }
@@ -462,47 +480,63 @@ function Index(props) {
  },[props.internal])
  const getAddress = (name , branch) => {
   console.log(name , branch,props.internal,"name , branch")
+  if(props.internal.length>0){
    if (name || branch) {
       let filter;
      console.log(props.internal,"props.internal")
       if (name == 'Indo German International Private Limited') {
-        setShotName('IGIPL');
-
-        filter = props.internal.filter((val) => {
+      
+        
+        filter = props?.internal?.filter((val) => {
           if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
             return val;
           }
         });
-        let otherData = props.internal.filter((val) => {
-          if (val.Branch == branch) {
+
+          setShotName(filter[0].Short_Name);
+       //signatory
+        
+         if(filter.length > 0) {
+        let tempOptions=[];
+        let tempDetail=[]
+        filter.forEach((val,index)=>{
+          console.log(val,"val")
+          if(val.authorisedSignatoryDetails[0].name!==""){
+          tempDetail.push(val.authorisedSignatoryDetails[0])  
+          tempOptions.push(val.authorisedSignatoryDetails[0].name)
+          }
+        })
+        setOptions([...tempOptions])
+        setSignatoryDetails([...tempDetail])
+       }
+
+        let otherData = filter.filter((val) => {
+           
+          if(val?.keyAddresses?.length > 0) {
+           
+          if (val.keyAddresses[0].Branch == branch) {
             return val;
           }
+          }
         });
-
+        console.log(otherData,"otherData")
         if (otherData.length > 0) {
-          setGstin(otherData[0]?.GSTIN);
+          setGstin(otherData[0].keyAddresses[0].gstin);
           setPan(otherData[0]?.PAN);
 
-          if (_get(otherData[0], 'Address', '') !== '') {
-            let add = otherData[0]?.Address?.split(',');
-            let newAddress = [];
-            add.forEach((val, index) => {
-              if (index < add.length - 1) {
-                newAddress.push(val);
-              }
-            });
-
-            let pincode = add[add.length - 1].split('-');
+          if (_get(otherData[0], 'keyAddresses[0]', '') !== '') {
+         
+          
 
             setAddressList([
               {
                 addressType: 'Registered',
-                fullAddress: newAddress.join(),
-                pinCode: pincode[1],
+                fullAddress: _get(otherData[0], 'keyAddresses[0]', '').fullAddress,
+                pinCode:_get(otherData[0], 'keyAddresses[0]', '').pinCode,
                 country: 'India',
-                gstin: '',
-                state: pincode[0],
-                city: add[4],
+                gstin: _get(otherData[0], 'keyAddresses[0]', '').gstin,
+                state: _get(otherData[0], 'keyAddresses[0]', '').state,
+                city:_get(otherData[0], 'keyAddresses[0]', '').city,
               },
             ]);
           } else {
@@ -524,44 +558,55 @@ function Index(props) {
         }
       }
       if (name == 'Emergent Industrial Solution Limited') {
-        setShotName('EISL');
-
+       
         filter = props.internal.filter((val) => {
           console.log(val.Company_Name,"val.Company_Name")
           if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
             return val;
           }
         });
-        let otherData = filter.filter((val) => {
-          if (val.Branch == branch ) {
+        setShotName(filter[0].Short_Name);
+      if(filter.length > 0) {
+        let tempOptions=[];
+        let tempDetail=[]
+        filter.forEach((val,index)=>{
+          console.log(val,"val")
+          if(val.authorisedSignatoryDetails[0].name!==""){
+          tempDetail.push(val.authorisedSignatoryDetails[0])  
+          tempOptions.push(val.authorisedSignatoryDetails[0].name)
+          }
+        })
+        setOptions([...tempOptions])
+        setSignatoryDetails([...tempDetail])
+       }
+          let otherData = filter.filter((val) => {
+           
+          if(val?.keyAddresses?.length > 0) {
+           
+          if (val.keyAddresses[0].Branch == branch) {
             return val;
+          }
           }
         });
         console.log(otherData,"otherData",name)
 
         if (otherData.length > 0) {
-          setGstin(otherData[0].GSTIN);
-          setPan(otherData[0].PAN);
-          if (_get(otherData[0], 'Address', '') !== '') {
-            let add = otherData[0]?.Address?.split(',');
-            let newAddress = [];
-            add.forEach((val, index) => {
-              if (index < add.length - 1) {
-                newAddress.push(val);
-              }
-            });
+          setGstin(otherData[0].keyAddresses[0].gstin);
+          setPan(otherData[0]?.PAN);
+          if (_get(otherData[0], 'keyAddresses[0]', '') !== '') {
+           
 
-            let pincode = add[add.length - 1].split('-');
+       
 
-            setAddressList([
+             setAddressList([
               {
                 addressType: 'Registered',
-                fullAddress: newAddress.join(),
-                pinCode: pincode[1],
+                fullAddress: _get(otherData[0], 'keyAddresses[0]', '').fullAddress,
+                pinCode:_get(otherData[0], 'keyAddresses[0]', '').pinCode,
                 country: 'India',
-                gstin: '',
-                state: pincode[0],
-                city: add[4],
+                gstin: _get(otherData[0], 'keyAddresses[0]', '').gstin,
+                state: _get(otherData[0], 'keyAddresses[0]', '').state,
+                city:_get(otherData[0], 'keyAddresses[0]', '').city,
               },
             ]);
           } else {
@@ -583,8 +628,9 @@ function Index(props) {
         }
 
       }
-
+      console.log(filter,"fltoba")
       setBranchOptions([...filter]);
+    }
     }
  }
   return (
@@ -605,7 +651,7 @@ function Index(props) {
                     getAddress(e.target.value,buyerData.branchName)
                   }}
                 >
-                  <option>Select an option</option>
+                  <option disabled >Select an option</option>
                   <option
                     value={`Indo German International Private Limited`}
                   >{`Indo German International Private Limited`}</option>
@@ -636,16 +682,16 @@ function Index(props) {
                       }
                     });
                      
-             
+                   
                     setBranchOptions([...filter]);
                     handleInput(e.target.name, e.target.value);
-                      getAddress(buyerData.name,e.target.value)
+                    getAddress(buyerData.name,e.target.value)
                   }}
                 >
                   <option>Select an option</option>
 
                   {branchOptions.map((val, index) => {
-                    return <option value={`${val.Branch}`}>{val.Branch}</option>;
+                    return <option value={`${val.keyAddresses[0].Branch}`}>{val.keyAddresses[0].Branch}</option>;
                   })}
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -692,7 +738,174 @@ function Index(props) {
         {isEdit == false && (
          addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,"noBranch")
         )}
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+        <div className={`${styles.tableContainer} border_color card p-0`}>
+          <div
+            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+            data-toggle="collapse"
+            data-target="#customerDetail"
+            aria-expanded="true"
+            aria-controls="customerDetail"
+          >
+            <div className={styles.header}>
+              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              <span className=" d-flex align-items-center justify-content-between">+</span>
+            </div>
+          </div>
+          <div
+            id="customerDetail"
+            className={`collapse ${styles.body} show  value_card card-body row`}
+            aria-labelledby="customerDetail"
+          >
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr className="table_row">
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list.length > 0 &&
+                      list.map((val, index) => {
+                        return (
+                          <>
+                            {val.actions == 'true' ? (
+                              <tr key={index} className="table_row">
+                                <td>{val.name}</td>
+                                <td>{val.designation}</td>
+                                <td>{val.email}</td>
+                                <td>{val.phoneNo}</td>
+                                <td className={`d-flex`}>
+                                  <img
+                                    className={`${styles.image} mr-3`}
+                                    onClick={() => onEdit(index)}
+                                    src="/static/mode_edit.svg"
+                                    alt="edit"
+                                  />
+                                  <img
+                                    onClick={() => handleRemove(index, val)}
+                                    src="/static/delete 2.svg"
+                                    alt="delete"
+                                  />
+                                </td>
+                              </tr>
+                            ) : (
+                              <tr key={index} className="table_row">
+                                <td>
+                                  {console.log(val.addnew,"val.addnew ")}
+                                  {val.addnew == 'false' ? (
+                                    <>
+                                      <select
+                                        value={val.name}
+                                        className={`${styles.customSelect} input`}
+                                        onChange={(e) => {
+                                     
+                                          handleChangeInput(e.target.name, e.target.value, index);
+                                        }}
+                                      >
+                                        <option>Select an option</option>
+                                      
+                                        {options.map((val, i) => {
+                                          return <option value={val}>{val}</option>;
+                                        })}
+
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </>
+                                  ) : (
+                                    <input
+                                    type="text"
+                                    className="input"
+                                    value={val.name}
+                                    name="name"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                  )}
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    className="input"
+                                    value={val.designation}
+                                    name="designation"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    value={val.email}
+                                    name="email"
+                                    className="input"
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={val.phoneNo}
+                                    className="input"
+                                    name="phoneNo"
+                                    type="number"
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-',"."].includes(evt.key) && evt.preventDefault()}
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                </td>
+                                <td className={`d-flex`}>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                                    onClick={() => {
+                                      onEditRemove(index, val);
+                                    }}
+                                  >
+                                    <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save" />
+                                  </div>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                                    onClick={() => {
+                                      handleRemove(index, val);
+                                    }}
+                                  >
+                                    <img src="/static/delete 2.svg" />
+                                  </div>
+                                  {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })}
+                  </tbody>
+                </table>
+                <div
+                  className={`${styles.addMoreRows}`}
+                  onClick={(e) => {
+                    addMoreRows();
+                  }}
+                >
+                  <span>+</span> Add more rows
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

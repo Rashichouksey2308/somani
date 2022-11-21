@@ -11,7 +11,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
     tolerance: false,
     hsnCode: false,
   });
-
+  console.log(commodity,"commodity")
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
