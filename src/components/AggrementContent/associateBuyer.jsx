@@ -5,6 +5,8 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import moment from 'moment';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 let associate = {
   branchName: '',
   shortName: '',
@@ -21,6 +23,9 @@ function Index(props) {
   const [removedArr, setRemovedArr] = useState([]);
   const [masterList,setmasterList] = useState([])
   const [options,setOptions] = useState([])
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -209,6 +214,40 @@ function Index(props) {
       props.updateData('Associate Buyer', data);
     }
   }, [props.saveData, props.submitData]);
+    useEffect(() => {
+    
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      
+    } else {
+     
+      setToShow([]);
+      // setToView(false);
+    }
+  }, [getPincodesMasterData]);
+    const handleData = (name, value) => {
+    console.log("thsss")
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setNewAddress(newInput);
+    setToView(false);
+  };
+    const handleDataEdit = (name, value) => {
+    const newInput = { ...EditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setEditAddress(newInput);
+    setToView(false);
+  };
+  const viewSet=()=>{
+    
+     setToView(true)
+ }
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -657,6 +696,11 @@ const cancelEditAddress = () => {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            props.gettingPins,
+            toShow,
+            toView,
+            handleDataEdit,
+            viewSet
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card border_color`}>
@@ -718,9 +762,29 @@ const cancelEditAddress = () => {
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       value={newAddress.pinCode}
                       onChange={(e) => {
+                        props.gettingPins(e.target.value);
+                        viewSet();
                         setAddress(e.target.name, e.target.value);
                       }}
                     />
+                { toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('pinCode', results)}
+                              id={results._id}
+                              key={index}
+                              value={results.Pincode}
+                            >
+                              {results.Pincode}{' '}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
                     <Form.Label className={`${styles.label_heading} label_heading`}>
                       Pin Code<strong className="text-danger">*</strong>
                     </Form.Label>
@@ -1076,6 +1140,11 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
+  gettingPins,
+    toShow,
+    toView,
+    handleDataEdit,
+    viewSet
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -1132,9 +1201,29 @@ const editData = (
               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
               value={EditAddress.pinCode}
               onChange={(e) => {
+                 gettingPins(e.target.value);
+                 viewSet();
                 editNewAddress(e.target.name, e.target.value);
               }}
             />
+              { toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleDataEdit('pinCode', results)}
+                              id={results._id}
+                              key={index}
+                              value={results.Pincode}
+                            >
+                              {results.Pincode}{' '}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
             <Form.Label className={`${styles.label_heading} label_heading`}>
               Pin Code<strong className="text-danger">*</strong>
             </Form.Label>

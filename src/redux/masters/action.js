@@ -233,12 +233,12 @@ export const getInternalCompanies = (payload) => async (dispatch, getState, api)
       if (response.status === 200) {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
