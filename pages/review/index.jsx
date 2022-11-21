@@ -59,6 +59,7 @@ import { McaReportFetch } from '../../src/redux/mcaReport/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { returnReadableNumber } from '@/utils/helpers/global'
 
+
 let alertObj = {
   isShell: 'Shell',
   isCompanyUnderLiquidation: 'Company Under Liquidation',
@@ -66,6 +67,7 @@ let alertObj = {
   isVanishing: 'Vanishing',
   NA: 'Non-Genuine Dealers of Mahavat',
   isSebiDebarred: 'SEBI Debarred',
+  // file deepcode ignore DuplicateObjectProperty: Alert Object
   NA: 'BSE Disciplinary Action',
   isNseCompanySuspended: 'NSE Company Suspended',
   isNseExpelled: 'NSE Expelled',
@@ -161,7 +163,7 @@ let alertObj = {
 
 function Index() {
   const dispatch = useDispatch();
-
+ 
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
@@ -609,21 +611,50 @@ function Index() {
   };
 
   const [debtData, setDebtData] = useState([]);
+   const FilterUniqueBank = () => {
+    let filtered = _get(companyData, 'financial.openCharges', []);
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
+
+    return unique;
+  };
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
+     let filter = FilterUniqueBank()
+     
       orderList?.company?.debtProfile.forEach((val, index) => {
-        temp.push({
-          bankName: val?.bankName,
-          conduct: val?.conduct,
-          limit: val?.limit,
-          limitType: val?.limitType,
-          primaryBank: val?.primaryBank,
-        });
+        
+        filter.forEach((fil,index2)=>{
+         
+          // if(val.bankName==fil){
+          //   temp.push({
+          //   bankName: val?.bankName,
+          //   conduct: val?.conduct,
+          //   limit: val?.limit,
+          //   limitType: val?.limitType,
+          //   primaryBank: val?.primaryBank,
+          //   addnew:"false"
+          // })
+          // }
+      temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"false"
+          })
+         
+         
+        })
+       
+      
       });
+  
       setDebtData([...temp]);
     }
-  }, [orderList?.company?.debtProfile]);
+  }, [orderList?.company?.debtProfile,companyData]);
 
   const [personData, setPersonData] = useState([]);
 
@@ -1100,10 +1131,10 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         };
-        let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
+        let code = dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
         if (code == 200) {
-          dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'));
+          dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
       }
@@ -1189,7 +1220,7 @@ function Index() {
   const handleMcaReport = (task) => {
     if (task === 'downlaod') {
       if (mcaReportAvailable) {
-        dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }));
+        dispatch(ViewDocument({ path: companyData?.mcaDocs[companyData?.mcaDocs?.length - 1].s3Path }));
       } else {
         let toastMessage = 'mca report not Available to download';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1256,6 +1287,8 @@ function Index() {
     openBankChargeChartImg,
     debtProfileColor,
   ) => {
+
+  
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -1295,7 +1328,7 @@ function Index() {
       return camData?._id === rating.order;
     });
     const getRotate = (rat = 1) => {
-      let r = Math.round(rat);
+      let r = Math.floor(rat);
       // let r = 4
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
@@ -2190,22 +2223,43 @@ function Index() {
                           }}
                         >
                           {checkNan(
-                            Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
-                        <div align="center">
+                      <td width="50%" style={{ padding: '35px 35px 35px 17px', }}>
+                        <div  align="center">
                           <span
                             style={{
                               fontSize: '20px',
-                              color: '#00B81E',
+                              color: `${
+                                filteredCreditRating?.length > 0
+                                  ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ff4230'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#ffb700'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#8ac41c'
+                                    : '00b81f30'
+                                  : null
+                              }`,
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
                               background: '#CFF2D5',
+                              // background: `${
+                              //   filteredCreditRating?.length > 0
+                              //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              //       ? '#ff423045'
+                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              //       ? '#ad7e0742'
+                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              //       ? '#00b81e52'
+                              //       : 'rgba(0, 184, 31, 0.1882352941)'
+                              //     : null
+                              // }`
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
@@ -2268,10 +2322,12 @@ function Index() {
                                     color: '#111111',
                                     lineHeight: '37px',
                                     display: 'inline-block',
+                                   
                                   }}
+                                 
                                 >
                                   {checkNan(
-                                    Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
                                   )}
@@ -2617,10 +2673,11 @@ function Index() {
                 <td valign="top" style={{ padding: '27px' }}>
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
-                      {camData?.company.groupExposureData?.map((exp, index) => {
-                        let name = exp?.name?.split(' ') ?? 'NA';
+                      {camData?.company?.groupExposureDetail?.map((exp, index) => {
+                      
+                        let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td valign="top" width="33.33%">
+                          <td key={index} valign="top" width="33.33%">
                             <table
                               width="100%"
                               cellPadding="0"
@@ -2654,7 +2711,7 @@ function Index() {
                                       display: 'inline-block',
                                     }}
                                   >
-                                    {isArray(name) &&
+                                    {Array.isArray(name) &&
                                       name?.map((item, index) => {
                                         if (index < 2) {
                                           return item?.charAt(0).toUpperCase();
@@ -2997,24 +3054,25 @@ function Index() {
                   <tr>
                     <td
                       width="5%"
-                      height="60"
+                      height="30"
                       style={{
-                        padding: '21px 12px 21px 35px',
+                        padding: '14px 11px 14px 32px',
                       }}
                     >
                       <span
                         style={{
-                          fontSize: '28px',
+                          fontSize: '24px',
                           color: '#FF9D00',
-                          lineHeight: '34px',
+                          lineHeight: '30px',
                           fontWeight: 'bold',
                           background: '#FFECCF',
                           borderRadius: '8px',
-                          padding: '13px 0',
-                          width: '60px',
-                          height: '60px',
+                          padding: '9px 0',
+                          width: '50px',
+                          height: '50px',
                           textAlign: 'center',
                           display: 'inline-block',
+                          // marginBottom: '15px'
                         }}
                       >
                         {fName?.charAt(0)}{lName?.charAt(0)}
@@ -3101,7 +3159,7 @@ function Index() {
                     >
                       <span
                         style={{
-                          padding: '7.5px',
+                          padding: '5.5px',
                           display: 'inline-block',
                           background: '#FF9D00',
                           borderRadius: '50%',
@@ -7309,7 +7367,7 @@ function Index() {
                           })
                           .map((val, index) => {
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
+                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
                             </td>;
                           })}
                       </td>
@@ -7482,6 +7540,7 @@ function Index() {
   };
 
   const GstDataHandler = (data) => {
+
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
@@ -7775,7 +7834,7 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
+        supremeCourt?.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7783,7 +7842,7 @@ function Index() {
             return civilfilter(val);
           });
       highCourt =
-        highCourt.length <= 0
+        highCourt?.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7792,7 +7851,7 @@ function Index() {
           });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -7800,7 +7859,7 @@ function Index() {
             return civilfilter(val);
           });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
             return civilfilter(val);
           })
@@ -8420,10 +8479,10 @@ function Index() {
                       <div className={` ${styles.cardBody_litigations} card-body border_color`}>
                         <div className={`${styles.checkbox_Container}`} data-toggle="collapse">
                           <Row>
-                            <Col md={4}>
+                            <Col md={6}>
                               <p className={`mb-3 text`}>Filter by</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
-                                <div className="form-check">
+                              <div className={`flex-wrap d-flex align-items-center justify-content-start`}>
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8436,10 +8495,10 @@ function Index() {
                                     checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Pending ({totalCourt.pending})
+                                    Pending<span className='pl-1'>({totalCourt.pending})</span>
                                   </label>
                                 </div>
-                                <div className="form-check ml-4">
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8451,10 +8510,10 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault1">
-                                    Disposed ({totalCourt.disposed})
+                                    Disposed<span className='pl-1'>({totalCourt.disposed})</span>
                                   </label>
                                 </div>
-                                <div className="form-check  ml-4">
+                                <div className="form-check">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -8466,14 +8525,14 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault3">
-                                    Total Cases ({totalCourt.total})
+                                    Total Cases<span className='pl-1'>({totalCourt.total})</span>
                                   </label>
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3}>
                               <p className={`mb-3 text`}>Select a Party</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div className={`d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -8506,7 +8565,7 @@ function Index() {
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3} className="pl-5">
                               <p className={`mb-3 text`}>Classification</p>
                               <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
@@ -8674,7 +8733,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module="LeadOnboarding&OrderApproval" orderid={id} />
+                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
@@ -8768,7 +8827,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
       </button>
       <div className={`${styles.lastModified} text `}>
         <span className="accordion_Text">Last Modified:</span>
-        {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
+        {moment(companyData?.updatedAt).format(' D MMM, h:mm a')}
       </div>
     </>
   );

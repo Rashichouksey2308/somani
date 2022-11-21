@@ -9,6 +9,7 @@ import Filter from '../Filter';
 import _get from 'lodash/get';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -16,6 +17,7 @@ function Index() {
   const [edit, setEdit] = useState(false);
 
   const dispatch = useDispatch();
+
 
   const { lcModule } = useSelector((state) => state.lc);
 
@@ -35,16 +37,21 @@ function Index() {
   }, [lcModule]);
 
   const handleRoute = (lc) => {
-    if (!lc.firstTimeUpdate) {
+   
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
       Router.push('/letter-credit/lc-create');
-    } else {
-      sessionStorage.setItem('lcPreviewId', lc.order.lc);
-      Router.push('/letter-table/letter-amend/id');
-    }
+   
   };
   const handleLcAmmendRoute = (lc) => {
+  
+    if(lc.ifFormFilled==false){
+      let toastMessage = 'PLS FILL LC FIRST';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return;
+      }
+    }
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
     sessionStorage.setItem('lcAmmend', lc.order.lc);
     Router.push('/lc-module/lc-application');
@@ -122,7 +129,7 @@ function Index() {
             </h3>
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
-                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 10)}
+                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 7)}
               </span>
               <a
                 onClick={() => {
@@ -139,7 +146,7 @@ function Index() {
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 10)) {
+                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 7)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}

@@ -121,7 +121,7 @@ function Index(props) {
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
-          totalPrice: data?.order.marginMoney.calculation.totalOrderValue,
+          totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
           advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
         });
       }

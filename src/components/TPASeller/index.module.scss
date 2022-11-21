@@ -73,6 +73,7 @@
     ol {
       font-size: 20px;
       line-height: 36px;
+      padding-left: 20px;
     }
 
     ul {
@@ -137,9 +138,6 @@
     }
 
     .right {
-      display: flex;
-      align-items: center !important;
-      justify-content: flex-start !important;
       padding: 0 15px;
     }
 
@@ -248,9 +246,7 @@
 
   .right {
     height: 100%;
-    display: flex;
     padding-left: 50px;
-    justify-content: center !important;
     padding: 0px;
   }
 
@@ -263,4 +259,27 @@
     border: 1px solid #0000001f;
     border-radius: 4px;
   }
+}
+
+.tableWrapper {
+  overflow-y: auto;
+  max-height: 500px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+}
+.schedule_table {  
+  font-size: 18px;
+  line-height: 1.3;
 }

@@ -193,8 +193,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
                     <option selected>Select an option</option>
-                    {port
-                      .filter((val, index) => {
+                    {port?.filter((val, index) => {
                         if (val.Country.toLowerCase() !== 'india') {
                           return val;
                         }
@@ -202,7 +201,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                       .map((val, index) => {
                         return (
                           <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
+                           {val.Port_Name}, {val.Country}
                           </option>
                         );
                       })}

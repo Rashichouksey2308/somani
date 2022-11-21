@@ -495,7 +495,7 @@ export default function SalesContract(changeHandler, data, preview) {
               Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at
               the time this Contract is being entered into. Both Parties agree that they will use their commercially
               reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any
-              unforeseen circumstances in the spirit of mutual understanding and collaboration
+              unforeseen circumstances in the spirit of mutual understanding and collaboration.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -934,17 +934,9 @@ export default function SalesContract(changeHandler, data, preview) {
             ) : (
               <>
                 <div className="form-group mt-5 pt-3">
-                  <textarea
-                    rows={3}
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value);
-                    }}
-                    value={data?.sellerSignature}
-                    name="sellerSignature"
-                    type="text"
-                    placeholder=""
+                  <span
                     className={`${styles.para} w-100 mt-5 input`}
-                  ></textarea>
+                  >{data?.sellerSignature}</span>
                 </div>
               </>
             )}
@@ -961,17 +953,11 @@ export default function SalesContract(changeHandler, data, preview) {
             ) : (
               <>
                 <div className="form-group mt-5 pt-3">
-                  <textarea
-                    rows={3}
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value);
-                    }}
-                    type="text"
-                    value={data?.buyerSignature}
-                    name="buyerSignature"
-                    placeholder=""
+                  <span
+            
                     className={`${styles.para} w-100 mt-5 input`}
-                  ></textarea>
+                  
+                  >{data?.buyerSignature}</span>
                 </div>
               </>
             )}

@@ -2,19 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import Router from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import _get from 'lodash/get';
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar';
 import Image from 'next/image';
 import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { getInternalCompanies } from '../../redux/masters/action';
 
 function Index({ TransitDetails }) {
   const dispatch = useDispatch();
+  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
-    {
+    { 
       blnumber: 'BL-1',
       loadingPort: _get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase(),
       date: moment(_get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[0].blDate).format('DD MMMM YYYY'),
@@ -36,6 +38,10 @@ function Index({ TransitDetails }) {
     temp.authorizedSignatory.designation = value;
     setLOI({ ...loi });
   };
+
+  useEffect(()=> {
+    dispatch(getInternalCompanies());
+  },[])
   useEffect(() => {
     if (_get(TransitDetails, 'data[0].LOI.billOfLanding', []).length > 0) {
       setBillsofLanding(_get(TransitDetails, 'data[0].LOI.billOfLanding', []));
@@ -69,6 +75,7 @@ function Index({ TransitDetails }) {
   }, [TransitDetails]);
   const [bolArray, setBolArray] = useState([]);
 
+  
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
       setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
@@ -76,49 +83,11 @@ function Index({ TransitDetails }) {
   }, [TransitDetails]);
 
   const SetAuthorisedSignatoryHanlder = (e) => {
+    let signatory = e.target.value.split('-')
     if (e.target.value == '') {
       setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } });
     } else {
-      if (e.target.value.toLowerCase() === 'bhawana jain') {
-        setLOI({
-          ...loi,
-          authorizedSignatory: {
-            name: 'Bhawana Jain',
-            designation: 'Vice President Finance & Accounts',
-          },
-        });
-      }
-      if (e.target.value.toLowerCase() === 'vipin kumar') {
-        setLOI({
-          ...loi,
-          authorizedSignatory: {
-            name: 'Vipin Kumar',
-            designation: 'Manager Accounts',
-          },
-        });
-      }
-      if (e.target.value.toLowerCase() === 'devesh jain') {
-        setLOI((prevState) => {
-          return {
-            ...prevState,
-            authorizedSignatory: {
-              name: 'Devesh Jain',
-              designation: 'Director',
-            },
-          };
-        });
-      }
-      if (e.target.value.toLowerCase() === 'fatima yannoulis') {
-        setLOI((prevState) => {
-          return {
-            ...prevState,
-            authorizedSignatory: {
-              name: 'Fatima Yannoulis',
-              designation: 'Chief Financial Officer',
-            },
-          };
-        });
-      }
+      setLOI({ ...loi, authorizedSignatory: { name: signatory[0], designation: signatory[1] } });
     }
   };
 
@@ -215,14 +184,14 @@ function Index({ TransitDetails }) {
             {'  '}
             <div className={`ml-3 ${styles.noadd} text-left text-uppercase`}>
               {_get(TransitDetails, 'data[0].order.generic.seller.name')}
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
-              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
+            {" "}  {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
+             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
             </div>
           </div>
           <div className="w-25 text-right">
-            <span>DATE:</span> {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format('DD-MM-YYYY')}
+            <span>DATE: </span> {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format('DD-MM-YYYY')}
           </div>
         </div>
         <div className={`${styles.salutations}`}>
@@ -281,18 +250,14 @@ function Index({ TransitDetails }) {
                   {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
                   {bolArray.length - 1 > index1 ? (
                     index1 === billsofLanding.length - 1 ? (
-                      <button onClick={() => onAddClick()} className={styles.add_btn}>
-                        <span className={styles.add_sign}>+</span>Add
+                      <button onClick={() => onAddClick()} 
+                      className={`${styles.add_btn}`}
+                      >
+                        <span className={`${styles.add_sign}`}>+</span>Add
                       </button>
                     ) : null
                   ) : null}
                   {index1 > 0 ? (
-                    // <button
-                    //   onClick={() => onDeleteClick(index1)}
-                    //   className={`${styles.add_btn}`}
-                    // >
-                    //   <span className={styles.add_sign}>-</span>Delete
-                    // </button>
                     <div className={`${styles.delete_image} ml-3`} onClick={() => onDeleteClick(index1)}>
                       <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                     </div>
@@ -404,17 +369,16 @@ function Index({ TransitDetails }) {
             <div>
               Name:{' '}
               <select
-                value={loi.authorizedSignatory.name !== '' ? loi.authorizedSignatory.name : 'select'}
+                value={loi.authorizedSignatory.name !== '' ? `${loi.authorizedSignatory.name}-${loi.authorizedSignatory?.designation}` : 'select'}
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-2 pl-3`}
               >
                 <option value="select" disabled defaultSelected>
                   Select an option
                 </option>
-                <option value="Bhawana Jain">Bhawana Jain</option>
-                <option value="Vipin Kumar">Vipin Kumar</option>
-                <option value="Devesh Jain">Devesh Jain</option>
-                <option value="Fatima Yannoulis">Fatima Yannoulis</option>
+                {getInternalCompaniesMasterData?.data?.data?.map((item,value)=> {
+                  if (item.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') return <option value={`${item?.authorisedSignatoryDetails[0]?.name}-${item?.authorisedSignatoryDetails[0]?.designation}`}>{item?.authorisedSignatoryDetails[0]?.name}</option>
+                })}
               </select>
               <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>

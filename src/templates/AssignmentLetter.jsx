@@ -100,7 +100,7 @@ export default function AssignmentLetter(data) {
               Name of Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyer}
+              {data.associateBuyer}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -108,8 +108,7 @@ export default function AssignmentLetter(data) {
               Address of Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
-              {data.buyerAddress?.pinCode}
+              {data.associateBuyerAddress}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -133,23 +132,23 @@ export default function AssignmentLetter(data) {
             <Col md={5} className={`${styles.left} border_black`}>
               Description of Goods
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
+            <Col md={7} className={`${styles.right}`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
                     <div className={styles.table_scroll_inner}>
-                      <table>
+                      <table className={styles.schedule_table}>
                         <tr>
                           {data?.spec &&
                             data?.spec.length > 0 &&
-                            Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
+                            Object.keys(data?.spec[0]).map((val, index) => <th className='text-color' key={index}>{val}</th>)}
                         </tr>
                         {data?.spec &&
                           data?.spec.length > 0 &&
                           data?.spec.map((item, index) => (
                             <tr>
                               {Object.values(item).map((value, id) => (
-                                <td key={id}>{value}</td>
+                                <td className='text-color' key={id}>{value}</td>
                               ))}
                             </tr>
                           ))}
@@ -157,7 +156,7 @@ export default function AssignmentLetter(data) {
                     </div>
                   </div>
                 </div>
-                {data?.specComment?.length > 0 ? <b>Comments</b> : null}
+                {data?.specComment?.length > 0 ? <strong>Comments</strong> : null}
                 <ol>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
@@ -181,8 +180,11 @@ export default function AssignmentLetter(data) {
               Price of Goods / MT
             </Col>
             <Col md={7} className={styles.right}>
-              {'INR '}
-              {data.priceOfGoods}
+              {data.orderValueCurrency}{" "}
+              {data.priceOfGoods?.toLocaleString(`${data.orderValueCurrency=="INR"?"en-In":"en-En"}`, {
+                maximumFractionDigits: 2,
+              })}{' '}
+             
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -225,7 +227,7 @@ export default function AssignmentLetter(data) {
               Month of loading of Cargo
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.loadingCargo}
+              {data?.loadingCargo2}
             </Col>
           </Row>
           <Row className={`${styles.row} ${styles.last}`}>
@@ -256,7 +258,7 @@ export default function AssignmentLetter(data) {
               <strong>.................................................</strong>
             </p>
             <p className="text_sales">
-              <strong></strong>
+              <strong>(Buyer)</strong>
             </p>
           </Col>
           <Col md={6}>

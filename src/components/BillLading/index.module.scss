@@ -1,9 +1,7 @@
 @import '../styles/Core/config';
-
 .backgroundMain {
   .vessel_card {
     border-radius: 6px;
-
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -21,13 +19,10 @@
         font-size: 15px;
       }
     }
-
     .radio_form {
       padding: 26px 0px 20px 35px;
-
       .radio_group {
         display: flex;
-
         .radio {
           font-size: 20px;
           color: #111111;
@@ -40,14 +35,12 @@
           @include respond(phone) {
             font-size: 14px;
           }
-
           label {
             padding-left: 15px;
             @include respond(lg-desktop) {
               padding-left: 10px;
             }
           }
-
           input {
             transform: scale(1.5);
             @include respond(lg-desktop) {
@@ -57,14 +50,12 @@
         }
       }
     }
-
     .main {
       border-radius: 6px;
       margin-bottom: 26px;
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
-
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -78,11 +69,12 @@
         width: 97px;
         height: 38px;
         white-space: nowrap;
+        padding-bottom: 10px;
         @include respond(lg-desktop) {
           width: 90px;
           height: 34px;
           font-size: 15px;
-          line-height: 1;
+          line-height: 1.5;
           padding-bottom: 0;
         }
         @include respond(sm-desktop) {
@@ -93,7 +85,6 @@
           height: 35px;
           text-align: center;
         }
-
         .add_sign {
           font-size: 26px;
           font-weight: bold;
@@ -105,7 +96,6 @@
           }
         }
       }
-
       .head_container {
         padding: 0 35px;
         border-bottom: 2px solid #cad6e6;
@@ -113,7 +103,6 @@
         @include respond(lg-desktop) {
           min-height: 60px;
         }
-
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -134,7 +123,6 @@
             margin: 13px 0;
           }
         }
-
         span {
           font-size: 45px;
           color: #3687e8;
@@ -144,7 +132,6 @@
             font-size: 35px;
           }
         }
-
         .dropDown {
           border-radius: 4px;
           font-size: 20px;
@@ -157,7 +144,6 @@
             font-size: 15px;
           }
         }
-
         .dropDown_label {
           letter-spacing: 0.53px;
           font-weight: 500;
@@ -170,17 +156,13 @@
         }
       }
     }
-
     .dashboard_form {
       padding: 20px 35px 25px 40px;
-
       .bill_landing {
         border: 2px solid #cad6e6;
         border-radius: 9px;
-
         .vessel_card {
           padding: 0 35px;
-
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -208,16 +190,13 @@
             }
           }
         }
-
         .table_scroll_outer {
           width: 100%;
           display: table;
           table-layout: fixed;
-
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
-
             .table {
               th {
                 font-size: 15px;
@@ -229,14 +208,12 @@
                 vertical-align: middle;
                 text-transform: uppercase;
                 white-space: nowrap;
-
                 &:first-child {
                   padding-left: 35px;
                   @include respond(md-desktop) {
                     padding-left: 15px;
                   }
                 }
-
                 .sort_img {
                   width: 14px;
                   height: 14px;
@@ -245,7 +222,6 @@
                     height: 12px;
                   }
                 }
-
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -258,12 +234,10 @@
                   font-size: 12px;
                 }
               }
-
               tr {
                 &:last-child {
                   border-bottom: none;
                 }
-
                 td {
                   font-size: 19px;
                   font-weight: 500;
@@ -275,7 +249,7 @@
                   @include respond(lg-desktop) {
                     font-size: 15px;
                     line-height: 1.3;
-                    padding: 17px 10px;
+                    padding: 12px 10px;
                   }
                   @include respond(phone) {
                     font-size: 14px;
@@ -283,7 +257,6 @@
                   }
                 }
               }
-
               span {
                 margin-left: 5px;
                 text-decoration: underline;
@@ -296,7 +269,6 @@
                   line-height: 1.3;
                 }
               }
-
               .input_field {
                 background: #c3c3c31f;
                 border-radius: 4px;
@@ -308,7 +280,6 @@
                 padding: 5px 0 5px 15px;
                 width: 299px;
               }
-
               .doc_name {
                 font-weight: bold;
                 line-height: 25px;
@@ -322,7 +293,6 @@
                   font-size: 14px;
                 }
               }
-
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
@@ -340,7 +310,6 @@
           }
         }
       }
-
       .eta_heading {
         font-size: 20px;
         line-height: 25px;
@@ -350,7 +319,6 @@
           line-height: 1.3;
         }
       }
-
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -365,7 +333,6 @@
           line-height: 15px;
         }
       }
-
       .value {
         font-size: 20px;
         height: 60px;
@@ -377,7 +344,6 @@
           line-height: 1.3;
         }
       }
-
       .upload_button {
         border: 3px solid #3687e8;
         border-radius: 5px;
@@ -392,7 +358,6 @@
         margin-top: 23px;
         background-color: transparent;
       }
-
       .form_group {
         margin-top: 42px;
         position: relative;
@@ -401,11 +366,9 @@
           font-size: 14px;
           line-height: 15px;
         }
-
         .search_image {
           margin-left: -40px;
         }
-
         .upload_btn {
           text-align: center;
           color: #3687e8;
@@ -433,7 +396,6 @@
             height: 30px;
           }
         }
-
         .upload_text {
           color: #8492a6;
           text-transform: uppercase;
@@ -480,7 +442,6 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-
           &::before {
             top: 51%;
             left: 0;
@@ -491,19 +452,16 @@
             position: absolute;
             transform: translateY(-50%);
           }
-
           @include respond(lg-desktop) {
-            top: 14px;
+            top: 15px;
             font-size: 14px;
-            line-height: 15px;
+            line-height: 14px;
             transform: translateY(-22px);
           }
         }
-
         .line {
           border: 3px solid #d9dde8;
         }
-
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -520,7 +478,6 @@
           &:invalid + label {
             transform: translateY(0);
           }
-
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -529,7 +486,6 @@
               }
             }
           }
-
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -537,7 +493,6 @@
           }
         }
       }
-
       .small_box {
         @include respond(lg-desktop) {
           flex: 0 0 33.333333% !important;
@@ -553,9 +508,7 @@
         }
       }
     }
-
   }
-
   .wrapper {
     margin-bottom: 26px;
     border-radius: 6px !important;
@@ -565,13 +518,11 @@
     }
   }
 }
-
 .close_image {
   margin-left: -30px;
   @include respond(phone) {
   }
 }
-
 .updated_successfully {
   top: 50%;
   left: 50%;
@@ -584,21 +535,17 @@
   box-shadow: none !important;
   padding-right: 0 !important;
   transform: translate(-50%, -50%);
-
   & > div {
     margin: 0;
     max-width: none;
-
     & > div {
       border: none;
     }
   }
-
   .card_header {
     padding: 22px 34px;
     background-color: rgba(0, 0, 0, 0.03);
     border-bottom: 2px solid #cad6e65e;
-
     h3 {
       font-size: 22px;
       color: #3687e8;
@@ -607,21 +554,17 @@
       margin: 0;
     }
   }
-
   .card_body {
     padding: 28px 34px 46px;
-
     img {
       margin-bottom: 38px;
     }
-
     h4 {
       font-size: 20px;
       font-weight: bold;
       line-height: 25px;
       margin-bottom: 16px;
     }
-
     p {
       font-size: 20px;
       font-weight: normal;
@@ -629,7 +572,6 @@
       letter-spacing: 0.19px;
       margin-bottom: 76px;
     }
-
     .card_button {
       width: 49%;
       height: 48px;
@@ -639,24 +581,20 @@
       line-height: 25px;
       border-radius: 5px;
       box-shadow: none;
-
       &.close {
         color: #3687e8;
         margin-right: 14px;
         border: 3px solid #3687e8;
-
         &:hover {
           color: #ffffff;
           background: #3687e8;
         }
       }
-
       &.track_view {
         color: #ffffff;
         background: #3687e8;
         border: 3px solid #3687e8;
       }
-
       &:hover {
         color: #3687e8;
         background: #ffffff;
@@ -664,7 +602,6 @@
     }
   }
 }
-
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -677,12 +614,10 @@
     height: 15px;
   }
 }
-
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
   display: inline-block;
-
   input {
     top: 0;
     left: 0;
@@ -692,11 +627,9 @@
     cursor: pointer;
     position: absolute;
   }
-
   @include respond(phone) {
     width: 100%;
   }
-
   .upload_btn {
     width: 106px;
     height: 38px;
@@ -722,23 +655,19 @@
     }
   }
 }
-
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
-
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
-
 .customSelect {
   appearance: none;
 }
-
 .upload_btn {
   width: 106px;
   height: 38px;
@@ -763,7 +692,6 @@
     font-size: 12px;
   }
 }
-
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -771,12 +699,10 @@
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
-  margin: 7px 0;
   @include respond(lg-desktop) {
     font-size: 15px;
     line-height: 1.3;
   }
-
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -789,8 +715,11 @@
     font-weight: bold;
     line-height: 25px;
     font-size: 20px;
+    @include respond(lg-desktop) {
+      font-size: 15px;
+      line-height: 1.3;
+    }
   }
-
   img {
     width: auto !important;
     height: auto !important;

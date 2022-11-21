@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import config from './config'
+import config from './config';
 
 export default {
   baseUrl: `${config.baseUrl}`,
@@ -138,16 +138,34 @@ export default {
   // Commodity
   getCommodity: '/commodity',
 
+  // Internal Companies
+  getInternalCompanies: '/internal-company',
+
+  // PORTS
+  getPorts: '/port',
+
+  // City State
+  getState: '/city-master',
+
+  // COUNTRY
+  getCountry: '/country-master',
+
+  // DOCUMENT MASTER
+  getDocument: '/document-master',
+
+  // GO NO GO
+  getGoNoGo: '/gng-master',
+
   // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
-  countriesMaster: 'country.json',
-  portsMaster: 'ports.json',
-  commoditiesMaster: 'commodity.json',
-  documentsMaster: 'document.json',
-  currencyMaster: 'currency.json',
-  internalCompaniesMaster: 'internalCompanies.json',
-  vendorsMaster: 'vendors.json',
+  countriesMaster: '/country-master/',
+  portsMaster: '/port/',
+  commoditiesMaster: '/commodity',
+  documentsMaster: '/document-master/',
+  currencyMaster: '/currency-master/',
+  internalCompaniesMaster: '/internal-company/',
+  vendorsMaster: '/vendor/',
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
-  pincodesMaster: 'locations/pincodes/'
-}
+  pincodesMaster: 'locations/pincodes/',
+};

@@ -95,9 +95,9 @@
     }
 
     .card_body {
-      padding: 0px 100px 20px 100px;
+      padding: 0px 100px 50px 100px;
       @include respond(lg-desktop) {
-        padding: 0;
+        padding: 20px 20px 30px;
       }
 
       .sub_heading {
@@ -121,6 +121,7 @@
         height: 60px;
         background: transparent;
         font-weight: bold;
+        display: inline-block;
         @include respond(sm-desktop) {
           font-size: 18px;
         }

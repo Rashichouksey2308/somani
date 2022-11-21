@@ -7,7 +7,9 @@ import { checkNan } from 'utils/helper'
 function Index ({ data }) {
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header} border_color heading_card`}> Exposure </Card.Header>
+      <Card.Header className={`${styles.header} border_color heading_card`}>
+        <h3 className={styles.title}>Exposure</h3>
+      </Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.progress_container}>
           <div className={styles.bar_container}>
@@ -41,7 +43,7 @@ function Index ({ data }) {
           %
         </div>
 
-        <div className={styles.total}>
+        <div className={`${styles.total} border-top-0`}>
           <div className={styles.totalText}>
             <span>TOTAL</span>
           </div>
@@ -56,7 +58,7 @@ function Index ({ data }) {
             </span>
           </div>
         </div>
-        <div className={styles.total}>
+        <div className={`${styles.total} border_color`}>
           <div className={styles.totalText}>
             <span>UTILISED</span>
           </div>

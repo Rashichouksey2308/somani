@@ -57,8 +57,10 @@ export default function Index({ isQuery }) {
       isQuery == '/track-shipment' ||
       isQuery?.match('/forward-hedging') ||
       router.pathname?.match('/leads') ||
+      router.pathname?.match('/insurance') ||
       router.pathname?.match('/order-list') ||
       router.pathname?.match('/new-order') ||
+      router.pathname?.match('/go-no-go-logic') ||
       router.pathname?.match('/termsheet-preview') ||
       router.pathname?.match('/letter-table/letter-amend/id') ||
       router.pathname == '/agreement/preview' ||
@@ -98,13 +100,15 @@ export default function Index({ isQuery }) {
       isQuery?.match('/vessel') ||
       isQuery?.match('/third-party') ||
       isQuery?.match('/transit/id') ||
+      isQuery?.match('/bill-of-entry/id') ||
       router.pathname?.match('/credit-queue') ||
       router.pathname?.match('/termsheet') ||
       router.pathname?.match('/margin-money') ||
       router.pathname?.match('/review') ||
       router.pathname?.match('/vessel') ||
       router.pathname?.match('/third-party') ||
-      router.pathname?.match('/transit/id')
+      router.pathname?.match('/transit/id') ||
+      router.pathname?.match('/loi-preview')
     ) {
       show.units = false;
       show.currency = true;
@@ -359,7 +363,7 @@ export default function Index({ isQuery }) {
       }
     });
   }, [pageName, id, order, upperTabs, companyId]);
-
+console.log(pageName,id,order,companyId,"Ssadsdasd");
   return (
     <div className={`${styles.main_container} row background1 align-items-center`}>
       <div className="col-md-7">

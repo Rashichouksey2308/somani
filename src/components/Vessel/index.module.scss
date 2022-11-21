@@ -769,7 +769,7 @@
         }
 
         @include respond(lg-desktop) {
-          top: 15px;
+          top: 14px;
           font-size: 14px;
           line-height: 15px;
           transform: translateY(-22px);
@@ -971,6 +971,10 @@ img {
   left: 30px;
   margin-bottom: 15px;
   color: #00000080;
+  @include respond(lg-desktop) {
+    font-size: 14px;
+    line-height: 15px;
+  }
 }
 
 .value {
@@ -978,4 +982,8 @@ img {
   height: 60px;
   line-height: 25px;
   font-weight: 500;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
+  }
 }

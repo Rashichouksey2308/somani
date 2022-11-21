@@ -38,7 +38,7 @@ function Index() {
   const [otherTermConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState(null);
   const date = new Date();
-
+  const [email,setEmail]=useState(``);
   useEffect(() => {
     {
       termsheet &&
@@ -234,7 +234,7 @@ function Index() {
             <Col md={4} className={`d-flex justify-content-start align-items-start`}>
               {termsheet &&
                 termsheet?.data?.map((sheet, index) => (
-                  <div key={index}>
+                  <div key={index} className='mb-2'>
                     <div>
                       <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
                       <span className={`${styles.termValue} text-color`}>{sheet.order.orderId}</span>
@@ -541,7 +541,7 @@ function Index() {
                     %{' '}
                   </li>
                   <li>
-                    {`USD`}{' '}
+                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -1107,7 +1107,7 @@ function Index() {
         rightButtonTitle="Send To Buyer"
         leftButtonTitle="Transaction Summary"
       />
-      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} /> : null}
+      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} setEmail={setEmail}/> : null}
     </>
   );
 }
@@ -1147,7 +1147,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                       color: '#111111',
                       lineHeight: '25px',
                       fontWeight: '500',
-                      padding: '10px 0 0 25px',
+                      padding: '10px 0 10px 25px',
                     }}
                   >
                     Order ID:{' '}
@@ -2566,8 +2566,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. will
-                          provide proof of all expenses to the Buyer.
+                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. {otherTermConditions?.buyer?.bank} will provide proof of all expenses to the Buyer.
                         </p>
                       </td>
                     </tr>

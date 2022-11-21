@@ -12,7 +12,7 @@ import { GetLcModule } from 'redux/lcModule/action';
 import { checkNan } from 'utils/helper';
 import LCAmendBar from '../LCAmendBar';
 import styles from './index.module.scss';
-
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 function Index() {
   const dispatch = useDispatch();
 
@@ -26,7 +26,12 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
+useEffect(() => {
+    dispatch(setPageName('Lc'));
 
+    dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')));
+    dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')));
+  }, [lcModuleData]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [what, setWhat] = useState('email');
@@ -417,7 +422,7 @@ function Index() {
                           <div className={`${styles.content_header} background2 `}>47A ADDITIONAL CONDITIONS:</div>
                         </td>
                       </tr>
-                      {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length >
+                      {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length >
                       0 ? (
                         <>
                           <tr className="table_row">
@@ -435,18 +440,18 @@ function Index() {
                                       <tbody>
                                         <tr className="table_row">
                                           {_get(
-                                            lcModule,
+                                            lcModuleData.lcModule,
                                             'data[0].order.generic.productSpecifications.specificationTable',
                                             [],
                                           ) &&
                                             _get(
-                                              lcModule,
+                                              lcModuleData.lcModule,
                                               'data[0].order.generic.productSpecifications.specificationTable',
                                               [],
                                             ).length > 0 &&
                                             Object.keys(
                                               _get(
-                                                lcModule,
+                                                lcModuleData.lcModule,
                                                 'data[0].order.generic.productSpecifications.specificationTable',
                                                 [],
                                               )[0],
@@ -457,17 +462,17 @@ function Index() {
                                             ))}
                                         </tr>
                                         {_get(
-                                          lcModule,
+                                         lcModuleData. lcModule,
                                           'data[0].order.generic.productSpecifications.specificationTable',
                                           [],
                                         ) &&
                                           _get(
-                                            lcModule,
+                                            lcModuleData.lcModule,
                                             'data[0].order.generic.productSpecifications.specificationTable',
                                             [],
                                           ).length > 0 &&
                                           _get(
-                                            lcModule,
+                                            lcModuleData.lcModule,
                                             'data[0].order.generic.productSpecifications.specificationTable',
                                             [],
                                           ).map((item, index) => (
@@ -766,11 +771,11 @@ function Index() {
                           <button
                             onClick={handleClose}
                             type="button"
-                            className={`${styles.close} ${styles.btn} btn w-50`}
+                            className={`${styles.close} ${styles.btn} btn mr-2 w-50`}
                           >
                             Close
                           </button>
-                          <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                          <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                             Share
                           </button>
                         </div>
@@ -843,14 +848,14 @@ function Index() {
                           <button
                             onClick={handleClose}
                             type="button"
-                            className={`${styles.close} ${styles.btn} btn w-50`}
+                            className={`${styles.close} ${styles.btn} btn mr-2 w-50`}
                           >
                             Close
                           </button>
                           <button
                             onClick={handleClose}
                             type="button"
-                            className={`${styles.submit} ${styles.btn} btn w-50`}
+                            className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}
                           >
                             Share
                           </button>
@@ -882,10 +887,10 @@ function Index() {
                       </div>
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Download
                       </button>
                     </div>

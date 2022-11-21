@@ -15,7 +15,7 @@ import { getCountries, getPorts } from '../../src/redux/masters/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { GetVessel, UpdateVessel } from '../../src/redux/vessel/action';
 import API from '../../src/utils/endpoints';
-// import { Validation } from '../../src/components/Vessel/validations'
+import { Validation } from '../../src/components/Vessel/validations'
 
 export default function Home() {
   const router = useRouter();
@@ -29,9 +29,10 @@ export default function Home() {
 
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  let id = sessionStorage.getItem('VesselId');
 
   const fetchInitialData = async () => {
-    let id = sessionStorage.getItem('VesselId');
+   
     const data = await dispatch(GetVessel(`?vesselId=${id}`));
 
     setData(data);
@@ -56,6 +57,7 @@ export default function Home() {
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }]);
 
   const setData = (Vessel) => {
+    console.log(_get(Vessel, 'data[0].vesselCertificate', null),"SAdsda")
     setOrderId(_get(Vessel, 'data[0].order._id', ''));
     setCurrency(_get(Vessel, 'data[0].order.marginMoney.calculation.orderValueCurrency', 'USD'));
     setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
@@ -86,6 +88,7 @@ export default function Home() {
           ]),
         ),
       );
+      
 
       vesselInfo[0].shippingLineOrCharter =
         vesselInfo[0].shippingLineOrCharter !== ''
@@ -148,6 +151,9 @@ export default function Home() {
         },
       ]);
     } else {
+      setContainerExcel(_get(Vessel, 'data[0].containerExcel', null));
+      setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null));
+      setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null));
       setList(_get(Vessel, 'data[0].vessels', []));
     }
   };
@@ -155,19 +161,41 @@ export default function Home() {
   const onAddVessel = () => {
     setList([
       ...list,
-      {
-        shipmentType: 'Bulk',
-        commodity: _get(VesselToAdd, 'data[0].order.commodity', ''),
-        quantity: _get(VesselToAdd, 'data[0].order.quantity', ''),
-        orderValue: _get(VesselToAdd, 'data[0].order.orderValue', ''),
-        transitDetails: {
-          countryOfOrigin: _get(VesselToAdd, 'data[0].order.countryOfOrigin', ''),
-          portOfLoading: '',
-          portOfDischarge: _get(VesselToAdd, 'data[0].order.portOfDischarge', ''),
-          laycanFrom: null,
-          laycanTo: null,
-          EDTatLoadPort: null,
-          ETAatDischargePort: null,
+       {
+         shipmentType: _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.shipmentType', ''),
+          commodity: _get(VesselToAdd, 'data[0].order.commodity', ''),
+          quantity: _get(VesselToAdd, 'data[0].order.quantity', ''),
+          orderCurrency: _get(VesselToAdd, 'data[0].order.orderCurrency', ''),
+          orderValue: _get(VesselToAdd, 'data[0].order.marginMoney.calculation.orderValue', ''),
+          transitDetails: {
+            countryOfOrigin:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.countryOfOrigin', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.countryOfOrigin', '')
+                : _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.countryOfOrigin', ''),
+            portOfLoading:
+              '' || _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfLoading', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfLoading', '')
+                : _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.loadPort', ''),
+            portOfDischarge:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfDischarge', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfDischarge', '')
+                : _get(VesselToAdd, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '') ||
+                  _get(VesselToAdd, 'data[0].vessels[0].transitDetails.portOfDischarge', ''),
+            laycanFrom:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanFrom', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanFrom', '')
+                : _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.fromDate', '') || '',
+            laycanTo:
+              _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanTo', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanTo', '')
+                : _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
+
+            EDTatLoadPort:
+              '' || _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
+                ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
+                : _get(VesselToAdd, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
+            ETAatDischargePort: _get(VesselToAdd, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
+       
         },
 
         vesselInformation: [
@@ -415,7 +443,7 @@ export default function Home() {
       })
     ) {
       const payload = {
-        vesselId: id,
+        vesselId:sessionStorage.getItem('VesselId') ,
         partShipmentAllowed: partShipmentAllowed,
         vessels: [...list],
       };
@@ -435,9 +463,11 @@ export default function Home() {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        await fetchInitialData();
-        dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'));
-        router.push(`/insurance/form`);
+        await fetchInitialData()
+       
+      
+        // dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
+        // router.push(`/insurance/form`)
       }
     }
   };
@@ -453,8 +483,9 @@ export default function Home() {
   };
 
   const onSaveHandler = async () => {
+    
     const payload = {
-      vesselId: id,
+      vesselId: sessionStorage.getItem('VesselId'),
       partShipmentAllowed: partShipmentAllowed,
       vessels: [...list],
     };

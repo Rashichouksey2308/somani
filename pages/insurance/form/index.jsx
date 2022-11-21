@@ -14,8 +14,8 @@ import moment from 'moment';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 
 const Index = () => {
+
   const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId');
@@ -23,17 +23,20 @@ const Index = () => {
   }, [dispatch, sumInsuredCalc]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
 
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
   });
+
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: '',
-    expectedTimeOfDispatch: '',
+    expectedTimeOfArrival: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort ?? '',
+    expectedTimeOfDispatch: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -57,8 +60,8 @@ const Index = () => {
 
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
-      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival || undefined,
-      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival ? insuranceData?.quotationRequest?.expectedTimeOfArrival : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch ?insuranceData?.quotationRequest?.expectedTimeOfDispatch :insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
       insuranceType: insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom
         ? insuranceData?.quotationRequest?.laycanFrom
@@ -70,7 +73,7 @@ const Index = () => {
         ? insuranceData?.quotationRequest?.lossPayee
         : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
       storageDetails: {
-        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
+        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge ,
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
@@ -103,6 +106,7 @@ const Index = () => {
   };
 
   const [reset, setReset] = useState(false);
+
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
     setQuotationData({
@@ -213,6 +217,7 @@ const Index = () => {
     }
     return true;
   };
+
   const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
@@ -419,7 +424,7 @@ const Index = () => {
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option disabled selected>
+                                <option disabled >
                                   Select an option
                                 </option>
                                 <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
@@ -632,7 +637,7 @@ const Index = () => {
                                     : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
                                 }
                               >
-                                <option selected disabled>
+                                <option disabled>
                                   Select an option
                                 </option>
                                 {/* <option selected>
@@ -736,6 +741,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
+                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
@@ -760,7 +766,7 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <h5>Storage Details</h5>
                         <Row>
-                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                          {/* <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
                               <select
                                 name="storageDetails.placeOfStorage"
@@ -783,6 +789,21 @@ const Index = () => {
                                 alt="Search"
                               />
                             </div>
+                          </Col> */}
+                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              value={quotationData.storageDetails.placeOfStorage}
+                              name="storageDetails.placeOfStorage"
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Place of Storage
+                              <strong className="text-danger">*</strong>
+                            </label>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <input
@@ -841,7 +862,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      <div className={`${styles.req_letter}`}>
+        <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      </div>
     </>
   );
 };

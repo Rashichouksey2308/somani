@@ -8,6 +8,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
     quantity: false,
     orderValue: false,
   });
+  console.log(commodity,"country")
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const saveDate = (value, name) => {
@@ -168,9 +169,16 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                 required
               >
                 <option>Select an option</option>
+                {country?.length>0
+                ?
+                <>
                 {country.map((val, index) => {
-                  return <option value={`${val.Country}`}>{val.Country}</option>;
-                })}
+                    return <option value={`${val.Country}`}>{val.Country}</option>;
+                  })} 
+                </>
+                :null
+                }
+                
               </select>
               <label className={`${styles.label_heading} label_heading`} id="dropCountry">
                 Country Of Origin<strong className="text-danger">*</strong>
@@ -198,8 +206,8 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                   })
                   .map((val, index) => {
                     return (
-                      <option value={`${val.Port_Name},${val.Country}`}>
-                        {val.Port_Name},{val.Country}
+                      <option value={`${val.Port_Name}`}>
+                       {val.Port_Name}, {val.Country}
                       </option>
                     );
                   })}

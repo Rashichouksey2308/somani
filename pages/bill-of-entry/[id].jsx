@@ -28,10 +28,7 @@ function Index() {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
   }, [dispatch]);
-  useEffect(() => {
-    dispatch(setPageName('custom'));
-    dispatch(setDynamicName(customData?.company?.companyName));
-  }, [customData]);
+
   const { allCustomClearance } = useSelector((state) => state.Custom);
 
   let customData = _get(allCustomClearance, 'data[0]', {});
@@ -80,15 +77,29 @@ function Index() {
     }
   };
 
-  useEffect(() => {
+    useEffect(() => {
+    console.log(customData?.company?.companyName,"customData?.company?.companyName")
+    dispatch(setPageName('custom'));
+    dispatch(setDynamicName(customData?.company?.companyName));
     dispatch(
-      getBreadcrumbValues({
-        companyName: customData?.company?.companyName,
-        companyId: customData?.order?.orderId,
-        orderTabs: 'Bill of Entry',
-      }),
-    );
-  }, [customData]);
+        getBreadcrumbValues({
+          upperTabs: 'Bill of Entry',
+        }),
+      );
+  }, [allCustomClearance]);
+
+//   useEffect(() => {
+//     if(allCustomClearance){
+//  dispatch(
+//       getBreadcrumbValues({
+//         companyName: allCustomClearance.data[0].customData?.company?.companyName,
+//         companyId: allCustomClearance.data[0].customData?.order?.orderId,
+//         orderTabs: 'Bill of Entry',
+//       }),
+//     );
+//     }
+   
+//   }, [allCustomClearance]);
 
   return (
     <>

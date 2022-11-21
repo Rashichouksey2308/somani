@@ -337,8 +337,63 @@ const Index = ({
                   </thead>
                   <tbody>
                     {groupExposureData &&
-                      groupExposureData?.map((profile, index) => (
-                        <tr key={index} className="table_credit shadow-none">
+                      groupExposureData?.map((profile, index) => {
+                        return(
+                          profile.actions==false?
+                          <>
+                          <tr key={index} className="table_credit shadow-none">
+                          <td>{index + 1}</td>
+                          <td className="position-relative">
+                           {profile?.name}
+
+                          </td>
+                          <td>
+                            {profile?.limit}
+                          </td>
+                          <td>
+                           {profile?.outstandingLimit}
+                          </td>
+                          <td className="position-relative">
+                           {profile?.accountConduct}
+                          </td>
+                          <td>
+                            <div>
+                              {!profile.actions ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  role="button"
+                                  className={`${styles.edit_image} mr-3`}
+                                  onClick={() => {
+                                    setActions(index, true);
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  role="button"
+                                  className={`${styles.edit_image} mr-3`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setActions(index, false);
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                role="button"
+                                className={`${styles.delete_image}`}
+                                onClick={() => {
+                                  handleRemoveRowEx(index);
+                                }}
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                           </tr>
+                          </>
+                          :
+                          <>
+                           <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
                           <td className="position-relative">
                             <input
@@ -350,35 +405,7 @@ const Index = ({
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
                             ></input>
-                            {/* <select
-                              className={`${styles.input} ${styles.customSelect} input form-control`}
-                              name="name"
-                              disabled={!profile.actions}
-                              value={profile?.name}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                            >
-                              <option selected>Select an option</option>
-                              <option value="Emerging Traders">
-                                Emerging Traders
-                              </option>
-                              <option value="Bhutani Traders">
-                                Bhutani Traders
-                              </option>
-                              <option value="Krishna Traders">
-                                Krishna Traders
-                              </option>
-                            </select> */}
-                            {/* <img
-                              className={`${styles.arrow} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            /> */}
+
                           </td>
                           <td>
                             <input
@@ -475,8 +502,10 @@ const Index = ({
                               />
                             </div>
                           </td>
-                        </tr>
-                      ))}
+                           </tr>
+                          </>
+                        )
+                      })}
                   </tbody>
                 </table>
               </div>
@@ -492,8 +521,7 @@ const Index = ({
               </div>
             </div>
           </div>
-          <span className={styles.view_order} onClick={() => setShow(true)}>View Past Orders</span>
-
+          <span className={styles.view_order} role="button" onClick={() => setShow(true)}>View Past Orders</span>
           <hr className={`${styles.line} border-0 mt-5`}></hr>
           <div className={`${styles.dashboard_form} border_color p-0`}>
             <div className={`${styles.comment_inner}`}>
@@ -835,7 +863,7 @@ const Index = ({
       >
         <Modal.Header className={`${styles.card_header} background`}>
           <Modal.Title>
-            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+            <div className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}>
               <h5 className='heading_card'>Order Summary - Last 6 Orders</h5>
               <div className={`${styles.pageList} d-flex align-items-center`}
                 onClick={() => setShow(false)}>

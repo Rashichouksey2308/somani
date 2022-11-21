@@ -25,7 +25,8 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
 import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
-
+import {gSTINValidation} from '../../utils/helper'
+import Router from 'next/router';
 function Index(props) {
   const dispatch = useDispatch();
 
@@ -54,6 +55,108 @@ function Index(props) {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+  
+  const getVendor=(value)=>{
+   getVendorsMasterData
+  }
+  const [chaDetails,setChaDetails]=useState({})
+  const [cmaDetails,setCmaDetails]=useState({})
+  const [steveDoreDetails,setsteveDoreDetails]=useState({})
+  useEffect(() => {
+    if(getVendorsMasterData?.length>0){
+      let cmaAddress=[]
+      let cmaAutorized=[]
+      let cmaOptions=[]
+      let cmaName=''
+      let cmagstin=[]
+
+      let chaAddress=[]
+      let chaAutorized=[]
+      let chaOptions=[]
+      let chaName=''
+      let chagstin=[]
+
+      let stevedoreAddress=[]
+      let stevedoreAutorized=[]
+      let stevedoreOptions=[]
+      let stevedoreName=''
+      let stevedoregstin=[]
+      
+      getVendorsMasterData.filter((val,index)=>{
+        if(val.vendorDetails.vendor=="CMA"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+               cmaAddress.push(add)
+               cmagstin.push(add.gstin)
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  cmaAutorized.push(sig)
+                  cmaOptions.push(sig.name)
+              }
+               
+           })
+           cmaName=val.vendorDetails.companyName
+        }
+         if(val.vendorDetails.vendor=="CHA"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+               chaAddress.push(add)
+               chagstin.push(add.gstin)
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  chaAutorized.push(sig)
+                  chaOptions.push(sig.name)
+              }
+               
+           })
+           chaName=val.vendorDetails.companyName
+        }
+         if(val.vendorDetails.vendor=="Stevedore"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+               stevedoreAddress.push(add)
+               stevedoregstin.push(add.gstin)
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  stevedoreAutorized.push(sig)
+                  stevedoreOptions.push(sig.name)
+              }
+               
+           })
+           stevedoreName=val.vendorDetails.companyName
+        }
+      })
+      let tempCma={
+        name:cmaName,
+        options:cmaOptions||[],
+        signatory:cmaAutorized||[],
+        address:cmaAddress||[],
+        gstin:cmagstin||[]
+      }
+      let tempCha={
+        name:chaName,
+        options:chaOptions||[],
+        signatory:chaAutorized||[],
+        address:chaAddress||[],
+        gstin:chagstin||[]
+      }
+      let tempsteved={
+        name:stevedoreName,
+        options:stevedoreOptions||[],
+        signatory:stevedoreAutorized||[],
+        address:stevedoreAddress||[],
+        gstin:stevedoregstin||[]
+      }
+      console.log(tempCma,"tempCma")
+      setCmaDetails({...tempCma})
+      setChaDetails({...tempCha})
+      setsteveDoreDetails({...tempsteved})
+    }
+  },[getBanksMasterData])
+  console.log(cmaDetails,"cmaDetails")
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -106,28 +209,33 @@ function Index(props) {
   const addressValidation = (type, data, check = true) => {
     if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
+        if(type!=="Supplier"){
         if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            let toastMessage = 'Please add gstin';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-        if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          if (data.state === '' || data.state == undefined) {
+            let toastMessage = 'Please add state';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-      }
-      if (data.city === '' || data.city == undefined) {
+          if (data.city === '' || data.city == undefined) {
         let toastMessage = 'Please add city';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         return false;
       }
+        }
+       
+       
+      }
+      
     }
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type';
@@ -157,7 +265,7 @@ function Index(props) {
       }
       return false;
     }
-
+  
     return true;
   };
   const addressValidation2 = (type, data, check = true) => {
@@ -423,12 +531,15 @@ function Index(props) {
           }
         });
       }
+      
     }
+    
     setSidebar([...temp]);
   };
   useEffect(() => {
     setInitialSideBar();
   }, [props.genericData]);
+
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar));
     sessionStorage.setItem('setgenActive', val);
@@ -486,6 +597,7 @@ let masterList = [
           addressValidation={addressValidation}
           internal={getInternalCompaniesMasterData}
           masterList={masterList}
+          gettingPins={gettingPins}
 
         />
       );
@@ -506,7 +618,9 @@ let masterList = [
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
-          masterList={masterList}
+          directors={props.directors}
+          gettingPins={gettingPins}
+          
         
         />
       );
@@ -523,6 +637,7 @@ let masterList = [
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
           masterList={masterList}
+          gettingPins={gettingPins}
           
         />
       );
@@ -538,8 +653,10 @@ let masterList = [
           data={props?.genericData?.CHA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
-          vendor={getVendorsMasterData[3]}
+           vendor={chaDetails}
           masterList={masterList}
+          gettingPins={gettingPins}
+          
           
         />
       );
@@ -556,8 +673,9 @@ let masterList = [
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
           termsheet={props?.genericData?.order?.termsheet}
-          vendor={getVendorsMasterData[1]}
+          vendor={cmaDetails}
           masterList={masterList}
+          gettingPins={gettingPins}
           
         />
       );
@@ -620,8 +738,9 @@ let masterList = [
           active={active}
           addressValidation={addressValidation}
           sameAsCHA={sameAsCHA}
-          vendor={getVendorsMasterData[4]}
+           vendor={steveDoreDetails}
           masterList={masterList}
+          gettingPins={gettingPins}
           
         />
       );
@@ -1792,6 +1911,21 @@ let masterList = [
           return;
         }
       }
+      console.log(data.shippingData.gstin,"data.shippingData.gstin")
+    if(data.shippingData.gstin!=="" && data.shippingData.gstin!==undefined){
+      let valid=  gSTINValidation(data.shippingData.gstin)
+      if(valid==false){
+         toastMessage = `Add valid gstin `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          setSubmitData(false);
+          return;
+        }
+      }
+    }
+   
+  
+      
     }
     if (key == 'Delivery Terms') {
       console.log(data.listContact, 'data.listContact');
@@ -1868,6 +2002,24 @@ let masterList = [
     }
     if (key == 'Additional Comments') {
       let list = [];
+      let isOK=true
+       for(let i=0;i<data.addressList.length;i++){
+          if(data.addressList[i].name=="Assignment Letter"){
+             if(data.addressList[i].monthOfLoadingCargo=="" || data.addressList[i].monthOfLoadingCargo==undefined){
+                toastMessage = `Please add month of Loading cargo `;
+                  if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                    isOK=false
+                   
+                  
+                  }
+             }
+          }
+       }
+       if(isOK==false){
+         setSubmitData(false);
+         return
+       }
       data.addressList.forEach((val, index) => {
         list.push({
           agreementName: val.name,
@@ -2107,6 +2259,10 @@ let masterList = [
     setSidebar([...tempArr]);
 
     setSideStateToLocal(key);
+     setSideStateToLocal(key);
+      if (key == 'Additional Comments') {
+        Router.push('/agreement')
+      }
   };
 
   const sendData = async (key, data) => {
@@ -2410,7 +2566,7 @@ let masterList = [
 
     setSubmitData(false);
 
-    setSideStateToLocal(key);
+   
   };
   const onShowSideBar = () => {
     setIsSideBarOpen(true);

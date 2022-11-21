@@ -37,7 +37,7 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
+  const [options, setOptions] = useState(['Devesh Jain']);
  
   const [docList, setDocList] = useState([]);
 
@@ -54,26 +54,23 @@ function Index(props) {
           addresses: savedData.addresses,
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails,
         };
-        let temp = [];
-        savedData.addresses.forEach((val) => {
-          temp.push(val);
-        });
-        temp.forEach((val) => {
-          if (val.fullAddress == 'Industriestrasse 16' && val.pinCode == '6300') {
-          } else {
-            temp.push({
-              addressType: 'Registered',
-              fullAddress: 'Industriestrasse 16',
-              pinCode: '6300',
-              country: 'Switzerland',
-              gstin: '',
-              state: '',
-              city: 'Zug',
-            });
-          }
-        });
+        if(savedData.addresses.length > 0) {
+          setAddressList(savedData.addresses);
+        }else{
+      
 
-        setAddressList(temp);
+        setAddressList([
+           {addressType: 'Registered',
+                    fullAddress: 'Industriestrasse 16',
+                    pinCode: '6300',
+                    country: 'Switzerland',
+                    gstin: '',
+                    state: '',
+                    city: 'Zug',
+                  }
+        ]);
+        }
+        
         setList(
           savedData.authorisedSignatoryDetails?.length > 0
             ? savedData.authorisedSignatoryDetails
@@ -101,7 +98,7 @@ function Index(props) {
             }
           }
         });
-        setOptions([...optionArray]);
+    
       } else {
         let buyer = {
           name: props?.data?.name,
@@ -110,20 +107,21 @@ function Index(props) {
           addresses: props?.data?.addresses,
           authorisedSignatoryDetails: props?.data?.authorisedSignatoryDetails,
         };
-
-        let temp = [];
-
-        setAddressList([
-          {
-            addressType: 'Registered',
-            fullAddress: 'Industriestrasse 16',
-            pinCode: '6300',
-            country: 'Switzerland',
-            gstin: '',
-            state: '',
-            city: 'Zug',
-          },
-        ]);
+         if(props.data.addresses.length > 0) {
+          setAddressList(props.data.addresses);
+        }else{
+             setAddressList([
+           {addressType: 'Registered',
+                    fullAddress: 'Industriestrasse 16',
+                    pinCode: '6300',
+                    country: 'Switzerland',
+                    gstin: '',
+                    state: '',
+                    city: 'Zug',
+                  }
+        ])
+        }
+      
 
         setList(
           props?.data?.authorisedSignatoryDetails.length > 0
@@ -153,7 +151,7 @@ function Index(props) {
             }
           }
         });
-        setOptions([...optionArray]);
+        
       }
     }
   }, [props]);
@@ -177,7 +175,28 @@ function Index(props) {
       props.updateData('Seller', data);
     }
   }, [props.saveData, props.submitData]);
- 
+  const onEdit = (index) => {
+    let tempArr = list;
+    // tempArr[index].actions.edit="false"
+
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        // 👇️ if id equals 2, update country property
+        if (i == index) {
+        
+          return { ...obj, actions: 'false' };
+        }
+
+        // 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
+    // let temp=[...options]
+    // var indexOption = temp.indexOf(value.name);
+    //  setRemovedOption(value.name)
+  };
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -190,15 +209,7 @@ function Index(props) {
 
       return newState;
     });
-    let temp = [...options];
-    var indexOption = temp.indexOf(value.name);
-
-    setRemovedOption(value.name);
-    if (indexOption !== -1) {
-      temp.splice(indexOption, 1);
-    }
-
-    setOptions([...temp]);
+ 
   };
   const addMoreRows = () => {
     setList([
@@ -212,7 +223,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+   
   };
   // setRemovedOption(null)
 
@@ -224,16 +235,16 @@ function Index(props) {
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    // if (
+    //   val.name == 'Bhawana Jain' ||
+    //   val.name == 'Vipin Kumar' ||
+    //   val.name == 'Devesh Jain' ||
+    //   val.name == 'Fatima Yannoulis'
+    // ) {
+    //   let temp = [...options];
+    //   temp.push(val.name);
+    //   setOptions([...temp]);
+    // }
   };
   const handleInput = (name, value, key) => {
     const newInput = { ...buyerData };
@@ -326,15 +337,16 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+  const handleEditAddressInput = (index,addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
-
+  
+    setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: val.addressType,
+          addressType: addresstype,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -345,6 +357,7 @@ function Index(props) {
       }
     });
   };
+  console.log(EditAddress,"EditAddress")
   const editNewAddress = (name, value) => {
     setIsEdit(true);
     const newInput = { ...EditAddress };
@@ -362,6 +375,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress, false)) {
@@ -492,7 +507,145 @@ function Index(props) {
             className={`collapse ${styles.body} show  value_card card-body row`}
             aria-labelledby="customerDetail"
           >
-            {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr className="table_row">
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list.length > 0 &&
+                      list.map((val, index) => {
+                        return (
+                          <>
+                            {val.actions == 'true' ? (
+                              <tr key={index} className="table_row">
+                                <td>{val.name}</td>
+                                <td>{val.designation}</td>
+                                <td>{val.email}</td>
+                                <td>{val.phoneNo}</td>
+                                <td className={`d-flex`}>
+                                  <img
+                                    className={`${styles.image} mr-3`}
+                                    onClick={() => onEdit(index)}
+                                    src="/static/mode_edit.svg"
+                                    alt="edit"
+                                  />
+                                  <img
+                                    onClick={() => handleRemove(index, val)}
+                                    src="/static/delete 2.svg"
+                                    alt="delete"
+                                  />
+                                </td>
+                              </tr>
+                            ) : (
+                              <tr key={index} className="table_row">
+                                <td>
+                                 
+                                    <>
+                                      <select
+                                        value={val.name}
+                                        className={`${styles.customSelect} input`}
+                                        onChange={(e) => {
+                                         
+                                          handleChangeInput(e.target.name, e.target.value, index);
+                                        }}
+                                      >
+                                        <option>Select an option</option>
+                                      {list.length==0 || list.length==1?
+                                       options.map((val, i) => {
+                                          return <option value={val}>{val}</option>;
+                                        })
+                                      :
+                                      null
+                                      }
+                                       
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </>
+                                 
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    className="input"
+                                    value={val.designation}
+                                    name="designation"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    value={val.email}
+                                    name="email"
+                                    className="input"
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={val.phoneNo}
+                                    className="input"
+                                    name="phoneNo"
+                                    type="number"
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                     onKeyDown={(evt) => ['e', 'E', '+', '-',"."].includes(evt.key) && evt.preventDefault()}
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                </td>
+                                <td className={`d-flex`}>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                                    onClick={() => {
+                                      onEditRemove(index, val);
+                                    }}
+                                  >
+                                    <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save" />
+                                  </div>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                                    onClick={() => {
+                                      handleRemove(index, val);
+                                    }}
+                                  >
+                                    <img src="/static/delete 2.svg" />
+                                  </div>
+                                  {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })}
+                  </tbody>
+                </table>
+                <div
+                  className={`${styles.addMoreRows}`}
+                  onClick={(e) => {
+                    addMoreRows();
+                  }}
+                >
+                  <span>+</span> Add more rows
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

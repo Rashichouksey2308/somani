@@ -19,7 +19,7 @@ export default function AssociateshipAgreementPreview(data) {
           <td valign="top" style={{ padding: '20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
-                <td align="center" style={{ padding: '20px 0' }}>
+                <td align="center" style={{ padding: '20px 0 35px' }}>
                   <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                     <strong>ASSOCIATESHIP AGREEMENT</strong>
                   </p>
@@ -194,6 +194,7 @@ export default function AssociateshipAgreementPreview(data) {
                             services shall also be borne by the Associate Buyer and will be included in the sale price
                             of Goods/Services.
                           </p>
+                          <br/><br/><br/><br/><br/><br/><br/><br/>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
                             The exchange rate prevailing at the time of making payment of the margin money by the
                             Associate Buyer shall be the provisional price for preparation of provisional invoice .
@@ -202,11 +203,11 @@ export default function AssociateshipAgreementPreview(data) {
                             The final invoicing will be done in INR and the final exchange rate on the basis of which
                             invoicing shall be:
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
-                            a) the price at which the forward is booked or
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000', marginLeft:'-10px'}}>
+                            a)&nbsp;the price at which the forward is booked or
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
-                            b) the average of the exchanges rate at which the payment of Import is made by IGI to Indo
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000', marginLeft:'-10px'}}>
+                            b)&nbsp;the average of the exchanges rate at which the payment of Import is made by IGI to Indo
                             for this transaction.
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
@@ -291,7 +292,7 @@ export default function AssociateshipAgreementPreview(data) {
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>IGI 's trading Margin</strong>
                       </p>
-                      <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
+                      <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight: 'normal' }}>
                         The Trading margin of IGI shall be paid by the Associate Buyer as per details mentioned in
                         Schedule I, and the same shall be collected in the Sale Invoice raised by IGI on the Associate
                         Buyer.
@@ -308,6 +309,7 @@ export default function AssociateshipAgreementPreview(data) {
                         Seller at actuals within 5 days of demand from Seller.
                       </p>
                     </li>
+                    <br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Quality, Quantity, Pre-Shipment Inspection</strong>
@@ -401,7 +403,7 @@ export default function AssociateshipAgreementPreview(data) {
                             process of filing of claim, settlement of amount, etc. shall be the sole responsibility of
                             the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any,
                             arrived with the Insurance Company, shall be paid directly by the Insurance Company to IGI
-                            or IGI’s nominated bank as the case may be and the same shall not absolve the Associate
+                            or IGI's nominated bank as the case may be and the same shall not absolve the Associate
                             Buyer of their liability under the Associateship Agreement towards Seller.
                           </p>
                         </li>
@@ -453,6 +455,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                       </ol>
                     </li>
+                    <br/><br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Transport/Storage</strong>
@@ -547,7 +550,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '10px' }}>
                             Stevedoring Agent shall inter-alia undertake the following tasks:
                           </p>
-                          <ul style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
+                          <ul type="disc" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'16px' }}>
                             <li>
                               <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                                 Arranging allotment of plot at the Discharge Port
@@ -622,6 +625,7 @@ export default function AssociateshipAgreementPreview(data) {
                             and/or quantity of goods shall be borne by Associate Buyer and Seller shall in no way be
                             liable for the same.
                           </p>
+                          <br/><br/><br/><br/><br/>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft: '-16px' }}>
                             <strong>
                               11 (A). <u>OCEAN TRANSPORTATION:</u>
@@ -757,6 +761,7 @@ export default function AssociateshipAgreementPreview(data) {
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>GST/Other Tax</strong>
                       </p>
+                      <br/><br/><br/><br/><br/><br/><br/><br/>
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
@@ -894,6 +899,7 @@ export default function AssociateshipAgreementPreview(data) {
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Indemnification</strong>
                       </p>
+                      <br/><br/><br/><br/><br/><br/><br/>
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
@@ -1035,7 +1041,7 @@ export default function AssociateshipAgreementPreview(data) {
                             not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or
                             taking possession by a resolution professional, receiver, liquidator, assignee (or similar
                             official) for any or a substantial part of its property; or the Associate Buyer has
-                            involuntarily become the subject of proceedings (including filing of an application/
+                            involuntarily become the subject of proceedings (including filing of an application/ <br/><br/><br/><br/><br/><br/><br/><br/>
                             petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code,
                             2016 or an order has been made by the appropriate authority for winding up of the Associate
                             Buyer.
@@ -1058,7 +1064,7 @@ export default function AssociateshipAgreementPreview(data) {
                       >
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>i)</span>It is expressly and unconditionally agreed
+                            <span style={{ marginLeft: '-14px' }}>i)</span>&nbsp; It is expressly and unconditionally agreed
                             and acknowledged by the and Associate Buyer that the title in the goods/ material shall pass
                             on to the Associate Buyer only in respect of such specific quantity thereof as released from
                             the storage facility by the Stevedore under the Authorized Release Orders after receipt of
@@ -1077,7 +1083,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>ii)</span>It is specifically agreed that the Associate
+                            <span style={{ marginLeft: '-16px' }}>ii)</span>&nbsp; It is specifically agreed that the Associate
                             Buyer shall accept the goods on no complaint basis with regard to quality, quantity, mix-up,
                             shortage and/or any other claims. The Seller shall in no way be responsible or liable for
                             the quality, quantity, shortage or any other claims with respect to the Goods supplied by
@@ -1088,7 +1094,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>iii)</span>The Associate Buyer agrees and acknowledges
+                            <span style={{ marginLeft: '-20px' }}>iii)</span>&nbsp; The Associate Buyer agrees and acknowledges
                             that the sale of Goods under this Sales Contract is necessary to maintain the Associate
                             Buyer as a going concern and to continue its business operations and consequently, it has
                             requested the Seller to supply goods in accordance with the terms of this Sales Contract.
@@ -1103,7 +1109,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>iv)</span>Notwithstanding anything contained herein to
+                            <span style={{ marginLeft: '-19px' }}>iv)</span>&nbsp; Notwithstanding anything contained herein to
                             the contrary, all risks, consequences arising out of the actual transaction(s) taking place
                             between Supplier &amp; Indo, Indo &amp; IGI and Associate Buyer and IGI and/or agreement
                             with Stevedore under this contract and/or any modified/amended agreement will be to the
@@ -1113,7 +1119,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>v)</span>In the event of any breach or default by
+                            <span style={{ marginLeft: '-16px' }}>v)</span>&nbsp; In the event of any breach or default by
                             Associate Buyer or the stevedore of the terms of this Agreement or the Quadripartite
                             agreement, IGI at its sole discretion shall have the right to adjust/set off any amounts
                             paid to it by the Associate Buyer. If the Associate Buyer owes several, independent debts to
@@ -1123,7 +1129,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>vi)</span>The Associate Buyer undertakes to ensure
+                            <span style={{ marginLeft: '-19px' }}>vi)</span>&nbsp; The Associate Buyer undertakes to ensure
                             that all payments to be made to Seller in furtherance of this Agreement or any similar
                             agreements shall be treated as direct cost of production (budgeted operating expenses) and
                             as a 'insolvency resolution process cost' under the Insolvency and Bankruptcy Code, 2016 at
@@ -1144,7 +1150,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            <span style={{ marginLeft: '-20px' }}>vii)</span>The Associate Buyer shall not assign or
+                            <span style={{ marginLeft: '-22px' }}>vii)</span>&nbsp; The Associate Buyer shall not assign or
                             transfer this Agreement or all or any part of its rights or obligations hereunder to any
                             person, firm or corporation without the prior written consent of Seller. Notwithstanding
                             anything to the contrary contained in this Agreement, for avoidance of any doubts, if
@@ -1170,6 +1176,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                       </ol>
                     </li>
+                    <br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Force Majeur</strong>
@@ -1212,7 +1219,7 @@ export default function AssociateshipAgreementPreview(data) {
                   </h3>
                   <table
                     width="100%"
-                    cellPadding="10"
+                    cellPadding="5"
                     style={{ border: '1px solid #000000' }}
                     cellSpacing="0"
                     border="0"
@@ -1466,33 +1473,28 @@ export default function AssociateshipAgreementPreview(data) {
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                           <>
-                            <div>
-                              <div>
-                                <div c>
-                                  <table>
-                                    <tr>
-                                      {data?.spec &&
-                                        data?.spec.length > 0 &&
-                                        Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
-                                    </tr>
-                                    {data?.spec &&
-                                      data?.spec.length > 0 &&
-                                      data?.spec.map((item, index) => (
-                                        <tr>
-                                          {Object.values(item).map((value, id) => (
-                                            <td key={id}>{value}</td>
-                                          ))}
-                                        </tr>
-                                      ))}
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            {data.specComment.length > 0 ? <b>Comments</b> : null}
-                            <ol>
+                            <table width="100%" cellPadding="0" cellSpacing="0" border="0" style={{bordertop: '1px solid #000000', borderLeft: '1px solid #000000'}}>
+                              <tr>
+                                {data?.spec &&
+                                  data?.spec.length > 0 &&
+                                  Object.keys(data?.spec[0]).map((val, index) => <td bgColor="#fafafb" style={{fontSize: '12px', lineHeight: '18px', color: '#000000',borderBottom: '1px solid #000000', borderRight: '1px solid #000000', padding: '5px'}} key={index}>{val}</td>)}
+                              </tr>
+                              {data?.spec &&
+                                data?.spec.length > 0 &&
+                                data?.spec.map((item, index) => (
+                                  <tr>
+                                    {Object.values(item).map((value, id) => (
+                                      <td style={{fontSize: '12px', lineHeight: '18px', color: '#000000', borderBottom: '1px solid #000000',
+                                      borderRight: '1px solid #000000', padding: '5px'}} key={id}>{value}</td>
+                                    ))}
+                                  </tr>
+                                ))}
+                            </table>
+                            {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingTop: '20px'}}>Comments</strong> : null}
+                            <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000',paddingLeft:'16px'}}>
                               {data.specComment.length > 0 &&
                                 data.specComment.map((val, index) => {
-                                  return <li>{val}</li>;
+                                  return <li><p style={{fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0'}}>{val}</p></li>;
                                 })}
                             </ol>
                           </>
@@ -1507,7 +1509,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          Incoterms
+                          Inco Terms
                         </p>
                       </td>
                       <td
@@ -1556,7 +1558,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          Total Price
+                          Total Contract Value
                         </p>
                       </td>
                       <td
@@ -1591,13 +1593,8 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          {data.orderValueCurrency}{' '}
-                          {data.advanceMoney?.toLocaleString(
-                            `${data.orderValueCurrency == 'INR' ? 'en-IN' : 'en-EN'}`,
-                            {
-                              maximumFractionDigits: 2,
-                            },
-                          )}
+                         
+                          {data.advanceMoney} %
                         </p>
                       </td>
                     </tr>
@@ -1667,6 +1664,28 @@ export default function AssociateshipAgreementPreview(data) {
                         </p>
                       </td>
                     </tr>
+                    {/* <tr>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
+                          Provisional exchange rate for foriegn currency as per agreement
+                        </p>
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: '1px solid #000000',
+                          borderRight: '1px solid #000000',
+                        }}
+                      >
+                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
+                          Value
+                        </p>
+                      </td>
+                    </tr> */}
                   </table>
                 </td>
               </tr>
@@ -1681,40 +1700,28 @@ export default function AssociateshipAgreementPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="50%">
-                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          .................................................
+                      <td align="left">
+                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '30px'}}>
+                          <strong>(Associate Buyer)</strong>
                         </p>
                       </td>
-                      <td align="left" width="50%">
-                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          .................................................
+                      <td align="left">
+                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '30px' }}>
+                          <strong>(Indo German International Private Limited)</strong>
                         </p>
                       </td>
                     </tr>
                     <tr>
                       <td align="left">
-                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                          <strong>(Seller)</strong>
+                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
+                          <strong>Name:<br/>
+                          Designation:</strong>
                         </p>
                       </td>
                       <td align="left">
-                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                          <strong>(Buyer)</strong>
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" colSpan={2}>
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          .................................................
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" colSpan={2}>
-                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                          <strong>(Shipper)</strong>
+                          <strong>Name:<br/>
+                          Designation:</strong>
                         </p>
                       </td>
                     </tr>

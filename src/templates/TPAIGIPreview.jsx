@@ -1,4 +1,4 @@
-export default function TPASellerTemp(data) {
+export default function TPAIGIPreview(data) {
   return (
     <table
       width="800px"
@@ -17,7 +17,7 @@ export default function TPASellerTemp(data) {
         <td valign="top" style={{ padding: '20px' }}>
           <table width="100%" cellPadding="0" cellSpacing="0" border="0">
             <tr>
-              <td align="center" style={{ padding: '15px 0' }}>
+              <td align="center" style={{ padding: '15px 0 30px' }}>
                 <p
                   style={{
                     fontSize: '12px',
@@ -360,6 +360,7 @@ export default function TPASellerTemp(data) {
                   provided free of cost to Collateral Manager and the running cost of these facilities will also be
                   borne by <u>{data.buyerseller}</u>. Collateral Manager and their representatives shall have unfettered
                   access to the warehouse/stockyard;
+                  <br/><br/><br/><br/><br/><br/><br/><br/>
                 </p>
               </td>
             </tr>
@@ -553,7 +554,7 @@ export default function TPASellerTemp(data) {
                     color: '#000000',
                   }}
                 >
-                  This Agreement is made on the Effective Date and is entered into by
+                  This Agreement is made on the Effective Date and is entered into by 
                   <u>
                     {data.shortseller}, {data.shortbuyer}
                   </u>
@@ -731,6 +732,7 @@ export default function TPASellerTemp(data) {
                 >
                   During the period of this Agreement, <u>{data.buyerseller}</u> shall be responsible for payment of all
                   charges with regard to water and electricity.
+                  <br/><br/><br/><br/><br/><br/><br/>
                 </p>
               </td>
             </tr>
@@ -1067,7 +1069,7 @@ export default function TPASellerTemp(data) {
                   losses, liabilities, claims, obligations, costs, expenses arising during the duration of this
                   Agreement, which result from, arise in connection with or are related in any way to claims by third
                   parties or regulatory authorities, and which directly arise due to any reasons whatsoever and
-                  including the following
+                  including the following:<br/><br/><br/><br/><br/><br/>
                 </p>
               </td>
             </tr>
@@ -1382,6 +1384,7 @@ export default function TPASellerTemp(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            paddingLeft:'10px'
                           }}
                         >
                           {data?.cmaAuthorized?.length > 0 &&
@@ -1396,7 +1399,7 @@ export default function TPASellerTemp(data) {
                                       marginBottom: '0',
                                     }}
                                   >
-                                    Name- <span>{val.name}</span>
+                                    Name - {val.name}
                                   </p>
                                   <p
                                     style={{
@@ -1406,7 +1409,7 @@ export default function TPASellerTemp(data) {
                                       marginBottom: '0',
                                     }}
                                   >
-                                    Designation- <span>{val.designation}</span>
+                                    Designation - {val.designation}
                                   </p>
                                 </li>
                               );
@@ -1679,10 +1682,10 @@ export default function TPASellerTemp(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '30px' }}>
+              <td valign="top" style={{ paddingTop: '20px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <td colSpan={2} align="left">
+                    <td align="left">
                       <p
                         style={{
                           fontSize: '12px',
@@ -1695,50 +1698,86 @@ export default function TPASellerTemp(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="center" width="50%">
+                    <td align="left" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
-                        Buyer
-                      </p>
-                    </td>
-                    <td align="center" width="50%">
-                      <p
-                        style={{
-                          fontSize: '12px',
-                          lineHeight: '18px',
-                          color: '#000000',
-                        }}
-                      >
-                        Supplier
+                        Signed by:_______________________________
                       </p>
                     </td>
                   </tr>
                   <tr>
-                    <td align="center">
+                    <td align="left">
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
-                        {data.seller}
+                        For and on behalf of <strong>“{data.shortbuyer}”</strong>
                       </p>
                     </td>
-                    <td align="center">
+                  </tr>
+                  <tr>
+                    <td align="left" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
-                        {data.buyer}
+                        Signed by:_______________________________
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                          marginBottom: '0'
+                        }}
+                      >
+                        For and on behalf of <strong>“{data?.cmaShort}”</strong>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style={{paddingTop:'20px'}}>
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                          marginBottom: '0'
+                        }}
+                      >
+                        Signed by:_______________________________
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          lineHeight: '18px',
+                          color: '#000000',
+                          marginBottom: '0'
+                        }}
+                      >
+                        For and on behalf of <strong>“{data.shortseller}”</strong>
                       </p>
                     </td>
                   </tr>

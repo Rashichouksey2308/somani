@@ -76,6 +76,11 @@ export const predictiveSearch = (text) => {
   return regex.test(text);
 };
 
+export const checkForPlusSign = (text) => {
+  let regex = /[^a-zA-Z0-9 ]/g;
+  return regex.test(text);
+};
+
 /**
  * If the date is greater than today, return true.
  * @param date - The date to check
@@ -129,7 +134,8 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
  */
 
 export const removePrefixOrSuffix = (unitOfValue) => {
-  const value = String(unitOfValue).replace(/\D+/g, '');
+  const value = String(unitOfValue).replace(/([a-zA-Z])/g, '');
+  console.log(value, 'SDadsasd', unitOfValue);
   return Number(value);
 };
 
@@ -162,6 +168,11 @@ export const addPrefixSymbol = (symbol = '') => {
   return symbol;
 };
 
-export const crConverter = (amount = 0) => ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
-  maximumFractionDigits: 2,
-})} Cr`
+export const crConverter = (amount = 0) =>
+  ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
+    maximumFractionDigits: 2,
+  })} Cr`;
+export const specialCharCheck = (val) => {
+  let reg = /^[a-zA-Z0-9]{4,10}$/;
+  return reg.test(val);
+};

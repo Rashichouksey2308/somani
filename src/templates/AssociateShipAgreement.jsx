@@ -1066,7 +1066,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Incoterms
+              Inco Terms
             </Col>
             <Col md={7} className={styles.right}>
               {data.incoTerms}
@@ -1085,7 +1085,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Total Price
+              Total Contract Value
             </Col>
             <Col md={7} className={styles.right}>
               {data.orderValueCurrency}{' '}
@@ -1099,10 +1099,10 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               Advance Margin Money
             </Col>
             <Col md={7} className={styles.right}>
-              {data.orderValueCurrency}{' '}
+            
               {data.advanceMoney?.toLocaleString(`${data.orderValueCurrency == "INR" ? "en-IN" : "en-EN"}`, {
                 maximumFractionDigits: 2,
-              })}
+              })} %
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -1129,6 +1129,14 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               {data?.deliveryTerm}
             </Col>
           </Row>
+          {/* <Row className={`${styles.row} ${styles.last}`}>
+            <Col md={5} className={`${styles.left} border_black`}>
+              Provisional exchange rate for foriegn currency as per agreement
+            </Col>
+            <Col md={7} className={styles.right}>
+              Value
+            </Col>
+          </Row> */}
         </div>
         <div className={`row`}>
           <Col md={6}>

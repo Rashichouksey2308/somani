@@ -32,7 +32,7 @@ const Index = ({
         <div className={`${styles.dashboard_form} card-body`}>
           <Form>
             <div className={`${styles.terms_para}`}>
-              Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.
+              Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.&nbsp;
               <select
                 onChange={(e) => onChangeDropDown(e)}
                 className={`${styles.igpl_para} input`}
@@ -45,8 +45,7 @@ const Index = ({
                   {' '}
                   Emergent Industrial Solutions Limited (EISL)
                 </option>
-              </select>
-              will provide proof of all expenses to the Buyer.
+              </select>&nbsp;will provide proof of all expenses to the Buyer.
             </div>
             <div className="row">
               <div className={`${styles.form_group} mt-5  col-md-6`}>
@@ -323,7 +322,7 @@ const Index = ({
                         onChange={onChangeLcOpening}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        LC Opening Charges ( on LC value subject to minimum of{' '}
+                        LC Opening Charges ( on LC value subject to minimum of&nbsp;
                         <input
                           disabled
                           type="text"
@@ -532,13 +531,12 @@ const Index = ({
 
               <div className={`${styles.terms_para} pt-3 text-center w-100`}>
                 All necessary documents to be filed with Customs department for discharge of goods &amp; Customs
-                clearance can be filed by
+                clearance can be filed by&nbsp;
                 <span className={styles.igpl_para}>
                   {otherTermConditions?.buyer?.bank == 'Indo German International Private Limited (IGPL)'
                     ? 'IGPL'
                     : 'EISL'}{' '}
-                </span>
-                or its nominated person.
+                </span>&nbsp;or its nominated person.
               </div>
             </div>
             <div className={`${styles.terms_para} pt-3 text-center`}>

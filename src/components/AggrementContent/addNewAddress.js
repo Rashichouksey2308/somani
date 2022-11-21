@@ -13,11 +13,15 @@ export const addNewAddress = (
   toView,
   pinCode,
   type,
+  viewSet,
+  isgst,
+  gstArr,
 ) => {
+  console.log(isgst, viewSet, type, 'toView');
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
 
   return (
-    <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+    <div className={`${styles.newAddressContainer} card border_color`}>
       <div className={`${styles.newAddressHead} border_color`}>
         <span>Add a new address</span>
       </div>
@@ -73,12 +77,12 @@ export const addNewAddress = (
                   required
                   type="text"
                   name="pinCode"
-                  // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                  onKeyDown={(evt) => [';', '/', '-', '+'].includes(evt.key) && evt.preventDefault()}
                   value={newAddress?.pinCode}
                   onChange={(e) => {
                     if (pinCode) {
                       gettingPins(e.target.value);
+                      viewSet();
                     }
                     setAddress(e.target.name, e.target.value);
                   }}
@@ -128,32 +132,36 @@ export const addNewAddress = (
             </>
           ) : (
             <>
-              {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      name="gstin"
-                      value={newAddress.gstin}
-                      onChange={(e) => {
-                        setAddress(e.target.name,e.target.value)
-                      }}
-                    >
-                      <option>Select an option</option>
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="gstin"
+                    value={newAddress.gstin}
+                    onChange={(e) => {
+                      setAddress(e.target.name, e.target.value);
+                    }}
+                  >
+                    <option value="">Select an option</option>
+
+                    {gstArr.length > 0 ? (
+                      gstArr.map((val, index) => {
+                        return <option value={`${val}`}>{val}</option>;
+                      })
+                    ) : (
                       <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                      
-                    </select>
-                    <Form.Label
-                      className={`${styles.label_heading} ${styles.select}  label_heading`}
-                    >
-                      GSTIN<strong className="text-danger"></strong>
-                    </Form.Label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </Form.Group> */}
+                    )}
+                  </select>
+                  <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                    GSTIN {isgst ? <strong className="text-danger">*</strong> : null}
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </Form.Group>
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                 <Form.Control
                   className={`${styles.input_field} input form-control`}

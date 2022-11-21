@@ -90,7 +90,9 @@ const Index = () => {
                 : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
-              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              storageOfGoods: sheet?.transactionDetails?.storageOfGoods
+                ? sheet?.transactionDetails?.storageOfGoods
+                : sheet?.order?.portOfDischarge,
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
@@ -286,31 +288,31 @@ const Index = () => {
     }));
   };
 
-  const changePayment = () => {};
+  const changePayment = () => { };
 
   const handleSave = async () => {
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.tradeMarginPercentage,
-    );
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
-      termsheetDetails.commercials.overDueInterestPerMonth,
-    );
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
-      termsheetDetails.commercials.usanceInterestPercetage,
-    );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
-    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesUnit,
-    ).toString();
+    // tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
+    // tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
+    // tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
+    // tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.tradeMarginPercentage,
+    // );
+    // tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.overDueInterestPerMonth,
+    // );
+    // tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.lcOpeningChargesPercentage,
+    // );
+    // tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.usanceInterestPercetage,
+    // );
+    // tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
+    // tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.lcOpeningChargesUnit,
+    // ).toString();
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -668,25 +670,7 @@ const Index = () => {
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.tradeMarginPercentage,
-    );
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
-      termsheetDetails.commercials.overDueInterestPerMonth,
-    );
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
-      termsheetDetails.commercials.usanceInterestPercetage,
-    );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
-    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesUnit,
-    ).toString();
+
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -1062,8 +1046,8 @@ const Index = () => {
                           <p className={`${styles.value} accordion_Text`}>
                             {sheet?.order?.cam?.approvedAt
                               ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format(
-                                  'DD-MM-YYYY',
-                                )
+                                'DD-MM-YYYY',
+                              )
                               : ''}
                           </p>
                         </div>

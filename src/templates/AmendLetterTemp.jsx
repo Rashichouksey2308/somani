@@ -6,7 +6,7 @@ export default function AmendLetterTemp(lcModuleData) {
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
-        <td valign="top" style={{ paddingBottom: '20px' }}>
+        <td valign="top" style={{ paddingBottom: '5px' }}>
           <table
             width="100%"
             bgColor="#D8EAFF"
@@ -40,7 +40,7 @@ export default function AmendLetterTemp(lcModuleData) {
                       opacity: '0.7',
                     }}
                   >
-                    {lcModuleData?.order?.orderId}
+                    {lcModuleData.lcModuleData?.order?.orderId}
                   </span>
                 </span>
                 <br />
@@ -70,7 +70,7 @@ export default function AmendLetterTemp(lcModuleData) {
                       opacity: '0.7',
                     }}
                   >
-                    {lcModuleData?.company?.companyName}
+                    {lcModuleData.lcModuleData?.company?.companyName}
                   </span>
                 </span>
               </td>
@@ -105,7 +105,7 @@ export default function AmendLetterTemp(lcModuleData) {
                       opacity: '0.7',
                     }}
                   >
-                    {lcModuleData?.lcApplication?.documentaryCreditNumber}
+                    {lcModuleData.lcModuleData?.lcApplication?.documentaryCreditNumber}
                   </span>
                 </span>
                 <br />
@@ -213,7 +213,7 @@ export default function AmendLetterTemp(lcModuleData) {
                             marginBottom: '0',
                           }}
                         >
-                          {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                          {lcModuleData.lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
                         </p>
                       </td>
                     </tr>
@@ -266,7 +266,7 @@ export default function AmendLetterTemp(lcModuleData) {
                             marginBottom: '0',
                           }}
                         >
-                          {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
+                          {lcModuleData.lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
                         </p>
                       </td>
                     </tr>
@@ -319,7 +319,7 @@ export default function AmendLetterTemp(lcModuleData) {
                             marginBottom: '0',
                           }}
                         >
-                          {moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
+                          {moment(lcModuleData.lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
                         </p>
                       </td>
                     </tr>
@@ -372,7 +372,7 @@ export default function AmendLetterTemp(lcModuleData) {
                             marginBottom: '0',
                           }}
                         >
-                          {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
+                          {lcModuleData.lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
                         </p>
                       </td>
                     </tr>
@@ -419,7 +419,7 @@ export default function AmendLetterTemp(lcModuleData) {
                             marginBottom: '0',
                           }}
                         >
-                          {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
+                          {lcModuleData.lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
                         </p>
                       </td>
                     </tr>

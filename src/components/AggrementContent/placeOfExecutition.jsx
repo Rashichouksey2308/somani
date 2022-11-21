@@ -155,7 +155,7 @@ function Index(props) {
                                       handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   >
-                                    <option>Select an option</option>
+                                    <option value="">Select an option</option>
                                     <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
                                     <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
                                     <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
@@ -196,7 +196,7 @@ function Index(props) {
                                       index={index}
                                     />
                                     <img
-                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                       src="/static/caldericon.svg"
                                       alt="Search"
                                     />

@@ -9,6 +9,8 @@ import moment from 'moment';
 import TermsheetPopUp from '../TermsheetPopUp';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { emailValidation } from 'utils/helper';
+import { dropDownOptionHandler, handleErrorToast, objectValidator, returnDocFormat } from '@/utils/helpers/global';
+import { getDocuments } from '../../redux/masters/action';
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc, isOpen, isSupplier }) => {
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const [filteredDoc, setFilteredDoc] = useState([]);
 
   const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval');
-
+ const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -38,14 +40,17 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       receiver: '',
     },
   });
-
-  useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc.module == moduleSelected;
-    });
-    setFilteredDoc(tempArray);
-    dispatch(GetDocuments(`?order=${orderId}`));
-  }, [dispatch, orderId, moduleSelected]);
+ useEffect(() => {
+    
+    dispatch(getDocuments());
+  }, []);
+  // useEffect(() => {
+  //   const tempArray = documentsFetched?.documents?.filter((doc) => {
+  //     return doc.module == moduleSelected;
+  //   });
+  //   setFilteredDoc(tempArray);
+  //   dispatch(GetDocuments(`?order=${orderId}`));
+  // }, [dispatch, orderId, moduleSelected]);
   useEffect(() => {
     const tempArray = documentsFetched?.documents
       ?.slice()
@@ -79,7 +84,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   };
   const [openDropdown, setDropdown] = useState(false);
 
-  const uploadDocumentHandler = (e) => {
+  const uploadDocumentHandler = async (e) => {
     e.preventDefault();
     if (newDoc.document === null) {
       let toastMessage = 'please select A Document';
@@ -95,19 +100,22 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       const fd = new FormData();
 
       fd.append('document', newDoc.document);
-      fd.append('module', newDoc.module);
+      fd.append('module', moduleSelected);
       fd.append('order', orderId);
       // fd.append('type', newDoc.type))
       fd.append('name', newDoc.name);
 
-      dispatch(AddingDocument(fd));
-
-      setNewDoc({
-        document: null,
-        order: orderId,
-        name: '',
-        module: module ? module : 'Agreements&Insurance&LC&Opening',
-      });
+      let code = await   dispatch(AddingDocument(fd));
+      if(code==200){
+        setNewDoc({
+                document: null,
+                order: orderId,
+                name: '',
+                module: module ? module : 'Agreements&Insurance&LC&Opening',
+              });
+       await  dispatch(GetDocuments(`?order=${orderId}`));
+      }
+      
     }
   };
 
@@ -335,89 +343,8 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-                      {/* {module === 'Loading-Transit-Unloading' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="CertificateOfOrigin">
-                            Certificate of Origin{' '}
-                          </option>
-                          <option value="CertificateOfQuality">
-                            {' '}
-                            Certificate of Quality
-                          </option>
-                          <option value="CertificateOfWeight ">
-                            {' '}
-                            Certificate of Weight
-                          </option>
-                          <option value="PlotInspectionReport">
-                            {' '}
-                            Plot Inspection Report
-                          </option>
-                          <option value="BL "> BL</option>
-                          <option value="ContainerNoList ">
-                            {' '}
-                            Container No. List
-                          </option>
-                          <option value="PackingList "> Packing list</option>
-                          <option value="BLAcknowledgmentCopy">
-                            {' '}
-                            BL Acknowledgment Copy
-                          </option>
-                          <option value="ForwardSalesContract ">
-                            {' '}
-                            Forward Sales Contract
-                          </option>
-                          <option value="CoalImportRegistrationCertificate">
-                            {' '}
-                            Coal Import Registration Certificate
-                          </option>{' '}
-                          <option value="CIMSPaymentReceipt ">
-                            {' '}
-                            CIMS Payment Receipt
-                          </option>{' '}
-                          <option value="IGMCopy "> IGM Copy</option>{' '}
-                        </>
-                      ) : (
-                        <>
-                          <option selected disabled>
-                            Select an option
-                          </option>
 
-                          <option value="LcDraft">LC Draft </option>
-
-                          <option value="lCAmmendmentDraft">
-                            {' '}
-                            LC Ammendment Draft
-                          </option>
-                          <option value="vesselCertificate">
-                            {' '}
-                            Vessel certificate
-                          </option>
-                          <option value="vesselCertificateContainerList">
-                            {' '}
-                            Vessel Certificate, Container List
-                          </option>
-                          <option value="policyDocumentMarine">
-                            {' '}
-                            Policy Document - Marine
-                          </option>
-                          <option value="policyDocumentStorage">
-                            {' '}
-                            Policy Document - Storage
-                          </option>
-                          <option value="policyDocumentMarine">
-                            {' '}
-                            Policy Document - Marine
-                          </option>
-                          <option value="policyDocumentStorage">
-                            {' '}
-                            Policy Document - Storage
-                          </option>
-                        </>
-                      )} */}
-                      {module === 'LeadOnboarding&OrderApproval' ? (
+                      {/* {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}
                           <option value="" disabled>
@@ -500,7 +427,20 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           <option value="RR"> RR</option>
                           <option value="eWay Bill"> eWay Bill</option>
                         </>
-                      )}
+                      )} */}
+                      {/* <option value="" disabled>
+                        Select an option
+                      </option> */}
+                      {getDocumentsMasterData
+                          ?.filter((val, index) => {
+                          
+                            if (module.includes(val.Sub_Module)) {
+                              return val;
+                            }
+                          })
+                          ?.map((val, index) => {
+                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                          })}
                       <option value="others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
@@ -636,14 +576,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                             </td>
                             <td colSpan="2">
                               <img
-                                onClick={(e) => {
+                                onClick={async (e) => {
                                   DocDlt(index);
-                                  dispatch(
+                                 await   dispatch(
                                     DeleteDocument({
                                       orderDocumentId: documentsFetched._id,
                                       name: document.name,
                                     }),
                                   );
+                                await  dispatch(GetDocuments(`?order=${orderId}`));
                                 }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} mr-3`}
@@ -675,14 +616,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                   <div className="d-flex align-items-center">
                                     <select
                                       value={moduleSelected}
-                                      onChange={(e) => {
-                                        dispatch(
+                                      onChange={async (e) => {
+                                       await  dispatch(
                                           changeModuleDocument({
                                             orderDocumentId: documentsFetched._id,
                                             name: document.name,
                                             module: e.target.value,
                                           }),
                                         );
+                                        await dispatch(GetDocuments(`?order=${orderId}`));
                                         DocDlt(index);
                                       }}
                                       className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}

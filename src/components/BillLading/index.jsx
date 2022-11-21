@@ -11,6 +11,7 @@ import UploadOther from '../UploadOther';
 import { convertValue, removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
   let transId = _get(TransitDetails, 'data[0]', '');
@@ -347,6 +348,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+          toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
         if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
           toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -426,6 +435,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+          toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
@@ -599,7 +616,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         onBolAdd();
                       }}
                       className={`${styles.add_btn} mr-0`}
-                      style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
@@ -928,17 +944,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blDoc ? (
-                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
-                                  ) : bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                  )
-                                ) : null}
+                                {bolList[index]?.blDoc ? returnDocFormat( bolList[index]?.blDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
@@ -979,25 +985,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.containerNumberListDoc ? (
-                                      bolList[index]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xls') ||
-                                      bolList[index]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
-                                      ) : bolList[index]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
-                                        bolList[index]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                      ) : (
-                                        <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                      )
-                                    ) : null}
+                                    {bolList[index]?.containerNumberListDoc ? returnDocFormat(bolList[index]?.containerNumberListDoc?.originalName) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.containerNumberListDoc == null
@@ -1038,21 +1026,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.packingListDoc ? (
-                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                      ) : bolList[index]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
-                                        bolList[index]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                      ) : (
-                                        <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                      )
-                                    ) : null}
+                                    {bolList[index]?.packingListDoc ? returnDocFormat(bolList[index]?.packingListDoc?.originalName) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
@@ -1160,17 +1134,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blSurrenderDoc ? (
-                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className={`${styles.pdfImage} img-fluid`} alt="Xls" />
-                                  ) : bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className={`${styles.pdfImage} img-fluid`} alt="Doc" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                                  )
-                                ) : null}
+                                {bolList[index]?.blSurrenderDoc ? returnDocFormat(bolList[index]?.blSurrenderDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null
@@ -1214,7 +1178,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
           })}
 
           <div className="0">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid}  module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
           </div>
         </div>
         <SaveBar handleSave={saveData} rightBtn="Submit" rightBtnClick={handleShow} />

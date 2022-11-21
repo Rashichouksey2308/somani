@@ -46,6 +46,7 @@ function Index(props) {
   });
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
+   const [toView2, setToView2] = useState(false);
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -140,7 +141,7 @@ function Index(props) {
                 },
               ],
         );
-
+        console.log(savedData.addresses,"savedData.addresses")
         setAddressList(savedData.addresses);
         setMultiList(savedData.multiPartyAddresses);
         setSupplierState(supplier);
@@ -157,51 +158,75 @@ function Index(props) {
         });
         setOptions([...optionArray]);
 
-        if (props.data?.authorisedSignatoryDetails.length > 0) {
-          let tempArr = props.data?.authorisedSignatoryDetails;
-          let optionArray = [...options];
-          tempArr.forEach((val, index) => {
-            val.actions = 'true';
-            if (tempArr?.length > 0) {
-              let index = optionArray.indexOf(val.name);
-              if (index > -1) {
-                optionArray.splice(index, 1);
-              }
-            }
-          });
-          setOptions([...optionArray]);
-          setList(tempArr);
-        } else {
-          setList([
-            {
-              name: '',
-              designation: '',
-              email: '',
-              phone: '',
-              actions: 'false',
-              addnew: 'false',
-            },
-          ]);
-        }
+      
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
-        setAddressList(props.data?.addresses);
-        setMultiList(props.data?.multiPartyAddresses);
+      
         setSupplierState(supplier);
+      }else{
+        
+        let supplier = {
+          name: props.data.name || props?.order?.supplierName,
+          shortName: props.data.shortName,
+          bankDetails: {
+            bankName: props?.data?.bankDetails?.bankName,
+            accountNo: props?.data?.bankDetails?.accountNo,
+            swiftCode: props?.data?.bankDetails?.swiftCode,
+            city: props.data?.bankDetails?.city,
+          },
+          addresses: props.data.addresses,
+          authorisedSignatoryDetails: props.data.authorisedSignatoryDetails,
+          multiParty: props.data.multiParty,
+          multiPartyName: props.data.multiPartyName,
+          multiPartyAddresses: props.data.multiPartyAddresses,
+        };
+        setList(
+          props.data.authorisedSignatoryDetails?.length > 0
+            ? props.data.authorisedSignatoryDetails
+            : [
+                {
+                  name: '',
+                  designation: '',
+                  email: '',
+                  phone: '',
+                  actions: 'false',
+                  addnew: 'false',
+                },
+              ],
+        );
+        console.log(props.data.addresses,"props.data.addresses")
+        setAddressList(props.data.addresses);
+        setMultiList(props.data.multiPartyAddresses);
+        setSupplierState(supplier);
+       
       }
     }
   }, [props.data]);
-
+  
   useEffect(() => {
+    setMultiList([])
+  },[props.data.multiParty])
+console.log(addressList,"aasdads")
+  useEffect(() => {
+    
     if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData);
-      setToView(true);
+      
     } else {
+     
       setToShow([]);
-      setToView(false);
+      // setToView(false);
     }
   }, [getPincodesMasterData]);
- 
+ const viewSet=()=>{
+    
+     setToView(true)
+ }
+  const viewSet2=()=>{
+    
+     setToView2(true)
+ }
+ console.log(toView,"SAdasd")
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -347,6 +372,7 @@ function Index(props) {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   const handleData = (name, value) => {
+    console.log("thsss")
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';
@@ -354,6 +380,16 @@ function Index(props) {
     newInput.state = value.State;
     setNewAddress(newInput);
     setToView(false);
+  };
+   const handleData2 = (name, value) => {
+    console.log("thsss")
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setNewMultiAddress(newInput);
+    setToView2(false);
   };
   const handleDataEdit = (name, value) => {
     const newInput = { ...EditAddress };
@@ -380,7 +416,7 @@ function Index(props) {
     newInput.city = value.City;
     newInput.state = value.State;
     setMultiEditAddress(newInput);
-    setToView(false);
+    setToView2(false);
   };
   const setAddress = (name, value) => {
     const newInput = { ...newAddress };
@@ -394,9 +430,10 @@ function Index(props) {
     setToEditIndex(index);
     setAddressEditType(val);
     let tempArr = addressList;
-
+   
     tempArr.forEach((val, i) => {
       if (i == index) {
+        console.log(val,"val")
         setEditAddress({
           addressType: val.addressType,
           fullAddress: val.fullAddress,
@@ -406,8 +443,10 @@ function Index(props) {
           state: val.state,
           city: val.city,
         });
+         setAddressEditType(val.addressType)
       }
     });
+    
   };
   const editNewAddress = (name, value) => {
     setIsEdit(true);
@@ -415,7 +454,7 @@ function Index(props) {
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+ const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -426,6 +465,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const cancelAddress = () => {
     setNewAddress({
@@ -563,6 +604,21 @@ function Index(props) {
       city: '',
     });
   };
+   const onEdit = (index) => {
+    let tempArr = list;
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+         
+          return { ...obj, actions: 'false' };
+        }
+        // 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
+  };
 
   return (
     <>
@@ -621,7 +677,7 @@ function Index(props) {
                 Bank Name
                 <strong className="text-danger">*</strong>
               </label>
-              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+             
             </Col>
             <Col md={4} sm={12} className={`${styles.form_group}`}>
               <Form.Control
@@ -705,10 +761,10 @@ function Index(props) {
             toView,
           )}
         {isEdit == false && (
-          addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
         )}
 
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,"input")}
 
         {props.multiPart == true ? (
           <>
@@ -757,11 +813,12 @@ function Index(props) {
                   handleDataEditMines,
                   dispatch,
                   toShow,
-                  toView,
+                  toView2,
                 )}
-              <div className={`row`}>
+              <div className={`${styles.multi_address}`}>
                 {isEditMulti == false && (
-                   addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData,toShow,toView,true)
+                
+                  addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2)
                   
                 )}
               </div>

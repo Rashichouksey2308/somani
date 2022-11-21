@@ -9,8 +9,9 @@ import { useDispatch } from 'react-redux';
 import { UpdateInspection } from 'redux/Inspections/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { handleErrorToast } from '@/utils/helpers/global';
 
-export default function Index({ inspectionData, setDate, vendor }) {
+export default function Index({ inspectionData, setDate, vendor,required ,setComponentId,componentId}) {
   const dispatch = useDispatch();
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -24,32 +25,34 @@ export default function Index({ inspectionData, setDate, vendor }) {
     let add = [];
     let pincode = [];
     let newAddress = [];
+    let name = ''
+    let address = ''
+    console.log(vendor,'vendors')
     if (vendor) {
-      // add = vendor?.field23.split(",")
-      //    newAddress=[]
-      //   add.forEach((val,index)=>{
-      //     if(index<add.length-1){
-      //       newAddress.push(val)
-      //     }
-      //   })
-      // pincode =   add[add.length-1].split("-")
+    vendor?.forEach((item)=> {
+      if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
+        name = item.vendorDetails?.companyName
+        address = item?.keyAddresses[0]?.address
+
+      }
+    })
     }
 
     setAppointmentData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
         addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || address,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
         addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,
@@ -107,31 +110,19 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
   const handleOnAdd = () => {
     if (addressData.address.addressType === '' || addressData.address.addressType == undefined) {
-      let toastMessage = 'Please add address Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address Type');
       return false;
     }
     if (addressData.address.fullAddress === '' || addressData.address.fullAddress == undefined) {
-      let toastMessage = 'Please add address';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address');
       return false;
     }
     if (addressData.address.pinCode === '' || addressData.address.pinCode == undefined) {
-      let toastMessage = 'Please add pin Code';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add pin code');
       return false;
     }
     if (addressData.address.country === '' || addressData.address.country == undefined) {
-      let toastMessage = 'Please add country';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add country');
       return false;
     }
     setAppointmentData(addressData);
@@ -139,12 +130,11 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const validation = () => {
-    let toastMessage = '';
     if (appointmentData.name == '' || appointmentData.name == undefined) {
-      toastMessage = 'NAME IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+      handleErrorToast('name is mandatory');
+      return false;
+    } else if (appointmentData?.dateOfAppointment == '' || !appointmentData?.dateOfAppointment) {
+      handleErrorToast('date is mandatory');
       return false;
     }
     return true;
@@ -160,7 +150,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleSubmit = () => {
-    if (!validation()) <return></return>;
+    if (!validation()) return;
 
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
@@ -168,6 +158,14 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
     let task = 'submit';
     dispatch(UpdateInspection({ fd, task }));
+     
+    if(required){
+     
+       setComponentId(componentId + 1);
+    }else{
+      
+       setComponentId(componentId + 2);
+    }
   };
   const emptyData = () => {
     const temp = { ...appointmentData };
@@ -176,6 +174,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     temp.address.pinCode = '';
     temp.address.country = '';
     setAppointmentData({ ...temp });
+   
   };
 
   return (

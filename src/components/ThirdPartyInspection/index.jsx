@@ -14,7 +14,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther/index';
 import styles from './index.module.scss';
 
-export default function Index({ addButton }) {
+export default function Index({ addButton , setComponentId,componentId }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,11 +45,6 @@ export default function Index({ addButton }) {
   const [documentAction2, setDocumentAction2] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const [portType, setPortType] = useState({
-    loadPortInspection: false,
-    dischargePortInspection: false,
-  });
-
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails };
     newInput[name] = value;
@@ -57,25 +52,15 @@ export default function Index({ addButton }) {
     setInspectionData(newInput);
   };
 
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false);
-    } else {
-      setEditInput(true);
-    }
-  };
-
-  const ChangeValue = (item) => {
-    document.getElementById('dropdownMenuButton').value = item;
-  };
-
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (inspectionData) {
       setExcelFile(_get(inspectionData, 'order.generic.productSpecifications.specificationTable', []));
     }
   }, [inspectionData]);
+ 
+  console.log(documents,"ASdafsdf")
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -131,7 +116,11 @@ export default function Index({ addButton }) {
         numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
           ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
-        inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+        inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort
+        ?
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort:
+        _get(inspectionData, 'order.lc.lcApplication.portOfLoading', '')
+        ,
         inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
@@ -140,7 +129,9 @@ export default function Index({ addButton }) {
         numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
-        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort?
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort:
+        _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', ''),
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
@@ -156,34 +147,56 @@ export default function Index({ addButton }) {
   }, [inspectionData, allInspection]);
 
   const [documents, setDocuments] = useState({
+    certificateOfQuality:  null,
+    certificateOfWeight:  null,
+    certificateOfOrigin: null,
+  });
+
+
+  const [dischargeDocuments, setDischargeDocuments] = useState({
+    dischargeCertificateOfQuality:  null,
+    dischargeCertificateOfWeight:  null,
+    dischargeCertificateOfOrigin: null,
+  });
+
+    useEffect(() => {
+    if(inspectionData){
+      setDocuments({
     certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
     certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
-  });
 
-  const [dischargeDocuments, setDischargeDocuments] = useState({
+ 
+  });
+    setDischargeDocuments({
     dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
     dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
     dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
-  });
+  })
+    }
+  },[inspectionData])
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality == null &&
-      documents.certificateOfWeight == null &&
-      documents.certificateOfOrigin == null
+      documents.certificateOfQuality  !== null &&
+      documents.certificateOfWeight  !== null &&
+      documents.certificateOfOrigin  !== null
     ) {
-      sethaveDoc(false);
+      sethaveDoc(true);
+    }else{
+       sethaveDoc(false);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
-
+console.log(haveDischargeDoc,"haveDoc",haveDoc)
   useEffect(() => {
     if (
-      dischargeDocuments.dischargeCertificateOfQuality == null &&
-      dischargeDocuments.dischargeCertificateOfWeight == null &&
-      dischargeDocuments.dischargeCertificateOfOrigin == null
+      dischargeDocuments.dischargeCertificateOfQuality !== null &&
+      dischargeDocuments.dischargeCertificateOfWeight !== null &&
+      dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
-      setHaveDischargeDoc(false);
+      setHaveDischargeDoc(true);
+    }else{
+       setHaveDischargeDoc(false);
     }
   }, [
     dischargeDocuments.dischargeCertificateOfQuality,
@@ -196,7 +209,7 @@ export default function Index({ addButton }) {
     newUploadDoc.certificateOfQuality = e.target.files[0];
 
     setDocuments(newUploadDoc);
-    sethaveDoc(true);
+    
   };
 
   const uploadDocument2 = (e) => {
@@ -204,7 +217,7 @@ export default function Index({ addButton }) {
     newUploadDoc1.certificateOfWeight = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    sethaveDoc(true);
+  
   };
 
   const uploadDocument3 = (e) => {
@@ -212,7 +225,7 @@ export default function Index({ addButton }) {
     newUploadDoc1.certificateOfOrigin = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    sethaveDoc(true);
+    
   };
 
   const uploadDischargeDocument1 = (e) => {
@@ -220,7 +233,7 @@ export default function Index({ addButton }) {
     newUploadDoc.dischargeCertificateOfQuality = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc);
-    setHaveDischargeDoc(true);
+    
   };
 
   const uploadDischargeDocument2 = (e) => {
@@ -228,7 +241,7 @@ export default function Index({ addButton }) {
     newUploadDoc1.dischargeCertificateOfWeight = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
+  
   };
 
   const uploadDischargeDocument3 = (e) => {
@@ -236,7 +249,7 @@ export default function Index({ addButton }) {
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
+
   };
 
   const handleCloseW = () => {
@@ -344,7 +357,7 @@ export default function Index({ addButton }) {
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
           if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            let toastMessage = 'ALL DOCUMENT ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
             if (!toast.isActive(toastMessage)) {
               toast.error(toastMessage, { toastId: toastMessage });
             }
@@ -395,7 +408,7 @@ export default function Index({ addButton }) {
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -442,14 +455,15 @@ export default function Index({ addButton }) {
       }
     }
   };
-
+console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePortInspection,"inspectionDetails.dischargePortInspection")
   const handleSubmit = () => {
     if (!validation()) return;
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
+        console.log("herher1")
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -553,9 +567,10 @@ export default function Index({ addButton }) {
       }
 
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
+        console.log("herher")
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -607,7 +622,7 @@ export default function Index({ addButton }) {
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
           fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
+          fd.append('certificateOfOrigin',documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
           fd.append('certificateOfWeight', documents.certificateOfWeight);
 
@@ -618,6 +633,7 @@ export default function Index({ addButton }) {
       }
 
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
+        console.log("herher2")
         var noError3 = false;
         if (
           inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '' ||
@@ -660,7 +676,7 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -694,7 +710,7 @@ export default function Index({ addButton }) {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -782,7 +798,7 @@ export default function Index({ addButton }) {
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -869,7 +885,7 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -897,6 +913,7 @@ export default function Index({ addButton }) {
         }
       }
     }
+    setComponentId(componentId + 1);
   };
 
   return (
@@ -922,7 +939,9 @@ export default function Index({ addButton }) {
                     {_get(inspectionData, 'order.termsheet.transactionDetails.partShipmentAllowed', '')}
                   </div>
 
-                  <button className={styles.add_btn}>Add</button>
+                  <button className={styles.add_btn}>
+                    <span className={styles.add_sign}>+</span>Add
+                  </button>
                 </div>
               </div>
             </div>
@@ -973,7 +992,7 @@ export default function Index({ addButton }) {
                   'order.termsheet.transactionDetails.partShipmentAllowed',
                   '',
                 )?.toLocaleLowerCase() === 'yes' ? (
-                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+                  <div className={`${styles.form_group} mt-1 col-lg-3 m-0 col-md-6 col-sm-6`}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -996,7 +1015,7 @@ export default function Index({ addButton }) {
                       //   maximumFractionDigits: 2,
                       // })}
 
-                      type="number"
+                      type="text"
                       onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
@@ -1042,7 +1061,7 @@ export default function Index({ addButton }) {
                   className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Inspection Details</h3>
-                  <button onClick={handleShow} className={styles.product_btn} type="button">
+                  <button onClick={handleShow} className={`${styles.product_btn} d-flex align-items-center`} type="button">
                     {' '}
                     Product Specification
                     <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />
@@ -1158,7 +1177,7 @@ export default function Index({ addButton }) {
           {inspectionDetails.loadPortInspection && (
             <div className={`${styles.main} vessel_card card border_color`}>
               <div
-                className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
+                className={`${styles.head_container} border-0 align-items-center head_container d-flex justify-content-between`}
                 data-toggle="collapse"
                 data-target="#upload"
                 aria-expanded="true"
@@ -1238,61 +1257,8 @@ export default function Index({ addButton }) {
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={() => ChangeValue('on Hold')}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={() =>
-                                      setDocumentAction('Rejected')
-                                    }
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={() =>
-                                      setDocumentAction('Approved')
-                                    }
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfOriginStatus === 'On Hold'
@@ -1348,7 +1314,7 @@ export default function Index({ addButton }) {
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseO()}
                                       alt="Close"
@@ -1391,56 +1357,8 @@ export default function Index({ addButton }) {
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfQualityStatus === 'On Hold'
@@ -1496,7 +1414,7 @@ export default function Index({ addButton }) {
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseQ()}
                                       alt="Close"
@@ -1540,56 +1458,8 @@ export default function Index({ addButton }) {
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfWeightStatus === 'On Hold'
@@ -1645,7 +1515,7 @@ export default function Index({ addButton }) {
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseW()}
                                       alt="Close"
@@ -1661,7 +1531,7 @@ export default function Index({ addButton }) {
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      Any one document is mandatory
+                      All document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1672,7 +1542,7 @@ export default function Index({ addButton }) {
           {inspectionDetails.dischargePortInspection && (
             <div className={`${styles.main} vessel_card card border_color`}>
               <div
-                className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
+                className={`${styles.head_container} border-0 align-items-center head_container d-flex justify-content-between`}
                 data-toggle="collapse"
                 data-target="#uploaddischarge"
                 aria-expanded="true"
@@ -1759,7 +1629,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfOriginStatus === 'On Hold'
@@ -1815,7 +1685,7 @@ export default function Index({ addButton }) {
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseO2()}
                                       alt="Close"
@@ -1859,56 +1729,8 @@ export default function Index({ addButton }) {
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfQualityStatus === 'On Hold'
@@ -1964,7 +1786,7 @@ export default function Index({ addButton }) {
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseQ2()}
                                       alt="Close"
@@ -2009,56 +1831,8 @@ export default function Index({ addButton }) {
                                   : ''}
                               </td>
                               <td>
-                                {' '}
-                                {/* <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div> */}
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfWeightStatus === 'On Hold'
@@ -2114,7 +1888,7 @@ export default function Index({ addButton }) {
                                       )}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseW2()}
                                       alt="Close"
@@ -2130,7 +1904,7 @@ export default function Index({ addButton }) {
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      Any one document is mandatory
+                      All document is mandatory
                     </div>
                   </div>
                 </div>
@@ -2139,7 +1913,7 @@ export default function Index({ addButton }) {
           )}
 
           <div className="0">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid} module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
@@ -2203,7 +1977,7 @@ const Discharge = (
         className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
       >
         <h3 className={`${styles.heading}`}>Inspection Details</h3>
-        <button onClick={handleShow} className={styles.product_btn} type="button">
+        <button onClick={handleShow} className={`${styles.product_btn} d-flex align-items-center`} type="button">
           {' '}
           Product Specification
           <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />

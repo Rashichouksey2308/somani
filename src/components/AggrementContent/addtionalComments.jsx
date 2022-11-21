@@ -81,7 +81,7 @@ function Index(props) {
     setAddressList([
       ...addressList,
       {
-        name: 'Sales Agreement',
+        name: '',
         comment: '',
         dateOfExecution: null,
         dateOfContract: null,
@@ -175,6 +175,7 @@ function Index(props) {
                       <th width="20%" className="border-0 generic_th">
                         Month of loading of Cargo
                         <strong className="text-danger">*</strong>
+                       
                       </th>
                       <th width="15%" className="border-0 generic_th">
                         Date of Contract between Shipper and Buyer
@@ -218,10 +219,10 @@ function Index(props) {
                                     name="name"
                                     onChange={(e) => {
                                       handleChangeInput(e.target.name, e.target.value, index),
-                                        setIsAssignment(e.target.value);
+                                      setIsAssignment(e.target.value);
                                     }}
                                   >
-                                    <option>Select an option</option>
+                                    <option value="">Select an option</option>
                                     <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
                                     <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
                                     <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
@@ -318,7 +319,7 @@ function Index(props) {
                                           index={index}
                                         />
                                         <img
-                                          className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                          className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                           src="/static/caldericon.svg"
                                           alt="Search"
                                         />

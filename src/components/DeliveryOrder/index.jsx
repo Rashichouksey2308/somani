@@ -4,12 +4,22 @@ import styles from './index.module.scss';
 import SaveBar from '../SaveBar';
 import _get from 'lodash/get';
 import Router from 'next/router';
-
+import { toast } from 'react-toastify';
 export default function Index(props) {
   const [show, setShow] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val) => {
+    console.log(val,"val")
+    if(val.Quantity==""){
+       let toastMessage = 'PLS SELECT ADD QUANTITY RELEASED';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                
+        }
+        return
+    }
+    sessionStorage.setItem('deliveryPreviewId',val.deliveryOrderNo);
     sessionStorage.setItem('dono', val.deliveryOrderNo);
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
     Router.push('/delivery-preview');
@@ -80,7 +90,7 @@ export default function Index(props) {
                       {props.releaseOrderData.map((val, index) => {
                         return (
                           <>
-                            <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} style={{ top: '5px' }}>
+                            <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className="d-flex">
                                 <select
                                   value={props.releaseOrderData[index].orderNumber}
@@ -89,6 +99,8 @@ export default function Index(props) {
                                   disabled={!val.isDelete}
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 >
+                                  <option disabled  value="">Select an option</option>
+                                  
                                   {_get(props, 'ReleaseOrder.data[0].releaseDetail', []).map((option, index) => (
                                     <option value={option.orderNumber} key={index}>
                                       {option.orderNumber}
@@ -146,7 +158,7 @@ export default function Index(props) {
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order No.</div>
-                              <span className={styles.value}>{val.deliveryOrderNo}</span>
+                              <span className={`${styles.value} text-nowrap`}>{val.deliveryOrderNo}</span>
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order Date</div>
@@ -160,10 +172,10 @@ export default function Index(props) {
                                 </div>
 
                                 {val.isDelete ? (
-                                  <div className={`${styles.form_group} col-lg-6`} style={{ marginLeft: '-48px' }}>
+                                  <div className={`${styles.form_group} col-md-7`}>
                                     <img
                                       src="/static/save-3.svg"
-                                      className={`${styles.shareImg} ml-3`}
+                                      className={`${styles.shareImg}`}
                                       alt="Save"
                                       onClick={(e) => {
                                         props.onEdit(index, false);
@@ -171,13 +183,13 @@ export default function Index(props) {
                                     />
                                     <img
                                       src="/static/cancel-3.svg"
-                                      className={`${styles.shareImg} ml-3`}
+                                      className={`${styles.shareImg} ml-2`}
                                       alt="Cancel"
                                     />
 
                                     {props.releaseOrderData.length > 1 && (
                                       <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2`}
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {

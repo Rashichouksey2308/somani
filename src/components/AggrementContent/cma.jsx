@@ -15,6 +15,7 @@ let cma = {
 };
 
 function Index(props) {
+  console.log(props,"props.data?.addresses")
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
@@ -50,10 +51,9 @@ function Index(props) {
       val.actions = 'true';
     });
     setList(tempArr);
-    let tempArr2 = cmaState.addresses;
-    setAddressList(tempArr2);
+    
   }, []);
-
+ 
  
   const cancelAddress = () => {
     setNewAddress({
@@ -67,14 +67,35 @@ function Index(props) {
     });
     setAddressType('Registered');
   };
+  const setdefualtAdd=(value)=>{
+    let temp=[];
+    if(value?.length>0){
+   value.forEach((val,index)=>{
+      temp.push({
+      addressType: 'Registered',
+      fullAddress: val.address,
+      pinCode: val.pinCode,
+      country: val.country,
+      gstin: val.gstin,
+      state: val.state,
+      city: val.city
+      })
+    })
+     console.log(temp,"temp")
+     setAddressList([...temp])
+    }
+   
+   
+  }
+  console.log(addressList,"addressList")
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
         let cma = {
-          name: savedData.name || props?.vendor?.field4,
+          name: savedData.name || props?.vendor?.name,
           shortName: savedData.shortName,
-          gstin: savedData.gstin || props?.vendor?.field22,
+          gstin: savedData.gstin ||'',
           designatedStorageArea: savedData.designatedStorageArea,
 
           addresses: savedData.addresses,
@@ -94,7 +115,26 @@ function Index(props) {
                 },
               ],
         );
-        setAddressList(savedData.addresses !== undefined ? savedData.addresses : []);
+          if(savedData?.addresses?.length==0){
+           let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
+          }
+        }else{
+          setAddressList( savedData?.addresses)
+        }
         setCmaState(cma);
         let tempArr = savedData?.authorisedSignatoryDetails;
         let optionArray = [...options];
@@ -110,9 +150,9 @@ function Index(props) {
         setOptions([...optionArray]);
       } else {
         let cma = {
-          name: props.data?.name || props?.vendor?.field4,
+          name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName,
-          gstin: props.data?.gstin || props?.vendor?.field22,
+          gstin: props.data?.gstin ||'',
           designatedStorageArea:
             props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
           addresses: props.data?.addresses,
@@ -132,40 +172,31 @@ function Index(props) {
                 },
               ],
         );
-        setAddressList(props.data?.addresses !== undefined ? props.data?.addresses : []);
-        let a = false;
-        for (let i = 0; i < props.data?.addresses.length; i++) {
-          if (props.data?.addresses[i].fullAddress == 'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3') {
-            a = true;
+       
+        if(props.data?.addresses?.length==0){
+           let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
           }
-        }
-        if (a == false) {
-          let add = props?.vendor?.field23.split(',');
-          let newAddress = [];
-          if (add?.length > 0) {
-            add.forEach((val, index) => {
-              if (index < 4) {
-                newAddress.push(val);
-              }
-            });
-            let pincode = add[5].split('-');
-
-            setAddressList([
-              ...addressList,
-              {
-                addressType: 'Registered',
-                fullAddress: newAddress.join(),
-                pinCode: pincode[1],
-                country: 'India',
-                gstin: '',
-                state: pincode[0],
-                city: add[4],
-              },
-            ]);
-          }
-        }
-        if (props.data?.addresses.length > 0) {
-        }
+            }else{
+              setAddressList( props.data?.addresses)
+            }
+        
+       
+      
+        
         setCmaState(cma);
         let tempArr = props.data?.authorisedSignatoryDetails;
         let optionArray = [...options];
@@ -338,12 +369,12 @@ function Index(props) {
       };
       setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
-      props.masterList.forEach((val, index) => {
+      props.vendor.signatory.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
-          arrayToSave.designation = val.designation;
-          arrayToSave.email = val.email;
-          arrayToSave.phoneNo = val.phoneNo;
+          arrayToSave.designation = val.designation||val.designation;
+          arrayToSave.email = val.email ||val.emailId;
+          arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
         }
       });
     }
@@ -401,15 +432,16 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+   const handleEditAddressInput = (index,addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
-
+  
+    setAddressEditType(addresstype)
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: val.addressType,
+          addressType: addresstype,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -426,7 +458,7 @@ function Index(props) {
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -437,6 +469,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
@@ -513,7 +547,9 @@ function Index(props) {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
+                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
+                     return <option value={`${val}`}>{val}</option>
+                  })}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -559,11 +595,17 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            null,
+            null,
+          props.vendor.gstin
+            
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,null,null,"gst",
+           props.vendor.gstin
+           )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,)}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,props.vendor.options?props.vendor.options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );

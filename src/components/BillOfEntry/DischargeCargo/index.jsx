@@ -100,7 +100,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const onSaveDischarge = () => {
-    if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
+    if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '' ||dischargeOfCargo.dischargeOfCargo.dischargeQuantity === null ||dischargeOfCargo.dischargeOfCargo.dischargeQuantity === undefined) {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -119,7 +119,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     if (_get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner') {
       if (
         dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' ||
-        dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined
+        dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined 
+        ||dischargeOfCargo.dischargeOfCargo?.numberOfContainers == null
       ) {
         let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -128,14 +129,20 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         return;
       }
     }
-    if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
+    if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '' 
+      || dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === null ||
+      dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === undefined
+    ) {
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return;
     }
-    if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
+    if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === ''
+    || dischargeOfCargo.dischargeOfCargo.dischargeStartDate === null ||
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate === undefined
+    ) {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -156,7 +163,10 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       }
       return;
     }
-    if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
+    if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === ''
+     || dischargeOfCargo.dischargeOfCargo.dischargeEndDate === null ||
+      dischargeOfCargo.dischargeOfCargo.dischargeEndDate === undefined
+     ) {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -570,7 +580,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
             </div>
           </div>
           <div className="">
-            <UploadOther isDocumentName={true} orderid={OrderId} module="customClearanceAndWarehousing" />
+            <UploadOther isDocumentName={true} orderid={OrderId} mmodule={['BOE','Discharge of Cargo']  }  />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
