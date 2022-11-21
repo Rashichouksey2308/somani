@@ -239,9 +239,7 @@ const Index = () => {
           expectedShipment={orderData?.ExpectedDateOfShipment}
           port={getPortsMasterData}
         />
-        <div className="mt-4">
-          <CommonSave onSave={onOrderSave} />
-        </div>
+        <CommonSave onSave={onOrderSave} />
       </div>
     </div>
   );

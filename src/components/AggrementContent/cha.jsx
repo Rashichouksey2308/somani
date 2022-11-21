@@ -566,7 +566,7 @@ const cancelEditAddress = () => {
                         Address<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex align-items-center">
                         <Form.Control
                           className={`${styles.input_field} input form-control`}
@@ -636,7 +636,7 @@ const cancelEditAddress = () => {
                         />
                       </div>
                     </Form.Group>
-                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex align-items-center">
                         <Form.Control
                           className={`${styles.input_field} input form-control`}
@@ -808,7 +808,7 @@ const editData = (
                 Address<strong className="text-danger">*</strong>
               </Form.Label>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex align-items-center">
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
@@ -870,7 +870,7 @@ const editData = (
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex align-items-center">
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
