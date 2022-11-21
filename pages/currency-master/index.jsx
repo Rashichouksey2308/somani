@@ -38,15 +38,7 @@ const index = () => {
     dispatch(GetAllPorts(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
 
-  const handleRoute = (id) => {
-    if(sessionStorage.getItem('portId')){
-      sessionStorage.removeItem('portId')
-    }
-    sessionStorage.setItem('portId', id);
-    dispatch(GetPorts(`?portId=${id}`));
-    Router.push('/currency-master/id');
-  };
-
+ 
   return (
     <>
       <div className="container-fluid p-0 border-0">
@@ -92,8 +84,8 @@ const index = () => {
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
               onClick={() => {
-                sessionStorage.getItem('portId') && sessionStorage.removeItem('portId');
-                Router.push('/ports/id');
+               
+                Router.push('/currency-master/id');
               }}
             >
               <span className="ml-1 mr-2">Add</span>
@@ -107,12 +99,6 @@ const index = () => {
             header2="Currency Name"
             header4="STATUS"   
             isCurrency={true} 
-            handleRoute={handleRoute}
-            selectorData={allPorts}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            pageLimit={pageLimit}
-            setPageLimit={setPageLimit}
           />
         </div>
       </div>
