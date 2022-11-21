@@ -94,39 +94,14 @@ function Index(props) {
                   },
                 ],
           );
-          let tempArr = savedData?.authorisedSignatoryDetails;
-          // let optionArray = [...options];
-          // tempArr.forEach((val, index) => {
-          //   val.actions = 'true';
-          //   if (tempArr?.length > 0) {
-          //     let index = optionArray.indexOf(val.name);
-          //     if (index > -1) {
-          //       optionArray.splice(index, 1);
-          //     }
-          //   }
-          // });
-          // setOptions([...optionArray]);
-
-            if(savedData?.addresses?.length==0){
-           let temp=[];
-       if(props.vendor.address?.length>0){
-        props.vendor.address.forEach((val,index)=>{
-            temp.push({
-            addressType: 'Registered',
-            fullAddress: val.address,
-            pinCode: val.pinCode,
-            country: val.country,
-            gstin: val.gstin,
-            state: val.state,
-            city: val.city
-            })
-          })
-          console.log(temp,"temp")
-          setAddressList([...temp])
-          }
-            }else{
-              setAddressList( props.data?.addresses)
-            }
+         
+       
+       
+           
+              setAddressList(savedData?.addresses)
+          
+      
+            
           setSeteveState(supplier);
         } else {
           let supplier = {
@@ -150,7 +125,26 @@ function Index(props) {
                   },
                 ],
           );
-         
+                 if(props.data?.addresses?.length==0){
+           let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
+          }
+            }else{
+              setAddressList( props.data?.addresses)
+            }
           setSeteveState(supplier);
           let tempArr = props?.data?.authorisedSignatoryDetails;
          
@@ -192,26 +186,27 @@ function Index(props) {
         // setOptions([...optionArray]);
             if(props.data?.addresses?.length==0){
            let temp=[];
-       if(savedData.address?.length>0){
-        props.vendor.address.forEach((val,index)=>{
-            temp.push({
-            addressType: 'Registered',
-            fullAddress: val.address,
-            pinCode: val.pinCode,
-            country: val.country,
-            gstin: val.gstin,
-            state: val.state,
-            city: val.city
-            })
-          })
-          console.log(temp,"temp")
-          setAddressList([...temp])
-          }
-            }else{
-              setAddressList( props.data?.addresses)
-            }
+          if(savedData.address?.length>0){
+            props.vendor.address.forEach((val,index)=>{
+                temp.push({
+                addressType: 'Registered',
+                fullAddress: val.address,
+                pinCode: val.pinCode,
+                country: val.country,
+                gstin: val.gstin,
+                state: val.state,
+                city: val.city
+                })
+              })
+              console.log(temp,"temp")
+              setAddressList([...temp])
+              }
+                }else{
+                  setAddressList( props.data?.addresses)
+                }
         setSeteveState(supplier);
       } else {
+        // console.log("sdasdasd")
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
@@ -233,39 +228,31 @@ function Index(props) {
                 },
               ],
         );
-           if(props.data?.addresses?.length==0){
-           let temp=[];
-       if(props.vendor.address?.length>0){
-        props.vendor.address.forEach((val,index)=>{
-            temp.push({
-            addressType: 'Registered',
-            fullAddress: val.address,
-            pinCode: val.pinCode,
-            country: val.country,
-            gstin: val.gstin,
-            state: val.state,
-            city: val.city
+        if(props.data?.addresses?.length==0){
+          console.log('ssdasdasd',props.vendor.address)
+        let temp=[];
+        if(props.vendor.address?.length>0 || props.vendor.address!==undefined ){
+          console.log(props.vendor.address,"props.vendor.address")
+          props.vendor.address.forEach((val,index)=>{
+              temp.push({
+              addressType: 'Registered',
+              fullAddress: val.address,
+              pinCode: val.pinCode,
+              country: val.country,
+              gstin: val.gstin,
+              state: val.state,
+              city: val.city
+              })
             })
-          })
-          console.log(temp,"temp")
-          setAddressList([...temp])
-          }
-            }else{
-              setAddressList( props.data?.addresses)
+            console.log(temp,"temp")
+            setAddressList([...temp])
             }
+        }else{
+          setAddressList(props.data?.addresses)
+        }
         setSeteveState(supplier);
         let tempArr = props?.data?.authorisedSignatoryDetails;
-        // let optionArray = [...options];
-        // tempArr.forEach((val, index) => {
-        //   val.actions = 'true';
-        //   if (tempArr?.length > 0) {
-        //     let index = optionArray.indexOf(val.name);
-        //     if (index > -1) {
-        //       optionArray.splice(index, 1);
-        //     }
-        //   }
-        // });
-        // setOptions([...optionArray]);
+      
       }
     }
   }, [props.data, props.sameAsCHA]);

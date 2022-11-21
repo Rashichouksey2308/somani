@@ -1459,7 +1459,7 @@ let masterList = [
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
-        shortName: data.cmaData.gstin,
+        gstin: data.cmaData.gstin,
         designatedStorageArea: data.cmaData.designatedStorageArea,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
@@ -1482,7 +1482,7 @@ let masterList = [
         }
       }
       if (dataToSend.CMA.gstin == '' || dataToSend.CMA.gstin == undefined) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add gstin  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           setSubmitData(false);
@@ -2393,7 +2393,7 @@ let masterList = [
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
         designatedStorageArea: data.cmaData.designatedStorageArea,
-        shortName: data.cmaData.gstin,
+        gstin: data.cmaData.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };

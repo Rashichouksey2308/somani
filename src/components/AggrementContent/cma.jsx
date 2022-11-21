@@ -154,7 +154,7 @@ function Index(props) {
           shortName: props.data?.shortName,
           gstin: props.data?.gstin ||'',
           designatedStorageArea:
-            props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
+          props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props?.data?.authorisedSignatoryDetails,
         };
@@ -547,7 +547,11 @@ const cancelEditAddress = () => {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
+                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.filter((val,index)=>{
+                    if(val!== undefined){
+                      return val
+                    }
+                  }).map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
                 </select>

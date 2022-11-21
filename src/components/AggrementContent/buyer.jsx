@@ -423,13 +423,13 @@ function Index(props) {
       if (buyerData.name == 'Indo German International Private Limited') {
          
 
-        filter = props.internal.filter((val) => {
+        filter = props?.internal?.filter((val) => {
           if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
             return val;
           }
         });
        
-      if(filter.length > 0) {
+      if(filter && filter.length > 0 ) {
         let tempOptions=[];
         let tempDetail=[]
          setShotName(filter[0].Short_Name)
@@ -447,7 +447,7 @@ function Index(props) {
       if (buyerData.name == 'Emergent Industrial Solution Limited') {
         setShotName('EISL');
 
-        filter = props.internal.filter((val) => {
+        filter = props?.internal?.filter((val) => {
           console.log(val.Company_Name,"val.Company_Name")
           if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
             return val;
@@ -455,7 +455,7 @@ function Index(props) {
         });
        
         
-       if(filter.length > 0) {
+      if(filter && filter.length > 0 ) {
         let tempOptions=[];
         let tempDetail=[]
         setShotName(filter[0].Short_Name)
@@ -475,13 +475,16 @@ function Index(props) {
 
       setRemovedArr([]) 
       
-      setBranchOptions([...filter]);
+       if(filter){
+      
+        setBranchOptions([...filter]);
+      }
       
     }
  },[props.internal])
  const getAddress = (name , branch) => {
   console.log(name , branch,props.internal,"name , branch")
-  if(props.internal.length>0){
+  if(props?.internal?.length>0){
    if (name || branch) {
       let filter;
      console.log(props.internal,"props.internal")
@@ -497,7 +500,7 @@ function Index(props) {
           setShotName(filter[0].Short_Name);
        //signatory
         
-         if(filter.length > 0) {
+        if(filter && filter.length > 0 ) {
         let tempOptions=[];
         let tempDetail=[]
         filter.forEach((val,index)=>{
@@ -560,7 +563,7 @@ function Index(props) {
       }
       if (name == 'Emergent Industrial Solution Limited') {
        
-        filter = props.internal.filter((val) => {
+        filter = props?.internal?.filter((val) => {
           console.log(val.Company_Name,"val.Company_Name")
           if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
             return val;
@@ -630,7 +633,10 @@ function Index(props) {
 
       }
       console.log(filter,"fltoba")
-      setBranchOptions([...filter]);
+      if(filter){
+        setBranchOptions([...filter]);
+      }
+      
     }
     }
  }
@@ -679,7 +685,7 @@ function Index(props) {
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
-                    let filter = props.internal.filter((val) => {
+                    let filter = props?.internal?.filter((val) => {
                       if (val.Company_Name?.toLowerCase() == e.target.value?.toLowerCase()) {
                         return val;
                       }
@@ -693,8 +699,13 @@ function Index(props) {
                 >
                   <option>Select an option</option>
 
-                  {branchOptions.map((val, index) => {
-                    return <option value={`${val.keyAddresses[0].Branch}`}>{val.keyAddresses[0].Branch}</option>;
+                  {[...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
+                    if(val !== undefined){
+                      return val
+                    }
+                  }).map((val, index) => {
+                    {console.log(val,"sdasd")}
+                    return <option value={`${val}`}>{val}</option>;
                   })}
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
