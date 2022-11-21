@@ -303,6 +303,7 @@ function Index() {
               setPageLimit={setPageLimit}
               handleSort={handleSort}
               sortByState={sortByState}
+              serverSortEnabled={true}
             />
           )}
           {filteredLeads?.data && (
