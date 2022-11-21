@@ -10,7 +10,7 @@ import TermsheetPopUp from '../TermsheetPopUp';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { emailValidation } from 'utils/helper';
 import { dropDownOptionHandler, handleErrorToast, objectValidator, returnDocFormat } from '@/utils/helpers/global';
-
+import { getDocuments } from '../../redux/masters/action';
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc, isOpen, isSupplier }) => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const [filteredDoc, setFilteredDoc] = useState([]);
 
   const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval');
-
+ const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -40,14 +40,17 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       receiver: '',
     },
   });
-
-  useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc.module == moduleSelected;
-    });
-    setFilteredDoc(tempArray);
-    dispatch(GetDocuments(`?order=${orderId}`));
-  }, [dispatch, orderId, moduleSelected]);
+ useEffect(() => {
+    
+    dispatch(getDocuments());
+  }, []);
+  // useEffect(() => {
+  //   const tempArray = documentsFetched?.documents?.filter((doc) => {
+  //     return doc.module == moduleSelected;
+  //   });
+  //   setFilteredDoc(tempArray);
+  //   dispatch(GetDocuments(`?order=${orderId}`));
+  // }, [dispatch, orderId, moduleSelected]);
   useEffect(() => {
     const tempArray = documentsFetched?.documents
       ?.slice()
@@ -425,12 +428,19 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           <option value="eWay Bill"> eWay Bill</option>
                         </>
                       )} */}
-                      <option value="" disabled>
+                      {/* <option value="" disabled>
                         Select an option
-                      </option>
-                      {dropDownOptionHandler(module)?.map((item) => (
-                        <option value={item}>{item}</option>
-                      ))}
+                      </option> */}
+                      {getDocumentsMasterData
+                          ?.filter((val, index) => {
+                          
+                            if (module.includes(val.Sub_Module)) {
+                              return val;
+                            }
+                          })
+                          ?.map((val, index) => {
+                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                          })}
                       <option value="others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>

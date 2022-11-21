@@ -71,6 +71,7 @@ function Index({
     OrderValue: false,
   });
 
+  console.log(gstData,"gstData")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -397,7 +398,7 @@ function Index({
         temp.push({ name: val.fullName, value: val.numberOfShares });
       });
       let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-      let length = 3;
+      let length = data.length < 3 ? data.length : 3;
       let lable = [];
       let dataSet = [];
       let total = 0;
@@ -505,7 +506,7 @@ function Index({
 
     setChartData(data);
     setChartData2(data2);
-  }, [chartRef.current, chartRef2.current]);
+  }, [chartRef.current, chartRef2.current,gstData]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
   useEffect(() => {
@@ -1867,7 +1868,7 @@ const revenuDetails = (gstData, camConversionunit) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th></th>
-                <th>TREND</th>
+                <th className='text-center'>TREND</th>
                 <th>LATEST YEAR</th>
                 <th>PREVIOUS YEAR</th>
                 <th>GROWTH</th>
@@ -2857,11 +2858,12 @@ const sectionTerms = (
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
             <span className={` ${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Total Limit:</span>
-              {addPrefixOrSuffix(
-                convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString('en-In'),
+              {/* { addPrefixOrSuffix(
+                checkNan(convertValue(camData?.company?.creditLimit?.totalLimit))?.toLocaleString('en-In'),
                 'Cr',
                 '',
-              )}
+              )} */}
+              {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>

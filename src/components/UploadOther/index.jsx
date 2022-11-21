@@ -11,7 +11,7 @@ import { ShareDocument } from 'redux/shareDoc/action';
 import { changeModuleDocument, DeleteDocument, GetDocuments,AddingDocument } from '../../redux/creditQueueUpdate/action';
 import TermSheetPopUp from '../TermsheetPopUp';
 import styles from './index.module.scss';
-
+import { getDocuments } from '../../redux/masters/action';
 const Index = ({ orderid, module, isDocumentName }) => {
   const newDocInitialState = {
     document: [],
@@ -26,7 +26,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [moduleSelected, setModuleSelected] = useState(module);
   const [filteredDoc, setFilteredDoc] = useState([]);
   const [newDoc, setNewDoc] = useState(newDocInitialState);
-
+    const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -37,7 +37,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
       receiver: '',
     },
   });
-
+ useEffect(() => {
+    
+    dispatch(getDocuments());
+  }, []);
   const fetchData = async () => {
     await dispatch(GetDocuments(`?order=${orderid}`));
   };
@@ -53,7 +56,18 @@ const Index = ({ orderid, module, isDocumentName }) => {
   };
 
   useEffect(() => {
+  
     if (documentsFetched) {
+        if(isSearch){
+          const tempArray = documentsFetched?.documents?.filter((doc) => {
+            if (doc.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+              return doc;
+            }
+          });
+    
+    setFilteredDoc(tempArray);
+       return
+    }
       const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
         return doc.module === moduleSelected;
       });
@@ -121,14 +135,18 @@ const Index = ({ orderid, module, isDocumentName }) => {
       
     }
   };
-
+ const [isSearch,setIsSearch]=useState(false)
+ const [searchTerm,setSearchTerms]=useState('')
   const filterDocBySearch = (val) => {
+    
     if (!val.length >= 3) return;
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc;
       }
     });
+    setIsSearch(true)
+   
     setFilteredDoc(tempArray);
   };
   console.log(filteredDoc,"filteredDoc")
@@ -151,7 +169,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       handleErrorToast('please provide a valid email');
     }
   };
-
+  console.log(module,"module")
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -219,9 +237,16 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       <option value="" disabled>
                         Select an option
                       </option>
-                      {dropDownOptionHandler(module)?.map((item) => (
-                        <option value={item}>{item}</option>
-                      ))}
+                    {getDocumentsMasterData
+                          ?.filter((val, index) => {
+                          
+                            if (module.includes(val.Sub_Module)) {
+                              return val;
+                            }
+                          })
+                          ?.map((val, index) => {
+                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                          })}
                       <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
@@ -261,7 +286,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
             <div className="d-flex align-items-center">
               <select
                 value={moduleSelected}
-                onChange={(e) => setModuleSelected(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerms('')
+                  setIsSearch(false)
+                  setModuleSelected(e.target.value)
+                }}
                 className={`${styles.dropDown} ${styles.customSelect} input form-control`}
               >
                 <option selected disabled>
@@ -279,8 +308,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 className={`${styles.searchBar} statusBox border_color input form-control`}
                 placeholder="Search"
                 onChange={(e) => {
+                  setSearchTerms(e.target.value)
                   filterDocBySearch(e.target.value);
                 }}
+                value={searchTerm}
               ></input>
             </div>
           </div>

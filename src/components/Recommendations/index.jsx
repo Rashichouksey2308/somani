@@ -337,8 +337,63 @@ const Index = ({
                   </thead>
                   <tbody>
                     {groupExposureData &&
-                      groupExposureData?.map((profile, index) => (
-                        <tr key={index} className="table_credit shadow-none">
+                      groupExposureData?.map((profile, index) => {
+                        return(
+                          profile.actions==false?
+                          <>
+                          <tr key={index} className="table_credit shadow-none">
+                          <td>{index + 1}</td>
+                          <td className="position-relative">
+                           {profile?.name}
+
+                          </td>
+                          <td>
+                            {profile?.limit}
+                          </td>
+                          <td>
+                           {profile?.outstandingLimit}
+                          </td>
+                          <td className="position-relative">
+                           {profile?.accountConduct}
+                          </td>
+                          <td>
+                            <div>
+                              {!profile.actions ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  role="button"
+                                  className={`${styles.edit_image} mr-3`}
+                                  onClick={() => {
+                                    setActions(index, true);
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  role="button"
+                                  className={`${styles.edit_image} mr-3`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setActions(index, false);
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                role="button"
+                                className={`${styles.delete_image}`}
+                                onClick={() => {
+                                  handleRemoveRowEx(index);
+                                }}
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                           </tr>
+                          </>
+                          :
+                          <>
+                           <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
                           <td className="position-relative">
                             <input
@@ -350,35 +405,7 @@ const Index = ({
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
                             ></input>
-                            {/* <select
-                              className={`${styles.input} ${styles.customSelect} input form-control`}
-                              name="name"
-                              disabled={!profile.actions}
-                              value={profile?.name}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                            >
-                              <option selected>Select an option</option>
-                              <option value="Emerging Traders">
-                                Emerging Traders
-                              </option>
-                              <option value="Bhutani Traders">
-                                Bhutani Traders
-                              </option>
-                              <option value="Krishna Traders">
-                                Krishna Traders
-                              </option>
-                            </select> */}
-                            {/* <img
-                              className={`${styles.arrow} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            /> */}
+
                           </td>
                           <td>
                             <input
@@ -475,8 +502,10 @@ const Index = ({
                               />
                             </div>
                           </td>
-                        </tr>
-                      ))}
+                           </tr>
+                          </>
+                        )
+                      })}
                   </tbody>
                 </table>
               </div>

@@ -11,7 +11,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { handleErrorToast } from '@/utils/helpers/global';
 
-export default function Index({ inspectionData, setDate, vendor }) {
+export default function Index({ inspectionData, setDate, vendor,required ,setComponentId,componentId}) {
   const dispatch = useDispatch();
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -25,32 +25,34 @@ export default function Index({ inspectionData, setDate, vendor }) {
     let add = [];
     let pincode = [];
     let newAddress = [];
+    let name = ''
+    let address = ''
+    console.log(vendor,'vendors')
     if (vendor) {
-      // add = vendor?.field23.split(",")
-      //    newAddress=[]
-      //   add.forEach((val,index)=>{
-      //     if(index<add.length-1){
-      //       newAddress.push(val)
-      //     }
-      //   })
-      // pincode =   add[add.length-1].split("-")
+    vendor?.forEach((item)=> {
+      if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
+        name = item.vendorDetails?.companyName
+        address = item?.keyAddresses[0]?.address
+
+      }
+    })
     }
 
     setAppointmentData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
         addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || address,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
         addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,
@@ -156,6 +158,14 @@ export default function Index({ inspectionData, setDate, vendor }) {
 
     let task = 'submit';
     dispatch(UpdateInspection({ fd, task }));
+     
+    if(required){
+     
+       setComponentId(componentId + 1);
+    }else{
+      
+       setComponentId(componentId + 2);
+    }
   };
   const emptyData = () => {
     const temp = { ...appointmentData };
@@ -164,6 +174,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     temp.address.pinCode = '';
     temp.address.country = '';
     setAppointmentData({ ...temp });
+   
   };
 
   return (

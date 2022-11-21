@@ -741,7 +741,7 @@ const gettingPins=(value)=>{
                       saveProductData(e.target.name, e.target.value);
                     }}
                   >
-                    <option selected>Select an option</option>
+                    <option selected value='' disabled>Select an option</option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
                   </select>
@@ -757,7 +757,7 @@ const gettingPins=(value)=>{
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex position-relative">
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
@@ -868,7 +868,7 @@ const gettingPins=(value)=>{
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex position-relative">
                   <MultiSelect
                     placeholder="Existing CHA(s)"
                     emails={emails}
@@ -1047,6 +1047,7 @@ const gettingPins=(value)=>{
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
                     startFrom={'noLimit'}
+                    maxDate={new Date()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -1658,7 +1659,7 @@ const gettingPins=(value)=>{
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" />
+                        {/* <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" /> */}
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -1931,7 +1932,7 @@ const gettingPins=(value)=>{
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" />
+                        {/* <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" /> */}
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -2065,7 +2066,6 @@ const gettingPins=(value)=>{
                             type="checkbox"
                             checked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
-                            style={{ marginTop: '12px' }}
                           />
                         </td>
                         {profile.addnew=="false"?
@@ -2093,7 +2093,7 @@ const gettingPins=(value)=>{
                         type="text"
                         className="input"
                          disabled={!profile.actions}
-                        value={profile.bankName}
+                        // value={profile.bankName}
                         name="bankName"
                         placeholder={"Add new"}
                         // readOnly={val.addnew!="true"?true:false}

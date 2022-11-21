@@ -894,7 +894,7 @@
   }
 }
 .newAddressContainer {
-  margin: 19px 35px 41px !important;
+  margin: 19px 35px 41px;
   // background: #FFFFFF;
   border: 2px solid #cad6e6;
   border-radius: 0.5rem;
@@ -973,6 +973,9 @@
     font-size: 20px;
     line-height: 25px;
     margin-top: 1rem;
+  }
+  .multi_address {
+    margin: 0 -35px;
   }
 }
 img {

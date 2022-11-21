@@ -104,7 +104,7 @@ function Index() {
     });
     setExcelFile(_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []));
   }, [lcModuleData, lcModule]);
-console.log()
+
   const saveLcData = (name, value) => {
     const newInput = { ...lcData };
     newInput[name] = value;
@@ -185,18 +185,7 @@ console.log()
       }
     }
     setLcComments([...lcComments, { value: currentComment2, action: false }]);
-    //   setLcComments(prevState => {
-    //   const newState = prevState.map((obj ,i)=> {
-
-    //     if (i == index) {
-    //       return {...obj, value: currentComment2,action:false};
-    //     }
-
-    //     return obj;
-    //   });
-
-    //   return newState;
-    // });
+   
     setCurrentComment2('');
   };
   const deleteLcCondition = (index) => {
@@ -260,20 +249,20 @@ console.log()
     //   }
     // }
 
-    if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
-      toastMessage = 'Please add  Date Of Expiry';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
-      toastMessage = 'Please add Place Of Expiry';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
+    // if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
+    //   toastMessage = 'Please add  Date Of Expiry';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     return false;
+    //   }
+    // }
+    // if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
+    //   toastMessage = 'Please add Place Of Expiry';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     return false;
+    //   }
+    // }
     if (lcData.applicant === '' || lcData.applicant == undefined) {
       toastMessage = 'Please Select Applicant';
       if (!toast.isActive(toastMessage.toUpperCase())) {

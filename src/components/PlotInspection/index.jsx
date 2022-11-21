@@ -12,7 +12,7 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 
-export default function Index({ inspectionData }) {
+export default function Index({ inspectionData ,setComponentId}) {
   let dispatch = useDispatch();
   const router = useRouter();
 
@@ -238,7 +238,7 @@ export default function Index({ inspectionData }) {
           </div>
 
           <div className="0">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid}  module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

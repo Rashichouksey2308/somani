@@ -19,8 +19,9 @@ export default function Index(props) {
         }
         return
     }
+    sessionStorage.setItem('deliveryPreviewId',val.deliveryOrderNo);
     sessionStorage.setItem('dono', val.deliveryOrderNo);
-
+    
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
     Router.push('/delivery-preview');
   };
@@ -114,7 +115,7 @@ export default function Index(props) {
                       {props.releaseOrderData.map((val, index) => {
                         return (
                           <>
-                            <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} style={{ top: '5px' }}>
+                            <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className="d-flex">
                                 <select
                                   value={props.releaseOrderData[index].orderNumber}

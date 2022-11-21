@@ -35,8 +35,8 @@ const Index = () => {
 
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: '',
-    expectedTimeOfDispatch: '',
+    expectedTimeOfArrival: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort ?? '',
+    expectedTimeOfDispatch: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -60,8 +60,8 @@ const Index = () => {
 
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
-      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival || undefined,
-      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival ? insuranceData?.quotationRequest?.expectedTimeOfArrival : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch ?insuranceData?.quotationRequest?.expectedTimeOfDispatch :insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
       insuranceType: insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom
         ? insuranceData?.quotationRequest?.laycanFrom
@@ -741,6 +741,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
+                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured

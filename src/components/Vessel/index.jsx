@@ -203,6 +203,7 @@ function Index({
                             className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
                             value={currency}
+                            disabled
                             required
                           >
                             <option value= "">Select</option>
@@ -223,7 +224,7 @@ function Index({
                             id="orderValue"
                             type="text"
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                            className={`${styles.input_field} border-left-0 input form-control`}
+                            className={`${styles.input_field} border-left-0 px-2 input form-control`}
                             value={
                               orderValueinFocus
                                 ? val.orderValue
@@ -774,7 +775,7 @@ function Index({
               setContainerListDocument={setContainerListDocument}
             />
 
-            <UploadOther module="Agreements&Insurance&LC&Opening" orderid={id1} />
+            <UploadOther module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  } orderid={id1} />
           </div>
         </div>
       </div>

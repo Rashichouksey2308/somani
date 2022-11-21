@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import * as XLSX from 'xlsx';
-
+import { toast } from 'react-toastify';
 function Index(props) {
   const [excelData, setExcelData] = useState(null);
   const [excelFile, setExcelFile] = useState(null);
@@ -93,6 +93,22 @@ function Index(props) {
   };
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
+   
+    if( e.target.files[0]){
+    let extention =  e.target.files[0].name.split('.')
+    
+    if(!["csv","xls","xlsx"].includes(extention[extention.length-1])){
+      let  toastMessage = `Please add valid file `;
+        toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+        });
+    
+      return
+     }
+    }
+    
+      
+   
     if (selectedFile) {
       let reader = new FileReader();
       reader.readAsArrayBuffer(selectedFile);

@@ -275,7 +275,7 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
- console.log(orderList,"orderList")
+
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -622,14 +622,22 @@ function Index() {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
      let filter = FilterUniqueBank()
-     console.log(filter,"filter")
-      console.log(orderList?.company?.debtProfile,"orderList?.company?.debtProfile")
+     
       orderList?.company?.debtProfile.forEach((val, index) => {
-        console.log(val,"val")
-        filter.forEach((fil,index)=>{
-          console.log(val.bankName==fil,"val.bankName==fil")
-          if(val.bankName==fil){
-            temp.push({
+        
+        filter.forEach((fil,index2)=>{
+         
+          // if(val.bankName==fil){
+          //   temp.push({
+          //   bankName: val?.bankName,
+          //   conduct: val?.conduct,
+          //   limit: val?.limit,
+          //   limitType: val?.limitType,
+          //   primaryBank: val?.primaryBank,
+          //   addnew:"false"
+          // })
+          // }
+      temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
@@ -637,24 +645,17 @@ function Index() {
             primaryBank: val?.primaryBank,
             addnew:"false"
           })
-          }else{
-            temp.push({
-            bankName: val?.bankName,
-            conduct: val?.conduct,
-            limit: val?.limit,
-            limitType: val?.limitType,
-            primaryBank: val?.primaryBank,
-            addnew:"true"
-          })
-                  }
+         
+         
         })
        
       
       });
+  
       setDebtData([...temp]);
     }
   }, [orderList?.company?.debtProfile,companyData]);
- console.log(debtData,"debtData")
+
   const [personData, setPersonData] = useState([]);
 
   useEffect(() => {
@@ -1130,10 +1131,10 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         };
-        let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
+        let code = dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
         if (code == 200) {
-          dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'));
+          dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
       }
@@ -1287,7 +1288,7 @@ function Index() {
     debtProfileColor,
   ) => {
 
-    console.log(camData,'camData')
+  
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -2228,16 +2229,37 @@ function Index() {
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
-                        <div align="center">
+                      <td width="50%" style={{ padding: '35px 35px 35px 17px', }}>
+                        <div  align="center">
                           <span
                             style={{
                               fontSize: '20px',
-                              color: '#00B81E',
+                              color: `${
+                                filteredCreditRating?.length > 0
+                                  ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ff4230'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#ffb700'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#8ac41c'
+                                    : '00b81f30'
+                                  : null
+                              }`,
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
                               background: '#CFF2D5',
+                              // background: `${
+                              //   filteredCreditRating?.length > 0
+                              //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              //       ? '#ff423045'
+                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              //       ? '#ad7e0742'
+                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              //       ? '#00b81e52'
+                              //       : 'rgba(0, 184, 31, 0.1882352941)'
+                              //     : null
+                              // }`
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
@@ -2300,7 +2322,9 @@ function Index() {
                                     color: '#111111',
                                     lineHeight: '37px',
                                     display: 'inline-block',
+                                   
                                   }}
+                                 
                                 >
                                   {checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
@@ -2650,7 +2674,7 @@ function Index() {
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company?.groupExposureDetail?.map((exp, index) => {
-                        console.log(exp,'Group Exposure Details')
+                      
                         let name = exp?.name?.split(' ') ?? 'N A';
                         return (
                           <td key={index} valign="top" width="33.33%">
@@ -7343,7 +7367,7 @@ function Index() {
                           })
                           .map((val, index) => {
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
+                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
                             </td>;
                           })}
                       </td>
@@ -7516,6 +7540,7 @@ function Index() {
   };
 
   const GstDataHandler = (data) => {
+
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
@@ -8708,7 +8733,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module="LeadOnboarding&OrderApproval" orderid={id} />
+                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">

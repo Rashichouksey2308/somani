@@ -14,7 +14,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther/index';
 import styles from './index.module.scss';
 
-export default function Index({ addButton }) {
+export default function Index({ addButton , setComponentId,componentId }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -178,21 +178,25 @@ export default function Index({ addButton }) {
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality  !== null ||
-      documents.certificateOfWeight  !== null ||
+      documents.certificateOfQuality  !== null &&
+      documents.certificateOfWeight  !== null &&
       documents.certificateOfOrigin  !== null
     ) {
       sethaveDoc(true);
+    }else{
+       sethaveDoc(false);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
-console.log(haveDoc,"haveDoc")
+console.log(haveDischargeDoc,"haveDoc",haveDoc)
   useEffect(() => {
     if (
-      dischargeDocuments.dischargeCertificateOfQuality !== null ||
-      dischargeDocuments.dischargeCertificateOfWeight !== null ||
+      dischargeDocuments.dischargeCertificateOfQuality !== null &&
+      dischargeDocuments.dischargeCertificateOfWeight !== null &&
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
-      setHaveDischargeDoc(false);
+      setHaveDischargeDoc(true);
+    }else{
+       setHaveDischargeDoc(false);
     }
   }, [
     dischargeDocuments.dischargeCertificateOfQuality,
@@ -205,7 +209,7 @@ console.log(haveDoc,"haveDoc")
     newUploadDoc.certificateOfQuality = e.target.files[0];
 
     setDocuments(newUploadDoc);
-    sethaveDoc(true);
+    
   };
 
   const uploadDocument2 = (e) => {
@@ -213,7 +217,7 @@ console.log(haveDoc,"haveDoc")
     newUploadDoc1.certificateOfWeight = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    sethaveDoc(true);
+  
   };
 
   const uploadDocument3 = (e) => {
@@ -221,7 +225,7 @@ console.log(haveDoc,"haveDoc")
     newUploadDoc1.certificateOfOrigin = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    sethaveDoc(true);
+    
   };
 
   const uploadDischargeDocument1 = (e) => {
@@ -229,7 +233,7 @@ console.log(haveDoc,"haveDoc")
     newUploadDoc.dischargeCertificateOfQuality = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc);
-    setHaveDischargeDoc(true);
+    
   };
 
   const uploadDischargeDocument2 = (e) => {
@@ -237,7 +241,7 @@ console.log(haveDoc,"haveDoc")
     newUploadDoc1.dischargeCertificateOfWeight = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
+  
   };
 
   const uploadDischargeDocument3 = (e) => {
@@ -245,7 +249,7 @@ console.log(haveDoc,"haveDoc")
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
+
   };
 
   const handleCloseW = () => {
@@ -353,7 +357,7 @@ console.log(haveDoc,"haveDoc")
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
           if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            let toastMessage = 'ALL DOCUMENT ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
             if (!toast.isActive(toastMessage)) {
               toast.error(toastMessage, { toastId: toastMessage });
             }
@@ -404,7 +408,7 @@ console.log(haveDoc,"haveDoc")
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -459,7 +463,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher1")
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -566,7 +570,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher")
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -672,7 +676,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -706,7 +710,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -794,7 +798,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -881,7 +885,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -909,6 +913,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         }
       }
     }
+    setComponentId(componentId + 1);
   };
 
   return (
@@ -1253,7 +1258,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfOriginStatus === 'On Hold'
@@ -1353,7 +1358,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfQualityStatus === 'On Hold'
@@ -1454,7 +1459,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.certificateOfWeightStatus === 'On Hold'
@@ -1526,7 +1531,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      Any one document is mandatory
+                      All document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1624,7 +1629,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfOriginStatus === 'On Hold'
@@ -1725,7 +1730,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfQualityStatus === 'On Hold'
@@ -1827,7 +1832,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
+                                  <div className="d-flex align-items-center position-relative">
                                     <select
                                       className={`${
                                         inspectionDetails?.dischargeCertificateOfWeightStatus === 'On Hold'
@@ -1899,7 +1904,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      Any one document is mandatory
+                      All document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1908,7 +1913,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           )}
 
           <div className="0">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid} module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

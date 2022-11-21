@@ -561,10 +561,17 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                           : ''}
                       </td>
                       <td className={`${styles.trend} text-center`}>
+                        
                         {rtrnChartIndiaction(
-                          latestYearData?.longTermDebtCoverage,
-                          previousYearData?.longTermDebtCoverage,
-                          lastYearData?.longTermDebtCoverage,
+                          latestYearData?.longTermDebtCoverage >= 0
+                          ? returnReadableNumber(latestYearData?.longTermDebtCoverage * 100, 'en-In', 2, 2)
+                          : '',
+                          previousYearData?.longTermDebtCoverage >= 0
+                          ? returnReadableNumber(previousYearData?.longTermDebtCoverage * 100, 'en-In', 2, 2)
+                          : '',
+                          lastYearData?.longTermDebtCoverage >= 0
+                          ? returnReadableNumber(lastYearData?.longTermDebtCoverage * 100, 'en-In', 2, 2)
+                          : '',
                         )}
                       </td>
                     </tr>

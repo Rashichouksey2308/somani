@@ -1069,7 +1069,7 @@ console.log(bl,"asdasd")
                             value={
                               val?.boeDetails?.accessibleValue == 'INR 0'
                                 ? ''
-                                : addPrefixOrSuffix(val?.boeDetails?.accessibleValue, 'INR', 'front')
+                                : `INR ${val?.boeDetails?.accessibleValue}`
                             }
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           />
@@ -1107,11 +1107,13 @@ console.log(bl,"asdasd")
                               }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
                                 check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
                               }
-                                let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                                      if (val.Bank_Name == e.target.value && val.Company_Name == check  ) {
-                                        return val;
-                                      }
-                               });
+                              let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                      if(val.keyBanks.length > 0){
+                                    if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name == check) {
+                                      return val;
+                                    }
+                                    }
+                                  });
                                if(filter.length == 0){
                                  return
                                }
@@ -1119,8 +1121,8 @@ console.log(bl,"asdasd")
                                  const newInput = [...billOfEntryData];
 
                                 
-                                 newInput[index].boeDetails.bankName=filter[0].Bank_Name
-                                 newInput[index].boeDetails.adCode=filter[0].AD_Code
+                                 newInput[index].boeDetails.bankName=filter[0].keyBanks[0].Bank_Name
+                                 newInput[index].boeDetails.adCode=filter[0].keyBanks[0].AD_Code || ""
                                
                                   setBillOfEntryData([...newInput]);
                                
@@ -1131,12 +1133,12 @@ console.log(bl,"asdasd")
                               <option >Select Bank</option>
                                {bankNameOptions
                                   .filter((val, index) => {
-                                    if (val.Bank_Name) {
+                                    if (val.keyBanks[0].Bank_Name) {
                                       return val;
                                     }
                                   })
                              .map((val,index)=>{
-                                 return <option value={val.Bank_Name}>{val.Bank_Name}</option>
+                                 return <option value={`${val.keyBanks[0].Bank_Name}`}>{val.keyBanks[0].Bank_Name}</option>;
                                })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>Bank Name</label>
@@ -1599,7 +1601,7 @@ console.log(bl,"asdasd")
               );
             })}
           <div className="">
-            <UploadOther orderid={OrderId} module="customClearanceAndWarehousing" isDocumentName={true} />
+            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']  } isDocumentName={true} />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

@@ -313,7 +313,7 @@
           position: relative;
           box-sizing: border-box;
           letter-spacing: 0.19px;
-          padding: 19px 30px 19px 17px;
+          padding: 10px 30px 10px 17px;
           background: none;
           border-width: 1px;
           &:invalid + label {
@@ -373,7 +373,12 @@
               letter-spacing: 0.18px;
               color: #3687e8;
               outline: none;
+              padding: 0 10px;
               border-radius: 8px 0 0 8px;
+              @include respond(lg-desktop) {
+                font-size: 15px;
+                line-height: 1.3;
+              }
             }
           }
         }
@@ -419,6 +424,7 @@
   font-weight: bold;
   cursor: pointer;
   display: block;
+  width: fit-content;
 }
 .customSelect {
   appearance: none;

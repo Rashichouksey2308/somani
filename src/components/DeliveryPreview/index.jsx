@@ -3,7 +3,7 @@ import moment from 'moment/moment';
 import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetDelivery } from '../../redux/release&DeliveryOrder/action';
+import { GetDelivery,UpdateDelivery } from '../../redux/release&DeliveryOrder/action';
 import SaveBar from '../SaveBar';
 import styles from './index.module.scss';
 
@@ -18,7 +18,8 @@ function Index() {
   const [quantity, setQuantity] = useState(0);
   const [balanceQuantity, setbalanceQuantity] = useState(0);
   const [releasedQuantity, setreleasedQuantity] = useState(0);
-   const [signatoryList, setSignatoryList] = useState([]);
+  const [signatoryList, setSignatoryList] = useState([]);
+   const [selectedSignatory, setSelectedSignatory] = useState('');
   const DeliveryNo = sessionStorage.getItem('dono');
    
   const { ReleaseOrderData } = useSelector((state) => state.Release);
@@ -26,6 +27,7 @@ function Index() {
   useEffect(() => {
     getOrderData();
   }, []);
+  console.log(selectedSignatory,"signatoryList")
   const getOrderData = async () => {
     let id = sessionStorage.getItem('ROrderID');
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
@@ -37,6 +39,10 @@ function Index() {
         let temp = 0;
         _get(ReleaseOrderData, 'data[0].deliveryDetail').forEach((val, index) => {
           temp = Number(temp) + Number(val.netQuantityReleased);
+           if(sessionStorage.getItem('deliveryPreviewId')==val.deliveryOrderNumber){
+            console.log("asgdajsdasd")
+            setSelectedSignatory(val.authorisedSignatory)
+          }
         });
         setQuantity(temp);
 
@@ -52,6 +58,7 @@ function Index() {
         let sig=[];
         _get(ReleaseOrderData, 'data[0].order.generic.buyer.authorisedSignatoryDetails').forEach((val, index) => {
           sig.push([val.name]);
+         
         });
         setSignatoryList([...sig])
       }
@@ -77,6 +84,51 @@ function Index() {
       ]);
     }
   };
+   const deleteArr = (val,index) => {
+    if (val == 'email') {
+    
+     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+    } else {
+     setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
+    }
+  };
+  const handleSave= async ()=>{
+      let newarr = [];
+      _get(ReleaseOrderData, 'data[0].deliveryDetail').forEach((item) => {
+        console.log(sessionStorage.getItem('deliveryPreviewId'),item.deliveryOrderNumber,"idsss")
+        if(sessionStorage.getItem('deliveryPreviewId')==item.deliveryOrderNumber){
+          
+          newarr.push({
+          orderNumber: item.orderNumber,
+          unitOfMeasure: item.unitOfMeasure,
+          netQuantityReleased: item.netQuantityReleased,
+          deliveryOrderNumber: item.deliveryOrderNumber,
+          deliveryOrderDate: item.deliveryOrderDate,
+          deliveryStatus: item.status,
+          authorisedSignatory:selectedSignatory
+        });
+        }else{
+           newarr.push({
+          orderNumber: item.orderNumber,
+          unitOfMeasure: item.unitOfMeasure,
+          netQuantityReleased: item.netQuantityReleased,
+          deliveryOrderNumber: item.deliveryOrderNumber,
+          deliveryOrderDate: item.deliveryOrderDate,
+          deliveryStatus: item.status,
+          authorisedSignatory:""
+        });
+        }
+       
+      });
+     console.log(newarr,"newarr",selectedSignatory,)
+      let payload = {
+        deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
+        deliveryDetail: newarr,
+        lastMileDelivery: _get(ReleaseOrderData, 'data[0].lastMileDelivery'),
+      };
+      let task = 'save';
+      await dispatch(UpdateDelivery({ payload, task }));
+  }
   return (
     <>
       <div className='container-fluid p-0'>
@@ -242,8 +294,13 @@ function Index() {
               </p>
               <div>
                 <p className={`${styles.bold}`}>Authorised Signatory</p>
-                <select className='input'>
-                  <option>Select an Option</option>
+                <select className='input'
+                value={selectedSignatory}
+                onChange={(e)=>{
+                  setSelectedSignatory(e.target.value)
+                }}
+                >
+                  <option value=''>Select an Option</option>
                   {
                   signatoryList.length>0?
                   signatoryList.map((val,index)=>{
@@ -270,7 +327,7 @@ function Index() {
           </div>
         </div>
       </div>
-      <SaveBar rightBtn={'Send For Approval'} rightBtnClick={handlePopup} />
+      <SaveBar rightBtn={'Send'} rightBtnClick={handlePopup} handleSave={handleSave} />
 
       <Modal show={show} className={`${styles.share_lc} vessel_card card share_lc`}>
         <Modal.Body className={`${styles.card_body} card-body`}>
@@ -336,29 +393,40 @@ function Index() {
                     {emailAdd.map((val,index)=>{
                       return(
                         <>
-                        <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
-                          id="email"
-                          name="email"
-                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                          selected
-                        >
-                          <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                          htmlFor="email"
-                        >
-                          Email
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
+                        <div className={`d-flex align-items-center form-group`}>
+                          <div className={`${styles.each_input} flex-grow-1`}>
+                            <div className="d-flex">
+                              <select
+                                id="email"
+                                name="email"
+                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                selected
+                              >
+                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
+                          <img
+                            onClick={()=>{
+                              deleteArr("email",index)
+                            }}
+                            src="/static/delete 2.svg"
+                            alt="delete"
+                            role="button"
+                            className="ml-3"
+                          />
+                        </div>
                         </>
                       )
                     })}
@@ -375,10 +443,10 @@ function Index() {
                       add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -387,32 +455,43 @@ function Index() {
                     {insuranceAdd.map((val,index)=>{
                       return(
                         <>
-                        <div className={`${styles.each_input} ${styles.phone} form-group`}>
-                      <div className={styles.phone_card}>
-                        <select
-                          name="callingCode"
-                          id="Code"
-                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                        >
-                          <option>+91</option>
-                          <option>+1</option>
-                          <option>+92</option>
-                          <option>+95</option>
-                          <option>+24</option>
-                        </select>
-                        <input
-                          type="tel"
-                          id="textNumber"
-                          name="primary"
-                          className={`${styles.formControl} input form-control border-left-0`}
-                          required
-                        />
-                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                          Phone Number
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                    </div>
+                        <div className="d-flex align-items-center form-group">
+                          <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
+                            <div className={styles.phone_card}>
+                              <select
+                                name="callingCode"
+                                id="Code"
+                                className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                              >
+                                <option>+91</option>
+                                <option>+1</option>
+                                <option>+92</option>
+                                <option>+95</option>
+                                <option>+24</option>
+                              </select>
+                              <input
+                                type="tel"
+                                id="textNumber"
+                                name="primary"
+                                className={`${styles.formControl} input form-control border-left-0`}
+                                required
+                              />
+                              <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                                Phone Number
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                          </div>
+                          <img
+                           onClick={()=>{
+                              deleteArr("whats",index)
+                            }}
+                            src="/static/delete 2.svg"
+                            alt="delete"
+                            role="button"
+                            className="ml-3"
+                          />
+                        </div>
                         </>
                       )
                     })}
@@ -432,10 +511,10 @@ function Index() {
                       add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -461,10 +540,10 @@ function Index() {
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                     Close
                   </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                     Download
                   </button>
                 </div>

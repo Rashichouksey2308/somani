@@ -291,13 +291,13 @@ export default function Index() {
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/forward-table')} style={{ cursor: 'pointer' }}>
-              <img
-                className={`${styles.back_arrow} image_arrow mr-3 img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="ArrowRight"
-              />
-            </div>
+            <img
+              onClick={() => Router.push('/forward-table')}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
+            />
+
             <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
           </div>
           <div className={`${styles.vessel_card} vessel_card border_color`}>
@@ -661,7 +661,7 @@ export default function Index() {
             </div>
 
             <div className="mt-4">
-              <UploadOther module="Loading-Transit-Unloading" orderid={hedgingData?.order?._id} />
+              <UploadOther module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } orderid={hedgingData?.order?._id} />
             </div>
           </div>
         </div>

@@ -570,6 +570,7 @@ function Index() {
           deliveryOrderNumber: item.deliveryOrderNo,
           deliveryOrderDate: item.deliveryOrderDate,
           deliveryStatus: item.status,
+          authorisedSignatory:""
         });
       });
 

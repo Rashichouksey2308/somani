@@ -31,7 +31,7 @@ function Index() {
   });
 
   useEffect(() => {
-    dispatch(getBanks());
+   
     dispatch(getInternalCompanies());
   }, []);
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
@@ -253,7 +253,7 @@ function Index() {
         return val;
       }
     });
-
+    console.log(filter,"filter")
     setBranchOptions([...filter]);
   };
   console.log(branchOptions, 'setBranchOptions');
@@ -1825,21 +1825,23 @@ function Index() {
                                   }
                                   onChange={(e) => {
                                     let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                      if(val.keyAddresses.length > 0){
                                       if (
-                                        val.Branch == e.target.value &&
+                                        val.keyAddresses[0].Branch == e.target.value &&
                                         val.Company_Name?.toLowerCase() == invoiceData?.importerName?.toLowerCase()
                                       ) {
                                         return val;
                                       }
+                                      }
                                     });
-
+                                     console.log(filter,"2")
                                     if (filter.length > 0) {
                                       const newInput = { ...invoiceData };
-                                      changeImporterData.address = filter[0].Address;
-                                      newInput['companyAddress'] = filter[0].Address;
+                                      changeImporterData.address = filter[0].keyAddresses[0].fullAddress;
+                                      newInput['companyAddress'] =filter[0].keyAddresses[0].fullAddress;;
 
-                                      changeImporterData.GSTIN = filter[0].GSTIN;
-                                      newInput['importerGSTIN'] = filter[0].GSTIN;
+                                      changeImporterData.GSTIN = filter[0].keyAddresses[0].gstin;;
+                                      newInput['importerGSTIN'] = filter[0].keyAddresses[0].gstin;;
 
                                       newInput['branchOffice'] = e.target.value;
                                       changeImporterData.branch = e.target.value;
@@ -1850,13 +1852,9 @@ function Index() {
                                     }
                                   }}
                                 >
-                                  <option>Select an option</option>
-                                  {branchOptions.map((val, index) => {
-                                    return (
-                                      <option key={index} value={val.Branch}>
-                                        {val.Branch}
-                                      </option>
-                                    );
+                                  <option value =''>Select an option</option>
+                                 {branchOptions.map((val, index) => {
+                                    return <option value={`${val.keyAddresses[0].Branch}`}>{val.keyAddresses[0].Branch}</option>;
                                   })}
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
@@ -1919,8 +1917,10 @@ function Index() {
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
                                       let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                                      if (val.Bank_Name == e.target.value && val.Company_Name ==invoiceData?.importerName) {
+                                        if(val.keyBanks.length > 0){
+                                      if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name ==invoiceData?.importerName) {
                                         return val;
+                                      }
                                       }
                                     });
                                     console.log(filter,"filter")
@@ -1937,27 +1937,28 @@ function Index() {
                                     );
                                       return
                                     }
+                                    console.log(filter[0].keyBanks[0].branchType,"filter[0].keyBanks[0]")
                                     saveData(
                                       'branchAddress',
-                                      filter[0].Branch_Address == undefined ? '' : filter[0].Branch_Address,
+                                      filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
                                       'IFSCcode',
-                                      filter[0].IFSC == undefined ? '' : filter[0].IFSC,
+                                      filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
                                       e.target.value,
-                                      filter[0].Account_No == undefined ? '' : filter[0].Account_No,
-                                      filter[0].Branch_Type == undefined ? '' : filter[0].Branch_Type,
-                                      filter[0].Bank_Name == undefined ? '' : filter[0].Bank_Name
+                                      filter[0].keyBanks[0].Account_No == undefined ? '' : filter[0].keyBanks[0].Account_No,
+                                      filter[0].keyBanks[0].branchType == undefined ? '' : filter[0].keyBanks[0].branchType,
+                                      filter[0].keyBanks[0].Bank_Name == undefined ? '' : filter[0].keyBanks[0].Bank_Name
                                     );
                                   }}
                                 >
                                   <option>Select an option</option>
                                   {branchOptions
                                     .filter((val, index) => {
-                                      if (val.Bank_Name) {
+                                      if (val.keyBanks[0].Bank_Name) {
                                         return val;
                                       }
                                     })
                                     .map((val, index) => {
-                                      return <option value={`${val.Bank_Name}`}>{val.Bank_Name}</option>;
+                                      return <option value={`${val.keyBanks[0].Bank_Name}`}>{val.keyBanks[0].Bank_Name}</option>;
                                     })}
                                   {/* <option value={`${invoiceData?.bankName}`}>
                                     {invoiceData?.bankName}
@@ -1979,7 +1980,7 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="branchAddress"
+                                name="branch"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.branch}
                                 className={`${styles.input_field} input form-control`}
@@ -2084,7 +2085,8 @@ function Index() {
 
                 <div className="tab-pane fade" id="Documents" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <UploadOther orderid={id} module="LeadOnboarding&OrderApproval" />
+                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
+                    
                   </div>
                 </div>
               </div>

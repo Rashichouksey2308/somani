@@ -19,6 +19,7 @@ const Index = ({
   country,
   currency,
 }) => {
+  console.log(currency,"currency")
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
   console.log(port,"port")
@@ -312,6 +313,7 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
+                disabled
               />
 
               <label className={`${styles.label} label_heading`}>

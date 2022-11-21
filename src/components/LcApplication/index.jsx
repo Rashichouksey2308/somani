@@ -872,60 +872,39 @@ function Index({
                           </Col>
                           <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="reimbursingBank"
                                 onChange={(e) => {
                                   saveLcData(e.target.name, e.target.value);
                                 }}
                                 value={lcData?.reimbursingBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
-                              >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                <option value="Bnp Paribas Paribas - Bnpafrppxx">
-                                  Bnp Paribas Paribas - Bnpafrppxx
-                                </option>
-                                <option value="Balaji Traders">Balaji Traders</option>
-                              </select>
+                              />
+                              
+                          
                               <label className={`${styles.labels} label_heading`}>
                                 (53A) Reimbursing Bank
                                 {/* <strong className="text-danger">*</strong> */}
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                            
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="adviceThroughBank"
                                 onChange={(e) => {
                                   saveLcData(e.target.name, e.target.value);
                                 }}
                                 value={lcData?.adviceThroughBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
-                              >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                <option value="Bnp Paribas Paribas - Bnpafrppxx">
-                                  Bnp Paribas Paribas - Bnpafrppxx
-                                </option>
-                                <option value="Balaji Traders">Balaji Traders</option>
-                              </select>
+                              />
+                             
                               <label className={`${styles.labels} label_heading`}>
                                 (57) Advise Through Bank
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                             
                             </div>
                           </Col>
 

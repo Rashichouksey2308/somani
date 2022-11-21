@@ -15,6 +15,7 @@ let stevedore = {
 };
 
 function Index(props) {
+  console.log(props.vendor.name,"Sdasd")
   const [removedOption, setRemovedOption] = useState(null);
   const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
 
@@ -68,24 +69,15 @@ function Index(props) {
   };
   useEffect(() => {
     if (window) {
+       setOptions(props.vendor.options)
       if (props.sameAsCHA == false) {
         if (JSON.parse(sessionStorage.getItem('Cha'))) {
           let savedData = JSON.parse(sessionStorage.getItem('Cha'));
           let supplier = {
-            name: savedData?.name || props.vendor?.field4,
+            name: savedData?.name || props?.vendor?.name,
             shortName: savedData?.shortName || '',
-            gstin: savedData?.gstin || props?.vendor?.field22,
-            addresses: savedData?.addresses || [
-              {
-                addressType: 'Registered',
-                fullAddress: props?.vendor?.field23,
-                pinCode: '',
-                country: '',
-                gstin: '',
-                state: ' ',
-                city: '',
-              },
-            ],
+            gstin: savedData?.gstin || '',
+            addresses: savedData?.addresses ,
             authorisedSignatoryDetails: savedData?.authorisedSignatoryDetails || [],
           };
           setList(
@@ -103,37 +95,44 @@ function Index(props) {
                 ],
           );
           let tempArr = savedData?.authorisedSignatoryDetails;
-          let optionArray = [...options];
-          tempArr.forEach((val, index) => {
-            val.actions = 'true';
-            if (tempArr?.length > 0) {
-              let index = optionArray.indexOf(val.name);
-              if (index > -1) {
-                optionArray.splice(index, 1);
-              }
-            }
-          });
-          setOptions([...optionArray]);
+          // let optionArray = [...options];
+          // tempArr.forEach((val, index) => {
+          //   val.actions = 'true';
+          //   if (tempArr?.length > 0) {
+          //     let index = optionArray.indexOf(val.name);
+          //     if (index > -1) {
+          //       optionArray.splice(index, 1);
+          //     }
+          //   }
+          // });
+          // setOptions([...optionArray]);
 
-          setAddressList(
-            savedData?.addresses || [
-              {
-                addressType: 'Registered',
-                fullAddress: props?.vendor?.field23,
-                pinCode: '',
-                country: 'India',
-                gstin: '',
-                state: '',
-                city: '',
-              },
-            ],
-          );
+            if(savedData?.addresses?.length==0){
+           let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
+          }
+            }else{
+              setAddressList( props.data?.addresses)
+            }
           setSeteveState(supplier);
         } else {
           let supplier = {
-            name: props.data?.name || props.vendor?.field4,
+            name: props.data?.name || props?.vendor?.name,
             shortName: props.data?.shortName || '',
-            gstin: props.data?.gstin || props?.vendor?.field22,
+            gstin: props.data?.gstin || '',
             addresses: props.data?.addresses || [],
             authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails || [],
           };
@@ -151,27 +150,17 @@ function Index(props) {
                   },
                 ],
           );
-          setAddressList(props.data?.addresses || []);
+         
           setSeteveState(supplier);
           let tempArr = props?.data?.authorisedSignatoryDetails;
-          let optionArray = [...options];
-          tempArr.forEach((val, index) => {
-            val.actions = 'true';
-            if (tempArr?.length > 0) {
-              let index = optionArray.indexOf(val.name);
-              if (index > -1) {
-                optionArray.splice(index, 1);
-              }
-            }
-          });
-          setOptions([...optionArray]);
+         
         }
       } else if (sessionStorage.getItem('Stevedore')) {
         let savedData = JSON.parse(sessionStorage.getItem('Stevedore'));
         let supplier = {
-          name: savedData.name || props.vendor?.field4,
+          name: savedData.name || props?.vendor?.name,
           shortName: savedData.shortName || '',
-          gstin: savedData.gstin || props?.vendor?.field22,
+          gstin: savedData.gstin || '',
           addresses: savedData.addresses || [],
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails || [],
         };
@@ -190,24 +179,43 @@ function Index(props) {
               ],
         );
         let tempArr = props?.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
+            if(props.data?.addresses?.length==0){
+           let temp=[];
+       if(savedData.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
           }
-        });
-        setOptions([...optionArray]);
-        setAddressList(savedData.addresses || []);
+            }else{
+              setAddressList( props.data?.addresses)
+            }
         setSeteveState(supplier);
       } else {
         let supplier = {
-          name: props.data?.name || props.vendor?.field4,
+          name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
-          gstin: props.data?.gstin || props?.vendor?.field22,
+          gstin: props.data?.gstin || props?.vendor?.gstin,
           addresses: props.data?.addresses || [],
           authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails || [],
         };
@@ -225,20 +233,39 @@ function Index(props) {
                 },
               ],
         );
-        setAddressList(props.data?.addresses || []);
+           if(props.data?.addresses?.length==0){
+           let temp=[];
+       if(props.vendor.address?.length>0){
+        props.vendor.address.forEach((val,index)=>{
+            temp.push({
+            addressType: 'Registered',
+            fullAddress: val.address,
+            pinCode: val.pinCode,
+            country: val.country,
+            gstin: val.gstin,
+            state: val.state,
+            city: val.city
+            })
+          })
+          console.log(temp,"temp")
+          setAddressList([...temp])
+          }
+            }else{
+              setAddressList( props.data?.addresses)
+            }
         setSeteveState(supplier);
         let tempArr = props?.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       }
     }
   }, [props.data, props.sameAsCHA]);
@@ -361,12 +388,12 @@ function Index(props) {
       };
       setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
-      props.masterList.forEach((val, index) => {
+      props.vendor.signatory.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
-          arrayToSave.designation = val.designation;
-          arrayToSave.email = val.email;
-          arrayToSave.phoneNo = val.phoneNo;
+          arrayToSave.designation = val.designation||val.designation;
+          arrayToSave.email = val.email ||val.emailId;
+          arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
         }
       });
     }
@@ -535,7 +562,10 @@ function Index(props) {
                   }}
                 >
                   <option>Select an option</option>
-                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
+                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
+                     return <option value={`${val}`}>{val}</option>
+                  })}
+                  
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -564,6 +594,7 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            props.vendor.gstin?props.vendor.gstin:[]
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card m-0 border_color`}>
@@ -666,7 +697,9 @@ function Index(props) {
                           }}
                         >
                           <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
+                              return <option value={`${val}`}>{val}</option>
+                          })}
                         </select>
                         <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                           GSTIN<strong className="text-danger">*</strong>
@@ -783,7 +816,7 @@ function Index(props) {
             </div>
           </div>
         )}
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,props?.vendor?.options?props.vendor.options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );
@@ -798,6 +831,7 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
+  gstin
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -894,8 +928,9 @@ const editData = (
                     editNewAddress(e.target.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  {gstin.length > 0 && gstin.map((val,index)=>{
+                          return <option value={`${val}`}>{val}</option>
+                      })}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>

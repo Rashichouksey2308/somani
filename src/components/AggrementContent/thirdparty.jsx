@@ -21,7 +21,7 @@ function Index(props) {
     },
   ]);
 
-  const [isFieldInFocus, setIsFieldInFocus] = useState([]);
+  const [isFieldInFocus, setIsFieldInFocus] = useState([{amount:false}]);
   const onAddContact = () => {
     setListContact([
       ...listContact,
@@ -35,20 +35,14 @@ function Index(props) {
     ]);
     setIsFieldInFocus([...isFieldInFocus, { amount: false }]);
   };
+  console.log(isFieldInFocus,"isFieldInFocus")
   const handleDeleteContact = (index) => {
     setListContact([...listContact.slice(0, index), ...listContact.slice(index + 1)]);
 
     setIsFieldInFocus([...isFieldInFocus.slice(0, index), ...isFieldInFocus.slice(index + 1)]);
   };
 
-  useEffect(() => {
-    let tempArray = [];
-
-    listContact.forEach((item) => {
-      tempArray.push({ amount: false });
-    });
-    setIsFieldInFocus(tempArray);
-  }, [listContact]);
+ 
 
   useEffect(() => {
     if (window) {
@@ -72,6 +66,13 @@ function Index(props) {
                 },
               ],
         );
+         if(savedData?.cheque.length>0){
+          let temp=[]
+          savedData?.cheque.forEach((val,index)=>{
+              temp.push({ amount: false })
+          })
+          setIsFieldInFocus([...temp])
+        }
       } else {
         setDeliveryData(props?.data?.deliveryTerm);
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
@@ -89,6 +90,15 @@ function Index(props) {
                 },
               ],
         );
+
+        if(props?.data?.cheque.length>0){
+          let temp=[]
+          props?.data?.cheque.forEach((val,index)=>{
+            console.log("SDasdasd")
+              temp.push({ amount: false })
+          })
+          setIsFieldInFocus([...temp])
+        }
       }
     }
   }, [props.data]);
@@ -298,34 +308,34 @@ function Index(props) {
                           </td>
                           <td>
                             <input
-                              // onFocus={(e) => {
-                              //   let tempArray = [...isFieldInFocus]
-                              //   tempArray[index].amount = true
-                              //   setIsFieldInFocus(tempArray),
+                              onFocus={(e) => {
+                                let tempArray = [...isFieldInFocus]
+                                tempArray[index].amount = true
+                                setIsFieldInFocus([...tempArray])
 
-                              //     (e.target.type = 'number');
-                              // }}
-                              // onBlur={(e) => {
-                              //   let tempArray = [...isFieldInFocus]
-                              //   tempArray[index].amount = false
-                              //   setIsFieldInFocus(tempArray),
+                                e.target.type = 'number';
+                              }}
+                              onBlur={(e) => {
+                                let tempArray = [...isFieldInFocus]
+                                tempArray[index].amount = false
+                                 setIsFieldInFocus([...tempArray])
 
-                              //     (e.target.type = 'text');
-                              // }}
+                                  e.target.type = 'text';
+                              }}
                               onWheel={(event) => event.currentTarget.blur()}
-                              // value={
-                              //   isFieldInFocus[index].amount
-                              //     ? val.amount
-                              //     : `INR ` + Number(
-                              //       val.amount
-                              //     )?.toLocaleString('en-In', {
-                              //       maximumFractionDigits: 2,
-                              //     })
-                              // }
+                              value={
+                                isFieldInFocus[index]?.amount
+                                  ? val.amount
+                                  : `INR ` + Number(
+                                    val.amount
+                                  )?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                  })
+                              }
                               className="input"
                               name="amount"
                               type="text"
-                              value={val.amount}
+                              // value={val.amount}
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => {
                                 handleChangeInput(e.target.name, e.target.value, index);

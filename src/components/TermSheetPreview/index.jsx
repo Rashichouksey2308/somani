@@ -38,7 +38,7 @@ function Index() {
   const [otherTermConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState(null);
   const date = new Date();
-
+  const [email,setEmail]=useState(``);
   useEffect(() => {
     {
       termsheet &&
@@ -1107,7 +1107,7 @@ function Index() {
         rightButtonTitle="Send To Buyer"
         leftButtonTitle="Transaction Summary"
       />
-      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} /> : null}
+      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} setEmail={setEmail}/> : null}
     </>
   );
 }
@@ -2566,8 +2566,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. will
-                          provide proof of all expenses to the Buyer.
+                          Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. {otherTermConditions?.buyer?.bank} will provide proof of all expenses to the Buyer.
                         </p>
                       </td>
                     </tr>

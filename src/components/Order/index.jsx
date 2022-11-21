@@ -11,7 +11,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
     tolerance: false,
     hsnCode: false,
   });
-
+  console.log(commodity,"commodity")
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -50,11 +50,13 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
               <select
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
                 name="unitOfQuantity"
+                value={orderDetail?.unitOfQuantity?.toUpperCase()}
                 onChange={(e) => {
                   saveOrderData(e.target.name, e.target.value);
                 }}
               >
-                <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
+                <option disabled>Select</option>
+                <option value={orderDetail?.unitOfQuantity?.toUpperCase()}>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
                 {/* <option selected>MT</option> */}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
@@ -67,8 +69,10 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
               <select
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown `}
                 name="unitOfValue"
+                value={orderDetail.unitOfValue}
                 onChange={(e) => saveOrderData(e.target.name, e.target.value)}
               >
+                <option disabled>Select</option>
                 <option value="Crores">Crores</option>
 
                 {/* <option selected>Crores</option> */}
@@ -243,7 +247,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     required
                   >
                     <option disabled>Select an option</option>
-                    {country.map((val, index) => {
+                    {country?.map((val, index) => {
                       return <option value={`${val.Country}`}>{val.Country}</option>;
                     })}
                   </select>
@@ -343,8 +347,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     required
                   >
                     <option>Select an option</option>
-                    {port
-                      .filter((val, index) => {
+                    {port?.filter((val, index) => {
                         if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
                           return val;
                         }

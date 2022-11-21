@@ -1682,7 +1682,7 @@ export default function TPAIGIPreview(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '30px' }}>
+              <td valign="top" style={{ paddingTop: '20px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <td align="left">
@@ -1698,12 +1698,13 @@ export default function TPAIGIPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'25px'}}>
+                    <td align="left" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         Signed by:_______________________________
@@ -1717,6 +1718,7 @@ export default function TPAIGIPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         For and on behalf of <strong>“{data.shortbuyer}”</strong>
@@ -1724,12 +1726,13 @@ export default function TPAIGIPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'25px'}}>
+                    <td align="left" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         Signed by:_______________________________
@@ -1743,6 +1746,7 @@ export default function TPAIGIPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         For and on behalf of <strong>“{data?.cmaShort}”</strong>
@@ -1750,12 +1754,13 @@ export default function TPAIGIPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'25px'}}>
+                    <td align="left" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         Signed by:_______________________________
@@ -1769,6 +1774,7 @@ export default function TPAIGIPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          marginBottom: '0'
                         }}
                       >
                         For and on behalf of <strong>“{data.shortseller}”</strong>
