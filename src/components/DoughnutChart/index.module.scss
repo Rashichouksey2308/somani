@@ -1,10 +1,9 @@
 @import '../styles/Core/config';
-
 .card {
   max-height: 279px;
-  border: 1px solid #d2d7e5;
   border-radius: 8px;
   margin-bottom: 24px;
+  border: 1px solid #d2d7e5;
   @include respond(sm-desktop) {
     min-height: 279px;
   }
@@ -13,23 +12,19 @@
     min-height: auto;
     margin-bottom: 15px;
   }
-
   .header {
-    // margin: 0.5rem;
+    font-size: 18px;
     font-weight: bold;
-    font-size: 16px;
     line-height: 23px;
-    text-transform: capitalize;
     background: none;
+    padding: 16px 23px 14px;
     border-bottom: 2px solid #f2f5f9;
-    padding: 12px 23px;
-    @include respond(md-desktop) {
+    @include respond(lg-desktop) {
       font-size: 16px;
       line-height: 1.3;
-      padding: 14px 15px;
+      padding: 15px;
     }
   }
-
   .body {
     display: flex;
     justify-content: center;
@@ -41,52 +36,48 @@
     overflow-x: hidden;
     padding: 20px 27px 26px;
     @include respond(lg-desktop) {
-      padding: 30px 15px 15px;
+      padding: 20px;
     }
     @include respond(md-desktop) {
       padding: 15px;
     }
-
     .name {
       width: 50%;
       height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
       flex-direction: column;
+      justify-content: center;
       @include respond(sm-phone) {
         width: 100%;
       }
-
       .name_wrapper {
         width: 100%;
         height: 100%;
         display: flex;
-        justify-content: flex-start;
         align-items: center;
         margin-bottom: 10px;
-
+        justify-content: flex-start;
         &:last-child {
           margin-bottom: 0;
         }
-
         .round {
-          width: 10px;
-          height: 10px;
+          width: 16px;
+          height: 16px;
           border-radius: 100px;
         }
-
         span {
           font-weight: bold;
-          font-size: 10px;
-          line-height: 13px;
+          font-size: 16px;
+          line-height: 19px;
           color: #111111;
-          text-transform: capitalize;
           opacity: 0.7;
-          margin-left: 10px;
+          margin-left: 16px;
           // white-space: nowrap;
           @include respond(lg-desktop) {
             white-space: unset;
+            font-size: 14px;
+            line-height: 15px;
           }
           @include respond(sm-desktop) {
             font-size: 12px;
@@ -95,33 +86,30 @@
         }
       }
     }
-
     .chart {
       width: 100%;
       height: 177px;
       display: flex;
-      justify-content: center;
-      align-items: center;
       position: relative;
-
+      align-items: center;
+      justify-content: center;
       canvas {
         height: 175px;
         width: 400px;
       }
-
       .total_value {
+        top: 2px;
+        left: 0px;
         width: 100%;
         height: 100%;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        top: 2px;
-        left: 0px;
+        position: absolute;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
       }
     }
   }
