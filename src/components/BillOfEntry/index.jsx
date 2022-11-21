@@ -1122,7 +1122,7 @@ console.log(bl,"asdasd")
 
                                 
                                  newInput[index].boeDetails.bankName=filter[0].keyBanks[0].Bank_Name
-                                 newInput[index].boeDetails.adCode=filter[0].AD_Code || ""
+                                 newInput[index].boeDetails.adCode=filter[0].keyBanks[0].AD_Code || ""
                                
                                   setBillOfEntryData([...newInput]);
                                

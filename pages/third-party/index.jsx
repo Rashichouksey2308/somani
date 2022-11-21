@@ -152,7 +152,7 @@ function Index() {
                       <Appointment
                         inspectionData={inspectionData}
                         setDate={setDate}
-                        vendor={getVendorsMasterData[5]}
+                        vendor={getVendorsMasterData}
                         required={inspectionData?.thirdPartyInspectionRequired}
                         setComponentId={setComponentId}
                         componentId={componentId}
