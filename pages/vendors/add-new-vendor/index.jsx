@@ -98,19 +98,16 @@ const [bankDetails, setBankDetails] = useState({
   Correspondent_BankNmae:''
 })
 
-const handleSuplier = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-  setVendorDetail({
-    ...vendorDetail,
-    [name]:value
-  })
+const handleSuplier = (name, value) => {
+  let newInput = {...vendorDetail}
+  newInput[name] = value;
+  setVendorDetail(newInput)
 }
 
-const saveDate = (value) => {
+const saveDate = (value, name) => {
   const d = new Date(value);
   let text = d.toISOString();
-  setVendorDetail({...vendorDetail, activationDate: text})
+  handleSuplier(name, text);
 };
 
 const handleUploadVendorDetails = (e) => {
