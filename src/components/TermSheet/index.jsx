@@ -1094,7 +1094,7 @@ const Index = () => {
                   termsheet={termsheet}
                   termsheetDetails={termsheetDetails}
                 />
-                <UploadOther module="LeadOnboarding&OrderApproval" orderid={OrdID} />
+                <UploadOther module={["Leads","Margin Money"]} orderid={OrdID} />
               </div>
             </div>
           </div>
