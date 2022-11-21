@@ -55,7 +55,10 @@ function Index(props) {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
- 
+  
+  const getVendor=(value)=>{
+
+  }
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -496,6 +499,7 @@ let masterList = [
           addressValidation={addressValidation}
           internal={getInternalCompaniesMasterData}
           masterList={masterList}
+          gettingPins={gettingPins}
 
         />
       );
@@ -517,6 +521,7 @@ let masterList = [
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
           directors={props.directors}
+          gettingPins={gettingPins}
           
         
         />
@@ -534,6 +539,7 @@ let masterList = [
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
           masterList={masterList}
+          gettingPins={gettingPins}
           
         />
       );
@@ -549,8 +555,10 @@ let masterList = [
           data={props?.genericData?.CHA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
-          vendor={getVendorsMasterData[3]}
+          vendor={getVendor("CHA")}
           masterList={masterList}
+          gettingPins={gettingPins}
+          
           
         />
       );
@@ -567,8 +575,9 @@ let masterList = [
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
           termsheet={props?.genericData?.order?.termsheet}
-          vendor={getVendorsMasterData[1]}
+           vendor={getVendor("CMA")}
           masterList={masterList}
+          gettingPins={gettingPins}
           
         />
       );
@@ -631,8 +640,9 @@ let masterList = [
           active={active}
           addressValidation={addressValidation}
           sameAsCHA={sameAsCHA}
-          vendor={getVendorsMasterData[4]}
+          vendor={getVendor("Stevedore")}
           masterList={masterList}
+          gettingPins={gettingPins}
           
         />
       );
@@ -1803,7 +1813,8 @@ let masterList = [
           return;
         }
       }
-    if(data.shippingData.gstin!==""){
+      console.log(data.shippingData.gstin,"data.shippingData.gstin")
+    if(data.shippingData.gstin!=="" && data.shippingData.gstin!==undefined){
       let valid=  gSTINValidation(data.shippingData.gstin)
       if(valid==false){
          toastMessage = `Add valid gstin `;

@@ -1006,7 +1006,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
             );
           })}
           <div className="">
-            <UploadOther module="Loading-Transit-Unloading" orderid={orderId} />
+            <UploadOther  module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } orderid={orderId} />
             {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}

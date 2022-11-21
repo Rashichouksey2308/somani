@@ -471,7 +471,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
               </div>
             </div>
           </div>
-          <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" isDocumentName={true} />
+          <UploadOther orderid={orderid} module={['Invoice generation for Release','Delivery Order',"Lifting Detail"]  }  isDocumentName={true} />
         </div>
 
         <SaveBar handleSave={onSaveHAndler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />

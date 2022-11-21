@@ -30,11 +30,13 @@
   div {
     height: 100%;
     width: 100%;
-    padding-left: 1rem;
     display: flex;
-    justify-content: space-between;
+    padding: 0 1.75rem;
     align-items: center;
-    // transform: scale(0.7);
+    justify-content: space-between;
+    @include respond(lg-desktop) {
+      padding: 0 1.25rem;
+    }
 
     span {
       height: 19px;
@@ -42,10 +44,8 @@
       font-weight: bold;
       font-size: 16px;
       line-height: 19px;
-      margin-left: 1rem;
+      // margin-left: 1rem;
       opacity: 0.6;
-      // margin-right: 1rem;
-      transform: scale(0.8);
       @include respond(lg-desktop) {
         font-size: 14px;
         line-height: 1.3;

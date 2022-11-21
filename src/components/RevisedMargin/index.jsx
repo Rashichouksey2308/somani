@@ -990,20 +990,22 @@ const Index = ({
                           : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
                       }
                       onChange={(e) => {
-                        let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                      let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                          if(val.keyAddresses.length > 0){
                           if (
-                            val.Branch == e.target.value &&
-                            val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()
+                            val.keyAddresses[0].Branch == e.target.value &&
+                            val.Company_Name?.toLowerCase() == invoiceData?.importerName?.toLowerCase()
                           ) {
                             return val;
+                          }
                           }
                         });
 
                         if (filter.length > 0) {
                           if (filter.length > 0) {
                             const newInput = { ...invoiceDataRevised };
-                            changeImporterData.address = filter[0].Address;
-                            newInput['companyAddress'] = filter[0].Address;
+                            changeImporterData.address = filter[0].keyAddresses[0].fullAddress;
+                            newInput['companyAddress'] = filter[0].keyAddresses[0].fullAddress;
 
                             changeImporterData.GSTIN = filter[0].GSTIN;
                             newInput['importerGSTIN'] = filter[0].GSTIN;
@@ -1081,9 +1083,12 @@ const Index = ({
                       value={invoiceDataRevised?.bankName}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
-                         let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                                      if (val.Bank_Name == e.target.value && val.Company_Name ==invoiceDataRevised?.importerName) {
+                         saveInvoiceData(e.target.name, e.target.value);
+                                      let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                        if(val.keyBanks.length > 0){
+                                      if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name ==invoiceData?.importerName) {
                                         return val;
+                                      }
                                       }
                                     });
                               
@@ -1100,28 +1105,28 @@ const Index = ({
                                     );
                                       return
                                     }
-                                    savedataRevised(
+                                   saveData(
                                       'branchAddress',
-                                      filter[0].Branch_Address == undefined ? '' : filter[0].Branch_Address,
+                                      filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
                                       'IFSCcode',
-                                      filter[0].IFSC == undefined ? '' : filter[0].IFSC,
+                                      filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
                                       e.target.value,
-                                      filter[0].Account_No == undefined ? '' : filter[0].Account_No,
-                                      filter[0].Branch_Type == undefined ? '' : filter[0].Branch_Type,
-                                      filter[0].Bank_Name == undefined ? '' : filter[0].Bank_Name
+                                      filter[0].keyBanks[0].Account_No == undefined ? '' : filter[0].keyBanks[0].Account_No,
+                                      filter[0].keyBanks[0].Branch_Type == undefined ? '' : filter[0].keyBanks[0].branchType,
+                                      filter[0].keyBanks[0].Bank_Name == undefined ? '' : filter[0].keyBanks[0].Bank_Name
                                     );
                       }}
                     >
                       <option>Select an option</option>
-                     {branchOptions
-                        .filter((val, index) => {
-                          if (val.Bank_Name) {
-                            return val;
-                          }
-                        })
-                        .map((val, index) => {
-                          return <option value={`${val.Bank_Name}`}>{val.Bank_Name}</option>;
-                        })}
+                       {branchOptions
+                                    .filter((val, index) => {
+                                      if (val.keyBanks[0].Bank_Name) {
+                                        return val;
+                                      }
+                                    })
+                                    .map((val, index) => {
+                                      return <option value={`${val.keyBanks[0].Bank_Name}`}>{val.keyBanks[0].Bank_Name}</option>;
+                                    })}
                     </select>
 
                     <label className={`${styles.label_heading} label_heading`} id="textInput">

@@ -41,7 +41,7 @@ function Index ({ data }) {
           %
         </div>
 
-        <div className={styles.total}>
+        <div className={`${styles.total} border-top-0`}>
           <div className={styles.totalText}>
             <span>TOTAL</span>
           </div>
@@ -56,7 +56,7 @@ function Index ({ data }) {
             </span>
           </div>
         </div>
-        <div className={styles.total}>
+        <div className={`${styles.total} border_color`}>
           <div className={styles.totalText}>
             <span>UTILISED</span>
           </div>
