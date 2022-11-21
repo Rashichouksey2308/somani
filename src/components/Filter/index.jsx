@@ -16,7 +16,7 @@ export default function index () {
       <div className={`${styles.dropdown_menu} dropdown_menu dropdown-menu`} aria-labelledby='dropdownMenu2'>
         <div className={`${styles.dropdown_header} dropdown_header dropdown-header d-flex align-items-center`}>
           <img src='/static/filter_alt.svg' className={`${styles.filter_icon} img-fluid`} alt='Filter Small' />
-          <h3>Filter</h3>
+          <h3 className={styles.heading}>Filter</h3>
           <img src='/static/close-2.svg' className={`${styles.close} img-fluid ml-auto`} alt='Close' />
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href='#'>
