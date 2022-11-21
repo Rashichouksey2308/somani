@@ -330,7 +330,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
-                      {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
                         value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
                         selected={startBlDate}
