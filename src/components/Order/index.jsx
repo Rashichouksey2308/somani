@@ -247,7 +247,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     required
                   >
                     <option disabled>Select an option</option>
-                    {country.map((val, index) => {
+                    {country?.map((val, index) => {
                       return <option value={`${val.Country}`}>{val.Country}</option>;
                     })}
                   </select>
@@ -347,8 +347,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     required
                   >
                     <option>Select an option</option>
-                    {port
-                      .filter((val, index) => {
+                    {port?.filter((val, index) => {
                         if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
                           return val;
                         }

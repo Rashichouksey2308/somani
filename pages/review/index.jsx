@@ -652,9 +652,6 @@ function Index() {
       
       });
   
-      
-      
-      console.log(temp,"temp")
       setDebtData([...temp]);
     }
   }, [orderList?.company?.debtProfile,companyData]);
@@ -1134,7 +1131,7 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         };
-        let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
+        let code = dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
         if (code == 200) {
           dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
