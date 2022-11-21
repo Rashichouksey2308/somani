@@ -12,7 +12,6 @@ import ToggleSwitch from '../../src/components/ToggleSwitch'
 
 const index = () => {
   const dispatch = useDispatch();
-
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
 

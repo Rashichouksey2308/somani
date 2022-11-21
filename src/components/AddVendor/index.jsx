@@ -7,7 +7,31 @@ import DateCalender from '../DateCalender';
 import Image from 'next/image';
 import UploadOther from '../UploadOther';
 
-function Index() {
+
+function Index({
+  remarks,
+  setAddress,
+  setKeyContactPerson,
+  setVendorDetail,
+  orderid,
+  vendorDetail,
+  keyContactPerson,
+  address,
+  bankDetails,
+  handleSuplier,
+  saveDate,
+  handleUploadVendorDetails,
+  handlekeyContactPersonDetail,
+  handleSubmitKeyContactPersonDetails,
+  handleAddressDetail,
+  handleApproval,
+  handleSubmitAddress,
+  handleBankDetail,
+  handleCanclePersonalDetail,
+  handleCancleAddressDetail,
+  handleRemaks
+}) {
+
   const [vendorRadio, setVendorRadio] = useState('domestic');
   return (
     <div className={`${styles.backgroundMain}`}>
@@ -18,7 +42,6 @@ function Index() {
           >
             <h3 className={`${styles.heading}`}>Vendor Details</h3>
           </div>
-
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
@@ -55,9 +78,12 @@ function Index() {
               </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <div className="d-flex">
-                  <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
-                    <option value="">CMA</option>
-                    <option value="">CHA</option>
+                  <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}            
+                    value={vendorDetail?.vendorType}
+                    onChange={(e)=> setVendorDetail({...vendorDetail ,vendorType : e.target.value})} 
+                  >
+                    <option value="CMA">CMA</option>
+                    <option value="CHA">CHA</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Vendor Type <strong className="text-danger ml-1">*</strong>
@@ -70,9 +96,13 @@ function Index() {
               {vendorRadio === 'international' ? (
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
-                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
-                      <option value="">Germany</option>
-                      <option value="">India</option>
+                    <select
+                       className={`${styles.input_field} ${styles.customSelect} border_color input form-control`} 
+                      value={vendorDetail?.companyName}
+                      onChange={(e)=> setVendorDetail({...vendorDetail , companyName : e.target.value})}                   
+                    >
+                      <option value="Germany">Germany</option>
+                      <option value="India">India</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Country <strong className="text-danger ml-1">*</strong>
@@ -91,7 +121,9 @@ function Index() {
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
                     required
-                    name="supplierName"
+                    name="panId"
+                    value={vendorDetail?.panId}
+                    onChange={(e) => handleSuplier(e)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     PAN/Tax ID <strong className="text-danger">*</strong>
@@ -105,7 +137,9 @@ function Index() {
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
-                  name="supplierName"
+                  name="vendor"
+                  value={vendorDetail?.vendor}
+                  onChange={(e) => handleSuplier(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Company Name <strong className="text-danger">*</strong>
@@ -117,7 +151,9 @@ function Index() {
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
                     required
-                    name="supplierName"
+                    name="pan_taxId"
+                    value={vendorDetail?.pan_taxId}
+                    onChange={(e) => handleSuplier(e)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>TAX ID</label>
                 </div>
@@ -126,7 +162,12 @@ function Index() {
               )}
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <div className="d-flex">
-                  <DateCalender labelName="Activation Date" />
+                  <DateCalender 
+                    labelName="Activation Date" 
+                    saveDate={saveDate}
+                    name="activationDate"
+                    value={vendorDetail?.activationDate}
+                  />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                   </div>
@@ -136,7 +177,9 @@ function Index() {
                 <input
                   type="text"
                   id="textInput"
-                  name="email"
+                  name="emailId"
+                  value={vendorDetail?.emailId}
+                  onChange={(e) => handleSuplier(e)}
                   className={`${styles.input_field} border_color input form-control`}
                 />
                 <label className={`${styles.label_heading} label_heading`} id="textInput">
@@ -148,7 +191,9 @@ function Index() {
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
-                  name="supplierName"
+                  name="phoneNumber"
+                  value={vendorDetail?.phoneNumber}
+                  onChange={(e) => handleSuplier(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Phone Number <strong className="text-danger">*</strong>
@@ -160,7 +205,9 @@ function Index() {
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
-                  name="supplierName"
+                  name="website"
+                  value={vendorDetail?.website}
+                  onChange={(e) => handleSuplier(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>Website</label>
               </div>
@@ -169,7 +216,10 @@ function Index() {
                   <div className={`${styles.theme} d-flex align-items-center`}>
                     <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
                     <label className={styles.switch}>
-                      <input type="checkbox" />
+                      <input type="checkbox" 
+                        value={vendorDetail?.isBlackListed}
+                       onChange={()=> setVendorDetail({...vendorDetail , isBlackListed:!vendorDetail.isBlackListed}) } 
+                       name="isBlackListed"/>
                       <span className={`${styles.slider} ${styles.round}`}></span>
                     </label>
                     <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>No</div>
@@ -188,10 +238,15 @@ function Index() {
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
                     required
+                    name='remarks'
+                    value={vendorDetail?.remarks}
+                    onChange={(e) => handleSuplier(e)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>Remarks</label>
                   <div className="input-group-append align-items-center">
-                    <button className={`${styles.button_upload} btn`}>Upload</button>
+                    <button 
+                    className={`${styles.button_upload} btn`} 
+                    onClick={handleUploadVendorDetails}>Upload</button>
                   </div>
                 </div>
               </div>
@@ -227,7 +282,13 @@ function Index() {
               <div className={`${styles.dashboard_form} card-body border_color`}>
                 <div className="row">
                   <div className={`${styles.form_group} col-lg-4 col-sm-4`}>
-                    <input className={`${styles.input_field} border_color input form-control`} required type="text" />
+                    <input
+                     className={`${styles.input_field} border_color input form-control`} 
+                     required type="text"
+                     name="name"
+                     value={keyContactPerson?.name}
+                     onChange={handlekeyContactPersonDetail}
+                      />
                     <label className={`${styles.label_heading} label_heading`}>
                       Name <strong className="text-danger">*</strong>
                     </label>
@@ -236,8 +297,10 @@ function Index() {
                     <div className="d-flex">
                       <select
                         className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                        name="countryOfOrigin"
+                        name="department"
                         required
+                        value={keyContactPerson?.department}
+                        onChange={(e) => setKeyContactPerson({...keyContactPerson,department: e.target.name })}
                       >
                         <option value="India">Finance</option>
                         <option value="Dubai">Operations</option>
@@ -249,17 +312,30 @@ function Index() {
                     </div>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-sm-4`}>
-                    <input className={`${styles.input_field} border_color input form-control`} required type="text" />
+                    <input 
+                    className={`${styles.input_field} 
+                    border_color input form-control`} 
+                    required type="text" 
+                    name="designation"
+                    value={keyContactPerson?.designation}
+                    onChange={handlekeyContactPersonDetail}
+                    />
                     <label className={`${styles.label_heading} label_heading`}>Designation</label>
                   </div>
                   <div className={`${styles.form_group} ${styles.phone} col-lg-4 col-sm-6`}>
                     <div className={`${styles.phone_card}`}>
-                      <select name="callingCode" id="Code" className={`${styles.code_phone} input border-right-0`}>
-                        <option>+91</option>
-                        <option>+1</option>
-                        <option>+92</option>
-                        <option>+95</option>
-                        <option>+24</option>
+                      <select
+                       name="callingCode" 
+                      id="Code" 
+                      className={`${styles.code_phone} input border-right-0`}
+                      value={keyContactPerson?.phoneNumber}
+                      onChange={(e) => setKeyContactPerson({...keyContactPerson,phoneNumber: e.target.name })}
+                      >
+                        <option value="+91">+91</option>
+                        <option value="+1">+1</option>
+                        <option value="+92">+92</option>
+                        <option value="+93">+95</option>
+                        <option value="+24">+24</option>
                       </select>
                       <input
                         type="number"
@@ -268,6 +344,8 @@ function Index() {
                         id="textNumber"
                         name="phoneNumber"
                         className={`${styles.input_field} border_color input form-control border-left-0`}
+                        value={keyContactPerson?.phoneNumber}
+                        onChange={handlekeyContactPersonDetail}
                       />
                       <label className={`${styles.label_heading} label_heading`} id="textNumber">
                         Phone Number
@@ -280,6 +358,9 @@ function Index() {
                       id="textInput"
                       required
                       className={`${styles.input_field} border_color input form-control`}
+                      name='emailId'
+                      value={keyContactPerson?.email}
+                      onChange={handlekeyContactPersonDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Email Address <strong className="text-danger">*</strong>
@@ -298,8 +379,12 @@ function Index() {
                             defaultChecked
                             label="Yes"
                             name="group1"
+                            value={keyContactPerson?.authorizedSignatory}
                             type={type}
                             id={`inline-${type}-1`}
+                            onChange={() => {
+                              setKeyContactPerson({...keyContactPerson,authorizedSignatory:true})
+                            }}
                           />
                           <Form.Check
                             className={styles.radio}
@@ -308,6 +393,10 @@ function Index() {
                             name="group1"
                             type={type}
                             id={`inline-${type}-2`}
+                            value={keyContactPerson?.authorised}
+                            onChange={() => {
+                              setKeyContactPerson({...keyContactPerson,authorised:false})
+                            }}
                           />
                         </div>
                       ))}
@@ -317,11 +406,11 @@ function Index() {
               </div>
               <button
                 className={`${styles.add_btn}`}
-                //onClick={() => addData('address')}
+                onClick={handleSubmitKeyContactPersonDetails}
               >
                 Add
               </button>
-              <button className={`${styles.cancel_btn}`}>Cancel</button>
+              <button className={`${styles.cancel_btn}`} onClick={handleCanclePersonalDetail}>Cancel</button>
             </div>
             <div className="d-flex justify-content-between">
               <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
@@ -388,8 +477,10 @@ function Index() {
                     <div className="d-flex">
                       <select
                         className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                        name="countryOfOrigin"
+                        name="addressType"
                         required
+                        value={address?.addressType}                      
+                        onChange={(e) => setAddress({...address, addressType: e.target.value })}
                       >
                         <option value="India">Agra</option>
                         <option value="Dubai">Dubai</option>
@@ -410,6 +501,8 @@ function Index() {
                             className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             name="countryOfOrigin"
                             required
+                            value={address?.country}                      
+                            onChange={(e) => setAddress({...address, country: e.target.value })}
                           >
                             <option value="India">Agra</option>
                             <option value="Dubai">Dubai</option>
@@ -425,9 +518,11 @@ function Index() {
                       <div className={`${styles.form_group} col-md-3 col-sm-4`}>
                         <input
                           className={`${styles.input_field} border_color input form-control`}
-                          name="countryOfOrigin"
+                          name="city"
                           required
                           style={{ paddingRight: '35px' }}
+                          value={address.city}
+                          onChange={handleAddressDetail}
                         />
                         <label className={`${styles.label_heading} label_heading`}>
                           City <strong className="text-danger">*</strong>
@@ -436,9 +531,11 @@ function Index() {
                       <div className={`${styles.form_group} col-md-3 col-sm-4`}>
                         <input
                           className={`${styles.input_field} border_color input form-control`}
-                          name="countryOfOrigin"
+                          name="zipCode"
                           required
                           style={{ paddingRight: '35px' }}
+                          value={address?.zipCode}
+                          onChange={handleAddressDetail}
                         />
                         <label className={`${styles.label_heading} label_heading`}>
                           Zip Code <strong className="text-danger">*</strong>
@@ -455,6 +552,8 @@ function Index() {
                           onWheel={(event) => event.currentTarget.blur()}
                           onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           name="pinCode"
+                          value={address?.pinCode}
+                          onChange={handleAddressDetail}
                         />
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code
@@ -469,8 +568,10 @@ function Index() {
                         <div className="d-flex">
                           <select
                             className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                            name="countryOfOrigin"
+                            name="city"
                             required
+                            value={address?.city}
+                            onChange={(e) => setAddress({...address, city: e.target.value })}
                           >
                             <option value="India">Agra</option>
                             <option value="Dubai">Dubai</option>
@@ -486,19 +587,22 @@ function Index() {
                           className={`${styles.input_field} border_color input form-control`}
                           required
                           type="text"
-                          name="pinCode"
+                          name="gstin"
+                          value={address?.gstin}
+                          onChange={handleAddressDetail}
                         />
                         <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
                       </div>
                     </>
                   )}
-
                   <div className={`${styles.form_group} col-lg-9`}>
                     <input
                       className={`${styles.input_field} border_color input form-control`}
                       required
                       type="text"
-                      name="pinCode"
+                      name="address"
+                      value={address?.address}
+                      onChange={handleAddressDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Address<strong className="text-danger">*</strong>
@@ -510,6 +614,9 @@ function Index() {
                       id="textInput"
                       required
                       className={`${styles.input_field} border_color input form-control`}
+                      name="email"
+                      value={address?.email}
+                      onChange={handleAddressDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Email {vendorRadio === 'international' ? <strong className="text-danger">*</strong> : ''}
@@ -519,11 +626,14 @@ function Index() {
               </div>
               <button
                 className={`${styles.add_btn}`}
-                //onClick={() => addData('address')}
+                onClick={handleSubmitAddress}
               >
                 Add
               </button>
-              <button className={`${styles.cancel_btn}`}>Cancel</button>
+              <button
+               className={`${styles.cancel_btn}`}
+               onClick={handleCancleAddressDetail}
+               >Cancel</button>
             </div>
             <div className="d-flex justify-content-between">
               <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
@@ -576,7 +686,9 @@ function Index() {
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
                       required
-                      name="supplierName"
+                      name="IFSC"
+                      value={bankDetails?.IFSC}
+                      onChange={handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       IFSC <strong className="text-danger">*</strong>
@@ -587,7 +699,10 @@ function Index() {
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
                       required
-                      name="supplierName"
+                      name="Bank_Name"
+                      value={bankDetails?.Bank_Name}
+                      onChange={ handleBankDetail}
+
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Bank Name <strong className="text-danger">*</strong>
@@ -598,9 +713,11 @@ function Index() {
                     <input
                       type="text"
                       id="textInput"
-                      name="email"
                       required
                       className={`${styles.input_field} border_color input form-control`}
+                      name="Branch_Address"
+                      value={bankDetails?.Branch_Address}
+                      onChange={handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Bank Address <strong className="text-danger">*</strong>
@@ -612,8 +729,10 @@ function Index() {
                       required
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                      name="pinCode"
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}   
+                      name="Account_No"
+                      value={bankDetails?.Account_No}
+                      onChange={ handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Account No.
@@ -628,7 +747,9 @@ function Index() {
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
                       required
-                      name="supplierName"
+                      name="Bank_Name"
+                      value={bankDetails?.Bank_Name}
+                      onChange={handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Bank Name <strong className="text-danger">*</strong>
@@ -639,7 +760,9 @@ function Index() {
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
                       required
-                      name="supplierName"
+                      name="Account_No"
+                      value={bankDetails?.Account_No}
+                      onChange={ handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Account No. <strong className="text-danger">*</strong>
@@ -649,10 +772,12 @@ function Index() {
                   <div className={`${styles.form_group} col-md-2 col-sm-6`}>
                     <input
                       type="text"
-                      id="textInput"
-                      name="email"
+                      id="textInput"             
                       required
                       className={`${styles.input_field} border_color input form-control`}
+                      name="Swift_Code"
+                      value={bankDetails?.Swift_Code}
+                      onChange={ handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Swift Code <strong className="text-danger">*</strong>
@@ -662,7 +787,9 @@ function Index() {
                     <input
                       type="text"
                       id="textInput"
-                      // name="email"
+                      name="Branch_Address"
+                      value={bankDetails?.Branch_Address}
+                      onChange={ handleBankDetail}
                       required
                       className={`${styles.input_field} border_color input form-control`}
                     />
@@ -675,7 +802,9 @@ function Index() {
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
                       required
-                      name="supplierName"
+                      name="Correspondent_BankNmae"
+                      value={bankDetails?.Correspondent_BankNmae}
+                      onChange={ handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>Correspondent Bank Name</label>
                   </div>
@@ -684,7 +813,9 @@ function Index() {
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
                       required
-                      name="supplierName"
+                      name="Account_No"
+                      value={bankDetails?.Account_No}
+                      onChange={handleBankDetail}
                     />
                     <label className={`${styles.label_heading} label_heading`}>Account No.</label>
                   </div>
@@ -693,7 +824,9 @@ function Index() {
                     <input
                       type="text"
                       id="textInput"
-                      name="email"
+                      name="gstin"
+                      value={bankDetails?.gstin}
+                      onChange={ handleBankDetail}
                       required
                       className={`${styles.input_field} border_color input form-control`}
                     />
@@ -705,7 +838,9 @@ function Index() {
                     <input
                       type="text"
                       id="textInput"
-                      // name="email"
+                      name="AD_Code"
+                      value={bankDetails?.AD_Code}
+                      onChange={handleBankDetail}
                       required
                       className={`${styles.input_field} border_color input form-control`}
                     />
@@ -719,7 +854,7 @@ function Index() {
           </div>
         </div>
         <div className="mt-4">
-          <UploadOther isDocumentName={true} />
+          <UploadOther isDocumentName={true}  orderid={orderid} module="Loading-Transit-Unloading" />
         </div>
 
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
@@ -730,11 +865,13 @@ function Index() {
                   className={`${styles.input_field} border_color input form-control`}
                   type="text"
                   required
-                  name="supplierName"
+                  name="remarks"
+                  value={remarks}
+                  onChange={handleRemaks}
                 />
                 <label className={`${styles.label_heading} label_heading`}>Remarks</label>
               </div>
-              <div className={`${styles.form_group} col-lg-3 col-sm-6 `}>
+              <div className={`${styles.form_group} col-lg-3 col-sm-6 `} onClick={handleApproval}>
                 <div className={`${styles.approve} ml-3`}>
                   <span>Send for Approval</span>
                 </div>

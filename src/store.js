@@ -10,7 +10,6 @@ import OrderReducer from 'redux/buyerProfile/reducer'
 import MarginMoneyReducer from 'redux/marginMoney/reducer'
 import CompanyReducer from 'redux/companyDetail/reducer'
 import CreditReducer from 'redux/creditQueueUpdate/reducer'
-
 import GenericReducer from './redux/generic/reducer'
 import NewOrderReducer from 'redux/newOrder/reducer'
 import LcModuleReducer from 'redux/lcModule/reducer'
@@ -37,6 +36,7 @@ import PortsReducer from 'redux/ports/reducer'
 import CountryReducer from 'redux/country/reducer'
 import DocumentReducer from '../src/redux/documentMaster/reducer'
 import GoNoGoReducer from 'redux/goNoGo/reducer'
+import VendorReducer from 'redux/vendor/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -86,6 +86,7 @@ export const createStore = (preloadedState) => {
       country: CountryReducer,
       document: DocumentReducer,
       Gng: GoNoGoReducer,
+      Vendor: VendorReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

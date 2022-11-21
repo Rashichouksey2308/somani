@@ -5,89 +5,87 @@ import Cookies from 'js-cookie'
 import * as types from './actionType'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getInternalCompanies () {
+function getVendor () {
   return {
-    type: types.GET_INTERNAL_COMPANIES
+    type: types.GET_VENDOR
   }
 }
 
-function getInternalCompaniesSuccess (payload) {
+function getVendorSuccess (payload) {
   return {
-    type: types.GET_INTERNAL_COMPANIES_SUCCESS,
+    type: types.GET_VENDOR_SUCCESS,
     payload
   }
 }
 
-function getInternalCompaniesFailed () {
+function getVendorFailed () {
   return {
-    type: types.GET_INTERNAL_COMPANIES_FAILED
+    type: types.GET_VENDOR_FAILED
   }
 }
 
-function getAllInternalCompanies () {
+function getAllVendor () {
   return {
-    type: types.GET_ALL_INTERNAL_COMPANIES
+    type: types.GET_ALL_VENDOR
   }
 }
 
-function getAllInternalCompaniesSuccess (payload) {
+function getAllVendorSuccess (payload) {
   return {
-    type: types.GET_ALL_INTERNAL_COMPANIES_SUCCESS,
+    type: types.GET_ALL_VENDOR_SUCCESS,
     payload
   }
 }
 
-function getAllInternalCompaniesFailed () {
+function getAllVendorFailed () {
   return {
-    type: types.GET_ALL_INTERNAL_COMPANIES_FAILED
+    type: types.GET_ALL_VENDOR_FAILED
   }
 }
 
-function updateInternalCompanies () {
+function updateVendor () {
   return {
-    type: types.UPDATE_INTERNAL_COMPANIES
+    type: types.UPDATE_VENDOR
   }
 }
 
-function updateInternalCompaniesSuccess (payload) {
+function updateVendorSuccess (payload) {
   return {
-    type: types.UPDATE_INTERNAL_COMPANIES_SUCCESS,
+    type: types.UPDATE_VENDOR_SUCCESS,
     payload
   }
 }
 
-function updateInternalCompaniesFailed () {
+function updateVendorFailed () {
   return {
-    type: types.UPDATE_INTERNAL_COMPANIES_FAILED
+    type: types.UPDATE_VENDOR_FAILED
   }
 }
 
-function createInternalCompanies () {
+function createVendor () {
   return {
-    type: types.CREATE_INTERNAL_COMPANIES
+    type: types.CREATE_VENDOR
   }
 }
 
-function createInternalCompaniesSuccess (payload) {
+function createVendorSuccess (payload) {
   return {
-    type: types.CREATE_INTERNAL_COMPANIES_SUCCESS,
+    type: types.CREATE_VENDOR_SUCCESS,
     payload
   }
 }
 
-function createInternalCompaniesFailed () {
+function createVendorFailed () {
   return {
-    type: types.CREATE_INTERNAL_COMPANIES_FAILED
+    type: types.CREATE_VENDOR_FAILED
   }
 }
 
-export const GetAllInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const GetAllVendor = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-
-  console.log(jwtAccessToken,"jwtAccessToken ++++");
 
   const headers = {
     authorization: jwtAccessToken,
@@ -95,15 +93,15 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getVendor}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(getAllInternalCompaniesSuccess(response.data.data))
+          dispatch(getAllVendorSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
-          dispatch(getAllInternalCompaniesFailed())
+          dispatch(getAllVendorFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -112,7 +110,7 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
         }
       })
       .catch((error) => {
-        dispatch(getAllInternalCompaniesFailed())
+        dispatch(getAllVendorFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -120,7 +118,7 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(getAllInternalCompaniesFailed())
+    dispatch(getAllVendorFailed())
 
     const toastMessage = 'COULD NOT GET INTERNAL COMPANIES AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -130,11 +128,11 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
   }
 }
 
-export const GetInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const GetVendor = (payload) => async (dispatch, getState, api) => {
+  console.log(payload,"vendor res dtata ==");
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
@@ -142,15 +140,15 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getVendor}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(getInternalCompaniesSuccess(response.data.data))
+          dispatch(getVendorSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
-          dispatch(getInternalCompaniesFailed())
+          dispatch(getVendorFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -159,7 +157,7 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
         }
       })
       .catch((error) => {
-        dispatch(getInternalCompaniesFailed())
+        dispatch(getVendorFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -167,7 +165,7 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(getInternalCompaniesFailed())
+    dispatch(getVendorFailed())
 
     const toastMessage = 'COULD NOT GET INTERNAL COMPANIES AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -177,23 +175,25 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
   }
 }
 
-export const CreateInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const CreateVendor = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.getVendor}`, payload, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(createInternalCompaniesSuccess(response.data.data))
+          dispatch(createVendorSuccess(response.data.data))
 
           const toastMessage = 'created  SUCCESSFULLY'
 
@@ -204,7 +204,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
           }
           dispatch(setNotLoading())
         } else {
-          dispatch(createInternalCompaniesFailed())
+          dispatch(createVendorFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -213,7 +213,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
         }
       })
       .catch((error) => {
-        dispatch(createInternalCompaniesFailed())
+        dispatch(createVendorFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -221,7 +221,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(createInternalCompaniesFailed())
+    dispatch(createVendorFailed())
 
     const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -231,7 +231,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
   }
 }
 
-export const UpdateInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const UpdateVendor = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -243,12 +243,12 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.getVendor}`, payload, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(updateInternalCompaniesSuccess(response.data.data))
+          dispatch(updateVendorSuccess(response.data.data))
 
           const toastMessage = 'updated  SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -259,7 +259,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
           sessionStorage.removeItem('internalCompanyId')
           dispatch(setNotLoading())
         } else {
-          dispatch(updateInternalCompaniesFailed())
+          dispatch(updateVendorFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -268,7 +268,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
         }
       })
       .catch((error) => {
-        dispatch(updateInternalCompaniesFailed())
+        dispatch(updateVendorFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -276,7 +276,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(updateInternalCompaniesFailed())
+    dispatch(updateVendorFailed())
 
     const toastMessage = 'COULD NOT UPDATE INTERNAL COMPANIES AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {

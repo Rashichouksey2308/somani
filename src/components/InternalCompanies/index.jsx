@@ -41,7 +41,6 @@ function Index({
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
-
     setKeyAddressData(newInput);
   };
 
@@ -110,7 +109,6 @@ function Index({
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
-
     setEditData(newInput);
   };
 
