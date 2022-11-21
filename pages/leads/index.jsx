@@ -18,7 +18,7 @@ import slugify from 'slugify';
 // import { getPincodes } from '../../src/redux/masters/action';
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState('');
+  const [searchterm, setSearchTerm] = useState('');
   const [filterItem, setFilterItem] = useState({});
   const [showBadges, setShowBadges] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,11 +30,9 @@ function Index() {
 
   const dispatch = useDispatch();
 
-  const { allBuyerList } = useSelector((state) => state.buyer);
-  const { searchedLeads } = useSelector((state) => state.order);
-  const { getOrderLeads } = useSelector((state) => state.buyer);
-  const { filteredLeads } = useSelector((state) => state.order);
-
+  const { allBuyerList, getOrderLeads} = useSelector((state) => state.buyer);
+  const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
+  
   const [open, setOpen] = useState(true);
   const handleClose = () => {
     setOpen(false);
@@ -91,7 +89,6 @@ function Index() {
         }
       });
     }
-    // dispatch(GetAllBuyer(`?company=${id}`));
     dispatch(FilterLeads(`${queryParams}`));
   };
 
@@ -102,7 +99,7 @@ function Index() {
   };
 
   const handleFilterChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, checked } = e.target;
     setFilterItem((prevState) => ({
       ...prevState,
       [name]: handleBoolean(checked.toString()),
@@ -232,14 +229,14 @@ function Index() {
                   <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
-                  value={serachterm}
+                  value={searchterm}
                   onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-              {searchedLeads && serachterm && (
+              {searchedLeads && searchterm && (
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
