@@ -652,9 +652,6 @@ function Index() {
       
       });
   
-      
-      
-      console.log(temp,"temp")
       setDebtData([...temp]);
     }
   }, [orderList?.company?.debtProfile,companyData]);

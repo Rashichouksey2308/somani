@@ -2858,11 +2858,12 @@ const sectionTerms = (
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
             <span className={` ${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Total Limit:</span>
-              {addPrefixOrSuffix(
-                convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString('en-In'),
+              {/* { addPrefixOrSuffix(
+                checkNan(convertValue(camData?.company?.creditLimit?.totalLimit))?.toLocaleString('en-In'),
                 'Cr',
                 '',
-              )}
+              )} */}
+              {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>
