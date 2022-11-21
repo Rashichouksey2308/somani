@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Header from '../../../src/components/Checker/Common/Header';
-import ProfileSummary from '../../../src/components/Checker/AddNewUser/ProfileSummary';
+import VendorSummary from '../../../src/components/Checker/AddNewVendor/VendorSummary';
 
 function Index() {
     return (
         <Card className={`${styles.card} container-fluid`}>
             <div className="m-2">
-                <Header />
-                <ProfileSummary />
+                <Header heading="Add New Vendor" path="/checker/vendors" />
+                <VendorSummary />
             </div>
         </Card>
     );

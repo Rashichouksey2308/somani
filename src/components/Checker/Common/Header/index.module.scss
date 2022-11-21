@@ -13,10 +13,6 @@
         margin-bottom: 20px;
     }
 
-    @include respond(phone) {
-        align-items: center;
-        padding: 0.75rem 0rem;
-    }
 
     .head_header {
         display: flex;
@@ -61,9 +57,6 @@
                 font-size: 20px;
             }
 
-            @include respond(phone) {
-                font-size: 18px;
-            }
         }
     }
 
@@ -102,8 +95,5 @@
         font-weight: bold;
         color: #3687e8;
 
-        @include respond(phone) {
-            font-size: $font_size_mobile_button;
-        }
     }
 }
