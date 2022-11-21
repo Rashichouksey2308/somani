@@ -53,7 +53,7 @@ function Index(props) {
         let supplier = {
           name: savedData.name || props?.vendor?.name,
           shortName: savedData.shortName,
-          gstin: savedData.gstin || props?.vendor?.gstin,
+          gstin: savedData.gstin || '',
           addresses: savedData.addresses,
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails,
         };
@@ -98,7 +98,7 @@ function Index(props) {
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName,
-          gstin: props.data?.gstin || props?.vendor?.gstin,
+          gstin: props.data?.gstin || '',
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails,
         };
@@ -483,7 +483,9 @@ const cancelEditAddress = () => {
                   }}
                 >
                   <option>Select an option</option>
-                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
+                   {props?.vendor?.gstin.length > 0 && props.vendor.gstin.map((val,index)=>{
+                     return <option value={`${val}`}>{val}</option>
+                  })}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -512,6 +514,7 @@ const cancelEditAddress = () => {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            props.vendor.gstin?props.vendor.gstin:[]
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card m-0 border_color`}>
@@ -619,7 +622,9 @@ const cancelEditAddress = () => {
                           }}
                         >
                           <option>Select an option</option>
-                          <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
+                         {props?.vendor?.gstin.length > 0 && props.vendor.gstin.map((val,index)=>{
+                          return <option value={`${val}`}>{val}</option>
+                      })}
                         </select>
                         <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                           GSTIN<strong className="text-danger">*</strong>
@@ -756,6 +761,7 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
+  gstin
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -854,7 +860,9 @@ const editData = (
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
+                  {gstin.length > 0 && gstin.map((val,index)=>{
+                     return <option value={`${val}`}>{val}</option>
+                  })}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>

@@ -594,7 +594,7 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
-            gstin
+            props.vendor.gstin?props.vendor.gstin:[]
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card m-0 border_color`}>

@@ -95,7 +95,7 @@ function Index(props) {
         let cma = {
           name: savedData.name || props?.vendor?.name,
           shortName: savedData.shortName,
-          gstin: savedData.gstin || props?.vendor?.gstin,
+          gstin: savedData.gstin ||'',
           designatedStorageArea: savedData.designatedStorageArea,
 
           addresses: savedData.addresses,
@@ -152,7 +152,7 @@ function Index(props) {
         let cma = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName,
-          gstin: props.data?.gstin || props?.vendor?.gstin,
+          gstin: props.data?.gstin ||'',
           designatedStorageArea:
             props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
           addresses: props.data?.addresses,
@@ -547,7 +547,9 @@ const cancelEditAddress = () => {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
+                  {props?.vendor?.gstin.length > 0 && props.vendor.gstin.map((val,index)=>{
+                     return <option value={`${val}`}>{val}</option>
+                  })}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -593,9 +595,15 @@ const cancelEditAddress = () => {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            null,
+            null,
+          props.vendor.gstin
+            
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,null,null,"gst")
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,null,null,"gst",
+           props.vendor.gstin
+           )
         )}
          {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,props.vendor.options?props.vendor.options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
