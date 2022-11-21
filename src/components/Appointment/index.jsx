@@ -25,32 +25,34 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     let add = [];
     let pincode = [];
     let newAddress = [];
+    let name = ''
+    let address = ''
+    console.log(vendor,'vendors')
     if (vendor) {
-      // add = vendor?.field23.split(",")
-      //    newAddress=[]
-      //   add.forEach((val,index)=>{
-      //     if(index<add.length-1){
-      //       newAddress.push(val)
-      //     }
-      //   })
-      // pincode =   add[add.length-1].split("-")
+    vendor?.forEach((item)=> {
+      if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
+        name = item.vendorDetails?.companyName
+        address = item?.keyAddresses[0]?.address
+
+      }
+    })
     }
 
     setAppointmentData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
         addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || address,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
         addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,

@@ -62,7 +62,9 @@ const DoughnutChart = ({ customerSummary }) => {
 
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
+      <Card.Header className={`${styles.header} border_color heading_card`}>
+        <h3 className={styles.title}>Top 5 Customers</h3>
+      </Card.Header>
       <Card.Body className={`${styles.body} row no-gutters`}>
         <div className={`${styles.name} col-sm-7`}>
           {listCompanies(companyNames)}

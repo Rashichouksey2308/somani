@@ -36,7 +36,9 @@ function index(props) {
 
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header} heading_card border_color`}> {props.header} </Card.Header>
+      <Card.Header className={`${styles.header} heading_card border_color`}>
+        <h2 className={styles.title}>{props.header}</h2>
+      </Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.leads}>
           <div className={styles.leadsSub}>
