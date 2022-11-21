@@ -1980,7 +1980,7 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="branchAddress"
+                                name="branch"
                                 onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.branch}
                                 className={`${styles.input_field} input form-control`}
