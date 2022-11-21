@@ -24,16 +24,11 @@ function Index() {
         id="customerDetail"
         className={`collapse ${styles.body} card-body row`}
         aria-labelledby="customerDetail"
-        //   data-parent="#profileAccordion"
       >
         {fields('Company Name', buyerList?.companyName ?? '')}
         {fields('Company PAN', buyerList?.company?.companyPan ?? '')}
         {fields('Type Of Business', buyerList?.company?.typeOfBusiness ?? '')}
         {fields('Transaction Type', buyerList?.transactionType?.originalValue ?? '')}
-        {/* {fields(
-          'Turn-Over (in Cr)',
-          CovertvaluefromtoCR(buyerList?.company?.turnOver ?? ''),
-        )} */}
         {fields(
           'Turn-Over (in Cr)',
           CovertvaluefromtoCR(buyerList?.turnOver?.originalValue)?.toLocaleString(),
