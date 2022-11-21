@@ -97,7 +97,7 @@ function Index(props) {
     if( e.target.files[0]){
     let extention =  e.target.files[0].name.split('.')
     
-    if(extention[extention.length-1] !== "xls"){
+    if(!["csv","xls","xlsx"].includes(extention[extention.length-1])){
       let  toastMessage = `Please add valid file `;
         toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
