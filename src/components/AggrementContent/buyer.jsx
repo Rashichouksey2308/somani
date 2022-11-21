@@ -32,6 +32,7 @@ function Index(props) {
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [pan, setPan] = useState('');
   const [removedOption, setRemovedOption] = useState(null);
+  const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -209,11 +210,12 @@ function Index(props) {
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
 
-    setRemovedOption(value.name);
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
-
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -238,16 +240,12 @@ function Index(props) {
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
   };
   const handleInput = (name, value, key) => {
     const newInput = { ...buyerData };
@@ -475,7 +473,10 @@ function Index(props) {
 
       }
 
+      setRemovedArr([]) 
+      
       setBranchOptions([...filter]);
+      
     }
  },[props.internal])
  const getAddress = (name , branch) => {
@@ -647,6 +648,8 @@ function Index(props) {
                   name="name"
                   value={buyerData.name}
                   onChange={(e) => {
+                    setRemovedArr([]) 
+                    setList([])
                     handleInput(e.target.name, e.target.value);
                     getAddress(e.target.value,buyerData.branchName)
                   }}
