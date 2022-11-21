@@ -24,7 +24,6 @@ function Index({
   Id
 }) {
   const [countryName, setCountryName] = useState('India');
-
   // Address Schema code
 
   const [keyAddressData, setKeyAddressData] = useState({
@@ -92,7 +91,6 @@ function Index({
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-
     let tempArr = keyAddData;
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -255,7 +253,6 @@ function Index({
         if (i == index) {
           return { ...obj, actions: val };
         }
-
         return obj;
       });
 
@@ -380,7 +377,6 @@ function Index({
 
             <div className={`${styles.dashboard_form} card-body`} style={{ borderTop: '3px solid #D2D7E5' }}>
               <div className={`${styles.card_heading} mt-3`}>Key Addresses</div>
-
               {showAddress ? (
                 <AddComponent
                   handleChange={handleChange}

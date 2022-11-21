@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import styles from '../add-new-user/user.module.scss';
+import styles from '../../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddVendor from '../../../src/components/AddVendor';
@@ -12,21 +12,48 @@ function Index() {
   const [keyContactPersonInfo, setKeyContactPersonInfo] = useState([]);
   const [addressInfo, setAddressInfo] = useState([]);
   const [remarks, setRemaks] = useState('');
-  let Id = sessionStorage.getItem('vendorId');
   const {vendorResponse} = useSelector((state) => state.Vendor)
   const vendorResponseData = _get(vendorResponse,'data[0]',{})
 
-  console.log(Id,"vendorResponseData");
+  const {vendorDetails,keyAddresses} = vendorResponseData;
 
+  console.log(keyAddresses,"vendorResponseData");
+
+ 
   useEffect(() =>{
-    if(Id){
+    let Id = sessionStorage.getItem('vendorId');
+    if(!Id) return;
+    if(Id) {
       dispatch(GetVendor(`?vendorId=${Id}`))
+      setVendorDetail({
+        vendor: vendorDetails?.vendor,
+        vendorType:vendorDetails?.vendorType,
+        pan_taxId: vendorDetails?.pan_taxId,
+        companyName: vendorDetails?.companyName,
+        activationDate: vendorDetail?.activationDate,
+        DeactivationDate: vendorDetails?.DeactivationDate,
+        blackListedDate: vendorDetails?.blackListedDate,
+        emailId: vendorDetails?.emailId,
+        phoneNumber:vendorDetails?.phoneNumber,
+        website: vendorDetails?.website,
+        remarks: vendorDetails?.remarks
+      });
+      setAddress({
+        addressType:keyAddresses && keyAddresses[0]?.addressType,
+        country:keyAddresses && keyAddresses[0]?.country,
+        zipCode:keyAddresses && keyAddresses[0]?.zipCode,
+        state:keyAddresses && keyAddresses[0]?.state,
+        city:keyAddresses && keyAddresses[0]?.city,
+        pinCode:keyAddresses && keyAddresses[0]?.pinCode,
+        gstin:keyAddresses && keyAddresses[0]?.gstin,
+        address:keyAddresses && keyAddresses[0]?.address,
+        email:keyAddresses && keyAddresses[0]?.email
+      })
     }
   },[dispatch]);
   
-
   const [vendorDetail, setVendorDetail] = useState({
-    vendor: "",
+    vendor:"",
     vendorType: "",
     pan_taxId: "",
     companyName: "",
@@ -49,12 +76,12 @@ const [keyContactPerson, setKeyContactPerson] = useState({
 })
 
 const [address, setAddress] = useState({
-    addressType:'',
-    country:'',
-    zipCode:'',
+    addressType:  "",
+    country:  '',
+    zipCode:  '',
     state:'',
     city:'',
-    pinCode:'',
+    pinCode: '',
     gstin:'',
     address:'',
     email:''
@@ -170,7 +197,6 @@ const handleRemaks = (e) => {
   setRemaks(e.target.value)
 }  
 
-
   return (
     <div className="container-fluid p-0 border-0">
       <Card className={`${styles.card}`}>
@@ -196,26 +222,26 @@ const handleRemaks = (e) => {
           </div>
         </Card.Header>
         <AddVendor 
-        setAddress={setAddress}
-        setKeyContactPerson={setKeyContactPerson}
-        setVendorDetail={setVendorDetail}
-        vendorDetail={vendorDetail}
-        keyContactPerson={keyContactPerson}
-        address={address}
-        bankDetails={bankDetails}
-        handleSuplier={handleSuplier}
-        saveDate={saveDate}
-        handleUploadVendorDetails={handleUploadVendorDetails}
-        handlekeyContactPersonDetail={handlekeyContactPersonDetail}
-        handleSubmitKeyContactPersonDetails={handleSubmitKeyContactPersonDetails}
-        handleAddressDetail={handleAddressDetail}
-        handleApproval={handleApproval}
-        handleSubmitAddress={handleSubmitAddress}
-        handleBankDetail={handleBankDetail}
-        handleCanclePersonalDetail={handleCanclePersonalDetail}
-        handleCancleAddressDetail={handleCancleAddressDetail}
-        handleRemaks={handleRemaks}
-        remarks={remarks}
+          setAddress={setAddress}
+          setKeyContactPerson={setKeyContactPerson}
+          setVendorDetail={setVendorDetail}
+          vendorDetail={vendorDetail}
+          keyContactPerson={keyContactPerson}
+          address={address}
+          bankDetails={bankDetails}
+          handleSuplier={handleSuplier}
+          saveDate={saveDate}
+          handleUploadVendorDetails={handleUploadVendorDetails}
+          handlekeyContactPersonDetail={handlekeyContactPersonDetail}
+          handleSubmitKeyContactPersonDetails={handleSubmitKeyContactPersonDetails}
+          handleAddressDetail={handleAddressDetail}
+          handleApproval={handleApproval}
+          handleSubmitAddress={handleSubmitAddress}
+          handleBankDetail={handleBankDetail}
+          handleCanclePersonalDetail={handleCanclePersonalDetail}
+          handleCancleAddressDetail={handleCancleAddressDetail}
+          handleRemaks={handleRemaks}
+          remarks={remarks}
         />
       </Card>
     </div>
