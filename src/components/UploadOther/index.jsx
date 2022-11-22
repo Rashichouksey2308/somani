@@ -8,10 +8,16 @@ import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShareDocument } from 'redux/shareDoc/action';
-import { changeModuleDocument, DeleteDocument, GetDocuments,AddingDocument } from '../../redux/creditQueueUpdate/action';
+import {
+  changeModuleDocument,
+  DeleteDocument,
+  GetDocuments,
+  AddingDocument,
+} from '../../redux/creditQueueUpdate/action';
 import TermSheetPopUp from '../TermsheetPopUp';
 import styles from './index.module.scss';
 import { getDocuments } from '../../redux/masters/action';
+
 const Index = ({ orderid, module, isDocumentName }) => {
   const newDocInitialState = {
     document: [],
@@ -19,6 +25,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     name: '',
     module: module,
   };
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { documentsFetched } = useSelector((state) => state.review);
@@ -26,7 +33,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [moduleSelected, setModuleSelected] = useState(module);
   const [filteredDoc, setFilteredDoc] = useState([]);
   const [newDoc, setNewDoc] = useState(newDocInitialState);
-    const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -37,16 +44,17 @@ const Index = ({ orderid, module, isDocumentName }) => {
       receiver: '',
     },
   });
- useEffect(() => {
-    
+  useEffect(() => {
     dispatch(getDocuments());
   }, []);
+
   const fetchData = async () => {
-    await dispatch(GetDocuments(`?order=${orderid}`));
+  
+    dispatch(GetDocuments(`?order=${orderid}`));
   };
 
   const changeModule = async (id, name, value) => {
-    await dispatch(
+    dispatch(
       changeModuleDocument({
         orderDocumentId: id,
         name: name,
@@ -56,32 +64,32 @@ const Index = ({ orderid, module, isDocumentName }) => {
   };
 
   useEffect(() => {
-  
     if (documentsFetched) {
-        if(isSearch){
-          const tempArray = documentsFetched?.documents?.filter((doc) => {
-            if (doc.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
-              return doc;
-            }
-          });
-    
-    setFilteredDoc(tempArray);
-       return
-    }
+      if (isSearch) {
+        const tempArray = documentsFetched?.documents?.filter((doc) => {
+          if (doc.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+            return doc;
+          }
+        });
+
+        setFilteredDoc(tempArray);
+        return;
+      }
       const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
-        return doc.module === moduleSelected;
+        return doc.module == moduleSelected;
       });
       tempArray?.forEach((obj) => (obj.moving = false));
+
       setFilteredDoc(tempArray);
     }
   }, [orderid, documentsFetched]);
 
-  useEffect(()=>{
-    fetchData()
-  },[orderid,moduleSelected])
+  useEffect(() => {
+    fetchData();
+  }, [orderid, moduleSelected]);
 
   //   console.log({documentsFetched})
-  //   
+  //
   //   const filteredDocArray = documentsFetched?.documents
   //     .filter((doc) => doc.module === moduleSelected)
   //     .map(element => {
@@ -116,40 +124,45 @@ const Index = ({ orderid, module, isDocumentName }) => {
     // console.log(await objectValidator({ doc: newDoc, validation: uploadDocumentValidations }));
 
     if (newDoc.document === null) {
-      handleErrorToast('please select A Document')
+      handleErrorToast('please select A Document');
     } else if (newDoc.name === '') {
-      handleErrorToast('please provide a valid document name')
+      handleErrorToast('please provide a valid document name');
     } else {
-      const fd = new FormData()
-      fd.append('document', newDoc.document)
-      fd.append('module', moduleSelected)
-      fd.append('order', orderid)
-      fd.append('name', newDoc.name)
-    let code =  await  dispatch(AddingDocument(fd,orderid))
-      if(code==200){
-      setNewDoc({
-              document: null, order: orderid, name: '', module: module,
-            })
-            await  fetchData()
+      const fd = new FormData();
+      fd.append('document', newDoc.document);
+      fd.append('module', moduleSelected);
+      fd.append('order', orderid);
+      fd.append('name', newDoc.name);
+      let code = await dispatch(AddingDocument(fd, orderid));
+     
+      if (code == 200) {
+        setNewDoc({
+          document: null,
+          order: orderid,
+          name: '',
+          module: module,
+        });
+        await fetchData();
       }
-      
     }
   };
- const [isSearch,setIsSearch]=useState(false)
- const [searchTerm,setSearchTerms]=useState('')
+
+  const [isSearch, setIsSearch] = useState(false);
+
+  const [searchTerm, setSearchTerms] = useState('');
+
   const filterDocBySearch = (val) => {
-    
     if (!val.length >= 3) return;
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc;
       }
     });
-    setIsSearch(true)
-   
+    setIsSearch(true);
+
     setFilteredDoc(tempArray);
   };
-  console.log(filteredDoc,"filteredDoc")
+
   const handleDocModuleChange = (index) => {
     let tempArray = [...filteredDoc];
     tempArray[index].moving = true;
@@ -169,7 +182,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       handleErrorToast('please provide a valid email');
     }
   };
-  console.log(module,"module")
+
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -237,16 +250,15 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       <option value="" disabled>
                         Select an option
                       </option>
-                       {getDocumentsMasterData
-                          ?.filter((val, index) => {
-                          
-                            if (module.includes(val.Sub_Module)) {
-                              return val;
-                            }
-                          })
-                          ?.map((val, index) => {
-                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
-                          })}
+                      {getDocumentsMasterData
+                        ?.filter((val, index) => {
+                          if (module.includes(val.Sub_Module)) {
+                            return val;
+                          }
+                        })
+                        ?.map((val, index) => {
+                          return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                        })}
                       <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
@@ -267,12 +279,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   />
                   <Form.Label className={`${styles.label} label_heading`}>Please Specify Document Name</Form.Label>
                 </Form.Group>
-                <div onClick={async (e) => {
-                 uploadDocumentHandler(e)
-                 
-                }
-                 
-                } className={styles.uploadBtnWrapper}>
+                <div
+                  onClick={async (e) => {
+                    uploadDocumentHandler(e);
+                  }}
+                  className={styles.uploadBtnWrapper}
+                >
                   <button className={`${styles.upload_button} btn`}>Upload</button>
                 </div>
               </div>
@@ -287,9 +299,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
               <select
                 value={moduleSelected}
                 onChange={(e) => {
-                  setSearchTerms('')
-                  setIsSearch(false)
-                  setModuleSelected(e.target.value)
+                  setSearchTerms('');
+                  setIsSearch(false);
+                  setModuleSelected(e.target.value);
                 }}
                 className={`${styles.dropDown} ${styles.customSelect} input form-control`}
               >
@@ -308,7 +320,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 className={`${styles.searchBar} statusBox border_color input form-control`}
                 placeholder="Search"
                 onChange={(e) => {
-                  setSearchTerms(e.target.value)
+                  setSearchTerms(e.target.value);
                   filterDocBySearch(e.target.value);
                 }}
                 value={searchTerm}
@@ -363,14 +375,13 @@ const Index = ({ orderid, module, isDocumentName }) => {
                               <img
                                 onClick={async (e) => {
                                   DocDlt(index);
-                                    await  dispatch(
-                                        DeleteDocument({
-                                          orderDocumentId: documentsFetched._id,
-                                          name: document.name,
-                                        }),
-                                                                  
-                                        );
-                                        await  fetchData()
+                                  dispatch(
+                                    DeleteDocument({
+                                      orderDocumentId: documentsFetched._id,
+                                      name: document.name,
+                                    }),
+                                  );
+                                  await fetchData();
                                 }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} mr-3`}
