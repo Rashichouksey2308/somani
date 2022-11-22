@@ -1751,12 +1751,13 @@ let masterList = [
       }
     }
     if (key == 'Stevedore') {
+      console.log(data.seteveState.gstin.length,"ata.seteveState.gstin")
       dataToSend = {
         genericId: props.genericData?._id,
         stevedore: {
           name: data.seteveState.name,
           shortName: data.seteveState.shortName,
-          gstin: data.seteveState.gstin,
+          gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
@@ -1766,8 +1767,7 @@ let masterList = [
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
-        gstin: data.seteveState.gstin,
-
+        gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };
@@ -2437,7 +2437,7 @@ let masterList = [
         stevedore: {
           name: data.seteveState.name,
           shortName: data.seteveState.shortName,
-          gstin: data.seteveState.gstin,
+          gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
@@ -2447,7 +2447,7 @@ let masterList = [
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
-        gstin: data.seteveState.gstin,
+        gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
