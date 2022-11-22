@@ -14,6 +14,7 @@ import { getInternalCompanies } from '../../redux/masters/action';
 function Index({ TransitDetails }) {
   const dispatch = useDispatch();
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+  console.log(getInternalCompaniesMasterData,'getInternalCompaniesMasterData')
   let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
     { 
@@ -376,8 +377,10 @@ function Index({ TransitDetails }) {
                 <option value="select" disabled defaultSelected>
                   Select an option
                 </option>
-                {getInternalCompaniesMasterData?.data?.data?.map((item,value)=> {
-                  if (item.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') return <option value={`${item?.authorisedSignatoryDetails[0]?.name}-${item?.authorisedSignatoryDetails[0]?.designation}`}>{item?.authorisedSignatoryDetails[0]?.name}</option>
+                {getInternalCompaniesMasterData?.map((item,value)=> {
+                  if (item.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' && item?.authorisedSignatoryDetails[0]?.name ){
+                    return <option value={`${item?.authorisedSignatoryDetails[0]?.name}-${item?.authorisedSignatoryDetails[0]?.designation}`}>{item?.authorisedSignatoryDetails[0]?.name}</option>
+                  }
                 })}
               </select>
               <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />

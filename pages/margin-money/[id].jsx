@@ -237,7 +237,9 @@ function Index() {
 
   const dropDownChange = (name, value) => {
     console.log(value,"value")
-    if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+   
+      console.log(value,"value")
+       if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
 
@@ -249,15 +251,18 @@ function Index() {
       setInvoiceData({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
+      console.log(val.Company_Name,value,"val.Company_Name")
       if (val.Company_Name == value) {
         return val;
       }
     });
     console.log(filter,"filter")
     setBranchOptions([...filter]);
+   
   };
   console.log(branchOptions, 'setBranchOptions');
-  useEffect(() => {
+  useEffect(() => {console.log(marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ,"okkok"
+  )
     dropDownChange(
       'name',
       marginData?.invoiceDetail?.importerName
@@ -268,8 +273,9 @@ function Index() {
     );
   }, [
     marginData?.invoiceDetail?.importerName,
-    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ||
-      '',
+    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank,
+    getInternalCompaniesMasterData
+     
   ]);
 
   const changeImporter = (e) => {
@@ -915,7 +921,7 @@ function Index() {
         branch: marginData?.invoiceDetail?.branch || '',
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-        accountNo: marginData?.invoiceDetail?.accountNo || '123456',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
     }
@@ -1819,7 +1825,6 @@ function Index() {
                                   id="Code"
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
                                   value={
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
@@ -1853,9 +1858,15 @@ function Index() {
                                   }}
                                 >
                                   <option value =''>Select an option</option>
-                                 {branchOptions.map((val, index) => {
-                                    return <option value={`${val.keyAddresses[0].Branch}`}>{val.keyAddresses[0].Branch}</option>;
-                                  })}
+                                     {[...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
+                                            if(val !== undefined){
+                                              return val
+                                            }
+                                          }).map((val, index) => {
+                                            {console.log(val,"sdasd")}
+                                            return <option value={`${val}`}>{val}</option>;
+                                          })}
+                                                      
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Branch Office

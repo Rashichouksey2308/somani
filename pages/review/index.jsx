@@ -621,23 +621,15 @@ function Index() {
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
+      let repeat=[]
      let filter = FilterUniqueBank()
      
       orderList?.company?.debtProfile.forEach((val, index) => {
         
         filter.forEach((fil,index2)=>{
          
-          // if(val.bankName==fil){
-          //   temp.push({
-          //   bankName: val?.bankName,
-          //   conduct: val?.conduct,
-          //   limit: val?.limit,
-          //   limitType: val?.limitType,
-          //   primaryBank: val?.primaryBank,
-          //   addnew:"false"
-          // })
-          // }
-      temp.push({
+          if(val.bankName==fil){
+            temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
@@ -645,6 +637,23 @@ function Index() {
             primaryBank: val?.primaryBank,
             addnew:"false"
           })
+          
+          }else{
+            if(!filter.includes(val?.bankName))
+            if(temp.length <= orderList?.company?.debtProfile.length){
+
+            console.log(val.bankName,"bankName")
+            temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"true"
+          })
+           }
+          }
+      
          
          
         })
@@ -2781,7 +2790,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.limit}
+                                  {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
@@ -2838,7 +2849,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.outstandingLimit}
+                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>

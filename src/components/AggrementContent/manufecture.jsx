@@ -194,18 +194,25 @@ function Index(props) {
                 },
               ],
         );
+       
+         setMultiList(
+          props.data.multiPartyAddresses?.length > 0
+            ? props.data.multiPartyAddresses
+            : []
+              
+        );
         console.log(props.data.addresses,"props.data.addresses")
         setAddressList(props.data.addresses);
-        setMultiList(props.data.multiPartyAddresses);
+       
         setSupplierState(supplier);
        
       }
     }
   }, [props.data]);
-  
-  useEffect(() => {
-    setMultiList([])
-  },[props.data.multiParty])
+  console.log(multiList,"multiList")
+  // useEffect(() => {
+  //   setMultiList([])
+  // },[props.data.multiParty])
 console.log(addressList,"aasdads")
   useEffect(() => {
     
@@ -378,16 +385,20 @@ console.log(addressList,"aasdads")
     newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
+    
     setNewAddress(newInput);
     setToView(false);
   };
    const handleData2 = (name, value) => {
     console.log("thsss")
-    const newInput = { ...newAddress };
+ 
+    const newInput = { ...newMultiAddress };
+    console.log(newInput,"newInput")
     newInput[name] = value.Pincode;
     newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
+    console.log(newInput,"newInput")
     setNewMultiAddress(newInput);
     setToView2(false);
   };
@@ -418,12 +429,14 @@ console.log(addressList,"aasdads")
     setMultiEditAddress(newInput);
     setToView2(false);
   };
-  const setAddress = (name, value) => {
+ 
+  console.log(newAddress,"newAddress")
+  const [isEdit, setIsEdit] = useState(false);
+   const setAddress = (name, value) => {
     const newInput = { ...newAddress };
     newInput[name] = value;
     setNewAddress(newInput);
   };
-  const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
   const handleEditAddressInput = (index, val) => {
     setIsEdit(true);
@@ -541,6 +554,7 @@ console.log(addressList,"aasdads")
     newInput[name] = value;
     setNewMultiAddress(newInput);
   };
+  console.log(newMultiAddress,"newMultiAddress")
   const [isEditMulti, setIsEditMulti] = useState(false);
   const [toEditIndexMulti, setToEditIndexMulti] = useState(0);
   const handleEditAddressMuliInput = (index, val) => {
@@ -756,12 +770,12 @@ console.log(addressList,"aasdads")
             setAddressEditType,
             props.gettingPins,
             handleDataEdit,
-            dispatch,
-            toShow,
-            toView,
+            
+           
+            []
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet)
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet,[])
         )}
 
         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,"input")}
@@ -811,14 +825,13 @@ console.log(addressList,"aasdads")
                   setMultiAddressType,
                   props.gettingPins,
                   handleDataEditMines,
-                  dispatch,
-                  toShow,
-                  toView2,
+                 
+                  []
                 )}
               <div className={`${styles.multi_address}`}>
                 {isEditMulti == false && (
                 
-                  addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2)
+                  addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2,[])
                   
                 )}
               </div>

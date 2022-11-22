@@ -74,7 +74,7 @@ const Index = () => {
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney ? sheet?.transactionDetails?.marginMoney : 10,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || 'First Class European Bank',
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || '',
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
@@ -214,6 +214,7 @@ const Index = () => {
   const onChangeTransactionDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
+    console.log(value,'termsheetDetails')
 
     setTermsheetDetails((prev) => ({
       ...prev,
@@ -1094,7 +1095,7 @@ const Index = () => {
                   termsheet={termsheet}
                   termsheetDetails={termsheetDetails}
                 />
-                <UploadOther module="LeadOnboarding&OrderApproval" orderid={OrdID} />
+                <UploadOther module={["Leads","Margin Money"]} orderid={OrdID} />
               </div>
             </div>
           </div>

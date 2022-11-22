@@ -86,10 +86,14 @@ function Index(props) {
         if(val.vendorDetails.vendor=="CMA"){
           console.log(val,"ssasdasda")
            val.keyAddresses.forEach((add,index)=>{
+             if(add.address!=="" && add.address!== undefined){
                cmaAddress.push(add)
                cmagstin.push(add.gstin)
+            }
+               
            })
            val.keyContactPerson.forEach((sig,index)=>{
+            console.log(sig.authorizedSignatory,"sig.authorizedSignatory")
               if(sig.authorizedSignatory!=="No"){
                   cmaAutorized.push(sig)
                   cmaOptions.push(sig.name)
@@ -101,8 +105,11 @@ function Index(props) {
          if(val.vendorDetails.vendor=="CHA"){
           console.log(val,"ssasdasda")
            val.keyAddresses.forEach((add,index)=>{
+             if(add.address!=="" && add.address!== undefined){
                chaAddress.push(add)
                chagstin.push(add.gstin)
+            }
+               
            })
            val.keyContactPerson.forEach((sig,index)=>{
               if(sig.authorizedSignatory!=="No"){
@@ -116,8 +123,11 @@ function Index(props) {
          if(val.vendorDetails.vendor=="Stevedore"){
           console.log(val,"ssasdasda")
            val.keyAddresses.forEach((add,index)=>{
+            if(add.address!=="" && add.address!== undefined){
                stevedoreAddress.push(add)
                stevedoregstin.push(add.gstin)
+            }
+               
            })
            val.keyContactPerson.forEach((sig,index)=>{
               if(sig.authorizedSignatory!=="No"){
@@ -155,7 +165,7 @@ function Index(props) {
       setChaDetails({...tempCha})
       setsteveDoreDetails({...tempsteved})
     }
-  },[getBanksMasterData])
+  },[getVendorsMasterData])
   console.log(cmaDetails,"cmaDetails")
   const changeActiveValue = (val, index) => {
     setActive(val);
@@ -1459,7 +1469,7 @@ let masterList = [
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
-        shortName: data.cmaData.gstin,
+        gstin: data.cmaData.gstin,
         designatedStorageArea: data.cmaData.designatedStorageArea,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
@@ -1482,7 +1492,7 @@ let masterList = [
         }
       }
       if (dataToSend.CMA.gstin == '' || dataToSend.CMA.gstin == undefined) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add gstin  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           setSubmitData(false);
@@ -1742,12 +1752,13 @@ let masterList = [
       }
     }
     if (key == 'Stevedore') {
+      console.log(data.seteveState.gstin.length,"ata.seteveState.gstin")
       dataToSend = {
         genericId: props.genericData?._id,
         stevedore: {
           name: data.seteveState.name,
           shortName: data.seteveState.shortName,
-          gstin: data.seteveState.gstin,
+          gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
@@ -1757,8 +1768,7 @@ let masterList = [
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
-        gstin: data.seteveState.gstin,
-
+        gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };
@@ -2393,7 +2403,7 @@ let masterList = [
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
         designatedStorageArea: data.cmaData.designatedStorageArea,
-        shortName: data.cmaData.gstin,
+        gstin: data.cmaData.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };
@@ -2428,7 +2438,7 @@ let masterList = [
         stevedore: {
           name: data.seteveState.name,
           shortName: data.seteveState.shortName,
-          gstin: data.seteveState.gstin,
+          gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
@@ -2438,7 +2448,7 @@ let masterList = [
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
-        gstin: data.seteveState.gstin,
+        gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
