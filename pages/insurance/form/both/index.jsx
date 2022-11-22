@@ -920,26 +920,19 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 value={marineData?.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option>Select an option</option>
-                                {/* <option value="Reserve Bank of Spain">Reserve Bank of Spain</option> */}
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="SBI">SBI</option>
-                              </select>
+                                
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                             
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1337,7 +1330,7 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 value={_get(
                                   insuranceData,
@@ -1347,21 +1340,13 @@ const Index = () => {
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="SBI">SBI</option>
-                              </select>
+                                
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow}  image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1735,28 +1720,20 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 // value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 value={marineData.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="SBI">SBI</option>
-                              </select>
+                                
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                             
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -2014,28 +1991,19 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 value={storageData?.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
 
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="SBI">SBI</option>
-                              </select>
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>

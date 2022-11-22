@@ -411,7 +411,7 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 id="FormInsurance"
                                 name="lossPayee"
                                 onChange={(e) => {
@@ -424,22 +424,13 @@ const Index = () => {
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option disabled >
-                                  Select an option
-                                </option>
-                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="NA">NA</option>
-                              </select>
+                                
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
+                               
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                             
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -625,7 +616,7 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => {
                                   saveQuotationData(e.target.name, e.target.value);
@@ -637,25 +628,17 @@ const Index = () => {
                                     : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
                                 }
                               >
-                                <option disabled>
-                                  Select an option
-                                </option>
-                                {/* <option selected>
-                                  {insuranceData?.quotationRequest?.lossPayee}
-                                </option> */}
-                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="NA">NA</option>
-                              </select>
+                               
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 {/* <strong className="text-danger">*</strong> */}
                               </label>
-                              <img
+                              {/* <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
                                 src="/static/inputDropDown.svg"
                                 alt="Search"
-                              />
+                              /> */}
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>

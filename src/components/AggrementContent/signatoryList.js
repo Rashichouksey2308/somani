@@ -12,6 +12,7 @@ export const signatoryList = (
   addMoreRows,
   onEdit,
   type,
+  removeArr,
 ) => {
   console.log(list, 'ASasdasd');
   return (
