@@ -30,17 +30,13 @@ function Index({
   saveDate,
   handleUploadVendorDetails,
   handlekeyContactPersonDetail,
-  handleSubmitKeyContactPersonDetails,
   handleAddressDetail,
   handleApproval,
-  handleSubmitAddress,
   handleBankDetail,
-  handleCanclePersonalDetail,
-  handleCancleAddressDetail,
   handleRemaks,
 }) {
 
-  const [vendorRadio, setVendorRadio] = useState('domestic');
+  const [vendorRadio, setVendorRadio] = useState(vendorDetail?.vendor);
 
   const [keyAddressData, setKeyAddressData] = useState({
     addressType:  "",
@@ -258,20 +254,22 @@ function Index({
                         className={styles.radio}
                         inline
                         label="Domestic"
+                        checked={vendorDetail?.vendor == 'Domestic'}
                         name="group1"
-                        onChange={() => {handleSuplier('vendor', 'Domestic'); setVendorRadio('domestic')}}
+                        onChange={() => {handleSuplier('vendor', 'Domestic'); setVendorRadio('Domestic')}}
                         type={type}
-                        value='domestic'
+                        value='Domestic'
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
                         className={styles.radio}
                         inline
                         label="International"
-                        onChange={() => {handleSuplier('vendor', 'International'); setVendorRadio('international')}}
+                        checked={vendorDetail?.vendor == 'International'}
+                        onChange={() => {handleSuplier('vendor', 'International'); setVendorRadio('International')}}
                         name="group1"
                         type={type}
-                        value="international"
+                        value="International"
                         id={`inline-${type}-2`}
                       />
                     </div>
@@ -300,7 +298,7 @@ function Index({
                   </div>
                 </div>
               </div>
-              {vendorRadio === 'international' ? (
+              {vendorRadio === 'International' ? (
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <select
@@ -324,7 +322,7 @@ function Index({
               ) : (
                 ' '
               )}
-              {vendorRadio === 'domestic' ? (
+              {vendorRadio === 'Domestic' ? (
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
@@ -354,7 +352,7 @@ function Index({
                   Company Name <strong className="text-danger">*</strong>
                 </label>
               </div>
-              {vendorRadio === 'international' ? (
+              {vendorRadio === 'International' ? (
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
@@ -427,7 +425,7 @@ function Index({
                 />
                 <label className={`${styles.label_heading} label_heading`}>Website</label>
               </div>
-              {vendorRadio === 'domestic' ? (
+              {vendorRadio === 'Domestic' ? (
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className={`${styles.theme} d-flex align-items-center`}>
                     <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
@@ -470,7 +468,7 @@ function Index({
                   </div>
                 </div>
               </div>
-              {vendorRadio === 'international' ? (
+              {vendorRadio === 'International' ? (
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className={`${styles.theme} d-flex align-items-center`}>
                     <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
@@ -648,7 +646,7 @@ function Index({
           </div>
           <div id="bankDetails" className="collapse" aria-labelledby="bankDetails">
             <div className={`${styles.dashboard_form} card-body`}>
-              {vendorRadio === 'domestic' ? (
+              {vendorRadio === 'Domestic' ? (
                 <div className="row">
                   <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                     <input
@@ -776,7 +774,7 @@ function Index({
                     />
                     <label className={`${styles.label_heading} label_heading`}>Correspondent Bank Name</label>
                   </div>
-                  <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                  {/* <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                     <input
                       className={`${styles.input_field} border_color input form-control`}
                       type="text"
@@ -786,9 +784,9 @@ function Index({
                       onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>Account No.</label>
-                  </div>
+                  </div> */}
 
-                  <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                  {/* <div className={`${styles.form_group} col-md-2 col-sm-6`}>
                     <input
                       type="text"
                       id="textInput"
@@ -801,8 +799,8 @@ function Index({
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Swift Code
                     </label>
-                  </div>
-                  <div className={`${styles.form_group} col-md-5 col-sm-6`}>
+                  </div> */}
+                  {/* <div className={`${styles.form_group} col-md-5 col-sm-6`}>
                     <input
                       type="text"
                       id="textInput"
@@ -815,7 +813,7 @@ function Index({
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Branch Address
                     </label>
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>
