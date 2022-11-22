@@ -91,7 +91,7 @@ function Index(props) {
   console.log(addressList,"addressList")
   useEffect(() => {
     if (window) {
-       setOptions(props?.vendor?.options|| [])
+       setOptions(props?.vendor?.options)
 
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
@@ -118,6 +118,7 @@ function Index(props) {
                 },
               ],
         );
+        
           if(savedData?.addresses?.length==0){
            let temp=[];
        if(props.vendor.address?.length>0){
@@ -140,17 +141,17 @@ function Index(props) {
         }
         setCmaState(cma);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       } else {
         let cma = {
           name: props.data?.name || props?.vendor?.name,
@@ -201,22 +202,22 @@ function Index(props) {
       
         
         setCmaState(cma);
-        let tempArr = props.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let tempArr = props.data?.authorisedSignatoryDetails;
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       }
     }
   }, [props]);
-
+ console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
       let data = {
