@@ -32,7 +32,7 @@ function Index(props) {
         setList(temp);
       }
     }
-  }, [props]);
+  }, [props.data]);
   useEffect(() => {
     if (props.saveData == true && props.active == 'Place of Execution') {
       let data = {
