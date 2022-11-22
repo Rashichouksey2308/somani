@@ -854,7 +854,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                  <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1264,7 +1264,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                   <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1390,7 +1390,7 @@ const Index = () => {
               /> */}
               <div className={`${styles.main} border_color card`}>
                 <div
-                  className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+                  className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
                   data-toggle="collapse"
                   data-target="#upload"
                   aria-expanded="true"
@@ -1657,7 +1657,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -2047,7 +2047,7 @@ const Index = () => {
               </div>
               <div className={`${styles.main} border_color card`}>
                 <div
-                  className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+                  className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
                   data-toggle="collapse"
                   data-target="#upload"
                   aria-expanded="true"

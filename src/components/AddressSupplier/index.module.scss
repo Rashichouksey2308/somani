@@ -152,6 +152,9 @@
 
   .address_values {
     padding-left: 30px;
+    min-height: 157px;
+    max-height: 157px;
+    overflow-y: auto;
     @include respond(lg-desktop) {
       padding-left: 0;
     }
@@ -173,7 +176,6 @@
       font-size: 20px;
       line-height: 32px;
       //color: #111111;
-      text-transform: capitalize;
       margin-bottom: 5px;
       @include respond(lg-desktop) {
         font-size: 15px;
@@ -185,7 +187,6 @@
         line-height: 25px;
         font-weight: bold;
         //color: #111111;
-        text-transform: capitalize;
         @include respond(lg-desktop) {
           font-size: 15px;
           line-height: 1.3;
