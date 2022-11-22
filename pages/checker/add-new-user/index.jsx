@@ -8,7 +8,7 @@ function Index() {
     return (
         <Card className={`${styles.card} container-fluid`}>
             <div className="m-2">
-                <Header />
+                <Header heading="Add New User" path="/checker/users"/>
                 <ProfileSummary />
             </div>
         </Card>
