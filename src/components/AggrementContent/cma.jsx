@@ -15,7 +15,7 @@ let cma = {
 };
 
 function Index(props) {
-  console.log(props,"props.data?.addresses")
+  console.log( props.vendor.gstin,"props.data?.addresses")
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
