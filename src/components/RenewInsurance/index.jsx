@@ -474,7 +474,7 @@ const Index = () => {
           insuranceType == false ? `- Marine` : `- Storage`
         } `}
       /> */}
-        <UploadOther orderid={insuranceData?.order?._id} module="Agreements&Insurance&LC&Opening" />
+        <UploadOther orderid={insuranceData?.order?._id} module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  } />
       </div>
       <SubmitBar handleSubmit={handleInsuranceUpdate} />
     </div>
