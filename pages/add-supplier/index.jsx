@@ -159,7 +159,15 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th className={`${styles.table_heading} table_heading`}>COUNTRY</th>
+                      <th className={`${styles.table_heading} table_heading`}>COUNTRY{' '}
+                        <Image
+                          width="9px"
+                          height="14px"
+                          className={`${styles.sort_img}`}
+                          src="/static/icons8-sort-24.svg"
+                          alt="Sort icon"
+                        />
+                      </th>
                       <th className={`${styles.table_heading} table_heading`}>
                         STATUS{' '}
                         <Image
