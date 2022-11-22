@@ -576,6 +576,7 @@
       padding: 35px 0 10px;
 
       .legend {
+        width: 50%;
         font-size: 16px;
         // color: #707070;
         font-weight: 500;
@@ -584,6 +585,7 @@
         display: inline-block;
         padding: 5px 30px 5px 22px;
         letter-spacing: 0.32px;
+        text-align: left;
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 15px;
