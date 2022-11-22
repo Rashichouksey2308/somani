@@ -2014,6 +2014,15 @@ let masterList = [
       let list = [];
       let isOK=true
        for(let i=0;i<data.addressList.length;i++){
+         if(data.addressList[i].name=="" || data.addressList[i].name==undefined){
+                toastMessage = `Agreement name cannot be empty`;
+                  if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                    isOK=false
+                   
+                  
+                  }
+             }
           if(data.addressList[i].name=="Assignment Letter"){
              if(data.addressList[i].monthOfLoadingCargo=="" || data.addressList[i].monthOfLoadingCargo==undefined){
                 toastMessage = `Please add month of Loading cargo `;
@@ -2061,7 +2070,25 @@ let masterList = [
       }
     }
     if (key == 'Place of Execution') {
-      let list = [];
+       let list = [];
+       let isOK=true
+       for(let i=0;i<data.list.length;i++){
+      if(data.list[i].name=="" || data.list[i].name==undefined){
+            toastMessage = `Agreement name cannot be empty`;
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                isOK=false
+                
+              
+              }
+          }
+         
+       }
+       if(isOK==false){
+         setSubmitData(false);
+         return
+       }
+      
       data.list.forEach((val, index) => {
         list.push({
           agreementName: val.name,
