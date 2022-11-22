@@ -30,9 +30,9 @@ function Index() {
 
   const dispatch = useDispatch();
 
-  const { allBuyerList, getOrderLeads} = useSelector((state) => state.buyer);
+  const { allBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
   const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
-  
+
   const [open, setOpen] = useState(true);
   const handleClose = () => {
     setOpen(false);
@@ -68,28 +68,25 @@ function Index() {
   };
 
   const handleSearch = (e) => {
+    console.log('Filteritem', filterItem);
     const query = `${e.target.value}`;
-    setShowBadges(true);
     setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
-      handleFilteredData(query);
+      let queryParams = '';
+      if (filterItem) {
+        Object.keys(filterItem).forEach((item) => {
+          const isTrue = filterItem[item];
+          if (isTrue) {
+            queryParams += `${item}=${query}&`;
+          }
+        });
+      }
+      dispatch(FilterLeads(`${queryParams}`));
     }
   };
 
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = typeof e === 'object' ? e.target.id : e;
-    let queryParams = '';
-    if (filterItem) {
-      Object.keys(filterItem).forEach((item) => {
-        const isTrue = filterItem[item];
-        if (isTrue) {
-          queryParams += `${item}=${id}&`;
-        }
-      });
-    }
-    dispatch(FilterLeads(`${queryParams}`));
+  const handleBadge = (value) => {
+    setShowBadges(value);
   };
 
   const handleBoolean = (value) => {
@@ -236,32 +233,31 @@ function Index() {
                   placeholder="Search"
                 />
               </div>
-              {searchedLeads && searchterm && (
+              {filteredLeads && searchterm && (
                 <div className={styles.searchResults}>
                   <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li onClick={handleFilteredData} id={results._id} key={index}>
-                        {results.companyName} <span>{results.customerId}</span>
+                    {filterItem.orderId === true && (
+                      <li onClick={() => handleBadge(filteredLeads.data[0].orderId)}>
+                        <span>{filteredLeads.data[0].orderId}</span>
                       </li>
-                    ))}
+                    )}
+                    {filterItem.commodity === true && (
+                      <li onClick={() => handleBadge(filteredLeads.data[0].commodity)}>
+                        <span>{filteredLeads.data[0].commodity}</span>
+                      </li>
+                    )}
+                    {filterItem.status === true && (
+                      <li onClick={() => handleBadge(filteredLeads.data[0].status)}>
+                        <span>{filteredLeads.data[0].status}</span>
+                      </li>
+                    )}
                   </ul>
                 </div>
               )}
             </div>
             <Filter {...{ filterItem, handleFilterChange }} />
 
-            {showBadges &&
-              searchedLeads?.data?.data?.map((results, index) => {
-                const { companyName, status, commodity, orderId } = results;
-                return (
-                  <>
-                    {companyName && open && <FilterBadge label={companyName} onClose={handleClose} />}
-                    {status && open && <FilterBadge label={status} onClose={handleClose} />}
-                    {commodity && open && <FilterBadge label={commodity} onClose={handleClose} />}
-                    {orderId && open && <FilterBadge label={orderId} onClose={handleClose} />}
-                  </>
-                );
-              })}
+            {showBadges && open && <FilterBadge label={showBadges} onClose={handleClose} />}
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
