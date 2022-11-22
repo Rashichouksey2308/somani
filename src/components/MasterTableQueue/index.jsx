@@ -62,7 +62,7 @@ const index = ({
         col1: item?.vendorDetails?.vendorType,
         col2: item?.vendorDetails?.vendor,
         col3: item?.vendorDetails?.Country,
-        col4:item?.vendorDetails?.activationDate,
+        date:item?.vendorDetails?.activationDate,
         status: 'Approved',
         id: item._id,
       };
@@ -195,7 +195,7 @@ const index = ({
                       <td className={styles.buyerName}>{supplier.col1}</td>
                       <td>{supplier.col2}</td>
                       <td>{supplier.col3}</td>
-                      <td>{supplier.col4}</td>
+                      {/* <td>{supplier.col4}</td> */}
                       {supplier?.date && <td>{supplier.date}</td>}
                       <td>
                         <ToggleSwitch />

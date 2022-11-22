@@ -8,6 +8,7 @@ import Image from 'next/image';
 import UploadOther from '../UploadOther';
 import { phoneValidation } from '@/utils/helper';
 import { handleErrorToast } from '@/utils/helpers/global';
+import { addressValidtion } from '@/utils/helpers/review';
 
 function Index({
   remarks,
@@ -32,7 +33,205 @@ function Index({
   handleCancleAddressDetail,
   handleRemaks,
 }) {
+
   const [vendorRadio, setVendorRadio] = useState('domestic');
+
+  const [keyAddressData, setKeyAddressData] = useState({
+    addressType:  "",
+    country:  '',
+    zipCode:  '',
+    state:'',
+    city:'',
+    pinCode: '',
+    gstin:'',
+    address:'',
+    email:''
+  });
+
+  const handleChange = (name, value) => {
+    const newInput = { ...keyAddressData };
+    newInput[name] = value;
+    setKeyAddressData(newInput);
+  };
+
+  const handleClick = () => {
+    if (addressValidtion(keyAddressData)) {
+      handleAddressDetail(keyAddressData);
+      setKeyAddressData({
+        addressType:  "",
+    country:  '',
+    zipCode:  '',
+    state:'',
+    city:'',
+    pinCode: '',
+    gstin:'',
+    address:'',
+    email:''
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    setKeyAddressData({
+      addressType:  "",
+      country:  '',
+      zipCode:  '',
+      state:'',
+      city:'',
+      pinCode: '',
+      gstin:'',
+      address:'',
+      email:''
+    });
+  };
+
+  const [showAddress, setShowAddress] = useState(true);
+  const [Index, setIndex] = useState('0');
+  const [showEditAddress, setShowEditAddress] = useState(false);
+
+  const [editData, setEditData] = useState({
+    addressType:  "",
+    country:  '',
+    zipCode:  '',
+    state:'',
+    city:'',
+    pinCode: '',
+    gstin:'',
+    address:'',
+    email:''
+  });
+
+  const editAddress = (index) => {
+    setShowAddress(false);
+    setShowEditAddress(true);
+    setIndex(index);
+    let tempArr = address;
+    setEditData({
+      gstin: tempArr[index].gstin,
+      addressType: tempArr[index].addressType,
+      branch: tempArr[index].branch,
+      city: tempArr[index].city,
+      state: tempArr[index].state,
+      country: tempArr[index].country,
+      email: tempArr[index].email,
+      address: tempArr[index].address,
+      pinCode: tempArr[index].pinCode,
+      zipCode: tempArr[index].zipCode
+    });
+  };
+
+  const changeData = (name, value) => {
+    const newInput = { ...editData };
+    newInput[name] = value;
+    setEditData(newInput);
+  };
+
+  const handleEditCancel = () => {
+    setEditData({
+      addressType:  "",
+      country:  '',
+      zipCode:  '',
+      state:'',
+      city:'',
+      pinCode: '',
+      gstin:'',
+      address:'',
+      email:''
+    });
+  };
+
+  // Bank Schema Code //
+
+  const [personData, setPersonData] = useState({
+    name:'',
+    department:'',
+    designation:'',
+    phoneNumber:'',
+    emailId:'',
+    authorizedSignatory:'',
+  });
+
+  const handlepersonChange = (name, value) => {
+    const newInput = { ...personData };
+    newInput[name] = value;
+
+    setpersonData(newInput);
+  };
+
+  const handlepersonClick = () => {
+    if (personValidtion(personData, countryName)) {
+      personDataArr(personData);
+      setpersonData({
+        name:'',
+        department:'',
+        designation:'',
+        phoneNumber:'',
+        emailId:'',
+        authorizedSignatory:'',
+      });
+    }
+  };
+
+  const handleBankCancel = () => {
+    setBankData({
+      name:'',
+    department:'',
+    designation:'',
+    phoneNumber:'',
+    emailId:'',
+    authorizedSignatory:'',
+    });
+  };
+
+  const [showBank, setShowBank] = useState(true);
+  const [IndexBank, setIndexBank] = useState('0');
+  const [showEditBank, setShowEditBank] = useState(false);
+
+  const [editBank, setEditBank] = useState({
+    name:'',
+    department:'',
+    designation:'',
+    phoneNumber:'',
+    emailId:'',
+    authorizedSignatory:'',
+  });
+
+  const editBankArr = (index) => {
+    setShowBank(false);
+    setShowEditBank(true);
+    setIndexBank(index);
+
+    let tempArr = bankDetails;
+    setEditBank({
+      IFSC: tempArr[index].IFSC,
+      Bank_Name: tempArr[index].Bank_Name,
+      Branch_Address: tempArr[index].Branch_Address,
+      Account_No: tempArr[index].Account_No,
+      gstin: tempArr[index].gstin,
+      email: tempArr[index].email,
+      Swift_Code: tempArr[index].Swift_Code,
+      AD_Code: tempArr[index].AD_Code,
+    });
+  };
+
+  const changeKeyContactData = (name, value) => {
+    const newInput = { ...editBank };
+    newInput[name] = value;
+
+    setEditBank(newInput);
+  };
+
+  const handleKeyContactEditCancel = () => {
+    setEditBank({
+      name:'',
+    department:'',
+    designation:'',
+    phoneNumber:'',
+    emailId:'',
+    authorizedSignatory:'',
+    });
+  };
+
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} mt-4 border_color`}>
