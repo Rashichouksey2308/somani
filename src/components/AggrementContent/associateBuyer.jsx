@@ -1142,10 +1142,10 @@ const editData = (
   saveNewAddress,
   setAddressEditType,
   gettingPins,
-    toShow,
-    toView,
-    handleDataEdit,
-    viewSet
+  toShow,
+  toView,
+  handleDataEdit,
+  viewSet
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -1166,7 +1166,7 @@ const editData = (
             >
               <option>Select an option</option>
               <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
+             
               <option value="Supplier">Supplier</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>

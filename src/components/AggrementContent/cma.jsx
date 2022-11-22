@@ -15,7 +15,7 @@ let cma = {
 };
 
 function Index(props) {
-  console.log(props,"props.data?.addresses")
+  console.log(  props.vendor.address,"props.data?.addresses")
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
@@ -136,7 +136,7 @@ function Index(props) {
           setAddressList([...temp])
           }
         }else{
-          setAddressList( savedData?.addresses)
+          setAddressList(savedData?.addresses)
         }
         setCmaState(cma);
         let tempArr = savedData?.authorisedSignatoryDetails;
@@ -194,7 +194,7 @@ function Index(props) {
           setAddressList([...temp])
           }
             }else{
-              setAddressList( props.data?.addresses)
+              setAddressList(props.data?.addresses)
             }
         
        
