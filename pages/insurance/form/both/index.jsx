@@ -604,7 +604,7 @@ const Index = () => {
   const handleRoute = () => {
     Router.push('/insurance');
   };
-
+ console.log(option,"assasas")
   return (
     <div className={`container-fluid p-0`}>
       <div className={`${styles.card} accordion_body`}>
@@ -853,14 +853,16 @@ const Index = () => {
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
-                                <option selected>Select</option>
-                                {option?.map((val, index) => {
-                                  return (
-                                    <option key={index} value={val.GSTIN}>
-                                      {val.GSTIN}
-                                    </option>
-                                  );
-                                })}
+                                 <option selected>Select an Option</option>
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                        if(val !== undefined){
+                                          return val
+                                        }
+                                  }).map((val, index) => {
+                                    
+                                    return <option value={`${val}`}>{val}</option>;
+                                  })}
+                              
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
                                 GSTIN of Insured
@@ -1261,14 +1263,15 @@ const Index = () => {
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
-                                <option selected>Select</option>
-                                {option?.map((val, index) => {
-                                  return (
-                                    <option key={index} value={val.GSTIN}>
-                                      {val.GSTIN}
-                                    </option>
-                                  );
-                                })}
+                                  <option selected>Select an Option</option>
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                        if(val !== undefined){
+                                          return val
+                                        }
+                                  }).map((val, index) => {
+                                    
+                                    return <option value={`${val}`}>{val}</option>;
+                                  })}
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
                                 GSTIN of Insured
@@ -1653,14 +1656,16 @@ const Index = () => {
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
-                                <option selected>Select</option>
-                                {option?.map((val, index) => {
-                                  return (
-                                    <option key={index} value={val.GSTIN}>
-                                      {val.GSTIN}
-                                    </option>
-                                  );
-                                })}
+                               <option selected>Select an Option</option>
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                        if(val !== undefined){
+                                          return val
+                                        }
+                                  }).map((val, index) => {
+                                    
+                                    return <option value={`${val}`}>{val}</option>;
+                                  })}
+                              
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
                                 GSTIN of Insured
@@ -1920,14 +1925,15 @@ const Index = () => {
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
-                                <option selected>Select</option>
-                                {option?.map((val, index) => {
-                                  return (
-                                    <option key={index} value={val.GSTIN}>
-                                      {val.GSTIN}
-                                    </option>
-                                  );
-                                })}
+                                 <option selected>Select an Option</option>
+                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                        if(val !== undefined){
+                                          return val
+                                        }
+                                  }).map((val, index) => {
+                                    
+                                    return <option value={`${val}`}>{val}</option>;
+                                  })}
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
                                 GSTIN of Insured
