@@ -672,7 +672,7 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab}`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>

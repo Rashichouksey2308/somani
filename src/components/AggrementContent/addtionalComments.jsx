@@ -54,7 +54,7 @@ function Index(props) {
         setAddressList(temp);
       }
     }
-  }, [props]);
+  }, [props.data]);
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Additional Comments') {

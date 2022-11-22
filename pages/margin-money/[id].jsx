@@ -261,8 +261,7 @@ function Index() {
    
   };
   console.log(branchOptions, 'setBranchOptions');
-  useEffect(() => {console.log(marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ,"okkok"
-  )
+  useEffect(() => {
     dropDownChange(
       'name',
       marginData?.invoiceDetail?.importerName
@@ -921,7 +920,7 @@ function Index() {
         branch: marginData?.invoiceDetail?.branch || '',
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-        accountNo: marginData?.invoiceDetail?.accountNo || '123456',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
     }

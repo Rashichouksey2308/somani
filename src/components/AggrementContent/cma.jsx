@@ -91,7 +91,7 @@ function Index(props) {
   console.log(addressList,"addressList")
   useEffect(() => {
     if (window) {
-       setOptions(props?.vendor?.options|| [])
+       setOptions(props?.vendor?.options)
 
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
@@ -118,6 +118,7 @@ function Index(props) {
                 },
               ],
         );
+        
           if(savedData?.addresses?.length==0){
            let temp=[];
        if(props.vendor.address?.length>0){
@@ -140,17 +141,17 @@ function Index(props) {
         }
         setCmaState(cma);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       } else {
         let cma = {
           name: props.data?.name || props?.vendor?.name,
@@ -201,22 +202,22 @@ function Index(props) {
       
         
         setCmaState(cma);
-        let tempArr = props.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let tempArr = props.data?.authorisedSignatoryDetails;
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       }
     }
   }, [props]);
-
+ console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
       let data = {
@@ -236,25 +237,13 @@ function Index(props) {
       props.updateData('CMA', data);
     }
   }, [props.saveData, props.submitData]);
-  const removeDoc = (index) => {
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: '' };
-        }
 
-        return obj;
-      });
-
-      return newState;
-    });
-  };
   const onEdit = (index) => {
     let tempArr = list;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          setRemovedOption(obj.name);
+         
           return { ...obj, actions: 'false' };
         }
         // 👇️ otherwise return object as is
@@ -299,7 +288,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+   
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
@@ -308,14 +297,25 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
+   if(options.length==1){
+    let temp=[]
     props.vendor.signatory.forEach((master,index)=>{
       if(val.name== master.name){
-        let temp = [...options];
-        temp.push(val.name);
-        setOptions([...temp]);
+       
+        temp.push(master.name);
+       
       }
      })
+     setOptions([...temp]);
+     setRemovedArr([])
+   }
+    // props.vendor.signatory.forEach((master,index)=>{
+    //   if(val.name== master.name){
+    //     let temp = [...options];
+    //     temp.push(val.name);
+    //     setOptions([...temp]);
+    //   }
+    //  })
      let temp = [...removedArr];
       var indexOption = temp.indexOf(val.name);
       if (indexOption !== -1) {
@@ -323,7 +323,7 @@ function Index(props) {
       }
         setRemovedArr([...temp])
   };
-
+ console.log(options,"pppppp")
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -618,7 +618,7 @@ const cancelEditAddress = () => {
            props.vendor.gstin
            )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,'')}
       </div>
     </>
   );

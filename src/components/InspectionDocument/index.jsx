@@ -592,7 +592,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                               />
                               <img
                                 src="/static/upload.svg"
-                                className="mr-3"
+                                className={`${styles.upload} mr-3`}
                                 alt="Share"
                                 onClick={() => {
                                   openbar();
@@ -719,12 +719,12 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                   )
                                 }
                                 src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
+                                className={`${styles.delete_image} mr-3`}
                                 alt="Bin"
                               />
                               <img
                                 src="/static/upload.svg"
-                                className="img-fluid mr-3"
+                                className={`${styles.upload} mr-3`}
                                 alt="Share"
                                 onClick={()=>{
                                   dispatch(ViewDocument({path: document.path,
@@ -733,7 +733,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                               />
                               <img
                                 src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
+                                className={`${styles.edit_image} mr-3`}
                                 alt="Share"
                               />
                             </td>
@@ -763,17 +763,17 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     <td colSpan="2">
                       <img
                         src="/static/delete.svg"
-                        className={`${styles.delete_image} img-fluid mr-3`}
+                        className={`${styles.delete_image} mr-3`}
                         alt="Bin"
                       />
                       <img
                         src="/static/upload.svg"
-                        className="img-fluid mr-3"
+                        className={`${styles.upload} mr-3`}
                         alt="Share"
                       />
                       <img
                         src="/static/drive_file.svg"
-                        className={`${styles.edit_image} img-fluid mr-3`}
+                        className={`${styles.edit_image} mr-3`}
                         alt="Share"
                       />
                     </td>

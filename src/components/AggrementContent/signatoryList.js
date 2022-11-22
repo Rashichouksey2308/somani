@@ -12,7 +12,9 @@ export const signatoryList = (
   addMoreRows,
   onEdit,
   type,
+  removeArr,
 ) => {
+  console.log(list, 'ASasdasd');
   return (
     <div className={`${styles.tableContainer} border_color card p-0`}>
       <div
@@ -91,9 +93,9 @@ export const signatoryList = (
                                         }}
                                       >
                                         <option>Select an option</option>
-                                        {removedOption != null ? (
+                                        {/* {removedOption != null ? (
                                           <option value={removedOption}>{removedOption}</option>
-                                        ) : null}
+                                        ) : null} */}
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}

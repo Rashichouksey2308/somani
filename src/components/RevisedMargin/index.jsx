@@ -67,8 +67,7 @@ const Index = ({
         : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
             ?.toUpperCase()
             ?.replace(/ *\([^)]*\) */g, '') || '');
-  }, [  marginData?.revisedMarginMoney?.invoiceDetail?.importerName, marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ||
-      '']);
+  }, [  marginData?.revisedMarginMoney?.invoiceDetail?.importerName, marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank,getInternalCompaniesMasterData]);
   const routeChange = () => {
     Router.push('/revised-margin-preview');
   };
@@ -994,7 +993,7 @@ const Index = ({
                           if(val.keyAddresses.length > 0){
                           if (
                             val.keyAddresses[0].Branch == e.target.value &&
-                            val.Company_Name?.toLowerCase() == invoiceData?.importerName?.toLowerCase()
+                            val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()
                           ) {
                             return val;
                           }
@@ -1007,8 +1006,8 @@ const Index = ({
                             changeImporterData.address = filter[0].keyAddresses[0].fullAddress;
                             newInput['companyAddress'] = filter[0].keyAddresses[0].fullAddress;
 
-                            changeImporterData.GSTIN = filter[0].GSTIN;
-                            newInput['importerGSTIN'] = filter[0].GSTIN;
+                            changeImporterData.GSTIN = filter[0].keyAddresses[0].gstin;
+                            newInput['importerGSTIN'] = filter[0].keyAddresses[0].gstin;
 
                             newInput['branchOffice'] = e.target.value;
                             changeImporterData.branch = e.target.value;
@@ -1021,9 +1020,14 @@ const Index = ({
                       }}
                     >
                       <option selected>Select an option</option>
-                      {branchOptions.map((val, index) => {
-                        return <option value={val.Branch}>{val.Branch}</option>;
-                      })}
+                        {[...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
+                            if(val !== undefined){
+                              return val
+                            }
+                          }).map((val, index) => {
+                            {console.log(val,"sdasd")}
+                            return <option value={`${val}`}>{val}</option>;
+                          })}
                     </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Branch Office
@@ -1083,10 +1087,10 @@ const Index = ({
                       value={invoiceDataRevised?.bankName}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
-                         saveInvoiceData(e.target.name, e.target.value);
+                         
                                       let filter = getInternalCompaniesMasterData.filter((val, index) => {
                                         if(val.keyBanks.length > 0){
-                                      if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name ==invoiceData?.importerName) {
+                                      if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name == invoiceDataRevised?.importerName) {
                                         return val;
                                       }
                                       }
@@ -1105,7 +1109,7 @@ const Index = ({
                                     );
                                       return
                                     }
-                                   saveData(
+                                   savedataRevised(
                                       'branchAddress',
                                       filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
                                       'IFSCcode',

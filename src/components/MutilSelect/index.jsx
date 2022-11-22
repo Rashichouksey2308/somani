@@ -162,7 +162,8 @@ function Index(props) {
         onKeyUp={handleOnKeyup}
         className={`${styles.input_field}`}
       />
-      {props?.searchedSupplier && props.searchedSupplier?.data?.length > 0 && !props.removeInput && props.searchTerm && (
+    </div>    
+    {props?.searchedSupplier && props.searchedSupplier?.data?.length > 0 && !props.removeInput && props.searchTerm && (
         <div className={styles.searchResults}>
           <ul>
             {props.searchedSupplier
@@ -183,7 +184,6 @@ function Index(props) {
           </ul>
         </div>
       )}
-    </div>
     {props.placeholder ? (
       <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span>
     ) : null}
