@@ -37,6 +37,7 @@ import CountryReducer from 'redux/country/reducer'
 import DocumentReducer from '../src/redux/documentMaster/reducer'
 import GoNoGoReducer from 'redux/goNoGo/reducer'
 import VendorReducer from 'redux/vendor/reducer'
+import CurrencyReducer from 'redux/currency/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -87,6 +88,7 @@ export const createStore = (preloadedState) => {
       document: DocumentReducer,
       Gng: GoNoGoReducer,
       Vendor: VendorReducer,
+      Currency: CurrencyReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

@@ -69,8 +69,18 @@ const index = ({
     });
 
   }
+  else if (tableName === 'Currency') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item.Currency,
+        col2: item.Currency_Name,
+        status: 'Approved',
+        id: item._id,
+      };
+    });
+  }
   
- 
   return (
     <>
       {/*UserTable*/}

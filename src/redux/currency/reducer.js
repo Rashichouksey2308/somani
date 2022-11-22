@@ -6,7 +6,7 @@ const initialState = {
   gettingCurrency: false,
   currencyResponse: null,
   updatingCurrency: false,
-  updatecurrencyResponse: false,
+  updateCurrencyResponse: false,
   creatingCurrency: false,
   createdCurrency: null
 }
@@ -56,19 +56,19 @@ function CurrencyReducer (state = initialState, action) {
       return {
         ...state,
         updatingCurrency: true,
-        updatecurrencyResponse: null
+        updateCurrencyResponse: null
       }
     case types.UPDATE_CURRENCY_SUCCESS:
       return {
         ...state,
         updatingCurrency: false,
-        updateportsResponse: action.payload
+        updateCurrencyResponse: action.payload
       }
     case types.UPDATE_CURRENCY_FAILED:
       return {
         ...state,
         updatingCurrency: false,
-        updatecurrencyResponse: null
+        updateCurrencyResponse: null
       }
 
     case types.CREATE_CURRENCY:
