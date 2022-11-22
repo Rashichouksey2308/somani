@@ -35,14 +35,7 @@ function Index() {
     remarks: ""    
   });
 
-const [keyContactPerson, setKeyContactPerson] = useState([{
-    name:'',
-    department:'',
-    designation:'',
-    phoneNumber:'',
-    emailId:'',
-    authorizedSignatory:'',
-}])
+const [keyContactPerson, setKeyContactPerson] = useState([])
 
 const [address, setAddress] = useState([])
 

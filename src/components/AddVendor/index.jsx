@@ -10,6 +10,7 @@ import { phoneValidation } from '@/utils/helper';
 import { handleErrorToast } from '@/utils/helpers/global';
 import { addressValidtion } from '@/utils/helpers/review';
 import AddComponent from './AddComponent';
+import PersonComponent from './PersonComponent';
 
 function Index({
   remarks,
@@ -23,6 +24,8 @@ function Index({
   keyContactPerson,
   address,
   bankDetails,
+  updateKeyPersonDataArr,
+  deleteKeyPerson,
   handleSuplier,
   saveDate,
   handleUploadVendorDetails,
@@ -143,7 +146,7 @@ function Index({
     });
   };
 
-  // Bank Schema Code //
+  // Key Person Code //
 
   const [personData, setPersonData] = useState({
     name:'',
@@ -162,8 +165,8 @@ function Index({
   };
 
   const handleBankClick = () => {
-    if (personValidtion(personData, countryName)) {
-      bankDataArr(personData);
+    // if (personValidtion(personData, countryName)) {
+      handlekeyContactPersonDetail(personData);
       setPersonData({
         name:'',
         department:'',
@@ -172,7 +175,7 @@ function Index({
         emailId:'',
         authorizedSignatory:'',
       });
-    }
+    // }
   };
 
   const handleBankCancel = () => {
@@ -495,166 +498,48 @@ function Index({
 
           <div className={`${styles.dashboard_form} card-body`} style={{ borderTop: '3px solid #D2D7E5' }}>
             <div className={`${styles.card_heading} mt-3`}>Key Contact Person Details</div>
-            <div className={`${styles.address_card} pb-5 value background1`} style={{ marginTop: '40px' }}>
-              <div
-                className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
-              >
-                <h3 className={`${styles.heading}`}>Key Contact Person</h3>
-                <div className={styles.min_heading}>
-                  <strong className="text-danger">*</strong> Minimum 1 Contact Person Mandatory
-                </div>
-              </div>
-              <div className={`${styles.dashboard_form} card-body border_color`}>
-                <div className="row">
-                  <div className={`${styles.form_group} col-lg-4 col-sm-4`}>
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      required
-                      type="text"
-                      name="name"
-                      value={keyContactPerson?.name}
-                      onChange={handlekeyContactPersonDetail}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Name <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-lg-4 col-sm-6`}>
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                        name="department"
-                        required
-                        value={keyContactPerson?.department}
-                        onChange={(e) => setKeyContactPerson({ ...keyContactPerson, department: e.target.name })}
-                      >
-                        <option value="India">Finance</option>
-                        <option value="Dubai">Operations</option>
-                      </select>
-                      <label className={`${styles.label_heading} label_heading`}>Department</label>
-                      <div className={`${styles.image_arrow} image_arrow`}>
-                        <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className={`${styles.form_group} col-lg-4 col-sm-4`}>
-                    <input
-                      className={`${styles.input_field} 
-                    border_color input form-control`}
-                      required
-                      type="text"
-                      name="designation"
-                      value={keyContactPerson?.designation}
-                      onChange={handlekeyContactPersonDetail}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>Designation</label>
-                  </div>
-                  <div className={`${styles.form_group} ${styles.phone} col-lg-4 col-sm-6`}>
-                    <div className={`${styles.phone_card}`}>
-                      <select
-                        name="callingCode"
-                        id="Code"
-                        className={`${styles.code_phone} input border-right-0`}
-                        value={keyContactPerson?.phoneNumber}
-                        onChange={(e) => setKeyContactPerson({ ...keyContactPerson, phoneNumber: e.target.name })}
-                      >
-                        <option value="+91">+91</option>
-                        <option value="+1">+1</option>
-                        <option value="+92">+92</option>
-                        <option value="+93">+95</option>
-                        <option value="+24">+24</option>
-                      </select>
-                      <input
-                        type="number"
-                        onWheel={(event) => event.currentTarget.blur()}
-                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                        id="textNumber"
-                        name="phoneNumber"
-                        className={`${styles.input_field} border_color input form-control border-left-0`}
-                        value={keyContactPerson?.phoneNumber}
-                        onChange={handlekeyContactPersonDetail}
-                      />
-                      <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                        Phone Number
-                      </label>
-                    </div>
-                  </div>
-                  <div className={`${styles.form_group} col-lg-4 col-sm-6`}>
-                    <input
-                      type="text"
-                      id="textInput"
-                      required
-                      className={`${styles.input_field} border_color input form-control`}
-                      name="emailId"
-                      value={keyContactPerson?.email}
-                      onChange={handlekeyContactPersonDetail}
-                    />
-                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                      Email Address <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} mt-0 col-lg-4 col-md-6 col-sm-6 `}>
-                    <div className={`${styles.radio_form}`}>
-                      <div className={`${styles.sub_heading} label_heading`}>
-                        Authorised Signatory <strong className="text-danger">*</strong>
-                      </div>
-                      {['radio'].map((type, index) => (
-                        <div key={`inline-${index}`} className={`${styles.radio_group}`}>
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            defaultChecked
-                            label="Yes"
-                            name="group1"
-                            value={keyContactPerson?.authorizedSignatory}
-                            type={type}
-                            id={`inline-${type}-1`}
-                            onChange={() => {
-                              setKeyContactPerson({ ...keyContactPerson, authorizedSignatory: true });
-                            }}
-                          />
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="No"
-                            name="group1"
-                            type={type}
-                            id={`inline-${type}-2`}
-                            value={keyContactPerson?.authorised}
-                            onChange={() => {
-                              setKeyContactPerson({ ...keyContactPerson, authorised: false });
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button className={`${styles.add_btn}`} onClick={handleSubmitKeyContactPersonDetails}>
-                Add
-              </button>
-              <button className={`${styles.cancel_btn}`} onClick={handleCanclePersonalDetail}>
-                Cancel
-              </button>
-            </div>
-            <div className="d-flex justify-content-between">
+            {showBank ? (
+                <PersonComponent
+                  countryName={vendorRadio}
+                  bankData={personData}
+                  handleBankChange={handleBankChange}
+                  handleBankClick={handleBankClick}
+                  handleBankCancel={handleBankCancel}
+                />
+              ) : null}
+              {showEditBank ? (
+                <PersonComponent
+                  countryName={vendorRadio}
+                  index={IndexBank}
+                  showEditBank={showEditBank}
+                  setShowBank={setShowBank}
+                  setShowEditBank={setShowEditBank}
+                  bankData={editBank}
+                  editBank={editBank}
+                  handleBankChange={changeKeyContactData}
+                  handleBankClick={updateKeyPersonDataArr}
+                  handleBankCancel={handleKeyContactEditCancel}
+                />
+              ) : null}
+          { keyContactPerson && keyContactPerson?.length > 0 && keyContactPerson?.map((val, index) => ( <div className="d-flex justify-content-between">
               <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                 <div className="d-flex justify-content-between">
                   <div>
-                    <label className={styles.label}>Chandrakanth M.J - Financial Analyst, Finance</label>
+                    <label className={styles.label}>{val.name}- {val.designation}, {val.department}</label>
                     <div className={styles.address_values}>
                       <p>
-                        name@abc.com, <span className={styles.phone_number}>+91 9876543210</span>
+                        {val.emailId}, <span className={styles.phone_number}>+91 {val.phoneNumber}</span>
                       </p>
                     </div>
                   </div>
 
                   <div>
                     <div className="d-flex">
-                      <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
+                      <img onClick={() => {
+                                editBankArr(index);
+                              }} className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                       <div className={`${styles.delete_image} ml-3`}>
-                        <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
+                        <Image onClick={() => deleteKeyPerson(index)} src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                       </div>
                     </div>
                   </div>
@@ -663,7 +548,7 @@ function Index({
                   Authorised Signatory: <span>Yes</span>
                 </div>
               </div>
-              <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
+              {/* <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <label className={styles.label}>Rajashekhar - Sales Manager, Sales</label>
@@ -685,8 +570,8 @@ function Index({
                 <div className={`${styles.sign_head}`}>
                   Authorised Signatory: <span>Yes</span>
                 </div>
-              </div>
-            </div>
+              </div> */}
+            </div>))}
           </div>
 
           <div className={`${styles.dashboard_form} card-body`} style={{ borderTop: '3px solid #D2D7E5' }}>
