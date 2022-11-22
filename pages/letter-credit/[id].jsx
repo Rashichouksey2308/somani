@@ -567,11 +567,13 @@ function Index() {
                                 value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
+                                 <option disabled value='' >Select an option</option>
                                 {' '}
                                 {clauseObj.dropDownValue === '(50) Applicant' ? (
                                   <>
+                                 
                                     {' '}
-                                    <option selected>Select an option</option>
+                                    
                                     <option value="Indo intertrade AG">Indo intertrade AG</option>
                                   </>
                                 ) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
@@ -599,13 +601,13 @@ function Index() {
                                 ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
                                   <>
                                     {' '}
-                                    <option value="">Select an Option</option>
+                                   
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
                                 ) : (
                                   <>
-                                    <option value="">Select an Option</option>
+                                   
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                     <option value="Conditional">Conditional</option>
