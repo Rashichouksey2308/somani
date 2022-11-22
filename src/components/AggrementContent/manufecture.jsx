@@ -770,9 +770,8 @@ console.log(addressList,"aasdads")
             setAddressEditType,
             props.gettingPins,
             handleDataEdit,
-            dispatch,
-            toShow,
-            toView,
+            
+           
             []
           )}
         {isEdit == false && (
@@ -826,9 +825,7 @@ console.log(addressList,"aasdads")
                   setMultiAddressType,
                   props.gettingPins,
                   handleDataEditMines,
-                  dispatch,
-                  toShow,
-                  toView2,
+                 
                   []
                 )}
               <div className={`${styles.multi_address}`}>
