@@ -1852,7 +1852,6 @@ function Index() {
                           id="otherDocName"
                           className={`${styles.value} input form-control`}
                           type="text"
-                          required
                         />
                         <Form.Label className={`${styles.label} label_heading`}>
                           Please Specify Document Name
@@ -1862,7 +1861,7 @@ function Index() {
                         <button
                           onClick={(e) => uploadDocumentHandler(e)}
                           className={`${styles.upload_button} btn`}
-                        ></button>
+                        >Upload</button>
                       </div>
                     </div>
                   </div>
