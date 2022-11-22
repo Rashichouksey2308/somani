@@ -232,7 +232,7 @@ const handleRemaks = (e) => {
       <Card className={`${styles.card}`}>
         <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/vendors')} style={{ cursor: 'pointer' }}>
+            <div onClick={() => {sessionStorage.getItem('vendorId') && sessionStorage.removeItem('vendorId'); Router.push('/vendors')}} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
