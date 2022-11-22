@@ -93,6 +93,7 @@ function Index(props) {
                
            })
            val.keyContactPerson.forEach((sig,index)=>{
+            console.log(sig.authorizedSignatory,"sig.authorizedSignatory")
               if(sig.authorizedSignatory!=="No"){
                   cmaAutorized.push(sig)
                   cmaOptions.push(sig.name)
