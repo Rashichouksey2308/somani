@@ -32,6 +32,7 @@ function Index(props) {
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [pan, setPan] = useState('');
   const [removedOption, setRemovedOption] = useState(null);
+ 
   const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
@@ -239,7 +240,13 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
+ signatoryDetails.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
     let temp = [...removedArr];
       var indexOption = temp.indexOf(val.name);
       if (indexOption !== -1) {
