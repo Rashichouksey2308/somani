@@ -1487,7 +1487,8 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
+                    borderRight: '0.5px solid #D2D7E5'
                   }}
                 >
                   {camData?.transactionType}
@@ -2963,6 +2964,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   CUSTOMER NAME
@@ -3436,6 +3438,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   NAME
@@ -4656,7 +4659,7 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <td width="50%" style={{ paddingLeft: '35px' }}></td>
+                <td width="50%" style={{ paddingLeft:'35px', borderLeft:'1px solid #D2D7E5'}}></td>
                 <td
                   style={{
                     fontSize: '15px',
@@ -5303,6 +5306,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -5464,6 +5468,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -5695,6 +5700,7 @@ function Index() {
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
                                 paddingLeft: '35px',
+                                borderLeft: '1px solid #D2D7E5'
                               }}
                             >
                               Liabilities
@@ -5951,6 +5957,8 @@ function Index() {
                             style={{
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
+                              borderLeft: '1px solid #D2D7E5',
+                              borderRight: '1px solid #D2D7E5'
                             }}
                           >
                             <td
@@ -6123,6 +6131,8 @@ function Index() {
                             style={{
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
+                              borderLeft: '1px solid #D2D7E5',
+                              borderRight: '1px solid #D2D7E5'
                             }}
                           >
                             <td
@@ -7244,7 +7254,8 @@ function Index() {
               <tr>
                 <td colSpan={4} valign="top">
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                    <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
+                    <tr bgColor="#FAFAFB" style={{ height: '67px',
+                          borderLeft: '1px solid #D2D7E5' }}>
                       <td
                         style={{
                           fontSize: '15px',
@@ -7508,6 +7519,7 @@ function Index() {
                           lineHeight: '27px',
                           textTransform: 'capitalize',
                           paddingLeft: '35px',
+                          borderLeft: '1px solid #D2D7E5'
                         }}
                       >
                         Sanction Conditions
