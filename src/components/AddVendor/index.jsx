@@ -9,10 +9,13 @@ import UploadOther from '../UploadOther';
 import { phoneValidation } from '@/utils/helper';
 import { handleErrorToast } from '@/utils/helpers/global';
 import { addressValidtion } from '@/utils/helpers/review';
+import AddComponent from './AddComponent';
 
 function Index({
   remarks,
   setAddress,
+  deleteAddress,
+  updateKeyAddDataArr,
   setKeyContactPerson,
   setVendorDetail,
   orderid,
@@ -55,7 +58,7 @@ function Index({
   };
 
   const handleClick = () => {
-    if (addressValidtion(keyAddressData)) {
+    // if (addressValidtion(keyAddressData)) {
       handleAddressDetail(keyAddressData);
       setKeyAddressData({
         addressType:  "",
@@ -68,7 +71,7 @@ function Index({
     address:'',
     email:''
       });
-    }
+    // }
   };
 
   const handleCancel = () => {
@@ -151,17 +154,17 @@ function Index({
     authorizedSignatory:'',
   });
 
-  const handlepersonChange = (name, value) => {
+  const handleBankChange = (name, value) => {
     const newInput = { ...personData };
     newInput[name] = value;
 
-    setpersonData(newInput);
+    setPersonData(newInput);
   };
 
-  const handlepersonClick = () => {
+  const handleBankClick = () => {
     if (personValidtion(personData, countryName)) {
-      personDataArr(personData);
-      setpersonData({
+      bankDataArr(personData);
+      setPersonData({
         name:'',
         department:'',
         designation:'',
@@ -173,7 +176,7 @@ function Index({
   };
 
   const handleBankCancel = () => {
-    setBankData({
+    setPersonData({
       name:'',
     department:'',
     designation:'',
@@ -201,16 +204,14 @@ function Index({
     setShowEditBank(true);
     setIndexBank(index);
 
-    let tempArr = bankDetails;
+    let tempArr = keyContactPerson;
     setEditBank({
-      IFSC: tempArr[index].IFSC,
-      Bank_Name: tempArr[index].Bank_Name,
-      Branch_Address: tempArr[index].Branch_Address,
-      Account_No: tempArr[index].Account_No,
-      gstin: tempArr[index].gstin,
-      email: tempArr[index].email,
-      Swift_Code: tempArr[index].Swift_Code,
-      AD_Code: tempArr[index].AD_Code,
+      name: tempArr[index].name,
+      department: tempArr[index].department,
+      designation: tempArr[index].designation,
+      phoneNumber: tempArr[index].phoneNumber,
+      emailId: tempArr[index].emailId,
+      authorizedSignatory: tempArr[index].authorizedSignatory,
     });
   };
 
@@ -690,200 +691,63 @@ function Index({
 
           <div className={`${styles.dashboard_form} card-body`} style={{ borderTop: '3px solid #D2D7E5' }}>
             <div className={`${styles.card_heading} mt-3`}>Key Addresses</div>
-            <div className={`${styles.address_card} pb-5 value background1`} style={{ marginTop: '40px' }}>
-              <div
-                className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
-              >
-                <h3 className={`${styles.heading}`}>Add New Address</h3>
-              </div>
-              <div className={`${styles.dashboard_form} card-body border_color`}>
-                <div className="row">
-                  <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                        name="addressType"
-                        required
-                        value={address?.addressType}
-                        onChange={(e) => setAddress({ ...address, addressType: e.target.value })}
-                      >
-                        <option value="India">Agra</option>
-                        <option value="Dubai">Dubai</option>
-                      </select>
-                      <label className={`${styles.label_heading} label_heading`}>
-                        Address Type<strong className="text-danger">*</strong>
-                      </label>
-                      <div className={`${styles.image_arrow} image_arrow`}>
-                        <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
-                      </div>
-                    </div>
-                  </div>
-                  {vendorRadio === 'international' ? (
-                    <>
-                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                        <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                            name="countryOfOrigin"
-                            required
-                            value={address?.country}
-                            onChange={(e) => setAddress({ ...address, country: e.target.value })}
-                          >
-                            <option value="India">Agra</option>
-                            <option value="Dubai">Dubai</option>
-                          </select>
-                          <label className={`${styles.label_heading} label_heading`}>
-                            Country <strong className="text-danger">*</strong>
-                          </label>
-                          <div className={`${styles.image_arrow} image_arrow`}>
-                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                        <input
-                          className={`${styles.input_field} border_color input form-control`}
-                          name="city"
-                          required
-                          style={{ paddingRight: '35px' }}
-                          value={address.city}
-                          onChange={handleAddressDetail}
-                        />
-                        <label className={`${styles.label_heading} label_heading`}>
-                          City <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                        <input
-                          className={`${styles.input_field} border_color input form-control`}
-                          name="zipCode"
-                          required
-                          style={{ paddingRight: '35px' }}
-                          value={address?.zipCode}
-                          onChange={handleAddressDetail}
-                        />
-                        <label className={`${styles.label_heading} label_heading`}>
-                          Zip Code <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <input
-                          className={`${styles.input_field} border_color input form-control`}
-                          required
-                          type="number"
-                          onWheel={(event) => event.currentTarget.blur()}
-                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                          name="pinCode"
-                          value={address?.pinCode}
-                          onChange={handleAddressDetail}
-                        />
-                        <label className={`${styles.label_heading} label_heading`}>
-                          Pin Code
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <div className={`${styles.col_header} label_heading`}>State</div>
-                        <div className={styles.col_body}>Uttar Pradesh</div>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                            name="city"
-                            required
-                            value={address?.city}
-                            onChange={(e) => setAddress({ ...address, city: e.target.value })}
-                          >
-                            <option value="India">Agra</option>
-                            <option value="Dubai">Dubai</option>
-                          </select>
-                          <label className={`${styles.label_heading} label_heading`}>City</label>
-                          <div className={`${styles.image_arrow} image_arrow`}>
-                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                        <input
-                          className={`${styles.input_field} border_color input form-control`}
-                          required
-                          type="text"
-                          name="gstin"
-                          value={address?.gstin}
-                          onChange={handleAddressDetail}
-                        />
-                        <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
-                      </div>
-                    </>
-                  )}
-                  <div className={`${styles.form_group} col-lg-9`}>
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      required
-                      type="text"
-                      name="address"
-                      value={address?.address}
-                      onChange={handleAddressDetail}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Address<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-md-3 col-sm-6`}>
-                    <input
-                      type="text"
-                      id="textInput"
-                      required
-                      className={`${styles.input_field} border_color input form-control`}
-                      name="email"
-                      value={address?.email}
-                      onChange={handleAddressDetail}
-                    />
-                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                      Email {vendorRadio === 'international' ? <strong className="text-danger">*</strong> : ''}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button className={`${styles.add_btn}`} onClick={handleSubmitAddress}>
-                Add
-              </button>
-              <button className={`${styles.cancel_btn}`} onClick={handleCancleAddressDetail}>
-                Cancel
-              </button>
-            </div>
-            <div className="d-flex justify-content-between">
+            {showAddress ? (
+                <AddComponent
+                  handleChange={handleChange}
+                  handleCancel={handleCancel}
+                  handleClick={handleClick}
+                  countryName={vendorRadio}
+                  keyAddressData={keyAddressData}
+                />
+              ) : null}
+              {showEditAddress ? (
+                <AddComponent
+                  index={Index}
+                  editData={editData}
+                  setShowEditAddress={setShowEditAddress}
+                  setShowAddress={setShowAddress}
+                  showEditAddress={showEditAddress}
+                  handleChange={changeData}
+                  handleCancel={handleEditCancel}
+                  handleClick={updateKeyAddDataArr}
+                  countryName={vendorRadio}
+                  keyAddressData={editData}
+                />
+              ) : null}
+              {address &&
+                address?.length > 0 &&
+                address?.map((val, index) => (
+            <div key={index} className="d-flex justify-content-between">
               <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
                 <div className="d-flex justify-content-between">
                   <div>
-                    <label className={styles.label}>Registered Address</label>
+                    <label className={styles.label}>{val.addressType}</label>
                     <div className={styles.address_values}>
-                      <p>N-11, 29 Tilak Marg, New Delhi</p>
+                      <p>{val.address}</p>
                       <div className="d-flex">
                         <p>
-                          <span>Email:</span> abc@email.com
+                          <span>Email:</span> {val.email}
                         </p>
                         <p>
-                          <span className="ml-5">GSTIN:</span> RTF67WTF76RT456
+                          <span className="ml-5">GSTIN:</span> {val.gstin}
                         </p>
                       </div>
                     </div>
                   </div>
                   <div>
                     <div className="d-flex">
-                      <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
+                      <img onClick={() => {
+                                editAddress(index);
+                              }} className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                       <div className={`${styles.delete_image} ml-3`}>
-                        <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
+                        <Image  onClick={() => deleteAddress(index)} src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
+            ))}
           </div>
         </div>
 
