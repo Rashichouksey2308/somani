@@ -93,9 +93,9 @@ export const signatoryList = (
                                         }}
                                       >
                                         <option>Select an option</option>
-                                        {removedOption != null ? (
+                                        {/* {removedOption != null ? (
                                           <option value={removedOption}>{removedOption}</option>
-                                        ) : null}
+                                        ) : null} */}
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}

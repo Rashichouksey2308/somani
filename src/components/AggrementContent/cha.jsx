@@ -262,7 +262,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+    // setRemovedOption(null);
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
