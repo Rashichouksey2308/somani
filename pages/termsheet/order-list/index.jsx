@@ -232,7 +232,7 @@ function Index() {
                               {term.status === 'Approved' ? (
                                 <img
                                   src="/static/preview.svg"
-                                  className="img-fluid"
+                                  className={`${styles.eye_icon}`}
                                   alt="Preview"
                                   onClick={() => {
                                     sessionStorage.setItem('termID', term._id);

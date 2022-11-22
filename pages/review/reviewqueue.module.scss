@@ -1738,6 +1738,10 @@
         border-radius: 50%;
         display: inline-block;
         vertical-align: middle;
+        @include respond(lg-desktop) {
+          width: 12px;
+          height: 12px;
+        }
       }
 
       .approved {

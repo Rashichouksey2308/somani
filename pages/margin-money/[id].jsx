@@ -261,8 +261,7 @@ function Index() {
    
   };
   console.log(branchOptions, 'setBranchOptions');
-  useEffect(() => {console.log(marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ,"okkok"
-  )
+  useEffect(() => {
     dropDownChange(
       'name',
       marginData?.invoiceDetail?.importerName
