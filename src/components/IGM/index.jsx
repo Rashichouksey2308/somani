@@ -634,12 +634,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="d-flex">
                     <select
                       onChange={(e) => {
-                        let filter = getInternalCompaniesMasterData?.data?.data?.filter((val, index) => {
+                        let filter = getInternalCompaniesMasterData?.filter((val, index) => {
+                        
                           if (val?.keyAddresses[0]?.Branch == e.target.value && val.Company_Name == consigneeName) {
+                           
                             return val;
                           }
                         });
-                        
+                         
                         setConsigneeInfo({
                           name: consigneeName,
                           branch: e.target.value,
@@ -650,9 +652,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       value={consigneeInfo.branch}
                     >
                       <option value="">Select an option</option>
-                      {branchOptions?.map((val, index) => {
-                        return <option value={val?.keyAddresses[0]?.Branch}>{val?.keyAddresses[0]?.Branch}</option>;
-                      })}
+                  
+                            {branchOptions?.length > 0 && [...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
+                                  if(val !== undefined){
+                                    return val
+                                  }
+                            }).map((val, index) => {
+                              
+                              return <option value={`${val}`}>{val}</option>;
+                            })}
+                     
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Consignee Branch<strong className="text-danger">*</strong>
