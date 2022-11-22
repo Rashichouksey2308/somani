@@ -237,7 +237,8 @@ function Index() {
 
   const dropDownChange = (name, value) => {
     console.log(value,"value")
-    if(value){
+   
+      console.log(value,"value")
        if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       const newInput = { ...invoiceData };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
@@ -257,10 +258,11 @@ function Index() {
     });
     console.log(filter,"filter")
     setBranchOptions([...filter]);
-    }
+   
   };
   console.log(branchOptions, 'setBranchOptions');
-  useEffect(() => {
+  useEffect(() => {console.log(marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ,"okkok"
+  )
     dropDownChange(
       'name',
       marginData?.invoiceDetail?.importerName
@@ -271,8 +273,9 @@ function Index() {
     );
   }, [
     marginData?.invoiceDetail?.importerName,
-    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, '') ||
-      '',
+    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank,
+    getInternalCompaniesMasterData
+     
   ]);
 
   const changeImporter = (e) => {
