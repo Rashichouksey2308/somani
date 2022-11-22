@@ -237,7 +237,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       <option value="" disabled>
                         Select an option
                       </option>
-                    {getDocumentsMasterData
+                       {getDocumentsMasterData
                           ?.filter((val, index) => {
                           
                             if (module.includes(val.Sub_Module)) {
