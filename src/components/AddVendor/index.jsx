@@ -257,22 +257,21 @@ function Index({
                       <Form.Check
                         className={styles.radio}
                         inline
-                        defaultChecked
                         label="Domestic"
-                        name="Domestic"
-                        onChange={() => handleSuplier('vendor', 'Domestic')}
+                        name="group1"
+                        onChange={() => {handleSuplier('vendor', 'Domestic'); setVendorRadio('domestic')}}
                         type={type}
-                        // value=""
+                        value="domestic"
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
                         className={styles.radio}
                         inline
                         label="International"
-                        onChange={() => handleSuplier('vendor', 'International')}
-                        name="International"
+                        onChange={() => {handleSuplier('vendor', 'International'); setVendorRadio('international')}}
+                        name="group1"
                         type={type}
-                        // value="international"
+                        value="international"
                         id={`inline-${type}-2`}
                       />
                     </div>
