@@ -190,8 +190,7 @@ function AddComponent({
         <button
           className={`${styles.add_btn}`}
           // onClick={() => addData('address')}
-          onClick={() => {handleClick(); setShowEditAddress(false);
-            setShowAddress(true);}}
+          onClick={() => {handleClick()}}
         >
           Add
         </button>

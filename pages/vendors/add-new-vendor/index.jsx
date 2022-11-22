@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddVendor from '../../../src/components/AddVendor';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetVendor } from '../../../src/redux/vendor/action';
+import { CreateVendor, GetVendor, UpdateVendor } from '../../../src/redux/vendor/action';
 import _get from 'lodash/get';
 
 function Index() {
@@ -47,9 +47,10 @@ const [bankDetails, setBankDetails] = useState({
   gstin: '',
   Swift_Code: '',
   AD_Code: '',
-  Correspondent_BankNmae:''
+  Correspondent_BankName:''
 })
 
+  let Id = sessionStorage.getItem('vendorId');
  
   useEffect(() =>{
     let Id = sessionStorage.getItem('vendorId');
@@ -173,14 +174,27 @@ const handleBankDetail = (name, value) => {
   setBankDetails(newInput)
 }
 
-const handleApproval = (e) => {
-  e.preventDefault();
-  dispatch(CreateVendor({
+const handleApproval = () => {
+
+  let data = {
     vendorDetails:vendorDetail,
-    keyContactPerson:keyContactPersonInfo,
-    keyAddresses:addressInfo,
+    keyContactPerson:[...keyContactPerson],
+    keyAddresses:[...address],
     bankDetails: bankDetails
-  }))
+  }
+  let data2 = {
+    vendorDetails:vendorDetail,
+    keyContactPerson:[...keyContactPerson],
+    keyAddresses:[...address],
+    bankDetails: bankDetails,
+    vendorId: vendorResponseData._id
+  }
+  if(Id){
+    dispatch(UpdateVendor(data2))
+  }else{
+  
+  dispatch(CreateVendor(data))
+  }
 }
 
 const handleCanclePersonalDetail = () => {

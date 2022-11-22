@@ -261,7 +261,7 @@ function Index({
                         name="group1"
                         onChange={() => {handleSuplier('vendor', 'Domestic'); setVendorRadio('domestic')}}
                         type={type}
-                        value="domestic"
+                        value='domestic'
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
@@ -657,7 +657,7 @@ function Index({
                       required
                       name="IFSC"
                       value={bankDetails?.IFSC}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       IFSC <strong className="text-danger">*</strong>
@@ -670,7 +670,7 @@ function Index({
                       required
                       name="Bank_Name"
                       value={bankDetails?.Bank_Name}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Bank Name <strong className="text-danger">*</strong>
@@ -685,7 +685,7 @@ function Index({
                       className={`${styles.input_field} border_color input form-control`}
                       name="Branch_Address"
                       value={bankDetails?.Branch_Address}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Bank Address <strong className="text-danger">*</strong>
@@ -700,7 +700,7 @@ function Index({
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       name="Account_No"
                       value={bankDetails?.Account_No}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Account No.
@@ -717,7 +717,7 @@ function Index({
                       required
                       name="Bank_Name"
                       value={bankDetails?.Bank_Name}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Bank Name <strong className="text-danger">*</strong>
@@ -730,7 +730,7 @@ function Index({
                       required
                       name="Account_No"
                       value={bankDetails?.Account_No}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Account No. <strong className="text-danger">*</strong>
@@ -745,7 +745,7 @@ function Index({
                       className={`${styles.input_field} border_color input form-control`}
                       name="Swift_Code"
                       value={bankDetails?.Swift_Code}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Swift Code <strong className="text-danger">*</strong>
@@ -757,7 +757,7 @@ function Index({
                       id="textInput"
                       name="Branch_Address"
                       value={bankDetails?.Branch_Address}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                       required
                       className={`${styles.input_field} border_color input form-control`}
                     />
@@ -772,7 +772,7 @@ function Index({
                       required
                       name="Correspondent_BankNmae"
                       value={bankDetails?.Correspondent_BankNmae}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>Correspondent Bank Name</label>
                   </div>
@@ -783,7 +783,7 @@ function Index({
                       required
                       name="Account_No"
                       value={bankDetails?.Account_No}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>Account No.</label>
                   </div>
@@ -794,7 +794,7 @@ function Index({
                       id="textInput"
                       name="gstin"
                       value={bankDetails?.gstin}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                       required
                       className={`${styles.input_field} border_color input form-control`}
                     />
@@ -808,7 +808,7 @@ function Index({
                       id="textInput"
                       name="AD_Code"
                       value={bankDetails?.AD_Code}
-                      onChange={handleBankDetail}
+                      onChange={(e)=>handleBankDetail(e.target.name, e.target.value)}
                       required
                       className={`${styles.input_field} border_color input form-control`}
                     />
