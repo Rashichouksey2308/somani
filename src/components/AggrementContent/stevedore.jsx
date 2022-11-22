@@ -329,14 +329,25 @@ function Index(props) {
     ]);
     setRemovedOption(null);
   };
-  const handleRemove = (index, val) => {
+   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
       if (index == val.index) {
         setDocList([...docList.slice(0, i), ...docList.slice(i + 1)]);
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
+   if(options.length==1){
+    let temp=[]
+    props.vendor.signatory.forEach((master,index)=>{
+      if(val.name== master.name){
+       
+        temp.push(master.name);
+       
+      }
+     })
+     setOptions([...temp]);
+     setRemovedArr([])
+   }
     props.vendor.signatory.forEach((master,index)=>{
       if(val.name== master.name){
         let temp = [...options];
