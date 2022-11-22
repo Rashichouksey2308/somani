@@ -2769,7 +2769,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.limit}
+                                  {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
@@ -2825,7 +2827,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.outstandingLimit}
+                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
