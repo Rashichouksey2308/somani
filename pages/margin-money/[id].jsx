@@ -921,7 +921,7 @@ function Index() {
         branch: marginData?.invoiceDetail?.branch || '',
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-        accountNo: marginData?.invoiceDetail?.accountNo || '123456',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
     }

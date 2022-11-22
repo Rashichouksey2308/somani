@@ -13,6 +13,7 @@ export const signatoryList = (
   onEdit,
   type,
 ) => {
+  console.log(list, 'ASasdasd');
   return (
     <div className={`${styles.tableContainer} border_color card p-0`}>
       <div
