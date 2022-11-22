@@ -1458,7 +1458,7 @@ function Index() {
                   Basic Info
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF" height="92">
+              <tr height="92">
                 <td
                   style={{
                     fontSize: '20px',
@@ -1466,6 +1466,8 @@ function Index() {
                     lineHeight: '24px',
                     opacity: '1',
                     paddingLeft: '35px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   Transaction Type
@@ -1476,6 +1478,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.transactionType}
@@ -1617,7 +1620,7 @@ function Index() {
                   {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.industry}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
@@ -1625,6 +1628,8 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     paddingTop: '29px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Order Value
@@ -1636,6 +1641,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
@@ -1649,6 +1655,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Commodity
@@ -1660,19 +1667,22 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {' '}
                   {camData?.commodity}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
                     paddingLeft: '35px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   Quantity
@@ -1683,6 +1693,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.quantity?.toLocaleString('en-In', {
@@ -1695,6 +1706,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Supplier
@@ -1705,13 +1717,14 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {' '}
                   {camData?.supplierName}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
@@ -1719,6 +1732,8 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Country of Origin
@@ -1730,6 +1745,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.countryOfOrigin}
@@ -1740,6 +1756,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Transaction Period
@@ -1751,6 +1768,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.transactionPeriodDays}
@@ -2471,6 +2489,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           {filteredCreditRating?.length > 0
@@ -2546,6 +2565,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           {filteredCreditRating?.length > 0
@@ -2618,6 +2638,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           {filteredCreditRating?.length > 0
@@ -2741,7 +2762,7 @@ function Index() {
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
@@ -2796,10 +2817,11 @@ function Index() {
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
+                                      whiteSpace: 'nowrap'
                                     }}
                                   >
                                     {' '}
@@ -2852,7 +2874,7 @@ function Index() {
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
