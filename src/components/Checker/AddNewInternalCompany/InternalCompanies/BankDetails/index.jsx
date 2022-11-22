@@ -56,12 +56,12 @@ function index() {
         data-toggle="collapse"
         data-target="#bankDetails"
         aria-expanded="true"
-        aria-controls="upload"
+        aria-controls="bankDetails"
       >
         <h3 className={styles.heading}>Bank Deatils</h3>
         <span>+</span>
       </div>
-      <div id="bankDetails" className="collapse mb-n4" aria-labelledby="upload" data-parent="#upload">
+      <div id="bankDetails" className="collapse mb-n4" aria-labelledby="bankDetails" data-parent="#bankDetails">
         <Table columns={tableColumns} data={dummyData} />
       </div>
     </div>

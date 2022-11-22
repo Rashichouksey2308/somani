@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import Header from '../../../src/components/Checker/AddNewInternalCompany/Header';
 import InternalCompanies from '../../../src/components/Checker/AddNewInternalCompany/InternalCompanies';
 import Approval from '../../../src/components/Checker/AddNewInternalCompany/Approval';
+import Remark from '../../../src/components/Checker/AddNewUser/Remarks';
 
 function Index() {
   return (
@@ -11,7 +12,7 @@ function Index() {
       <div className="m-2">
         <Header />
         <InternalCompanies />
-        <Approval />
+        <Remark />
         <div className={`${styles.footer_content} d-flex justify-content-end`}>
           <p>
             Created By <span>Balakrishna SGF001</span>
