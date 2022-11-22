@@ -86,8 +86,11 @@ function Index(props) {
         if(val.vendorDetails.vendor=="CMA"){
           console.log(val,"ssasdasda")
            val.keyAddresses.forEach((add,index)=>{
+             if(add.address!=="" && add.address!== undefined){
                cmaAddress.push(add)
                cmagstin.push(add.gstin)
+            }
+               
            })
            val.keyContactPerson.forEach((sig,index)=>{
               if(sig.authorizedSignatory!=="No"){
@@ -101,8 +104,11 @@ function Index(props) {
          if(val.vendorDetails.vendor=="CHA"){
           console.log(val,"ssasdasda")
            val.keyAddresses.forEach((add,index)=>{
+             if(add.address!=="" && add.address!== undefined){
                chaAddress.push(add)
                chagstin.push(add.gstin)
+            }
+               
            })
            val.keyContactPerson.forEach((sig,index)=>{
               if(sig.authorizedSignatory!=="No"){
@@ -116,8 +122,11 @@ function Index(props) {
          if(val.vendorDetails.vendor=="Stevedore"){
           console.log(val,"ssasdasda")
            val.keyAddresses.forEach((add,index)=>{
+            if(add.address!=="" && add.address!== undefined){
                stevedoreAddress.push(add)
                stevedoregstin.push(add.gstin)
+            }
+               
            })
            val.keyContactPerson.forEach((sig,index)=>{
               if(sig.authorizedSignatory!=="No"){
