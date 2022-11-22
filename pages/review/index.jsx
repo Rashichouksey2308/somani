@@ -3840,7 +3840,7 @@ function Index() {
                         <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Open.datasets &&
-                              top3Open?.datasets[0]?.data.map((val, index) => {
+                              top3Open?.datasets[0]?.data.map((val, index) => { 
                                 return (
                                   <>
                                     <td width="5%">
@@ -3916,7 +3916,7 @@ function Index() {
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => {
+                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => { 
                         let name = charge?.nameOfChargeHolder;
                         let [fName, lName] = name?.split(' ');
 
@@ -3935,7 +3935,10 @@ function Index() {
                           },
                         ];
                         let randColor = colors[Math.floor(Math.random() * colors.length)];
-                        return (
+                        if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
+                          return null;
+                        } else {
+                          return (
                           <tr>
                             <td
                               width="5%"
@@ -4005,7 +4008,7 @@ function Index() {
                                 : ''}
                             </td>
                           </tr>
-                        );
+                        )};
                       })}
                     {/* <tr>
                       <td
@@ -7162,11 +7165,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {addPrefixOrSuffix(
-                      convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString('en-In'),
-                      'Cr',
-                      '',
-                    )}
+                    {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
                   </span>
                 </td>
                 <td

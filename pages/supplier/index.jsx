@@ -54,12 +54,9 @@ function Index() {
     setListCommodity(supplierData?.commoditiesTraded ?? []);
     setInfoArray(supplierData?.additionalInformation ?? []);
     setdocs(supplierData?.extraDocument ?? []);
-    if (_get(supplierData, 'document[0]', '') !== '') {
-      setIncumbencyDoc(supplierData?.document[0]);
-    }
-    if (_get(supplierData, 'document[1]', '') !== '') {
-      SetThirdParty(supplierData?.document[1]);
-    }
+  setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
+   SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
+    
   }, [supplierResponse]);
 
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
@@ -404,12 +401,12 @@ function Index() {
       return false;
     } else if (!commoditiesTradedValidation()) {
       return false;
-    } else if (!incumbencyDoc) {
-      handleErrorToast(`please upload incumbency certificate`);
-      return false;
-    } else if (!thirdParty) {
-      handleErrorToast(`please upload third party certificate`);
-      return false;
+    // } else if (!incumbencyDoc) {
+    //   handleErrorToast(`please upload incumbency certificate`);
+    //   return false;
+    // } else if (!thirdParty) {
+    //   handleErrorToast(`please upload third party certificate`);
+    //   return false;
     } else {
       return true;
     }
@@ -430,9 +427,13 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
+      let incumbencydoc = []
+      let thirdPartydoc = []
 
       let fd = new FormData();
+    if(id) {
       fd.append('supplierId', supplierData?._id);
+    } 
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
@@ -441,8 +442,8 @@ function Index() {
       fd.append('bussinessSummary', JSON.stringify(businessArray));
       fd.append('commoditiesTraded', JSON.stringify(listCommodity));
       fd.append('additionalInformation', JSON.stringify(infoArray));
-      fd.append('incumbencyCertificateDocument', incumbencyDoc);
-      fd.append('thirdPartyCertificateDocument', thirdParty);
+      fd.append('incumbencyCertificateDocument', JSON.stringify(incumbencyDoc));
+      fd.append('thirdPartyCertificateDocument', JSON.stringify(thirdParty));
       fd.append('extraDocument', JSON.stringify(docs));
 
       if (id) {
@@ -622,35 +623,46 @@ function Index() {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    try {
-      Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+    try {let response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
         headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          setdocs([...docs, response.data.data]);
-        } else {
-          handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
-        }
       });
+      if (response.data.code === 200) {
+        console.log(response.data.data,'incumbencyDoc')
+        return  response.data.data;
+      } else {
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
+      }
     } catch (error) {
       handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
     }
   };
 
   const uploadDocumentHandler = async (e) => {
+    e.preventDefault()
     if (newDoc?.document) {
       let fd = new FormData();
       fd.append('document', newDoc.document);
-      docUploader(fd);
+      let data = await docUploader(fd);
+      setdocs([...docs, data]);
     } else {
       handleErrorToast('please upload a document first');
     }
   };
+
+  const uploadDocHandler2 = async(e,doc) => {
+    let fd = new FormData();
+    fd.append('document', e.target.files[0]);
+    let data = await docUploader(fd);
+    if(doc == 'thirdPartyDoc') { SetThirdParty(data)} 
+    else {
+    setIncumbencyDoc(data);
+    }
+  };
+
   const deleteDocumentHandler = ({ document, index }) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
-
     let payload = {
       supplierId: supplierData._id,
       path: document?.path,
@@ -1713,7 +1725,7 @@ function Index() {
                                     type="file"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => setIncumbencyDoc(e.target.files[0])}
+                                    onChange={(e) => uploadDocHandler2(e,'incumbencyDoc')}
                                   />
                                   <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
@@ -1764,7 +1776,7 @@ function Index() {
                                     type="file"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => SetThirdParty(e.target.files[0])}
+                                    onChange={(e) => uploadDocHandler2(e,'thirdPartyDoc')}
                                   />
                                   <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
@@ -1862,7 +1874,7 @@ function Index() {
                         <button
                           onClick={(e) => uploadDocumentHandler(e)}
                           className={`${styles.upload_button} btn`}
-                        ></button>
+                        >Upload</button>
                       </div>
                     </div>
                   </div>
@@ -1934,10 +1946,10 @@ function Index() {
                                   <td className={`${styles.doc_name}`}>{document?.originalName}</td>
                                   <td>
                                     {document?.originalName?.toLowerCase()?.endsWith('.xls') ||
-                                    document?.originalName.toLowerCase().endsWith('.xlsx') ? (
+                                    document?.originalName?.toLowerCase().endsWith('.xlsx') ? (
                                       <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : document?.originalName.toLowerCase().endsWith('.doc') ||
-                                      document?.originalName.toLowerCase().endsWith('.docx') ? (
+                                    ) : document?.originalName?.toLowerCase().endsWith('.doc') ||
+                                      document?.originalName?.toLowerCase().endsWith('.docx') ? (
                                       <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                     ) : (
                                       <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
