@@ -470,7 +470,6 @@ export default function Index() {
                               name="validityTo"
                               startFrom={item?.validityFrom != '' && moment(item.validityFrom).format('DD-MM-YYYY')}
                               defaultDate={item?.validityTo ?? ''}
-                              // defaultDate={list?.validityTo}
                               saveDate={saveDate}
                               labelName="Validity to"
                             />
@@ -604,16 +603,6 @@ export default function Index() {
                                     : moment(item?.forwardSalesContract.date).format('DD-MM-YYYY , h:mm a ')}
                                 </td>
                                 <td>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                                <button className={`${styles.uploadDoc} btn`}>
-                                  Upload
-                                </button>
-                                <input
-                                  type="file"
-                                  onChange={(e) => uploadDocument1(e)}
-                                  name="myfile"
-                                />
-                              </div> */}
                                   {item && item?.forwardSalesContract == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
@@ -625,17 +614,6 @@ export default function Index() {
                                         />
                                         <button className={`${styles.button_upload} btn`}>Upload</button>
                                       </div>
-                                      {/* <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                                  onChange={(e) => uploadDocument1(e)}
-                                  name="myfile"
-                                />
-                                <button  className={`${styles.uploadDoc} btn`}>
-                                  Upload
-                                </button>
-                                </div> */}
                                     </>
                                   ) : (
                                     <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
