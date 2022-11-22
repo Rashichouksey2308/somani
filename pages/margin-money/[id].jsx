@@ -1825,7 +1825,6 @@ function Index() {
                                   id="Code"
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
                                   value={
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
