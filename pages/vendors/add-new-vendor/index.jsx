@@ -58,17 +58,17 @@ const [bankDetails, setBankDetails] = useState({
     if(Id) {
       dispatch(GetVendor(`?vendorId=${Id}`))
       setVendorDetail({
-        vendor: vendorResponseData?.vendor,
-        vendorType:vendorResponseData?.vendorType,
-        pan_taxId: vendorResponseData?.pan_taxId,
-        companyName: vendorResponseData?.companyName,
-        activationDate: vendorDetail?.activationDate,
-        DeactivationDate: vendorResponseData?.DeactivationDate,
-        blackListedDate: vendorResponseData?.blackListedDate,
-        emailId: vendorResponseData?.emailId,
-        phoneNumber:vendorResponseData?.phoneNumber,
-        website: vendorResponseData?.website,
-        remarks: vendorResponseData?.remarks
+        vendor: vendorResponseData?.vendorDetails?.vendor,
+        vendorType:vendorResponseData?.vendorDetails?.vendorType,
+        pan_taxId: vendorResponseData?.vendorDetails?.pan_taxId,
+        companyName: vendorResponseData?.vendorDetails?.companyName,
+        activationDate: vendorResponseData?.vendorDetails?.activationDate,
+        DeactivationDate: vendorResponseData?.vendorDetails?.DeactivationDate,
+        blackListedDate: vendorResponseData?.vendorDetails?.blackListedDate,
+        emailId: vendorResponseData?.vendorDetails?.emailId,
+        phoneNumber:vendorResponseData?.vendorDetails?.phoneNumber,
+        website: vendorResponseData?.vendorDetails?.website,
+        remarks: vendorResponseData?.vendorDetails?.remarks
       });
 
       // getting key address
@@ -77,7 +77,7 @@ const [bankDetails, setBankDetails] = useState({
       vendorResponseData?.keyAddresses?.forEach((element) => {
         addressArr.push(element);
       });
-      setKeyAddData(addressArr);
+      setAddress(addressArr);
 
       // getting keyContact person
 
@@ -86,6 +86,13 @@ const [bankDetails, setBankDetails] = useState({
         authorisedArr.push(element);
       });
       setKeyContactPerson(authorisedArr);
+
+      // gettin bank detail
+      // let bankArr = [];
+      // vendorResponseData?.bankDetails?.forEach((element) => {
+      //   bankArr.push(element);
+      // });
+      // setBankDetails(bankArr);
     }
   },[dispatch]);
   
