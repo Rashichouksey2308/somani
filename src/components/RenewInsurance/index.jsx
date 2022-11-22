@@ -300,26 +300,18 @@ const Index = () => {
 
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                <option value="HDFC Bank">HDFC Bank</option>
-                                <option value="Swiss Bank">Swiss Bank</option>
-                              </select>
+                                
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee Bank
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              
                             </div>
                           </Col>
                         </Row>
@@ -443,26 +435,18 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 name="lossPayee"
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option disabled selected>
-                                  Select an option
-                                </option>
-                                <option value="HDFC Bank">HDFC Bank</option>
-                                <option value="Swiss Bank">Swiss Bank</option>
-                              </select>
+                                
+                              </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee Bank
                                 <strong className="text-danger">*</strong>
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              
                             </div>
                           </Col>
                         </Row>
@@ -490,7 +474,7 @@ const Index = () => {
           insuranceType == false ? `- Marine` : `- Storage`
         } `}
       /> */}
-        <UploadOther orderid={insuranceData?.order?._id} module="Agreements&Insurance&LC&Opening" />
+        <UploadOther orderid={insuranceData?.order?._id} module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  } />
       </div>
       <SubmitBar handleSubmit={handleInsuranceUpdate} />
     </div>

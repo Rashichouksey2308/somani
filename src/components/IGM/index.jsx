@@ -193,7 +193,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
   console.log(consigneeInfo, 'consigneeInfo');
   const filterBranch = (company) => {
-    console.log(company,'filer')
+      console.log(company,"company")
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
       if (val.Company_Name == company) {
         return val;
@@ -231,6 +231,26 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         address: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeAddress`, '') || '',
       });
       setConsigneeName( _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '')
+      if (
+        _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
+        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Emergent Industrial Solutions Limited (EISL)' ||
+        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+      ) {
+          setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
+      }
+       if (
+        _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
+        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Indo German International Private Limited (IGPL)' ||
+        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+      ) {
+        setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
+      }
     } else {
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
@@ -274,13 +294,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         });
       }
     }
-    setBranchOptions(filterBranch(consigneeName));
+    // setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
+  useEffect(() => {
+
+  },[TransitDetails])
   console.log(consigneeName,branchOptions,'sdasds1')
-  useEffect(()=>{
-    console.log(consigneeName,'sdasds1')
-    setBranchOptions(filterBranch(consigneeName));
-  },[consigneeName])
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
@@ -634,12 +653,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="d-flex">
                     <select
                       onChange={(e) => {
-                        let filter = getInternalCompaniesMasterData?.data?.data?.filter((val, index) => {
+                        let filter = getInternalCompaniesMasterData?.filter((val, index) => {
+                        
                           if (val?.keyAddresses[0]?.Branch == e.target.value && val.Company_Name == consigneeName) {
+                           
                             return val;
                           }
                         });
-                        
+                         
                         setConsigneeInfo({
                           name: consigneeName,
                           branch: e.target.value,
@@ -650,9 +671,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       value={consigneeInfo.branch}
                     >
                       <option value="">Select an option</option>
-                      {branchOptions?.map((val, index) => {
-                        return <option value={val?.keyAddresses[0]?.Branch}>{val?.keyAddresses[0]?.Branch}</option>;
-                      })}
+                  
+                            {branchOptions?.length > 0 && [...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
+                                  if(val !== undefined){
+                                    return val
+                                  }
+                            }).map((val, index) => {
+                              
+                              return <option value={`${val}`}>{val}</option>;
+                            })}
+                     
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Consignee Branch<strong className="text-danger">*</strong>

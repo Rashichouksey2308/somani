@@ -237,25 +237,13 @@ function Index(props) {
       props.updateData('CMA', data);
     }
   }, [props.saveData, props.submitData]);
-  const removeDoc = (index) => {
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: '' };
-        }
 
-        return obj;
-      });
-
-      return newState;
-    });
-  };
   const onEdit = (index) => {
     let tempArr = list;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          setRemovedOption(obj.name);
+         
           return { ...obj, actions: 'false' };
         }
         // 👇️ otherwise return object as is
@@ -300,7 +288,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+   
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
@@ -309,14 +297,25 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
+   if(options.length==1){
+    let temp=[]
     props.vendor.signatory.forEach((master,index)=>{
       if(val.name== master.name){
-        let temp = [...options];
-        temp.push(val.name);
-        setOptions([...temp]);
+       
+        temp.push(master.name);
+       
       }
      })
+     setOptions([...temp]);
+     setRemovedArr([])
+   }
+    // props.vendor.signatory.forEach((master,index)=>{
+    //   if(val.name== master.name){
+    //     let temp = [...options];
+    //     temp.push(val.name);
+    //     setOptions([...temp]);
+    //   }
+    //  })
      let temp = [...removedArr];
       var indexOption = temp.indexOf(val.name);
       if (indexOption !== -1) {
@@ -324,7 +323,7 @@ function Index(props) {
       }
         setRemovedArr([...temp])
   };
-
+ console.log(options,"pppppp")
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -619,7 +618,7 @@ const cancelEditAddress = () => {
            props.vendor.gstin
            )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,'')}
       </div>
     </>
   );

@@ -4,54 +4,23 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddVendor from '../../../src/components/AddVendor';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetVendor } from '../../../src/redux/vendor/action';
+import { CreateVendor, GetVendor, UpdateVendor } from '../../../src/redux/vendor/action';
 import _get from 'lodash/get';
 
 function Index() {
+
   const dispatch = useDispatch();
+
   const [keyContactPersonInfo, setKeyContactPersonInfo] = useState([]);
+
   const [addressInfo, setAddressInfo] = useState([]);
+
   const [remarks, setRemaks] = useState('');
+
   const {vendorResponse} = useSelector((state) => state.Vendor)
+
   const vendorResponseData = _get(vendorResponse,'data[0]',{})
 
-  const {vendorDetails,keyAddresses} = vendorResponseData;
-
-  console.log(keyAddresses,"vendorResponseData");
-
- 
-  useEffect(() =>{
-    let Id = sessionStorage.getItem('vendorId');
-    if(!Id) return;
-    if(Id) {
-      dispatch(GetVendor(`?vendorId=${Id}`))
-      setVendorDetail({
-        vendor: vendorDetails?.vendor,
-        vendorType:vendorDetails?.vendorType,
-        pan_taxId: vendorDetails?.pan_taxId,
-        companyName: vendorDetails?.companyName,
-        activationDate: vendorDetail?.activationDate,
-        DeactivationDate: vendorDetails?.DeactivationDate,
-        blackListedDate: vendorDetails?.blackListedDate,
-        emailId: vendorDetails?.emailId,
-        phoneNumber:vendorDetails?.phoneNumber,
-        website: vendorDetails?.website,
-        remarks: vendorDetails?.remarks
-      });
-      setAddress({
-        addressType:keyAddresses && keyAddresses[0]?.addressType,
-        country:keyAddresses && keyAddresses[0]?.country,
-        zipCode:keyAddresses && keyAddresses[0]?.zipCode,
-        state:keyAddresses && keyAddresses[0]?.state,
-        city:keyAddresses && keyAddresses[0]?.city,
-        pinCode:keyAddresses && keyAddresses[0]?.pinCode,
-        gstin:keyAddresses && keyAddresses[0]?.gstin,
-        address:keyAddresses && keyAddresses[0]?.address,
-        email:keyAddresses && keyAddresses[0]?.email
-      })
-    }
-  },[dispatch]);
-  
   const [vendorDetail, setVendorDetail] = useState({
     vendor:"",
     vendorType: "",
@@ -66,26 +35,9 @@ function Index() {
     remarks: ""    
   });
 
-const [keyContactPerson, setKeyContactPerson] = useState({
-    name:'',
-    department:'',
-    designation:'',
-    phoneNumber:'',
-    emailId:'',
-    authorizedSignatory:'',
-})
+const [keyContactPerson, setKeyContactPerson] = useState([])
 
-const [address, setAddress] = useState({
-    addressType:  "",
-    country:  '',
-    zipCode:  '',
-    state:'',
-    city:'',
-    pinCode: '',
-    gstin:'',
-    address:'',
-    email:''
-})
+const [address, setAddress] = useState([])
 
 const [bankDetails, setBankDetails] = useState({
   IFSC: '',
@@ -95,22 +47,66 @@ const [bankDetails, setBankDetails] = useState({
   gstin: '',
   Swift_Code: '',
   AD_Code: '',
-  Correspondent_BankNmae:''
+  Correspondent_BankName:''
 })
 
-const handleSuplier = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-  setVendorDetail({
-    ...vendorDetail,
-    [name]:value
-  })
+  let Id = sessionStorage.getItem('vendorId');
+ 
+  useEffect(() =>{
+    let Id = sessionStorage.getItem('vendorId');
+    if(!Id) return;
+    if(Id) {
+      dispatch(GetVendor(`?vendorId=${Id}`))
+      setVendorDetail({
+        vendor: vendorResponseData?.vendorDetails?.vendor,
+        vendorType:vendorResponseData?.vendorDetails?.vendorType,
+        pan_taxId: vendorResponseData?.vendorDetails?.pan_taxId,
+        companyName: vendorResponseData?.vendorDetails?.companyName,
+        activationDate: vendorResponseData?.vendorDetails?.activationDate,
+        DeactivationDate: vendorResponseData?.vendorDetails?.DeactivationDate,
+        blackListedDate: vendorResponseData?.vendorDetails?.blackListedDate,
+        emailId: vendorResponseData?.vendorDetails?.emailId,
+        phoneNumber:vendorResponseData?.vendorDetails?.phoneNumber,
+        website: vendorResponseData?.vendorDetails?.website,
+        remarks: vendorResponseData?.vendorDetails?.remarks
+      });
+
+      // getting key address
+
+      let addressArr = [];
+      vendorResponseData?.keyAddresses?.forEach((element) => {
+        addressArr.push(element);
+      });
+      setAddress(addressArr);
+
+      // getting keyContact person
+
+      let authorisedArr = [];
+      vendorResponseData?.keyContactPerson?.forEach((element) => {
+        authorisedArr.push(element);
+      });
+      setKeyContactPerson(authorisedArr);
+
+      // gettin bank detail
+      // let bankArr = [];
+      // vendorResponseData?.bankDetails?.forEach((element) => {
+      //   bankArr.push(element);
+      // });
+      // setBankDetails(bankArr);
+    }
+  },[dispatch]);
+  
+
+const handleSuplier = (name, value) => {
+  let newInput = {...vendorDetail}
+  newInput[name] = value;
+  setVendorDetail(newInput)
 }
 
-const saveDate = (value) => {
+const saveDate = (value, name) => {
   const d = new Date(value);
   let text = d.toISOString();
-  setVendorDetail({...vendorDetail, activationDate: text})
+  handleSuplier(name, text);
 };
 
 const handleUploadVendorDetails = (e) => {
@@ -119,13 +115,29 @@ const handleUploadVendorDetails = (e) => {
 }
 
 const handlekeyContactPersonDetail = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-  setKeyContactPerson({
-    ...keyContactPerson,
-    [name]:value
-  })
+  let newArr = [...keyContactPerson];
+  newArr.push(e);
+  setKeyContactPerson(newArr);
+
 }
+
+const updateKeyPersonDataArr = (newData, index) => {
+  setKeyContactPerson((prevState) => {
+    const newState = prevState.map((obj, i) => {
+      if (i == index) {
+        return newData;
+      }
+
+      return obj;
+    });
+
+    return newState;
+  });
+};
+
+const deleteKeyPerson = (index) => {
+  setKeyContactPerson([...keyContactPerson.slice(0, index), ...keyContactPerson.slice(index + 1)]);
+};
 
 const handleSubmitKeyContactPersonDetails = (e) => {
   e.preventDefault()
@@ -133,13 +145,28 @@ const handleSubmitKeyContactPersonDetails = (e) => {
 }
 
 const handleAddressDetail = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-  setAddress({
-    ...address,
-    [name]:value
-  })
+  let newArr = [...address];
+  newArr.push(e);
+  setAddress(newArr);
 }
+
+const updateKeyAddDataArr = (newData, index) => {
+  setAddress((prevState) => {
+    const newState = prevState.map((obj, i) => {
+      if (i == index) {
+        return newData;
+      }
+
+      return obj;
+    });
+
+    return newState;
+  });
+};
+
+const deleteAddress = (index) => {
+  setAddress([...address.slice(0, index), ...address.slice(index + 1)]);
+};
 
 const handleSubmitAddress = (e) => {
   e.preventDefault()
@@ -148,23 +175,33 @@ const handleSubmitAddress = (e) => {
   // }
 }
 
-const handleBankDetail = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-    setBankDetails({
-      ...bankDetails,
-      [name]:value
-    })
+const handleBankDetail = (name, value) => {
+  let newInput = {...bankDetails}
+  newInput[name] = value
+  setBankDetails(newInput)
 }
 
-const handleApproval = (e) => {
-  e.preventDefault();
-  dispatch(CreateVendor({
+const handleApproval = () => {
+
+  let data = {
     vendorDetails:vendorDetail,
-    keyContactPerson:keyContactPersonInfo,
-    keyAddresses:addressInfo,
+    keyContactPerson:[...keyContactPerson],
+    keyAddresses:[...address],
     bankDetails: bankDetails
-  }))
+  }
+  let data2 = {
+    vendorDetails:vendorDetail,
+    keyContactPerson:[...keyContactPerson],
+    keyAddresses:[...address],
+    bankDetails: bankDetails,
+    vendorId: vendorResponseData._id
+  }
+  if(Id){
+    dispatch(UpdateVendor(data2))
+  }else{
+  
+  dispatch(CreateVendor(data))
+  }
 }
 
 const handleCanclePersonalDetail = () => {
@@ -202,7 +239,7 @@ const handleRemaks = (e) => {
       <Card className={`${styles.card}`}>
         <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/vendors')} style={{ cursor: 'pointer' }}>
+            <div onClick={() => {sessionStorage.getItem('vendorId') && sessionStorage.removeItem('vendorId'); Router.push('/vendors')}} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
@@ -242,6 +279,10 @@ const handleRemaks = (e) => {
           handleCancleAddressDetail={handleCancleAddressDetail}
           handleRemaks={handleRemaks}
           remarks={remarks}
+          deleteAddress={deleteAddress}
+          deleteKeyPerson={deleteKeyPerson}
+          updateKeyAddDataArr={updateKeyAddDataArr}
+          updateKeyPersonDataArr={updateKeyPersonDataArr}
         />
       </Card>
     </div>
