@@ -20,6 +20,7 @@ function Index(props) {
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
   const [removedOption, setRemovedOption] = useState(null);
+  const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -39,7 +40,7 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
+  const [options, setOptions] = useState([]);
   
   const [docList, setDocList] = useState([]);
  
@@ -90,6 +91,8 @@ function Index(props) {
   console.log(addressList,"addressList")
   useEffect(() => {
     if (window) {
+       setOptions(props?.vendor?.options|| [])
+
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
         let cma = {
@@ -275,10 +278,13 @@ function Index(props) {
     });
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    setRemovedOption(value.name);
+
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -303,16 +309,19 @@ function Index(props) {
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    props.vendor.signatory.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
   };
 
   const addDoc = (e, index) => {
@@ -609,7 +618,7 @@ const cancelEditAddress = () => {
            props.vendor.gstin
            )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,props.vendor.options?props.vendor.options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );

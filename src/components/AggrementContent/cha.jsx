@@ -19,6 +19,7 @@ function Index(props) {
   const [list, setList] = useState([]);
   const [removedOption, setRemovedOption] = useState(null);
   const [addressList, setAddressList] = useState([]);
+  const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -238,12 +239,15 @@ function Index(props) {
 
       return newState;
     });
-    let temp = [...options];
+     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    setRemovedOption(value.name);
+
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -268,16 +272,19 @@ function Index(props) {
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+     props.vendor.signatory.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
   };
  
   const handleInput = (name, value, key) => {
@@ -746,7 +753,7 @@ const cancelEditAddress = () => {
             </div>
           </div>
         )}
-       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );
