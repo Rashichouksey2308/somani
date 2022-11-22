@@ -44,13 +44,13 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
     
     dispatch(getDocuments());
   }, []);
-  // useEffect(() => {
-  //   const tempArray = documentsFetched?.documents?.filter((doc) => {
-  //     return doc.module == moduleSelected;
-  //   });
-  //   setFilteredDoc(tempArray);
-  //   dispatch(GetDocuments(`?order=${orderId}`));
-  // }, [dispatch, orderId, moduleSelected]);
+  useEffect(() => {
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      return doc.module == moduleSelected;
+    });
+    setFilteredDoc(tempArray);
+    dispatch(GetDocuments(`?order=${orderId}`));
+  }, [dispatch, orderId, moduleSelected]);
   useEffect(() => {
     const tempArray = documentsFetched?.documents
       ?.slice()
