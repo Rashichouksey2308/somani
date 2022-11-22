@@ -7,6 +7,7 @@ import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action
 import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
 import Image from 'next/image';
+import SaveBar from '../../src/components/SaveBar'
 
 function Index() {
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ function Index() {
                         type="text"
                         required
                         name="Port_Name"
-                        onChange={(e) => savePortData(e.target.name, e.target.value)}
+                        //onChange={(e) => savePortData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Currency <strong className="text-danger">*</strong>
@@ -103,7 +104,7 @@ function Index() {
                         type="text"
                         required
                         //name="Port_Name"
-                        onChange={(e) => savePortData(e.target.name, e.target.value)}
+                        //onChange={(e) => savePortData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Currency Name <strong className="text-danger">*</strong>
@@ -115,7 +116,7 @@ function Index() {
                         type="text"
                         required
                         //name="Port_Name"
-                        onChange={(e) => savePortData(e.target.name, e.target.value)}
+                       // onChange={(e) => savePortData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>Symbol</label>
                     </div>
@@ -138,7 +139,8 @@ function Index() {
             </div>
           </div>
         </div>
-      </Card>
+      </Card> 
+      <SaveBar rightBtn="Submit" />
     </div>
   );
 }

@@ -39,7 +39,7 @@ const index = ({
         col3: item.State,
         date: '11-11-2022',
         status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
-        id: item._id,
+        Id: item._id,
       };
     });
   } else if (tableName === 'Internal Companies') {
@@ -51,7 +51,7 @@ const index = ({
         col2: item.Short_Name,
         col3: item.Country,
         status: 'Approved',
-        id: item._id,
+        Id: item._id,
       };
     });
   }
@@ -62,15 +62,25 @@ const index = ({
         col1: item?.vendorDetails?.vendorType,
         col2: item?.vendorDetails?.vendor,
         col3: item?.vendorDetails?.Country,
-        col4:item?.vendorDetails?.activationDate,
+        date:item?.vendorDetails?.activationDate,
         status: 'Approved',
-        id: item._id,
+        Id: item._id,
       };
     });
 
   }
+  else if (tableName === 'Currency') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item.Currency,
+        col2: item.Currency_Name,
+        status: 'Approved',
+        id: item._id,
+      };
+    });
+  }
   
- 
   return (
     <>
       {/*UserTable*/}
@@ -195,7 +205,7 @@ const index = ({
                       <td className={styles.buyerName}>{supplier.col1}</td>
                       <td>{supplier.col2}</td>
                       <td>{supplier.col3}</td>
-                      <td>{supplier.col4}</td>
+                      {/* <td>{supplier.col4}</td> */}
                       {supplier?.date && <td>{supplier.date}</td>}
                       <td>
                         <ToggleSwitch />
@@ -206,7 +216,7 @@ const index = ({
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
                             onClick={() => {
-                              handleRoute(supplier.id);
+                              handleRoute(supplier.Id);
                             }}
                             height="40px"
                             width="40px"

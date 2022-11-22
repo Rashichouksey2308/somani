@@ -8,6 +8,7 @@ import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action
 import { portValidtion } from '../../src/utils/helpers/review';
 import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
+import SaveBar from '../../src/components/SaveBar'
 
 function Index() {
   const dispatch = useDispatch();
@@ -110,6 +111,7 @@ function Index() {
         </Card.Header>
         <Ports handleSubmit={handleSubmit} portData={portData} savePortData={savePortData} country={getCountriesMasterData} />
       </Card>
+      <SaveBar rightBtn="Submit" />
     </div>
   );
 }
