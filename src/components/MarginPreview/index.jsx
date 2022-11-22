@@ -18,6 +18,7 @@ function Index() {
   const toPrint = useRef();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [email,setEmail] = useState('')
  
   const { margin } = useSelector((state) => state.marginMoney);
 
@@ -42,7 +43,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
-
+const shareEmail = () => {}
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`} ref={toPrint}>
@@ -454,12 +455,14 @@ function Index() {
         </Card>
       </div>
 
-      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'} />
+      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'}  />
 
       {open ? <TermsheetPopUp
       close={() => setOpen(false)}
       open={open} 
       isMargin 
+      setEmail={setEmail}
+      shareEmail={shareEmail}
      /> : null} 
     </>
   );

@@ -552,7 +552,7 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             disabled
                             type="text"
-                            value={existingValue}
+                            value={fieldType == 'date' ? moment(existingValue).format('DD-MM-YYYY') : existingValue}
                           />
                         </form>
                         <label className={`${styles.label_heading} label_heading`}>Existing Value</label>

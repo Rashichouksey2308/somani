@@ -206,7 +206,7 @@ function Index(props) {
                 }
         setSeteveState(supplier);
       } else {
-        // console.log("sdasdasd")
+       
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
@@ -251,7 +251,7 @@ function Index(props) {
           setAddressList(props.data?.addresses)
         }
         setSeteveState(supplier);
-        let tempArr = props?.data?.authorisedSignatoryDetails;
+       
       
       }
     }

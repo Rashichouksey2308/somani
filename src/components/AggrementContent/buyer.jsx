@@ -53,6 +53,7 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
     state: '',
     city: '',
   });
+  const [gstArray,setgstArr]=useState([])
   const [options, setOptions] = useState([]);
   const [signatoryDetails,setSignatoryDetails] = useState([])
   const [addressType, setAddressType] = useState('Registered');
@@ -455,14 +456,20 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
       if(filter && filter.length > 0 ) {
         let tempOptions=[];
         let tempDetail=[]
+        let gst=[]
          setShotName(filter[0].Short_Name)
         filter.forEach((val,index)=>{
-          console.log(val,"val")
+          
           if(val.authorisedSignatoryDetails[0].name!==""){
           tempDetail.push(val.authorisedSignatoryDetails[0])  
           tempOptions.push(val.authorisedSignatoryDetails[0].name)
           }
+          if(val.keyAddresses[0].gstin!==""){
+          gst.push(val.keyAddresses[0].gstin)  
+          
+          }
         })
+        setgstArr([...gst])
         setOptions([...tempOptions])
         setSignatoryDetails([...tempDetail])
        }
@@ -481,14 +488,20 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
       if(filter && filter.length > 0 ) {
         let tempOptions=[];
         let tempDetail=[]
-        setShotName(filter[0].Short_Name)
+        let gst=[]
+         setShotName(filter[0].Short_Name)
         filter.forEach((val,index)=>{
-          console.log(val,"val")
+          
           if(val.authorisedSignatoryDetails[0].name!==""){
           tempDetail.push(val.authorisedSignatoryDetails[0])  
           tempOptions.push(val.authorisedSignatoryDetails[0].name)
           }
+          if(val.keyAddresses[0].gstin!==""){
+          gst.push(val.keyAddresses[0].gstin)  
+          
+          }
         })
+        setgstArr([...gst])
         setOptions([...tempOptions])
         setSignatoryDetails([...tempDetail])
        }
@@ -526,13 +539,20 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
         if(filter && filter.length > 0 ) {
         let tempOptions=[];
         let tempDetail=[]
+        let gst=[]
+         setShotName(filter[0].Short_Name)
         filter.forEach((val,index)=>{
-          console.log(val,"val")
+          
           if(val.authorisedSignatoryDetails[0].name!==""){
           tempDetail.push(val.authorisedSignatoryDetails[0])  
           tempOptions.push(val.authorisedSignatoryDetails[0].name)
           }
+          if(val.keyAddresses[0].gstin!==""){
+          gst.push(val.keyAddresses[0].gstin)  
+          
+          }
         })
+        setgstArr([...gst])
         setOptions([...tempOptions])
         setSignatoryDetails([...tempDetail])
        }
@@ -593,16 +613,23 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
           }
         });
         setShotName(filter[0].Short_Name);
-      if(filter.length > 0) {
-        let tempOptions=[];
+        if(filter.length > 0) {
+         let tempOptions=[];
         let tempDetail=[]
+        let gst=[]
+         setShotName(filter[0].Short_Name)
         filter.forEach((val,index)=>{
-          console.log(val,"val")
+          
           if(val.authorisedSignatoryDetails[0].name!==""){
           tempDetail.push(val.authorisedSignatoryDetails[0])  
           tempOptions.push(val.authorisedSignatoryDetails[0].name)
           }
+          if(val.keyAddresses[0].gstin!==""){
+          gst.push(val.keyAddresses[0].gstin)  
+          
+          }
         })
+        setgstArr([...gst])
         setOptions([...tempOptions])
         setSignatoryDetails([...tempDetail])
        }
@@ -795,11 +822,280 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
             toView,
             handleDataEdit,
             viewSet,
+            gstArray
            
           )}
         {isEdit == false && (
-         addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,"noBranch",viewSet)
+       
+          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+            <div className={`${styles.newAddressHead} border_color`}>
+              <span>Add a new address</span>
+            </div>
+            <div className="card-body p-0">
+              <div className={`${styles.newAddressContent} row`}>
+                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      name="addressType"
+                      value={addressType}
+                      onChange={(e) => {
+                        setAddressType(e.target.value);
+                        setAddress(e.target.name, e.target.value);
+                      }}
+                    >
+                      <option disabled>Select an option</option>
+                      <option value="Registered">Registered Office</option>
+                      <option value="Branch">Branch</option>
+                    </select>
+                    <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                      Address Type<strong className="text-danger">*</strong>
+                    </Form.Label>
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </Form.Group>
+                {addressType == 'Registered' || addressType == 'Supplier' ? (
+                  <>
+                    <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={newAddress.fullAddress}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        name="pinCode"
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        value={newAddress.pinCode}
+                        onChange={(e) => {
+                           props.gettingPins(e.target.value);
+                         viewSet();
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                         { toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('pinCode', results)}
+                              id={results._id}
+                              key={index}
+                              value={results.Pincode}
+                            >
+                              {results.Pincode}{' '}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        value={newAddress.country}
+                        name="country"
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                        onKeyDown={(evt) =>
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+                        }
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                    </Form.Group>
+                  </>
+                ) : (
+                  <>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="gstin"
+                          value={newAddress.gstin}
+                          onChange={(e) => {
+                            setAddress(e.target.name, e.target.value);
+                          }}
+                        >
+                          <option>Select an option</option>
+                            {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
+                            gstArray
+                              .filter((val) => {
+                                if (val !== undefined) {
+                                  return val;
+                                }
+                              })
+                              .map((val, index) => {
+                                return <option value={`${val}`}>{val}</option>;
+                              })
+                          ) : (
+                            <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          )}
+                        </select>
+                        <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                          GSTIN<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        name="pinCode"
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        value={newAddress.pinCode}
+                        onChange={(e) => {
+                          props.gettingPins(e.target.value);
+                          viewSet();
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                       { toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('pinCode', results)}
+                              id={results._id}
+                              key={index}
+                              value={results.Pincode}
+                            >
+                              {results.Pincode}{' '}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="country"
+                        value={newAddress.country}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                        onKeyDown={(evt) =>
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+                        }
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="state"
+                        value={newAddress.state}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        State<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="city"
+                        value={newAddress.city}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        City<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={newAddress.fullAddress}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                  </>
+                )}
+              </div>
+              <div className="d-flex">
+                <div
+                  className={`${styles.add} d-flex justify-content-center align-items-center`}
+                  onClick={() => {
+                    handleAddressInput();
+                  }}
+                >
+                  <span>Add</span>
+                </div>
+                <div
+                  className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                  onClick={() => {
+                    cancelAddress();
+                  }}
+                >
+                  <span>Cancel</span>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
+       
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -987,7 +1283,8 @@ const editData = (
   toShow,
   toView,
   handleDataEdit,
-  viewSet
+  viewSet,
+  gstArray
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -1008,7 +1305,7 @@ const editData = (
             >
               <option>Select an option</option>
               <option value="Registered">Registered</option>
-              <option value="Supplier">Supplier</option>
+              <option value="Branch">Branch</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -1104,7 +1401,19 @@ const editData = (
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                   {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
+                    gstArray
+                      .filter((val) => {
+                        if (val !== undefined) {
+                          return val;
+                        }
+                      })
+                      .map((val, index) => {
+                        return <option value={`${val}`}>{val}</option>;
+                      })
+                  ) : (
+                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  )}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
