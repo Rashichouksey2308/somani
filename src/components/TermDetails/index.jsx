@@ -19,7 +19,7 @@ const Index = ({
   country,
   currency,
 }) => {
-  console.log(currency,"currency")
+  console.log(termsheetDetails,"termsheetDetails")
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
   console.log(port,"port")
@@ -524,7 +524,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option selected>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   {port
                     .filter((val, index) => {
                       if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
@@ -533,7 +533,7 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                        <option key={index} value={`${val.Port_Name}`}>
                           {val.Port_Name}, {val.Country}
                         </option>
                       );
@@ -649,7 +649,7 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.storageOfGoods}
                   required
                 >
-                  <option disabled selected>
+                  <option disabled >
                     Select an option
                   </option>
                     {port
@@ -660,7 +660,7 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                        <option key={index} value={`${val.Port_Name}`}>
                          {val.Port_Name}, {val.Country}
                         </option>
                       );
