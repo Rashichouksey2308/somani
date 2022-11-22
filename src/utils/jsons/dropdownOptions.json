@@ -2,7 +2,7 @@
   "modulesDropDown": [
     {
       "name": "Lead Onboarding & Order Approval",
-      "value": "LeadOnboarding&OrderApproval"
+      "value": ["Leads","Margin Money"]
     },
     {
       "name": "Agreements, Insurance & LC Opening",
