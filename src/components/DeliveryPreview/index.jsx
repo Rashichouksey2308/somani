@@ -226,9 +226,6 @@ function Index() {
                     );
                   },
                 )}
-                {/* <span className={`${styles.bold} w-50`}>
-                  Mr. N.A. Khan / Mr. Nabin Chand Boyed.
-                </span> */}
               </p>
               <div className={`${styles.letter_content}`}>
                 <p>Dear Sir,</p>
@@ -495,10 +492,6 @@ function Index() {
                         </>
                       )
                     })}
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {

@@ -72,7 +72,6 @@
     border-bottom: 1px solid #000000;
     padding: 1.5rem;
     div {
-      // margin-top:1rem;
       margin-bottom: 1rem;
     }
     .width {
@@ -175,7 +174,6 @@
     padding: 0;
     .LC_draft_tabs {
       &.nav_tabs {
-        // margin-top: 51px;
         border: none;
         .nav_item {
           width: 50%;
@@ -321,12 +319,10 @@
           background: none;
           border-width: 1px;
           &:invalid + label {
-            // background: none;
             transform: translateY(0);
           }
           &:focus {
             & + label {
-              // background: #ffffff;
               transform: translateY(-30px);
               @include respond(lg-desktop) {
                 transform: translateY(-22px);
@@ -442,5 +438,4 @@
 }
 .customSelect {
   appearance: none;
-  // position: relative;
 }
