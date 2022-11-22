@@ -39,7 +39,7 @@ const index = ({
         col3: item.State,
         date: '11-11-2022',
         status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
-        id: item._id,
+        Id: item._id,
       };
     });
   } else if (tableName === 'Internal Companies') {
@@ -51,7 +51,7 @@ const index = ({
         col2: item.Short_Name,
         col3: item.Country,
         status: 'Approved',
-        id: item._id,
+        Id: item._id,
       };
     });
   }
@@ -64,7 +64,7 @@ const index = ({
         col3: item?.vendorDetails?.Country,
         date:item?.vendorDetails?.activationDate,
         status: 'Approved',
-        id: item._id,
+        Id: item._id,
       };
     });
 
@@ -216,7 +216,7 @@ const index = ({
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
                             onClick={() => {
-                              handleRoute(supplier.id);
+                              handleRoute(supplier.Id);
                             }}
                             height="40px"
                             width="40px"

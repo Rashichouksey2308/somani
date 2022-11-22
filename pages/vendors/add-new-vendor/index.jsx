@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddVendor from '../../../src/components/AddVendor';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetVendor } from '../../../src/redux/vendor/action';
+import { CreateVendor, GetVendor, UpdateVendor } from '../../../src/redux/vendor/action';
 import _get from 'lodash/get';
 
 function Index() {
@@ -35,14 +35,7 @@ function Index() {
     remarks: ""    
   });
 
-const [keyContactPerson, setKeyContactPerson] = useState([{
-    name:'',
-    department:'',
-    designation:'',
-    phoneNumber:'',
-    emailId:'',
-    authorizedSignatory:'',
-}])
+const [keyContactPerson, setKeyContactPerson] = useState([])
 
 const [address, setAddress] = useState([])
 
@@ -54,9 +47,10 @@ const [bankDetails, setBankDetails] = useState({
   gstin: '',
   Swift_Code: '',
   AD_Code: '',
-  Correspondent_BankNmae:''
+  Correspondent_BankName:''
 })
 
+  let Id = sessionStorage.getItem('vendorId');
  
   useEffect(() =>{
     let Id = sessionStorage.getItem('vendorId');
@@ -64,17 +58,17 @@ const [bankDetails, setBankDetails] = useState({
     if(Id) {
       dispatch(GetVendor(`?vendorId=${Id}`))
       setVendorDetail({
-        vendor: vendorResponseData?.vendor,
-        vendorType:vendorResponseData?.vendorType,
-        pan_taxId: vendorResponseData?.pan_taxId,
-        companyName: vendorResponseData?.companyName,
-        activationDate: vendorDetail?.activationDate,
-        DeactivationDate: vendorResponseData?.DeactivationDate,
-        blackListedDate: vendorResponseData?.blackListedDate,
-        emailId: vendorResponseData?.emailId,
-        phoneNumber:vendorResponseData?.phoneNumber,
-        website: vendorResponseData?.website,
-        remarks: vendorResponseData?.remarks
+        vendor: vendorResponseData?.vendorDetails?.vendor,
+        vendorType:vendorResponseData?.vendorDetails?.vendorType,
+        pan_taxId: vendorResponseData?.vendorDetails?.pan_taxId,
+        companyName: vendorResponseData?.vendorDetails?.companyName,
+        activationDate: vendorResponseData?.vendorDetails?.activationDate,
+        DeactivationDate: vendorResponseData?.vendorDetails?.DeactivationDate,
+        blackListedDate: vendorResponseData?.vendorDetails?.blackListedDate,
+        emailId: vendorResponseData?.vendorDetails?.emailId,
+        phoneNumber:vendorResponseData?.vendorDetails?.phoneNumber,
+        website: vendorResponseData?.vendorDetails?.website,
+        remarks: vendorResponseData?.vendorDetails?.remarks
       });
 
       // getting key address
@@ -83,7 +77,7 @@ const [bankDetails, setBankDetails] = useState({
       vendorResponseData?.keyAddresses?.forEach((element) => {
         addressArr.push(element);
       });
-      setKeyAddData(addressArr);
+      setAddress(addressArr);
 
       // getting keyContact person
 
@@ -92,6 +86,13 @@ const [bankDetails, setBankDetails] = useState({
         authorisedArr.push(element);
       });
       setKeyContactPerson(authorisedArr);
+
+      // gettin bank detail
+      // let bankArr = [];
+      // vendorResponseData?.bankDetails?.forEach((element) => {
+      //   bankArr.push(element);
+      // });
+      // setBankDetails(bankArr);
     }
   },[dispatch]);
   
@@ -180,14 +181,27 @@ const handleBankDetail = (name, value) => {
   setBankDetails(newInput)
 }
 
-const handleApproval = (e) => {
-  e.preventDefault();
-  dispatch(CreateVendor({
+const handleApproval = () => {
+
+  let data = {
     vendorDetails:vendorDetail,
-    keyContactPerson:keyContactPersonInfo,
-    keyAddresses:addressInfo,
+    keyContactPerson:[...keyContactPerson],
+    keyAddresses:[...address],
     bankDetails: bankDetails
-  }))
+  }
+  let data2 = {
+    vendorDetails:vendorDetail,
+    keyContactPerson:[...keyContactPerson],
+    keyAddresses:[...address],
+    bankDetails: bankDetails,
+    vendorId: vendorResponseData._id
+  }
+  if(Id){
+    dispatch(UpdateVendor(data2))
+  }else{
+  
+  dispatch(CreateVendor(data))
+  }
 }
 
 const handleCanclePersonalDetail = () => {
@@ -225,7 +239,7 @@ const handleRemaks = (e) => {
       <Card className={`${styles.card}`}>
         <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/vendors')} style={{ cursor: 'pointer' }}>
+            <div onClick={() => {sessionStorage.getItem('vendorId') && sessionStorage.removeItem('vendorId'); Router.push('/vendors')}} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
