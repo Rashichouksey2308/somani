@@ -41,7 +41,7 @@ export default function TPAIGITemp(data) {
         </p>
         <p className="text-center text_sales">And</p>
         <p className="text_sales">
-          <u>{data.seller}</u>(hereinafter referred as the <strong>“IIAG”</strong>, which expression shall, unless
+          <u>{data.seller}</u> (hereinafter referred as the <strong>“IIAG”</strong>, which expression shall, unless
           excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns)
           of the Third Part.
         </p>
@@ -305,13 +305,13 @@ export default function TPAIGITemp(data) {
             <p className=" text_sales">
               <u>{data.buyerseller}</u> shall take the delivery of the Goods from Collateral Manager only upon receipt [by
               Collateral Manager] of the Release Orders from the Financing Bank and then released by Collateral Manager on
-              instructions of <u>{data?.shortseller}</u>
+              instructions of <u>{data?.shortseller}.</u>
             </p>
           </li>
           <li>
             <p className=" text_sales">
               <u>{data.buyerseller}</u> warrants that Collateral Manager shall enjoy complete and uninterrupted custody of
-              the Goods in the Designated Storage Area
+              the Goods in the Designated Storage Area.
             </p>
           </li>
         </ul>
@@ -330,7 +330,7 @@ export default function TPAIGITemp(data) {
               Agreement.
             </p>
           </li>
-          <li>
+          {/* <li>
             <p className=" text_sales">
               <u>{data.buyerseller}</u>shall furnish written confirmation to Collateral Manager that there are no
               circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage
@@ -343,7 +343,7 @@ export default function TPAIGITemp(data) {
               Manager to have the custody, control and supervision of the Goods stored at the Designated Storage Area
               without any interruption and obstruction.
             </p>
-          </li>
+          </li> */}
           <li>
             <p className=" text_sales">
               Collateral Manager shall peacefully hold and enjoy unrestricted access of the Designated Storage Area during

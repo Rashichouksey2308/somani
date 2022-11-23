@@ -263,7 +263,7 @@ export const undertaking1Pdf = (data) => {
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0', textTransform:'capitalize'}}>
                           <u>{data.buyer}</u>,<br/>
                           <u>{data.buyerAddress?.fullAddress}</u>,
-                          <u>{data.buyerAddress?.city}</u>{" "}
+                          <u>{data.buyerAddress?.city}</u>{" "}<br/>
                           <u>{data.buyerAddress?.country}</u>,{" "}
                           <u>{data.buyerAddress?.pinCode}</u></p>
                       </td>
@@ -501,7 +501,7 @@ export const undertaking2Pdf = (data) => {
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>
                           <u>{data.buyer}</u>,<br/>
                           <u>{data.buyerAddress?.fullAddress}</u>,
-                          <u>{data.buyerAddress?.city}</u>{" "}
+                          <u>{data.buyerAddress?.city}</u>{" "}<br/>
                           <u>{data.buyerAddress?.country}</u>,{" "}
                           <u>{data.buyerAddress?.pinCode}</u></p>
                       </td>
