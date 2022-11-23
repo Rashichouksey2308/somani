@@ -7,6 +7,7 @@ import {editData} from './editContainer'
 import {addressLists} from './addressList'
 import {signatoryList} from './signatoryList'
 import {addNewAddress} from './addNewAddress'
+import { number } from 'prop-types';
 let cma = {
   name: 'Dr. Amin Controllers Private Limited',
   shortName: '',
@@ -390,11 +391,11 @@ function Index(props) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation||val.designation;
           arrayToSave.email = val.email ||val.emailId;
-          arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
+          arrayToSave.phoneNo = val.phoneNo ||isNaN(val.phoneNumber)==true ? Number(val.phoneNumber.replace(/\s/g, "")):val.phoneNumber?.trim();
         }
       });
     }
-
+  
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -407,6 +408,7 @@ function Index(props) {
       return newState;
     });
   };
+  console.log(list,"list")
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {

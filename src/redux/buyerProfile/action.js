@@ -462,7 +462,7 @@ export const sharingTermsheetEmail = (payload) => async (dispatch, getState, api
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    const response = await Axios.put(`${API.corebaseUrl}${API.termsheetshareemial}`, payload, {
+    const response = await Axios.post(`${API.corebaseUrl}${API.termsheetshareemial}`, payload, {
       headers: headers
     })
     if (response.data.code === 200) {
