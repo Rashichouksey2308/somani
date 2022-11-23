@@ -103,37 +103,44 @@ export const editData = (
           </>
         ) : (
           <>
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex align-items-center">
-                <select
-                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="gstin"
-                  value={EditAddress.gstin}
-                  onChange={(e) => {
-                    editNewAddress(e.target.name, e.target.value);
-                  }}
-                >
-                  <option>Select an option</option>
-                  {gstArr?.length > 0 && gstArr !== undefined > 0 ? (
-                    gstArr
-                      .filter((val) => {
-                        if (val !== undefined) {
-                          return val;
-                        }
-                      })
-                      .map((val, index) => {
-                        return <option value={`${val}`}>{val}</option>;
-                      })
-                  ) : (
-                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                  )}
-                </select>
-                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
-                  GSTIN<strong className="text-danger">*</strong>
-                </Form.Label>
-                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
-              </div>
-            </Form.Group>
+            {gstArr !== undefined ? (
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex align-items-center">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="gstin"
+                    value={EditAddress.gstin}
+                    onChange={(e) => {
+                      editNewAddress(e.target.name, e.target.value);
+                    }}
+                  >
+                    <option>Select an option</option>
+                    {gstArr?.length > 0 && gstArr !== undefined > 0 ? (
+                      gstArr
+                        .filter((val) => {
+                          if (val !== undefined) {
+                            return val;
+                          }
+                        })
+                        .map((val, index) => {
+                          return <option value={`${val}`}>{val}</option>;
+                        })
+                    ) : (
+                      <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                    )}
+                  </select>
+                  <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                    GSTIN<strong className="text-danger">*</strong>
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </Form.Group>
+            ) : null}
+
             <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}

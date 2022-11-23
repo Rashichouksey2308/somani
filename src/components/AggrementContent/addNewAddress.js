@@ -16,6 +16,7 @@ export const addNewAddress = (
   viewSet,
   isgst,
   gstArr,
+  showGst = true,
 ) => {
   console.log(gstArr, 'toView');
   let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
@@ -132,42 +133,45 @@ export const addNewAddress = (
             </>
           ) : (
             <>
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    name="gstin"
-                    value={newAddress.gstin}
-                    onChange={(e) => {
-                      setAddress(e.target.name, e.target.value);
-                    }}
-                  >
-                    <option value="">Select an option</option>
+              {showGst ? (
+                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      name="gstin"
+                      value={newAddress.gstin}
+                      onChange={(e) => {
+                        setAddress(e.target.name, e.target.value);
+                      }}
+                    >
+                      <option value="">Select an option</option>
 
-                    {gstArr?.length > 0 && gstArr !== undefined > 0 ? (
-                      gstArr
-                        .filter((val) => {
-                          if (val !== undefined) {
-                            return val;
-                          }
-                        })
-                        .map((val, index) => {
-                          return <option value={`${val}`}>{val}</option>;
-                        })
-                    ) : (
-                      <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                    )}
-                  </select>
-                  <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
-                    GSTIN {isgst ? <strong className="text-danger">*</strong> : null}
-                  </Form.Label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
-                </div>
-              </Form.Group>
+                      {gstArr?.length > 0 && gstArr !== undefined > 0 ? (
+                        gstArr
+                          .filter((val) => {
+                            if (val !== undefined) {
+                              return val;
+                            }
+                          })
+                          .map((val, index) => {
+                            return <option value={`${val}`}>{val}</option>;
+                          })
+                      ) : (
+                        <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                      )}
+                    </select>
+                    <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                      GSTIN {isgst ? <strong className="text-danger">*</strong> : null}
+                    </Form.Label>
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </Form.Group>
+              ) : null}
+
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                 <Form.Control
                   className={`${styles.input_field} input form-control`}

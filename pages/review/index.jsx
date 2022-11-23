@@ -1007,8 +1007,15 @@ function Index() {
       }
       return false;
     }
-    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined) {
+    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined || !supplierCred.latestShipmentDate || supplierCred.latestShipmentDate == 0) {
       let toastMessage = 'Please add latest Shipment Date ';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (supplierCred.commodityOfTotalTrade == '' || supplierCred.commodityOfTotalTrade == undefined) {
+      let toastMessage = 'please add commodity Of Total Trade';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -2276,7 +2283,17 @@ function Index() {
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
-                              background: '#CFF2D5',
+                              background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
                               // background: `${
                               //   filteredCreditRating?.length > 0
                               //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
