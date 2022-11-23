@@ -140,43 +140,47 @@ const index = () => {
                     <tr>
                       <th className={`${styles.table_heading} table_heading`}>
                         SUPPLIER NAME{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
+                        <div className={`${styles.sort_img}`}>
+                          <Image
+                            width="9px"
+                            height="14px"
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </div>
                       </th>
 
                       <th className={`${styles.table_heading} table_heading`}>
                         ONBOARDING DATE{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
+                        <div className={`${styles.sort_img}`}>
+                          <Image
+                            width="9px"
+                            height="14px"
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </div>
                       </th>
                       <th className={`${styles.table_heading} table_heading`}>COUNTRY{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
+                        <div className={`${styles.sort_img}`}>
+                          <Image
+                            width="9px"
+                            height="14px"
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </div>
                       </th>
                       <th className={`${styles.table_heading} table_heading`}>
                         STATUS{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
+                        <div className={`${styles.sort_img}`}>
+                          <Image
+                            width="9px"
+                            height="14px"
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </div>
                       </th>
                       <th className={`${styles.table_heading} table_heading`}>ACTION</th>
                     </tr>

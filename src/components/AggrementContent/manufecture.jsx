@@ -772,10 +772,10 @@ console.log(addressList,"aasdads")
             handleDataEdit,
             
            
-            []
+           
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet,[])
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet,false,[],false)
         )}
 
         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,"input")}
@@ -826,12 +826,12 @@ console.log(addressList,"aasdads")
                   props.gettingPins,
                   handleDataEditMines,
                  
-                  []
+                 
                 )}
               <div className={`${styles.multi_address}`}>
                 {isEditMulti == false && (
                 
-                  addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2,[])
+                  addNewAddress(setMultiAddressType,setMultiAddress,addressMutliType,handleAddressMultiInput,cancelAddress,newMultiAddress,props.gettingPins,handleData2,toShow,toView2,true,undefined,viewSet2,false,[],false)
                   
                 )}
               </div>

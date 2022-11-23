@@ -2082,6 +2082,24 @@ let masterList = [
               
               }
           }
+           if(data.list[i].place=="" || data.list[i].place==undefined){
+            toastMessage = `Place of execution  cannot be empty`;
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                isOK=false
+                
+              
+              }
+          }
+              if(data.list[i].dateOfExecution=="" || data.list[i].dateOfExecution==undefined){
+            toastMessage = `date of execution  cannot be empty`;
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                isOK=false
+                
+              
+              }
+          }
          
        }
        if(isOK==false){
