@@ -893,7 +893,7 @@ const cancelEditAddress = () => {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
-                                  {console.log(val.addnew,"val.addnew ")}
+                               
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
@@ -954,6 +954,7 @@ const cancelEditAddress = () => {
                                     }}
                                   />
                                 </td>
+                                {console.log(val.phoneNo,"val.phoneNo")}
                                 <td>
                                   <input
                                     value={val.phoneNo}

@@ -163,6 +163,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         'shippingInformation.numberOfContainers',
         '',
       );
+      newArray[index].containerDetails.freeDetentionPeriod =  _get(
+        filteredVessel,
+        'shippingInformation.freeDetentionPeriod',
+        '',
+      );
     }
 
     setBolList(newArray);

@@ -88,7 +88,7 @@ export const signatoryList = (
                                         value={val.name}
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
-                                          setRemovedOption(e.target.value);
+                                          // setRemovedOption(e.target.value);
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
@@ -106,52 +106,7 @@ export const signatoryList = (
                                         alt="Search"
                                       />
                                     </>
-                                  ) : (
-                                    <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
-                                        <>
-                                          <select
-                                            value={val.name}
-                                            className={`${styles.customSelect} input`}
-                                            onChange={(e) => {
-                                              handleChangeInput(e.target.name, e.target.value, index);
-                                            }}
-                                          >
-                                            <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
-                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
-                                            <option value={'Devesh Jain'}>Devesh Jain</option>
-                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
-
-                                            {/* {options.map((val,i)=>{
-                                return(<option value={val}>{val}</option>)
-                              })} */}
-                                          </select>
-                                          <img
-                                            className={`${styles.arrow2} image_arrow img-fluid`}
-                                            src="/static/inputDropDown.svg"
-                                            alt="Search"
-                                          />
-                                        </>
-                                      ) : (
-                                        <>
-                                          <input
-                                            type="text"
-                                            className="input"
-                                            placeholder={'Add new'}
-                                            name="name"
-                                            value={val.name}
-                                            onChange={(e) => {
-                                              handleChangeInput2(e.target.name, e.target.value, index);
-                                            }}
-                                          />
-                                        </>
-                                      )}
-                                    </>
-                                  )}
+                                  ) : null}
                                 </>
                               )}
                             </td>
@@ -178,6 +133,7 @@ export const signatoryList = (
                                 }}
                               />
                             </td>
+
                             <td>
                               <input
                                 value={val.phoneNo}

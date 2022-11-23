@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { ChangeCurrency } from '../../redux/userData/action';
 import { GetPanGst } from 'redux/GetPanGst/action';
 import { GetGst } from 'redux/registerBuyer/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 const Index = ({
   saveCompanyData,
   saveOrderData,
@@ -136,22 +137,26 @@ const Index = ({
             <div className="mr-n5 d-flex">
               <div className={`${styles.unit_container} d-flex align-items-center`}>
                 <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
+                <div className='d-flex align-items-center position-relative'>
                 <select
-                  className={`${styles.options} card_main accordion_DropDown input`}
+                  className={`${styles.options} ${styles.customSelect} card_main accordion_DropDown input`}
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
                   <option>Select an option</option>
-                  <option value="MT" selected>
+                  <option value="MT" selected> 
                     MT
                   </option>
                   <option value="KG">KG</option>
                 </select>
+                <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+             </div>
               </div>
               <div className={`${styles.unit_container} d-flex align-items-center`}>
                 <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
+                <div className='d-flex align-items-center position-relative'>
                 <select
-                  className={`${styles.options} card_main accordion_DropDown input`}
+                  className={`${styles.options} ${styles.customSelect} card_main accordion_DropDown input`}
                   name="unitOfValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -165,6 +170,8 @@ const Index = ({
                   {/* <option value="Million">Million</option> */}
                   <option value="Lakh">Lakh</option>
                 </select>
+                <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+             </div>
               </div>
             </div>
           </div>
@@ -476,6 +483,9 @@ const Index = ({
                       // saveCompanyData(e.target.name, e.target.value)
                       whatsappFunction(e);
                       //green tick
+                    }
+                    else{
+                      handleErrorToast('Invalid Number')
                     }
                   }}
                   id="textNumber"

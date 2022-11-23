@@ -88,12 +88,12 @@ const Index = () => {
         ? getDifferenceInDaysMarine()
         : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee:
+      lossPayee:insuranceData?.marineInsurance?.lossPayee ||
         _get(
           insuranceData,
-          'order.termsheet.transactionDetails.lcOpeningBank',
-          insuranceData?.quotationRequest?.lossPayee,
-        ) || '',
+          'order.lc.lcApplication.lcIssuingBank',
+           "",
+        ) ,
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     });
     setStorageData({
@@ -112,7 +112,12 @@ const Index = () => {
         ? getDifferenceInDaysStorage()
         : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
+    lossPayee:insuranceData?.storageInsurance?.lossPayee ||
+        _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+           "",
+        ) ,
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     });
     setInsuranceDocument({
@@ -589,6 +594,7 @@ const Index = () => {
     fd.append('marineInsurance', JSON.stringify(marineObj));
     fd.append('storageInsurance', JSON.stringify(storageObj));
     fd.append('insuranceId', insuranceData?._id);
+    fd.append('isInsurerSame', JSON.stringify(isInsurerSameData));
     fd.append('insuranceType', JSON.stringify(insuranceData?.quotationRequest?.insuranceType));
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
@@ -854,7 +860,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                  <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1264,7 +1270,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                   <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1335,11 +1341,9 @@ const Index = () => {
                             <div className="d-flex">
                               <input
                                 name="lossPayee"
-                                value={_get(
-                                  insuranceData,
-                                  'order.termsheet.transactionDetails.lcOpeningBank',
-                                  insuranceData?.quotationRequest?.lossPayee,
-                                )}
+                                value={
+                                   storageData?.lossPayee
+                                  }
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
@@ -1657,7 +1661,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1926,7 +1930,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                  <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))].filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }

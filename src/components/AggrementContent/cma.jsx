@@ -7,6 +7,7 @@ import {editData} from './editContainer'
 import {addressLists} from './addressList'
 import {signatoryList} from './signatoryList'
 import {addNewAddress} from './addNewAddress'
+import { number } from 'prop-types';
 let cma = {
   name: 'Dr. Amin Controllers Private Limited',
   shortName: '',
@@ -91,7 +92,7 @@ function Index(props) {
   console.log(addressList,"addressList")
   useEffect(() => {
     if (window) {
-       setOptions(props?.vendor?.options)
+     
 
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
@@ -141,17 +142,20 @@ function Index(props) {
         }
         setCmaState(cma);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        // let optionArray = [...options];
-        // tempArr.forEach((val, index) => {
-        //   val.actions = 'true';
-        //   if (tempArr?.length > 0) {
-        //     let index = optionArray.indexOf(val.name);
-        //     if (index > -1) {
-        //       optionArray.splice(index, 1);
-        //     }
-        //   }
-        // });
-        // setOptions([...optionArray]);
+          if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
+       
       } else {
         let cma = {
           name: props.data?.name || props?.vendor?.name,
@@ -202,18 +206,20 @@ function Index(props) {
       
         
         setCmaState(cma);
-        // let tempArr = props.data?.authorisedSignatoryDetails;
-        // let optionArray = [...options];
-        // tempArr.forEach((val, index) => {
-        //   val.actions = 'true';
-        //   if (tempArr?.length > 0) {
-        //     let index = optionArray.indexOf(val.name);
-        //     if (index > -1) {
-        //       optionArray.splice(index, 1);
-        //     }
-        //   }
-        // });
-        // setOptions([...optionArray]);
+     let tempArr = props.data?.authorisedSignatoryDetails;
+        if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
       }
     }
   }, [props]);
@@ -265,7 +271,7 @@ function Index(props) {
 
       return newState;
     });
-    let temp = [...options];
+      let temp = [...options];
     var indexOption = temp.indexOf(value.name);
 
     if (indexOption !== -1) {
@@ -288,27 +294,32 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-   
+    setRemovedOption(null);
+ 
   };
   const handleRemove = (index, val) => {
-    docList.forEach((val, i) => {
-      if (index == val.index) {
-        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)]);
-      }
-    });
-    setList([...list.slice(0, index), ...list.slice(index + 1)]);
-   if(options.length==1){
+   
+  setList([...list.slice(0, index), ...list.slice(index + 1)]);
+   if(options.length==0){
     let temp=[]
     props.vendor.signatory.forEach((master,index)=>{
-      if(val.name== master.name){
+
        
         temp.push(master.name);
        
-      }
+     
      })
      setOptions([...temp]);
      setRemovedArr([])
+   }else{
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
    }
+
     // props.vendor.signatory.forEach((master,index)=>{
     //   if(val.name== master.name){
     //     let temp = [...options];
@@ -316,12 +327,7 @@ function Index(props) {
     //     setOptions([...temp]);
     //   }
     //  })
-     let temp = [...removedArr];
-      var indexOption = temp.indexOf(val.name);
-      if (indexOption !== -1) {
-        temp.splice(indexOption, 1);
-      }
-        setRemovedArr([...temp])
+  
   };
  console.log(options,"pppppp")
   const addDoc = (e, index) => {
@@ -350,6 +356,8 @@ function Index(props) {
       return newState;
     });
   };
+ 
+
   const handleInput = (name, value, key) => {
     const newInput = { ...cmaState };
 
@@ -383,11 +391,11 @@ function Index(props) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation||val.designation;
           arrayToSave.email = val.email ||val.emailId;
-          arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
+          arrayToSave.phoneNo = val.phoneNo ||isNaN(val.phoneNumber)==true ? Number(val.phoneNumber.replace(/\s/g, "")):val.phoneNumber?.trim();
         }
       });
     }
-
+  
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -400,6 +408,7 @@ function Index(props) {
       return newState;
     });
   };
+  console.log(list,"list")
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -506,6 +515,8 @@ const cancelEditAddress = () => {
       });
     }
   };
+
+  console.log(options.length,"sdasdasdasd",list.length)
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -618,7 +629,7 @@ const cancelEditAddress = () => {
            props.vendor.gstin
            )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,'')}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );
