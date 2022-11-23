@@ -214,12 +214,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
           return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
         });
+        console.log(filterData,"filterData")
         let tempArray = { ...igmList };
         tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
         tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
         tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
         tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
-        tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0].containerDetails?.blDoc;
+        tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0]?.blDoc;
         setIgmList({ ...tempArray });
       }
     }
