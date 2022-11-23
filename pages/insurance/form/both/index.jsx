@@ -589,6 +589,7 @@ const Index = () => {
     fd.append('marineInsurance', JSON.stringify(marineObj));
     fd.append('storageInsurance', JSON.stringify(storageObj));
     fd.append('insuranceId', insuranceData?._id);
+    fd.append('isInsurerSame', JSON.stringify(isInsurerSameData));
     fd.append('insuranceType', JSON.stringify(insuranceData?.quotationRequest?.insuranceType));
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
