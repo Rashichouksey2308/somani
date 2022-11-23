@@ -104,7 +104,7 @@ function Index () {
         </Card.Header>
         <DocumentMaster documentField={documentField} saveDocumentData={saveDocumentData} handleSubmit={handleSubmit} />
       </Card>
-      <SaveBar rightBtn="Submit" />
+      {/* <SaveBar rightBtn="Submit" /> */}
     </div>
   )
 }

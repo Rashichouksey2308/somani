@@ -6,39 +6,75 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action';
 import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
+import { currencyValidation } from '../../src/utils/helpers/review';
 import Image from 'next/image';
-import SaveBar from '../../src/components/SaveBar'
+import SaveBar from '../../src/components/SaveBar';
+import { CreateCurrency, UpdateCurrency } from '../../src/redux/currency/action';
 
 function Index() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCountries());
-    dispatch(getState());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCountries());
+  //   dispatch(getState());
+  // }, [dispatch]);
 
-  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  const { getStateMasterData } = useSelector((state) => state.MastersData);
+  // const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  // const { getStateMasterData } = useSelector((state) => state.MastersData);
 
-  const { portsResponse } = useSelector((state) => state.ports);
-  const portResponseData = _get(portsResponse, 'data[0]', {});
+  const { currencyResponse } = useSelector((state) => state.Currency);
+  const currencyResponseData = _get(currencyResponse, 'data[0]', {});
 
-  let id = sessionStorage.getItem('portId');
+  let id = sessionStorage.getItem('currencyId');
 
   useEffect(() => {
     if (!id) return;
-    dispatch(GetPorts(`?portId=${id}`));
+    dispatch(GetCurrency(`?currencyId=${id}`));
+    setCurrencyData({
+      Currency: currencyResponseData?.Currency,
+      Currency_Name: currencyResponseData?.Currency_Name,
+      Symbol: currencyResponseData?.Symbol,
+      Status: currencyResponseData?.Status,
+      Inactive_Date: currencyResponseData?.Inactive_Date
+    })
   }, [dispatch]);
 
-  const [portData, setPortData] = useState({
-    Country: 'India',
-    Port_Name: '',
-    State: '',
-    Container_Handling: '',
-    Approved: '',
+  const [currencyData, setCurrencyData] = useState({
+    Currency: '',
+    Currency_Name: '',
+    Symbol: '',
+    Status: 'Active',
+    Inactive_Date: '',
   });
 
-  console.log(portData, 'PORT DATA', portResponseData, 'id', id);
+  const saveCurrencyData = (name, value) => {
+    let newInput = { ...currencyData };
+    newInput[name] = value;
+    setCurrencyData(newInput);
+  };
+
+  const handleSubmit = () => {
+    if (!currencyValidation(currencyData)) return;
+    let data = {
+      Currency: currencyData.Currency,
+      Currency_Name: currencyData.Currency_Name,
+      Symbol: currencyData.Symbol,
+      Status: currencyData.Status,
+    };
+    let data2 = {
+      Currency: currencyData.Currency,
+      Currency_Name: currencyData.Currency_Name,
+      Symbol: currencyData.Symbol,
+      Status: currencyData.Status,
+      currencyId: currencyResponseData._id
+    }
+    if(id){
+      dispatch(UpdateCurrency(data2))
+    } 
+    else {
+    dispatch(CreateCurrency(data))
+    }
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -51,7 +87,6 @@ function Index() {
               onClick={() => {
                 Router.push('/currency-master');
               }}
-              style={{ cursor: 'pointer' }}
             >
               <img
                 className={`${styles.back_arrow} img-fluid image_arrow`}
@@ -91,8 +126,9 @@ function Index() {
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         required
-                        name="Port_Name"
-                        //onChange={(e) => savePortData(e.target.name, e.target.value)}
+                        name="Currency"
+                        value={currencyData?.Currency}
+                        onChange={(e) => saveCurrencyData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Currency <strong className="text-danger">*</strong>
@@ -103,8 +139,9 @@ function Index() {
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         required
-                        //name="Port_Name"
-                        //onChange={(e) => savePortData(e.target.name, e.target.value)}
+                        name="Currency_Name"
+                        value={currencyData?.Currency_Name}
+                        onChange={(e) => saveCurrencyData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Currency Name <strong className="text-danger">*</strong>
@@ -115,8 +152,9 @@ function Index() {
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         required
-                        //name="Port_Name"
-                       // onChange={(e) => savePortData(e.target.name, e.target.value)}
+                        name="Symbol"
+                        value={currencyData?.Symbol}
+                        onChange={(e) => saveCurrencyData(e.target.name, e.target.value)}
                       />
                       <label className={`${styles.label_heading} label_heading`}>Symbol</label>
                     </div>
@@ -124,7 +162,13 @@ function Index() {
                       <div className={`${styles.theme} d-flex align-items-center`}>
                         <div className={`${styles.toggle_label} form-check-label mr-3`}>Active</div>
                         <label className={styles.switch}>
-                          <input type="checkbox" />
+                          <input
+                          
+                            type="checkbox"
+                            checked={currencyData?.Status == "Active" ? true : false}
+                            name="Status"
+                            onChange={(e) => saveCurrencyData(e.target.name, e.target.value)}
+                          />
                           <span className={`${styles.slider} ${styles.round}`}></span>
                         </label>
                         <div className={`${styles.toggle_label} form-check-label ml-3 mr-3`}>Inactive</div>
@@ -139,8 +183,8 @@ function Index() {
             </div>
           </div>
         </div>
-      </Card> 
-      <SaveBar rightBtn="Submit" />
+      </Card>
+      <SaveBar handleSave={saveCurrencyData} rightBtnClick={handleSubmit} rightBtn="Submit" />
     </div>
   );
 }

@@ -262,3 +262,25 @@ export const portValidtion = (data) => {
   return true;
 
 };
+
+export const currencyValidation = (data) => {
+  if (data.Currency === null || data.Currency === '' || data.Currency === undefined) {
+    handleErrorToast('Please select currency');
+    return false;
+  }
+  if (data.Currency_Name === null || data.Currency_Name === '' || data.Currency_Name === undefined) {
+    handleErrorToast('Please add Currency Name');
+    return false;
+  }
+  if (data.Symbol === null || data.Symbol === '' || data.Symbol === undefined) {
+    handleErrorToast('Please add symbol');
+    return false;
+  }
+  if (data.Status === null || data.Status === '' || data.Status === undefined) {
+    handleErrorToast('Please select Status');
+    return false;
+  }
+ 
+  return true;
+
+};

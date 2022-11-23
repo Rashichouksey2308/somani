@@ -91,6 +91,7 @@ const index = () => {
             header3="COUNTRY"
             header="ACTIVATION DATE"
             header4="STATUS"
+            isCurrency={false}
             isDate={true}
             isHeader={true}
             handleRoute={handleRoute}
