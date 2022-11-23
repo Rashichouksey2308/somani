@@ -23,7 +23,7 @@ const [agreementDoc, setagreementDoc] = useState({
   const [name, setName] = useState('');
    const [orderId, setOrderID] = useState('');
   const data = JSON.parse(sessionStorage.getItem('genericSelected'))
-  console.log(data,'agreement')
+
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -31,7 +31,7 @@ const [agreementDoc, setagreementDoc] = useState({
       setName(data.company.companyName);
     }
   });
-  console.log(orderId,"orderId")
+
    const uploadDocument1 = (e) => {
     const newInput = { ...agreementDoc };
     newInput.lcDraftDoc = e.target.files[0];

@@ -457,7 +457,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         pay Port Charges directly to port or through the Stevedore who will take care of the payments to
                         Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI. Any
                         penalty/demurrage on account of delayed payment shall be solely to the account of the Associate
-                        Buyer
+                        Buyer.
                       </p>
                     </li>
                     <li>

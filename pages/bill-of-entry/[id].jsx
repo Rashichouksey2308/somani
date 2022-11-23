@@ -78,7 +78,6 @@ function Index() {
   };
 
     useEffect(() => {
-    console.log(customData?.company?.companyName,"customData?.company?.companyName")
     dispatch(setPageName('custom'));
     dispatch(setDynamicName(customData?.company?.companyName));
     dispatch(

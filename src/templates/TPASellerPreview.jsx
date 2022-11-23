@@ -60,8 +60,7 @@ export default function TPASellerPreview(data) {
                     {' '}
                     {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
                     {data.sellerAddress?.pinCode}
-                  </strong>{' '}
-                  through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
+                  </strong>{' '} through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
                   which expression shall, unless excluded by or repugnant to the context be deemed to include its
                   legal heirs, successors and permitted assigns) of the First Part.
                 </p>
