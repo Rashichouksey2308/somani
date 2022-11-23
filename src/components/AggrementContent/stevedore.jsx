@@ -69,7 +69,7 @@ function Index(props) {
   };
   useEffect(() => {
     if (window) {
-      setOptions(props?.vendor?.options|| [])
+    
       if (props.sameAsCHA == false) {
         if (JSON.parse(sessionStorage.getItem('Cha'))) {
           let savedData = JSON.parse(sessionStorage.getItem('Cha'));
@@ -103,6 +103,20 @@ function Index(props) {
       
             
           setSeteveState(supplier);
+        let tempArr = savedData?.authorisedSignatoryDetails;
+       if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
         } else {
           let supplier = {
             name: props.data?.name || props?.vendor?.name,
@@ -147,6 +161,20 @@ function Index(props) {
             }
           setSeteveState(supplier);
           let tempArr = props?.data?.authorisedSignatoryDetails;
+             
+         if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
          
         }
       } else if (sessionStorage.getItem('Stevedore')) {
@@ -173,17 +201,21 @@ function Index(props) {
               ],
         );
         let tempArr = props?.data?.authorisedSignatoryDetails;
-        // let optionArray = [...options];
-        // tempArr.forEach((val, index) => {
-        //   val.actions = 'true';
-        //   if (tempArr?.length > 0) {
-        //     let index = optionArray.indexOf(val.name);
-        //     if (index > -1) {
-        //       optionArray.splice(index, 1);
-        //     }
-        //   }
-        // });
-        // setOptions([...optionArray]);
+         
+         if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
+        setOptions([...optionArray]);
             if(props.data?.addresses?.length==0){
            let temp=[];
           if(savedData.address?.length>0){
@@ -251,6 +283,20 @@ function Index(props) {
           setAddressList(props.data?.addresses)
         }
         setSeteveState(supplier);
+            let tempArr = props.data?.authorisedSignatoryDetails;
+       if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
        
       
       }

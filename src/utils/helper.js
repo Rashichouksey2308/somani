@@ -28,7 +28,7 @@ export const emailValidation = (email) => {
  * @returns A boolean value.
  */
 export const phoneValidation = (phone) => {
-  let regex = /^\d{10}$/;
+  let regex = /^[0-9]*$/;
   return !!phone.match(regex);
 };
 

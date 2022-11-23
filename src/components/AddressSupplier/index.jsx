@@ -67,11 +67,11 @@ function AddressComponent({
               {email?.join(', ')}
             </p>
             <p>
-              <span>Phone Number:</span>
+              <span>Phone Number:</span>{" "}
               {callingCode} {number}
             </p>
             <p>
-              <span>Alternate Phone Number:</span>
+              <span>Alternate Phone Number:</span>{" "}
               {alterCallingCode} {alterNumber}
             </p>
           </div>

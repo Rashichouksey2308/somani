@@ -71,7 +71,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     document1: null,
     document2: null,
   });
-
+ console.log(dischargeOfCargo,"dischargeOfCargo")
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -100,7 +100,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const onSaveDischarge = () => {
-    if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '' ||dischargeOfCargo.dischargeOfCargo.dischargeQuantity === null ||dischargeOfCargo.dischargeOfCargo.dischargeQuantity === undefined) {
+    if (sumOfDischargeQuantities === '' ||sumOfDischargeQuantities === null ||sumOfDischargeQuantities === undefined) {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -108,7 +108,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       return;
     }
 
-    if (Number(dischargeOfCargo.dischargeOfCargo.dischargeQuantity) > Number(customData?.order?.quantity)) {
+    if (Number(sumOfDischargeQuantities) > Number(customData?.order?.quantity)) {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE GREATER THAN ORDER QUANTITY';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -230,9 +230,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         dischargeOfCargo: {
           vesselName: data?.dischargeOfCargo?.vesselName,
           portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
-          dischargeQuantity: sumOfDischargeQuantities
-            ? sumOfDischargeQuantities
-            : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
+          dischargeQuantity: sumOfDischargeQuantities,
+           
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,

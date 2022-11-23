@@ -48,7 +48,7 @@ function Index(props) {
 
   useEffect(() => {
     if (window) {
-      setOptions(props.vendor.options)
+    
       if (sessionStorage.getItem('Cha')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
@@ -93,7 +93,20 @@ function Index(props) {
           setAddressList( savedData?.addresses)
         }
         setChaState(supplier);
-        let tempArr = savedData?.authorisedSignatoryDetails;
+          let tempArr = savedData?.authorisedSignatoryDetails;
+       if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
        
       } else {
         let supplier = {
@@ -138,7 +151,20 @@ function Index(props) {
               setAddressList( props.data?.addresses)
             }
         setChaState(supplier);
-        let tempArr = props.data?.authorisedSignatoryDetails;
+       let tempArr = props.data?.authorisedSignatoryDetails;
+        if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
         // let optionArray = [...options];
         // tempArr.forEach((val, index) => {
         //   val.actions = 'true';
