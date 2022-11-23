@@ -343,94 +343,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-
-                      {/* {module === 'LeadOnboarding&OrderApproval' ? (
-                        <>
-                          {' '}
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Certificate of Incorporation">Certificate of Incorporation</option>
-                          <option value="IEC Certificate">IEC Certificate</option>
-                          <option value="Business Registration Certificate">Business Registration Certificate</option>
-                          <option value="PAN Card">PAN Card</option>
-                          <option value="GST Certificate">GST Certificate</option>
-                          <option value="Bank Reference Letter">Bank Reference Letter</option>
-                          <option value="Financial Year">Financial Year</option>
-                        </>
-                      ) : module === 'Loading-Transit-Unloading' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Certificate Of Origin">Certificate of Origin</option>
-                          <option value="Certificate Of Quality"> Certificate of Quality</option>
-                          <option value="Certificate Of Weight"> Certificate of Weight</option>
-                          <option value="Plot Inspection Report"> Plot Inspection Report</option>
-                          <option value="BL"> BL</option>
-                          <option value="Container No List "> Container No. List</option>
-                          <option value="Packing List "> Packing list</option>
-                          <option value="BL Acknowledgment Copy"> BL Acknowledgment Copy</option>
-                          <option value="Forward Sales Contract "> Forward Sales Contract</option>
-                          <option value="Coal Import Registration Certificate">
-                            {' '}
-                            Coal Import Registration Certificate
-                          </option>{' '}
-                          <option value="CIMS Payment Receipt "> CIMS Payment Receipt</option>{' '}
-                          <option value="IGM Copy "> IGM Copy</option>{' '}
-                        </>
-                      ) : module === 'Agreements&Insurance&LC&Opening' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="Lc Draft">LC Draft</option>
-
-                          <option value="LC Ammendment Draft"> LC Ammendment Draft</option>
-                          <option value="Vessel Certificate"> Vessel certificate</option>
-                          <option value="Vessel Certificate Container List"> Vessel Certificate, Container List</option>
-                          <option value="Policy Document Marine"> Policy Document - Marine</option>
-                          <option value="Policy Document Storage"> Policy Document - Storage</option>
-                        </>
-                      ) : module === 'CustomClearanceAndWarehousing' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="BOE Provisional"> BOE Provisional</option>
-                          <option value="BOE Final - in case of final assessment.">
-                            {' '}
-                            BOE Final - in case of final assessment.
-                          </option>
-                          <option value="Duty Paid Challan "> Duty Paid Challan</option>
-                          <option value="PD Bond"> PD Bond</option>
-                          <option value="BOE Final"> BOE Final</option>
-                          <option value="BOE Provisional "> BOE Provisional</option>
-                          <option value="BOE Final - in case of final assessment. ">
-                            {' '}
-                            BOE Final - in case of final assessment.
-                          </option>
-                          <option value="PD Bond"> PD Bond</option>
-                          <option value="Duty Paid Challan "> Duty Paid Challan</option>
-                          <option value="Statements of Facts"> Statements of Facts</option>
-                          <option value="Discharge Confirmation"> Discharge Confirmation</option>
-                          <option value="BOE Final"> BOE Final</option>
-                        </>
-                      ) : (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="RR"> RR</option>
-                          <option value="eWay Bill"> eWay Bill</option>
-                        </>
-                      )} */}
-                      {/* <option value="" disabled>
+                      {' '}
+                      <option value="" disabled>
                         Select an option
-                      </option> */}
+                      </option>
                       {getDocumentsMasterData
                           ?.filter((val, index) => {
                           
