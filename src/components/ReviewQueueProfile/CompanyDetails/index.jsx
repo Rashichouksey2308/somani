@@ -8,7 +8,6 @@ import _get from 'lodash/get';
 import { handleErrorToast } from '@/utils/helpers/global';
 
 function Index({ order, companyDetail }) {
-  console.log(companyDetail, 'companyDetail');
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
     referedBy: '',
@@ -207,6 +206,7 @@ function Index({ order, companyDetail }) {
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <select
+                    disabled
                     id="sourceChanel"
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -216,7 +216,6 @@ function Index({ order, companyDetail }) {
                     <option value="" defaultChecked disabled>
                       Select
                     </option>
-
                     <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
                     <option value="Customs Associate"> Customs Associate</option>
