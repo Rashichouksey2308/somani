@@ -56,7 +56,7 @@ function Index() {
       Currency_Name: currencyData.Currency_Name,
       Symbol: currencyData.Symbol,
       Status: currencyData.Status,
-      currencyId: currencyResponseData._id
+      currencyMasterId: currencyResponseData._id
     }
     if(id){
       dispatch(UpdateCurrency(data2))
@@ -139,6 +139,7 @@ function Index() {
                     </div>{' '}
                     <div className={`${styles.form_group} col-lg-1 col-md-6 col-sm-6 `}>
                       <input
+                      style={{paddingRight:'10px'}}
                         className={`${styles.input_field} border_color input form-control`}
                         type="text"
                         required
