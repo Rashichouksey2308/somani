@@ -96,6 +96,10 @@ const index = () => {
             isHeader={true}
             handleRoute={handleRoute}
             selectorData={allVendor}
+            pageLimit={pageLimit}
+            setPageLimit={setPageLimit}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           />
         </div>
       </div>
