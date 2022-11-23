@@ -22,7 +22,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
         <p className=" text-center text_sales">AND</p>
         <p className="text_sales">
           Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "
-          <strong>Associate Buyer</strong>"), which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.
+          <strong>Associate Buyer</strong>", which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.
         </p>
         <p className="text_sales">
           <b>{data.shortbuyer}</b> and the Associate Buyer, wherever required, are collectively referred to as the
@@ -66,13 +66,13 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
           <li className='font-weight-bold'>
             <p className={`${styles.oderListParent_Head}`}>Item &amp; Price</p>
             <p className="text_sales font-weight-normal">
-              The details of the Commodity contracted quantity, Origin, Unit Price and total contract value are
+              The details of the Commodity, contracted quantity, Unit Price and total contract value are
               mentioned in Schedule I.
             </p>
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  The Associate Buyer affirms that the Supplier, Item, specifications, quantities, Origin, delivery and
+                  The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and
                   all other terms &amp; conditions of sale between Indo and the Supplier have been negotiated and firmed
                   up between Associate Buyer and Supplier. The Associate Buyer further undertakes that it has ensured
                   that the Sales Contract to be entered into between Indo and the Supplier (“Sale Contract”) is in
@@ -82,11 +82,11 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               <li>
                 <p className="text_sales">
                   The Associate Buyer confirms that he is solely responsible for competitiveness of price, selection of
-                  Supplier, quality, and quantity of goods and all the risks associated therewith.
+                  Supplier, quality and quantity of goods and all the risks associated therewith.
                 </p>
               </li>
               <li>
-                <p className="text_sales">Pricing: - The calculation of price shall be done as below</p>
+                <p className="text_sales">Pricing: - The calculation of price shall be done as below:</p>
                 <p className="text_sales">
                   The basic Price in INR for invoicing by Seller will be calculated as under: -
                 </p>
@@ -106,21 +106,21 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
                   Buyer. The expenses for such services shall also be borne by the Associate Buyer and will be included
                   in the sale price of Goods/Services.
                 </p>
-                <p className={`${styles.red} text_sales`}>
+                <p className={`text_sales`}>
                   The exchange rate prevailing at the time of making payment of the margin money by the Associate Buyer
-                  shall be the provisional price for preparation of provisional invoice .
+                  shall be the provisional price for preparation of provisional invoice.
                 </p>
-                <p className={`${styles.red} text_sales`}>
+                <p className={`text_sales`}>
                   The final invoicing will be done in INR and the final exchange rate on the basis of which invoicing
                   shall be:
                 </p>
-                <p className={`${styles.red} text_sales ml-n4`}>a)&nbsp; the price at which the forward is booked or</p>
-                <p className={`${styles.red} text_sales ml-n4`}>b)&nbsp; the average of the exchanges rate at which the payment of Import is made by IGI to Indo for this transaction.
+                <p className={`text_sales ml-n4`}>a)&nbsp; the price at which the forward is booked or</p>
+                <p className={`text_sales ml-n4`}>b)&nbsp; the average of the exchanges rate at which the payment of Import is made by IGI to Indo for this transaction.
                 </p>
-                <p className={`${styles.red} text_sales`}>
+                <p className={`text_sales`}>
                   The exchange rate difference loss or gain both will be to the Associate Buyer account.
                 </p>
-                <p className={`${styles.red} text_sales`}>
+                <p className={`text_sales`}>
                   The final price so worked out shall be reflected in the last invoice carrying out all adjustments in
                   regards to exchange rate variation / expenses &amp; charges.
                 </p>
@@ -207,7 +207,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  Ensuring pre-shipment inspection of the goods/items from agency of international repute as acceptable
+                  Ensuring pre-shipment inspection of the goods/items from agencies of international repute as acceptable
                   to Seller.
                 </p>
               </li>
@@ -221,8 +221,8 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
                   Ensuring that quality and quantities of goods shipped are as per LC / Sales Contract / Proforma Invoice at pre-shipment stage and also at port of discharge.{' '}
                 </p>
               </li>
-              <li className={`${styles.red}`}>
-                <p className={`${styles.red} text_sales`}>
+              <li>
+                <p className={`text_sales`}>
                   Quantity as per Bill of Lading (“<strong>BL</strong>”) shall be final and binding on the Associate Buyer.{' '}
                 </p>
               </li>
@@ -252,7 +252,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IG's nominated Bank (as per IGI's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in its name, the cost of it shall be borne by the Associate Buyer.
+                  The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IGI's nominated Bank (as per IGI's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in its name, the cost of it shall be borne by the Associate Buyer.
                 </p>
               </li>
               <li>
@@ -343,10 +343,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
                 <p className="text_sales">
                   <strong>Safekeeping and Security of the Goods: </strong>
                   <br />
-                  Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The
-                  Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be
-                  stored. Seller shall in no way be responsible or liable for any loss or damage to the Goods for any
-                  reason whatsoever including shortage or theft.{' '}
+                  Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. IGI shall in no way be responsible or liable for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
                 </p>
               </li>
             </ol>
@@ -417,7 +414,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
                     <p className="text_sales mb-0">Arranging security cover</p>
                   </li>
                   <li>
-                    <p className="text_sales mb-0">Placing Railway indents etc</p>
+                    <p className="text_sales mb-0">Placing Railway indents etc.</p>
                   </li>
                   <li>
                     <p className="text_sales mb-0">Loading on to wagons / trucks</p>
@@ -659,10 +656,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  After conclusion of the deal i.e. receipt of the amounts due to Seller from Associate
-                  Buyer/remittance against the import &amp; receipt of RR copies and all other supporting documents
-                  related to domestic sale, the account maintained by Seller for the Associate will be settled as per
-                  the procedure followed by Seller.
+                  After conclusion of the deal i.e. receipt of the amounts due to IGI from Associate Buyer/remittance against the import & receipt of RR copies and all other supporting documents related to domestic sale, account maintained by IGI for the Associate Buyer will be settled as per the procedure followed by IGI.
                 </p>
               </li>
               <li>
