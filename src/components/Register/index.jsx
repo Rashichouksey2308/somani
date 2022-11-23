@@ -11,7 +11,7 @@ import Router from 'next/router';
 import { CreateBuyer, GetGst } from 'redux/registerBuyer/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { handleCurrencyOrder } from 'utils/helper';
+import { handleCurrencyOrder, phoneValidation } from 'utils/helper';
 import { removePrefixOrSuffix } from '../../utils/helper';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../redux/masters/action';
 function Index() {
@@ -151,29 +151,33 @@ function Index() {
   const chanegTermsCheck = () => {
     setTermsCheck(!termsCheck);
   };
-  const submitData = () => {
+
+  const validation = () => {
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return;
+      return false
     }
     if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (companyDetails.companyPan.trim().length !== 10) {
       let toastMessage = 'Please Fill A valid Company Pan';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
+      return false
+    } else if ( phoneValidation(companyDetails.mobile.primary.number) && companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (
       !String(companyDetails.email)
         .toLowerCase()
@@ -185,11 +189,13 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (orderDetails.commodity.trim() === '') {
       let toastMessage = 'Please Fill A valid Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (
       Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ||
       orderDetails.quantity === null ||
@@ -199,6 +205,7 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (
       Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0 ||
       orderDetails.orderValue === null ||
@@ -208,27 +215,38 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (orderDetails.portOfDischarge.trim() === '') {
       let toastMessage = 'Please Fill A valid Port Of Discharge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (!orderDetails.ExpectedDateOfShipment) {
       let toastMessage = 'Please Fill  Last date of Shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return false
     } else if (orderDetails.incoTerm === '') {
       let toastMessage = 'Please Select A INCO Term';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    } else {
+      return false
+    }
+    return true
+  }
+
+  const submitData = () => {
+   if(!validation) return
+     else {
       let docTypeArr = [];
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument);

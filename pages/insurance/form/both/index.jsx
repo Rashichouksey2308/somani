@@ -854,7 +854,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                  <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1264,7 +1264,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                   <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1657,7 +1657,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))]?.filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }
@@ -1926,7 +1926,7 @@ const Index = () => {
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
                                  <option selected>Select an Option</option>
-                                 {option?.length > 0 && [...new Set(option.map(item => item.keyAddresses[0].gstin))].filter((val,index)=>{
+                                 {option?.length > 0 && [...new Set(option.map(item => item?.keyAddresses[0]?.gstin))].filter((val,index)=>{
                                         if(val !== undefined){
                                           return val
                                         }

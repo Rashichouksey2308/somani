@@ -250,9 +250,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       <option value="" disabled>
                         Select an option
                       </option>
-                      {getDocumentsMasterData
+                      
+                      {getDocumentsMasterData?.length > 0 && getDocumentsMasterData
                         ?.filter((val, index) => {
-                          if (module.includes(val.Sub_Module)) {
+                          if (module?.includes(val.Sub_Module)) {
                             return val;
                           }
                         })

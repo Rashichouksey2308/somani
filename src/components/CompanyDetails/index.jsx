@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { ChangeCurrency } from '../../redux/userData/action';
 import { GetPanGst } from 'redux/GetPanGst/action';
 import { GetGst } from 'redux/registerBuyer/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 const Index = ({
   saveCompanyData,
   saveOrderData,
@@ -476,6 +477,9 @@ const Index = ({
                       // saveCompanyData(e.target.name, e.target.value)
                       whatsappFunction(e);
                       //green tick
+                    }
+                    else{
+                      handleErrorToast('Invalid Number')
                     }
                   }}
                   id="textNumber"
