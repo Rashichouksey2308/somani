@@ -13,14 +13,6 @@ import { CreateCurrency, UpdateCurrency, GetCurrency } from '../../src/redux/cur
 function Index() {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getCountries());
-  //   dispatch(getState());
-  // }, [dispatch]);
-
-  // const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  // const { getStateMasterData } = useSelector((state) => state.MastersData);
-
   const { currencyResponse } = useSelector((state) => state.Currency);
   const currencyResponseData = _get(currencyResponse, 'data[0]', {});
 
@@ -161,9 +153,9 @@ function Index() {
                         <div className={`${styles.toggle_label} form-check-label mr-3`}>Active</div>
                         <label className={styles.switch}>
                           <input
-                          
                             type="checkbox"
                             checked={currencyData?.Status == "Active" ? true : false}
+                           // checked={currencyData?.Status ? 'checked' : ''}
                             name="Status"
                             onChange={(e) => saveCurrencyData(e.target.name, e.target.value)}
                           />
