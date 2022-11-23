@@ -69,9 +69,13 @@ const Index = () => {
       laycanTo: insuranceData?.quotationRequest?.laycanTo
         ? insuranceData?.quotationRequest?.laycanTo
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee
-        ? insuranceData?.quotationRequest?.lossPayee
-        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      lossPayee: _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+          insuranceData?.quotationRequest?.lossPayee,
+        ) || '',
+      
+  
       storageDetails: {
         placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge ,
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
@@ -420,7 +424,11 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                                    :  _get(
+                                    insuranceData,
+                                    'order.lc.lcApplication.lcIssuingBank',
+                                    '',
+                                  )
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
@@ -625,7 +633,11 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                                    : _get(
+                                    insuranceData,
+                                    'order.lc.lcApplication.lcIssuingBank',
+                                    '',
+                                  )
                                 }
                               >
                                

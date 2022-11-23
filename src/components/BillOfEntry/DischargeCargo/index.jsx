@@ -579,7 +579,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
             </div>
           </div>
           <div className="">
-            <UploadOther isDocumentName={true} orderid={OrderId} mmodule={['BOE','Discharge of Cargo']  }  />
+            <UploadOther isDocumentName={true} orderid={OrderId} module={['BOE','Discharge of Cargo']  }  />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />

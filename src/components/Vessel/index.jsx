@@ -256,7 +256,7 @@ function Index({
                               {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
                               </option> */}
-                              {country.map((val, index) => {
+                              {country?.map((val, index) => {
                                 return <option value={val.Country}>{val.Country}</option>;
                               })}
                               {/* <option value="India">India</option>
@@ -325,7 +325,7 @@ function Index({
                                 .filter((val) => val.Country.toLowerCase() === 'india' && val.Approved=="YES")
                                 .map((val, index) => {
                                   return (
-                                    <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                                    <option key={index} value={`${val.Port_Name}`}>
                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );

@@ -457,7 +457,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
 
       data.forEach((val, index) => {
         tempArray.push({
-          boeAssessment: val?.boeAssessment,
+          boeAssessment: val?.boeAssessment || "Provisional" ,
           pdBond: val?.pdBond || false,
           billOfEntryFor: val?.billOfEntryFor
             ? val?.billOfEntryFor
@@ -1605,7 +1605,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
               );
             })}
           <div className="">
-            <UploadOther orderid={OrderId} module={['BOE', 'Discharge of Cargo']} isDocumentName={true} />
+            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']} isDocumentName={true} />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

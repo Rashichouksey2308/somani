@@ -88,12 +88,12 @@ const Index = () => {
         ? getDifferenceInDaysMarine()
         : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee:
+      lossPayee:insuranceData?.marineInsurance?.lossPayee ||
         _get(
           insuranceData,
-          'order.termsheet.transactionDetails.lcOpeningBank',
-          insuranceData?.quotationRequest?.lossPayee,
-        ) || '',
+          'order.lc.lcApplication.lcIssuingBank',
+           "",
+        ) ,
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     });
     setStorageData({
@@ -112,7 +112,12 @@ const Index = () => {
         ? getDifferenceInDaysStorage()
         : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
+    lossPayee:insuranceData?.storageInsurance?.lossPayee ||
+        _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+           "",
+        ) ,
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     });
     setInsuranceDocument({
@@ -1336,11 +1341,9 @@ const Index = () => {
                             <div className="d-flex">
                               <input
                                 name="lossPayee"
-                                value={_get(
-                                  insuranceData,
-                                  'order.termsheet.transactionDetails.lcOpeningBank',
-                                  insuranceData?.quotationRequest?.lossPayee,
-                                )}
+                                value={
+                                   storageData?.lossPayee
+                                  }
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >

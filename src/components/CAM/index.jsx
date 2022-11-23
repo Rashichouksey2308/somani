@@ -36,7 +36,7 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
-  Tooltip,
+  // Tooltip,
   Legend,
 );
 
@@ -215,27 +215,97 @@ function Index({
     ],
   };
 
+  // const options = {
+  //   elements: {
+  //     arc: {
+  //       borderWidth: 0,
+  //     },
+  //   },
+  //   plugins: {
+  //     title: {
+  //       animation: {
+  //         animateScale: true,
+  //       },
+  //     },
+
+  //     legend: {
+  //       display: false,
+  //     },
+  //   },
+  //   responsive: true,
+  //   cutout: 130,
+  // };
+
   const options = {
+    aspectRatio: 1,
     elements: {
       arc: {
         borderWidth: 0,
       },
     },
     plugins: {
-      title: {
-        animation: {
-          animateScale: true,
-        },
-      },
-
       legend: {
         display: false,
       },
-    },
-    responsive: true,
-    cutout: 130,
-  };
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
 
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+        animation: {
+          animateScale: false,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 110,
+  };
+  const options2 = {
+    aspectRatio: 1,
+  
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+       
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 110,
+  };
   const covertMonths = (months) => {
     const CovertedMonts = [];
     months?.map((month) => {
@@ -415,7 +485,7 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 4,
+          
           },
         ],
       };
@@ -451,7 +521,7 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 20,
+           
           },
         ],
       };
@@ -597,7 +667,7 @@ function Index({
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor, camConversionunit)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, camConversionunit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
