@@ -2276,7 +2276,17 @@ function Index() {
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
-                              background: '#CFF2D5',
+                              background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
                               // background: `${
                               //   filteredCreditRating?.length > 0
                               //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
