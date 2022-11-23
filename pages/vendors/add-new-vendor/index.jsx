@@ -6,14 +6,11 @@ import AddVendor from '../../../src/components/AddVendor';
 import { useDispatch, useSelector } from 'react-redux';
 import { CreateVendor, GetVendor, UpdateVendor } from '../../../src/redux/vendor/action';
 import _get from 'lodash/get';
+import { vendorValidation } from '../../../src/utils/helpers/review';
 
 function Index() {
 
   const dispatch = useDispatch();
-
-  const [keyContactPersonInfo, setKeyContactPersonInfo] = useState([]);
-
-  const [addressInfo, setAddressInfo] = useState([]);
 
   const [remarks, setRemaks] = useState('');
 
@@ -34,6 +31,8 @@ function Index() {
     website: "",
     remarks: ""    
   });
+
+const [vendorRadio, setVendorRadio] = useState(vendorDetail?.vendor);
 
 const [keyContactPerson, setKeyContactPerson] = useState([])
 
@@ -94,14 +93,14 @@ const [bankDetails, setBankDetails] = useState({
       // });
       // setBankDetails(bankArr);
       setBankDetails({
-        IFSC: _get(vendorResponseData, 'bankDetails[0].IFSC'),
-        Bank_Name: _get(vendorResponseData, 'bankDetails[0].Bank_Name'),
-        Branch_Address: _get(vendorResponseData, 'bankDetails[0].Branch_Address'),
-        Account_No: _get(vendorResponseData, 'bankDetails[0].Account_No'),
-        gstin: _get(vendorResponseData, 'bankDetails[0].gstin'),
-        Swift_Code: _get(vendorResponseData, 'bankDetails[0].Swift_Code'),
-        AD_Code: _get(vendorResponseData, 'bankDetails[0].AD_Code'),
-        Correspondent_BankName:_get(vendorResponseData, 'bankDetails[0].Correspondent_BankName'),
+        IFSC: _get(vendorResponseData, 'bankDetails[0].IFSC', ''),
+        Bank_Name: _get(vendorResponseData, 'bankDetails[0].Bank_Name', ''),
+        Branch_Address: _get(vendorResponseData, 'bankDetails[0].Branch_Address', ''),
+        Account_No: _get(vendorResponseData, 'bankDetails[0].Account_No', ''),
+        gstin: _get(vendorResponseData, 'bankDetails[0].gstin', ''),
+        Swift_Code: _get(vendorResponseData, 'bankDetails[0].Swift_Code', ''),
+        AD_Code: _get(vendorResponseData, 'bankDetails[0].AD_Code', ''),
+        Correspondent_BankName:_get(vendorResponseData, 'bankDetails[0].Correspondent_BankName', ''),
       })
 
     }
@@ -150,11 +149,6 @@ const deleteKeyPerson = (index) => {
   setKeyContactPerson([...keyContactPerson.slice(0, index), ...keyContactPerson.slice(index + 1)]);
 };
 
-// const handleSubmitKeyContactPersonDetails = (e) => {
-//   e.preventDefault()
-//   setKeyContactPersonInfo(keyContactPersonInfo => [...keyContactPersonInfo, keyContactPerson])
-// }
-
 const handleAddressDetail = (e) => {
   let newArr = [...address];
   newArr.push(e);
@@ -193,7 +187,7 @@ const handleBankDetail = (name, value) => {
 }
 
 const handleApproval = () => {
-
+if(!vendorValidation(vendorDetail, vendorRadio)) return
   let data = {
     vendorDetails:vendorDetail,
     keyContactPerson:[...keyContactPerson],
@@ -292,6 +286,8 @@ const handleRemaks = (e) => {
           deleteKeyPerson={deleteKeyPerson}
           updateKeyAddDataArr={updateKeyAddDataArr}
           updateKeyPersonDataArr={updateKeyPersonDataArr}
+          vendorRadio={vendorRadio}
+          setVendorRadio={setVendorRadio}
         />
       </Card>
     </div>
