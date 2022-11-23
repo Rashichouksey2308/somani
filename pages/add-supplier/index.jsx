@@ -216,9 +216,9 @@ const index = () => {
               </div>
             </div>
           </div>
-          <div className={`${styles.total_count}`}>
+          {/* <div className={`${styles.total_count}`}>
             Total Count: <span>{allSupplierResponse?.totalCount}</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <DownloadMasterBar btnName="Download Reports" />
