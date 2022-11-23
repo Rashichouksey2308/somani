@@ -1601,7 +1601,7 @@ console.log(bl,"asdasd")
               );
             })}
           <div className="">
-            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']  } isDocumentName={true} />
+            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']} isDocumentName={true} />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

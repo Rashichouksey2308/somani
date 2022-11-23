@@ -2134,6 +2134,7 @@ let masterList = [
         addresses: data.address,
         authorisedSignatoryDetails: data.list,
       };
+      console.log(dataToSend,"dataToSend")
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
 
       if (dataToSend.associateBuyer.gstin == '' || dataToSend.associateBuyer.gstin == undefined) {
@@ -2158,7 +2159,8 @@ let masterList = [
 
       if (
         dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 ||
-        dataToSend.associateBuyer.authorisedSignatoryDetails == undefined
+        dataToSend.associateBuyer.authorisedSignatoryDetails == undefined ||
+        dataToSend.associateBuyer.authorisedSignatoryDetails[0]?.name == ""
       ) {
         toastMessage = `Please add authorised Signatory Details `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2169,8 +2171,10 @@ let masterList = [
       }
       let error = false;
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0) {
+        console.log("herher")
         for (let i = 0; i < dataToSend.associateBuyer.authorisedSignatoryDetails.length; i++) {
-          if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true') {
+          console.log("herher",dataToSend.associateBuyer.authorisedSignatoryDetails[i])
+          if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true' || dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'false') {
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == undefined
@@ -2213,6 +2217,7 @@ let masterList = [
                 return;
               }
             }
+            console.log( dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"")
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == undefined
