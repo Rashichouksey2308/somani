@@ -477,8 +477,8 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="Allowed">Allowed</option>
-                            <option value="Not Allowed">Not Allowed</option>
+                            <option value="Yes">Allowed</option>
+                            <option value="No">Not Allowed</option>
                           </select>
                           <label className={`${styles.label_heading} label_heading`}>
                             (43T) Transhipments
