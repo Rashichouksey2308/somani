@@ -98,9 +98,10 @@ function Index() {
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
     });
-    // setLcDoc({
-    //   lcDraftDoc: lcModuleData?.document
-    // })
+    
+    setLcDoc({
+      lcDraftDoc: lcModuleData?.document?.length > 0 ? lcModuleData?.document[0] : null
+    })
   }, [lcModuleData]);
 
   const saveAmendmentData = (name, value) => {
@@ -222,6 +223,7 @@ function Index() {
   const [lcDoc, setLcDoc] = useState({
     lcDraftDoc: null,
   });
+  console.log(lcDoc,'lcDoc')
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };

@@ -268,6 +268,31 @@ export default function Index() {
         }
         isOk = false;
         break;
+      } if (cancel){
+        if (
+          list[i].closingRate === null ||
+          list[i].closingRate === undefined ||
+          list[i].closingRate === ''
+        ) {
+          let toastMessage = `Please add Closing RAte  ${i}`;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          break;
+        }
+        if (
+          list[i].closingDate === null ||
+          list[i].closingDate === undefined ||
+          list[i].closingDate === ''
+        ) {
+          let toastMessage = `Please add Closing Date  ${i}`;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          break;
+        }
       }
     }
     return isOk;
