@@ -76,7 +76,7 @@ const index = ({
         col1: item.Currency,
         col2: item.Currency_Name,
         status: 'Approved',
-        id: item._id,
+        Id: item._id,
       };
     });
   }
@@ -157,20 +157,21 @@ const index = ({
                       alt="Sort icon"
                     />
                   </th>
-                  {isCurrency ? 
-''
-                  :
+                   {isCurrency ? '' :
                   <th className={`${styles.table_heading} table_heading`}>
-                    {header3}{' '}
-                    <Image
-                      width="9px"
-                      height="14px"
-                      className={`${styles.sort_img}`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />
-                  </th>
- }
+                  {header3}{' '}
+                  <Image
+                    width="9px"
+                    height="14px"
+                    className={`${styles.sort_img}`}
+                    src="/static/icons8-sort-24.svg"
+                    alt="Sort icon"
+                  />
+                </th>
+
+                
+                  
+ } 
                   {isHeader ? (
                     <th className={`${styles.table_heading} table_heading`}>
                       {header}{' '}
@@ -204,7 +205,9 @@ const index = ({
                     <tr key={index} className={`${styles.table_row} table_row17`}>
                       <td className={styles.buyerName}>{supplier.col1}</td>
                       <td>{supplier.col2}</td>
-                      <td>{supplier.col3}</td>
+                      {isCurrency ? '' :
+                      <td>{supplier.col3}</td> 
+}
                       {/* <td>{supplier.col4}</td> */}
                       {supplier?.date && <td>{supplier.date}</td>}
                       <td>

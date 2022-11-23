@@ -40,8 +40,7 @@ const index = () => {
   
   const handleRoute = (id) => {
     sessionStorage.setItem('currencyId', id);
-   
-   // Router.push('/ports/id');
+    Router.push('/currency-master/id');
   };
  
   return (
@@ -102,7 +101,7 @@ const index = () => {
             tableName="Currency"
             header1="Currency"
             header2="Currency Name"
-            header4="STATUS"   
+            header4="STATUS"  
             isCurrency={true} 
             handleRoute={handleRoute}
             selectorData= {allCurrency}

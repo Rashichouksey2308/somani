@@ -40,7 +40,6 @@ function Index() {
     Approved: '',
   });
 
-  console.log(portData, 'PORT DATA', portResponseData, 'id', id)
   useEffect(() => {
     if(id){
       setPortData({
@@ -81,7 +80,9 @@ function Index() {
     if(id){
       dispatch(UpdatePorts(data2))
     } 
+    else {
     dispatch(CreatePorts(data))
+    }
   };
 
   return (
@@ -111,7 +112,7 @@ function Index() {
         </Card.Header>
         <Ports handleSubmit={handleSubmit} portData={portData} savePortData={savePortData} country={getCountriesMasterData} />
       </Card>
-      <SaveBar rightBtn="Submit" />
+      {/* <SaveBar rightBtn="Submit" /> */}
     </div>
   );
 }

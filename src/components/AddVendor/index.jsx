@@ -6,9 +6,6 @@ import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import Image from 'next/image';
 import UploadOther from '../UploadOther';
-import { phoneValidation } from '@/utils/helper';
-import { handleErrorToast } from '@/utils/helpers/global';
-import { addressValidtion } from '@/utils/helpers/review';
 import AddComponent from './AddComponent';
 import PersonComponent from './PersonComponent';
 
@@ -34,9 +31,9 @@ function Index({
   handleApproval,
   handleBankDetail,
   handleRemaks,
+  vendorRadio,
+  setVendorRadio,
 }) {
-
-  const [vendorRadio, setVendorRadio] = useState(vendorDetail?.vendor);
 
   const [keyAddressData, setKeyAddressData] = useState({
     addressType:  "",
@@ -328,8 +325,8 @@ function Index({
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
                     required
-                    name="panId"
-                    value={vendorDetail?.panId}
+                    name="pan_taxId"
+                    value={vendorDetail?.pan_taxId}
                     onChange={(e) => handleSuplier(e.target.name, e.target.value)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -396,17 +393,14 @@ function Index({
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type="number"
                   required
                   name="phoneNumber"
                   value={vendorDetail?.phoneNumber}
                   onChange={(e) => {
-                    if (phoneValidation(e.target.value)) {
+                 
                       handleSuplier(e.target.name, e.target.value);
-                    } else {
-                      //red mark
-                      handleErrorToast('PHONE NO. INVALID')
-                    }
+                    
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
