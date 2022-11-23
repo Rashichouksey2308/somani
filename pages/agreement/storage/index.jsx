@@ -63,7 +63,9 @@ function Index() {
       ]);
     }
   };
-
+  const handleDeleteEmail = (index) => {
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+  };
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<StorageInsurance insuranceData={insuranceData} />), {
@@ -258,9 +260,12 @@ function Index() {
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
                     {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},
-                    {" "}{_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},{' '}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')
+                      ? `,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`
+                      : null}
+                    <br></br>
                     GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                     <br></br>
                   </Col>
@@ -437,35 +442,43 @@ function Index() {
                     </div>
                   </div>
                   <div className="tab-pane fade" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
-                    <div className={`${styles.each_input} form-group`}>
-                      {emailAdd.map((val, index) => {
-                        return (
-                          <>
-                            <div className="d-flex">
-                              <select
-                                id="email"
-                                name="email"
-                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                                selected
-                              >
-                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                              </select>
-                              <label
-                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                                htmlFor="email"
-                              >
-                                Email
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
-                          </>
-                        );
-                      })}
-                    </div>
+                    {emailAdd.map((val, index) => (
+                      <div className="d-flex align-items-center form-group">
+                        <div key={index} className={`${styles.each_input} flex-grow-1`}>
+                          <div className="d-flex">
+                            <select
+                              id="email"
+                              name="email"
+                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                              selected
+                            >
+                              <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                              htmlFor="email"
+                            >
+                              Email
+                            </label>
+                            <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <img
+                          src="/static/delete 2.svg"
+                          alt="delete"
+                          role="button"
+                          className="ml-3"
+                          onClick={() => {
+                            handleDeleteEmail(index);
+                          }}
+                        />
+                      </div>
+                    ))}
+
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>

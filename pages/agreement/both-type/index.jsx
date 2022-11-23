@@ -34,7 +34,9 @@ function Index() {
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [emailAdd, setEmailAdd] = useState([{ emailID: '' }]);
   const [insuranceAdd, setinsuranceAdd] = useState([{ insurance: '' }]);
-
+  const handleDeleteEmail = (index) => {
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+  };
   const addMoreRows = (val) => {
     if (val == 'email') {
       setEmailAdd([
@@ -434,11 +436,10 @@ function Index() {
                     </div>
                   </div>
                   <div className="tab-pane fade" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
-                    <div className={`${styles.each_input} form-group`}>
-                      {emailAdd.map((val, index) => {
-                        return (
-                          <>
-                            <div className="d-flex">
+                  {emailAdd.map((val, index) => (
+                      <div className="d-flex align-items-center form-group">
+                        <div key={index} className={`${styles.each_input} flex-grow-1`}>
+                          <div className="d-flex">
                               <select
                                 id="email"
                                 name="email"
@@ -459,10 +460,19 @@ function Index() {
                                 alt="Search"
                               />
                             </div>
-                          </>
-                        );
-                      })}
-                    </div>
+                        </div>
+                        <img
+                          src="/static/delete 2.svg"
+                          alt="delete"
+                          role="button"
+                          className="ml-3"
+                          onClick={() => {
+                            handleDeleteEmail(index);
+                          }}
+                        />
+                        </div>
+                      ))}
+                  
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
