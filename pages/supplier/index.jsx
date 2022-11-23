@@ -1121,18 +1121,36 @@ function Index() {
                               </td>
 
                               <td>
-                                <input
-                                  className="input"
-                                  name="contact"
-                                  value={val?.contact}
-                                  type="number"
-                                  onWheel={(event) => event.currentTarget.blur()}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                                  readOnly={!val.action}
-                                />
+                                <div className={`${styles.phone_card}`}>
+                                  <select
+                                    name="contact.alternatePhoneNumberCallingCode"
+                                    id="Code"
+                                    className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                    value={keyAddressData.contact.alternatePhoneNumberCallingCode}
+                                    onChange={(e) => {
+                                      handleChange(e.target.value, e.target.name);
+                                    }}
+                                  >
+                                    {' '}
+                                    <option value="+91">+91</option>
+                                    <option value="+1">+1</option>
+                                    <option value="+92">+92</option>
+                                    <option value="+95">+95</option>
+                                    <option value="+24">+24</option>
+                                  </select>
+                                  <input
+                                    name="contact"
+                                    value={val?.contact}
+                                    type="number"
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                                    readOnly={!val.action}
+                                  />
+                                </div>
                               </td>
                               <td>
                                 <input
@@ -1975,7 +1993,7 @@ function Index() {
                                     />
                                     <img
                                       src="/static/upload.svg"
-                                      className="mr-3"
+                                      className={`${styles.upload_image} mr-3`}
                                       alt="Share"
                                       onClick={() => {
                                         setOpen(true);
@@ -2022,7 +2040,7 @@ function Index() {
                                     />
                                     <img
                                       src="/static/upload.svg"
-                                      className="img-fluid mr-3"
+                                      className={`${styles.upload_image} mr-3`}
                                       alt="Share"
                                       onClick={() => {
                                         dispatch(
