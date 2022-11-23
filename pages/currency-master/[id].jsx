@@ -3,13 +3,12 @@ import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action';
 import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
 import { currencyValidation } from '../../src/utils/helpers/review';
 import Image from 'next/image';
 import SaveBar from '../../src/components/SaveBar';
-import { CreateCurrency, UpdateCurrency } from '../../src/redux/currency/action';
+import { CreateCurrency, UpdateCurrency, GetCurrency } from '../../src/redux/currency/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -35,7 +34,6 @@ function Index() {
       Currency_Name: currencyResponseData?.Currency_Name,
       Symbol: currencyResponseData?.Symbol,
       Status: currencyResponseData?.Status,
-      Inactive_Date: currencyResponseData?.Inactive_Date
     })
   }, [dispatch]);
 
@@ -84,7 +82,7 @@ function Index() {
         >
           <div className={`${styles.head_header} align-items-center`}>
             <div
-              onClick={() => {
+              onClick={() => { sessionStorage.getItem('currencyId') && sessionStorage.removeItem('currencyId');
                 Router.push('/currency-master');
               }}
             >
