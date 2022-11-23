@@ -93,6 +93,17 @@ const [bankDetails, setBankDetails] = useState({
       //   bankArr.push(element);
       // });
       // setBankDetails(bankArr);
+      setBankDetails({
+        IFSC: _get(vendorResponseData, 'bankDetails[0].IFSC'),
+        Bank_Name: _get(vendorResponseData, 'bankDetails[0].Bank_Name'),
+        Branch_Address: _get(vendorResponseData, 'bankDetails[0].Branch_Address'),
+        Account_No: _get(vendorResponseData, 'bankDetails[0].Account_No'),
+        gstin: _get(vendorResponseData, 'bankDetails[0].gstin'),
+        Swift_Code: _get(vendorResponseData, 'bankDetails[0].Swift_Code'),
+        AD_Code: _get(vendorResponseData, 'bankDetails[0].AD_Code'),
+        Correspondent_BankName:_get(vendorResponseData, 'bankDetails[0].Correspondent_BankName'),
+      })
+
     }
   },[dispatch]);
   
@@ -139,10 +150,10 @@ const deleteKeyPerson = (index) => {
   setKeyContactPerson([...keyContactPerson.slice(0, index), ...keyContactPerson.slice(index + 1)]);
 };
 
-const handleSubmitKeyContactPersonDetails = (e) => {
-  e.preventDefault()
-  setKeyContactPersonInfo(keyContactPersonInfo => [...keyContactPersonInfo, keyContactPerson])
-}
+// const handleSubmitKeyContactPersonDetails = (e) => {
+//   e.preventDefault()
+//   setKeyContactPersonInfo(keyContactPersonInfo => [...keyContactPersonInfo, keyContactPerson])
+// }
 
 const handleAddressDetail = (e) => {
   let newArr = [...address];
@@ -168,12 +179,12 @@ const deleteAddress = (index) => {
   setAddress([...address.slice(0, index), ...address.slice(index + 1)]);
 };
 
-const handleSubmitAddress = (e) => {
-  e.preventDefault()
-  // if(addressValidtion(address)){
-    setAddressInfo(addressInfo => [...addressInfo, address])
-  // }
-}
+// const handleSubmitAddress = (e) => {
+//   e.preventDefault()
+//   // if(addressValidtion(address)){
+//     setAddressInfo(addressInfo => [...addressInfo, address])
+//   // }
+// }
 
 const handleBankDetail = (name, value) => {
   let newInput = {...bankDetails}
@@ -270,10 +281,8 @@ const handleRemaks = (e) => {
           saveDate={saveDate}
           handleUploadVendorDetails={handleUploadVendorDetails}
           handlekeyContactPersonDetail={handlekeyContactPersonDetail}
-          handleSubmitKeyContactPersonDetails={handleSubmitKeyContactPersonDetails}
           handleAddressDetail={handleAddressDetail}
           handleApproval={handleApproval}
-          handleSubmitAddress={handleSubmitAddress}
           handleBankDetail={handleBankDetail}
           handleCanclePersonalDetail={handleCanclePersonalDetail}
           handleCancleAddressDetail={handleCancleAddressDetail}
