@@ -1991,7 +1991,7 @@ function Index() {
                                     />
                                     <img
                                       src="/static/upload.svg"
-                                      className="mr-3"
+                                      className={`${styles.upload_image} mr-3`}
                                       alt="Share"
                                       onClick={() => {
                                         setOpen(true);
