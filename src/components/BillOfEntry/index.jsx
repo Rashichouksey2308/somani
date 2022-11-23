@@ -453,7 +453,7 @@ useEffect(() => {
 
       data.forEach((val, index) => {
         tempArray.push({
-          boeAssessment: val?.boeAssessment,
+          boeAssessment: val?.boeAssessment || "Provisional" ,
           pdBond: val?.pdBond || false,
           billOfEntryFor: val?.billOfEntryFor
             ? val?.billOfEntryFor

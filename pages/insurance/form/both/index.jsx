@@ -91,7 +91,7 @@ const Index = () => {
       lossPayee:
         _get(
           insuranceData,
-          'order.termsheet.transactionDetails.lcOpeningBank',
+          'order.lc.lcApplication.lcIssuingBank',
           insuranceData?.quotationRequest?.lossPayee,
         ) || '',
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
@@ -112,7 +112,12 @@ const Index = () => {
         ? getDifferenceInDaysStorage()
         : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
+     lossPayee:
+        _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+          insuranceData?.quotationRequest?.lossPayee,
+        ) || '',
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     });
     setInsuranceDocument({
