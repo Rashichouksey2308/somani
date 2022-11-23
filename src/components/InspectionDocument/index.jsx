@@ -226,10 +226,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     </td>
 
                     <td>
-                      <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
+                      { lcDoc?.lcDraftDoc?.documentName ? returnDocFormat(lcDoc?.lcDraftDoc?.documentName ) : lcDoc?.lcDraftDoc?.name ? returnDocFormat(lcDoc?.lcDraftDoc?.name ) : null}
                     </td>
                     <td className={styles.doc_row}>
-                      {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate ? moment(d).format('DD-MM-YYYY,HH:mm A') : ''}
+                      {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate ? moment(d).format('DD-MM-YYYY,HH:mm A') : lcDoc?.lcDraftDoc?.documentDate ? moment(lcDoc?.lcDraftDoc?.documentDate).format('DD-MM-YYYY,HH:mm A') : ''}
                     </td>
                     <td colSpan={2}>
                       {lcDoc && lcDoc.lcDraftDoc === null ? (
@@ -248,7 +248,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         <div
                           className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                         >
-                          <span>{lcDoc?.lcDraftDoc?.name}</span>
+                          <span>{lcDoc?.lcDraftDoc?.name ?? lcDoc?.lcDraftDoc?.documentName}</span>
                           <img
                             onClick={(e) =>
                               setLcDoc({

@@ -17,11 +17,20 @@ import { handleErrorToast } from '@/utils/helpers/global';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { getPorts } from '../../src/redux/masters/action';
 
 function Index() {
+
   const dispatch = useDispatch();
 
   const { lcModule } = useSelector((state) => state.lc);
+
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+
+  useEffect(() => {
+    dispatch(getPorts());
+  
+  }, []);
 
   let lcModuleData = _get(lcModule, 'data[0]', {});
 
@@ -89,9 +98,10 @@ function Index() {
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
     });
-    // setLcDoc({
-    //   lcDraftDoc: lcModuleData?.document
-    // })
+    
+    setLcDoc({
+      lcDraftDoc: lcModuleData?.document?.length > 0 ? lcModuleData?.document[0] : null
+    })
   }, [lcModuleData]);
 
   const saveAmendmentData = (name, value) => {
@@ -134,7 +144,9 @@ function Index() {
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
       e.target.value == 'creditAvailablewith' ||
-      e.target.value == 'applicant'
+      e.target.value == 'applicant' || 
+      e.target.value == 'portOfDischarge' || 
+      e.target.value == 'portOfLoading' 
     ) {
       setFieldType('drop');
     } else {
@@ -211,6 +223,7 @@ function Index() {
   const [lcDoc, setLcDoc] = useState({
     lcDraftDoc: null,
   });
+  console.log(lcDoc,'lcDoc')
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
@@ -329,7 +342,7 @@ function Index() {
   useEffect(() => {
     
   }, [clauseObj]);
- console.log(isDisabled,"isDisabled",lcModuleData?.lcApplication?.atSight,clauseObj?.dropDownValue)
+
   const getExistingValue = (value, existing) => {
     if (value === '(32B) Currency Code & Amount') {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(lcModuleData?.lcApplication?.currecyCodeAndAmountValue)?.toLocaleString('en-In', {
@@ -605,7 +618,38 @@ function Index() {
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
-                                ) : (
+                                ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
+                                  <>
+                                    {getPortsMasterData.filter((val, index) => {
+                                        if (val.Country.toLowerCase() == 'india') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                          {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
+                                  <>
+                                    {getPortsMasterData.filter((val, index) => {
+                                        if (val.Country.toLowerCase() !== 'india') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                          {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                )
+                                 : (
                                   <>
                                    
                                     <option value="Yes">Allowed</option>

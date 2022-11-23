@@ -12,7 +12,7 @@ import UploadOther from '../UploadOther';
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
-
+import moment from 'moment/moment';
 const Index = () => {
   const dispatch = useDispatch();
 
@@ -59,11 +59,27 @@ const Index = () => {
     lossPayee: '',
     premiumAmount: null,
   });
+  console.log(storageData,'storageData')
+  function getDifferenceInDaysStorage() {
+    let dateS1 = new Date(storageData?.insuranceFrom);
+    let dateS2 = new Date(storageData?.insuranceTo);
+    let date3 = moment(dateS1, 'DD.MM.YYYY');
+    let date4 = moment(dateS2, 'DD.MM.YYYY');
+    return date4.diff(date3, 'days');
+  }
+
+  useEffect(() => {
+    if (storageData.insuranceFrom && storageData.insuranceTo) {
+      setStorageData({ ...storageData, periodOfInsurance: getDifferenceInDaysStorage() });
+    }
+  }, [storageData.insuranceFrom, storageData.insuranceTo]);
 
   const saveStorageDate = (value, name) => {
+    console.log(value,name,'storageData')
+
     const d = new Date(value);
     let text = d.toISOString();
-    setStorageData(name, text);
+    saveStorageData(name, text);
   };
 
   const saveStorageData = (name, value) => {
@@ -304,14 +320,11 @@ const Index = () => {
                                 name="lossPayee"
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              >
-                                
-                              </input>
+                              ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee Bank
                                 <strong className="text-danger">*</strong>
                               </label>
-                              
                             </div>
                           </Col>
                         </Row>
@@ -427,6 +440,7 @@ const Index = () => {
                               name="periodOfInsurance"
                               onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              value={storageData?.periodOfInsurance}
                             />
                             <label className={`${styles.label_heading} label_heading`}>
                               Period of Insurance (Days)
@@ -439,14 +453,11 @@ const Index = () => {
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 name="lossPayee"
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              >
-                                
-                              </input>
+                              ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee Bank
                                 <strong className="text-danger">*</strong>
                               </label>
-                              
                             </div>
                           </Col>
                         </Row>
@@ -474,7 +485,10 @@ const Index = () => {
           insuranceType == false ? `- Marine` : `- Storage`
         } `}
       /> */}
-        <UploadOther orderid={insuranceData?.order?._id} module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  } />
+        <UploadOther
+          orderid={insuranceData?.order?._id}
+          module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
+        />
       </div>
       <SubmitBar handleSubmit={handleInsuranceUpdate} />
     </div>
