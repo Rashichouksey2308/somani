@@ -453,7 +453,7 @@ useEffect(() => {
 
       data.forEach((val, index) => {
         tempArray.push({
-          boeAssessment: val?.boeAssessment,
+          boeAssessment: val?.boeAssessment || "Provisional" ,
           pdBond: val?.pdBond || false,
           billOfEntryFor: val?.billOfEntryFor
             ? val?.billOfEntryFor
@@ -1601,7 +1601,7 @@ console.log(bl,"asdasd")
               );
             })}
           <div className="">
-            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']  } isDocumentName={true} />
+            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']} isDocumentName={true} />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
