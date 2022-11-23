@@ -25,7 +25,7 @@ export default function index(props) {
             type="checkbox"
             id="orderId"
             name="orderId"
-            value={filterItem.orderId}
+            value={filterItem?.orderId}
             onChange={(e) => handleFilterChange(e)}
           />{' '}
           <label htmlFor="orderId">Order ID</label>
@@ -35,7 +35,7 @@ export default function index(props) {
             type="checkbox"
             id="commodity"
             name="commodity"
-            value={filterItem.commodity}
+            value={filterItem?.commodity}
             onChange={(e) => handleFilterChange(e)}
           />{' '}
           <label htmlFor="commodity">Commodity</label>
@@ -45,7 +45,7 @@ export default function index(props) {
             type="checkbox"
             id="status"
             name="status"
-            value={filterItem.status}
+            value={filterItem?.status}
             onChange={(e) => handleFilterChange(e)}
           />{' '}
           <label htmlFor="status">Status</label>
@@ -55,7 +55,7 @@ export default function index(props) {
             type="checkbox"
             id="createdBy"
             name="createdBy"
-            value={filterItem.createdBy}
+            value={filterItem?.createdBy}
             onChange={(e) => handleFilterChange(e)}
           />{' '}
           <label htmlFor="createdBy">Created by</label>
