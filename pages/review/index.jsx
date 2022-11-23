@@ -1007,8 +1007,15 @@ function Index() {
       }
       return false;
     }
-    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined) {
+    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined || !supplierCred.latestShipmentDate || supplierCred.latestShipmentDate == 0) {
       let toastMessage = 'Please add latest Shipment Date ';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (supplierCred.commodityOfTotalTrade == '' || supplierCred.commodityOfTotalTrade == undefined) {
+      let toastMessage = 'please add commodity Of Total Trade';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
