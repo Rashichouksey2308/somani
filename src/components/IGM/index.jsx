@@ -393,17 +393,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           }
           return false;
         }
-        // if (
-        //   igmList.igmDetails[i].blNumber[j].noOfContainers == '' ||
-        //   igmList.igmDetails[i].blNumber[j].noOfContainers == undefined ||
-        //   igmList.igmDetails[i].blNumber[j].noOfContainers == null
-        // ) {
-        //   toastMessage = 'PLS ADD NUMBER OF CONTAINERS ';
-        //   if (!toast.isActive(toastMessage)) {
-        //     toast.error(toastMessage, { toastId: toastMessage });
-        //   }
-        //   return false;
-        // }
       }
       if (
         igmList.igmDetails[i].document == '' ||
@@ -477,7 +466,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.wrapper} border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block">
-              <h2 className="">Shipment Type</h2>
+              <h2>Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1029,11 +1018,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
               ]}
               orderid={orderId}
             />
-            {/* <InspectionDocument
-              module="Loading-Transit-Unloading"
-              orderId={orderId}
-              documentName="IGM Copy"
-            /> */}
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
