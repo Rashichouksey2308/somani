@@ -292,7 +292,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
               >
                 <div className={`${styles.form_heading} mt-2`}>Release Order Details</div>
                 <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
+                  <div>
                     {releaseDetail.map((item, index) => (
                       <div key={index} className="row mb-3 ">
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
