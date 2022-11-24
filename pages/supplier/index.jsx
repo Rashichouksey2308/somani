@@ -21,7 +21,7 @@ import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
-
+import { getPincodes } from 'redux/masters/action'; 
 
 function Index() {
   const dispatch = useDispatch();
@@ -33,7 +33,6 @@ function Index() {
     if (id) dispatch(GetSupplier(`?supplierId=${id}`));
     else dispatch(ClearSupplier());
   }, [id]);
- 
 
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
@@ -62,6 +61,18 @@ function Index() {
   }, [supplierResponse]);
 
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+
+
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
+    }
+  }, [getPincodesMasterData]);
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
@@ -120,7 +131,7 @@ function Index() {
     },
   ]);
 
-  console.log(person,'person')
+  console.log(person, 'person');
 
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
@@ -462,12 +473,13 @@ function Index() {
     setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const addressValidtion = (data) => {
-    let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+    let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
 
     const emailValidate = () => {
       let isOk = true;
       data.emailId.forEach((email, index) => {
-        if (!String(email)
+        if (
+          !String(email)
             .toLowerCase()
             .match(
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -476,12 +488,11 @@ function Index() {
           handleErrorToast(`Please add valid email id for Email Field ${index}`);
           isOk = false;
         }
-
       });
       return isOk;
     };
-    if(findDuplicates(data.emailId).length > 0){
-      handleErrorToast('cannot add duplicate email')
+    if (findDuplicates(data.emailId).length > 0) {
+      handleErrorToast('cannot add duplicate email');
       return false;
     }
     if (data.address === null || data.address === '' || data.address === undefined) {
@@ -489,7 +500,7 @@ function Index() {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      
+
       return false;
     } else if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
       let toastMessage = 'Please add pin code';
@@ -497,7 +508,7 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    } else if (data.country === null || data.country === '' || data.country === undefined ) {
+    } else if (data.country === null || data.country === '' || data.country === undefined) {
       let toastMessage = 'Please add country';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -514,7 +525,7 @@ function Index() {
     ) {
       handleErrorToast('Please add a valid phone phoneNumber');
       return false;
-    }else if (
+    } else if (
       data.contact.alternatePhoneNumber === null ||
       data.contact.alternatePhoneNumber === '' ||
       data.contact.alternatePhoneNumber === undefined ||
@@ -528,22 +539,23 @@ function Index() {
   };
   const [showAddress, setShowAddress] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [Index, setIndex] = useState('0');
+  const [Index, setIndex] = useState('');
   const [editData, setEditData] = useState({
-    GSTIN: '',
-    GSTIN_document: '',
-    addressType: '',
-    branch: '',
-    city: '',
-    state: '',
-    email: '',
-    completeAddress: '',
+    emailId: [''],
+    address: '',
+    country: '',
     contact: {
-      callingCode: '',
-      number: '',
+      phoneNumberCallingCode: '+91',
+      alternatePhoneNumberCallingCode: '+91',
+      phoneNumber: null,
+      alternatePhoneNumber: null,
     },
-    pinCode: '',
+    pinCode: null,
   });
+  console.log(editData, 'editData');
+
+  const [editingAddress, setEditingAddress] = useState(false);
+
   const [keyAddressData, setKeyAddressData] = useState({
     emailId: [''],
     address: '',
@@ -560,27 +572,37 @@ function Index() {
   console.log(keyAddressData, 'keyAddressData');
 
   const editAddress = (index) => {
-    setShowAddress(false);
-    setShowEditAddress(true);
+    setEditingAddress(true);
     setIndex(index);
 
-    let tempArr = keyAddData;
+    let tempArr = keyAddData[index];
+    console.log(tempArr, 'edited address');
     setEditData({
-      emailId: tempArr[index].emailId,
-      country: tempArr[index].country,
-      address: tempArr[index].address,
+      emailId: tempArr?.emailId?.length > 1 ? tempArr?.emailId : [''],
+      country: tempArr?.country,
+      address: tempArr?.address,
       contact: {
-        callingCode: tempArr[index].contact?.callingCode,
-        phoneNumber: tempArr[index].contact?.phoneNumber,
-        alternatePhoneNumber: tempArr[index].contact?.alternatePhoneNumber,
+        phoneNumberCallingCode: tempArr?.contact?.phoneNumberCallingCode,
+        alternatePhoneNumberCallingCode: tempArr?.contact?.alternatePhoneNumberCallingCode,
+        phoneNumber: tempArr?.contact?.phoneNumber,
+        alternatePhoneNumber: tempArr?.contact?.alternatePhoneNumber,
       },
-      pinCode: tempArr[index].pinCode,
+      pinCode: tempArr?.pinCode,
     });
   };
   const keyAddDataArr = (keyAddressData) => {
     let newArr = [...keyAddData];
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
+  };
+
+  const handleUpdateAdress = () => {
+    if (addressValidtion(editData)) {
+      let tempArr = [...keyAddData];
+      tempArr[Index] = editData;
+      setKeyAddData(tempArr);
+      setEditingAddress(false);
+    }
   };
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
@@ -598,6 +620,21 @@ function Index() {
         pinCode: '',
       });
     }
+  };
+  const handleAddressUpdate = (value, name, index) => {
+    const newInput = { ...editData };
+
+    let namesplit = name.split('.');
+
+    if (name === 'emailId') {
+      newInput.emailId[index] = value;
+    } else if (namesplit.length > 1) {
+      newInput[namesplit[0]][namesplit[1]] = value;
+    } else {
+      newInput[name] = value;
+    }
+
+    setEditData(newInput);
   };
 
   const handleChange = (value, name, index) => {
@@ -748,7 +785,10 @@ function Index() {
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
-                      onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']'].includes(evt.key) && evt.preventDefault()}
+                        onKeyDown={(evt) =>
+                          ['+', '-', '.', '_', '!', ';', '/', '|', `'`, `[`, ']'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
                         onChange={onChangeHandler}
                         name="supplierName"
                         value={formData?.supplierName}
@@ -828,7 +868,7 @@ function Index() {
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) => ['e', 'E', '+', '-','.'].includes(evt.key) && evt.preventDefault()}
+                      onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
                       required
                       name="nationalIdentificationNumber"
                       value={formData?.nationalIdentificationNumber}
@@ -889,6 +929,201 @@ function Index() {
                     );
                   })}
                 </div>
+                {editingAddress && (
+                  <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
+                    <div
+                      className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
+                    >
+                      <h3 className={`${styles.heading}`} style={{ textTransform: 'none' }}>
+                        Update address
+                      </h3>
+                      <img
+                        onClick={() => {
+                          setEditingAddress(false);
+                        }}
+                        style={{ marginRight: '-15px' }}
+                        src="/static/accordion_close_black.svg"
+                        className="image_arrow"
+                      />
+                    </div>
+                    <div className={`${styles.dashboard_form} card-body border_color`}>
+                      <div className="row">
+                        <div className={`${styles.form_group} col-md-12 col-sm-6`}>
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            type="text"
+                            name="address"
+                            value={editData?.address}
+                            onChange={(e) => {
+                              handleAddressUpdate(e.target.value, e.target.name);
+                            }}
+                          />
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Address
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
+                          <div className="d-flex">
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              name="pinCode"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                              value={editData?.pinCode}
+                              onWheel={(e) => e.target.blur()}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Pin Code
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.search_image} img-fluid`}
+                              src="/static/search-grey.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
+                          <div className="d-flex">
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              name="country"
+                              // onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']',','].includes(evt.key) && evt.preventDefault()}
+                              value={editData?.country}
+                              onChange={(e) => {
+                                if (e.target.value.toLowerCase().match('[^A-Za-z0-9]')) {
+                                  handleErrorToast(`cannot add this button`);
+                                } else {
+                                  handleAddressUpdate(e.target.value, e.target.name);
+                                }
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Country
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.search_image} img-fluid`}
+                              src="/static/search-grey.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                          <div className={`${styles.phone_card}`}>
+                            <select
+                              type="tel"
+                              name="contact.phoneNumberCallingCode"
+                              id="Code"
+                              className={`${styles.code_phone} input border-right-0`}
+                              value={editData.contact.phoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+92">+92</option>
+                              <option value="+95">+95</option>
+                              <option value="+24">+24</option>
+                            </select>
+                            <input
+                              type="tel"
+                              id="textNumber"
+                              name="contact.phoneNumber"
+                              value={editData?.contact.phoneNumber}
+                              className={`${styles.input_field}  input form-control border-left-0`}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                              Phone Number
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </div>
+                        </div>
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                          <div className={`${styles.phone_card}`}>
+                            <select
+                              name="contact.alternatePhoneNumberCallingCode"
+                              id="Code"
+                              className={`${styles.code_phone} input border-right-0`}
+                              value={editData.contact.alternatePhoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              {' '}
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+92">+92</option>
+                              <option value="+95">+95</option>
+                              <option value="+24">+24</option>
+                            </select>
+                            <input
+                              type="tel"
+                              id="textNumber"
+                              name="contact.alternatePhoneNumber"
+                              value={editData?.contact.alternatePhoneNumber}
+                              className={`${styles.input_field} input form-control border-left-0`}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                              Alternate Phone Number
+                            </label>
+                          </div>
+                        </div>
+                        {editData.emailId.map((email, index) => (
+                          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <div className="d-flex">
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="text"
+                                name="emailId"
+                                value={email}
+                                onChange={(e) => {
+                                  handleAddressUpdate(e.target.value, e.target.name, index);
+                                }}
+                              />
+                              <label className={`${styles.label_heading} label_heading`}>
+                                Email ID
+                                <strong className="text-danger">*</strong>
+                              </label>
+
+                              <img
+                                onClick={() =>
+                                  setEditData((prev) => {
+                                    return { ...prev, emailId: [...prev.emailId, ''] };
+                                  })
+                                }
+                                className={`${styles.plus_add} img-fluid`}
+                                src="/static/add-btn.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <button className={`${styles.add_btn}`} onClick={() => handleUpdateAdress()}>
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                   <div
                     className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
@@ -921,7 +1156,7 @@ function Index() {
                             required
                             type="number"
                             name="pinCode"
-                          onKeyDown={(evt) => ['e', 'E', '+', '-','.'].includes(evt.key) && evt.preventDefault()}
+                            onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
@@ -950,11 +1185,11 @@ function Index() {
                             // onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']',','].includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.country}
                             onChange={(e) => {
-                              if ((e.target.value).toLowerCase().match('[^A-Za-z0-9]')) {
-                              handleErrorToast(`cannot add this button`);
-                            } else {
-                              handleChange(e.target.value, e.target.name);
-                            }
+                              if (e.target.value.toLowerCase().match('[^A-Za-z0-9]')) {
+                                handleErrorToast(`cannot add this button`);
+                              } else {
+                                handleChange(e.target.value, e.target.name);
+                              }
                             }}
                           />
                           <label className={`${styles.label_heading} label_heading`}>
@@ -1146,43 +1381,42 @@ function Index() {
 
                               <td>
                                 {!val.action ? (
-                                  <span>{val?.callingCode}{' '}{val?.contact}</span>
+                                  <span>
+                                    {val?.callingCode} {val?.contact}
+                                  </span>
                                 ) : (
                                   <div className={`${styles.phone_card}`}>
-                                  <select
-                                    name="callingCode"
-                                    id="Code"
-                                    className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
-                                    value={val?.callingCode}
-                                    onChange={(e) => {
-                                      onChangeHandler2(e.target.name, e.target.value, index);
-                                    }}
-                                  >
-                                    {' '}
-                                    <option value="+91">+91</option>
-                                    <option value="+1">+1</option>
-                                    <option value="+92">+92</option>
-                                    <option value="+95">+95</option>
-                                    <option value="+24">+24</option>
-                                  </select>
-                                  <input
-                                    name="contact"
-                                    value={val?.contact}
-                                    type="number"
-                                    onWheel={(event) => event.currentTarget.blur()}
-                                    className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
-                                    onChange={(e) => {
-                                      onChangeHandler2(e.target.name, e.target.value, index);
-                                    }}
-                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                                    readOnly={!val.action}
-                                 />
-                                </div>
-
-
-
-
-
+                                    <select
+                                      name="callingCode"
+                                      id="Code"
+                                      className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                      value={val?.callingCode}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                    >
+                                      {' '}
+                                      <option value="+91">+91</option>
+                                      <option value="+1">+1</option>
+                                      <option value="+92">+92</option>
+                                      <option value="+95">+95</option>
+                                      <option value="+24">+24</option>
+                                    </select>
+                                    <input
+                                      name="contact"
+                                      value={val?.contact}
+                                      type="number"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                                      }
+                                      readOnly={!val.action}
+                                    />
+                                  </div>
 
                                   // <input
                                   //   className="input"
