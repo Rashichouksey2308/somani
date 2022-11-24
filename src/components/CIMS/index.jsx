@@ -79,10 +79,20 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {
+          if(name=="quantity"){
+       return {
+            ...obj,
+            [name]: value,
+            cimsCharges:value
+
+          };
+          }else{
+             return {
             ...obj,
             [name]: value,
           };
+          }
+         
         }
         return obj;
       });
@@ -187,6 +197,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
       if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
         toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      
+      if (Number(cimsDetails[i]?.cimsCharges) > 100000 ) {
+        toastMessage = `CIMS CHARGES CANNOT BE GREATOR THAN 1 LAKH   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -367,8 +386,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocusCMS
-                          ? list.cimsCharges
-                          : `INR ` + Number(list.cimsCharges)?.toLocaleString('en-IN')
+                          ? list.cimsCharges?list.cimsCharges: list.quantity
+                          : `INR ` + Number(list.cimsCharges?list.cimsCharges: list.quantity)?.toLocaleString('en-IN')
                       }
                       className={`${styles.input_field} input form-control`}
                       type="text"

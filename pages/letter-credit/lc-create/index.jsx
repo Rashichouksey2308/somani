@@ -33,7 +33,6 @@ function Index() {
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
 
-
   useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -55,7 +54,8 @@ function Index() {
         ? lcModuleData?.lcApplication?.beneficiary
         : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue ?? '',
-      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit || lcModuleData?.order?.orderCurrency ,
+      currecyCodeAndAmountUnit:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit || lcModuleData?.order?.orderCurrency,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage
         ? lcModuleData?.lcApplication?.tolerancePercentage
         : lcModuleData?.order?.tolerance,
@@ -185,7 +185,7 @@ function Index() {
       }
     }
     setLcComments([...lcComments, { value: currentComment2, action: false }]);
-   
+
     setCurrentComment2('');
   };
   const deleteLcCondition = (index) => {
@@ -406,13 +406,6 @@ function Index() {
     //     return false
     //   }
     // }
-    if (lcData.adviceThroughBank === '' || lcData.adviceThroughBank == undefined) {
-      toastMessage = 'Please select  advice Through Bank';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
     // if (
     //   lcData.requestedConfirmationParty === '' ||
     //   lcData.requestedConfirmationParty == undefined
