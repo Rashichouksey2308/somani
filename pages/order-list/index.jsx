@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
@@ -9,11 +9,18 @@ import { GetBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import _get from 'lodash/get';
 import { GetCompanyDetails, GetCreditLimit } from '../../src/redux/companyDetail/action';
+import Table from '../../src/components/Table';
 import QueueStats from '../../src/components/QueueStats';
+import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import moment from 'moment';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(10);
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
   const dispatch = useDispatch();
 
   const { singleOrder } = useSelector((state) => state.buyer);
@@ -76,6 +83,45 @@ function Index() {
     }
   };
 
+  const tableColumns = useMemo(() => [
+    {
+      Header: 'Order Id',
+      accessor: 'orderId',
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+          className="font-weight-bold text-primary"
+        >
+          {value}
+        </span>
+      ),
+    },
+    {
+      Header: 'Commodity',
+      accessor: 'commodity',
+    },
+    {
+      Header: 'Order Value',
+      accessor: 'orderValue',
+    },
+    {
+      Header: 'Creation Date',
+      accessor: 'createdAt',
+      Cell: ({ value }) => {
+        return moment(value?.split('T')[0]).format('DD-MM-YYYY');
+      },
+    },
+    {
+      Header: 'Status',
+      accessor: 'queue',
+      disableSortBy: true,
+      Cell: ({ value }) => <QueueStatusSymbol status={value} />,
+    },
+  ]);
+
+console.log("SingleOrder", singleOrder)
   return (
     <>
       {' '}
@@ -108,10 +154,10 @@ function Index() {
           {/*status Box*/}
           <QueueStats data={statData} />
           {/*leads table*/}
-          <div className={`${styles.datatable} border datatable card`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">All Orders</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
+          {/* <div className={`${styles.datatable} border datatable card`}>
+            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}> */}
+              {/* <h3 className="heading_card">All Orders</h3> */}
+              {/* <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
                   Showing Page {currentPage + 1} out of {Math.ceil(singleOrder?.totalCount / 7)}
                 </span>
@@ -140,9 +186,24 @@ function Index() {
                 >
                   <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
-              </div>
-            </div>
-            <div className={styles.table_scroll_outer}>
+              </div> */}
+            {/* </div> */}
+            {singleOrder?.data && (
+            <Table
+              tableHeading="All Orders"
+              currentPage={currentPage}
+              totalCount={singleOrder?.totalCount}
+              setCurrentPage={setCurrentPage}
+              columns={tableColumns}
+              data={singleOrder?.data}
+              pageLimit={pageLimit}
+              setPageLimit={setPageLimit}
+              handleSort={handleSort}
+              sortByState={sortByState}
+              serverSortEnabled={true}
+            />
+            )} 
+            {/* <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
@@ -198,12 +259,9 @@ function Index() {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-      </div>
-    </>
-  );
-}
-
+        </>
+      );}
 export default Index;
