@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
+
 export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
   const dispatch = useDispatch();
   const [sumOfDischargeQuantities, setSum] = useState('');
@@ -30,7 +31,19 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
 
   const [show, setShow] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
-
+ const [dateStartFrom, setDateStartFrom] = useState({
+    dischargeStartDate: '',
+    vesselDate: '',
+  });
+    const setStartDate = (val, name) => {
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
+    if (name == 'dischargeStartDate') {
+      setDateStartFrom({ ...dateStartFrom, dischargeStartDate: new_date });
+    } else {
+      setDateStartFrom({ ...dateStartFrom, vesselDate: new_date });
+    }
+  };
+  console.log(dateStartFrom,"dateStartFrom")
   const [billOfEntryData, setBillOfEntryData] = useState({
     // boeAssessment: '',
     // pdBond: true,
@@ -418,6 +431,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
                         name="vesselArrivaldate"
                         saveDate={saveDate}
+                        setStartDateFrom={setStartDate}
                         labelName="Vessel Arrival Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
@@ -429,6 +443,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
                         name="dischargeStartDate"
                         saveDate={saveDate}
+                        setStartDateFrom={setStartDate}
+                        startFrom={dateStartFrom.vesselDate}
                         labelName="Discharge Start Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
@@ -440,6 +456,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                         name="dischargeEndDate"
                         saveDate={saveDate}
+                        maxDate={dateStartFrom.dischargeStartDate}
+                        startFrom={dateStartFrom.vesselDate}
                         labelName="Discharge End Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />

@@ -3,8 +3,7 @@ import Image from 'next/image';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchLeads } from 'redux/buyerProfile/action';
-import { GetAllSupplier } from 'redux/supplier/action';
+import { GetAllSupplier ,SearchSupplier} from 'redux/supplier/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Filter from '../../src/components/Filter';
 import styles from './index.module.scss';
@@ -17,9 +16,8 @@ const index = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
-  const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
-
+  const { supplierResponse, allSupplierResponse,searchedSupplier } = useSelector((state) => state.supplier);
+console.log(searchedSupplier,'searchedSupplier')
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
@@ -30,13 +28,13 @@ const index = () => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchSupplier(query));
     }
   };
-  const handleFilteredData = (e) => {
+  const handleFilteredData = (id) => {
     setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+    sessionStorage.setItem('supplier', id);
+    Router.push('/supplier');
   };
   useEffect(() => {
     dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
@@ -66,12 +64,12 @@ const index = () => {
                   placeholder="Search"
                 />
               </div>
-              {searchedLeads && serachterm && (
+              {searchedSupplier && serachterm && (
                 <div className={styles.searchResults}>
                   <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li onClick={handleFilteredData} id={results._id} key={index}>
-                        {results.companyName} <span>{results.customerId}</span>
+                    {searchedSupplier.data?.map((results, index) => (
+                      <li onClick={()=> handleFilteredData(results._id)} id={results._id} key={index}>
+                        {results?.supplierProfile.supplierName} 
                       </li>
                     ))}
                   </ul>
