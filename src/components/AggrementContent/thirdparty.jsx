@@ -184,7 +184,7 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date</option>
+                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>

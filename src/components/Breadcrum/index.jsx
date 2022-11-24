@@ -186,6 +186,14 @@ export default function Index({ isQuery }) {
         router.route = '/Leads';
       }
     }
+
+    if ('Supplier' == pageName) {
+      if(order !=null){
+        router.route = '/Supplier  Onboarding' + `/${order}`;
+      } else {
+        router.route = '/Supplier  Onboarding';
+      }
+    }
     if ('leads/' == pageName) {
       router.route = '/Leads' + '/Register Your Company';
     }
