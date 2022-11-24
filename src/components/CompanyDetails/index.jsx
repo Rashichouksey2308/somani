@@ -142,7 +142,7 @@ const Index = ({
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="MT" selected>
                     MT
                   </option>
@@ -159,7 +159,7 @@ const Index = ({
                     dispatch(ChangeCurrency(e.target.value.toUpperCase()));
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Crores" selected>
                     Crores
                   </option>
@@ -273,7 +273,7 @@ const Index = ({
                   required
                 >
                   {' '}
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {gstList &&
                     gstList?.data?.gstList?.map((gstId, index) => (
                       <option key={index + 1} value={gstId}>
@@ -301,7 +301,7 @@ const Index = ({
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
                   required
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Manufacturer">Manufacturer</option>
                   {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
