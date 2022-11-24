@@ -168,8 +168,6 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                 width: '66px',
                                 color: '#111111',
                                 fontWeight: '500',
-                                color: '#111111',
-                                fontWeight: '500',
                               }}
                             >
                               40A

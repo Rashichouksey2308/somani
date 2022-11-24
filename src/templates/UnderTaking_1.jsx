@@ -19,7 +19,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
               {data.buyer},</u>
               <br />
               <u>{data.buyerAddress?.fullAddress}</u>,{" "}
-              <u>{data.buyerAddress?.city}</u>{" "} 
+              <u>{data.buyerAddress?.city}</u>{" "}<br/>
               <u>{data.buyerAddress?.country}</u>,{" "}
               <u>{data.buyerAddress?.pinCode}</u>            
           </span>

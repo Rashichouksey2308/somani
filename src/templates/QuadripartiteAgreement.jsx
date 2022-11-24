@@ -29,7 +29,7 @@ export default function QuadripartiteAgreement(data) {
       </p>
       <p className="text-center text_sales">And</p>
       <p className="text_sales">
-        <strong>Associate Buyer</strong>, as detailed in &nbsp;
+        <strong>Associate Buyer</strong>, as detailed in&nbsp;
         <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>Associate Buyer</strong>”, which
         expression shall, where subject and content allow or admit, be deemed to include its successors, legal
         representatives and assigns) of the Second Part.
@@ -37,14 +37,14 @@ export default function QuadripartiteAgreement(data) {
       <p className="text-center text_sales">And</p>
 
       <p className="text_sales">
-        <strong>Stevedore</strong>(s), as detailed in &nbsp;
+        <strong>Stevedore</strong>(s), as detailed in&nbsp;
         <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>Stevedore/CHA</strong>”, which
         expression shall, where subject and content allow or admit, be deemed to include its successors, legal
         representatives and assigns) of the Third Part.
       </p>
       <p className="text-center text_sales">And</p>
       <p className="text_sales">
-        <strong>CMA Agent</strong> (s), as detailed in &nbsp;
+        <strong>CMA Agent</strong> (s), as detailed in&nbsp;
         <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>CMA Agent</strong>”, which
         expression shall, where subject and content allow or admit, be deemed to include its successors, legal
         representatives and assigns) of the Fourth Part.
@@ -128,7 +128,7 @@ export default function QuadripartiteAgreement(data) {
             <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate Buyer shall pay Port
             Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills
             on IGI for this. A copy of the same has to be furnished to IGI. Any penalty/demurrage on account of delayed
-            payment shall be solely to the account of the Associate Buyer
+            payment shall be solely to the account of the Associate Buyer.
           </p>
         </li>
         <li>

@@ -8,6 +8,8 @@ import { GetAllSupplier } from 'redux/supplier/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Filter from '../../src/components/Filter';
 import styles from './index.module.scss';
+import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
+
 
 const index = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,12 @@ const index = () => {
   const { searchedLeads } = useSelector((state) => state.order);
   const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
 
+
+  useEffect(() => {
+    dispatch(setPageName('Supplier'));
+    dispatch(setDynamicOrder(null));
+
+  }, []);
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
@@ -105,7 +113,7 @@ const index = () => {
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>
                     {' '}
-                    Showing Page {currentPage + 1} out of {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
+                    Showing Page {currentPage + 1} out of {allSupplierResponse && Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
                   </span>
                   <a
                     onClick={() => {
@@ -220,9 +228,9 @@ const index = () => {
               </div>
             </div>
           </div>
-          <div className={`${styles.total_count}`}>
+          {/* <div className={`${styles.total_count}`}>
             Total Count: <span>{allSupplierResponse?.totalCount}</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <DownloadMasterBar btnName="Download Reports" />

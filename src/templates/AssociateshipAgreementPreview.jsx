@@ -54,7 +54,7 @@ export default function AssociateshipAgreementPreview(data) {
                 <td align="justify">
                   <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                     Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "
-                    <strong>Associate Buyer</strong>"), which expression shall, unless it be repugnant to the context or
+                    <strong>Associate Buyer</strong>", which expression shall, unless it be repugnant to the context or
                     meaning thereof, be deemed to mean and include its successors and permitted assigns) of the other
                     Part.
                   </p>
@@ -140,7 +140,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>Item &amp; Price</strong>
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight: 'normal' }}>
-                        The details of the Commodity contracted quantity, Origin, Unit Price and total contract value
+                        The details of the Commodity, contracted quantity, Unit Price and total contract value
                         are mentioned in Schedule I.
                       </p>
                       <ol
@@ -155,8 +155,7 @@ export default function AssociateshipAgreementPreview(data) {
                       >
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The Associate Buyer affirms that the Supplier, Item, specifications, quantities, Origin,
-                            delivery and all other terms &amp; conditions of sale between Indo and the Supplier have
+                            The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and all other terms &amp; conditions of sale between Indo and the Supplier have
                             been negotiated and firmed up between Associate Buyer and Supplier. The Associate Buyer
                             further undertakes that it has ensured that the Sales Contract to be entered into between
                             Indo and the Supplier (“Sale Contract”) is in accordance with the negotiations undertaken by
@@ -166,13 +165,13 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The Associate Buyer confirms that he is solely responsible for competitiveness of price,
-                            selection of Supplier, quality, and quantity of goods and all the risks associated
+                            selection of Supplier, quality and quantity of goods and all the risks associated
                             therewith.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            Pricing: - The calculation of price shall be done as below
+                            Pricing: - The calculation of price shall be done as below:
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The basic Price in INR for invoicing by Seller will be calculated as under: -
@@ -195,25 +194,25 @@ export default function AssociateshipAgreementPreview(data) {
                             of Goods/Services.
                           </p>
                           <br/><br/><br/><br/><br/><br/><br/><br/>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The exchange rate prevailing at the time of making payment of the margin money by the
-                            Associate Buyer shall be the provisional price for preparation of provisional invoice .
+                            Associate Buyer shall be the provisional price for preparation of provisional invoice.
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The final invoicing will be done in INR and the final exchange rate on the basis of which
                             invoicing shall be:
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000', marginLeft:'-10px'}}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft:'-10px'}}>
                             a)&nbsp;the price at which the forward is booked or
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000', marginLeft:'-10px'}}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft:'-10px'}}>
                             b)&nbsp;the average of the exchanges rate at which the payment of Import is made by IGI to Indo
                             for this transaction.
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The exchange rate difference loss or gain both will be to the Associate Buyer account.
                           </p>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The final price so worked out shall be reflected in the last invoice carrying out all
                             adjustments in regards to exchange rate variation / expenses &amp; charges.
                           </p>
@@ -320,7 +319,7 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            Ensuring pre-shipment inspection of the goods/items from agency of international repute as
+                            Ensuring pre-shipment inspection of the goods/items from agencies of international repute as
                             acceptable to Seller.
                           </p>
                         </li>
@@ -371,8 +370,8 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IGI’s
-                            nominated Bank (as per IGI’s discretion), for 110% of Import Cargo Value, the cost of it
+                            The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IGI's
+                            nominated Bank (as per IGI's discretion), for 110% of Import Cargo Value, the cost of it
                             shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in
                             its name, the cost of it shall be borne by the Associate Buyer.
                           </p>
@@ -381,7 +380,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The cargo while in the port, during transit from port to godown/plot/warehouse and while in
                             the godown/plot/warehouse and while in Ocean shall be insured by way of insurance by
-                            Associate Buyer in favour of IGI or IGI’s nominated Bank (as per IGI’s discretion), for 110%
+                            Associate Buyer in favour of IGI or IGI's nominated Bank (as per IGI's discretion), for 110%
                             of landed cost (inclusive of custom duty, all other taxes applicable under GST Act 2017 as
                             amended till date). Associate Buyer will ensure that the material shall at all times remain
                             insured.
@@ -489,11 +488,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             <strong>Safekeeping and Security of the Goods: </strong>
                             <br />
-                            Proper safekeeping and security of Goods and management of the storage yard shall be the
-                            responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock
-                            security guards at the Storage yard where Goods shall be stored. Seller shall in no way be
-                            responsible or liable for any loss or damage to the Goods for any reason whatsoever
-                            including shortage or theft.
+                            Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. IGI shall in no way be responsible or liable for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
                           </p>
                         </li>
                       </ol>
@@ -583,7 +578,7 @@ export default function AssociateshipAgreementPreview(data) {
                             </li>
                             <li>
                               <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                                Placing Railway indents etc
+                                Placing Railway indents etc.
                               </p>
                             </li>
                             <li>
@@ -879,10 +874,7 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            After conclusion of the deal i.e. receipt of the amounts due to Seller from Associate
-                            Buyer/remittance against the import &amp; receipt of RR copies and all other supporting
-                            documents related to domestic sale, the account maintained by Seller for the Associate will
-                            be settled as per the procedure followed by Seller.
+                            After conclusion of the deal i.e. receipt of the amounts due to IGI from Associate Buyer/remittance against the import & receipt of RR copies and all other supporting documents related to domestic sale, account maintained by IGI for the Associate Buyer will be settled as per the procedure followed by IGI.
                           </p>
                         </li>
                         <li>

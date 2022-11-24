@@ -95,7 +95,7 @@ function index() {
       data?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName == toCheck) {
           comment.push(val.comment);
-          console.log('asdsda',toCheck)
+         
           if (toCheck == 'Assignment Letter') {
             
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
@@ -183,7 +183,6 @@ function index() {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
     let toPrint = SalesContractPreview(data);
     let name = 'SalesAgreement';
-    console.log(preview,"preview")
     if (preview == 'Sales') {
       toPrint = SalesContractPreview(data);
       name = 'SalesAgreement.pdf';
@@ -264,7 +263,7 @@ export const undertaking1Pdf = (data) => {
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0', textTransform:'capitalize'}}>
                           <u>{data.buyer}</u>,<br/>
                           <u>{data.buyerAddress?.fullAddress}</u>,
-                          <u>{data.buyerAddress?.city}</u>{" "}
+                          <u>{data.buyerAddress?.city}</u>{" "}<br/>
                           <u>{data.buyerAddress?.country}</u>,{" "}
                           <u>{data.buyerAddress?.pinCode}</u></p>
                       </td>
@@ -502,7 +501,7 @@ export const undertaking2Pdf = (data) => {
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>
                           <u>{data.buyer}</u>,<br/>
                           <u>{data.buyerAddress?.fullAddress}</u>,
-                          <u>{data.buyerAddress?.city}</u>{" "}
+                          <u>{data.buyerAddress?.city}</u>{" "}<br/>
                           <u>{data.buyerAddress?.country}</u>,{" "}
                           <u>{data.buyerAddress?.pinCode}</u></p>
                       </td>
