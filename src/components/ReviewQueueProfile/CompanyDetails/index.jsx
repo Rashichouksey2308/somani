@@ -91,7 +91,7 @@ function Index({ order, companyDetail }) {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Type of Business</div>
-                <div className={`${styles.value} accordion_Text`}>
+                <div className={`${styles.value} ${styles.multilinetext} accordion_Text`}>
                   {_get(companyDetail, 'profile.companyDetail.typeOfBusiness', [])?.join(', ')}
                 </div>
               </div>
