@@ -97,7 +97,7 @@ const Index = () => {
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDate: sheet?.paymentDueDate?.daysFromVesselDate,
             },
             commercials: {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage || 2.25,
@@ -522,12 +522,12 @@ const Index = () => {
       }
     }
 
-    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate') {
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
-        let toastMessage = 'Please add days From vessel discharge date Date ';
+        let toastMessage = 'Please add days From vessel Date ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -547,10 +547,10 @@ const Index = () => {
         return;
       }
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
-        let toastMessage = 'Please add days From vessel discharge date Date ';
+        let toastMessage = 'Please add days From vessel Date ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -856,10 +856,10 @@ const Index = () => {
       }
     }
 
-    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate') {
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -879,8 +879,8 @@ const Index = () => {
         return;
       }
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
