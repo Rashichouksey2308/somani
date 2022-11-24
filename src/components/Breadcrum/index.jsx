@@ -26,8 +26,7 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Cha');
     sessionStorage.removeItem('Stevedore');
     sessionStorage.removeItem('Delivery');
-    sessionStorage.removeItem('genericSide');
-    sessionStorage.removeItem('setgenActive');
+    // sessionStorage.removeItem('setgenActive');
   };
   const router = useRouter();
 
@@ -185,6 +184,14 @@ export default function Index({ isQuery }) {
         router.route = '/Leads' + `/${id?.toLowerCase()}`;
       } else {
         router.route = '/Leads';
+      }
+    }
+
+    if ('Supplier' == pageName) {
+      if(order !=null){
+        router.route = '/Supplier  Onboarding' + `/${order}`;
+      } else {
+        router.route = '/Supplier  Onboarding';
       }
     }
     if ('leads/' == pageName) {
