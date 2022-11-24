@@ -147,6 +147,20 @@
           }
         }
       }
+      .arrow {
+        margin-left: -40px;
+        width: 13px;
+        pointer-events: none;
+    
+        input[type='date']::-webkit-inner-spin-button,
+        input[type='date']::-webkit-calendar-picker-indicator {
+          display: none;
+          -webkit-appearance: none;
+        }
+      }
+      .customSelect {
+        appearance: none;
+      }
       .label_heading {
         font-size: 16px;
         letter-spacing: 0.53px;

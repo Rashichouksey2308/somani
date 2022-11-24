@@ -103,7 +103,7 @@ const index = () => {
           />
         </div>
       </div>
-      <DownloadMasterBar btnName="Download" />
+      <DownloadMasterBar btnName="Download" isUser={true} isVendor={true} />
     </>
   );
 };

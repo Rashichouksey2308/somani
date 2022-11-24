@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './index.module.scss';
 import { Form, Modal } from 'react-bootstrap';
 
-function Index({ btnName, handleSave, rightBtn, rightBtnClick }) {
+function Index({ btnName, isUser,isVendor, rightBtn, rightBtnClick }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -63,16 +63,56 @@ function Index({ btnName, handleSave, rightBtn, rightBtnClick }) {
                 ))}
               </div>
             </div>
-            <div className={`${styles.form_group} col-lg-6`}>
-              <input id="quantity" className={`${styles.input_field} input form-control`} type="text" />
+            {!isUser ? (
+              <>
+                <div className={`${styles.form_group} col-lg-6`}>
+                  <input id="quantity" className={`${styles.input_field} input form-control`} type="text" />
 
-              <label className={`${styles.label_heading} label_heading`}>From</label>
-            </div>
-            <div className={`${styles.form_group} col-lg-6`}>
-              <input id="quantity" className={`${styles.input_field} input form-control`} type="text" />
+                  <label className={`${styles.label_heading} label_heading`}>From</label>
+                </div>
 
-              <label className={`${styles.label_heading} label_heading`}>To</label>
-            </div>
+                <div className={`${styles.form_group} col-lg-6`}>
+                  <input id="quantity" className={`${styles.input_field} input form-control`} type="text" />
+
+                  <label className={`${styles.label_heading} label_heading`}>To</label>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={`${styles.form_group} col-lg-6`}>
+                  <div className="d-flex">
+                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
+                      <option value="India">Yes</option>
+                      <option value="America">No</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>Status</label>
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+                <div className={`${styles.form_group} col-lg-6`}>
+                  <div className="d-flex">
+                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
+                      <option value="India">India</option>
+                      <option value="America">America</option>
+                    </select>
+                    {!isVendor ? 
+                    <label className={`${styles.label_heading} label_heading`}>Company</label>
+                    :
+                    <label className={`${styles.label_heading} label_heading`}>Country</label>
+}
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </Modal.Body>
         <Modal.Footer>
