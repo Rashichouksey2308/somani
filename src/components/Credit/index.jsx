@@ -229,7 +229,7 @@ const index = ({
     newInput.state = value.State;
     newInput.city = value.City;
     newInput.country = 'India';
-    console.log(newInput, 'newinpusdas');
+  
     setKeyAddressData({ ...newInput });
   };
   const mobileFunction = (e) => {
@@ -422,7 +422,7 @@ const index = ({
   };
 
   const changeData = (name, value) => {
-    console.log('herehr');
+   
     const newInput = { ...editData };
     newInput[name] = value;
 
@@ -430,7 +430,7 @@ const index = ({
   };
   const changeData2 = (name, value) => {
     const newInput = { ...editData };
-    console.log(value, newInput, 'Asdasd');
+  
     newInput[name] = value.Pincode;
     newInput.state = value.State;
     newInput.city = value.City;
@@ -492,8 +492,6 @@ const index = ({
     setexSupplier([...temp]);
     setSearchTerm('');
   };
-
-  console.log(debtData, 'DEBT')
 
   return (
     <>
@@ -1858,7 +1856,7 @@ const index = ({
                                 ? toShow?.map((results, index) => (
                                     <li
                                       onClick={() => {
-                                        console.log(results, 'sadadasd');
+                                       
                                         changeData2('pinCode', results);
                                         setToShow([]);
                                         setToView(false);

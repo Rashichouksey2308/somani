@@ -90,7 +90,7 @@ function Index({ order, companyDetail }) {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Type of Business</div>
-                <div className={`${styles.value} accordion_Text`}>
+                <div className={`${styles.value} ${styles.multilinetext} accordion_Text`}>
                   {_get(companyDetail, 'profile.companyDetail.typeOfBusiness', [])?.join(', ')}
                 </div>
               </div>
@@ -116,14 +116,14 @@ function Index({ order, companyDetail }) {
                 <div className={`${styles.label} label_heading`}>Active Compliant</div>
                 <div
                   className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    companyDetail?.profile?.companyDetail.activeCompliance?.toLowerCase()?.trim()?.replace(' ','') == 'activecompliant'
                       ? styles.success
                       : styles.warning
                   }`}
                 >
                   {!companyDetail?.profile?.companyDetail?.activeCompliance
                     ? ''
-                    : companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    : companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim()?.replace(' ','') == 'activecompliant'
                     ? 'Yes'
                     : 'No'}
                 </div>

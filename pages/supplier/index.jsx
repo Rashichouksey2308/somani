@@ -154,7 +154,6 @@ function Index() {
   ]);
 
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
-  console.log(isPercentageInFocus, 'isPercentageInFocus');
   useEffect(() => {
     let tempArray = [{ value: false }];
     person.forEach((item) => {
@@ -179,8 +178,6 @@ function Index() {
     },
   ]);
 
-  console.log(person, 'person');
-
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
 
@@ -195,7 +192,6 @@ function Index() {
   });
 
   const [docs, setdocs] = useState([]);
-  console.log(docs, 'docs');
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
@@ -479,7 +475,6 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-      console.log(apiData, 'apiData');
 
       let fd = new FormData();
       if (id) {
@@ -600,7 +595,6 @@ function Index() {
     },
     pinCode: null,
   });
-  console.log(editData, 'editData');
 
   const [editingAddress, setEditingAddress] = useState(false);
 
@@ -617,14 +611,10 @@ function Index() {
     pinCode: null,
   });
 
-  console.log(keyAddressData, 'keyAddressData');
-
   const editAddress = (index) => {
     setEditingAddress(true);
     setIndex(index);
-
     let tempArr = keyAddData[index];
-    console.log(tempArr, 'edited address');
     setEditData({
       emailId: tempArr?.emailId?.length > 1 ? tempArr?.emailId : [''],
       country: tempArr?.country,
@@ -710,7 +700,6 @@ function Index() {
         headers: headers,
       });
       if (response.data.code === 200) {
-        console.log(response.data.data, 'incumbencyDoc');
         return response.data.data;
       } else {
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
@@ -732,7 +721,6 @@ function Index() {
       let data = await docUploader(fd);
       data.name = newDoc.name;
       if (data?.originalName) handleSuccessToast('document uploaded successfully');
-      console.log(data, 'newDoc');
       setdocs([...docs, data]);
       setNewDoc({
         document: null,
@@ -764,13 +752,24 @@ function Index() {
   };
 
   const filterDocBySearch = (searchQuery) => {
-
     if (searchQuery.length > 0) {
       let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
       setdocs(filteredArray);
     } else {
       setdocs(supplierData?.extraDocument ?? []);
     }
+  };
+
+  const handleDeleteUpdateAddress = (index) => {
+    let tempArr = { ...editData };
+    tempArr.emailId.splice(index, 1);
+    setEditData(tempArr);
+  };
+
+  const handleDeleteNewAddress = (index) => {
+    let tempArr = { ...keyAddressData };
+    tempArr.emailId.splice(index, 1);
+    setKeyAddressData(tempArr);
   };
 
   return (
@@ -1186,6 +1185,12 @@ function Index() {
                                 src="/static/add-btn.svg"
                                 alt="Search"
                               />
+                            {editData?.emailId?.length > 1 &&  <img
+                                onClick={() => handleDeleteUpdateAddress(index)}
+                                src="/static/delete 2.svg"
+                                className={`${styles.plus_add} img-fluid`}
+                                alt="Delete"
+                              />}
                             </div>
                           </div>
                         ))}
@@ -1390,6 +1395,13 @@ function Index() {
                               src="/static/add-btn.svg"
                               alt="Search"
                             />
+
+                           {keyAddressData?.emailId?.length > 1 && <img
+                              onClick={() => handleDeleteNewAddress(index)}
+                              src="/static/delete 2.svg"
+                              className={`${styles.plus_add} img-fluid`}
+                              alt="Delete"
+                            />}
                           </div>
                         </div>
                       ))}
