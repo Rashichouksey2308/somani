@@ -134,7 +134,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
-
+   console.log(name,"name")
     let newInput = [...billOfEntryData];
     newInput[index][name] = docs;
     setBillOfEntryData([...newInput]);
@@ -1438,18 +1438,13 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                             </tr>
                           </thead>
                           <tbody>
-                            <tr className="table_row">
-                              {val.boeAssessment === 'Final' ? (
-                                <td className={styles.doc_name}>
-                                  BOE Final
-                                  <strong className="text-danger ml-1">*</strong>
-                                </td>
-                              ) : (
+                              <tr className="table_row">
+                              
                                 <td className={styles.doc_name}>
                                   BOE Provisional
                                   <strong className="text-danger ml-1">*</strong>
                                 </td>
-                              )}
+                              
                               <td>
                                 {val.document1 ? (
                                   val.document1?.originalName?.toLowerCase().endsWith('.xls') ||
@@ -1475,7 +1470,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         type="file"
-                                        name="document1"
+                                        name="document"
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc1(e, index)}
                                       />
@@ -1495,6 +1490,61 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 )}
                               </td>
                             </tr>
+                              {val.boeAssessment === 'Final' ?
+                                <tr className="table_row">
+                              
+                                <td className={styles.doc_name}>
+                                  BOE Final
+                                  <strong className="text-danger ml-1">*</strong>
+                                </td>
+                             
+                              <td>
+                                {val.document3 ? (
+                                  val.document3?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  val.document3?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : val.document3?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    val.document3?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+                                  ) : (
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                                  )
+                                ) : null}
+                              </td>
+                              <td className={styles.doc_row}>
+                                {val.document3 === null
+                                  ? ''
+                                  : moment(val?.document3?.date).format('DD-MM-YYYY, h:mm a')}
+                              </td>
+
+                              <td>
+                                {val.document3 === null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name="document3"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDoc1(e, index)}
+                                      />
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{val?.document3?.originalName}</span>
+                                    <img
+                                      onClick={() => removeDoc('document3')}
+                                      className={`${styles.close_image} image_arrow`}
+                                      src="/static/close.svg"
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
+                              </td>
+                            </tr>
+                              :null}
+                          
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 Duty Paid Challan
