@@ -116,14 +116,14 @@ function Index({ order, companyDetail }) {
                 <div className={`${styles.label} label_heading`}>Active Compliant</div>
                 <div
                   className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    companyDetail?.profile?.companyDetail.activeCompliance?.toLowerCase()?.trim()?.replace(' ','') == 'activecompliant'
                       ? styles.success
                       : styles.warning
                   }`}
                 >
                   {!companyDetail?.profile?.companyDetail?.activeCompliance
                     ? ''
-                    : companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    : companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim()?.replace(' ','') == 'activecompliant'
                     ? 'Yes'
                     : 'No'}
                 </div>
