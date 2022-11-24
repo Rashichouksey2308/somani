@@ -70,7 +70,7 @@ const index = () => {
                 </div>
               )}
             </div>
-            <Filter />
+            <Filter isSupplier={true}/>
 
             <button
               type="button"
