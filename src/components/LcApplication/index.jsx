@@ -902,7 +902,7 @@ function Index({
                              
                               <label className={`${styles.labels} label_heading`}>
                                 (57) Advise Through Bank
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                              
                             </div>

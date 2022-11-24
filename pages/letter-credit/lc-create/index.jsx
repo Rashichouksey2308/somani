@@ -406,13 +406,13 @@ function Index() {
     //     return false
     //   }
     // }
-    if (lcData.adviceThroughBank === '' || lcData.adviceThroughBank == undefined) {
-      toastMessage = 'Please select  advice Through Bank';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
+    // if (lcData.adviceThroughBank === '' || lcData.adviceThroughBank == undefined) {
+    //   toastMessage = 'Please select  advice Through Bank';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     return false;
+    //   }
+    // }
     // if (
     //   lcData.requestedConfirmationParty === '' ||
     //   lcData.requestedConfirmationParty == undefined
