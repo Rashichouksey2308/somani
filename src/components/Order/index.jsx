@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
-
-const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
+import moment from 'moment';
+const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -397,7 +397,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   />
                 </div>
               </Form.Group>
-              {/* defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} */}
+       
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
@@ -405,6 +405,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     defaultDate={orderDetail?.ExpectedDateOfShipment ?? ''}
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
+                    startFrom={moment(orderList?.shipmentDetail?.lastDateOfShipment).format("DD-MM-YYYY")}
                   />
                   <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                 </div>
