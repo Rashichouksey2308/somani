@@ -206,7 +206,6 @@ function Index({ order, companyDetail }) {
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <select
-                    disabled
                     id="sourceChanel"
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
