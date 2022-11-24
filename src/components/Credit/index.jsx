@@ -493,6 +493,8 @@ const index = ({
     setSearchTerm('');
   };
 
+  console.log(debtData, 'DEBT')
+
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -2095,7 +2097,7 @@ const index = ({
                               disabled={!profile.actions}
                               value={profile.bankName}
                             >
-                              <option selected>Select</option>
+                              <option value='' selected>Select</option>
                               {FilterUniqueBank().map((item) => (
                                 <>
                                   <option value={item}>{item}</option>
@@ -2110,7 +2112,7 @@ const index = ({
                               type="text"
                               className="input"
                               disabled={!profile.actions}
-                              // value={profile.bankName}
+                              value={profile.bankName}
                               name="bankName"
                               placeholder={'Add new'}
                               // readOnly={val.addnew!="true"?true:false}

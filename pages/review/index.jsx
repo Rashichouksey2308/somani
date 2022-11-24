@@ -638,9 +638,10 @@ function Index() {
             addnew:"false"
           })
           
-          }else{
+          }
+          else{
             if(!filter.includes(val?.bankName))
-            if(temp.length <= orderList?.company?.debtProfile.length){
+            if(temp.length <= orderList?.company?.debtProfile?.length){
             temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
@@ -1030,7 +1031,7 @@ function Index() {
 
       let tempDebtData = [...debtData];
       tempDebtData.forEach((val, index) => {
-        delete val.action && delete val.actions;
+        delete val.action && delete val.actions && delete val.addnew;
       });
       let data = { ...product };
       data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
