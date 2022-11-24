@@ -21,12 +21,27 @@ import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
-import { getPincodes } from 'redux/masters/action'; 
+import { getPincodes } from 'redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
 
+  // const filterPinCode = (value) => {
+  //   if (value == '') {
+  //     setToShow([]);
+  //     setToView(false);
+  //     return;
+  //   }
+  //   let filterData = commodity.filter((o) => {
+  //     return o.Commodity.toLowerCase().includes(value.toLowerCase());
+  //   });
+
+  //   setToShow(filterData);
+  //   setToView(true);
+  // };
   let id = sessionStorage.getItem('supplier');
 
   useEffect(() => {
@@ -62,7 +77,6 @@ function Index() {
 
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
-
 
   // useEffect(() => {
   //   if (getPincodesMasterData.length > 0) {
@@ -1160,9 +1174,28 @@ function Index() {
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
+                              filterPinCode(e.target.value);
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
+                          {toShow.length > 0 && toView && (
+                            <div className={styles.searchResults}>
+                              <ul>
+                                {toShow
+                                  ? toShow?.map((results, index) => (
+                                      <li
+                                        onClick={() => handleData('commodity', results.Commodity)}
+                                        id={results._id}
+                                        key={index}
+                                        value={results.Commodity}
+                                      >
+                                        {results.Commodity}{' '}
+                                      </li>
+                                    ))
+                                  : ''}
+                              </ul>
+                            </div>
+                          )}
                           <label className={`${styles.label_heading} label_heading`}>
                             Pin Code
                             <strong className="text-danger">*</strong>
