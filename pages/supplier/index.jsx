@@ -64,15 +64,15 @@ function Index() {
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
 
 
-  useEffect(() => {
-    if (getPincodesMasterData.length > 0) {
-      setToShow(getPincodesMasterData);
-      setToView(true);
-    } else {
-      setToShow([]);
-      setToView(false);
-    }
-  }, [getPincodesMasterData]);
+  // useEffect(() => {
+  //   if (getPincodesMasterData.length > 0) {
+  //     setToShow(getPincodesMasterData);
+  //     setToView(true);
+  //   } else {
+  //     setToShow([]);
+  //     setToView(false);
+  //   }
+  // }, [getPincodesMasterData]);
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
