@@ -177,7 +177,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         }
       }
       if (cimsDetails[i]?.circNumber == '' || cimsDetails[i]?.circNumber == undefined) {
-        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i + 1}  `;
+        toastMessage = `PLEASE FILL THE CIRC NUMBER CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;

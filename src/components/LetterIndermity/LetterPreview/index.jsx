@@ -130,11 +130,11 @@ function Index() {
                               To:
                             </span>
                             {_get(transitDetails, 'data[0].order.generic.seller.name')}
-                           {" "} {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-                           {" "} {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')}
                             <br />
-                          {" "}  {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')}
+                            {" "} {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')},
                             <br />
+                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')},{" "} 
+                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},{" "}
                             {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].country')}
                           </td>
                           <td
@@ -195,23 +195,25 @@ function Index() {
                                <br />
                             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
-                                <td align="left" width="13%">
+                                <td valign='top' align="left" width="13%">
                                   <span style={{ fontWeight: 'normal' }}>Bill(s) of Lading :</span>
                                 </td>
                                 <td align="left" width="87%">
-                                  <div>
+                                  <ol style={{paddingLeft:'6px', listStyle:'none', margin:'0'}}>
                                     {_get(transitDetails, 'data[0].LOI.billOfLanding', []).map((val, index) => {
                                       return (
                                         <>
+                                        <li>
                                           <span>
                                             {' '}
                                             {val.blnumber} Dated {val.date},{' '}
                                             {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
                                           </span>
+                                        </li>
                                         </>
                                       );
                                     })}
-                                  </div>
+                                  </ol>
                                 </td>
                               </tr>
                             </table>
@@ -226,7 +228,7 @@ function Index() {
                               color: '#111111',
                               lineHeight: '18px',
                               fontWeight: 'normal',
-                              padding: '30px 35px 40px',
+                              padding: '20px 35px 40px',
                               textAlign: 'justify',
                             }}
                           >
@@ -433,7 +435,7 @@ function Index() {
                                   color: '#111111',
                                   lineHeight: '25px',
                                   fontWeight: 'bold',
-                                  padding: '38px 35px 15px',
+                                  padding: '30px 35px 15px',
                                 }}
                               >
                                 INDO GERMAN
@@ -562,7 +564,6 @@ function Index() {
                             <br />
                             <br />
                             <br />
-                            <br />
                             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
                                 <td
@@ -679,9 +680,9 @@ function Index() {
               <div className={`ml-3 ${styles.noadd} text-left`}>
                 {' '}
                 {_get(transitDetails, 'data[0].order.generic.seller.name')}
-                {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-                {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')},
-                {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
+                {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')},{" "}
+                {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')},{" "}
+                {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},{" "}
                 {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].country')}
               </div>
             </div>

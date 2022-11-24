@@ -2,23 +2,23 @@
   "modulesDropDown": [
     {
       "name": "Lead Onboarding & Order Approval",
-      "value": "LeadOnboarding&OrderApproval"
+      "value": ["Leads","Margin Money"]
     },
     {
       "name": "Agreements, Insurance & LC Opening",
-      "value": "Agreements&Insurance&LC&Opening"
+      "value": ["Generic","Agreements","LC","LC Ammendment","Vessel Nomination","Insurance"]
     },
     {
       "name": "Loading-Transit-Unloading",
-      "value": "Loading-Transit-Unloading"
+      "value": ["3rd Party Inspection","Plot Inspection","Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]
     },
     {
       "name": "Custom Clearance And Warehousing",
-      "value": "customClearanceAndWarehousing"
+      "value": ["BOE","Discharge of Cargo"]
     },
     {
       "name": "Payments Invoicing & Delivery",
-      "value": "Payments Invoicing & Delivery"
+      "value": ["Invoice generation for Release","Delivery Order","Lifting Detail"]
     },
     {
       "name": "Others",

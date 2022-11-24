@@ -27,7 +27,7 @@ function index({
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
       >
         {isDropdown ? (
-          <div className={`${styles.form_group}`} style={{ top: '5px' }}>
+          <div className={`${styles.form_group}`}>
             <div className="d-flex">
               <select onChange={(e) => handleReject(e.target.value)} className={`${styles.input_field} form-control`}>
                 <option selected value="" disabled>
@@ -57,7 +57,9 @@ function index({
                 >
                 {downLoadButtonName}
               </span>
-              <Image src="/static/file_download.svg" alt="Picture of the author" width={14} height={17} />
+              <div className={`${styles.download_icon} ml-0 my-auto`}>
+                <Image src="/static/file_download.svg" alt="Picture of the author" width={14} height={17} />
+              </div>
             </div>
 
             {downLoadButtonName === 'MCA Report' && (

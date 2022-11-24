@@ -22,14 +22,29 @@ export default function AmendLetterTemp(lcModuleData) {
             border="0"
           >
             <tr>
-              <td valign="bottom" align="left" width="33%">
+              <tr>
+                <td colSpan={2} valign="top" align="center" width="100%">
+                  <h2
+                    style={{
+                      fontSize: '34px',
+                      color: '#3687E8',
+                      lineHeight: '41px',
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    AMENDED LETTER OF CREDIT
+                  </h2>
+                </td>
+              </tr>
+              <td valign="bottom" align="left" width="50%">
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    padding: '10px 0 0 25px',
+                    padding: '0 0 0 25px',
                   }}
                 >
                   Order ID:{' '}
@@ -74,27 +89,14 @@ export default function AmendLetterTemp(lcModuleData) {
                   </span>
                 </span>
               </td>
-              <td valign="top" align="center" width="34%">
-                <h2
-                  style={{
-                    fontSize: '34px',
-                    color: '#3687E8',
-                    lineHeight: '41px',
-                    fontWeight: 'bold',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  AMENDED LETTER OF CREDIT
-                </h2>
-              </td>
-              <td valign="bottom" align="right" width="33%">
+              <td valign="bottom" align="right" width="50%">
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    padding: '10px 25px 0 0',
+                    padding: '0 25px 0 0',
                   }}
                 >
                   Documentary Credit Number:{' '}
@@ -185,8 +187,6 @@ export default function AmendLetterTemp(lcModuleData) {
                             style={{
                               display: 'inline-block',
                               width: '66px',
-                              color: '#111111',
-                              fontWeight: '500',
                               color: '#111111',
                               fontWeight: '500',
                             }}

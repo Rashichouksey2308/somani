@@ -163,6 +163,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         'shippingInformation.numberOfContainers',
         '',
       );
+      newArray[index].containerDetails.freeDetentionPeriod =  _get(
+        filteredVessel,
+        'shippingInformation.freeDetentionPeriod',
+        '',
+      );
     }
 
     setBolList(newArray);
@@ -348,7 +353,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined) {
           toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

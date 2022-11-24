@@ -36,7 +36,7 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
-  Tooltip,
+  // Tooltip,
   Legend,
 );
 
@@ -70,8 +70,9 @@ function Index({
     LimitValue: false,
     OrderValue: false,
   });
+  const [chartType,setChartType] = useState('Monthly')
 
-  console.log(gstData,"gstData")
+  console.log(chartType,"chartType")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -214,27 +215,97 @@ function Index({
     ],
   };
 
+  // const options = {
+  //   elements: {
+  //     arc: {
+  //       borderWidth: 0,
+  //     },
+  //   },
+  //   plugins: {
+  //     title: {
+  //       animation: {
+  //         animateScale: true,
+  //       },
+  //     },
+
+  //     legend: {
+  //       display: false,
+  //     },
+  //   },
+  //   responsive: true,
+  //   cutout: 130,
+  // };
+
   const options = {
+    aspectRatio: 1,
     elements: {
       arc: {
         borderWidth: 0,
       },
     },
     plugins: {
-      title: {
-        animation: {
-          animateScale: true,
-        },
-      },
-
       legend: {
         display: false,
       },
-    },
-    responsive: true,
-    cutout: 130,
-  };
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
 
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+        animation: {
+          animateScale: false,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 110,
+  };
+  const options2 = {
+    aspectRatio: 1,
+  
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+       
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 110,
+  };
   const covertMonths = (months) => {
     const CovertedMonts = [];
     months?.map((month) => {
@@ -414,7 +485,7 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 4,
+          
           },
         ],
       };
@@ -450,7 +521,7 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 20,
+           
           },
         ],
       };
@@ -467,20 +538,43 @@ function Index({
     findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern);
     findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges);
   }, [GstData, camData]);
+
+
   useEffect(() => {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
+    
+    const filteredData = (data) => {
+      let arr = [];
+      if (!data || !data?.length) return arr;
+      for (let i = 2; i <= data.length - 1; i = i + 3) {
+        arr.push(data[i]);
+      }
+      return arr;
+    };
 
+    const filteredData1 = (data) => {
+      let arr = [];
+      if (!data || !data?.length) return arr;
+      for (let i = 2; i <= data.length - 1; i = i + 3) {
+        let b = 0;
+
+        b = data[i] + data[i - 1] + data[i - 2];
+        arr.push((Number(b)/1000).toFixed(2));
+      }
+
+      return arr;
+    };
     if (!chart) {
       return;
     }
 
     const data = {
-      labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+      labels:chartType == 'Monthly'? covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month):  covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossRevenue?.month)) ,
       datasets: [
         {
           label: 'First dataset',
-          data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
+          data: chartType == 'Monthly'? gstData?.detail?.summaryCharts?.grossRevenue?.values : filteredData1(gstData?.detail?.summaryCharts?.grossRevenue?.values), 
           fill: true,
           backgroundColor: createGradient(chart.ctx, chart.chartArea, 'rgb(71, 145, 255,0.1)', 'rgb(71, 145, 255,0.2)'),
           borderColor: '#2979F2',
@@ -492,11 +586,11 @@ function Index({
     }
 
     const data2 = {
-      labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+      labels:chartType == 'Monthly'?  covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month) :covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossPurchases?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+          data: chartType == 'Monthly'? gstData?.detail?.summaryCharts?.grossPurchases?.values : filteredData1(gstData?.detail?.summaryCharts?.grossPurchases?.values) ,
           fill: true,
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: '#FA5F1C',
@@ -506,7 +600,7 @@ function Index({
 
     setChartData(data);
     setChartData2(data2);
-  }, [chartRef.current, chartRef2.current,gstData]);
+  }, [chartRef.current, chartRef2.current,gstData,chartType]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
   useEffect(() => {
@@ -573,11 +667,11 @@ function Index({
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor, camConversionunit)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, camConversionunit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
-      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit)}
+      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit,setChartType,chartType)}
       {skewness(
         top5Customers,
         options,
@@ -3194,7 +3288,7 @@ const Documents = (documentsFetched) => {
     </>
   );
 };
-const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit) => {
+const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit,setChartType,chartType) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3207,13 +3301,16 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
             <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
             <div className="d-flex align-items-center position-relative">
               <select
+              value={chartType}
+              onChange={(e)=> { 
+                console.log(e.target.value,'chartType')
+                setChartType(e.target.value)}}
                 className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
                 aria-label="Default select example"
               >
-                <option>Select an option</option>
-                <option selected value="1">
-                  Quarterly
-                </option>
+                <option disabled >Select an option</option>
+                <option  value="Monthly">Monthly</option>
+                <option  value="Quarterly">Quarterly</option>
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>

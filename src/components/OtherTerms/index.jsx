@@ -326,7 +326,7 @@ const Index = ({
                         <input
                           disabled
                           type="text"
-                          style={{ padding: '0px', width: 'auto' }}
+                          style={{padding:'0', width:'auto'}}
                           className={`${styles.igpl_para} ${styles.input} input`}
                           placeholder={`${addPrefixSymbol(
                             termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),

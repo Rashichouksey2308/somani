@@ -14,6 +14,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 Chart.register(
   ArcElement,
@@ -35,8 +36,7 @@ function Index({ shareHolding }) {
 
   Chart.register(ArcElement);
 
-  let totalEquityShare = 0;
-  let totalEquitySharePercentage = 0;
+
 
   const equityCapital = () => {
     const values = shareHolding
@@ -46,9 +46,16 @@ function Index({ shareHolding }) {
       .sort((a, b) => b.numberOfShares - a.numberOfShares);
     return values;
   };
+  const totalEquitySharePercentage =  equityCapital()?.reduce((accumulator, object) => {
+      return accumulator + Number(object.percentageShareHolding);
+    }, 0);
+    const totalEquityShare =  equityCapital()?.reduce((accumulator, object) => {
+      return accumulator + Number(object.numberOfShares);
+    }, 0);
 
   let totalPrefrenceShare = 0;
   let totalPrefrenceSharePercentage = 0;
+
   const prefrenceCapital = () => {
     const values = shareHolding
       ?.filter((item) => {
@@ -71,12 +78,6 @@ function Index({ shareHolding }) {
       equityShareNo.push(item.numberOfShares);
       equityShareName.push(item.fullName);
     });
-  equityCapital()?.forEach((equity) => {
-    totalEquityShare += equity.numberOfShares;
-    totalEquitySharePercentage = totalEquitySharePercentage +  equity.percentageShareHolding;
-
-  });
-
   const prefrenceValues = shareHolding?.filter((item) => {
     return item.type !== 'EquityShares1Member';
   });
@@ -266,11 +267,9 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className="border-top-0 border_color"></td>
                         <td className="border-top-0 border_color"></td>
-                        <td>{totalEquityShare !== 0 ? Number(totalEquityShare).toLocaleString('en-In') : ''}</td>
+                        <td> {totalEquityShare ? returnReadableNumber(totalEquityShare,undefined,0,0)  : ''}</td>
                         <td>
-                          {totalEquitySharePercentage !== 0 && totalEquitySharePercentage !== undefined ?
-                             (isNaN(Number(totalEquitySharePercentage)) * 100).toFixed(2) + '%'
-                            : ''}
+                            {totalEquitySharePercentage ? returnReadableNumber(totalEquitySharePercentage*100,undefined,2,2) + ' %' : ''}
                         </td>
                         <td className="border-top-0 border_color"></td>
                         <td className="border-top-0 border_color"></td>
@@ -328,12 +327,7 @@ function Index({ shareHolding }) {
                               {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
                             </td>
                             <td className="border-top-0 border-bottom-0">
-                              {shareHolder?.percentageShareHolding
-                                ? (shareHolder.percentageShareHolding * 100)?.toLocaleString('en-IN', {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  })
-                                : ''}
+                              {shareHolder?.percentageShareHolding ? returnReadableNumber((shareHolder.percentageShareHolding * 100),'en-In',2,2) : ''}
                             </td>
                             <td className="border-top-0 border-bottom-0">{shareHolder.pan}</td>
                             <td className="border-top-0 border-bottom-0">{shareHolder.director ? 'Yes' : 'No'}</td>
@@ -343,7 +337,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>
-                        <td>{totalPrefrenceShare !== 0 ? Number(totalPrefrenceShare)?.toLocaleString('en-In') : ''}</td>
+                        <td> {totalPrefrenceShare ? returnReadableNumber(totalPrefrenceShare,undefined,0,0)  : ''}</td>
                         <td>
                           {totalPrefrenceSharePercentage
                             ? Number(totalPrefrenceSharePercentage * 100).toFixed(2) + '%'

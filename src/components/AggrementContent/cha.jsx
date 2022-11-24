@@ -19,6 +19,7 @@ function Index(props) {
   const [list, setList] = useState([]);
   const [removedOption, setRemovedOption] = useState(null);
   const [addressList, setAddressList] = useState([]);
+  const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -47,7 +48,7 @@ function Index(props) {
 
   useEffect(() => {
     if (window) {
-      setOptions(props.vendor.options)
+    
       if (sessionStorage.getItem('Cha')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
@@ -92,7 +93,20 @@ function Index(props) {
           setAddressList( savedData?.addresses)
         }
         setChaState(supplier);
-        let tempArr = savedData?.authorisedSignatoryDetails;
+          let tempArr = savedData?.authorisedSignatoryDetails;
+       if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
        
       } else {
         let supplier = {
@@ -137,7 +151,20 @@ function Index(props) {
               setAddressList( props.data?.addresses)
             }
         setChaState(supplier);
-        let tempArr = props.data?.authorisedSignatoryDetails;
+       let tempArr = props.data?.authorisedSignatoryDetails;
+        if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
+            }
+          });
+        setOptions([...optionArray]);
+         }
         // let optionArray = [...options];
         // tempArr.forEach((val, index) => {
         //   val.actions = 'true';
@@ -238,12 +265,15 @@ function Index(props) {
 
       return newState;
     });
-    let temp = [...options];
+     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    setRemovedOption(value.name);
+
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -258,7 +288,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+    // setRemovedOption(null);
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
@@ -267,17 +297,31 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+   if(options.length==1){
+    let temp=[]
+    props.vendor.signatory.forEach((master,index)=>{
+      if(val.name== master.name){
+       
+        temp.push(master.name);
+       
+      }
+     })
+     setOptions([...temp]);
+     setRemovedArr([])
+   }
+    props.vendor.signatory.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
   };
  
   const handleInput = (name, value, key) => {
@@ -566,7 +610,7 @@ const cancelEditAddress = () => {
                         Address<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
-                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex align-items-center">
                         <Form.Control
                           className={`${styles.input_field} input form-control`}
@@ -636,7 +680,7 @@ const cancelEditAddress = () => {
                         />
                       </div>
                     </Form.Group>
-                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex align-items-center">
                         <Form.Control
                           className={`${styles.input_field} input form-control`}
@@ -746,7 +790,7 @@ const cancelEditAddress = () => {
             </div>
           </div>
         )}
-       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options,handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );
@@ -808,7 +852,7 @@ const editData = (
                 Address<strong className="text-danger">*</strong>
               </Form.Label>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex align-items-center">
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
@@ -870,7 +914,7 @@ const editData = (
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex align-items-center">
                 <Form.Control
                   className={`${styles.input_field} input form-control`}

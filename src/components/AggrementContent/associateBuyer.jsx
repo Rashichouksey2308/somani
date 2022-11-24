@@ -174,7 +174,7 @@ function Index(props) {
         // setOptions([...optionArray]);
       }
     }
-  }, [props]);
+  }, [props.data]);
 
   useEffect(() => {
     if (props?.address) {
@@ -477,11 +477,11 @@ console.log("ASda",value)
     setToEditIndex(index);
     let tempArr = addressList;
   
-    setAddressEditType(addresstype)
+    
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: addresstype,
+          addressType: val.addressType,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -489,6 +489,7 @@ console.log("ASda",value)
           state: val.state,
           city: val.city,
         });
+        setAddressEditType(val.addressType)
       }
     });
   };
@@ -892,7 +893,7 @@ const cancelEditAddress = () => {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
-                                  {console.log(val.addnew,"val.addnew ")}
+                               
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
@@ -953,6 +954,7 @@ const cancelEditAddress = () => {
                                     }}
                                   />
                                 </td>
+                                {console.log(val.phoneNo,"val.phoneNo")}
                                 <td>
                                   <input
                                     value={val.phoneNo}
@@ -1141,10 +1143,10 @@ const editData = (
   saveNewAddress,
   setAddressEditType,
   gettingPins,
-    toShow,
-    toView,
-    handleDataEdit,
-    viewSet
+  toShow,
+  toView,
+  handleDataEdit,
+  viewSet
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -1165,7 +1167,7 @@ const editData = (
             >
               <option>Select an option</option>
               <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
+             
               <option value="Supplier">Supplier</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>

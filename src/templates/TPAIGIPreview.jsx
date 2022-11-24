@@ -131,7 +131,7 @@ export default function TPAIGIPreview(data) {
                     color: '#000000',
                   }}
                 >
-                  <u>{data.seller}</u>(hereinafter referred as the{' '}
+                  <u>{data.seller}</u> (hereinafter referred as the{' '}
                   <strong>
                     <u>“IIAG”</u>
                   </strong>
@@ -919,7 +919,7 @@ export default function TPAIGIPreview(data) {
                     >
                       <u>{data.buyerseller}</u> hereby waives all rights to the Goods stored under the custody of
                       Collateral Manager and shall not remove, transfer or otherwise attempt to gain control of the
-                      Goods unless authorized in writing by Collateral Manager .
+                      Goods unless authorized in writing by Collateral Manager.
                     </p>
                   </li>
                   <li>
@@ -932,7 +932,7 @@ export default function TPAIGIPreview(data) {
                     >
                       <u>{data.buyerseller}</u> shall take the delivery of the Goods from Collateral Manager only upon
                       receipt [by Collateral Manager] of the Release Orders from the Financing Bank and then released by
-                      Collateral Manager on instructions of <u>{data?.shortseller}</u>
+                      Collateral Manager on instructions of <u>{data?.shortseller}.</u>
                     </p>
                   </li>
                   <li>
@@ -944,7 +944,7 @@ export default function TPAIGIPreview(data) {
                       }}
                     >
                       <u>{data.buyerseller}</u> warrants that Collateral Manager shall enjoy complete and uninterrupted
-                      custody of the Goods in the Designated Storage Area
+                      custody of the Goods in the Designated Storage Area.
                     </p>
                   </li>
                 </ul>
@@ -999,7 +999,7 @@ export default function TPAIGIPreview(data) {
                       Collateral Management Agreement.
                     </p>
                   </li>
-                  <li>
+                  {/* <li>
                     <p
                       style={{
                         fontSize: '12px',
@@ -1024,7 +1024,7 @@ export default function TPAIGIPreview(data) {
                       Collateral Manager to have the custody, control and supervision of the Goods stored at the
                       Designated Storage Area without any interruption and obstruction.
                     </p>
-                  </li>
+                  </li> */}
                   <li>
                     <p
                       style={{

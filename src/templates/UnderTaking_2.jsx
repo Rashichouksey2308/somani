@@ -19,7 +19,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               {data.buyer},</u>
               <br />
               <u>{data.buyerAddress?.fullAddress}</u>,{" "}
-              <u>{data.buyerAddress?.city}</u>{" "} 
+              <u>{data.buyerAddress?.city}</u>{" "}<br/>
               <u>{data.buyerAddress?.country}</u>,{" "}
               <u>{data.buyerAddress?.pinCode}</u>            
           </span>
@@ -31,7 +31,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           </strong>
         </p>
         <ol type="1">
-          <p className="text_sales">We being the Associate Buyer, do solemnly affirm and undertake as under:</p>
+          <p className="text_sales">We, being the Associate Buyer, do solemnly affirm and undertake as under:</p>
           <li>
             <p className="text_sales">
               That we have negotiated with the Supplier for supply of the Goods through Seller.

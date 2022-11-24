@@ -32,6 +32,8 @@ function Index() {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
+  const [email,setEmail] = useState('')
+
 
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
@@ -42,7 +44,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
-
+  const shareEmail = () => {}
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`}>
@@ -602,7 +604,10 @@ function Index() {
       {open ? <TermsheetPopUp 
       close={() => setOpen(false)} 
       open={open} 
-      isMargin /> : null}
+      isMargin
+      setEmail={setEmail}
+      shareEmail={shareEmail}
+      /> : null}
     </>
   );
 }

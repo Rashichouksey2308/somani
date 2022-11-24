@@ -157,7 +157,7 @@ function Index() {
                         <td>
                           <img
                             src="/static/preview.svg"
-                            className="img-fluid"
+                            className={`${styles.eye_icon}`}
                             alt="Preview"
                             onClick={() => {
                               handlePreviewRoute(margin);
@@ -186,7 +186,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
@@ -216,7 +216,7 @@ function Index() {
                         <img
                           src="/static/preview.svg"
                           className="img-fluid"
-                          alt="Preview"
+                          className={`${styles.eye_icon}`}
                           onClick={() => {
                             Router.push('/margin-preview')
                           }}
@@ -244,7 +244,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
@@ -273,7 +273,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')

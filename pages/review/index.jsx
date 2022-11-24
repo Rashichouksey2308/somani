@@ -621,23 +621,15 @@ function Index() {
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
+      let repeat=[]
      let filter = FilterUniqueBank()
      
       orderList?.company?.debtProfile.forEach((val, index) => {
         
         filter.forEach((fil,index2)=>{
          
-          // if(val.bankName==fil){
-          //   temp.push({
-          //   bankName: val?.bankName,
-          //   conduct: val?.conduct,
-          //   limit: val?.limit,
-          //   limitType: val?.limitType,
-          //   primaryBank: val?.primaryBank,
-          //   addnew:"false"
-          // })
-          // }
-      temp.push({
+          if(val.bankName==fil){
+            temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
@@ -645,6 +637,23 @@ function Index() {
             primaryBank: val?.primaryBank,
             addnew:"false"
           })
+          
+          }else{
+            if(!filter.includes(val?.bankName))
+            if(temp.length <= orderList?.company?.debtProfile.length){
+
+            console.log(val.bankName,"bankName")
+            temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"true"
+          })
+           }
+          }
+      
          
          
         })
@@ -998,8 +1007,15 @@ function Index() {
       }
       return false;
     }
-    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined) {
+    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined || !supplierCred.latestShipmentDate || supplierCred.latestShipmentDate == 0) {
       let toastMessage = 'Please add latest Shipment Date ';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (supplierCred.commodityOfTotalTrade == '' || supplierCred.commodityOfTotalTrade == undefined) {
+      let toastMessage = 'please add commodity Of Total Trade';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1458,7 +1474,7 @@ function Index() {
                   Basic Info
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF" height="92">
+              <tr height="92">
                 <td
                   style={{
                     fontSize: '20px',
@@ -1466,6 +1482,8 @@ function Index() {
                     lineHeight: '24px',
                     opacity: '1',
                     paddingLeft: '35px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   Transaction Type
@@ -1476,6 +1494,8 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
+                    background: '#F7F9FF',
+                    borderRight: '0.5px solid #D2D7E5'
                   }}
                 >
                   {camData?.transactionType}
@@ -1617,7 +1637,7 @@ function Index() {
                   {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.industry}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
@@ -1625,6 +1645,8 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     paddingTop: '29px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Order Value
@@ -1636,6 +1658,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
@@ -1649,6 +1672,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Commodity
@@ -1660,19 +1684,22 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {' '}
                   {camData?.commodity}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
                     paddingLeft: '35px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   Quantity
@@ -1683,6 +1710,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.quantity?.toLocaleString('en-In', {
@@ -1695,6 +1723,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Supplier
@@ -1705,13 +1734,14 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {' '}
                   {camData?.supplierName}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
@@ -1719,6 +1749,8 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Country of Origin
@@ -1730,6 +1762,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.countryOfOrigin}
@@ -1740,6 +1773,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Transaction Period
@@ -1751,6 +1785,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.transactionPeriodDays}
@@ -2248,7 +2283,17 @@ function Index() {
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
-                              background: '#CFF2D5',
+                              background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
                               // background: `${
                               //   filteredCreditRating?.length > 0
                               //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
@@ -2471,6 +2516,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           {filteredCreditRating?.length > 0
@@ -2546,6 +2592,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           {filteredCreditRating?.length > 0
@@ -2618,6 +2665,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           {filteredCreditRating?.length > 0
@@ -2741,7 +2789,7 @@ function Index() {
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
@@ -2760,7 +2808,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.limit}
+                                  {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
@@ -2796,10 +2846,11 @@ function Index() {
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
+                                      whiteSpace: 'nowrap'
                                     }}
                                   >
                                     {' '}
@@ -2816,7 +2867,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.outstandingLimit}
+                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
@@ -2852,7 +2905,7 @@ function Index() {
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
@@ -2928,6 +2981,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   CUSTOMER NAME
@@ -3401,6 +3455,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   NAME
@@ -3827,7 +3882,7 @@ function Index() {
                         <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Open.datasets &&
-                              top3Open?.datasets[0]?.data.map((val, index) => {
+                              top3Open?.datasets[0]?.data.map((val, index) => { 
                                 return (
                                   <>
                                     <td width="5%">
@@ -3903,7 +3958,7 @@ function Index() {
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => {
+                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => { 
                         let name = charge?.nameOfChargeHolder;
                         let [fName, lName] = name?.split(' ');
 
@@ -3922,7 +3977,10 @@ function Index() {
                           },
                         ];
                         let randColor = colors[Math.floor(Math.random() * colors.length)];
-                        return (
+                        if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
+                          return null;
+                        } else {
+                          return (
                           <tr>
                             <td
                               width="5%"
@@ -3992,7 +4050,7 @@ function Index() {
                                 : ''}
                             </td>
                           </tr>
-                        );
+                        )};
                       })}
                     {/* <tr>
                       <td
@@ -4618,7 +4676,7 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <td width="50%" style={{ paddingLeft: '35px' }}></td>
+                <td width="50%" style={{ paddingLeft:'35px', borderLeft:'1px solid #D2D7E5'}}></td>
                 <td
                   style={{
                     fontSize: '15px',
@@ -5265,6 +5323,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -5426,6 +5485,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -5657,6 +5717,7 @@ function Index() {
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
                                 paddingLeft: '35px',
+                                borderLeft: '1px solid #D2D7E5'
                               }}
                             >
                               Liabilities
@@ -5913,6 +5974,8 @@ function Index() {
                             style={{
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
+                              borderLeft: '1px solid #D2D7E5',
+                              borderRight: '1px solid #D2D7E5'
                             }}
                           >
                             <td
@@ -6085,6 +6148,8 @@ function Index() {
                             style={{
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
+                              borderLeft: '1px solid #D2D7E5',
+                              borderRight: '1px solid #D2D7E5'
                             }}
                           >
                             <td
@@ -7149,11 +7214,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {addPrefixOrSuffix(
-                      convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString('en-In'),
-                      'Cr',
-                      '',
-                    )}
+                    {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
                   </span>
                 </td>
                 <td
@@ -7210,7 +7271,8 @@ function Index() {
               <tr>
                 <td colSpan={4} valign="top">
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                    <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
+                    <tr bgColor="#FAFAFB" style={{ height: '67px',
+                          borderLeft: '1px solid #D2D7E5' }}>
                       <td
                         style={{
                           fontSize: '15px',
@@ -7474,6 +7536,7 @@ function Index() {
                           lineHeight: '27px',
                           textTransform: 'capitalize',
                           paddingLeft: '35px',
+                          borderLeft: '1px solid #D2D7E5'
                         }}
                       >
                         Sanction Conditions

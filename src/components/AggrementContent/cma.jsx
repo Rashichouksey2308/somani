@@ -7,6 +7,7 @@ import {editData} from './editContainer'
 import {addressLists} from './addressList'
 import {signatoryList} from './signatoryList'
 import {addNewAddress} from './addNewAddress'
+import { number } from 'prop-types';
 let cma = {
   name: 'Dr. Amin Controllers Private Limited',
   shortName: '',
@@ -15,11 +16,12 @@ let cma = {
 };
 
 function Index(props) {
-  console.log(props,"props.data?.addresses")
+  console.log(  props.vendor.address,"props.data?.addresses")
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
   const [removedOption, setRemovedOption] = useState(null);
+  const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -39,7 +41,7 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
+  const [options, setOptions] = useState([]);
   
   const [docList, setDocList] = useState([]);
  
@@ -90,6 +92,8 @@ function Index(props) {
   console.log(addressList,"addressList")
   useEffect(() => {
     if (window) {
+     
+
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
         let cma = {
@@ -115,6 +119,7 @@ function Index(props) {
                 },
               ],
         );
+        
           if(savedData?.addresses?.length==0){
            let temp=[];
        if(props.vendor.address?.length>0){
@@ -133,28 +138,31 @@ function Index(props) {
           setAddressList([...temp])
           }
         }else{
-          setAddressList( savedData?.addresses)
+          setAddressList(savedData?.addresses)
         }
         setCmaState(cma);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
+          if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
             }
-          }
-        });
+          });
         setOptions([...optionArray]);
+         }
+       
       } else {
         let cma = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName,
           gstin: props.data?.gstin ||'',
           designatedStorageArea:
-            props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
+          props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props?.data?.authorisedSignatoryDetails,
         };
@@ -191,29 +199,31 @@ function Index(props) {
           setAddressList([...temp])
           }
             }else{
-              setAddressList( props.data?.addresses)
+              setAddressList(props.data?.addresses)
             }
         
        
       
         
         setCmaState(cma);
-        let tempArr = props.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
+     let tempArr = props.data?.authorisedSignatoryDetails;
+        if(props?.vendor?.options?.length>0){
+           let optionArray =  props?.vendor?.options
+          tempArr.forEach((val, index) => {
+            val.actions = 'true';
+            if (tempArr?.length > 0) {
+              let index = optionArray.indexOf(val.name);
+              if (index > -1) {
+                optionArray.splice(index, 1);
+              }
             }
-          }
-        });
+          });
         setOptions([...optionArray]);
+         }
       }
     }
   }, [props]);
-
+ console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
       let data = {
@@ -233,25 +243,13 @@ function Index(props) {
       props.updateData('CMA', data);
     }
   }, [props.saveData, props.submitData]);
-  const removeDoc = (index) => {
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: '' };
-        }
 
-        return obj;
-      });
-
-      return newState;
-    });
-  };
   const onEdit = (index) => {
     let tempArr = list;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          setRemovedOption(obj.name);
+         
           return { ...obj, actions: 'false' };
         }
         // 👇️ otherwise return object as is
@@ -273,12 +271,15 @@ function Index(props) {
 
       return newState;
     });
-    let temp = [...options];
+      let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    setRemovedOption(value.name);
+
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -294,27 +295,41 @@ function Index(props) {
       },
     ]);
     setRemovedOption(null);
+ 
   };
   const handleRemove = (index, val) => {
-    docList.forEach((val, i) => {
-      if (index == val.index) {
-        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)]);
+   
+  setList([...list.slice(0, index), ...list.slice(index + 1)]);
+   if(options.length==0){
+    let temp=[]
+    props.vendor.signatory.forEach((master,index)=>{
+
+       
+        temp.push(master.name);
+       
+     
+     })
+     setOptions([...temp]);
+     setRemovedArr([])
+   }else{
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
       }
-    });
-    setList([...list.slice(0, index), ...list.slice(index + 1)]);
+        setRemovedArr([...temp])
+   }
 
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    // props.vendor.signatory.forEach((master,index)=>{
+    //   if(val.name== master.name){
+    //     let temp = [...options];
+    //     temp.push(val.name);
+    //     setOptions([...temp]);
+    //   }
+    //  })
+  
   };
-
+ console.log(options,"pppppp")
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -341,6 +356,8 @@ function Index(props) {
       return newState;
     });
   };
+ 
+
   const handleInput = (name, value, key) => {
     const newInput = { ...cmaState };
 
@@ -374,11 +391,11 @@ function Index(props) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation||val.designation;
           arrayToSave.email = val.email ||val.emailId;
-          arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
+          arrayToSave.phoneNo = val.phoneNo ||isNaN(val.phoneNumber)==true ? Number(val.phoneNumber.replace(/\s/g, "")):val.phoneNumber?.trim();
         }
       });
     }
-
+  
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -391,6 +408,7 @@ function Index(props) {
       return newState;
     });
   };
+  console.log(list,"list")
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -497,6 +515,8 @@ const cancelEditAddress = () => {
       });
     }
   };
+
+  console.log(options.length,"sdasdasdasd",list.length)
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -547,7 +567,11 @@ const cancelEditAddress = () => {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
+                  {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.filter((val,index)=>{
+                    if(val!== undefined){
+                      return val
+                    }
+                  }).map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
                 </select>
@@ -605,7 +629,7 @@ const cancelEditAddress = () => {
            props.vendor.gstin
            )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,props.vendor.options?props.vendor.options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
       </div>
     </>
   );
