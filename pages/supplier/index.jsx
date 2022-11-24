@@ -17,10 +17,11 @@ import AddressComponent from '../../src/components/AddressSupplier';
 import DateCalender from '../../src/components/DateCalender';
 import SaveBar from '../../src/components/SaveBar';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp';
-import { setPageName } from '../../src/redux/userData/action';
 import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src/utils/helpers/global';
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
+import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function Index() {
     if (id) dispatch(GetSupplier(`?supplierId=${id}`));
     else dispatch(ClearSupplier());
   }, [id]);
+ 
 
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
@@ -59,8 +61,13 @@ function Index() {
     SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
 
-  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
 
+  useEffect(() => {
+    dispatch(setPageName('Supplier'));
+    // dispatch(setDynamicName(_get(TransitDetails, 'data[0].company.companyName')));
+    dispatch(setDynamicOrder(supplierName));
+  }, [supplierName]);
   const [open, setOpen] = useState(false);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
@@ -112,6 +119,8 @@ function Index() {
       action: true,
     },
   ]);
+
+  console.log(person,'person')
 
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
@@ -447,9 +456,7 @@ function Index() {
   };
 
   const [darkMode, setDarkMode] = useState(false);
-  useEffect(() => {
-    dispatch(setPageName('inception2'));
-  });
+
   const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
     setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
@@ -459,7 +466,7 @@ function Index() {
 
     const emailValidate = () => {
       let isOk = true;
-      data.email.forEach((email, index) => {
+      data.emailId.forEach((email, index) => {
         if (!String(email)
             .toLowerCase()
             .match(
@@ -473,7 +480,7 @@ function Index() {
       });
       return isOk;
     };
-    if(findDuplicates(data.email).length > 0){
+    if(findDuplicates(data.emailId).length > 0){
       handleErrorToast('cannot add duplicate email')
       return false;
     }
@@ -490,7 +497,7 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    } else if (data.country === null || data.country === '' || data.country === undefined) {
+    } else if (data.country === null || data.country === '' || data.country === undefined ) {
       let toastMessage = 'Please add country';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -538,7 +545,7 @@ function Index() {
     pinCode: '',
   });
   const [keyAddressData, setKeyAddressData] = useState({
-    email: [''],
+    emailId: [''],
     address: '',
     country: '',
     contact: {
@@ -559,7 +566,7 @@ function Index() {
 
     let tempArr = keyAddData;
     setEditData({
-      email: tempArr[index].email,
+      emailId: tempArr[index].emailId,
       country: tempArr[index].country,
       address: tempArr[index].address,
       contact: {
@@ -579,7 +586,7 @@ function Index() {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
       setKeyAddressData({
-        email: [''],
+        emailId: [''],
         address: '',
         country: '',
         contact: {
@@ -599,7 +606,7 @@ function Index() {
     let namesplit = name.split('.');
 
     if (name === 'emailId') {
-      newInput.email[index] = value;
+      newInput.emailId[index] = value;
     } else if (namesplit.length > 1) {
       newInput[namesplit[0]][namesplit[1]] = value;
     } else {
@@ -741,6 +748,7 @@ function Index() {
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
+                      onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']'].includes(evt.key) && evt.preventDefault()}
                         onChange={onChangeHandler}
                         name="supplierName"
                         value={formData?.supplierName}
@@ -871,7 +879,7 @@ function Index() {
                           alterNumber={address?.contact?.alternatePhoneNumber}
                           alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
                           country={address?.country}
-                          email={address?.email}
+                          email={address?.emailId}
                           deleteComponent={deleteComponent}
                           editAddress={editAddress}
                           pinCode={address.pinCode}
@@ -939,9 +947,14 @@ function Index() {
                             required
                             type="text"
                             name="country"
+                            // onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']',','].includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.country}
                             onChange={(e) => {
+                              if ((e.target.value).toLowerCase().match('[^A-Za-z0-9]')) {
+                              handleErrorToast(`cannot add this button`);
+                            } else {
                               handleChange(e.target.value, e.target.name);
+                            }
                             }}
                           />
                           <label className={`${styles.label_heading} label_heading`}>
@@ -1023,7 +1036,7 @@ function Index() {
                           </label>
                         </div>
                       </div>
-                      {keyAddressData.email.map((email, index) => (
+                      {keyAddressData.emailId.map((email, index) => (
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             <input
@@ -1044,7 +1057,7 @@ function Index() {
                             <img
                               onClick={() =>
                                 setKeyAddressData((prev) => {
-                                  return { ...prev, email: [...prev.email, ''] };
+                                  return { ...prev, emailId: [...prev.emailId, ''] };
                                 })
                               }
                               className={`${styles.plus_add} img-fluid`}
@@ -1133,16 +1146,16 @@ function Index() {
 
                               <td>
                                 {!val.action ? (
-                                  <span>{val?.contact}</span>
+                                  <span>{val?.callingCode}{' '}{val?.contact}</span>
                                 ) : (
                                   <div className={`${styles.phone_card}`}>
                                   <select
-                                    name="CallingCode"
+                                    name="callingCode"
                                     id="Code"
                                     className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
-                                    value={val?.contact.callingCode}
+                                    value={val?.callingCode}
                                     onChange={(e) => {
-                                      handleChange(e.target.value, e.target.name);
+                                      onChangeHandler2(e.target.name, e.target.value, index);
                                     }}
                                   >
                                     {' '}
