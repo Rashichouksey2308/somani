@@ -248,6 +248,8 @@
               vertical-align: middle;
               text-transform: uppercase;
               border: 3px solid #f0f2f6;
+
+             
               @include respond(lg-desktop) {
                 font-size: 14px;
                 line-height: 1.2;
@@ -373,6 +375,9 @@
               &:last-child {
                 border-right: none;
               }
+              &:nth-child(3){
+                width: 30%;
+            }
 
               @include respond(lg-desktop) {
                 font-size: 14px;
