@@ -28,12 +28,37 @@ function Index() {
   const { supplierResponse } = useSelector((state) => state.supplier);
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
+  const specialCharacter = [
+    '+',
+    '-',
+    '.',
+    '@',
+    '$',
+    '#',
+    '%',
+    '^',
+    '',
+    '!',
+    ';',
+    '/',
+    '|',
+    `'`,
+    `[`,
+    ']',
+    ',',
+    '{',
+    '}',
+    '?',
+    `'`,
+    ':',
+    '<',
+    '>',
+    `"`,
+  ];
 
-
-
-  const gettingPins=(value)=>{
+  const gettingPins = (value) => {
     dispatch(getPincodes(value));
-  }
+  };
 
   let id = sessionStorage.getItem('supplier');
 
@@ -129,15 +154,13 @@ function Index() {
   ]);
 
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
-console.log(isPercentageInFocus,'isPercentageInFocus')
+  console.log(isPercentageInFocus, 'isPercentageInFocus');
   useEffect(() => {
-  
-      let tempArray = [{value: false}];
-      person.forEach((item) => {
-        tempArray.push({ value: false });
-      });
-      setIsPercentageInFocus(tempArray);
-    
+    let tempArray = [{ value: false }];
+    person.forEach((item) => {
+      tempArray.push({ value: false });
+    });
+    setIsPercentageInFocus(tempArray);
   }, [person]);
 
   const handleFocusChange = (index, value) => {
@@ -145,7 +168,6 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
     tempArray[index].value = value;
     setIsPercentageInFocus(tempArray);
   };
-
 
   const [detail, setDetail] = useState([
     {
@@ -173,7 +195,7 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
   });
 
   const [docs, setdocs] = useState([]);
-
+  console.log(docs, 'docs');
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
@@ -741,6 +763,16 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
     dispatch(DeleteSupplierDoc(payload));
   };
 
+  const filterDocBySearch = (searchQuery) => {
+
+    if (searchQuery.length > 0) {
+      let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
+      setdocs(filteredArray);
+    } else {
+      setdocs(supplierData?.extraDocument ?? []);
+    }
+  };
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -811,10 +843,7 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
-                        onKeyDown={(evt) =>
-                          ['+', '-', '.', '_', '!', ';', '/', '|', `'`, `[`, ']'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                         onChange={onChangeHandler}
                         name="supplierName"
                         value={formData?.supplierName}
@@ -1003,18 +1032,18 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                                 gettingPins(e.target.value);
                                 handleAddressUpdate(e.target.value, e.target.name);
                               }}
-                            />  
-                             { toShow.length > 0 && toView && (
+                            />
+                            {editData?.pinCode?.length > 0 && toShow.length > 0 && toView && (
                               <div className={styles.searchResults}>
                                 <ul>
                                   {toShow
                                     ? toShow?.map((results, index) => (
                                         <li
-                                          onClick={() =>{
-                                            handleAddressUpdate( results.Pincode, 'pinCode');
+                                          onClick={() => {
+                                            handleAddressUpdate(results.Pincode, 'pinCode');
                                             //  handleChange('pinCode', results.Pincode)
-                                             setToShow([])
-                                             setToView(false)
+                                            setToShow([]);
+                                            setToView(false);
                                           }}
                                           id={results._id}
                                           key={index}
@@ -1046,15 +1075,9 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                               required
                               type="text"
                               name="country"
-                              // onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']',','].includes(evt.key) && evt.preventDefault()}
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                               value={editData?.country}
-                              onChange={(e) => {
-                                if (e.target.value.toLowerCase().match('[^A-Za-z0-9]')) {
-                                  handleErrorToast(`cannot add this button`);
-                                } else {
-                                  handleAddressUpdate(e.target.value, e.target.name);
-                                }
-                              }}
+                              onChange={(e) => handleAddressUpdate(e.target.value, e.target.name)}
                             />
                             <label className={`${styles.label_heading} label_heading`}>
                               Country
@@ -1214,29 +1237,29 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
-                           { toShow.length > 0 && toView && (
-                              <div className={styles.searchResults}>
-                                <ul>
-                                  {toShow
-                                    ? toShow?.map((results, index) => (
-                                        <li
-                                          onClick={() =>{
-                                            handleChange( results.Pincode, 'pinCode');
-                                            //  handleChange('pinCode', results.Pincode)
-                                             setToShow([])
-                                             setToView(false)
-                                          }}
-                                          id={results._id}
-                                          key={index}
-                                          value={results.Pincode}
-                                        >
-                                          {results.Pincode}{' '}
-                                        </li>
-                                      ))
-                                    : ''}
-                                </ul>
-                              </div>
-                            )}
+                          {keyAddressData?.pinCode?.length > 0 && toShow.length > 0 && toView && (
+                            <div className={styles.searchResults}>
+                              <ul>
+                                {toShow
+                                  ? toShow?.map((results, index) => (
+                                      <li
+                                        onClick={() => {
+                                          handleChange(results.Pincode, 'pinCode');
+                                          //  handleChange('pinCode', results.Pincode)
+                                          setToShow([]);
+                                          setToView(false);
+                                        }}
+                                        id={results._id}
+                                        key={index}
+                                        value={results.Pincode}
+                                      >
+                                        {results.Pincode}{' '}
+                                      </li>
+                                    ))
+                                  : ''}
+                              </ul>
+                            </div>
+                          )}
                           <label className={`${styles.label_heading} label_heading`}>
                             Pin Code
                             <strong className="text-danger">*</strong>
@@ -1256,15 +1279,9 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                             required
                             type="text"
                             name="country"
-                            // onKeyDown={(evt) => ['+', '-','.','_','!',';','/','|',`'`,`[`,']',','].includes(evt.key) && evt.preventDefault()}
+                            onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.country}
-                            onChange={(e) => {
-                              if (e.target.value.toLowerCase().match('[^A-Za-z0-9]')) {
-                                handleErrorToast(`cannot add this button`);
-                              } else {
-                                handleChange(e.target.value, e.target.name);
-                              }
-                            }}
+                            onChange={(e) => handleChange(e.target.value, e.target.name)}
                           />
                           <label className={`${styles.label_heading} label_heading`}>
                             Country
@@ -1639,7 +1656,7 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                                 </td>
 
                                 <td>
-                                {!val.action ? (
+                                  {!val.action ? (
                                     <span>{val?.ownershipPercentage ? val?.ownershipPercentage + ' %' : ''}</span>
                                   ) : (
                                     <input
@@ -1772,6 +1789,7 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                                     name="name"
                                     value={val?.name}
                                     type="text"
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     readOnly={!val.action}
                                     onChange={(e) => {
                                       onChangeHandler4(e.target.name, e.target.value, index);
@@ -1788,6 +1806,7 @@ console.log(isPercentageInFocus,'isPercentageInFocus')
                                     name="nationality"
                                     value={val?.nationality}
                                     type="text"
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     readOnly={!val.action}
                                     onChange={(e) => {
                                       onChangeHandler4(e.target.name, e.target.value, index);
