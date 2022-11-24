@@ -776,6 +776,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index);
                               }}
                               minDate={lastDate}
+                              maxDate={moment(bol?.etaAtDischargePortTo).toDate()}
                             />
                             {/* <DateCalender name='etaAtDischargePortFrom'  defaultDate={bol?.etaAtDischargePortFrom?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
 

@@ -151,7 +151,7 @@ function Index() {
                             DATE :{' '}
                             {moment(
                               _get(transitDetails, 'data[0].LOI.loiIssueDate', '').slice(0, 10).replace(/-/g, '/'),
-                            ).format('DD-MM-YYYY')}
+                            ).format('DD MMMM YYYY')}
                           </td>
                         </tr>
                         <tr>
@@ -689,7 +689,7 @@ function Index() {
             <div className="w-25 text-right">
               <span>DATE:</span>
               {moment(_get(transitDetails, 'data[0].LOI.loiIssueDate', '').slice(0, 10).replace(/-/g, '/')).format(
-                'DD-MM-YYYY',
+                'DD MMMM YYYY',
               )}
             </div>
           </div>

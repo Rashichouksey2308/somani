@@ -26,8 +26,7 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Cha');
     sessionStorage.removeItem('Stevedore');
     sessionStorage.removeItem('Delivery');
-    sessionStorage.removeItem('genericSide');
-    sessionStorage.removeItem('setgenActive');
+    // sessionStorage.removeItem('setgenActive');
   };
   const router = useRouter();
 

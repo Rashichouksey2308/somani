@@ -221,10 +221,18 @@ const gettingPins=(value)=>{
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
-
+    
     setKeyAddressData(newInput);
   };
-
+const handleChange2 = (name, value) => {
+     const newInput = { ...keyAddressData };
+    newInput.pinCode = value.Pincode;
+    newInput.state = value.State;
+    newInput.city = value.City;
+    newInput.country = "India";
+    console.log(newInput,"newinpusdas")
+    setKeyAddressData({...newInput});
+}
   const mobileFunction = (e) => {
     const newObj = { ...keyAddressData };
     newObj.contact.number = e.target.value;
@@ -415,8 +423,21 @@ const gettingPins=(value)=>{
   };
 
   const changeData = (name, value) => {
+    console.log("herehr")
     const newInput = { ...editData };
     newInput[name] = value;
+   
+
+    setEditData(newInput);
+  };
+   const changeData2 = (name, value) => {
+   
+    const newInput = { ...editData };
+     console.log(value,newInput,"Asdasd")
+    newInput[name] = value.Pincode;
+    newInput.state = value.State;
+    newInput.city = value.City;
+    newInput.country = "India";
 
     setEditData(newInput);
   };
@@ -1545,7 +1566,7 @@ const gettingPins=(value)=>{
                           onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? '' : keyAddressData.pinCode}
                           onChange={(e) => {
-                             gettingPins(e.target.value);
+                            gettingPins(e.target.value);
                             handleChange(e.target.name, e.target.value);
                           }}
                         />
@@ -1556,7 +1577,7 @@ const gettingPins=(value)=>{
                                     ? toShow?.map((results, index) => (
                                         <li
                                           onClick={() =>{
-                                             handleChange('pinCode', results.Pincode)
+                                             handleChange2('pinCode', results)
                                              setToShow([])
                                              setToView(false)
                                           }}
@@ -1823,9 +1844,9 @@ const gettingPins=(value)=>{
                           required
                           type="text"
                           name="pinCode"
-                          defaultValue={editData.pinCode}
+                          value={editData.pinCode}
                           onChange={(e) => {
-                               gettingPins(e.target.value);
+                            gettingPins(e.target.value);
                             changeData(e.target.name, e.target.value);
                           }}
                         />
@@ -1836,7 +1857,8 @@ const gettingPins=(value)=>{
                                     ? toShow?.map((results, index) => (
                                         <li
                                           onClick={() =>{
-                                             changeData('pinCode', results.Pincode)
+                                            console.log(results,"sadadasd")
+                                             changeData2('pinCode', results)
                                              setToShow([])
                                              setToView(false)
                                           }}
@@ -1868,7 +1890,7 @@ const gettingPins=(value)=>{
                         required
                         type="text"
                         name="state"
-                        defaultValue={editData.state}
+                        value={editData.state}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1884,7 +1906,7 @@ const gettingPins=(value)=>{
                         required
                         type="text"
                         name="city"
-                        defaultValue={editData.city}
+                        value={editData.city}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1900,7 +1922,7 @@ const gettingPins=(value)=>{
                         required
                         type="text"
                         name="email"
-                        defaultValue={editData.email}
+                        value={editData.email}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
