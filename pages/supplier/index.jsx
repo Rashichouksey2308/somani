@@ -29,19 +29,12 @@ function Index() {
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
 
-  // const filterPinCode = (value) => {
-  //   if (value == '') {
-  //     setToShow([]);
-  //     setToView(false);
-  //     return;
-  //   }
-  //   let filterData = commodity.filter((o) => {
-  //     return o.Commodity.toLowerCase().includes(value.toLowerCase());
-  //   });
 
-  //   setToShow(filterData);
-  //   setToView(true);
-  // };
+
+  const gettingPins=(value)=>{
+    dispatch(getPincodes(value));
+  }
+
   let id = sessionStorage.getItem('supplier');
 
   useEffect(() => {
@@ -78,15 +71,15 @@ function Index() {
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
 
-  // useEffect(() => {
-  //   if (getPincodesMasterData.length > 0) {
-  //     setToShow(getPincodesMasterData);
-  //     setToView(true);
-  //   } else {
-  //     setToShow([]);
-  //     setToView(false);
-  //   }
-  // }, [getPincodesMasterData]);
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
+    }
+  }, [getPincodesMasterData]);
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
@@ -134,6 +127,25 @@ function Index() {
       action: true,
     },
   ]);
+
+  const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
+console.log(isPercentageInFocus,'isPercentageInFocus')
+  useEffect(() => {
+  
+      let tempArray = [{value: false}];
+      person.forEach((item) => {
+        tempArray.push({ value: false });
+      });
+      setIsPercentageInFocus(tempArray);
+    
+  }, [person]);
+
+  const handleFocusChange = (index, value) => {
+    let tempArray = [...isPercentageInFocus];
+    tempArray[index].value = value;
+    setIsPercentageInFocus(tempArray);
+  };
+
 
   const [detail, setDetail] = useState([
     {
@@ -988,9 +1000,33 @@ function Index() {
                               value={editData?.pinCode}
                               onWheel={(e) => e.target.blur()}
                               onChange={(e) => {
+                                gettingPins(e.target.value);
                                 handleAddressUpdate(e.target.value, e.target.name);
                               }}
-                            />
+                            />  
+                             { toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() =>{
+                                            handleAddressUpdate( results.Pincode, 'pinCode');
+                                            //  handleChange('pinCode', results.Pincode)
+                                             setToShow([])
+                                             setToView(false)
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                             <label className={`${styles.label_heading} label_heading`}>
                               Pin Code
                               <strong className="text-danger">*</strong>
@@ -1174,28 +1210,33 @@ function Index() {
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
-                              filterPinCode(e.target.value);
+                              gettingPins(e.target.value);
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          {toShow.length > 0 && toView && (
-                            <div className={styles.searchResults}>
-                              <ul>
-                                {toShow
-                                  ? toShow?.map((results, index) => (
-                                      <li
-                                        onClick={() => handleData('commodity', results.Commodity)}
-                                        id={results._id}
-                                        key={index}
-                                        value={results.Commodity}
-                                      >
-                                        {results.Commodity}{' '}
-                                      </li>
-                                    ))
-                                  : ''}
-                              </ul>
-                            </div>
-                          )}
+                           { toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() =>{
+                                            handleChange( results.Pincode, 'pinCode');
+                                            //  handleChange('pinCode', results.Pincode)
+                                             setToShow([])
+                                             setToView(false)
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                           <label className={`${styles.label_heading} label_heading`}>
                             Pin Code
                             <strong className="text-danger">*</strong>
@@ -1598,14 +1639,29 @@ function Index() {
                                 </td>
 
                                 <td>
-                                  {!val.action ? (
-                                    <span>{val?.ownershipPercentage}</span>
+                                {!val.action ? (
+                                    <span>{val?.ownershipPercentage ? val?.ownershipPercentage + ' %' : ''}</span>
                                   ) : (
                                     <input
                                       className="input"
                                       name="ownershipPercentage"
-                                      value={val?.ownershipPercentage}
-                                      type="number"
+                                      onFocus={(e) => {
+                                        handleFocusChange(index, true);
+                                        e.target.type = 'number';
+                                      }}
+                                      onBlur={(e) => {
+                                        handleFocusChange(index, false);
+                                        e.target.type = 'text';
+                                      }}
+                                      value={
+                                        isPercentageInFocus[index].value
+                                          ? val?.ownershipPercentage
+                                          : Number(val?.ownershipPercentage)?.toLocaleString('en-In', {
+                                              maximumFractionDigits: 2,
+                                            }) + ` %`
+                                      }
+                                      // value={val?.ownershipPercentage}
+                                      type="text"
                                       onWheel={(event) => event.currentTarget.blur()}
                                       onKeyDown={(evt) =>
                                         ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
