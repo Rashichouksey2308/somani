@@ -115,6 +115,9 @@
       }
     }
 
+    .multilinetext {
+      padding-bottom: 20px;
+    }
     .value {
       font-size: 20px;
       color: #111111;
@@ -373,6 +376,9 @@
               &:last-child {
                 border-right: none;
               }
+              &:nth-child(3){
+                width: 30%;
+            }
 
               @include respond(lg-desktop) {
                 font-size: 14px;
