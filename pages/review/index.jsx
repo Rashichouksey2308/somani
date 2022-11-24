@@ -641,8 +641,6 @@ function Index() {
           }else{
             if(!filter.includes(val?.bankName))
             if(temp.length <= orderList?.company?.debtProfile.length){
-
-            console.log(val.bankName,"bankName")
             temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
