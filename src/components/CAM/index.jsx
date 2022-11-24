@@ -72,7 +72,6 @@ function Index({
   });
   const [chartType,setChartType] = useState('Monthly')
 
-  console.log(chartType,"chartType")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -3024,13 +3023,15 @@ const sectionTerms = (
                         onChange={() => setLimitValueChecked(!limitValueChecked)}
                       ></input>
                     </td>
-                    <td>
+                    {/* <td>
                       <input
                         className={`${styles.text} input`}
-                        disabled={!limitValueChecked}
                         required={true}
                         type="number"
+                        disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
+
+                        name="approvedCreditValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -3050,10 +3051,41 @@ const sectionTerms = (
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
-                        // defaultValue={approvedCredit?.approvedCreditValue}
-                        name="approvedCreditValue"
+
+                        onChange={(e) => {
+                          onApprove(e.target.name, Number(e.target.value));
+                        }}
+                      ></input>
+                    </td> */}
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="number"
+                        disabled={!limitValueChecked}
+                        onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
+                        name="approvedCreditValue"
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: true,
+                          }),
+                            (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: false,
+                          }),
+                            (e.target.type = 'text');
+                        }}
+                        value={
+                          isFieldInFocus.LimitValue
+                            ? approvedCredit?.approvedCreditValue
+                            : (Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
+                        }
+                        // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApprove(e.target.name, Number(e.target.value));
                         }}
