@@ -124,7 +124,7 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index === 0 && (
+                            {index >= 0 && (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
