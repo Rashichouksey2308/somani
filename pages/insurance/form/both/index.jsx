@@ -692,7 +692,7 @@ const Index = () => {
                 >
                   <h2 className="mb-0">Marine Insurance Policy Details</h2>
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
+                    <h5 className={`${styles.radio_label} mr-3 mt-1`}>Insurance From:</h5>
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
                         <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1107,7 +1107,7 @@ const Index = () => {
                 >
                   <h2 className="mb-0">Storage Insurance Details</h2>
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
+                    <h5 className={`${styles.radio_label} mr-3`}>Insurance From:</h5>
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
                         <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1505,7 +1505,7 @@ const Index = () => {
                 >
                   <h2 className="mb-0">Marine Insurance Policy Details</h2>
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
+                    <h5 className={`${styles.radio_label} mr-3 mt-1`}>Insurance From:</h5>
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
                         <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1791,7 +1791,7 @@ const Index = () => {
                     </span>
                   </div>
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className={`${styles.radio_label}  mr-5`}>Is the Insurer same as Marine Insurance?</div>
+                    <div className={`${styles.radio_label}`}>Is the Insurer same as Marine Insurance?</div>
                     <div className={`${styles.theme} d-flex align-items-center`}>
                       <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
                       <label className={styles.switch}>
