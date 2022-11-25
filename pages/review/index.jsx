@@ -623,27 +623,52 @@ function Index() {
       let temp = [];
       let repeat=[]
      let filter = FilterUniqueBank()
-     
-      orderList?.company?.debtProfile.forEach((val, index) => {
-        
-        filter.forEach((fil,index2)=>{
-         
-          if(val.bankName==fil){
-            temp.push({
-            bankName: val?.bankName,
-            conduct: val?.conduct,
-            limit: val?.limit,
-            limitType: val?.limitType,
-            primaryBank: val?.primaryBank,
-            addnew:"false"
-          })
+      orderList?.company?.debtProfile.forEach((val, index) => { 
+        // filter.forEach((fil,index2)=>{ 
+        //   if(val.bankName==fil){
+        //     temp.push({
+        //     bankName: val?.bankName,
+        //     conduct: val?.conduct,
+        //     limit: val?.limit,
+        //     limitType: val?.limitType,
+        //     primaryBank: val?.primaryBank,
+        //     addnew:"false"
+        //   })
           
-          }else{
-            if(!filter.includes(val?.bankName))
-            if(temp.length <= orderList?.company?.debtProfile.length){
+        //   }
+        //   else{
+        //     if(!filter.includes(val?.bankName)){
+        //     if(temp.length <= orderList?.company?.debtProfile?.length){
+        //     temp.push({
+        //     bankName: val?.bankName,
+        //     conduct: val?.conduct,
+        //     limit: val?.limit,
+        //     limitType: val?.limitType,
+        //     primaryBank: val?.primaryBank,
+        //     addnew:"true"
+        //   })
+        //    }
+        //   }
+        //   }
+      
+         
+         
+        // })
 
-            console.log(val.bankName,"bankName")
-            temp.push({
+        if(filter.includes(val?.bankName)){
+          // if(temp.length <= orderList?.company?.debtProfile?.length){
+          temp.push({
+          bankName: val?.bankName,
+          conduct: val?.conduct,
+          limit: val?.limit,
+          limitType: val?.limitType,
+          primaryBank: val?.primaryBank,
+          addnew:"false"
+        })
+        //  }
+        }
+        else{
+          temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
@@ -651,15 +676,11 @@ function Index() {
             primaryBank: val?.primaryBank,
             addnew:"true"
           })
-           }
-          }
-      
-         
-         
-        })
+        }
        
       
       });
+
   
       setDebtData([...temp]);
     }
@@ -1032,7 +1053,7 @@ function Index() {
 
       let tempDebtData = [...debtData];
       tempDebtData.forEach((val, index) => {
-        delete val.action && delete val.actions;
+        delete val.action && delete val.actions && delete val.addnew;
       });
       let data = { ...product };
       data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);

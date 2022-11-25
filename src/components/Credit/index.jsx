@@ -229,7 +229,6 @@ const index = ({
     newInput.state = value.State;
     newInput.city = value.City;
     newInput.country = 'India';
-    console.log(newInput, 'newinpusdas');
     setKeyAddressData({ ...newInput });
   };
   const mobileFunction = (e) => {
@@ -422,7 +421,6 @@ const index = ({
   };
 
   const changeData = (name, value) => {
-    console.log('herehr');
     const newInput = { ...editData };
     newInput[name] = value;
 
@@ -430,7 +428,6 @@ const index = ({
   };
   const changeData2 = (name, value) => {
     const newInput = { ...editData };
-    console.log(value, newInput, 'Asdasd');
     newInput[name] = value.Pincode;
     newInput.state = value.State;
     newInput.city = value.City;
@@ -1856,7 +1853,6 @@ const index = ({
                                 ? toShow?.map((results, index) => (
                                     <li
                                       onClick={() => {
-                                        console.log(results, 'sadadasd');
                                         changeData2('pinCode', results);
                                         setToShow([]);
                                         setToView(false);
@@ -2095,7 +2091,7 @@ const index = ({
                               disabled={!profile.actions}
                               value={profile.bankName}
                             >
-                              <option selected>Select</option>
+                              <option value='' selected>Select</option>
                               {FilterUniqueBank().map((item) => (
                                 <>
                                   <option value={item}>{item}</option>
@@ -2110,7 +2106,7 @@ const index = ({
                               type="text"
                               className="input"
                               disabled={!profile.actions}
-                              // value={profile.bankName}
+                              value={profile.bankName}
                               name="bankName"
                               placeholder={'Add new'}
                               // readOnly={val.addnew!="true"?true:false}
@@ -2130,7 +2126,6 @@ const index = ({
                             // readOnly={val.addnew!="true"?true:false}
                           />
                         </td>
-
                         <td>
                           <input
                             onFocus={(e) => {
@@ -2215,14 +2210,17 @@ const index = ({
                 </table>
               </div>
             </div>
-            <div
-              className={`${styles.add_row} d-flex justify-content-end`}
-              onClick={(e) => {
-                addMoreDebtRows();
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className={`${styles.add_row} d-flex justify-content-end`}>
+              <div
+                className={`d-flex justify-content-end`}
+                onClick={(e) => {
+                  addMoreDebtRows();
+                }}
+              >
+                {' '}
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
           </div>
         </div>

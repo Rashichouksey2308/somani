@@ -72,7 +72,6 @@ function Index({
   });
   const [chartType,setChartType] = useState('Monthly')
 
-  console.log(chartType,"chartType")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -380,6 +379,8 @@ function Index({
   //   ],
   // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['rgba(97, 197, 85, 0.1)', 'rgba(135, 110, 177, 0.1)', 'rgba(40, 132, 222, 0.1)', 'rgba(237, 107, 95, 0.1)', 'rgba(40, 132, 222, 0.1)'];
+
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
     datasets: [],
@@ -666,8 +667,8 @@ function Index({
         CreditAgency,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, camConversionunit)}
+      {shareHolding(top3Share, options, tempArr, camData, backgroundColor,backgroundColor1)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor,backgroundColor1, camConversionunit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
@@ -1307,7 +1308,7 @@ const directorDetails = (camData) => {
     </>
   );
 };
-const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
+const shareHolding = (top3Share, options, tempArr, camData, backgroundColor,backgroundColor1 ) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1386,9 +1387,9 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                       return (
                         <tr key={index}>
                           <td className={`d-flex justify-content-start align-content-center`}>
-                            <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
+                            <div style={{ background: `${ index < 4 ?  backgroundColor1[index] : randColor.primary}` }} className={`${styles.icon}   `}>
                               <span
-                                style={{ color: `${randColor.secondary}` }}
+                                style={{ color: `${index < 4 ?  backgroundColor[index] : randColor.secondary}` }}
                                 className={`d-flex justify-content-center align-content-center`}
                               >
                                 {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
@@ -1460,7 +1461,15 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
+const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor,backgroundColor1, camConversionunit) => {
+
+  const returnFilteredCharges = () => {
+    let data = _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return (!item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '');
+    });
+    return  data
+  }
+  console.log(top3Open,returnFilteredCharges(),'returnFilteredCharges')
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1492,14 +1501,8 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                 </div>
                 <div className={`${styles.name} `}>
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((val, index) => {
-                      if (
-                        val.dateOfSatisfactionOfChargeInFull ||
-                        val.dateOfSatisfactionOfChargeInFull === '' ||
-                        index > 2
-                      ) {
-                        return null;
-                      } else {
+                   returnFilteredCharges().map((val, index) => {
+                    if(index > 2) return null
                         return (
                           <div
                             key={index}
@@ -1511,7 +1514,6 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                             </span>
                           </div>
                         );
-                      }
                     })}
                 </div>
               </Col>
@@ -1524,7 +1526,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                   </tr>
 
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((charge, index) => {
+                   returnFilteredCharges().map((charge, index) => {
                       let name = charge?.nameOfChargeHolder;
                       let [fName, lName] = name?.split(' ');
 
@@ -1543,15 +1545,13 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                         },
                       ];
                       let randColor = colors[Math.floor(Math.random() * colors.length)];
-                      if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
-                        return null;
-                      } else {
+                      
                         return (
                           <tr key={index}>
                             <td className={`d-flex justify-content-start align-content-center`}>
-                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon} `}>
+                              <div style={{ background: `${ index < 4 ?  backgroundColor1[index] : randColor.primary}` }} className={`${styles.icon} `}>
                                 <span
-                                  style={{ color: `${randColor.secondary}` }}
+                                  style={{ color: `${ index < 4 ?  backgroundColor[index] : randColor.secondary}` }}
                                   className={`d-flex justify-content-center align-content-center`}
                                 >
                                   {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
@@ -1579,7 +1579,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                             </td>
                           </tr>
                         );
-                      }
+                      
                     })}
                   {/* <tr>
                     <td
@@ -3024,13 +3024,15 @@ const sectionTerms = (
                         onChange={() => setLimitValueChecked(!limitValueChecked)}
                       ></input>
                     </td>
-                    <td>
+                    {/* <td>
                       <input
                         className={`${styles.text} input`}
-                        disabled={!limitValueChecked}
                         required={true}
                         type="number"
+                        disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
+
+                        name="approvedCreditValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -3050,10 +3052,41 @@ const sectionTerms = (
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
-                        // defaultValue={approvedCredit?.approvedCreditValue}
-                        name="approvedCreditValue"
+
+                        onChange={(e) => {
+                          onApprove(e.target.name, Number(e.target.value));
+                        }}
+                      ></input>
+                    </td> */}
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="number"
+                        disabled={!limitValueChecked}
+                        onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
+                        name="approvedCreditValue"
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: true,
+                          }),
+                            (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: false,
+                          }),
+                            (e.target.type = 'text');
+                        }}
+                        value={
+                          isFieldInFocus.LimitValue
+                            ? approvedCredit?.approvedCreditValue
+                            : (Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
+                        }
+                        // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApprove(e.target.name, Number(e.target.value));
                         }}

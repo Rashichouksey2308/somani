@@ -657,7 +657,7 @@ function Index() {
                                 ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
                                   <>
                                     {getPortsMasterData.filter((val, index) => {
-                                        if (val.Country.toLowerCase() == 'india') {
+                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
                                           return val;
                                         }
                                       })

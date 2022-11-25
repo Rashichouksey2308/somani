@@ -35,6 +35,7 @@ const Index = () => {
     dispatch(setDynamicName(_get(insuranceResponse, 'data[0].company.companyName', 'Company Name')));
     dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')));
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
+    setIsInsurerSameData(_get(insuranceResponse, 'data[0].isInsurerSame', false))
   }, [insuranceResponse]);
 
   useEffect(() => {
