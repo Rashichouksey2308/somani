@@ -53,7 +53,6 @@ const Index = ({
       setInvoiceDataRevised({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
-      
       if (val.Company_Name == value) {
         return val;
       }
@@ -61,13 +60,20 @@ const Index = ({
     setBranchOptions(filter);
   };
 
-  useEffect(() => { 
-    dropDownChange('name',   marginData?.invoiceDetail?.invoiceDetail?.importerName
+  useEffect(() => {
+    dropDownChange(
+      'name',
+      marginData?.invoiceDetail?.invoiceDetail?.importerName
         ? marginData?.invoiceDetail?.invoiceDetail?.importerName
         : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
             ?.toUpperCase()
-            ?.replace(/ *\([^)]*\) */g, '') || '');
-  }, [  marginData?.revisedMarginMoney?.invoiceDetail?.importerName, marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank,getInternalCompaniesMasterData]);
+            ?.replace(/ *\([^)]*\) */g, '') || '',
+    );
+  }, [
+    marginData?.revisedMarginMoney?.invoiceDetail?.importerName,
+    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank,
+    getInternalCompaniesMasterData,
+  ]);
   const routeChange = () => {
     Router.push('/revised-margin-preview');
   };
@@ -989,14 +995,14 @@ const Index = ({
                           : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
                       }
                       onChange={(e) => {
-                      let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                          if(val.keyAddresses.length > 0){
-                          if (
-                            val.keyAddresses[0].Branch == e.target.value &&
-                            val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()
-                          ) {
-                            return val;
-                          }
+                        let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                          if (val.keyAddresses.length > 0) {
+                            if (
+                              val.keyAddresses[0].Branch == e.target.value &&
+                              val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()
+                            ) {
+                              return val;
+                            }
                           }
                         });
 
@@ -1020,14 +1026,15 @@ const Index = ({
                       }}
                     >
                       <option selected>Select an option</option>
-                        {[...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
-                            if(val !== undefined){
-                              return val
-                            }
-                          }).map((val, index) => {
-                            {console.log(val,"sdasd")}
-                            return <option value={`${val}`}>{val}</option>;
-                          })}
+                      {[...new Set(branchOptions.map((item) => item.keyAddresses[0].Branch))]
+                        .filter((val, index) => {
+                          if (val !== undefined) {
+                            return val;
+                          }
+                        })
+                        .map((val, index) => {
+                          return <option value={`${val}`}>{val}</option>;
+                        })}
                     </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Branch Office
@@ -1084,53 +1091,47 @@ const Index = ({
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={invoiceDataRevised?.bankName}
+                      value={invoiceDataRevised?.accountNo}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
-                         
-                                      let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                                        if(val.keyBanks.length > 0){
-                                      if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name == invoiceDataRevised?.importerName) {
-                                        return val;
-                                      }
-                                      }
-                                    });
-                              
-                                    if(filter.length == 0) {
-                                      savedataRevised(
-                                      'branchAddress',
-                                       "",
-                                      'IFSCcode',
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        ""
-                                    );
-                                      return
-                                    }
-                                   savedataRevised(
-                                      'branchAddress',
-                                      filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
-                                      'IFSCcode',
-                                      filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
-                                      e.target.value,
-                                      filter[0].keyBanks[0].Account_No == undefined ? '' : filter[0].keyBanks[0].Account_No,
-                                      filter[0].keyBanks[0].branchType == undefined ? '' : filter[0].keyBanks[0].branchType,
-                                      filter[0].keyBanks[0].Bank_Name == undefined ? '' : filter[0].keyBanks[0].Bank_Name
-                                    );
+
+                        let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                          if (val.keyBanks.length > 0) {
+                            if (
+                              val.keyBanks[0].Account_No == e.target.value &&
+                              val.Company_Name == invoiceDataRevised?.importerName
+                            ) {
+                              return val;
+                            }
+                          }
+                        });
+
+                        if (filter.length == 0) {
+                          savedataRevised('branchAddress', '', 'IFSCcode', '', '', '', '', '');
+                          return;
+                        }
+                        savedataRevised(
+                          'branchAddress',
+                          filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
+                          'IFSCcode',
+                          filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
+                          e.target.value,
+                          filter[0].keyBanks[0].Account_No == undefined ? '' : filter[0].keyBanks[0].Account_No,
+                          filter[0].keyBanks[0].branchType == undefined ? '' : filter[0].keyBanks[0].branchType,
+                          filter[0].keyBanks[0].Bank_Name == undefined ? '' : filter[0].keyBanks[0].Bank_Name,
+                        );
                       }}
                     >
                       <option>Select an option</option>
-                       {branchOptions
-                                    .filter((val, index) => {
-                                      if (val.keyBanks[0].Bank_Name) {
-                                        return val;
-                                      }
-                                    })
-                                    .map((val, index) => {
-                                      return <option value={`${val.keyBanks[0].Bank_Name}`}>{val.keyBanks[0].Bank_Name}</option>;
-                                    })}
+                      {branchOptions
+                        .filter((val, index) => {
+                          if (val.keyBanks[0].Bank_Name) {
+                            return val;
+                          }
+                        })
+                        .map((val, index) => {
+                          return <option value={`${val.keyBanks[0].Account_No}`}>{val.keyBanks[0].Bank_Name}</option>;
+                        })}
                     </select>
 
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
@@ -1141,11 +1142,10 @@ const Index = ({
                   </div>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                              
                   <input
                     type="text"
                     id="textInput"
-                    name="branchAddress"
+                    name="branch"
                     onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
                     value={invoiceDataRevised?.branch}
                     className={`${styles.input_field} input form-control`}
@@ -1156,7 +1156,6 @@ const Index = ({
                     <strong className="text-danger">*</strong>
                   </label>
                 </div>
-                
 
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
@@ -1193,7 +1192,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="accountNo"
-                    onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
+                    // onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
                     value={invoiceDataRevised.accountNo}
                     className={`${styles.input_field} input form-control`}
                     required
