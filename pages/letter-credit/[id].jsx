@@ -615,13 +615,11 @@ function Index() {
                                   </>
                                 ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
                                   <>
-                                    {getPortsMasterData
-                                      .filter((val, index) => {
-                                        if (val.Country.toLowerCase() == 'india') {
+                                    {getPortsMasterData?.filter((val, index) => {
+                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
                                           return val;
                                         }
-                                      })
-                                      .map((val, index) => {
+                                      })?.map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
                                             {val.Port_Name}, {val.Country}

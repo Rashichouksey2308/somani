@@ -39,7 +39,7 @@ const index = ({
         col3: item.State,
         date: '11-11-2022',
         status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
-        id: item._id,
+        Id: item._id,
       };
     });
   } else if (tableName === 'Internal Companies') {
@@ -51,11 +51,36 @@ const index = ({
         col2: item.Short_Name,
         col3: item.Country,
         status: 'Approved',
-        id: item._id,
+        Id: item._id,
       };
     });
   }
+  else if (tableName === 'Vendor Management') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item?.vendorDetails?.vendorType,
+        col2: item?.vendorDetails?.vendor,
+        col3: item?.vendorDetails?.Country,
+        date:item?.vendorDetails?.activationDate,
+        status: 'Approved',
+        Id: item._id,
+      };
+    });
 
+  }
+  else if (tableName === 'Currency') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item.Currency,
+        col2: item.Currency_Name,
+        status: 'Approved',
+        Id: item._id,
+      };
+    });
+  }
+  
   return (
     <>
       {/*UserTable*/}
@@ -132,20 +157,21 @@ const index = ({
                       alt="Sort icon"
                     />
                   </th>
-                  {isCurrency ? 
-''
-                  :
+                   {isCurrency ? '' :
                   <th className={`${styles.table_heading} table_heading`}>
-                    {header3}{' '}
-                    <Image
-                      width="9px"
-                      height="14px"
-                      className={`${styles.sort_img}`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />
-                  </th>
- }
+                  {header3}{' '}
+                  <Image
+                    width="9px"
+                    height="14px"
+                    className={`${styles.sort_img}`}
+                    src="/static/icons8-sort-24.svg"
+                    alt="Sort icon"
+                  />
+                </th>
+
+                
+                  
+ } 
                   {isHeader ? (
                     <th className={`${styles.table_heading} table_heading`}>
                       {header}{' '}
@@ -179,7 +205,10 @@ const index = ({
                     <tr key={index} className={`${styles.table_row} table_row17`}>
                       <td className={styles.buyerName}>{supplier.col1}</td>
                       <td>{supplier.col2}</td>
-                      <td>{supplier.col3}</td>
+                      {isCurrency ? '' :
+                      <td>{supplier.col3}</td> 
+}
+                      {/* <td>{supplier.col4}</td> */}
                       {supplier?.date && <td>{supplier.date}</td>}
                       <td>
                         <ToggleSwitch />
@@ -190,7 +219,7 @@ const index = ({
                         <div className={`${styles.edit_image} img-fluid`}>
                           <Image
                             onClick={() => {
-                              handleRoute(supplier.id);
+                              handleRoute(supplier.Id);
                             }}
                             height="40px"
                             width="40px"

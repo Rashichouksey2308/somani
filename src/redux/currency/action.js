@@ -5,105 +5,102 @@ import Cookies from 'js-cookie'
 import * as types from './actionType'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 
-function getInternalCompanies () {
+function getCurrency () {
   return {
-    type: types.GET_INTERNAL_COMPANIES
+    type: types.GET_CURRENCY
   }
 }
 
-function getInternalCompaniesSuccess (payload) {
+function getCurrencySuccess (payload) {
   return {
-    type: types.GET_INTERNAL_COMPANIES_SUCCESS,
+    type: types.GET_CURRENCY_SUCCESS,
     payload
   }
 }
 
-function getInternalCompaniesFailed () {
+function getCurrencyFailed () {
   return {
-    type: types.GET_INTERNAL_COMPANIES_FAILED
+    type: types.GET_CURRENCY_FAILED
   }
 }
 
-function getAllInternalCompanies () {
+function getAllCurrency () {
   return {
-    type: types.GET_ALL_INTERNAL_COMPANIES
+    type: types.GET_ALL_CURRENCY
   }
 }
 
-function getAllInternalCompaniesSuccess (payload) {
+function getAllCurrencySuccess (payload) {
   return {
-    type: types.GET_ALL_INTERNAL_COMPANIES_SUCCESS,
+    type: types.GET_ALL_CURRENCY_SUCCESS,
     payload
   }
 }
 
-function getAllInternalCompaniesFailed () {
+function getAllCurrencyFailed () {
   return {
-    type: types.GET_ALL_INTERNAL_COMPANIES_FAILED
+    type: types.GET_ALL_CURRENCY_FAILED
   }
 }
 
-function updateInternalCompanies () {
+function updateCurrency () {
   return {
-    type: types.UPDATE_INTERNAL_COMPANIES
+    type: types.UPDATE_CURRENCY
   }
 }
 
-function updateInternalCompaniesSuccess (payload) {
+function updateCurrencySuccess (payload) {
   return {
-    type: types.UPDATE_INTERNAL_COMPANIES_SUCCESS,
+    type: types.UPDATE_CURRENCY_SUCCESS,
     payload
   }
 }
 
-function updateInternalCompaniesFailed () {
+function updateCurrencyFailed () {
   return {
-    type: types.UPDATE_INTERNAL_COMPANIES_FAILED
+    type: types.UPDATE_CURRENCY_FAILED
   }
 }
 
-function createInternalCompanies () {
+function createCurrency () {
   return {
-    type: types.CREATE_INTERNAL_COMPANIES
+    type: types.CREATE_CURRENCY
   }
 }
 
-function createInternalCompaniesSuccess (payload) {
+function createCurrencySuccess (payload) {
   return {
-    type: types.CREATE_INTERNAL_COMPANIES_SUCCESS,
+    type: types.CREATE_CURRENCY_SUCCESS,
     payload
   }
 }
 
-function createInternalCompaniesFailed () {
+function createCurrencyFailed () {
   return {
-    type: types.CREATE_INTERNAL_COMPANIES_FAILED
+    type: types.CREATE_CURRENCY_FAILED
   }
 }
 
-export const GetAllInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const GetAllCurrency = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-
-  console.log(jwtAccessToken,"jwtAccessToken ++++");
-
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getCurrency}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(getAllInternalCompaniesSuccess(response.data.data))
+          dispatch(getAllCurrencySuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
-          dispatch(getAllInternalCompaniesFailed())
+          dispatch(getAllCurrencyFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -112,7 +109,7 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
         }
       })
       .catch((error) => {
-        dispatch(getAllInternalCompaniesFailed())
+        dispatch(getAllCurrencyFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -120,9 +117,9 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(getAllInternalCompaniesFailed())
+    dispatch(getAllCurrencyFailed())
 
-    const toastMessage = 'COULD NOT GET INTERNAL COMPANIES AT THIS TIME'
+    const toastMessage = 'COULD NOT GET CURRENCY AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -130,7 +127,7 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
   }
 }
 
-export const GetInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const GetCurrency = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -142,15 +139,15 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
+    Axios.get(`${API.corebaseUrl}${API.getCurrency}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(getInternalCompaniesSuccess(response.data.data))
+          dispatch(getCurrencySuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
-          dispatch(getInternalCompaniesFailed())
+          dispatch(getCurrencyFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -159,7 +156,7 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
         }
       })
       .catch((error) => {
-        dispatch(getInternalCompaniesFailed())
+        dispatch(getCurrencyFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -167,9 +164,9 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(getInternalCompaniesFailed())
+    dispatch(getCurrencyFailed())
 
-    const toastMessage = 'COULD NOT GET INTERNAL COMPANIES AT THIS TIME'
+    const toastMessage = 'COULD NOT GET CURRENCY AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -177,10 +174,11 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
   }
 }
 
-export const CreateInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const CreateCurrency = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
@@ -188,12 +186,12 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.getCurrency}`, payload, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(createInternalCompaniesSuccess(response.data.data))
+          dispatch(createCurrencySuccess(response.data.data))
 
           const toastMessage = 'created  SUCCESSFULLY'
 
@@ -204,7 +202,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
           }
           dispatch(setNotLoading())
         } else {
-          dispatch(createInternalCompaniesFailed())
+          dispatch(createCurrencyFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -213,7 +211,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
         }
       })
       .catch((error) => {
-        dispatch(createInternalCompaniesFailed())
+        dispatch(createCurrencyFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -221,7 +219,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(createInternalCompaniesFailed())
+    dispatch(createCurrencyFailed())
 
     const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -231,7 +229,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
   }
 }
 
-export const UpdateInternalCompanies = (payload) => async (dispatch, getState, api) => {
+export const UpdateCurrency = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -243,12 +241,12 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.getCurrency}`, payload, {
       headers: headers
     })
       .then((response) => {
         if (response.data.code === 200) {
-          dispatch(updateInternalCompaniesSuccess(response.data.data))
+          dispatch(updateCurrencySuccess(response.data.data))
 
           const toastMessage = 'updated  SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -259,7 +257,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
           sessionStorage.removeItem('internalCompanyId')
           dispatch(setNotLoading())
         } else {
-          dispatch(updateInternalCompaniesFailed())
+          dispatch(updateCurrencyFailed())
           const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -268,7 +266,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
         }
       })
       .catch((error) => {
-        dispatch(updateInternalCompaniesFailed())
+        dispatch(updateCurrencyFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -276,9 +274,9 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
         dispatch(setNotLoading())
       })
   } catch (error) {
-    dispatch(updateInternalCompaniesFailed())
+    dispatch(updateCurrencyFailed())
 
-    const toastMessage = 'COULD NOT UPDATE INTERNAL COMPANIES AT THIS TIME'
+    const toastMessage = 'COULD NOT UPDATE CURRENCY AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }

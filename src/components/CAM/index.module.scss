@@ -857,7 +857,6 @@
 
     .chart2 {
       padding-left: 35px !important;
-
       height: 177px;
       display: flex;
       justify-content: center;
@@ -865,6 +864,10 @@
       position: relative;
       margin-top: 3rem;
       margin-bottom: 3rem;
+
+      @include respond(lg-desktop) {
+        padding-left: 0 !important;
+      }
 
       canvas {
         height: 211px !important;
@@ -976,7 +979,6 @@
 
     .chart2 {
       padding-left: 35px !important;
-
       height: 177px;
       display: flex;
       justify-content: center;
@@ -984,6 +986,9 @@
       position: relative;
       margin-top: 3rem;
       margin-bottom: 3rem;
+      @include respond(lg-desktop) {
+        padding-left: 0 !important;
+      }
 
       canvas {
         height: 211px !important;
