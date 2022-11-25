@@ -229,7 +229,6 @@ const index = ({
     newInput.state = value.State;
     newInput.city = value.City;
     newInput.country = 'India';
-  
     setKeyAddressData({ ...newInput });
   };
   const mobileFunction = (e) => {
@@ -422,7 +421,6 @@ const index = ({
   };
 
   const changeData = (name, value) => {
-   
     const newInput = { ...editData };
     newInput[name] = value;
 
@@ -430,7 +428,6 @@ const index = ({
   };
   const changeData2 = (name, value) => {
     const newInput = { ...editData };
-  
     newInput[name] = value.Pincode;
     newInput.state = value.State;
     newInput.city = value.City;
@@ -1856,7 +1853,6 @@ const index = ({
                                 ? toShow?.map((results, index) => (
                                     <li
                                       onClick={() => {
-                                       
                                         changeData2('pinCode', results);
                                         setToShow([]);
                                         setToView(false);
@@ -2120,7 +2116,14 @@ const index = ({
                             />
                           </td>
                         )}
-
+                        <td>
+                          <input
+                            type="text"
+                            className="input"
+                            name="bankName"
+                            placeholder={'Add new'}
+                          />
+                        </td>
                         <td>
                           <input
                             onFocus={(e) => {

@@ -17,6 +17,8 @@ import { previewDocument } from '../../redux/ViewDoc/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
 // import { set } from 'lodash'
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
+import { returnDocFormat } from '@/utils/helpers/global';
+
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
   const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
@@ -84,6 +86,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       setBankName(filter);
     }
   }, [getInternalCompaniesMasterData, customData]);
+ 
   const [billOfEntryData, setBillOfEntryData] = useState([
     {
       boeAssessment: '',
@@ -1446,17 +1449,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 </td>
                               
                               <td>
-                                {val.document1 ? (
-                                  val.document1?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document1?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document1?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document1?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                              {val.document1 ? returnDocFormat(val.document1?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document1 === null
@@ -1470,7 +1463,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         type="file"
-                                        name="document"
+                                        name="document1"
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc1(e, index)}
                                       />
@@ -1481,7 +1474,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{val?.document1?.originalName}</span>
                                     <img
-                                      onClick={() => removeDoc('document1')}
+                                      onClick={() => removeDoc('document1',index)}
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       alt="Close"
@@ -1499,17 +1492,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 </td>
                              
                               <td>
-                                {val.document3 ? (
-                                  val.document3?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document3?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document3?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document3?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                                {val.document3 ? returnDocFormat(val.document3?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document3 === null
@@ -1534,7 +1517,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{val?.document3?.originalName}</span>
                                     <img
-                                      onClick={() => removeDoc('document3')}
+                                      onClick={() => removeDoc('document3',index)}
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       alt="Close"
@@ -1551,17 +1534,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 <strong className="text-danger ml-1">*</strong>
                               </td>
                               <td>
-                                {val.document2 ? (
-                                  val.document2?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document2?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document2?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document2?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                              {val.document2 ? returnDocFormat(val.document2?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document2 === null

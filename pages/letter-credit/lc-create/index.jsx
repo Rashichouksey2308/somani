@@ -457,12 +457,12 @@ function Index() {
       };
 
       let code = await dispatch(UpdateLcModule({ obj: obj }));
-      if (code == 200) {
-        sessionStorage.setItem('VesselCompany', _get(lcModule, 'data[0].company._id', ''));
-        sessionStorage.setItem('VesselId', _get(lcModule, 'data[0].order.vessel', ''));
-        dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'));
-        router.push(`/vessel`);
-      }
+      // if (code == 200) {
+      //   sessionStorage.setItem('VesselCompany', _get(lcModule, 'data[0].company._id', ''));
+      //   sessionStorage.setItem('VesselId', _get(lcModule, 'data[0].order.vessel', ''));
+      //   dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'));
+      //   router.push(`/vessel`);
+      // }
     }
   };
 

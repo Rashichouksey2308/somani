@@ -6,7 +6,7 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Router from 'next/router';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
-import { GetAllPorts, GetPorts } from '../../src/redux/ports/action';
+import { GetAllCurrency, GetCurrency } from '../../src/redux/currency/action'
 
 const index = () => {
 
@@ -18,7 +18,7 @@ const index = () => {
 
   const { searchedLeads } = useSelector((state) => state.order);
 
-  const { allPorts } = useSelector((state) => state.ports);
+  const { allCurrency } = useSelector((state) => state.Currency);
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -31,22 +31,18 @@ const index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetPorts(`?company=${id}`));
+    dispatch(GetCurrency(`?company=${id}`));
   };
 
   useEffect(() => {
-    dispatch(GetAllPorts(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetAllCurrency(`?page=${currentPage}&limit=${pageLimit}`));
   }, [currentPage, pageLimit]);
-
+  
   const handleRoute = (id) => {
-    if(sessionStorage.getItem('portId')){
-      sessionStorage.removeItem('portId')
-    }
-    sessionStorage.setItem('portId', id);
-    dispatch(GetPorts(`?portId=${id}`));
+    sessionStorage.setItem('currencyId', id);
     Router.push('/currency-master/id');
   };
-
+ 
   return (
     <>
       <div className="container-fluid p-0 border-0">
@@ -92,8 +88,8 @@ const index = () => {
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}
               onClick={() => {
-                sessionStorage.getItem('portId') && sessionStorage.removeItem('portId');
-                Router.push('/ports/id');
+                sessionStorage.getItem('currencyId') && sessionStorage.removeItem('currencyId');
+                Router.push('/currency-master/id');
               }}
             >
               <span className="ml-1 mr-2">Add</span>
@@ -105,10 +101,10 @@ const index = () => {
             tableName="Currency"
             header1="Currency"
             header2="Currency Name"
-            header4="STATUS"   
+            header4="STATUS"  
             isCurrency={true} 
             handleRoute={handleRoute}
-            selectorData={allPorts}
+            selectorData= {allCurrency}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             pageLimit={pageLimit}
