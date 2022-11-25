@@ -1167,7 +1167,7 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       </td>
                       <td>{item?.commodity}</td>
                       <td>
-                        <span className={`${styles.status} ${styles.rejected}`} />
+                        {/* <span className={`${styles.status} ${styles.rejected}`} /> */}
                         In Process
                       </td>
                       <td> 12</td>
