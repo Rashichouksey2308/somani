@@ -3064,7 +3064,7 @@ const sectionTerms = (
                     <td>
                       <input
                         className={`${styles.text} input`}
-                        type="number"
+                        type="text"
                         disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
