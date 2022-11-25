@@ -23,7 +23,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       circNumber: '',
       circDate: '',
-      cimsCharges: '',
+      cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       paymentBy: '',
       coalImportRegistrationDoc: null,
       cimsPaymentReceiptDoc: null,
@@ -44,7 +44,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           circNumber: '',
           circDate: '',
-          cimsCharges: '',
+          cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
@@ -386,8 +386,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocusCMS
-                          ? list.cimsCharges?list.cimsCharges: list.quantity
-                          : `INR ` + Number(list.cimsCharges?list.cimsCharges: list.quantity)?.toLocaleString('en-IN')
+                          ? list.cimsCharges
+                          : `INR ` + Number(list.cimsCharges)?.toLocaleString('en-IN')
                       }
                       className={`${styles.input_field} input form-control`}
                       type="text"

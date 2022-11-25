@@ -1,4 +1,5 @@
 import styles from '@/components/AssociateshipAgreement/index.module.scss';
+import { returnReadableNumber } from '@/utils/helpers/global';
 import moment from 'moment';
 import Router from 'next/router';
 import { Col, Row } from 'react-bootstrap';
@@ -180,7 +181,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                     {moment(val.chequeDate).format('DD-MM-YYYY')}
                   </Col>
                   <Col md={3} className={styles.right}>
-                    {val.amount}
+                    {returnReadableNumber(val.amount,undefined,2)}
                   </Col>
                 </Row>
               );
