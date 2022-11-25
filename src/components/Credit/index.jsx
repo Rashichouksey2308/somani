@@ -2120,10 +2120,8 @@ const index = ({
                           <input
                             type="text"
                             className="input"
-                            // value={profile.bankName}
                             name="bankName"
                             placeholder={'Add new'}
-                            // readOnly={val.addnew!="true"?true:false}
                           />
                         </td>
                         <td>
