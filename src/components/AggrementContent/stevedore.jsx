@@ -215,7 +215,7 @@ function Index(props) {
           });
         setOptions([...optionArray]);
          }
-        setOptions([...optionArray]);
+        // setOptions([...optionArray]);
             if(props.data?.addresses?.length==0){
            let temp=[];
           if(savedData.address?.length>0){
