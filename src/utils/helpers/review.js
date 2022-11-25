@@ -1,5 +1,5 @@
 import React from 'react';
-import { specialCharCheck } from '../helper';
+import { emailValidation, phoneValidation, specialCharCheck } from '../helper';
 import { handleErrorToast } from './global';
 
 export const orderValidation = (orderDetails, shipment, approvedCredit) => {
@@ -198,6 +198,10 @@ export const addressValidtion = (data) => {
     handleErrorToast('Please add address');
     return false;
   }
+  if (data.address === null || data.fullAddress === '' || data.fullAddress === undefined) {
+    handleErrorToast('Please add address');
+    return false;
+  }
   return true;
 };
 
@@ -257,4 +261,91 @@ export const portValidtion = (data) => {
   }
   return true;
 
+};
+
+export const currencyValidation = (data) => {
+  if (data.Currency === null || data.Currency === '' || data.Currency === undefined) {
+    handleErrorToast('Please select currency');
+    return false;
+  }
+  if (data.Currency_Name === null || data.Currency_Name === '' || data.Currency_Name === undefined) {
+    handleErrorToast('Please add Currency Name');
+    return false;
+  }
+  if (data.Symbol === null || data.Symbol === '' || data.Symbol === undefined) {
+    handleErrorToast('Please add symbol');
+    return false;
+  }
+  if (data.Status === null || data.Status === '' || data.Status === undefined) {
+    handleErrorToast('Please select Status');
+    return false;
+  }
+ 
+  return true;
+
+};
+
+export const vendorValidation = (data, vendorRadio) => {
+
+  if(vendorRadio == 'Domestic') {
+  if (data.vendor === null || data.vendor === '' || data.vendor === undefined) {
+    handleErrorToast('Please select vendor');
+    return false;
+  }
+  if (data.vendorType === null || data.vendorType === '' || data.vendorType === undefined) {
+    handleErrorToast('Please add vendor type');
+    return false;
+  }
+  if ((data.phoneNumber === null || data.phoneNumber === '' || data.phoneNumber === undefined) && phoneValidation(data.phoneNumber)) {
+    handleErrorToast('Please add a valid phone number');
+    return false;
+  }
+  if ((data.emailId === null || data.emailId === '' || data.emailId === undefined) && emailValidation(data.emailId)) {
+    handleErrorToast('Please add a valid email address');
+    return false;
+  }
+  if (data.pan_taxId === null || data.pan_taxId === '' || data.pan_taxId === undefined) {
+    handleErrorToast('Please add a valid pan/taxId');
+    return false;
+  }
+  if (data.activationDate === null || data.activationDate === '' || data.activationDate === undefined) {
+    handleErrorToast('activation date is mandatory');
+    return false;
+  }
+  if (data.companyName === null || data.companyName === '' || data.companyName === undefined) {
+    handleErrorToast('company name is mandatory');
+    return false;
+  }
+  return true;
+}else {
+  if (data.vendor === null || data.vendor === '' || data.vendor === undefined) {
+    handleErrorToast('Please select vendor');
+    return false;
+  }
+  if (data.vendorType === null || data.vendorType === '' || data.vendorType === undefined) {
+    handleErrorToast('Please add vendor type');
+    return false;
+  }
+  if (data.phoneNumber === null || data.phoneNumber === '' || data.phoneNumber === undefined || phoneValidation(data.phoneNumber)) {
+    handleErrorToast('Please add a valid phone number');
+    return false;
+  }
+  if (data.emailId === null || data.emailId === '' || data.emailId === undefined || emailValidation(data.emailId)) {
+    handleErrorToast('Please add a valid email address');
+    return false;
+  }
+  if (data.country === null || data.country === '' || data.country === undefined) {
+    handleErrorToast('country is mandatory');
+    return false;
+  }
+  if (data.activationDate === null || data.activationDate === '' || data.activationDate === undefined) {
+    handleErrorToast('activation date is mandatory');
+    return false;
+  }
+  if (data.companyName === null || data.companyName === '' || data.companyName === undefined) {
+    handleErrorToast('company name is mandatory');
+    return false;
+  }
+  return true;
+}
 };

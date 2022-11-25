@@ -8,6 +8,7 @@ import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action
 import { portValidtion } from '../../src/utils/helpers/review';
 import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
+import SaveBar from '../../src/components/SaveBar'
 
 function Index() {
   const dispatch = useDispatch();
@@ -39,7 +40,6 @@ function Index() {
     Approved: '',
   });
 
-  console.log(portData, 'PORT DATA', portResponseData, 'id', id)
   useEffect(() => {
     if(id){
       setPortData({
@@ -80,7 +80,9 @@ function Index() {
     if(id){
       dispatch(UpdatePorts(data2))
     } 
+    else {
     dispatch(CreatePorts(data))
+    }
   };
 
   return (
@@ -110,6 +112,7 @@ function Index() {
         </Card.Header>
         <Ports handleSubmit={handleSubmit} portData={portData} savePortData={savePortData} country={getCountriesMasterData} />
       </Card>
+      {/* <SaveBar rightBtn="Submit" /> */}
     </div>
   );
 }

@@ -110,6 +110,7 @@ const index = () => {
             header4="APPROVED"
             isHeader={true}
             isDate={true}
+            //isCurrency={true}
             handleRoute={handleRoute}
             selectorData={allPorts}
             currentPage={currentPage}
