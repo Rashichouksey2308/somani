@@ -13,6 +13,7 @@ import { checkNan } from 'utils/helper';
 import LCAmendBar from '../LCAmendBar';
 import styles from './index.module.scss';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
+import { returnReadableNumber } from '@/utils/helpers/global';
 function Index() {
   const dispatch = useDispatch();
 
@@ -26,6 +27,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
+  console.log(lcModuleData,'lcModuleData')
 useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -218,8 +220,8 @@ useEffect(() => {
                               '',
                             )} */}
                             USD{' '}
-                            {lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                              ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                            {lcModuleData?.lcApplication?.currecyCodeAndAmountValue
+                              ? returnReadableNumber(lcModuleData?.lcApplication?.currecyCodeAndAmountValue,undefined,2)
                               : 0}
                           </td>
                         </tr>
@@ -316,7 +318,7 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>43P </span>
                             <span>PARTIAL SHIPMENT</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}</td>
+                          <td className="term_para">{lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}</td>
                         </tr>
                       ) : (
                         ''
@@ -327,7 +329,7 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>43T </span>
                             <span>TRANSHIPMENTS</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.transhipments?.toUpperCase()}</td>
+                          <td className="term_para">{lcModuleData?.lcApplication?.transhipments?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}</td>
                         </tr>
                       ) : (
                         ''
@@ -422,7 +424,7 @@ useEffect(() => {
                           <div className={`${styles.content_header} background2 `}>47A ADDITIONAL CONDITIONS:</div>
                         </td>
                       </tr>
-                      {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length >
+                      {_get(lcModuleData, 'order.generic.productSpecifications.specificationTable', []).length >
                       0 ? (
                         <>
                           <tr className="table_row">
@@ -440,19 +442,19 @@ useEffect(() => {
                                       <tbody>
                                         <tr className="table_row">
                                           {_get(
-                                            lcModuleData.lcModule,
-                                            'data[0].order.generic.productSpecifications.specificationTable',
+                                            lcModuleData,
+                                            'order.generic.productSpecifications.specificationTable',
                                             [],
                                           ) &&
                                             _get(
-                                              lcModuleData.lcModule,
-                                              'data[0].order.generic.productSpecifications.specificationTable',
+                                              lcModuleData,
+                                              'order.generic.productSpecifications.specificationTable',
                                               [],
                                             ).length > 0 &&
                                             Object.keys(
                                               _get(
-                                                lcModuleData.lcModule,
-                                                'data[0].order.generic.productSpecifications.specificationTable',
+                                                lcModuleData,
+                                                'order.generic.productSpecifications.specificationTable',
                                                 [],
                                               )[0],
                                             ).map((val, index) => (
@@ -462,18 +464,18 @@ useEffect(() => {
                                             ))}
                                         </tr>
                                         {_get(
-                                         lcModuleData. lcModule,
-                                          'data[0].order.generic.productSpecifications.specificationTable',
+                                         lcModuleData,
+                                          'order.generic.productSpecifications.specificationTable',
                                           [],
                                         ) &&
                                           _get(
-                                            lcModuleData.lcModule,
-                                            'data[0].order.generic.productSpecifications.specificationTable',
+                                            lcModuleData,
+                                            'order.generic.productSpecifications.specificationTable',
                                             [],
                                           ).length > 0 &&
                                           _get(
-                                            lcModuleData.lcModule,
-                                            'data[0].order.generic.productSpecifications.specificationTable',
+                                            lcModuleData,
+                                            'order.generic.productSpecifications.specificationTable',
                                             [],
                                           ).map((item, index) => (
                                             <tr>

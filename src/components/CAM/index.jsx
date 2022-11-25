@@ -275,7 +275,11 @@ function Index({
   };
   const options2 = {
     aspectRatio: 1,
-  
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
     plugins: {
       legend: {
         display: false,
