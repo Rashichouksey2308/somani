@@ -151,13 +151,13 @@ const Index = () => {
       fd.append('storageInsurance', JSON.stringify(storageObj));
       fd.append('insuranceType', JSON.stringify('Storage Insurance'));
       fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
-      fd.append('insuranceId', JSON.stringify(insuranceData?._id));
+      fd.append('insuranceId', insuranceData?._id);
       dispatch(RenewInsurance(fd));
     } else if (insuranceType === false) {
       let marineObj = { ...marineData };
       marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount);
       fd.append('marineInsurance', JSON.stringify(marineObj));
-      fd.append('insuranceId', JSON.stringify(insuranceData?._id));
+      fd.append('insuranceId', insuranceData?._id);
       fd.append('insuranceType', JSON.stringify('Marine Insurance'));
       fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
 

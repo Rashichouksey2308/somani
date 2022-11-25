@@ -1167,7 +1167,6 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       </td>
                       <td>{item?.commodity}</td>
                       <td>
-                        <span className={`${styles.status} ${styles.rejected}`} />
                         In Process
                       </td>
                       <td> 12</td>
@@ -1833,7 +1832,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Plant Production Capacity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
@@ -1844,7 +1843,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Stock in Transit - Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
@@ -1857,7 +1856,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Capacity Utilization</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.capacityUtilization?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -1866,7 +1865,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Stock Coverage of Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -1877,7 +1876,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Available Stock of Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {/* {checkNan(
                       Number(
                         camData?.productSummary?.availableStock,
@@ -1896,7 +1895,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Avg Monthly Electricity Bill</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.AvgMonthlyElectricityBill ? '₹' : ''}{' '}
                     {/* {checkNan(
                       Number(
@@ -1915,7 +1914,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Daily Consumption of Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {/* {checkNan(
                       Number(
                         camData?.productSummary?.dailyConsumptionOfCommodity,
@@ -2760,7 +2759,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
-                  <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
+                  <span className={`${styles.value} value text-right`} style={{ color: '#EA3F3F' }}>
                     {[].forEach((l, index2) => {})}
                     {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !=
                     ''
@@ -2777,31 +2776,31 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
-                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
+                  <span className={`${styles.value} value text-right`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>EPF Status</span>
-                  <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
+                  <span className={`${styles.value} value text-right`} style={{ color: '#EA3F3F' }}>
                     {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>BIFR</span>
-                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
+                  <span className={`${styles.value} value text-right`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Litigation Status</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Defaulter Company</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
                   </span>
                 </Col>
@@ -2809,13 +2808,13 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Last Balance Sheet Dates</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {companyData?.profile?.companyDetail?.lastBalanceSheet}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
-                  <span className={`${styles.value} value`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
+                  <span className={`${styles.value} value text-right`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
                 </Col>
               </Row>
             </div>
@@ -3065,7 +3064,7 @@ const sectionTerms = (
                     <td>
                       <input
                         className={`${styles.text} input`}
-                        type="number"
+                        type="text"
                         disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
