@@ -752,13 +752,24 @@ function Index() {
   };
 
   const filterDocBySearch = (searchQuery) => {
-
     if (searchQuery.length > 0) {
       let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
       setdocs(filteredArray);
     } else {
       setdocs(supplierData?.extraDocument ?? []);
     }
+  };
+
+  const handleDeleteUpdateAddress = (index) => {
+    let tempArr = { ...editData };
+    tempArr.emailId.splice(index, 1);
+    setEditData(tempArr);
+  };
+
+  const handleDeleteNewAddress = (index) => {
+    let tempArr = { ...keyAddressData };
+    tempArr.emailId.splice(index, 1);
+    setKeyAddressData(tempArr);
   };
 
   return (
@@ -1174,6 +1185,12 @@ function Index() {
                                 src="/static/add-btn.svg"
                                 alt="Search"
                               />
+                            {editData?.emailId?.length > 1 &&  <img
+                                onClick={() => handleDeleteUpdateAddress(index)}
+                                src="/static/delete 2.svg"
+                                className={`${styles.plus_add} img-fluid`}
+                                alt="Delete"
+                              />}
                             </div>
                           </div>
                         ))}
@@ -1378,6 +1395,13 @@ function Index() {
                               src="/static/add-btn.svg"
                               alt="Search"
                             />
+
+                           {keyAddressData?.emailId?.length > 1 && <img
+                              onClick={() => handleDeleteNewAddress(index)}
+                              src="/static/delete 2.svg"
+                              className={`${styles.plus_add} img-fluid`}
+                              alt="Delete"
+                            />}
                           </div>
                         </div>
                       ))}
