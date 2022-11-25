@@ -2298,7 +2298,7 @@ function Index() {
                                     ? '#ffb700'
                                     : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                                     ? '#8ac41c'
-                                    : '00b81f30'
+                                    : '#0b81f30'
                                   : null
                               }`,
                               lineHeight: '24px',
@@ -2307,25 +2307,15 @@ function Index() {
                               background: `${
                         filteredCreditRating?.length > 0
                           ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#ff423045'
+                            ? '#FFCCCB'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                            ? '#ad7e0742'
+                            ? '#FFECCF'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                            ? '#00b81e52'
-                            : 'rgba(0, 184, 31, 0.1882352941)'
+                            ? '#00B81E'
+                            : '#E4ECF7'
                           : null
                       }`,
-                              // background: `${
-                              //   filteredCreditRating?.length > 0
-                              //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                              //       ? '#ff423045'
-                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                              //       ? '#ad7e0742'
-                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                              //       ? '#00b81e52'
-                              //       : 'rgba(0, 184, 31, 0.1882352941)'
-                              //     : null
-                              // }`
+                          
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
