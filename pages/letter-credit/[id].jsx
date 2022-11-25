@@ -20,7 +20,6 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/us
 import { getPorts } from '../../src/redux/masters/action';
 
 function Index() {
-
   const dispatch = useDispatch();
 
   const { lcModule } = useSelector((state) => state.lc);
@@ -29,7 +28,6 @@ function Index() {
 
   useEffect(() => {
     dispatch(getPorts());
-  
   }, []);
 
   let lcModuleData = _get(lcModule, 'data[0]', {});
@@ -98,10 +96,14 @@ function Index() {
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
     });
-    
-    setLcDoc({
-      lcDraftDoc: lcModuleData?.document?.length > 0 ? lcModuleData?.document[0] : null
-    })
+    if (
+      lcModuleData?.document?.length > 0 &&
+      (lcModuleData?.document[0]?.documentName !== '' || lcModuleData?.document[0]?.documentDate)
+    ) {
+      setLcDoc({
+        lcDraftDoc: lcModuleData?.document?.length > 0 ? lcModuleData?.document[0] : null,
+      });
+    }
   }, [lcModuleData]);
 
   const saveAmendmentData = (name, value) => {
@@ -144,9 +146,9 @@ function Index() {
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
       e.target.value == 'creditAvailablewith' ||
-      e.target.value == 'applicant' || 
-      e.target.value == 'portOfDischarge' || 
-      e.target.value == 'portOfLoading' 
+      e.target.value == 'applicant' ||
+      e.target.value == 'portOfDischarge' ||
+      e.target.value == 'portOfLoading'
     ) {
       setFieldType('drop');
     } else {
@@ -165,9 +167,7 @@ function Index() {
 
     setClauseObj(newInput);
     if (e.target.value == 'draftAt') {
-      
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
-     
         setDisabled(true);
       }
     } else {
@@ -200,7 +200,6 @@ function Index() {
       handleErrorToast('Please specify a new value first');
     else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
       handleErrorToast('CLAUSE ALREADY ADDED');
-   
     else {
       const newArr = [...clauseArr];
       if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
@@ -223,7 +222,7 @@ function Index() {
   const [lcDoc, setLcDoc] = useState({
     lcDraftDoc: null,
   });
-  console.log(lcDoc,'lcDoc')
+
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
@@ -296,13 +295,12 @@ function Index() {
       return moment(value).format('DD-MM-YYYY');
     } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
-    }else if(type == '(32B) Currency Code & Amount'){
+    } else if (type == '(32B) Currency Code & Amount') {
       return Number(value).toLocaleString('en-In', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      })
-    } 
-     else {
+      });
+    } else {
       return value;
     }
   };
@@ -310,13 +308,12 @@ function Index() {
   const getDataFormDropDown = (value) => {
     if (fieldType == 'date') {
       return moment(value).format('DD-MM-YYYY');
-    } else if(fieldType == 'number'){
+    } else if (fieldType == 'number') {
       return Number(value).toLocaleString('en-In', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      })
-    }
-    else if (fieldType == 'drop') {
+      });
+    } else if (fieldType == 'drop') {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -331,21 +328,20 @@ function Index() {
       } else {
         return value;
       }
-    }
-     else {
+    } else {
       return value;
     }
   };
 
   const [isDisabled, setDisabled] = useState(false);
-  
-  useEffect(() => {
-    
-  }, [clauseObj]);
+
+  useEffect(() => {}, [clauseObj]);
 
   const getExistingValue = (value, existing) => {
     if (value === '(32B) Currency Code & Amount') {
-      return `${lcModuleData?.order?.orderCurrency}  ${Number(lcModuleData?.lcApplication?.currecyCodeAndAmountValue)?.toLocaleString('en-In', {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString('en-In', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`;
@@ -487,15 +483,16 @@ function Index() {
                             <option value="lcDocuments">46A DOCUMENT REQUIRED</option>
                             <option value="lcComments"> 47A ADDITIONAL CONDITIONS</option>
                             <option value="presentaionPeriod"> (48) Presentation Period</option>
-                            <option value="reimbursingBank">  (53A) Reimbursing Bank</option>
-                            <option value="adviceThroughBank">  (57) Advise Through Bank</option>
+                            <option value="reimbursingBank"> (53A) Reimbursing Bank</option>
+                            <option value="adviceThroughBank"> (57) Advise Through Bank</option>
                             <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
                             <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
-                            <option value="charges">   (71B) Charges</option>
-                            <option value="instructionToBank">  (78) Instructions To Paying / Accepting / Negotiating Bank</option>
+                            <option value="charges"> (71B) Charges</option>
+                            <option value="instructionToBank">
+                              {' '}
+                              (78) Instructions To Paying / Accepting / Negotiating Bank
+                            </option>
                             <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
-
-
                           </select>
 
                           <label className={`${styles.label_heading} label_heading`}>Clause</label>
@@ -580,13 +577,12 @@ function Index() {
                                 value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
-                                 <option disabled value='' >Select an option</option>
-                                {' '}
+                                <option disabled value="">
+                                  Select an option
+                                </option>{' '}
                                 {clauseObj.dropDownValue === '(50) Applicant' ? (
                                   <>
-                                 
                                     {' '}
-                                    
                                     <option value="Indo intertrade AG">Indo intertrade AG</option>
                                   </>
                                 ) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
@@ -614,7 +610,6 @@ function Index() {
                                 ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
                                   <>
                                     {' '}
-                                   
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
@@ -627,14 +622,15 @@ function Index() {
                                       })?.map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
-                                          {val.Port_Name}, {val.Country}
+                                            {val.Port_Name}, {val.Country}
                                           </option>
                                         );
                                       })}
                                   </>
                                 ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
                                   <>
-                                    {getPortsMasterData.filter((val, index) => {
+                                    {getPortsMasterData
+                                      .filter((val, index) => {
                                         if (val.Country.toLowerCase() !== 'india') {
                                           return val;
                                         }
@@ -642,15 +638,13 @@ function Index() {
                                       .map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
-                                          {val.Port_Name}, {val.Country}
+                                            {val.Port_Name}, {val.Country}
                                           </option>
                                         );
                                       })}
                                   </>
-                                )
-                                 : (
+                                ) : (
                                   <>
-                                   
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                     <option value="Conditional">Conditional</option>
@@ -744,7 +738,7 @@ function Index() {
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC AMENDMENT DRAFT"
-           module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
+            module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             setLcDoc={setLcDoc}
           />
         </div>

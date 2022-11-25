@@ -9,7 +9,6 @@ import {GetAllInternalCompanies, GetInternalCompanies} from '../../src/redux/int
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 
 const index = () => {
-  
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -18,7 +17,6 @@ const index = () => {
   const { searchedLeads } = useSelector((state) => state.order);
 
   const { allInternalCompanies } = useSelector((state) => state.internalCompanies);
-
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
@@ -83,7 +81,6 @@ const index = () => {
               )}
             </div>
             <Filter />
-
             <button
               type="button"
               className={`${styles.createBtn} text-center btn ml-auto btn-primary`}

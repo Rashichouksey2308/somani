@@ -1532,7 +1532,7 @@ let masterList = [
         branchName: data.financeData.branchName,
       };
       sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
-      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined) {
+      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined || dataToSend.financingBank.name == 'Select an option' ) {
         toastMessage = `Please add name `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1540,7 +1540,7 @@ let masterList = [
           return;
         }
       }
-      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined) {
+      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined || dataToSend.financingBank.branch == 'Select an option') {
         toastMessage = `Please add branch name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -2258,6 +2258,7 @@ let masterList = [
 
         placeOfExecution: {
           execution: list,
+          isSubmitted: true,
         },
       };
       sessionStorage.setItem('exe', JSON.stringify(data.list));

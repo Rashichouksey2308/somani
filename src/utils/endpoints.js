@@ -156,6 +156,9 @@ export default {
   // GO NO GO
   getGoNoGo: '/gng-master',
 
+  // CURRENCY
+  getCurrency: '/currency-master',
+
   // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: '/country-master/',
@@ -168,4 +171,9 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
-};
+
+  //VENDOR API ROoutes
+  getVendor : '/vendor'
+}
+
+
