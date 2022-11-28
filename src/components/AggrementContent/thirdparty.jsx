@@ -48,7 +48,7 @@ function Index(props) {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
-
+console.log(savedData,'savedData')
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
         setPaymentTerms(savedData?.paymentTerms);
@@ -74,9 +74,10 @@ function Index(props) {
           setIsFieldInFocus([...temp])
         }
       } else {
+        console.log(props?.data,'savedData1')
         setDeliveryData(props?.data?.deliveryTerm);
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
-        setPaymentTerms(props?.data?.paymentTerms);
+        setPaymentTerms(props?.data?.paymentTerms ? props?.data?.paymentTerms : props?.genericData?.order?.termsheet?.paymentDueDate?.computationOfDueDate);
         setListContact(
           props?.data?.cheque?.length > 0
             ? props.data.cheque

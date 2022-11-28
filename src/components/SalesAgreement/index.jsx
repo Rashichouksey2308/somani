@@ -788,6 +788,7 @@ let masterList = [
           submitData={submitData}
           updateData={updateData}
           active={active}
+          genericData={props?.genericData}
           data={props?.genericData?.deliveryTerms}
         />
       );
