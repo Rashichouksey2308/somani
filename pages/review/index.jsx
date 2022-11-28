@@ -2317,7 +2317,7 @@ function Index() {
                               background: `${
                         filteredCreditRating?.length > 0
                           ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#FFCCCB'
+                            ? '#ffccc7'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
                             ? '#FFECCF'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
