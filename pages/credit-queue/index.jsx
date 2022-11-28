@@ -229,12 +229,12 @@ function Index() {
                             <td className={styles.buyerName} onClick={() => handleRoute(buyer)}>
                               {buyer.company.companyName}
                             </td>
-                            <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
-                            <td>{buyer.createdBy.fName}</td>
-                            <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                            <td>{buyer?.createdBy?.userRole ? buyer.createdBy.userRole : 'RM'}</td>
+                            <td>{buyer?.createdBy?.fName}</td>
+                            <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
                             <td>
                               <span className={`${styles.status} ${styles.approved}`}></span>
-                              {buyer.queue === 'ReviewQueue' ? 'Review' : 'CreditQueue' ? 'Approved' : 'Rejected'}
+                              {buyer?.queue === 'ReviewQueue' ? 'Review' : 'CreditQueue' ? 'Approved' : 'Rejected'}
                             </td>
                             <td>
                               <img
