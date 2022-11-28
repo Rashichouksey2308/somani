@@ -2108,7 +2108,7 @@ const index = ({
                               disabled={!profile.actions}
                               value={profile.bankName}
                               name="bankName"
-                              placeholder={'Add new'}
+                              // placeholder={'Add new'}
                               // readOnly={val.addnew!="true"?true:false}
                               onChange={(e) => {
                                 handleDebtChange(e.target.name, e.target.value, index);
@@ -2120,8 +2120,13 @@ const index = ({
                           <input
                             type="text"
                             className="input"
-                            name="bankName"
-                            placeholder={'Add new'}
+                            disabled={!profile.actions}
+                            value={profile.limitType}
+                            name="limitType"
+                            onChange={(e) => {
+                              handleDebtChange(e.target.name, e.target.value, index);
+                            }}
+                            // placeholder={'Limit type'}
                           />
                         </td>
                         <td>

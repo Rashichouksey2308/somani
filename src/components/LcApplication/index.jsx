@@ -289,30 +289,21 @@ function Index({
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
-                          <select
+                           <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="text"
+                            value={lcData?.creditAvailablewith}
                             name="creditAvailablewith"
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value);
                             }}
-                            value={lcData?.creditAvailablewith}
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
-                            <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option>
-                          </select>
+                        />
 
                           <label className={`${styles.label_heading} label_heading`}>
                             (41A) Credit Available With
                             <strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          </label>  
                         </div>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>

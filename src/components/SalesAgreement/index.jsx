@@ -1897,7 +1897,7 @@ let masterList = [
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-
+     console.log(dataToSend.stevedore.gstin,"dataToSend.stevedore.gstin")
       if (dataToSend.stevedore.name == '' || dataToSend.stevedore.name == undefined) {
         toastMessage = `Please add stevedore name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
