@@ -1487,6 +1487,8 @@ function Index() {
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
                 marginBottom: '26px',
+                borderCollapse:'separate',
+                borderSpacing: '0px',
               }}
             >
               <tr>
@@ -1514,7 +1516,7 @@ function Index() {
                     opacity: '1',
                     paddingLeft: '35px',
                     background: '#F7F9FF',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Transaction Type
@@ -1526,7 +1528,6 @@ function Index() {
                     color: '#111111',
                     lineHeight: '25px',
                     background: '#F7F9FF',
-                    borderRight: '0.5px solid #D2D7E5'
                   }}
                 >
                   {camData?.transactionType}
