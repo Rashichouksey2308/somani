@@ -609,7 +609,7 @@ function Index(props) {
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value= {""}>Select an option</option>
                   {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
@@ -744,7 +744,7 @@ function Index(props) {
                             setAddress(e.target.name, e.target.value);
                           }}
                         >
-                          <option>Select an option</option>
+                          <option value= {""}>Select an option</option>
                           {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                               return <option value={`${val}`}>{val}</option>
                           })}
