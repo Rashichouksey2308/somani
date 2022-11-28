@@ -411,36 +411,6 @@ function Index({
                               alt="Search"
                             />
                           </div>
-                          {/* <div className="d-flex">
-                             <DateCalender labelName='ETA at Discharge Port'/>
-                      <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      /> 
-                            <DatePicker
-                              selected={moment(val?.transitDetails?.ETAatDischargePort).toDate()}
-                              name="ETAatDischargePort"
-                            
-                              dateFormat="dd/MM/yyyy"
-                              className={`${styles.input_field} ${styles.cursor} input form-control`}
-                              onChange={(startDate) => {
-                                setStartDate(startDate)
-                                saveDate(startDate, 'ETAatDischargePort', index)
-                              }}
-                              minDate={lastDate}
-                            />
-                            <img
-                              className={`${styles.calanderIcon} image_arrow img-fluid`}
-                              src="/static/caldericon.svg"
-                              alt="Search"
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              ETD at Discharge Port
-                            </label>
-                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -518,39 +488,10 @@ function Index({
                                       }}
                                       required
                                     />
-                                    {/* <select
-                                        id="yearOfBuilt"
-                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                        required
-                                        value={moment(
-                                          vesselInfo.yearOfBuilt,
-                                        ).format('YYYY')}
-                                        onChange={(e) =>
-                                          onVesselInfoChangeHandlerForBulk(
-                                            e,
-                                            index,
-                                          )
-                                        }
-                                      > 
-                                        <option
-                                          value={moment(
-                                            vesselInfo.yearOfBuilt,
-                                          ).format('YYYY')}
-                                        >
-                                          {moment(
-                                            vesselInfo.yearOfBuilt,
-                                          ).format('YYYY')}
-                                        </option>
-                                      </select>*/}
                                     <label className={`${styles.label_heading} label_heading`}>
                                       Year of Built
                                       <strong className="text-danger">*</strong>
                                     </label>
-                                    {/* <img
-                                        className={`${styles.arrow} image_arrow img-fluid`}
-                                        src="/static/inputDropDown.svg"
-                                        alt="Search"
-                                      /> */}
                                   </div>
                                 </div>
 
