@@ -257,18 +257,7 @@ export default function Index() {
         isOk = false;
         break;
       }
-      if (
-        list[i].forwardSalesContract === null ||
-        list[i].forwardSalesContract === undefined ||
-        list[i].forwardSalesContract === ''
-      ) {
-        let toastMessage = `Please add forward Sale Contract ${i}`;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        isOk = false;
-        break;
-      } if (cancel){
+      if (cancel){
         if (
           list[i].closingRate === null ||
           list[i].closingRate === undefined ||
@@ -293,6 +282,18 @@ export default function Index() {
           isOk = false;
           break;
         }
+      }
+      if (
+        list[i].forwardSalesContract === null ||
+        list[i].forwardSalesContract === undefined ||
+        list[i].forwardSalesContract === ''
+      ) {
+        let toastMessage = `Please add forward Sale Contract ${i}`;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        isOk = false;
+        break;
       }
     }
     return isOk;
