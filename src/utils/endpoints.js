@@ -88,10 +88,10 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
+  getGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
 
-  // mcaReport
-  getMcaReport: '/karza/request-mca-document',
+
 
   // getGstKarza: 'karza/send-gst-link',
 
