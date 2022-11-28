@@ -149,7 +149,7 @@ function Index({
                     )}
                     <td>
                       {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && (
-                        <span onClick={() => handleEditRoute(insured)}>
+                        <span onClick={() => handleRoute(insured)}>
                           <img
                             className={`${styles.edit_image} img-fluid mr-3`}
                             src="/static/mode_edit.svg"
