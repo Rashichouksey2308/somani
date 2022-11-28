@@ -51,7 +51,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const options = gstOption;
 
   const [selected, setSelected] = useState([]);
-
+console.log(selected,'selected')
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
   const consolidatedDataGstData = companyData?.gstConsolidated ?? []
@@ -101,7 +101,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
       SetGstFilteredData({ ...GstData[0] });
       GstDataHandler(GstData[0]);
+      setSelected([{label: GstData[0].gstin, value: GstData[0].gstin}])
     }
+    
     if (GstData?.length == 0) {
       setCredential({ ...credential, gstin: '' });
 
@@ -222,6 +224,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           GstDataHandler(data);
           setCredential({ ...credential, gstin: data.gstin });
         });
+      } else if(filteredgstin?.length < 1) {
+        SetGstFilteredData({});
+        GstDataHandler({});
       }
     } else {
       let consolidatedDataExist = false;
