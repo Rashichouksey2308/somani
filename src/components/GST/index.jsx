@@ -17,6 +17,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { toast } from 'react-toastify';
+import { MultiSelect } from 'react-multi-select-component';
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -42,7 +43,7 @@ import {
 } from '../../utils/helper';
 import _get from 'lodash/get';
 // Chart.register(linear);
-function Index({ companyData, orderList, GstDataHandler, alertObj }) {
+
 
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [gstOption, setGstOption] = useState([]);
@@ -53,7 +54,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  const consolidatedDataGstData = companyData?.gstConsolidated
+  const consolidatedDataGstData = companyData?.gstConsolidated ?? []
   console.log(consolidatedDataGstData, 'companyData');
 
 
@@ -232,7 +233,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       })
       let consolidatedIndex = null
       selectedGstin.forEach((gstin) => {
-        consolidatedDataGstData.forEach((gstin2,index) => {
+        consolidatedDataGstData?.forEach((gstin2,index) => {
           console.log(gstin2.gstin, selectedGstin, 'handleChangeGstin 3')
 
           
@@ -3433,7 +3434,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       )}
     </>
   );
-}
+      }
 
 export default Index;
 
@@ -4708,4 +4709,5 @@ const gstPurchase = (
       </div>
     </>
   );
-};
+}
+
