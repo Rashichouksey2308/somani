@@ -205,7 +205,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      BL Quantity<strong className="text-danger">*</strong>
+                      Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>

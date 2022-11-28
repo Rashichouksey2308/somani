@@ -26,7 +26,7 @@ const Index = () => {
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
 
   const [insuranceType, setInsuranceType] = useState(null);
-
+const [isFieldInFocus,setIsFieldInFocus]= useState(false)
   const [marineData, setMarineData] = useState({
     policyNumber: '',
     insuranceFrom: '',
@@ -36,7 +36,6 @@ const Index = () => {
     lossPayee: '',
     premiumAmount: null,
   });
-
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData };
     newInput[name] = value;
@@ -59,7 +58,6 @@ const Index = () => {
     lossPayee: '',
     premiumAmount: null,
   });
-  console.log(storageData,'storageData')
   function getDifferenceInDaysStorage() {
     let dateS1 = new Date(storageData?.insuranceFrom);
     let dateS2 = new Date(storageData?.insuranceTo);
@@ -75,8 +73,6 @@ const Index = () => {
   }, [storageData.insuranceFrom, storageData.insuranceTo]);
 
   const saveStorageDate = (value, name) => {
-    console.log(value,name,'storageData')
-
     const d = new Date(value);
     let text = d.toISOString();
     saveStorageData(name, text);
@@ -278,11 +274,24 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               name="premiumAmount"
-                              value={addPrefixOrSuffix(
-                                marineData.premiumAmount ? marineData.premiumAmount : 0,
-                                'INR',
-                                'front',
-                              )}
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              onWheel={(event) => event.currentTarget.blur()}
+                              onFocus={(e) => {
+                                setIsFieldInFocus(true), (e.target.type = 'number');
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus(false), (e.target.type = 'text');
+                              }}
+                              value={
+                                isFieldInFocus
+                                  ?  marineData.premiumAmount ? marineData.premiumAmount : 0
+                                  : 'INR ' + Number( marineData.premiumAmount ? marineData.premiumAmount : 0).toLocaleString('en-In') 
+                              }
+                              // value={addPrefixOrSuffix(
+                              //   marineData.premiumAmount ? marineData.premiumAmount : 0,
+                              //   'INR',
+                              //   'front',
+                              // )}
                               onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                               type="text"
                             />
@@ -392,11 +401,24 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               name="premiumAmount"
-                              value={addPrefixOrSuffix(
-                                storageData.premiumAmount ? storageData.premiumAmount : 0,
-                                'INR',
-                                'front',
-                              )}
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              onWheel={(event) => event.currentTarget.blur()}
+                              onFocus={(e) => {
+                                setIsFieldInFocus(true), (e.target.type = 'number');
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus(false), (e.target.type = 'text');
+                              }}
+                              value={
+                                isFieldInFocus
+                                  ?  storageData.premiumAmount ? storageData.premiumAmount : 0
+                                  : 'INR ' + Number( storageData.premiumAmount ? storageData.premiumAmount : 0).toLocaleString('en-In') 
+                              }
+                              // value={addPrefixOrSuffix(
+                              //   storageData.premiumAmount ? storageData.premiumAmount : 0,
+                              //   'INR',
+                              //   'front',
+                              // )}
                               onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                               type="text"
                             />

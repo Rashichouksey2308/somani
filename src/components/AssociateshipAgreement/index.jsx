@@ -107,6 +107,7 @@ function Index(props) {
           orderValueCurrency: data?.orderValueCurrency,
           paymentTerm: data.paymentTerm,
           cheque:data.cheque || [],
+          cin:data.cin
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -192,6 +193,7 @@ function Index(props) {
           orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
           paymentTerm: data.deliveryTerms.paymentTerms,
           cheque: data.deliveryTerms?.cheque || [],
+          cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN
         });
       }
     }

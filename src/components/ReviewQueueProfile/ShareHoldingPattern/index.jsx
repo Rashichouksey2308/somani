@@ -206,7 +206,7 @@ function Index({ shareHolding }) {
                         <tbody>
                           <tr>
                             <th width="23%" className="border_color border-bottom-0" rowSpan={equityCapital()?.length + 2}>
-                              <div className={styles.chart}>
+                              <div className={styles.chart}>                     
                                 <Doughnut data={equitydata} ref={chartRef} options={options} />
                                 {/* <div className={`${styles.total_value} `}>
                               <span className={styles.headSpan}>
@@ -298,12 +298,12 @@ function Index({ shareHolding }) {
                         border="0"
                       >
                         <tbody>
-                          <tr>
-                            <th rowSpan={prefrenceCapital()?.length + 2} width="23%" className="border-bottom-0">
+                          <tr>                     
+                             <th rowSpan={prefrenceCapital()?.length + 2} width="23%" className="border-bottom-0">
                               <div className={styles.chart}>
-                                <Doughnut data={prefrencedata} options={options} />
-                                <div className={`${styles.total_value} `}>
-                                  {/* <span className={styles.headSpan}>
+                                <Doughnut data={prefrencedata} ref={chartRef} options={options}/>
+                                 {/* <div className={`${styles.total_value} `}>
+                                  <span className={styles.headSpan}>
                                 {shareHolding
                                   ? shareHolding[0]?.fullName ?? 'Name'
                                   : ''}
@@ -312,10 +312,10 @@ function Index({ shareHolding }) {
                                   ? shareHolding[0]?.percentageShareHolding ??
                                   '0'
                                   : ''
-                                }%`}</span> */}
-                                </div>
-                              </div>
-                            </th>
+                                }%`}</span>  
+                                 </div>   */}
+                              </div> 
+                            </th> 
                             <th width="5%"></th>
                             <th>FULL NAME</th>
                             <th>NO. OF SHARES</th>
