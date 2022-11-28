@@ -787,7 +787,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            BL Quantity <strong className="text-danger ml-n1">*</strong>
+                            Quantity <strong className="text-danger ml-n1">*</strong>
                           </div>
                           <span className={styles.value}>
                             {_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', '')
