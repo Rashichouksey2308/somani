@@ -1374,6 +1374,7 @@ let masterList = [
           branch: data.buyerData.branchName,
           gstin: data.gstin,
           pan: data.pan,
+          shortName: data.shortName,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
