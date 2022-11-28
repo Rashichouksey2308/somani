@@ -36,7 +36,6 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
     lossPayee: '',
     premiumAmount: null,
   });
-console.log(marineData,'marineData')
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData };
     newInput[name] = value;
@@ -59,7 +58,6 @@ console.log(marineData,'marineData')
     lossPayee: '',
     premiumAmount: null,
   });
-  console.log(storageData,'storageData')
   function getDifferenceInDaysStorage() {
     let dateS1 = new Date(storageData?.insuranceFrom);
     let dateS2 = new Date(storageData?.insuranceTo);
@@ -75,8 +73,6 @@ console.log(marineData,'marineData')
   }, [storageData.insuranceFrom, storageData.insuranceTo]);
 
   const saveStorageDate = (value, name) => {
-    console.log(value,name,'storageData')
-
     const d = new Date(value);
     let text = d.toISOString();
     saveStorageData(name, text);

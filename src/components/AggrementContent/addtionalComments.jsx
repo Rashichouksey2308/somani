@@ -86,7 +86,6 @@ function Index(props) {
         dateOfExecution: null,
         dateOfContract: null,
         monthOfLoadingCargo: '',
-
         actions: 'false',
       },
     ]);
@@ -94,6 +93,7 @@ function Index(props) {
   const handleRemove = (index) => {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
+
   const handleChangeInput = (name, value, index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -111,9 +111,8 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'false' };
         }
-
         return obj;
       });
 
@@ -124,7 +123,7 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' };
+          return { ...obj, actions: 'true' };
         }
         // 👇️ otherwise return object as is
         return obj;
@@ -191,7 +190,7 @@ function Index(props) {
                       addressList?.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions !== 'true' ? (
                               <tr key={index}>
                                 <td>{val?.name}</td>
                                 <td>{val?.comment}</td>

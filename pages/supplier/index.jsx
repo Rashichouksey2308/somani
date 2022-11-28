@@ -475,7 +475,7 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-
+console.log(apiData,"apiData")
       let fd = new FormData();
       if (id) {
         fd.append('supplierId', supplierData?._id);
@@ -2153,9 +2153,9 @@ function Index() {
                             <strong className="text-danger ml-0">*</strong>{' '}
                           </td>
 
-                          <td>{incumbencyDoc?.originalName ? returnDocFormat(incumbencyDoc?.originalName) : null}</td>
+                          <td>{incumbencyDoc?.document?.originalName ? returnDocFormat(incumbencyDoc?.document?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {incumbencyDoc && incumbencyDoc?.lastModifiedDate
+                            {incumbencyDoc && incumbencyDoc?.document?.date
                               ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
@@ -2176,7 +2176,7 @@ function Index() {
                               <div
                                 className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                               >
-                                <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
+                                <span>{incumbencyDoc?.document?.name ? incumbencyDoc?.document?.name : incumbencyDoc?.document?.originalName}</span>
                                 <img
                                   onClick={(e) => setIncumbencyDoc(null)}
                                   className={`${styles.close_image} image_arrow mx-2`}

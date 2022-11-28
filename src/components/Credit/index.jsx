@@ -531,7 +531,7 @@ const index = ({
                     isFieldInFocus.monthlyCapacity
                       ? creditDetail?.monthlyProductionCapacity
                       : checkNan(Number(creditDetail?.monthlyProductionCapacity))?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -605,7 +605,7 @@ const index = ({
                     isFieldInFocus.avgStockinCommodity
                       ? creditDetail?.averageStockOfCommodity
                       : checkNan(Number(creditDetail?.averageStockOfCommodity))?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   name="averageStockOfCommodity"
                   onChange={(e) => {
@@ -643,7 +643,7 @@ const index = ({
                     isFieldInFocus.avgStockinTrasit
                       ? creditDetail?.averageStockInTransit
                       : checkNan(Number(creditDetail?.averageStockInTransit))?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   name="averageStockInTransit"
                   onChange={(e) => {
@@ -681,7 +681,7 @@ const index = ({
                     isFieldInFocus.availableStock
                       ? creditDetail?.availableStock
                       : checkNan(Number(creditDetail?.availableStock))?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   name="availableStock"
                   onChange={(e) => {
@@ -717,7 +717,7 @@ const index = ({
                     isFieldInFocus.dailyConsumptionOfCommodity
                       ? creditDetail?.dailyConsumptionOfCommodity
                       : checkNan(Number(creditDetail?.dailyConsumptionOfCommodity))?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
@@ -1571,19 +1571,19 @@ const index = ({
                             <ul>
                               {toShow
                                 ? toShow?.map((results, index) => (
-                                    <li
-                                      onClick={() => {
-                                        handleChange2('pinCode', results);
-                                        setToShow([]);
-                                        setToView(false);
-                                      }}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ))
+                                  <li
+                                    onClick={() => {
+                                      handleChange2('pinCode', results);
+                                      setToShow([]);
+                                      setToView(false);
+                                    }}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
                                 : ''}
                             </ul>
                           </div>
@@ -1851,19 +1851,19 @@ const index = ({
                             <ul>
                               {toShow
                                 ? toShow?.map((results, index) => (
-                                    <li
-                                      onClick={() => {
-                                        changeData2('pinCode', results);
-                                        setToShow([]);
-                                        setToView(false);
-                                      }}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ))
+                                  <li
+                                    onClick={() => {
+                                      changeData2('pinCode', results);
+                                      setToShow([]);
+                                      setToView(false);
+                                    }}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
                                 : ''}
                             </ul>
                           </div>
@@ -2026,14 +2026,16 @@ const index = ({
                 </div>
               </div>
             ) : null}
-            <div
-              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-              onClick={() => {
-                setShowAddress(true);
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className='d-flex justify-content-end'>
+              <div
+                className={`${styles.add_row} pr-3 row`}
+                onClick={() => {
+                  setShowAddress(true);
+                }}
+              >
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
             {/* ))} */}
           </div>
@@ -2127,7 +2129,7 @@ const index = ({
                             onChange={(e) => {
                               handleDebtChange(e.target.name, e.target.value, index);
                             }}
-                            // placeholder={'Limit type'}
+                          // placeholder={'Limit type'}
                           />
                         </td>
                         <td>
@@ -2158,8 +2160,8 @@ const index = ({
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            // value={profile?.limit}
-                            // readOnly={!saveTable}
+                          // value={profile?.limit}
+                          // readOnly={!saveTable}
                           />
                         </td>
 

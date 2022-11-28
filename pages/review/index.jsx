@@ -180,8 +180,8 @@ function Index() {
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
     let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
-    let backgroundColor1 = ['rgba(97, 197, 85, 0.1)', 'rgba(135, 110, 177, 0.1)', 'rgba(40, 132, 222, 0.1)', 'rgba(237, 107, 95, 0.1)', 'rgba(40, 132, 222, 0.1)'];
-  
+    let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID');
@@ -277,7 +277,12 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
-
+  const returnFilteredCharges = () => {
+    let data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return (!item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '');
+    });
+    return  data
+  }
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -1326,7 +1331,8 @@ function Index() {
     openBankChargeChartImg,
     debtProfileColor,
     backgroundColor,
-    backgroundColor1
+    backgroundColor1,
+    returnFilteredCharges,
   ) => {
 
   
@@ -2311,7 +2317,7 @@ function Index() {
                               background: `${
                         filteredCreditRating?.length > 0
                           ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#FFCCCB'
+                            ? '#ffccc7'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
                             ? '#FFECCF'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
@@ -3772,7 +3778,7 @@ function Index() {
                               style={{
                                 padding: '21px 12px 21px 35px',
                               }}
-                            >
+                            > 
                               <span
                                 style={{
                                   fontSize: '28px',
@@ -3973,7 +3979,7 @@ function Index() {
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => { 
+                      returnFilteredCharges()?.map((charge, index) => { 
                         let name = charge?.nameOfChargeHolder;
                         let [fName, lName] = name?.split(' ');
 
@@ -4007,10 +4013,10 @@ function Index() {
                               <span
                                 style={{
                                   fontSize: '28px',
-                                  color: `${randColor.secondary}`,
+                                  color: `${ index < 4 ?  backgroundColor[index] : randColor.primary}`,
                                   lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  background: `${randColor.primary}`,
+                                  background: `${index < 4 ?  backgroundColor1[index] : randColor.secondary}`,
                                   borderRadius: '8px',
                                   padding: '13px 0',
                                   width: '60px',
@@ -8066,6 +8072,7 @@ setexpectedLimit(date)
           debtProfileColor,
           backgroundColor,
           backgroundColor1,
+          returnFilteredCharges
         ),
       ),
       {

@@ -788,6 +788,7 @@ let masterList = [
           submitData={submitData}
           updateData={updateData}
           active={active}
+          genericData={props?.genericData}
           data={props?.genericData?.deliveryTerms}
         />
       );
@@ -1207,7 +1208,6 @@ let masterList = [
         seller: {
           name: 'Indo Intertrade Ag',
           shortName: data.sellerData.shortName,
-
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
@@ -2215,9 +2215,7 @@ let masterList = [
             toastMessage = `Agreement name cannot be empty`;
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-                isOK=false
-                
-              
+                isOK=false             
               }
           }
            if(data.list[i].execution=="" || data.list[i].execution==undefined){
