@@ -465,6 +465,23 @@ function Index() {
   };
   const handleUpdate = async () => {
     if (validate()) {
+      let list = document.getElementsByClassName('nav-tabs');
+      let tab = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < list[0].children.length; i++) {
+        if (list[0].children[i].children[0].classList.contains('active')) {
+          let tempIndex = i + 1;
+          if (tempIndex < list[0].children.length) {
+            list[0].children[i].children[0].classList.remove('active');
+
+            list[0].children[tempIndex].children[0].classList.add('active');
+            tab[0].children[i].classList.remove('show');
+            tab[0].children[i].classList.remove('active');
+            tab[0].children[tempIndex].classList.add('show');
+            tab[0].children[tempIndex].classList.add('active');
+            break;
+          }
+        }
+      }
       let obj = {
         marginMoneyId: marginData?._id,
         conversionRate: forCalculation.conversionRate,
