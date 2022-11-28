@@ -383,7 +383,7 @@ function Index({
   //   ],
   // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
-  let backgroundColor1 = ['rgba(97, 197, 85, 0.1)', 'rgba(135, 110, 177, 0.1)', 'rgba(40, 132, 222, 0.1)', 'rgba(237, 107, 95, 0.1)', 'rgba(40, 132, 222, 0.1)'];
+  let backgroundColor1 = ['#61C5551A', '#876EB11A', '#2884DE1A', '#ED6B5F1A', '#2884DE1A'];
 
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
