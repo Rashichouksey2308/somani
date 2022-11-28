@@ -2379,7 +2379,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   {gstFilteredData &&
                     gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index) => (
                       <tr key={index}>
-                        <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
+                        <td className={` ${styles.first}`}>{sales.hsnDesc.toLowerCase()}</td>
                         <td>
                           {sales?.hsnSc?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,

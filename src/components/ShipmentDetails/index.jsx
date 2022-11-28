@@ -5,12 +5,17 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 
-const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
+const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
+  console.log(shipment,'shipment')
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     saveShipmentData(name, text);
+    // if(name=="lastDateOfShipment"){
+    //   setLimit(value)
+    // }
   };
+ 
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
@@ -76,6 +81,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     defaultDate={orderDetail?.shipmentDetail?.loadPort?.fromDate ?? ''}
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
+                    maxDate={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -93,6 +99,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     defaultDate={orderDetail?.shipmentDetail?.loadPort?.toDate ?? ''}
                     saveDate={saveDate}
                     startFrom={dateStartFrom.laycan}
+                    maxDate={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -136,6 +143,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     setStartDateFrom={setStartDate}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port from"
+                    startFrom={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -159,7 +167,8 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     name="ETAofDischarge.toDate"
                     defaultDate={orderDetail?.shipmentDetail?.ETAofDischarge?.toDate ?? ''}
                     saveDate={saveDate}
-                    startFrom={dateStartFrom.eta}
+                    // startFrom={dateStartFrom.eta}
+                    startFrom={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
                     labelName="ETA at Discharge Port to"
                   />
                   <img

@@ -30,6 +30,18 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
 
   const [show, setShow] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
+  const [dateStartFrom, setDateStartFrom] = useState({
+    dischargeStartDate: '',
+    vesselDate: '',
+  });
+  const setStartDate = (val, name) => {
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
+    if (name == 'dischargeStartDate') {
+      setDateStartFrom({ ...dateStartFrom, dischargeStartDate: new_date });
+    } else {
+      setDateStartFrom({ ...dateStartFrom, vesselDate: new_date });
+    }
+  };
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     // boeAssessment: '',
@@ -71,7 +83,36 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     document1: null,
     document2: null,
   });
- console.log(dischargeOfCargo,"dischargeOfCargo")
+
+  useEffect(() => {
+    if (customData) {
+      let data = Number(_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''));
+      setTotalBl(data);
+    }
+    if (customData?.dischargeOfCargo) {
+      let data = _get(customData, 'dischargeOfCargo', {});
+
+      let tempData = {
+        dischargeOfCargo: {
+          vesselName: data?.dischargeOfCargo?.vesselName,
+          portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
+          dischargeQuantity: sumOfDischargeQuantities,
+
+          vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
+          dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
+          dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
+          numberOfContainers: customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers
+            ? customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers
+            : _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
+        },
+        document1: data?.document1 ?? null,
+        document2: data?.document2 ?? null,
+      };
+
+      setDischargeOfCargo(tempData);
+    }
+  }, [customData]);
+
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -100,7 +141,11 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const onSaveDischarge = () => {
-    if (sumOfDischargeQuantities === '' ||sumOfDischargeQuantities === null ||sumOfDischargeQuantities === undefined) {
+    if (
+      sumOfDischargeQuantities === '' ||
+      sumOfDischargeQuantities === null ||
+      sumOfDischargeQuantities === undefined
+    ) {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -119,8 +164,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
     if (_get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner') {
       if (
         dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' ||
-        dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined 
-        ||dischargeOfCargo.dischargeOfCargo?.numberOfContainers == null
+        dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined ||
+        dischargeOfCargo.dischargeOfCargo?.numberOfContainers == null
       ) {
         let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -129,8 +174,9 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         return;
       }
     }
-    if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '' 
-      || dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === null ||
+    if (
+      dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '' ||
+      dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === null ||
       dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === undefined
     ) {
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  ';
@@ -139,8 +185,9 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       }
       return;
     }
-    if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === ''
-    || dischargeOfCargo.dischargeOfCargo.dischargeStartDate === null ||
+    if (
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '' ||
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate === null ||
       dischargeOfCargo.dischargeOfCargo.dischargeStartDate === undefined
     ) {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  ';
@@ -163,10 +210,11 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       }
       return;
     }
-    if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === ''
-     || dischargeOfCargo.dischargeOfCargo.dischargeEndDate === null ||
+    if (
+      dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '' ||
+      dischargeOfCargo.dischargeOfCargo.dischargeEndDate === null ||
       dischargeOfCargo.dischargeOfCargo.dischargeEndDate === undefined
-     ) {
+    ) {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -217,34 +265,6 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       e.preventDefault();
     }
   };
-
-  useEffect(() => {
-    if (customData) {
-      let data = Number(_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''));
-      setTotalBl(data);
-    }
-    if (customData?.dischargeOfCargo) {
-      let data = _get(customData, 'dischargeOfCargo', {});
-
-      let tempData = {
-        dischargeOfCargo: {
-          vesselName: data?.dischargeOfCargo?.vesselName,
-          portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
-          dischargeQuantity: sumOfDischargeQuantities,
-           
-          vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
-          dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
-          dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
-          numberOfContainers: customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers
-            ? customData?.dischargeOfCargo?.dischargeOfCargo?.numberOfContainers
-            : _get(customData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
-        },
-        document1: data?.document1 ?? null,
-        document2: data?.document2 ?? null,
-      };
-      setDischargeOfCargo(tempData);
-    }
-  }, [customData]);
 
   useEffect(() => {
     if (customData) {
@@ -315,38 +335,74 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
             >
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
-                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                    <div className="d-flex">
-                      <select
-                        onChange={(e) => onChangeDischargeOfCargo('vesselName', e.target.value)}
-                        value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option selected disabled>
-                          Please select a vessel
-                        </option>
-                        {shipmentTypeBulk
-                          ? _get(customData, 'order.vessel.vessels', []).map((vessel, index) => (
-                              <option value={vessel?.vesselInformation?.name} key={index}>
-                                {_get(vessel, 'vesselInformation[0].name', '')}
-                              </option>
-                            ))
-                          : _get(customData, 'order.vessel.vessels[0].vesselInformation', []).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
-                      </select>
-                      <label className={`${styles.label_heading} label_heading`}>
-                        Vessel Name<strong className="text-danger">*</strong>
-                      </label>
-                      <img
-                        className={`${styles.arrow} image_arrow img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
+                  {shipmentTypeBulk ? (
+                    <>
+                      {' '}
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                        <input
+                          // value={billOfEntryData?.boeDetails?.invoiceQuantity}
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          disabled
+                          // onWheel={(event) => event.currentTarget.blur()}
+                          // onFocus={(e) => {
+                          //   setIsFieldInFocus(true), (e.target.type = 'number');
+                          // }}
+                          // onBlur={(e) => {
+                          //   setIsFieldInFocus(false), (e.target.type = 'text');
+                          // }}
+                          // onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                          value={_get(customData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
+                          name="vesselName"
+                          // onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
+                          required
+                          // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                        />
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Vessel Name
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>{' '}
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                        <div className="d-flex">
+                          <select
+                            onChange={(e) => onChangeDischargeOfCargo('vesselName', e.target.value)}
+                            value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option selected disabled>
+                              Please select a vessel
+                            </option>
+                            {shipmentTypeBulk
+                              ? _get(customData, 'order.vessel.vessels', []).map((vessel, index) => (
+                                  <option value={vessel?.vesselInformation?.name} key={index}>
+                                    {_get(vessel, 'vesselInformation[0].name', '')}
+                                  </option>
+                                ))
+                              : _get(customData, 'order.vessel.vessels[0].vesselInformation', []).map(
+                                  (vessel, index) => (
+                                    <option value={vessel?.name} key={index}>
+                                      {vessel?.name}
+                                    </option>
+                                  ),
+                                )}
+                          </select>
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Vessel Name<strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>{' '}
+                    </>
+                  )}
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div
                       className={`${styles.label_heading} text`}
@@ -418,6 +474,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
                         name="vesselArrivaldate"
                         saveDate={saveDate}
+                        setStartDateFrom={setStartDate}
                         labelName="Vessel Arrival Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
@@ -429,6 +486,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
                         name="dischargeStartDate"
                         saveDate={saveDate}
+                        setStartDateFrom={setStartDate}
+                        startFrom={dateStartFrom.vesselDate}
                         labelName="Discharge Start Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
@@ -440,6 +499,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                         name="dischargeEndDate"
                         saveDate={saveDate}
+                        maxDate={dateStartFrom.dischargeStartDate}
+                        startFrom={dateStartFrom.vesselDate}
                         labelName="Discharge End Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
@@ -579,7 +640,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
             </div>
           </div>
           <div className="">
-            <UploadOther isDocumentName={true} orderid={OrderId} module={['BOE','Discharge of Cargo']  }  />
+            <UploadOther isDocumentName={true} orderid={OrderId} module={['BOE', 'Discharge of Cargo']} />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />

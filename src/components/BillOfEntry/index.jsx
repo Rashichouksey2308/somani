@@ -17,6 +17,8 @@ import { previewDocument } from '../../redux/ViewDoc/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
 // import { set } from 'lodash'
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
+import { returnDocFormat } from '@/utils/helpers/global';
+
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
   const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
@@ -84,6 +86,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       setBankName(filter);
     }
   }, [getInternalCompaniesMasterData, customData]);
+ 
   const [billOfEntryData, setBillOfEntryData] = useState([
     {
       boeAssessment: '',
@@ -134,7 +137,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
-
+   console.log(name,"name")
     let newInput = [...billOfEntryData];
     newInput[index][name] = docs;
     setBillOfEntryData([...newInput]);
@@ -1438,30 +1441,15 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                             </tr>
                           </thead>
                           <tbody>
-                            <tr className="table_row">
-                              {val.boeAssessment === 'Final' ? (
-                                <td className={styles.doc_name}>
-                                  BOE Final
-                                  <strong className="text-danger ml-1">*</strong>
-                                </td>
-                              ) : (
+                              <tr className="table_row">
+                              
                                 <td className={styles.doc_name}>
                                   BOE Provisional
                                   <strong className="text-danger ml-1">*</strong>
                                 </td>
-                              )}
+                              
                               <td>
-                                {val.document1 ? (
-                                  val.document1?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document1?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document1?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document1?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                              {val.document1 ? returnDocFormat(val.document1?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document1 === null
@@ -1486,7 +1474,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{val?.document1?.originalName}</span>
                                     <img
-                                      onClick={() => removeDoc('document1')}
+                                      onClick={() => removeDoc('document1',index)}
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       alt="Close"
@@ -1495,23 +1483,58 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 )}
                               </td>
                             </tr>
+                              {val.boeAssessment === 'Final' ?
+                                <tr className="table_row">
+                              
+                                <td className={styles.doc_name}>
+                                  BOE Final
+                                  <strong className="text-danger ml-1">*</strong>
+                                </td>
+                             
+                              <td>
+                                {val.document3 ? returnDocFormat(val.document3?.originalName) : null}
+                              </td>
+                              <td className={styles.doc_row}>
+                                {val.document3 === null
+                                  ? ''
+                                  : moment(val?.document3?.date).format('DD-MM-YYYY, h:mm a')}
+                              </td>
+
+                              <td>
+                                {val.document3 === null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name="document3"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDoc1(e, index)}
+                                      />
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{val?.document3?.originalName}</span>
+                                    <img
+                                      onClick={() => removeDoc('document3',index)}
+                                      className={`${styles.close_image} image_arrow`}
+                                      src="/static/close.svg"
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
+                              </td>
+                            </tr>
+                              :null}
+                          
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 Duty Paid Challan
                                 <strong className="text-danger ml-1">*</strong>
                               </td>
                               <td>
-                                {val.document2 ? (
-                                  val.document2?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document2?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document2?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document2?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                              {val.document2 ? returnDocFormat(val.document2?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document2 === null

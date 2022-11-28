@@ -25,7 +25,7 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
 import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
-import {gSTINValidation} from '../../utils/helper'
+import {gSTINValidation,emailValidation} from '../../utils/helper'
 import Router from 'next/router';
 function Index(props) {
   const dispatch = useDispatch();
@@ -337,7 +337,11 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Supplier') {
             val.state = 'complete';
+          
             val.image = '/static/done.svg';
+            val.default = 'complete';
+
+            
           }
         });
       }
@@ -346,6 +350,7 @@ function Index(props) {
           if (val.name == 'Supplier') {
             val.state = 'pending';
             val.image = '/static/pending2.svg';
+            val.default = 'pending';
           }
         });
       }
@@ -354,6 +359,7 @@ function Index(props) {
           if (val.name == 'Seller') {
             val.state = 'complete';
             val.image = '/static/done.svg';
+            val.default = 'complete';
           }
         });
       }
@@ -361,6 +367,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Seller') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -369,6 +376,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Buyer') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -377,6 +385,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Buyer') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -385,6 +394,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Financing Bank') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -393,6 +403,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Financing Bank') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -401,6 +412,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CMA') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -409,6 +421,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CMA') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -417,6 +430,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CHA') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -425,6 +439,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CHA') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -433,6 +448,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Stevedore') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -441,6 +457,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Stevedore') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -449,6 +466,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Shipping Line') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -457,6 +475,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Shipping Line') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -465,6 +484,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Delivery Terms') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -473,6 +493,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Delivery Terms') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -481,6 +502,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Product Specifications') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -497,6 +519,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Additional Comments') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -513,6 +536,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Place of Execution') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -529,6 +553,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Associate Buyer') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -810,78 +835,91 @@ let masterList = [
       state: 'current',
       value: 'Product Specifications',
       image: '/static/currnet.svg',
+      default:"default"
     },
     {
       name: 'Supplier',
       state: 'default',
       value: 'Supplier',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Seller',
       state: 'default',
       value: 'Seller',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Buyer',
       state: 'default',
       value: 'Buyer',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Associate Buyer',
       state: 'default',
       value: 'Associate Buyer',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Financing Bank',
       state: 'default',
       value: 'Financing Bank',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Shipping Line',
       state: 'default',
       value: 'Shipping Line',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'CHA',
       state: 'default',
       value: 'CHA',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Stevedore',
       state: 'default',
       value: 'Stevedore',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'CMA',
       state: 'default',
       value: 'CMA',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Delivery Terms',
       state: 'default',
       value: 'Delivery Terms',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Place of Execution',
       state: 'default',
       value: 'Place of Execution',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Additional Comments',
       state: 'default',
       value: 'Additional Comments',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
   ]);
   const onLeftChange = () => {
@@ -889,16 +927,23 @@ let masterList = [
     for (let i = 0; i < tempArr.length; i++) {
       if (tempArr[i].name == active) {
         if (i != 0) {
-          tempArr[i].state = 'default';
-          if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
-            tempArr[i].image = '/static/Group 3256.svg';
-          }
-          let a = i - 1;
+         tempArr[i].state = 'default';
+            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+              tempArr[i].image = '/static/Group 3256.svg';
+            }
+            if(tempArr[i].default == "complete" || tempArr[i].default == "pending"  ){
 
-          tempArr[a].state = 'current';
-          if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
-            tempArr[a].image = '/static/currnet.svg';
-          }
+            }else{
+              tempArr[i].image = '/static/Group 3256.svg';
+            }
+            let a = i - 1;
+
+            tempArr[a].state = 'current';
+            if(tempArr[a].default == "complete" || tempArr[a].default == "pending"  ){
+
+            }else{
+              tempArr[a].image = '/static/currnet.svg';
+            }
           setActive(tempArr[a].name);
         }
       }
@@ -918,13 +963,22 @@ let masterList = [
             if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
               tempArr[i].image = '/static/Group 3256.svg';
             }
+            if(tempArr[i].default == "complete" || tempArr[i].default == "pending"  ){
 
+            }else{
+              tempArr[i].image = '/static/Group 3256.svg';
+            }
             let a = i + 1;
 
             tempArr[a].state = 'current';
-            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+            if(tempArr[a].default == "complete" || tempArr[a].default == "pending"  ){
+
+            }else{
               tempArr[a].image = '/static/currnet.svg';
             }
+            // if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+            //   tempArr[a].image = '/static/currnet.svg';
+            // }
 
             setActive(tempArr[a].name);
             break;
@@ -1100,6 +1154,20 @@ let masterList = [
             }
           }
           if (
+            !emailValidation(dataToSend.supplier.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+          if (
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
@@ -1250,6 +1318,20 @@ let masterList = [
               return;
             }
           }
+            if (
+            !emailValidation(dataToSend.seller.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo == undefined
@@ -1388,6 +1470,20 @@ let masterList = [
               return;
             }
           }
+            if (
+            !emailValidation(dataToSend.buyer.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo == undefined
@@ -1436,7 +1532,7 @@ let masterList = [
         branchName: data.financeData.branchName,
       };
       sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
-      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined) {
+      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined || dataToSend.financingBank.name == 'Select an option' ) {
         toastMessage = `Please add name `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1444,7 +1540,7 @@ let masterList = [
           return;
         }
       }
-      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined) {
+      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined || dataToSend.financingBank.branch == 'Select an option') {
         toastMessage = `Please add branch name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1563,6 +1659,20 @@ let masterList = [
             dataToSend.CMA.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.CMA.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -1717,6 +1827,20 @@ let masterList = [
               return;
             }
           }
+            if (
+            !emailValidation(dataToSend.CHA.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo == undefined
@@ -1854,6 +1978,20 @@ let masterList = [
             dataToSend.stevedore.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.stevedore.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -2082,7 +2220,7 @@ let masterList = [
               
               }
           }
-           if(data.list[i].place=="" || data.list[i].place==undefined){
+           if(data.list[i].execution=="" || data.list[i].execution==undefined){
             toastMessage = `Place of execution  cannot be empty`;
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -2120,6 +2258,7 @@ let masterList = [
 
         placeOfExecution: {
           execution: list,
+          isSubmitted: true,
         },
       };
       sessionStorage.setItem('exe', JSON.stringify(data.list));
@@ -2235,6 +2374,20 @@ let masterList = [
                 return;
               }
             }
+              if (
+            !emailValidation(dataToSend.associateBuyer.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
             console.log( dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"")
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == '' ||

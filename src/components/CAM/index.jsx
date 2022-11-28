@@ -72,7 +72,6 @@ function Index({
   });
   const [chartType,setChartType] = useState('Monthly')
 
-  console.log(chartType,"chartType")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -276,7 +275,11 @@ function Index({
   };
   const options2 = {
     aspectRatio: 1,
-  
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
     plugins: {
       legend: {
         display: false,
@@ -380,6 +383,8 @@ function Index({
   //   ],
   // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['rgba(97, 197, 85, 0.1)', 'rgba(135, 110, 177, 0.1)', 'rgba(40, 132, 222, 0.1)', 'rgba(237, 107, 95, 0.1)', 'rgba(40, 132, 222, 0.1)'];
+
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
     datasets: [],
@@ -666,8 +671,8 @@ function Index({
         CreditAgency,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, camConversionunit)}
+      {shareHolding(top3Share, options, tempArr, camData, backgroundColor,backgroundColor1)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor,backgroundColor1, camConversionunit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
@@ -1162,7 +1167,6 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       </td>
                       <td>{item?.commodity}</td>
                       <td>
-                        <span className={`${styles.status} ${styles.rejected}`} />
                         In Process
                       </td>
                       <td> 12</td>
@@ -1307,7 +1311,7 @@ const directorDetails = (camData) => {
     </>
   );
 };
-const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
+const shareHolding = (top3Share, options, tempArr, camData, backgroundColor,backgroundColor1 ) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1386,9 +1390,9 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                       return (
                         <tr key={index}>
                           <td className={`d-flex justify-content-start align-content-center`}>
-                            <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
+                            <div style={{ background: `${ index < 4 ?  backgroundColor1[index] : randColor.primary}` }} className={`${styles.icon}   `}>
                               <span
-                                style={{ color: `${randColor.secondary}` }}
+                                style={{ color: `${index < 4 ?  backgroundColor[index] : randColor.secondary}` }}
                                 className={`d-flex justify-content-center align-content-center`}
                               >
                                 {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
@@ -1460,7 +1464,15 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
+const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor,backgroundColor1, camConversionunit) => {
+
+  const returnFilteredCharges = () => {
+    let data = _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return (!item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '');
+    });
+    return  data
+  }
+  console.log(top3Open,returnFilteredCharges(),'returnFilteredCharges')
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1492,14 +1504,8 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                 </div>
                 <div className={`${styles.name} `}>
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((val, index) => {
-                      if (
-                        val.dateOfSatisfactionOfChargeInFull ||
-                        val.dateOfSatisfactionOfChargeInFull === '' ||
-                        index > 2
-                      ) {
-                        return null;
-                      } else {
+                   returnFilteredCharges().map((val, index) => {
+                    if(index > 2) return null
                         return (
                           <div
                             key={index}
@@ -1511,7 +1517,6 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                             </span>
                           </div>
                         );
-                      }
                     })}
                 </div>
               </Col>
@@ -1524,7 +1529,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                   </tr>
 
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((charge, index) => {
+                   returnFilteredCharges().map((charge, index) => {
                       let name = charge?.nameOfChargeHolder;
                       let [fName, lName] = name?.split(' ');
 
@@ -1543,15 +1548,13 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                         },
                       ];
                       let randColor = colors[Math.floor(Math.random() * colors.length)];
-                      if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
-                        return null;
-                      } else {
+                      
                         return (
                           <tr key={index}>
                             <td className={`d-flex justify-content-start align-content-center`}>
-                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon} `}>
+                              <div style={{ background: `${ index < 4 ?  backgroundColor1[index] : randColor.primary}` }} className={`${styles.icon} `}>
                                 <span
-                                  style={{ color: `${randColor.secondary}` }}
+                                  style={{ color: `${ index < 4 ?  backgroundColor[index] : randColor.secondary}` }}
                                   className={`d-flex justify-content-center align-content-center`}
                                 >
                                   {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
@@ -1579,7 +1582,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                             </td>
                           </tr>
                         );
-                      }
+                      
                     })}
                   {/* <tr>
                     <td
@@ -1829,7 +1832,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Plant Production Capacity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
@@ -1840,7 +1843,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Stock in Transit - Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
@@ -1853,7 +1856,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Capacity Utilization</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.capacityUtilization?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -1862,7 +1865,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Stock Coverage of Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -1873,7 +1876,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Available Stock of Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {/* {checkNan(
                       Number(
                         camData?.productSummary?.availableStock,
@@ -1892,7 +1895,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Avg Monthly Electricity Bill</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {camData?.productSummary?.AvgMonthlyElectricityBill ? '₹' : ''}{' '}
                     {/* {checkNan(
                       Number(
@@ -1911,7 +1914,7 @@ const operationalDetails = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Daily Consumption of Commodity</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {/* {checkNan(
                       Number(
                         camData?.productSummary?.dailyConsumptionOfCommodity,
@@ -2756,7 +2759,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
-                  <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
+                  <span className={`${styles.value} value text-right`} style={{ color: '#EA3F3F' }}>
                     {[].forEach((l, index2) => {})}
                     {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !=
                     ''
@@ -2773,31 +2776,31 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
-                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
+                  <span className={`${styles.value} value text-right`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>EPF Status</span>
-                  <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
+                  <span className={`${styles.value} value text-right`} style={{ color: '#EA3F3F' }}>
                     {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>BIFR</span>
-                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
+                  <span className={`${styles.value} value text-right`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Litigation Status</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Defaulter Company</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
                   </span>
                 </Col>
@@ -2805,13 +2808,13 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Last Balance Sheet Dates</span>
-                  <span className={`${styles.value} value`}>
+                  <span className={`${styles.value} value text-right`}>
                     {companyData?.profile?.companyDetail?.lastBalanceSheet}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
-                  <span className={`${styles.value} value`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
+                  <span className={`${styles.value} value text-right`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
                 </Col>
               </Row>
             </div>
@@ -3024,13 +3027,15 @@ const sectionTerms = (
                         onChange={() => setLimitValueChecked(!limitValueChecked)}
                       ></input>
                     </td>
-                    <td>
+                    {/* <td>
                       <input
                         className={`${styles.text} input`}
-                        disabled={!limitValueChecked}
                         required={true}
                         type="number"
+                        disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
+
+                        name="approvedCreditValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -3050,10 +3055,41 @@ const sectionTerms = (
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
-                        // defaultValue={approvedCredit?.approvedCreditValue}
-                        name="approvedCreditValue"
+
+                        onChange={(e) => {
+                          onApprove(e.target.name, Number(e.target.value));
+                        }}
+                      ></input>
+                    </td> */}
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="text"
+                        disabled={!limitValueChecked}
+                        onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
+                        name="approvedCreditValue"
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: true,
+                          }),
+                            (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: false,
+                          }),
+                            (e.target.type = 'text');
+                        }}
+                        value={
+                          isFieldInFocus.LimitValue
+                            ? approvedCredit?.approvedCreditValue
+                            : (Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
+                        }
+                        // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApprove(e.target.name, Number(e.target.value));
                         }}

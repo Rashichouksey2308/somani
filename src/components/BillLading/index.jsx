@@ -446,7 +446,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDate == undefined) {
+        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined) {
           toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -776,6 +776,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index);
                               }}
                               minDate={lastDate}
+                              maxDate={moment(bol?.etaAtDischargePortTo).toDate()}
                             />
                             {/* <DateCalender name='etaAtDischargePortFrom'  defaultDate={bol?.etaAtDischargePortFrom?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
 

@@ -857,7 +857,6 @@
 
     .chart2 {
       padding-left: 35px !important;
-
       height: 177px;
       display: flex;
       justify-content: center;
@@ -865,6 +864,10 @@
       position: relative;
       margin-top: 3rem;
       margin-bottom: 3rem;
+
+      @include respond(lg-desktop) {
+        padding-left: 0 !important;
+      }
 
       canvas {
         height: 211px !important;
@@ -902,6 +905,7 @@
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
+      margin-top: 15px;
 
       .name_wrapper {
         width: 100%;
@@ -976,7 +980,6 @@
 
     .chart2 {
       padding-left: 35px !important;
-
       height: 177px;
       display: flex;
       justify-content: center;
@@ -984,6 +987,9 @@
       position: relative;
       margin-top: 3rem;
       margin-bottom: 3rem;
+      @include respond(lg-desktop) {
+        padding-left: 0 !important;
+      }
 
       canvas {
         height: 211px !important;
@@ -1022,7 +1028,7 @@
       justify-content: flex-start;
       flex-direction: column;
       align-items: center;
-
+      margin-top: 15px;
       .name_wrapper {
         width: 100%;
         height: 100%;
