@@ -2106,8 +2106,9 @@ const index = ({
                               type="text"
                               className="input"
                               disabled={!profile.actions}
-                              value={profile.bankName}
+                              value={profile?.bankName == "addnew"?"":profile?.bankName}
                               name="bankName"
+                              placeholder="Add new"
                               // placeholder={'Add new'}
                               // readOnly={val.addnew!="true"?true:false}
                               onChange={(e) => {
