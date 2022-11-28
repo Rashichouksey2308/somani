@@ -17,12 +17,11 @@ import {
   Tooltip,
 } from 'chart.js';
 import { toast } from 'react-toastify';
+import { MultiSelect } from 'react-multi-select-component';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { VerifyGstKarza } from '../../redux/creditQueueUpdate/action';
-import { checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
-import _get from 'lodash/get';
+import { VerifyGstKarza, getConsolidatedGstData, getGstData } from '../../redux/creditQueueUpdate/action';
 
 ChartJS.register(
   LineController,
@@ -36,6 +35,15 @@ ChartJS.register(
   BarElement,
   Tooltip,
 );
+import {
+  CovertvaluefromtoCR,
+  convertValue,
+  checkNan,
+  emailValidation,
+} from '../../utils/helper';
+import _get from 'lodash/get';
+// Chart.register(linear);
+
 
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [gstOption, setGstOption] = useState([]);
@@ -46,7 +54,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
+  const consolidatedDataGstData = companyData?.gstConsolidated ?? []
+  console.log(consolidatedDataGstData, 'companyData');
 
+
+  console.log(GstData, 'GSTDATA');
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const chartRef3 = useRef(null);
@@ -75,20 +87,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [credential, setCredential] = useState({
-    username: '',
-    password: '',
-    gstin: '',
-  });
+  const [credential, setCredential] = useState('');
   const [passwordShow, setPasswordShow] = useState(false);
 
   useEffect(() => {
     let arrayGst = [];
     orderList?.company?.gstList.forEach((item) => {
-      arrayGst.push({ label: item, value: item });
-    });
-    setGstOption(arrayGst);
-
+      arrayGst.push({ label: item, value: item })
+    })
+    setGstOption(arrayGst)
     if (GstData?.length > 0) {
       setCredential({ ...credential, gstin: GstData[0].gstin });
 
@@ -103,23 +110,40 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     }
   }, [GstData]);
 
+
   const handleGStinFetch = () => {
-    if (selected.length !== 1) {
-      let toastMessage = 'only 1 gstin can be submitted';
+    if (selected.length < 1) {
+      let toastMessage = 'please select atLeast 1 gstin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     } else {
-      let payload = {
-        company: companyData?.company,
-        gstinList: [],
-      };
-
-      selected.forEach((item) => {
-        payload.gstinList.push(item.value);
-      });
+      handleShow();
     }
-  };
+  }
+
+  const doesGstExist = () => {
+    let data = false;
+    let gstinList = []
+    let gstNotFound = []
+
+    selected.forEach((item) => {
+      gstinList.push(item.value)
+    })
+    gstinList.forEach((gst) => {
+      if (GstData.some(e => e.gstin === gst)) {
+        data = true
+      } else {
+        data = false
+        let toastMessage = 'gstin cannot be consolidated . please fetch the selected gstin data first';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        return
+      }
+    })
+    return data
+  }
 
   const handleConsolidatedGStinFetch = () => {
     if (selected.length < 2) {
@@ -127,47 +151,152 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+    } else if (doesGstExist()) {
+      let payload = {
+        company: companyData?.company,
+        gstinList: []
+      }
+
+      selected.forEach((item) => {
+        payload.gstinList.push(item.value)
+      })
+
+      console.log(payload, 'gstinP[ayload')
+      dispatch(getConsolidatedGstData(payload));
+    }
+  }
+
+
+
+  const gstinVerifyHandler = (e) => {
+    if (!emailValidation(credential)) {
+      let toastMessage = 'please input a valid email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
     } else {
+
       let payload = {
         company: companyData?.company,
         gstinList: [],
-      };
+        email: credential
+      }
 
       selected.forEach((item) => {
-        payload.gstinList.push(item.value);
-      });
+        payload.gstinList.push(item.value)
+      })
+
+      console.log(payload, 'gstinP[ayload')
+      dispatch(getGstData(payload));
+
     }
+
+
+    // const payload = {
+    //   company: companyData?.company,
+    //   gstin: credential.gstin,
+    //   username: credential.username,
+    //   password: credential.password,
+    // };
+    // console.log(payload, 'payload')
+
+    // // dispatch(VerifyGstKarza(payload));
+    // handleClose();
   };
 
-  const gstinVerifyHandler = (e) => {
-    const payload = {
-      company: companyData?.company,
-      gstin: credential.gstin,
-      username: credential.username,
-      password: credential.password,
-    };
+  useEffect(() => {
+    if (selected.length < 1) {
+      console.log('handleChangeGstin 1')
+      return
+    } else if (selected.length === 1) {
+      console.log('handleChangeGstin 2')
 
-    dispatch(VerifyGstKarza(payload));
-    handleClose();
-  };
+      const filteredgstin = GstData?.filter(
+        (GstinData) => GstinData.gstin === selected[0].value,
+      );
+      if (filteredgstin?.length === 1) {
+        console.log('handleChangeGstin 2.1')
+        filteredgstin?.map((gstData) => {
+          const data = { ...gstData };
+          SetGstFilteredData(data);
+          GstDataHandler(data);
+          setCredential({ ...credential, gstin: data.gstin });
+        });
+      }
+    } else {
+      let consolidatedDataExist = false;
+      let selectedGstin = []
+      console.log(selectedGstin, selected, 'handleChangeGstin 3-1')
+
+      selected.forEach((item) => {
+        selectedGstin.push(item.value)
+      })
+      let consolidatedIndex = null
+      selectedGstin.forEach((gstin) => {
+        consolidatedDataGstData?.forEach((gstin2,index) => {
+          console.log(gstin2.gstin, selectedGstin, 'handleChangeGstin 3')
+
+          
+          const areEqual = () => {
+            if (selectedGstin.length === gstin2.gstin.length) {
+              console.log('handleChangeGstin 3.1')
+              return selectedGstin.every((element) => {
+                if (gstin2.gstin.includes(element)) {
+                  console.log('handleChangeGstin 3.2')
+
+                  consolidatedIndex = index
+                  return true;
+                }
+                return false;
+              });
+            }
+            return false;
+
+          }
+          console.log(areEqual(),consolidatedIndex, 'handleChangeGstin 4')
+         
+
+        })
+      })
+      if (consolidatedIndex===0) {
+        SetGstFilteredData(consolidatedDataGstData[consolidatedIndex]);
+          GstDataHandler(consolidatedDataGstData[consolidatedIndex]);
+        console.log(consolidatedDataGstData[consolidatedIndex],'handleChangeGstin 4.1')
+      }
+    }
+
+  }, [selected])
 
   const handleChangeGstin = (e) => {
-    const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value);
 
-    if (filteredgstin?.length === 1) {
-      filteredgstin?.map((gstData) => {
-        const data = { ...gstData };
-        SetGstFilteredData(data);
-        GstDataHandler(data);
-        setCredential({ ...credential, gstin: data.gstin });
-      });
-    } else {
-      setCredential({ ...credential, gstin: e.target.value });
-      handleShow();
-    }
+
+    // const filteredgstin = GstData?.filter(
+    //   (GstinData) => GstinData.gstin === e.target.value,
+    // );
+    // // console.log(filteredgstin.length, 'filteredgstin')
+    // if (filteredgstin?.length === 1) {
+    //   filteredgstin?.map((gstData) => {
+    //     const data = { ...gstData };
+    //     SetGstFilteredData(data);
+    //     GstDataHandler(data);
+    //     setCredential({ ...credential, gstin: data.gstin });
+    //   });
+    // } else {
+    //   setCredential({ ...credential, gstin: e.target.value });
+    //   handleShow();
+    // }
   };
 
   function createGradient(ctx, area, color, color2) {
+    // const colorStart = faker.random.arrayElement(colors);
+    // const colorMid = faker.random.arrayElement(
+    //   colors.filter(color => color !== colorStart)
+    // );
+    // const colorEnd = faker.random.arrayElement(
+    //   colors.filter(color => color !== colorStart && color !== colorMid)
+    // );
+    console.log('cts', color2, color);
+
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
@@ -777,20 +906,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 className={` ${styles.header}  card_sub_header border-top-0  d-flex align-items-center justify-content-between`}
               >
                 <span className="text-color">Business Profile</span>
-                <span className={` d-flex align-items-center justify-content-between`}>
-                  <span className={`${styles.light} accordion_Text`}>GST :</span>
-                  {/* <MultiSelect
+                <span
+                  className={` d-flex align-items-center justify-content-between`}
+                >
+                  <span className={`${styles.light} accordion_Text`}>
+                    GST :
+                  </span>
+                  <MultiSelect
                     className={`${styles.gst_list} input`}
                     options={options}
                     value={selected}
-                    onChange={setSelected}
+                    onChange={(e) => {
+                      setSelected(e)
+                      handleChangeGstin(e)
+                    }}
                     labelledBy="Select"
                     disableSearch="true"
-
                   />
                   <button onClick={handleGStinFetch} className={`${styles.submit_btn} ml-3`}>Submit GSTIN</button>
-                  <button onClick={handleConsolidatedGStinFetch} className={`${styles.submit_btn} ml-3`}>Consolidated GSTIN </button> */}
-                  <select
+                  <button onClick={handleConsolidatedGStinFetch} className={`${styles.submit_btn} ml-3`}>Consolidated GSTIN </button>
+                  {/* <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}
                     onChange={(e) => handleChangeGstin(e)}
@@ -803,7 +938,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         {gstin}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                 </span>
               </div>
               <div className={` ${styles.body}`}>
@@ -1161,20 +1296,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 Via Email
               </a>
             </li>
-            <li className={`${styles.nav_item} nav-item`}>
-              <a
-                className={`${styles.nav_link} nav-link`}
-                id="via-phone"
-                data-toggle="tab"
-                href="#viaPhone"
-                role="tab"
-                aria-controls="viaPhone"
-                aria-selected="false"
-              >
-                <img src="/static/phone-icon.png" className="img-fluid" alt="Via Email" />
-                Via Phone No.
-              </a>
-            </li>
+          
           </ul>
           <form>
             <div className={`${styles.tab_content} tab-content`} id="myTabContent">
@@ -1185,38 +1307,19 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     id="email"
                     name="email"
                     className={`${styles.formControl} ${styles.input} input form-control`}
-                    onChange={(e) => setCredential({ ...credential, username: e.target.value })}
+                    onChange={(e) =>
+                      setCredential(e.target.value)
+                    }
                     required
                   />
-                  <label className={`label_heading_login label_heading bg-transparent`} htmlFor="email">
-                    Email or Username
+                  <label
+                    className={`label_heading_login label_heading bg-transparent`}
+                    htmlFor="email"
+                  >
+                    Email 
                   </label>
                 </div>
-                <div className={`${styles.labelFloat} ${styles.password} form-group`}>
-                  <div className="input-group align-items-center" id="password">
-                    <input
-                      type={passwordShow ? 'text' : 'password'}
-                      name="password"
-                      className={`${styles.formControl} ${styles.input} input form-control`}
-                      onChange={(e) =>
-                        setCredential({
-                          ...credential,
-                          password: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                    <label className={`label_heading_login label_heading bg-transparent`} htmlFor="password">
-                      Password
-                    </label>
-                    <img
-                      onClick={() => setPasswordShow(!passwordShow)}
-                      src="/static/eye.svg"
-                      alt="Show Password"
-                      className="img-fluid"
-                    />
-                  </div>
-                </div>
+              
                 <div className="d-flex justify-content-between">
                   <button
                     onClick={handleClose}
@@ -1231,28 +1334,6 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={`${styles.submit} ${styles.btn} btn w-50`}
                   >
                     Submit
-                  </button>
-                </div>
-              </div>
-              <div className="tab-pane fade" id="viaPhone" role="tabpanel" aria-labelledby="via-phone">
-                <div className={`${styles.labelFloat} form-group`}>
-                  <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    className={`${styles.formControl} ${styles.input} input form-control`}
-                    required
-                  />
-                  <label className={`label_heading_login`} htmlFor="phone">
-                    Phone Number
-                  </label>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn`}>
-                    Close
-                  </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn`}>
-                    Get OTP
                   </button>
                 </div>
               </div>
@@ -3353,7 +3434,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       )}
     </>
   );
-}
+      }
 
 export default Index;
 
@@ -4628,4 +4709,5 @@ const gstPurchase = (
       </div>
     </>
   );
-};
+}
+
