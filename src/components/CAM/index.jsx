@@ -383,7 +383,7 @@ function Index({
   //   ],
   // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
-  let backgroundColor1 = ['#eff9ee', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
 
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
@@ -1472,7 +1472,6 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor,back
     });
     return  data
   }
-  console.log(top3Open,returnFilteredCharges(),'returnFilteredCharges')
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
