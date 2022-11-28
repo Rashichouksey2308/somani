@@ -1,14 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="45.052" height="30.736" viewBox="0 0 45.052 30.736">
-  <g id="Group_4328" data-name="Group 4328" transform="translate(-1739.622 -683.622)">
-    <g id="Group_4328-2" data-name="Group 4328" transform="translate(-8435.871 -2007.815)" opacity="0.1">
-      <line id="Line_152" data-name="Line 152" x2="38.909" transform="translate(10177 2713.315)" fill="none" stroke="#707070" stroke-width="1"/>
-      <rect id="Rectangle_313" data-name="Rectangle 313" width="12" height="8" transform="translate(10176.871 2705.815)"/>
-      <rect id="Rectangle_314" data-name="Rectangle 314" width="12" height="18" transform="translate(10191.871 2695.815)"/>
-      <rect id="Rectangle_315" data-name="Rectangle 315" width="11" height="7" transform="translate(10207.871 2706.815)"/>
+    <g id="Group_4328" data-name="Group 4328" transform="translate(-1739.622 -683.622)">
+        <g id="Group_4328-2" data-name="Group 4328" transform="translate(-8435.871 -2007.815)" opacity="0.1">
+            <line id="Line_152" data-name="Line 152" x2="38.909" transform="translate(10177 2713.315)" fill="none"
+                  stroke="#707070" stroke-width="1"/>
+            <rect id="Rectangle_313" data-name="Rectangle 313" width="12" height="8"
+                  transform="translate(10176.871 2705.815)"/>
+            <rect id="Rectangle_314" data-name="Rectangle 314" width="12" height="18"
+                  transform="translate(10191.871 2695.815)"/>
+            <rect id="Rectangle_315" data-name="Rectangle 315" width="11" height="7"
+                  transform="translate(10207.871 2706.815)"/>
+        </g>
+        <g id="Rectangle_674" data-name="Rectangle 674" transform="matrix(0.848, -0.53, 0.53, 0.848, 1741, 710.437)"
+           fill="#d9dadc" stroke="#fff" stroke-width="1">
+            <rect width="48" height="3" stroke="none"/>
+            <rect x="-0.5" y="-0.5" width="49" height="4" fill="none"/>
+        </g>
     </g>
-    <g id="Rectangle_674" data-name="Rectangle 674" transform="matrix(0.848, -0.53, 0.53, 0.848, 1741, 710.437)" fill="#d9dadc" stroke="#fff" stroke-width="1">
-      <rect width="48" height="3" stroke="none"/>
-      <rect x="-0.5" y="-0.5" width="49" height="4" fill="none"/>
-    </g>
-  </g>
 </svg>

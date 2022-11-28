@@ -5,9 +5,13 @@
   background: none !important;
   margin: 28px;
   margin-bottom: 68px;
-  @include respond(sm-desktop) {
+  @include respond(lg-desktop) {
     margin: 20px;
     margin-bottom: 60px;
+  }
+  @include respond(sm-desktop) {
+    margin: 18px;
+    margin-bottom: 58px;
   }
   @include respond(phone) {
     margin: 15px;
@@ -161,10 +165,8 @@
 }
 .customSelect {
   appearance: none;
-  // position: relative;
 }
 .arrow {
-  // margin-left: -40px;
   width: 13px;
   pointer-events: none;
   input[type='date']::-webkit-inner-spin-button,

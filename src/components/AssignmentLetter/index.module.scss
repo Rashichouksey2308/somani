@@ -1,7 +1,9 @@
 @import '../styles/Core/config';
+
 .root {
   position: relative;
   font-family: 'Times New Roman', Times, serif;
+
   .sidebar {
     width: 376px;
     height: 736px;
@@ -13,17 +15,21 @@
     border-radius: 6px !important;
     margin-bottom: 42px;
     padding: 10px 26px 15px 30px;
+
     .sidebar_content {
       height: 70px;
       padding: 20px 0;
+
       .content2 {
         height: 100%;
         cursor: pointer;
         color: #28487b;
+
         input {
           width: 27px;
           height: 27px;
         }
+
         span {
           font-size: 22px;
           line-height: 27px;
@@ -31,38 +37,38 @@
           margin-right: 20px;
           margin-left: 22px !important;
         }
+
         img {
           width: 27px;
           height: 27px;
-          // margin-left: 10px;
           line-height: 45px;
-          // text-align: center;
-          // border-radius: 8px;
-          // background: #fafafb;
           display: inline-block;
-          // border: 1px solid #f2f5f9;
           display: flex;
           justify-content: center;
           align-items: center;
+
           img {
             width: 9px;
             height: 14px;
           }
         }
       }
+
       .selected {
         opacity: 1 !important;
         color: #3687e8 !important;
       }
     }
   }
+
   .content {
-    // margin-left: 400px;
     box-shadow: 0px 3px 6px #cad0e2;
     border-radius: 6px !important;
+
     label {
       font-size: 20px;
     }
+
     .date_input {
       font-size: 20px;
       height: 60px;
@@ -78,16 +84,18 @@
         font-size: 15px;
       }
     }
+
     .card_body {
       padding: 0px 100px 20px 100px;
+
       .sub_heading {
         text-decoration: underline;
         font-weight: 500;
       }
+
       p {
         font-size: 20px;
         margin-bottom: 2rem;
-        //line-height: 60px;
         @include respond(sm-desktop) {
           font-size: 18px;
         }
@@ -95,13 +103,11 @@
           font-size: 15px;
         }
       }
+
       .para {
-        //line-height: 60px;
         font-size: 20px;
         height: 60px;
         border: none;
-        // background: transparent;
-        // color: #000000;
         font-weight: bold;
         outline: none;
         @include respond(sm-desktop) {
@@ -112,12 +118,21 @@
         }
       }
     }
+
     .footer {
       font-size: 22px;
       border-top: 2px solid #d2d7e5;
       height: 5rem;
+      @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+    }
+    ol {
+      padding-left: 20px;
     }
   }
+
   p {
     font-size: 20px;
     margin-bottom: 1rem;
@@ -130,9 +145,6 @@
       width: fit-content;
       height: 36px;
       outline: none;
-      /* UI Properties */
-      //  background: #C3C3C31F;
-      //  border: 1px solid #0000001F;
       border-radius: 4px;
     }
   }
@@ -143,9 +155,6 @@
     width: fit-content;
     height: 36px;
     outline: none;
-    /* UI Properties */
-    //  background: #C3C3C31F;
-    //  border: 1px solid #0000001F;
     border-radius: 4px;
   }
 
@@ -172,25 +181,19 @@
     }
 
     .right {
-      display: flex;
-      align-items: center !important;
-      justify-content: flex-start !important;
       padding: 0 15px;
     }
 
     .para {
-      // padding: 0.5rem;
       text-align: left;
       width: 100%;
       height: 100%;
       outline: none;
-      /* UI Properties */
-      //  background: #C3C3C31F;
-      //  border: 1px solid #0000001F;
       border-radius: 4px;
     }
   }
 }
+
 .pageList span {
   font-size: 18px;
   color: #718096;
@@ -198,6 +201,7 @@
   line-height: 23px;
   margin-right: 38px;
 }
+
 .reject {
   cursor: pointer;
   width: 260px;
@@ -208,7 +212,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include respond(lg-desktop) {
+    width: 200px;
+    height: 38px;
+  }
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -220,10 +229,78 @@
   align-items: center;
   justify-content: center;
   margin-left: 1rem;
+  @include respond(lg-desktop) {
+    width: 200px;
+    height: 38px;
+  }
 }
+
 .image_reverse {
   transform: rotate(180deg);
   width: 9px;
   height: 14px;
   opacity: 0.6;
+}
+
+.inputsContainer2 {
+  padding-left: 50px;
+  font-size: 20px;
+  margin-bottom: 4rem;
+  line-height: 28px;
+  border: 2px solid black;
+  height: 100px;
+
+  .row {
+    height: 100%;
+    margin: 0px !important;
+    border-bottom: 2px solid black;
+  }
+
+  .left {
+    height: 100%;
+    display: flex;
+    border-right: 2px solid black;
+  }
+
+  .last {
+    border-bottom: none;
+  }
+
+  .right {
+    height: 100%;
+    padding-left: 50px;
+    padding: 0px;
+  }
+
+  .para {
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    background: #c3c3c31f;
+    border: 1px solid #0000001f;
+    border-radius: 4px;
+  }
+}
+
+.tableWrapper {
+  overflow-y: auto;
+  max-height: 500px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+}
+.schedule_table {  
+  font-size: 18px;
+  line-height: 1.3;
 }

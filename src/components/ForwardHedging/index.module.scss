@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .backgroundMain {
   .main_page {
     margin: 28px;
@@ -15,6 +16,7 @@
       margin: 15px;
       margin-bottom: 121px;
     }
+
     .head_header {
       display: flex;
       min-height: 48px;
@@ -23,7 +25,8 @@
         min-height: 40px;
         margin-bottom: 20px;
       }
-      .arrow {
+
+      .back_arrow {
         width: 13px;
         height: 21px;
         cursor: pointer;
@@ -33,23 +36,27 @@
           height: auto;
         }
       }
+
       .heading {
         font-size: 34px;
         font-weight: bold;
         line-height: 41px;
         margin: 0;
-        // padding-left: 18px;
+         padding-left: 18px;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
-          // padding-left: 10px;
+          padding-left: 10px;
         }
         @include respond(sm-desktop) {
           font-size: 20px;
@@ -62,6 +69,7 @@
 
     .vessel_card {
       border-radius: 6px;
+
       h2 {
         font-size: 22px;
         color: #3687e8;
@@ -80,6 +88,7 @@
 
       .radio_form {
         padding: 26px 0px 20px 35px;
+
         .radio_group {
           display: flex;
 
@@ -103,6 +112,7 @@
             }
           }
         }
+
         .sub_heading {
           font-size: 16px;
           line-height: 17px;
@@ -123,6 +133,7 @@
 
       .main {
         border-radius: 6px;
+
         .add_btn {
           color: #3687e8;
           text-transform: capitalize;
@@ -150,6 +161,7 @@
             height: 35px;
             text-align: center;
           }
+
           .add_sign {
             font-size: 24px;
             font-weight: bold;
@@ -161,6 +173,7 @@
             }
           }
         }
+
         .head_container {
           min-height: 80px;
           padding: 0 35px !important;
@@ -168,6 +181,7 @@
           @include respond(lg-desktop) {
             min-height: 60px;
           }
+
           .heading {
             color: #3687e8;
             font-weight: bold;
@@ -187,6 +201,7 @@
               margin: 13px 0;
             }
           }
+
           span {
             font-size: 45px;
             color: #3687e8;
@@ -198,7 +213,6 @@
           }
 
           .dropDown {
-            border: 1px solid #0000001f;
             border-radius: 4px;
             font-size: 20px;
             line-height: 25px;
@@ -207,6 +221,7 @@
             background-color: transparent;
             border: none;
           }
+
           .dropDown_label {
             letter-spacing: 0.53px;
             font-weight: 500;
@@ -215,14 +230,18 @@
           }
         }
       }
+
       .dashboard_form {
         padding: 20px 35px 25px 40px;
+
         .bill_landing {
           //background: #FFFFFF;
           border: 2px solid #cad6e6;
           border-radius: 9px;
+
           .vessel_card {
             padding: 0px 35px 0px 35px;
+
             .add_btn {
               color: #3687e8;
               text-transform: capitalize;
@@ -249,6 +268,7 @@
             }
           }
         }
+
         .eta_heading {
           font-size: 20px;
           line-height: 25px;
@@ -258,6 +278,7 @@
             line-height: 1.3;
           }
         }
+
         .label {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -272,6 +293,7 @@
             line-height: 15px;
           }
         }
+
         .value {
           font-size: 20px;
           height: 60px;
@@ -296,18 +318,22 @@
           height: 46px;
           background-color: transparent;
         }
+
         .form_group {
           margin-top: 40px;
           position: relative;
           margin-bottom: 11px;
           align-self: center;
+
           .search_image {
             margin-left: -40px;
           }
+
           .uploadBtnWrapper {
             overflow: hidden;
             position: relative;
             display: inline-block;
+
             input {
               top: 0;
               left: 0;
@@ -317,6 +343,7 @@
               cursor: pointer;
               position: absolute;
             }
+
             @include respond(phone) {
               width: 100%;
             }
@@ -338,6 +365,7 @@
               font-size: 10px;
             }
           }
+
           .label_heading {
             font-size: 16px;
             letter-spacing: 0.53px;
@@ -355,6 +383,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
             &::before {
               top: 51%;
               left: 0;
@@ -365,6 +394,7 @@
               position: absolute;
               transform: translateY(-50%);
             }
+
             @include respond(lg-desktop) {
               top: 15px;
               font-size: 14px;
@@ -372,6 +402,7 @@
               transform: translateY(-22px);
             }
           }
+
           .cancel_btn {
             padding: 5px 22px;
             color: #3687e8;
@@ -387,6 +418,7 @@
               padding: 4px 17px;
             }
           }
+
           .line {
             border: 3px solid #d9dde8;
           }
@@ -403,9 +435,11 @@
             white-space: nowrap;
             letter-spacing: 0.19px;
             padding: 13px 40px 13px 17px;
+
             &:invalid + label {
               transform: translateY(0);
             }
+
             &:focus {
               & + label {
                 transform: translateY(-30px);
@@ -414,6 +448,7 @@
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 45px;
               font-size: 15px;
@@ -430,6 +465,7 @@
     margin-bottom: 1rem;
     box-shadow: none !important;
     border: none !important;
+
     .doc_heading {
       //color: #111111;
       font-weight: bold;
@@ -437,22 +473,26 @@
       line-height: 25px;
       padding-left: 40px;
     }
+
     .dashboard_form {
       padding: 40px 35px 40px 35px;
       @include respond(phone) {
         padding: 25px 20px 20px;
       }
+
       .drop_container {
         background-color: #c3c3c31f;
         border: 1px dashed #00000045;
         border-radius: 4px;
         height: 284px;
         line-height: 1;
+
         .upload_image {
           width: 83px;
           height: 83px;
           line-height: 83px;
         }
+
         .drop_para {
           font-size: 19px;
           line-height: 24px;
@@ -466,6 +506,7 @@
           @include respond(phone) {
             font-size: 12px;
           }
+
           a {
             text-decoration: underline;
             font-size: 19px;
@@ -482,6 +523,7 @@
           }
         }
       }
+
       .upload_button {
         border: 3px solid #3687e8;
         border-radius: 5px;
@@ -505,17 +547,16 @@
           width: 100%;
         }
       }
+
       .form_group {
         position: relative;
         margin-bottom: 40px;
         margin-top: 20px;
+
         .label {
           font-size: 16px;
           letter-spacing: 0.53px;
-          text-transform: capitalize;
           position: absolute;
-          left: 15px;
-          top: -10px;
           line-height: 1;
           left: 30px;
           top: -8px;
@@ -543,10 +584,12 @@
           }
         }
       }
+
       .uploadBtnWrapper {
         overflow: hidden;
         position: relative;
         display: inline-block;
+
         input {
           top: 0;
           left: 0;
@@ -556,11 +599,13 @@
           cursor: pointer;
           position: absolute;
         }
+
         @include respond(phone) {
           width: 100%;
         }
       }
     }
+
     .search_container {
       //background: #F0F0F0;
       height: 62px;
@@ -605,6 +650,7 @@
       }
     }
   }
+
   .table_container {
     background-color: #fafafb;
     // margin-top: 40px;
@@ -612,12 +658,14 @@
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
 
         .table {
           margin-bottom: 0px;
+
           th {
             font-size: 15px;
             color: #8492a6;
@@ -630,6 +678,7 @@
             border-top: 2px solid #f2f5f9;
             border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
@@ -646,6 +695,7 @@
                   height: 12px;
                 }
               }
+
               &.searchImg {
                 width: 48px;
                 height: 48px;
@@ -660,6 +710,7 @@
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -672,10 +723,12 @@
               font-size: 12px;
             }
           }
+
           tr {
             &:last-child {
               border-bottom: none;
             }
+
             td {
               font-size: 19px;
               font-weight: 500;
@@ -685,12 +738,14 @@
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
               white-space: nowrap;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
               }
+
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -700,6 +755,7 @@
                 font-size: 14px;
                 padding: 10px;
               }
+
               .actionContainer {
                 @include respond(phone) {
                   display: flex;
@@ -711,6 +767,7 @@
               }
             }
           }
+
           .module {
             background: #8492a6;
             font-size: 15px;
@@ -731,6 +788,7 @@
               font-size: 11px;
             }
           }
+
           .input_field {
             background: #c3c3c31f;
             border-radius: 4px;
@@ -750,11 +808,13 @@
               width: 100%;
             }
           }
+
           .close_image {
             margin-left: -30px;
             @include respond(phone) {
             }
           }
+
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -769,6 +829,7 @@
               font-size: 14px;
             }
           }
+
           .doc_row {
             font-size: 19px;
             line-height: 24px;
@@ -782,6 +843,7 @@
               font-size: 12px;
             }
           }
+
           .status {
             width: 15px;
             height: 15px;
@@ -789,8 +851,7 @@
             border-radius: 50%;
             display: inline-block;
             vertical-align: middle;
-
-            @include respond(sm-desktop) {
+            @include respond(lg-desktop) {
               width: 12px;
               height: 12px;
             }
@@ -799,9 +860,11 @@
               height: 10px;
             }
           }
+
           .approved {
             background: #26dd73;
           }
+
           .rejected {
             background: #ff9d00;
           }
@@ -810,6 +873,7 @@
     }
   }
 }
+
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -823,6 +887,7 @@
     height: 15px;
   }
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -865,6 +930,7 @@
     height: 25px;
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -895,6 +961,7 @@
   appearance: none;
   // position: relative;
 }
+
 .label_comment {
   top: 22px;
   left: 15px;
@@ -913,6 +980,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
   &::before {
     top: 51%;
     left: 0;
@@ -923,11 +991,13 @@
     position: absolute;
     transform: translateY(-50%);
   }
+
   @include respond(lg-desktop) {
     font-size: 14px;
     line-height: 15px;
   }
 }
+
 .comment_field {
   height: 106px;
   background-color: #c3c3c31f;
@@ -939,19 +1009,23 @@
   box-shadow: none !important;
   position: relative;
   box-sizing: border-box;
+
   &:invalid + label {
     transform: translateY(0);
   }
+
   &:focus {
     & + label {
       transform: translateY(-30px);
     }
   }
+
   @include respond(lg-desktop) {
     font-size: 15px;
     line-height: 1.3;
   }
 }
+
 .uploadDoc {
   text-align: center;
   color: #3687e8;
@@ -976,6 +1050,7 @@
     padding: 0 15px;
   }
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -988,6 +1063,7 @@
     font-size: 15px;
     line-height: 1.3;
   }
+
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -995,6 +1071,7 @@
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
@@ -1003,6 +1080,7 @@
     }
   }
 }
+
 .certificate2 {
   display: flex;
   justify-content: space-around;
@@ -1015,11 +1093,13 @@
   padding: 8px;
   margin: 7px 0;
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
   display: block;
   line-height: 60px;
+
   input {
     top: 0;
     left: 0;
@@ -1030,6 +1110,7 @@
     position: absolute;
   }
 }
+
 .button_upload {
   width: 106px;
   height: 38px;

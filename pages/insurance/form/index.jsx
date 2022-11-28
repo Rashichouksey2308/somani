@@ -1,36 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './insurance.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import SaveBar from '../../../src/components/SaveBar';
 import Router, { useRouter } from 'next/router';
 import DateCalender from '../../../src/components/DateCalender';
-import { useDispatch } from 'react-redux';
-import {
-  GettingAllInsurance,
-  UpdateQuotation,
-} from '../../../src/redux/insurance/action';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance, UpdateQuotation } from '../../../src/redux/insurance/action';
 import _get from 'lodash/get';
-
-import { settingSidebar } from 'redux/breadcrumb/action';
-import {
-  addPrefixOrSuffix,
-  checkNan,
-  CovertvaluefromtoCR,
-  removePrefixOrSuffix,
-} from '../../../src/utils/helper';
+import { removePrefixOrSuffix } from '../../../src/utils/helper';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 
 const Index = () => {
+
   const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId');
@@ -38,20 +23,20 @@ const Index = () => {
   }, [dispatch, sumInsuredCalc]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
-  console.log(
-    _get(insuranceResponse, 'data[0].order.inspection', ''),
-    'This is InsuranceData',
-  );
+
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
   });
+
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: '',
-    expectedTimeOfDispatch: '',
+    expectedTimeOfArrival: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort ?? '',
+    expectedTimeOfDispatch: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -66,86 +51,66 @@ const Index = () => {
       : sumInsuredCalc,
   });
 
-  let sumInsuredCalc = parseFloat(
-    ((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100,
-  );
-  console.log(sumInsuredCalc, 'THIS IS SUM INSURED CAL');
-  // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
+  let sumInsuredCalc = parseFloat(((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100);
+
   useEffect(() => {
     dispatch(setPageName('insurance'));
-    dispatch(
-      setDynamicName(
-        _get(insuranceData, 'company.companyName', 'Company Name'),
-      ),
-    );
+    dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')));
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
-    //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
+
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
-      expectedTimeOfArrival:
-        insuranceData?.quotationRequest?.expectedTimeOfArrival || undefined,
-      expectedTimeOfDispatch:
-        insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
-      insuranceType:
-        insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival ? insuranceData?.quotationRequest?.expectedTimeOfArrival : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch ?insuranceData?.quotationRequest?.expectedTimeOfDispatch :insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
+      insuranceType: insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom
         ? insuranceData?.quotationRequest?.laycanFrom
         : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate,
       laycanTo: insuranceData?.quotationRequest?.laycanTo
         ? insuranceData?.quotationRequest?.laycanTo
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee
-        ? insuranceData?.quotationRequest?.lossPayee
-        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      lossPayee: _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+          insuranceData?.quotationRequest?.lossPayee,
+        ) || '',
+      
+  
       storageDetails: {
-        placeOfStorage:
-          insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
-        periodOfInsurance:
-          insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance ||
-          '',
-        storagePlotAddress:
-          insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
-          '',
+        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge ,
+        periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
+        storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured
         ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
         : sumInsuredCalc,
     });
   }, [insuranceData]);
-  //  console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
+
   const saveQuotationData = (name, value) => {
-    // console.log(value, 'dhjsgfksjdghf')
     const newInput = { ...quotationData };
     const namesplit = name.split('.');
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
     setQuotationData(newInput);
   };
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
     setStartDate(value, name);
   };
   const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString())
-      .add(1, 'days')
-      .format('DD-MM-YYYY');
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'laycanFrom') {
       setDateStartFrom({ ...dateStartFrom, laycan: new_date });
     } else {
       setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
   };
-  console.log(
-    quotationData?.sumInsured,
-    'quotationData?.sumInsured',
-    insuranceData?.quotationRequest?.sumInsured,
-  );
+
   const [reset, setReset] = useState(false);
+
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
     setQuotationData({
@@ -172,7 +137,6 @@ const Index = () => {
   };
 
   const validation = () => {
-    console.log(quotationData.lossPayee, 'quotationData.lossPayee ');
     let toastMessage = '';
     // if (
     //   quotationData.lossPayee == '' ||
@@ -185,10 +149,7 @@ const Index = () => {
     //     return false;
     //   }
     // }
-    if (
-      quotationData.laycanFrom == '' ||
-      quotationData.laycanFrom == undefined
-    ) {
+    if (quotationData.laycanFrom == '' || quotationData.laycanFrom == undefined) {
       toastMessage = 'Please add laycan From';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -202,31 +163,21 @@ const Index = () => {
         return false;
       }
     }
-    if (
-      quotationData.expectedTimeOfDispatch == '' ||
-      quotationData.expectedTimeOfDispatch == undefined
-    ) {
+    if (quotationData.expectedTimeOfDispatch == '' || quotationData.expectedTimeOfDispatch == undefined) {
       toastMessage = 'Please add expected Time Of Dispatch ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (
-      quotationData.expectedTimeOfArrival == '' ||
-      quotationData.expectedTimeOfArrival == undefined
-    ) {
+    if (quotationData.expectedTimeOfArrival == '' || quotationData.expectedTimeOfArrival == undefined) {
       toastMessage = 'Please add expected Time Of Arrival ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (
-      quotationData.sumInsured == '' ||
-      quotationData.sumInsured == undefined ||
-      quotationData.sumInsured == null
-    ) {
+    if (quotationData.sumInsured == '' || quotationData.sumInsured == undefined || quotationData.sumInsured == null) {
       toastMessage = 'Please add sum Insured ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -270,12 +221,12 @@ const Index = () => {
     }
     return true;
   };
+
   const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         let insuranceObj = { ...quotationData };
-        insuranceObj.sumInsured =
-          removePrefixOrSuffix(quotationData.sumInsured) * 10000000;
+        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 10000000;
         let obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
@@ -304,12 +255,10 @@ const Index = () => {
   };
 
   const [insuranceType, setInsuranceType] = useState('Marine Insurance');
-  console.log(quotationData, 'quotationData');
+
   return (
     <>
-      <div
-        className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}
-      >
+      <div className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}>
         <div className={`${styles.accordion_body} bg-transparent`}>
           <div className={`${styles.head_container} align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
@@ -319,9 +268,7 @@ const Index = () => {
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
-              <h1 className={styles.heading}>
-                {insuranceData?.company?.companyName}
-              </h1>
+              <h1 className={styles.heading}>{insuranceData?.company?.companyName}</h1>
             </div>
             <div>
               <button
@@ -337,9 +284,7 @@ const Index = () => {
 
           <div className={`${styles.vessel_card}`}>
             <div className={`${styles.wrapper} border_color card datatable`}>
-              <div
-                className={`${styles.insurance_type} d-lg-flex align-items-center d-inline-block`}
-              >
+              <div className={`${styles.insurance_type} d-lg-flex align-items-center d-inline-block`}>
                 <h2 className="mb-0">Insurance Type</h2>
                 <div className={`${styles.radio_form}`}>
                   {['radio'].map((type) => (
@@ -348,19 +293,12 @@ const Index = () => {
                         className={styles.radio}
                         inline
                         label="Marine Insurance"
-                        checked={
-                          quotationData.insuranceType == 'Marine Insurance'
-                            ? 'checked'
-                            : ''
-                        }
+                        checked={quotationData.insuranceType == 'Marine Insurance' ? 'checked' : ''}
                         name="group1"
                         type={type}
                         value="Marine Insurance"
                         onChange={(e) => {
-                          saveQuotationData(
-                            'insuranceType',
-                            'Marine Insurance',
-                          );
+                          saveQuotationData('insuranceType', 'Marine Insurance');
                           setInsuranceType('Marine Insurance');
                         }}
                         id={`inline-${type}-1`}
@@ -369,19 +307,12 @@ const Index = () => {
                         className={styles.radio}
                         inline
                         label="Storage Insurance"
-                        checked={
-                          quotationData.insuranceType == 'Storage Insurance'
-                            ? 'checked'
-                            : ''
-                        }
+                        checked={quotationData.insuranceType == 'Storage Insurance' ? 'checked' : ''}
                         name="group1"
                         type={type}
                         value="Storage Insurance"
                         onChange={(e) => {
-                          saveQuotationData(
-                            'insuranceType',
-                            'Storage Insurance',
-                          );
+                          saveQuotationData('insuranceType', 'Storage Insurance');
                           setInsuranceType('Storage Insurance');
                         }}
                         id={`inline-${type}-2`}
@@ -391,19 +322,11 @@ const Index = () => {
                         inline
                         label="Both"
                         name="group1"
-                        checked={
-                          quotationData.insuranceType ==
-                          'Marine & Storage Insurance'
-                            ? 'checked'
-                            : ''
-                        }
+                        checked={quotationData.insuranceType == 'Marine & Storage Insurance' ? 'checked' : ''}
                         type={type}
                         value="Marine & Storage Insurance"
                         onChange={(e) => {
-                          saveQuotationData(
-                            'insuranceType',
-                            'Marine & Storage Insurance',
-                          );
+                          saveQuotationData('insuranceType', 'Marine & Storage Insurance');
                           setInsuranceType('Both');
                         }}
                         id={`inline-${type}-2`}
@@ -439,75 +362,37 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <Row>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Commodity
-                            </div>
-                            <div className={styles.col_body}>
-                              {insuranceData?.order?.commodity}
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Commodity</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.commodity}</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Quantity
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Quantity</div>
                             <div className={styles.col_body}>
-                              {Number(
-                                insuranceData?.order?.quantity,
-                              )?.toLocaleString('en-In', {
+                              {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                               })}{' '}
                               MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Country of Origin
-                            </div>
-                            <div className={styles.col_body}>
-                              {insuranceData?.order?.countryOfOrigin}
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Country of Origin</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.countryOfOrigin}</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Vessel Name
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Vessel Name</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].vesselInformation[0].name',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                             </div>
                           </Col>
 
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              IMO Number
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>IMO Number</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].vesselInformation[0].IMONumber',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Year of Built
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Year of Built</div>
                             <div className={styles.col_body}>
                               {_get(
                                 insuranceData,
@@ -517,76 +402,43 @@ const Index = () => {
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Port of Loading
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Port of Loading</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].transitDetails.portOfLoading',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Port of Discharge
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].transitDetails.portOfDischarge',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 id="FormInsurance"
                                 name="lossPayee"
                                 onChange={(e) => {
-                                  saveQuotationData(
-                                    e.target.name,
-                                    e.target.value,
-                                  );
+                                  saveQuotationData(e.target.name, e.target.value);
                                 }}
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet
-                                        ?.transactionDetails?.lcOpeningBank
+                                    :  _get(
+                                    insuranceData,
+                                    'order.lc.lcApplication.lcIssuingBank',
+                                    '',
+                                  )
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option disabled selected>
-                                  Select an option
-                                </option>
-                                <option value="Reserve Bank of Spain">
-                                  Reserve Bank of Spain
-                                </option>
-                                <option value="Zurcher Kantonal Bank,Zurich">
-                                  Zurcher Kantonal Bank,Zurich
-                                </option>
-                                 <option value="NA">
-                                  NA
-                                </option>
-                              </select>
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                                
+                              </input>
+                              <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
+                               
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                             
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -597,8 +449,7 @@ const Index = () => {
                                 defaultDate={
                                   quotationData.laycanFrom
                                     ? quotationData.laycanFrom
-                                    : insuranceData?.order?.shipmentDetail
-                                        ?.loadPort?.fromDate
+                                    : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate
                                 }
                                 labelName="Laycan from"
                               />
@@ -616,8 +467,7 @@ const Index = () => {
                                 defaultDate={
                                   quotationData.laycanTo
                                     ? quotationData.laycanTo
-                                    : insuranceData?.order?.shipmentDetail
-                                        ?.loadPort?.toDate
+                                    : insuranceData?.order?.shipmentDetail?.loadPort?.toDate
                                 }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
@@ -635,9 +485,7 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfDispatch"
-                                defaultDate={
-                                  quotationData.expectedTimeOfDispatch
-                                }
+                                defaultDate={quotationData.expectedTimeOfDispatch}
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
                                 reset={reset}
@@ -653,9 +501,7 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfArrival"
-                                defaultDate={
-                                  quotationData.expectedTimeOfArrival
-                                }
+                                defaultDate={quotationData.expectedTimeOfArrival}
                                 startFrom={dateStartFrom.eta}
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
@@ -670,43 +516,31 @@ const Index = () => {
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
                               onFocus={(e) => {
-                                setIsFieldInFocus(true),
-                                  (e.target.type = 'number');
+                                setIsFieldInFocus(true), (e.target.type = 'number');
                               }}
                               onBlur={(e) => {
-                                setIsFieldInFocus(false),
-                                  (e.target.type = 'text');
+                                setIsFieldInFocus(false), (e.target.type = 'text');
                               }}
                               id="FormInsurance"
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
-                                  : Number(
-                                      quotationData?.sumInsured,
-                                    )?.toLocaleString('en-In', {
+                                  : Number(quotationData?.sumInsured)?.toLocaleString('en-In', {
                                       maximumFractionDigits: 2,
                                     }) + ` Cr`
                               }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
-                                saveQuotationData(
-                                  e.target.name,
-                                  e.target.value,
-                                );
+                                saveQuotationData(e.target.name, e.target.value);
                               }}
                               required
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Sum Insured
                               <strong className="text-danger">*</strong>
                             </label>
@@ -720,9 +554,7 @@ const Index = () => {
                         <h5>Additional Information (if Any)</h5>
                         <textarea
                           name="additionalInfo"
-                          defaultValue={
-                            insuranceData?.quotationRequest?.additionalInfo
-                          }
+                          defaultValue={insuranceData?.quotationRequest?.additionalInfo}
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value);
                           }}
@@ -739,75 +571,37 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <Row>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Commodity
-                            </div>
-                            <div className={styles.col_body}>
-                              {insuranceData?.order?.commodity}
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Commodity</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.commodity}</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Quantity
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Quantity</div>
                             <div className={styles.col_body}>
-                              {Number(
-                                insuranceData?.order?.quantity,
-                              )?.toLocaleString('en-In', {
+                              {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                               })}{' '}
                               MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Country of Origin
-                            </div>
-                            <div className={styles.col_body}>
-                              {insuranceData?.order?.countryOfOrigin}
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Country of Origin</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.countryOfOrigin}</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Vessel Name
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Vessel Name</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].vesselInformation[0].name',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                             </div>
                           </Col>
 
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              IMO Number
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>IMO Number</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].vesselInformation[0].IMONumber',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Year of Built
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Year of Built</div>
                             <div className={styles.col_body}>
                               {_get(
                                 insuranceData,
@@ -817,78 +611,46 @@ const Index = () => {
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Port of Loading
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Port of Loading</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].transitDetails.portOfLoading',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
-                            <div
-                              className={`${styles.col_header} label_heading`}
-                            >
-                              Port of Discharge
-                            </div>
+                            <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
                             <div className={styles.col_body}>
-                              {_get(
-                                insuranceData,
-                                'order.vessel.vessels[0].transitDetails.portOfDischarge',
-                                '',
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => {
-                                  saveQuotationData(
-                                    e.target.name,
-                                    e.target.value,
-                                  );
+                                  saveQuotationData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet
-                                        ?.transactionDetails?.lcOpeningBank
+                                    : _get(
+                                    insuranceData,
+                                    'order.lc.lcApplication.lcIssuingBank',
+                                    '',
+                                  )
                                 }
                               >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                {/* <option selected>
-                                  {insuranceData?.quotationRequest?.lossPayee}
-                                </option> */}
-                                <option value="Reserve Bank of Spain">
-                                  Reserve Bank of Spain
-                                </option>
-                                <option value="Zurcher Kantonal Bank,Zurich">
-                                  Zurcher Kantonal Bank,Zurich
-                                </option>
-                                 <option value="NA">
-                                  NA
-                                </option>
-                              </select>
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                               
+                              </input>
+                              <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 {/* <strong className="text-danger">*</strong> */}
                               </label>
-                              <img
+                              {/* <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
                                 src="/static/inputDropDown.svg"
                                 alt="Search"
-                              />
+                              /> */}
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -934,9 +696,7 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfDispatch"
-                                defaultDate={
-                                  quotationData.expectedTimeOfDispatch
-                                }
+                                defaultDate={quotationData.expectedTimeOfDispatch}
                                 reset={reset}
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
@@ -952,9 +712,7 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfArrival"
-                                defaultDate={
-                                  quotationData.expectedTimeOfArrival
-                                }
+                                defaultDate={quotationData.expectedTimeOfArrival}
                                 reset={reset}
                                 startFrom={dateStartFrom.eta}
                                 saveDate={saveDate}
@@ -970,34 +728,27 @@ const Index = () => {
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
                               onFocus={(e) => {
-                                setIsFieldInFocus(true),
-                                  (e.target.type = 'number');
+                                setIsFieldInFocus(true), (e.target.type = 'number');
                               }}
                               onBlur={(e) => {
-                                setIsFieldInFocus(false),
-                                  (e.target.type = 'text');
+                                setIsFieldInFocus(false), (e.target.type = 'text');
                               }}
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
+                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
-                                  : Number(
-                                      quotationData?.sumInsured,
-                                    )?.toLocaleString('en-In', {
+                                  : Number(quotationData?.sumInsured)?.toLocaleString('en-In', {
                                       maximumFractionDigits: 2,
                                     }) + ` Cr`
                               }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
-                              onChange={(e) =>
-                                saveQuotationData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                               required
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Sum Insured
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1010,33 +761,20 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <h5>Storage Details</h5>
                         <Row>
-                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                          {/* <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
                               <select
                                 name="storageDetails.placeOfStorage"
-                                onChange={(e) =>
-                                  saveQuotationData(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
-                                }
-                                value={
-                                  quotationData.storageDetails.placeOfStorage
-                                }
+                                onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
+                                value={quotationData.storageDetails.placeOfStorage}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
                                 <option>Select an option</option>
 
-                                <option value="Visakhapatnam, AP, India">
-                                  Visakhapatnam, AP, India
-                                </option>
-                                <option value="Mumbai, India">
-                                  Mumbai, India
-                                </option>
+                                <option value="Visakhapatnam, AP, India">Visakhapatnam, AP, India</option>
+                                <option value="Mumbai, India">Mumbai, India</option>
                               </select>
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 Place of Storage
                                 <strong className="text-danger">*</strong>
                               </label>
@@ -1046,6 +784,21 @@ const Index = () => {
                                 alt="Search"
                               />
                             </div>
+                          </Col> */}
+                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              value={quotationData.storageDetails.placeOfStorage}
+                              name="storageDetails.placeOfStorage"
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Place of Storage
+                              <strong className="text-danger">*</strong>
+                            </label>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <input
@@ -1053,23 +806,13 @@ const Index = () => {
                               required
                               type="number"
                               onWheel={(event) => event.currentTarget.blur()}
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
-                              defaultValue={
-                                quotationData.storageDetails.periodOfInsurance
-                              }
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              defaultValue={quotationData.storageDetails.periodOfInsurance}
                               name="storageDetails.periodOfInsurance"
-                              onChange={(e) =>
-                                saveQuotationData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              {quotationData?.insuranceType ==
-                              'Marine & Storage Insurance'
+                            <label className={`${styles.label_heading} label_heading`}>
+                              {quotationData?.insuranceType == 'Marine & Storage Insurance'
                                 ? 'Period of Storage Insurance'
                                 : 'Period of Insurance (days)'}
                               <strong className="text-danger">*</strong>
@@ -1080,17 +823,11 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              defaultValue={
-                                quotationData.storageDetails.storagePlotAddress
-                              }
+                              defaultValue={quotationData.storageDetails.storagePlotAddress}
                               name="storageDetails.storagePlotAddress"
-                              onChange={(e) =>
-                                saveQuotationData(e.target.name, e.target.value)
-                              }
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Storage Plot Address
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1103,9 +840,7 @@ const Index = () => {
                         <h5>Additional Information (if Any)</h5>
                         <textarea
                           name="additionalInfo"
-                          defaultValue={
-                            insuranceData?.quotationRequest?.additionalInfo
-                          }
+                          defaultValue={insuranceData?.quotationRequest?.additionalInfo}
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value);
                           }}
@@ -1122,11 +857,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <SaveBar
-        handleSave={handleSave}
-        rightBtn="Generate Request Letter"
-        rightBtnClick={changeRoute}
-      />
+      <div className={`${styles.req_letter}`}>
+        <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      </div>
     </>
   );
 };

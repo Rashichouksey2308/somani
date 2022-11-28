@@ -1,10 +1,12 @@
 @import '../styles/Core/config';
+
 .main {
   margin-bottom: 26px;
   border-radius: 6px !important;
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .head_container {
     min-height: 80px;
     cursor: pointer;
@@ -13,11 +15,11 @@
     @include respond(lg-desktop) {
       min-height: 60px;
     }
+
     .heading {
       font-size: 22px;
       color: #3687e8;
       font-weight: bold;
-      font-size: 22px;
       line-height: 27px;
       @include respond(lg-desktop) {
         font-size: 18px;
@@ -28,6 +30,7 @@
         margin: 13px 0;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -44,25 +47,31 @@
       }
     }
   }
+
   .dashboard_form {
     padding: 25px 35px !important;
     border-top: 2px solid #cad6e6;
     @include respond(phone) {
       padding: 15px !important;
     }
+
     div {
       flex-wrap: wrap;
     }
+
     .add_address {
       margin: 0 0 32px 0;
       @include respond(phone) {
         margin: 15px 15px 20px;
       }
     }
+
     .radio_form {
       padding: 8px 0 20px 35px;
+
       .radio_group {
         display: flex;
+
         .radio {
           font-size: 20px;
           line-height: 32px;
@@ -79,9 +88,11 @@
           @include respond(phone) {
             font-size: 14px;
           }
+
           label {
             padding-left: 8px;
           }
+
           input {
             transform: scale(1.5);
             @include respond(lg-desktop) {
@@ -91,6 +102,7 @@
         }
       }
     }
+
     .form_group {
       margin-top: 21px;
       position: relative;
@@ -98,9 +110,11 @@
       @include respond(phone) {
         margin-top: 10px;
       }
+
       .search_image {
         margin-left: -40px;
       }
+
       .label_heading {
         top: 22px;
         left: 30px;
@@ -118,6 +132,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -128,6 +143,7 @@
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 14px;
           font-size: 14px;
@@ -142,6 +158,7 @@
         //   //top: 20px;
         // }
       }
+
       .input_field {
         height: 60px;
         border-radius: 4px;
@@ -152,9 +169,11 @@
         position: relative;
         box-sizing: border-box;
         padding-right: 40px;
+
         &:invalid + label {
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -163,6 +182,7 @@
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -181,8 +201,10 @@
         //   padding: 0px 12px 0px 12px;
         // }
       }
+
       .phone_card {
         flex-wrap: unset;
+
         .code_phone {
           font-size: 19px;
           color: #3687e8;
@@ -199,6 +221,7 @@
             line-height: 1.3;
           }
         }
+
         img {
           @include respond(lg-desktop) {
             width: 14px;
@@ -206,13 +229,16 @@
           }
         }
       }
+
       .percent {
         color: #ea3f3f !important;
       }
+
       .remark_field {
         border-radius: 4px;
         // margin-bottom: 2rem !important;
       }
+
       &.small_input {
         @include respond(lg-desktop) {
           flex: 0 0 33.333333%;
@@ -224,6 +250,7 @@
         }
       }
     }
+
     .phone {
       .label_heading {
         left: 90px;
@@ -232,9 +259,11 @@
           transform: translate(-61px, -22px);
         }
       }
+
       .input_field {
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
+
         &:focus {
           & + label {
             transform: translate(-61px, -30px);
@@ -245,6 +274,7 @@
         }
       }
     }
+
     .btn_outer {
       @include respond(lg-desktop) {
         flex: 0 0 100%;
@@ -254,10 +284,12 @@
         flex: 0 0 100%;
         max-width: 100%;
       }
+
       .btn_container {
         overflow: hidden;
         position: relative;
         display: inline-block;
+
         input {
           top: 0;
           left: 0;
@@ -267,6 +299,7 @@
           cursor: pointer;
           position: absolute;
         }
+
         .gst_btn {
           color: #3687e8;
           text-transform: capitalize;
@@ -286,6 +319,7 @@
             line-height: 1.3;
             height: 38px;
           }
+
           img {
             @include respond(lg-desktop) {
               width: 11px;
@@ -293,6 +327,7 @@
             }
           }
         }
+
         .add_btn {
           border-style: none;
           border-radius: 5px;
@@ -314,6 +349,7 @@
         }
       }
     }
+
     .address_card {
       border: 1px solid #0000001f;
       border-radius: 9px;
@@ -324,6 +360,7 @@
       @include respond(lg-desktop) {
         margin-bottom: 30px;
       }
+
       .label {
         line-height: 25px;
         font-weight: bold;
@@ -332,11 +369,15 @@
         text-transform: capitalize;
         padding-left: 18px;
       }
+
       .address_values {
+        max-height: 177px;
+        overflow-y: auto;
         padding-left: 30px;
         @include respond(lg-desktop) {
           padding-left: 0;
         }
+
         h5 {
           line-height: 25px;
           font-weight: bold;
@@ -348,6 +389,7 @@
             line-height: 1.3;
           }
         }
+
         p {
           letter-spacing: 0.19px;
           font-size: 20px;
@@ -359,6 +401,7 @@
             font-size: 15px;
             line-height: 1.6;
           }
+
           span {
             font-size: 20px;
             line-height: 25px;
@@ -371,6 +414,7 @@
             }
           }
         }
+
         .view_btn {
           padding-top: 3px;
           padding-left: 15px;
@@ -381,6 +425,7 @@
       }
     }
   }
+
   .datatable {
     border-radius: 6px;
     padding: 0px;
@@ -389,11 +434,14 @@
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
           margin-bottom: 0;
+
           th {
             font-size: 15px;
             color: #8492a6;
@@ -403,18 +451,21 @@
             text-transform: uppercase;
             white-space: nowrap;
             border-bottom: none;
+
             &:first-child {
               padding-left: 35px;
               @include respond(sm-desktop) {
                 padding-left: 15px;
               }
             }
+
             &:last-child {
               padding-right: 35px;
               @include respond(sm-desktop) {
                 padding-right: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -429,6 +480,7 @@
               padding: 10px;
             }
           }
+
           tr {
             td {
               font-size: 19px;
@@ -439,18 +491,21 @@
               opacity: 0.7;
               white-space: nowrap;
               vertical-align: middle;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(sm-desktop) {
                   padding-left: 15px;
                 }
               }
+
               &:last-child {
                 padding-right: 35px;
                 @include respond(sm-desktop) {
                   padding-right: 15px;
                 }
               }
+
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -460,6 +515,7 @@
                 font-size: 14px;
                 padding: 10px;
               }
+
               input {
                 // background: #c3c3c31f;
                 // border: 1px solid #0000001f;
@@ -475,12 +531,14 @@
                   line-height: 1.3;
                 }
               }
+
               .checkBox {
                 transform: scale(1.5);
                 @include respond(lg-desktop) {
                   transform: scale(1.2);
                 }
               }
+
               select {
                 font-size: 19px;
                 line-height: 24px;
@@ -495,6 +553,7 @@
               }
             }
           }
+
           .dropDown {
             padding: 5px;
             border-radius: 4px;
@@ -513,6 +572,7 @@
       }
     }
   }
+
   .add_row {
     text-align: center;
     font-size: 18px;
@@ -525,6 +585,7 @@
       font-size: 15px;
       line-height: 1.3;
     }
+
     span {
       font-size: 28px;
       line-height: 0.7;
@@ -534,6 +595,7 @@
       }
     }
   }
+
   .edit_image {
     background: #c3c3c31f;
     border: 1px solid #0000001f;
@@ -555,6 +617,7 @@
       padding: 5px;
     }
   }
+
   .delete_image {
     @include respond(lg-desktop) {
       width: 30px;
@@ -569,6 +632,7 @@
       height: 25px;
     }
   }
+
   .submit {
     cursor: pointer;
     width: 260px;
@@ -579,10 +643,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 1rem;
     margin: 10px 35px !important;
   }
 }
+
 .button {
   font-weight: bold;
   font-size: 20px;
@@ -611,6 +675,7 @@
     font-size: 12px;
   }
 }
+
 .button2 {
   font-weight: bold;
   font-size: 20px;
@@ -637,6 +702,7 @@
     font-size: 12px;
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -650,16 +716,19 @@
     margin-left: -33px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
+
 .arrow2 {
   width: 13px;
   right: 15px;
@@ -672,6 +741,7 @@
   // position: relative;
   box-shadow: none !important;
 }
+
 .sub_heading {
   font-size: 20px;
   line-height: 25px;
@@ -688,6 +758,7 @@
     font-size: 12px;
   }
 }
+
 .add_btn {
   border-style: none;
   border-radius: 5px;
@@ -709,9 +780,11 @@
     max-width: 150px;
   }
 }
+
 .tooltip {
   position: absolute;
   display: inline-block;
+
   .info_circle {
     margin-left: 295px;
     margin-top: -145px;
@@ -735,6 +808,7 @@
       //margin-right: 50px;
     }
   }
+
   .tooltiptext {
     font-size: 13px !important;
     color: #000000;
@@ -766,6 +840,7 @@
       border-color: #d2d7e5 transparent transparent transparent;
     }
   }
+
   &:hover {
     .tooltiptext {
       visibility: visible;
@@ -773,6 +848,7 @@
     }
   }
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -793,5 +869,87 @@
   img {
     width: auto !important;
     height: auto !important;
+  }
+}
+
+.searchResults {
+  width: 93%;
+
+  top: 75px;
+
+  z-index: 3;
+  position: absolute;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 2px solid #d2d7e5;
+
+  @include respond(md-desktop) {
+  }
+
+  @include respond(sm-desktop) {
+  }
+
+  &::after {
+    top: -15px;
+    left: 40px;
+    content: '';
+    position: absolute;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 15px solid #d2d7e5;
+  }
+
+  ul {
+    margin: 15px 0;
+    padding: 0;
+    list-style: none;
+    max-height: 300px;
+    overflow: auto;
+
+    li {
+      font-size: 18px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 1.5;
+      padding: 7px 0;
+      display: flex;
+      margin: 0 15px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #d2d7e5;
+
+      // &:first-child {
+      //   margin-top: 15px;
+      // }
+      // &:last-child {
+      //   margin-bottom: 15px;
+      // }
+      @include respond(md-desktop) {
+        font-size: 16px;
+      }
+
+      @include respond(sm-desktop) {
+        font-size: 14px;
+      }
+
+      span {
+        font-size: 15px;
+        font-weight: 500;
+        color: #8492a6;
+        margin-left: 10px;
+      }
+
+      @include respond(md-desktop) {
+        font-size: 14px;
+      }
+
+      @include respond(sm-desktop) {
+        font-size: 12px;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }

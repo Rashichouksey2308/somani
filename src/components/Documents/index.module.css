@@ -202,12 +202,10 @@
   height: 38px;
   border: 3px solid #3687e8;
   border-radius: 5px;
-  color: var(--unnamed-color-3687e8);
   text-align: center;
   font-weight: bold;
   font-size: 18px;
   color: #3687e8;
-  text-transform: capitalize;
 }
 
 .main .each_input .certificate {
@@ -268,4 +266,5 @@
   bottom: 0;
   opacity: 0;
 }
+
 /*# sourceMappingURL=index.module.css.map */

@@ -1,95 +1,85 @@
-import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
-import { GetAllOrders } from 'redux/registerBuyer/action';
-import { GetCompanyDetails } from 'redux/companyDetail/action';
+import * as types from './actionType'
 
 export const getBreadcrumbValues = (payload) => (dispatch, getState) => {
-  const prevValues = getState().Breadcrumb.breadCrumbData;
-  console.log(prevValues, 'rahul');
+  const prevValues = getState().Breadcrumb.breadCrumbData
+
   dispatch({
     type: types.GET_BREADCRUMB_DATA,
     payload: {
       ...prevValues,
-      ...payload,
-    },
-  });
-};
+      ...payload
+    }
+  })
+}
 
-export function clearBreadcrumbValues(payload) {
+export function clearBreadcrumbValues (payload) {
   return {
     type: types.CLEAR_BREADCRUMB_DATA,
-    payload,
-  };
+    payload
+  }
 }
 
-export function setCurrency(payload) {
+export function setCurrency (payload) {
   return {
     type: types.SET_CURRENCY,
-    payload,
-  };
+    payload
+  }
 }
-export function getCurrency(payload) {
+
+export function getCurrency (payload) {
   return {
     type: types.GET_CURRENCY,
-    payload,
-  };
+    payload
+  }
 }
-export function getUnit(payload) {
+
+export function getUnit (payload) {
   return {
     type: types.GET_UNIT,
-    payload,
-  };
+    payload
+  }
 }
-export function setUnit(payload) {
+
+export function setUnit (payload) {
   return {
     type: types.SET_UNIT,
-    payload,
-  };
+    payload
+  }
 }
-export function setSidebar(payload) {
-  console.log(payload, '97899789');
+
+export function setSidebar (payload) {
   return {
     type: types.SIDEBAR,
-    payload,
-  };
+    payload
+  }
 }
 
 export const settingCurrency = (payload) => (dispatch, getState) => {
-  localStorage.setItem('currency', payload);
-  console.log(payload, 'currency');
-  dispatch(setCurrency(payload));
-};
+  localStorage.setItem('currency', payload)
+
+  dispatch(setCurrency(payload))
+}
 
 export const settingUnit = (payload) => (dispatch, getState) => {
-  localStorage.setItem('unit', payload);
-  console.log(payload, 'currency');
-  dispatch(setUnit(payload));
-};
+  localStorage.setItem('unit', payload)
+
+  dispatch(setUnit(payload))
+}
 export const gettingCurrency = (payload) => (dispatch, getState) => {
-  dispatch(getCurrency());
-  return (
-    localStorage.getItem('currency') ||
-    getState().Breadcrumb.breadCrumbData.currency
-  );
-};
+  dispatch(getCurrency())
+  return localStorage.getItem('currency') || getState().Breadcrumb.breadCrumbData.currency
+}
 
 export const gettingUnit = (payload) => (dispatch, getState) => {
-  dispatch(getUnit());
-  return (
-    localStorage.getItem('unit') || getState().Breadcrumb.breadCrumbData.unit
-  );
-};
+  dispatch(getUnit())
+  return localStorage.getItem('unit') || getState().Breadcrumb.breadCrumbData.unit
+}
 
-export const settingSidebar =
-  (sideBarMain, subsideBarMain, loadedSubPage, openList) =>
-  (dispatch, getState) => {
-    sessionStorage.setItem('sideBarMain', sideBarMain);
-    sessionStorage.setItem('subsideBarMain', subsideBarMain);
-    sessionStorage.setItem('loadedSubPage', loadedSubPage);
-    sessionStorage.setItem('openList', openList);
-    console.log({ sideBarMain, subsideBarMain }, 'ideBarMain}');
-    dispatch(setSidebar({ sideBarMain, subsideBarMain }));
-  };
+export const settingSidebar = (sideBarMain, subsideBarMain, loadedSubPage, openList) => (dispatch, getState) => {
+  sessionStorage.setItem('sideBarMain', sideBarMain)
+  sessionStorage.setItem('subsideBarMain', subsideBarMain)
+  sessionStorage.setItem('loadedSubPage', loadedSubPage)
+  sessionStorage.setItem('openList', openList)
+
+  dispatch(setSidebar({ sideBarMain, subsideBarMain }))
+}

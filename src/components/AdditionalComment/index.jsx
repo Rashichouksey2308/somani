@@ -1,29 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import index from 'components/Footer';
-import React, { useState, useEffect } from 'react';
-import GrowInput from '../GrowInput';
+import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
 import { toast } from 'react-toastify';
+import GrowInput from '../GrowInput';
+import styles from './index.module.scss';
 
-const Index = ({
-  setAdditionalComments,
-  additionalComments,
-  termsheetDetails,
-  otherTermConditions,
-}) => {
-  console.log(
-    otherTermConditions?.buyer?.bank.slice(
-      otherTermConditions?.buyer?.bank.length - 5,
-      otherTermConditions?.buyer?.bank.length - 1,
-    ),
-    'otherTermConditions',
-  );
-
+const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, otherTermConditions }) => {
   const [commentType, setCommentType] = useState('select an Option');
-
-  const [comment, setComment] = useState([]);
-  const [text, setText] = useState('');
   const [isCommentEditable, setIsCommentEditable] = useState({});
   const [dueDateTextObject, setDueDateTextObject] = useState({
     dueDateTextOne: '',
@@ -43,8 +26,7 @@ const Index = ({
       input3: 'IGM',
     });
   }, [termsheetDetails]);
-  console.log(comment, 'comment');
-  const allcomment = [];
+
   useEffect(() => {
     additionalComments.map((comment, index) => {
       setIsCommentEditable((prev) => ({ ...prev, [index]: false }));
@@ -58,10 +40,7 @@ const Index = ({
     }));
   };
 
-  console.log(isCommentEditable, 'termsheetDetails');
-
   const getInputValue = (name, value) => {
-    console.log(name, value, 'name,value');
     if (commentType == 'Deliveries/Due Date/Payment') {
       if (name == 'day1') {
         setDays({ ...days, day1: value });
@@ -81,22 +60,19 @@ const Index = ({
   const textGenerator = () => {
     if (
       commentType == 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'Whicheverisearlier'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier'
     ) {
       let text = `${days.day2} ${dueDateTextObject.dueDateTextOne} ${days.day1} ${dueDateTextObject.dueDateTextTwo}`;
       return text;
     } else if (
       commentType == 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'DaysfromVesselDischargeDate'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate'
     ) {
       let text = `${days.day1} ${dueDateTextObject.dueDateTextOne}`;
       return text;
     } else if (
       commentType == 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'DaysfromBLDate'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate'
     ) {
       let text = `${days.day2} ${dueDateTextObject.dueDateTextOne}`;
       return text;
@@ -116,9 +92,7 @@ const Index = ({
           return;
         }
       }
-      let oldFilteredComments = additionalComments.filter(
-        (comment) => comment.additionalCommentType === commentType,
-      );
+      let oldFilteredComments = additionalComments.filter((comment) => comment.additionalCommentType === commentType);
 
       if (oldFilteredComments.length > 0) {
         let toastMessage = 'Comment of same type already exists';
@@ -128,24 +102,15 @@ const Index = ({
           return;
         }
       } else {
-        setAdditionalComments([
-          ...additionalComments,
-          { additionalCommentType: commentType, comment: newComment },
-        ]);
+        setAdditionalComments([...additionalComments, { additionalCommentType: commentType, comment: newComment }]);
         setNewComment('');
         return;
       }
     }
 
     if (commentType === 'Deliveries/Due Date/Payment') {
-      if (
-        termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'Whicheverisearlier'
-      ) {
-        if (
-          dueDateTextObject.dueDateTextOne == '' ||
-          dueDateTextObject.dueDateTextTwo == ''
-        ) {
+      if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier') {
+        if (dueDateTextObject.dueDateTextOne == '' || dueDateTextObject.dueDateTextTwo == '') {
           let toastMessage = 'comment cannot be empty';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), {
@@ -169,30 +134,20 @@ const Index = ({
       }
     }
 
-    let filteredComments = additionalComments.filter(
-      (comment) => comment.additionalCommentType === commentType,
-    );
+    let filteredComments = additionalComments.filter((comment) => comment.additionalCommentType === commentType);
     if (filteredComments.length > 0) {
       let toastMessage = 'Comment of same type already exists';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-
-        return;
       }
     } else {
-      setAdditionalComments([
-        ...additionalComments,
-        { additionalCommentType: commentType, comment: textGenerator() },
-      ]);
+      setAdditionalComments([...additionalComments, { additionalCommentType: commentType, comment: textGenerator() }]);
       // setDays({ day1: '', day2: '' })
       setInputs({ input1: '', input2: '', input3: '' });
     }
   };
   const deleteComment = (index) => {
-    setAdditionalComments([
-      ...additionalComments.slice(0, index),
-      ...additionalComments.slice(index + 1),
-    ]);
+    setAdditionalComments([...additionalComments.slice(0, index), ...additionalComments.slice(index + 1)]);
   };
   const changeComment = (val, index) => {
     let tempArr = additionalComments;
@@ -217,9 +172,7 @@ const Index = ({
     if (commentType === 'Other terms and conditions') {
       setNewComment('As per the Agreements executed between the parties.');
     } else if (commentType === 'Payment Reimbursement of Charges') {
-      setNewComment(
-        'All applicable charges to be paid by the buyer as and when they becomes due.',
-      );
+      setNewComment('All applicable charges to be paid by the buyer as and when they becomes due.');
     } else if (commentType === 'Storage of Goods') {
       setNewComment(
         `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable  Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank.slice(
@@ -229,33 +182,26 @@ const Index = ({
       );
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'Whicheverisearlier'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier'
     ) {
       let tempDueDateObject = { ...dueDateTextObject };
-      tempDueDateObject.dueDateTextOne =
-        'days from the discharge date of vessel/container(s) at discharge port or';
-      tempDueDateObject.dueDateTextTwo =
-        'days from the date of Bill of Lading, whichever is earlier.';
+      tempDueDateObject.dueDateTextOne = 'days from the discharge date of vessel/container(s) at discharge port or';
+      tempDueDateObject.dueDateTextTwo = 'days from the date of Bill of Lading, whichever is earlier.';
       setDueDateTextObject(tempDueDateObject);
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'DaysfromVesselDischargeDate'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate'
     ) {
       let tempDueDateObject = { ...dueDateTextObject };
-      tempDueDateObject.dueDateTextOne =
-        'days from the discharge date of vessel/container(s) at discharge port.';
+      tempDueDateObject.dueDateTextOne = 'days from the discharge date of vessel/container(s) at discharge port.';
 
       setDueDateTextObject(tempDueDateObject);
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-        'DaysfromBLDate'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate'
     ) {
       let tempDueDateObject = { ...dueDateTextObject };
-      tempDueDateObject.dueDateTextOne =
-        'days from the date of Bill of Lading.';
+      tempDueDateObject.dueDateTextOne = 'days from the date of Bill of Lading.';
 
       setDueDateTextObject(tempDueDateObject);
     } else {
@@ -275,34 +221,23 @@ const Index = ({
         <h3 className={styles.heading}>Additional Comments</h3>
         <span>+</span>
       </div>
-      <div
-        id="additional"
-        className="collapse"
-        aria-labelledby="additional"
-        data-parent="#additional"
-      >
+      <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
         <div className={`${styles.dashboard_form} card-body`}>
           <div className={`${styles.bill_landing}  border_color`}>
             <div className={`${styles.vessel_card}`}>
               <div>
-                <div
-                  className={`${styles.form_group} d-flex justify-content-between`}
-                >
+                <div className={`${styles.form_group} d-flex justify-content-between`}>
                   <div className="d-flex" style={{ width: '460px' }}>
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
                       onChange={(e) => {
                         setCommentType(e.target.value);
                         setDays({
-                          day1: termsheetDetails?.paymentDueDate
-                            ?.daysFromVesselDischargeDate,
-                          day2: termsheetDetails?.paymentDueDate
-                            ?.daysFromBlDate,
+                          day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate,
+                          day2: termsheetDetails?.paymentDueDate?.daysFromBlDate,
                         });
                         setInputs({
-                          input1:
-                            termsheetDetails?.transactionDetails
-                              ?.portOfDischarge,
+                          input1: termsheetDetails?.transactionDetails?.portOfDischarge,
                           input2: 'Dr. Amin',
                           input3: 'IGM',
                         });
@@ -312,22 +247,13 @@ const Index = ({
                       <option value="select an Option" disabled selected>
                         Select an option
                       </option>
-                      <option value="Deliveries/Due Date/Payment">
-                        Deliveries/Due Date/Payment
-                      </option>
+                      <option value="Deliveries/Due Date/Payment">Deliveries/Due Date/Payment</option>
                       <option value="Storage of Goods">Storage of Goods</option>
 
-                      <option value="Payment Reimbursement of Charges">
-                        Payment / Reimbursement of Charges
-                      </option>
-                      <option value="Other terms and conditions">
-                        Other terms and conditions
-                      </option>
+                      <option value="Payment Reimbursement of Charges">Payment / Reimbursement of Charges</option>
+                      <option value="Other terms and conditions">Other terms and conditions</option>
                     </select>
-                    <label
-                      className={`${styles.label} label_heading`}
-                      style={{ left: '20px' }}
-                    >
+                    <label className={`${styles.label} label_heading`} style={{ left: '20px' }}>
                       Select
                     </label>
                     <img
@@ -339,7 +265,7 @@ const Index = ({
                   {commentType !== 'select an Option' && (
                     <img
                       src="/static/add-btn.svg"
-                      className="img-fluid"
+                      className={styles.add_btn}
                       alt="Add"
                       onClick={() => {
                         addComment();
@@ -351,8 +277,7 @@ const Index = ({
                 <div className={`${styles.form_group}  `}>
                   {commentType == 'Deliveries/Due Date/Payment' ? (
                     <>
-                      {termsheetDetails?.paymentDueDate
-                        ?.computationOfDueDate === 'DaysfromBLDate' && (
+                      {termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate' && (
                         <p>
                           {days.day2}
 
@@ -364,9 +289,7 @@ const Index = ({
                           />
                         </p>
                       )}
-                      {termsheetDetails?.paymentDueDate
-                        ?.computationOfDueDate ===
-                        'DaysfromVesselDischargeDate' && (
+                      {termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate' && (
                         <p>
                           {days.day1}
                           <GrowInput
@@ -377,8 +300,7 @@ const Index = ({
                           />
                         </p>
                       )}
-                      {termsheetDetails?.paymentDueDate
-                        ?.computationOfDueDate === 'Whicheverisearlier' && (
+                      {termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier' && (
                         <p>
                           {days.day2}
                           <GrowInput
@@ -431,13 +353,9 @@ const Index = ({
                     // </p>
                     <>
                       <Form.Control
-                        className={`${styles.comment} text_area text_input border_color }
-                                            
-                                            `}
+                        className={`${styles.comment} text_area text_input border_color`}
                         as="textarea"
                         rows={3}
-                        //On Change TO BE Done
-
                         value={newComment}
                         onChange={(e) => {
                           setNewComment(e.target.value);
@@ -449,13 +367,9 @@ const Index = ({
                   {commentType === 'Other terms and conditions' ? (
                     <>
                       <Form.Control
-                        className={`${styles.comment} text_area text_input border_color }
-                                            
-                                            `}
+                        className={`${styles.comment} text_area text_input border_color`}
                         as="textarea"
                         rows={3}
-                        //On Change TO BE Done
-
                         value={newComment}
                         onChange={(e) => {
                           setNewComment(e.target.value);
@@ -466,13 +380,9 @@ const Index = ({
                   {commentType === 'Payment Reimbursement of Charges' ? (
                     <>
                       <Form.Control
-                        className={`${styles.comment} text_area text_input border_color }
-                                            
-                                            `}
+                        className={`${styles.comment} text_area text_input border_color`}
                         as="textarea"
                         rows={3}
-                        //On Change TO BE Done
-
                         value={newComment}
                         onChange={(e) => {
                           setNewComment(e.target.value);
@@ -480,9 +390,7 @@ const Index = ({
                       />
                     </>
                   ) : null}
-                  {commentType === 'select an Option' && (
-                    <div className={`mb-2`}></div>
-                  )}
+                  {commentType === 'select an Option' && <div className={`mb-2`}></div>}
                 </div>
               </div>
             </div>
@@ -491,37 +399,25 @@ const Index = ({
 
         <hr className="m-0 border_color" />
         <div className={`${styles.dashboard_form} card-body`}>
-          <h3 className={`${styles.comment_heading} font-weight-medium`}>
-            Comments
-          </h3>
+          <h3 className={`${styles.comment_heading} font-weight-medium`}>Comments</h3>
           {additionalComments &&
             additionalComments.map((comment, index) => {
               const commentindex = isCommentEditable[index];
               return (
                 <div
                   key={index}
-                  className={`${styles.rowGroup} ${
-                    index == 0 ? styles.noBorder : null
-                  } row border-color`}
+                  className={`${styles.rowGroup} ${index == 0 ? styles.noBorder : null} row border-color`}
                 >
                   <div className={`${styles.form_group} col-md-3`}>
-                    <h4 className={styles.comment_name}>
-                      {comment.additionalCommentType}
-                    </h4>
+                    <h4 className={styles.comment_name}>{comment.additionalCommentType}</h4>
                   </div>
                   <div className={`${styles.form_group} col-md-9`}>
-                    <div
-                      className={`${styles.comment_para}  d-flex justify-content-between`}
-                    >
+                    <div className={`${styles.comment_para}  d-flex justify-content-between`}>
                       {/* <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                   */}
                       <Form.Control
-                        className={`${
-                          styles.comment
-                        } text_area text_input border_color ${
+                        className={`${styles.comment} text_area text_input border_color ${
                           !isCommentEditable[index] ? styles.nonEditable : null
-                        }
-                                            
-                                            `}
+                        }`}
                         as="textarea"
                         rows={3}
                         //On Change TO BE Done

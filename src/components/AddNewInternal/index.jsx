@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
-import { Card } from 'react-bootstrap';
-import { UploadDocument } from '../UploadDocument';
-import Router from 'next/router';
 import Image from 'next/image';
 
 function Index() {
@@ -31,7 +28,7 @@ function Index() {
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
-        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        <div className={`${styles.main} vessel_card card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
           >
@@ -47,10 +44,7 @@ function Index() {
                 User Type <strong className="text-danger">*</strong>
               </div>
               {['radio'].map((type, index) => (
-                <div
-                  key={`inline-${index}`}
-                  className={`${styles.radio_group} mt-2`}
-                >
+                <div key={`inline-${index}`} className={`${styles.radio_group} mt-2`}>
                   <Form.Check
                     className={styles.radio}
                     inline
@@ -74,9 +68,7 @@ function Index() {
             <div className="d-flex justify-space-between">
               <div className="row w-75">
                 {/* <div className='col-8'> */}
-                <div
-                  className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
@@ -88,18 +80,14 @@ function Index() {
                     <strong className="text-danger ml-1">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
                     required
                     name="supplierName"
                   />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Username
-                  </label>
+                  <label className={`${styles.label_heading} label_heading`}>Username</label>
                 </div>
 
                 <div className={`${styles.form_group} col-md-5 col-sm-6`}>
@@ -109,54 +97,26 @@ function Index() {
                     name="email"
                     className={`${styles.input_field} border_color input form-control`}
                   />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
+                  <label className={`${styles.label_heading} label_heading`} id="textInput">
                     Official Email ID
                     <strong className="text-danger ml-1">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      type="password"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Password
-                    </label>
-                    <div
-                      className={`${styles.img_arrow} image_arrow`}
-                      style={{ marginLeft: '-50px' }}
-                    >
-                      <Image
-                        width="22px"
-                        height="16px"
-                        src="/static/password-image.png"
-                        alt="Search"
-                      />
+                    <input className={`${styles.input_field} border_color input form-control`} type="password" />
+                    <label className={`${styles.label_heading} label_heading`}>Password</label>
+                    <div className={`${styles.img_arrow} image_arrow`} style={{ marginLeft: '-50px' }}>
+                      <Image width="22px" height="16px" src="/static/password-image.png" alt="Search" />
                     </div>
                   </div>
                 </div>
               </div>
               <div className="d-flex" style={{ marginTop: '-100px' }}>
                 <div className="">
-                  <Image
-                    width="266px"
-                    height="287px"
-                    src="/static/profile-image.png"
-                    alt="Profile Image"
-                  />
+                  <Image width="266px" height="287px" src="/static/profile-image.png" alt="Profile Image" />
                   <div style={{ marginLeft: '200px', marginTop: '-270px' }}>
-                    <Image
-                      width="41px"
-                      height="41px"
-                      src="/static/edit-white-background.png"
-                      alt="Edit"
-                    />
+                    <Image width="41px" height="41px" src="/static/edit-white-background.png" alt="Edit" />
                   </div>
                 </div>
               </div>
@@ -175,16 +135,10 @@ function Index() {
             <h3 className={`${styles.heading} mb-0`}>Professional Details</h3>
             <span>+</span>
           </div>
-          <div
-            id="keyAddress"
-            className="collapse"
-            aria-labelledby="keyAddress"
-          >
+          <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
             <div className={`${styles.dashboard_form} vessel_card card-body`}>
               <div className="row">
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
@@ -201,10 +155,7 @@ function Index() {
                   addRow.map((val, index) => {
                     return (
                       <>
-                        <div
-                          key={index}
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div key={index} className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
@@ -212,41 +163,28 @@ function Index() {
                               <option value="">Indo German</option>
                               <option value="">Ergo Products</option>
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Company/Business Name
                               <strong className="text-danger ml-1">*</strong>
                             </label>
                             <div className={`${styles.img_arrow} image_arrow`}>
-                              <Image
-                                width="13px"
-                                height="8px"
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                             </div>
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <input
                             className={`${styles.input_field} border_color input form-control`}
                             type="text"
                             required
                             name="supplierName"
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Branch
                             <strong className="text-danger ml-1">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className="d-flex mt-2">
                             {/* { addRow.length >= 0 && ( */}
                             <div className={`${styles.delete_image} mr-4`}>
@@ -276,31 +214,20 @@ function Index() {
                       </>
                     );
                   })}
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                    >
+                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
                       <option value="">Finance</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Department<strong className="text-danger ml-1">*</strong>
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
@@ -311,9 +238,7 @@ function Index() {
                     EMP ID<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="text"
@@ -324,13 +249,9 @@ function Index() {
                     Designation<strong className="text-danger ml-1">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                    >
+                    <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}>
                       <option value="">CHA</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
@@ -338,99 +259,57 @@ function Index() {
                       <strong className="text-danger ml-1">*</strong>
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="email"
                     required
                     name="supplierName"
                   />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Alternate Email ID
-                  </label>
+                  <label className={`${styles.label_heading} label_heading`}>Alternate Email ID</label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <DateCalender labelName="Date of Joining" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <DateCalender labelName="Last Working Day" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <DateCalender labelName="Activation Date" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <DateCalender labelName="Deactivation Date" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} border_color input form-control`}
                     type="number"
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
+                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     required
                     name="supplierName"
                   />
@@ -438,33 +317,19 @@ function Index() {
                     Phone Number<strong className="text-danger ml-1">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <DateCalender labelName="Blocked From" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <DateCalender labelName="Blocked Till" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
@@ -495,22 +360,12 @@ function Index() {
             <h3 className={styles.heading}>Documents</h3>
             <span>+</span>
           </div>
-          <div
-            id="upload"
-            className="collapse"
-            aria-labelledby="upload"
-            data-parent="#upload"
-          >
+          <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
             <div className={`${styles.table_form}`}>
               <div className={styles.table_container}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} mb-0 table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -571,11 +426,7 @@ function Index() {
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
                           <td>
-                            <img
-                              className={`${styles.edit_image} img-fluid`}
-                              src="/static/mode_edit.svg"
-                              alt="Edit"
-                            />
+                            <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                           </td>
                         </tr>
                         <tr className="table_row">
@@ -592,11 +443,7 @@ function Index() {
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
                           <td>
-                            <img
-                              className={`${styles.edit_image} img-fluid`}
-                              src="/static/mode_edit.svg"
-                              alt="Edit"
-                            />
+                            <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                           </td>
                         </tr>
                         <tr className="table_row">
@@ -613,11 +460,7 @@ function Index() {
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
                           <td>
-                            <img
-                              className={`${styles.edit_image} img-fluid`}
-                              src="/static/mode_edit.svg"
-                              alt="Edit"
-                            />
+                            <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
                           </td>
                         </tr>
                       </tbody>
@@ -632,4 +475,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

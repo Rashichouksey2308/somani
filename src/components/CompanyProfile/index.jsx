@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { CovertvaluefromtoCR } from '../../utils/helper';
+import { checkForPlusSign } from '../../utils/helper';
 
 function Index() {
   const { buyerList } = useSelector((state) => state.buyer);
-  // console.log(buyerList, "this is buyer list")
+
   return (
     <div className={`${styles.wrapper} card border_color`}>
       <div
@@ -18,9 +18,7 @@ function Index() {
       >
         <div className={styles.header}>
           <h2 className={`mb-0`}>Company Profile</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            +
-          </span>
+          <span className=" d-flex align-items-center justify-content-between">+</span>
         </div>
       </div>
       <div
@@ -32,19 +30,14 @@ function Index() {
         {fields('Company Name', buyerList?.companyName ?? '')}
         {fields('Company PAN', buyerList?.company?.companyPan ?? '')}
         {fields('Type Of Business', buyerList?.company?.typeOfBusiness ?? '')}
-        {fields(
-          'Transaction Type',
-          buyerList?.transactionType?.originalValue ?? '',
-        )}
+        {fields('Transaction Type', buyerList?.transactionType?.originalValue ?? '')}
         {/* {fields(
           'Turn-Over (in Cr)',
           CovertvaluefromtoCR(buyerList?.company?.turnOver ?? ''),
         )} */}
         {fields(
           'Turn-Over (in Cr)',
-          CovertvaluefromtoCR(
-            buyerList?.turnOver?.originalValue,
-          )?.toLocaleString(),
+          CovertvaluefromtoCR(buyerList?.turnOver?.originalValue)?.toLocaleString(),
           false,
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
@@ -56,30 +49,29 @@ function Index() {
 
         {fields(
           'Phone Number',
-          buyerList?.company?.mobile?.primary?.number ?? '',
-          `+${buyerList?.company?.mobile?.primary?.callingCode ?? ''}`,
+        buyerList?.company?.mobile?.primary?.number ?? '',
+        checkForPlusSign(buyerList?.company?.mobile?.primary?.callingCode) ? 
+          `${buyerList?.company?.mobile?.primary?.callingCode ?? ''}` :         
+          `+${buyerList?.company?.mobile?.primary?.callingCode ?? ''}`
         )}
         {fields(
           'Whatsapp Number',
           buyerList?.company?.mobile?.whatsapp?.number ?? '',
-          `+${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`,
+          checkForPlusSign(buyerList?.company?.mobile?.whatsapp?.callingCode) ? 
+          `${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`:
+          `+${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`
         )}
-        {fields(
-          'Communication Mode',
-          buyerList?.company?.communicationMode?.toString() ?? '',
-        )}
+        {fields('Communication Mode', buyerList?.company?.communicationMode?.toString() ?? '')}
       </div>
     </div>
-  );
+  );  
 }
 
 export default Index;
 const fields = (head, value, countryCode, value3 = '') => {
   return (
     <>
-      <div
-        className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}
-      >
+      <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
         <span className={`${styles.top} label`}>{head}</span>
         <div>
           <span className={`${styles.value} value `}>

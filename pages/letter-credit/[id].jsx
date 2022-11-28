@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './letter.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import DateCalender from '../../src/components/DateCalender';
 import SaveBar from '../../src/components/SaveBar';
@@ -11,30 +11,31 @@ import { removePrefixOrSuffix } from '../../src/utils/helper';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
 import moment from 'moment/moment';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 ///REDUX/////
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { getPorts } from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
 
   const { lcModule } = useSelector((state) => state.lc);
 
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+
+  useEffect(() => {
+    dispatch(getPorts());
+  }, []);
+
   let lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(lcModuleData, 'lcModuleData');
 
   const [editInput, setEditInput] = useState(false);
   const [editCurrent, setEditCurrent] = useState();
 
-  console.log(editCurrent, 'this is edit current');
   const handleEdit = (val) => {
-    console.log('THIS IS HANDLE EDIT', val);
     setEditCurrent(val);
     setEditInput(true);
   };
@@ -48,34 +49,23 @@ function Index() {
     dispatch(setPageName('Lc'));
     dispatch(setDynamicName(lcModuleData?.company?.companyName));
     dispatch(
-      setDynamicOrder(
-        lcModuleData?.order?.orderId
-          ? lcModuleData?.order?.orderId
-          : lcModuleData?.order?.applicationId,
-      ),
+      setDynamicOrder(lcModuleData?.order?.orderId ? lcModuleData?.order?.orderId : lcModuleData?.order?.applicationId),
     );
   }, [lcModuleData]);
 
   const [lcData, setLcData] = useState();
 
-  // console.log(lcData, "THIS IS LC USE STATE")
-  console.log(editCurrent, 'editCurrent');
   useEffect(() => {
     setLcData({
-      formOfDocumentaryCredit:
-        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank:
-        lcModuleData?.lcApplication?.lcIssuingBank ||
-        'First Class European Bank',
+      lcIssuingBank: 'ING Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
-      currecyCodeAndAmountValue:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-      currecyCodeAndAmountUnit:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
       creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
       creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
@@ -93,29 +83,28 @@ function Index() {
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
       presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
-      confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions,
+      confirmationInstructions: lcModuleData?.lcApplication?.confirmationInstructions,
       reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
-      requestedConfirmationParty:
-        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      requestedConfirmationParty: lcModuleData?.lcApplication?.requestedConfirmationParty,
       charges: lcModuleData?.lcApplication?.charges,
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
-      senderToReceiverInformation:
-        lcModuleData?.lcApplication?.senderToReceiverInformation,
-      documentaryCreditNumber:
-        lcModuleData?.lcApplication?.documentaryCreditNumber,
+      senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
+      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber,
       dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
     });
-    // setLcDoc({
-    //   lcDraftDoc: lcModuleData?.document
-    // })
+    if (
+      lcModuleData?.document?.length > 0 &&
+      (lcModuleData?.document[0]?.documentName !== '' || lcModuleData?.document[0]?.documentDate)
+    ) {
+      setLcDoc({
+        lcDraftDoc: lcModuleData?.document?.length > 0 ? lcModuleData?.document[0] : null,
+      });
+    }
   }, [lcModuleData]);
-
-  // console.log(lcData, 'LC DATA')
 
   const saveAmendmentData = (name, value) => {
     const newInput = { ...lcData };
@@ -137,10 +126,7 @@ function Index() {
 
   const [clauseObj, setClauseObj] = useState(initialState);
 
-  console.log(clauseObj, 'this is ccccc');
-
   const [clauseArr, setClauseArr] = useState([]);
-  // console.log(clauseArr, 'new arr')
 
   const [drop, setDrop] = useState('');
 
@@ -150,12 +136,20 @@ function Index() {
   const inputRef1 = useRef(null);
 
   const dropDownChange = (e) => {
-    if (
-      e.target.value == 'latestDateOfShipment' ||
-      e.target.value == 'dateOfExpiry'
-    ) {
+    if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'partialShipment') {
+    } else if (e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage') {
+      setFieldType('number');
+    } else if (
+      e.target.value == 'partialShipment' ||
+      e.target.value == 'transhipments' ||
+      e.target.value == 'formOfDocumentaryCredit' ||
+      e.target.value == 'creditAvailableBy' ||
+      e.target.value == 'creditAvailablewith' ||
+      e.target.value == 'applicant' ||
+      e.target.value == 'portOfDischarge' ||
+      e.target.value == 'portOfLoading'
+    ) {
       setFieldType('drop');
     } else {
       setFieldType('');
@@ -166,17 +160,21 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text;
     let val2 = e.target.value;
     setDrop(val2);
-    console.log(
-      lcData[e.target.value],
-      'lcData[e.target.value]',
-      e.target.value,
-    );
+
     newInput['existingValue'] = lcData[e.target.value] || '';
+    if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
     newInput['dropDownValue'] = val1 || '';
-    console.log(newInput, 'dropDownChange');
+
     setClauseObj(newInput);
+    if (e.target.value == 'draftAt') {
+      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
+        setDisabled(true);
+      }
+    } else {
+      setDisabled(false);
+    }
   };
-  //  console.log(lcData,"lcData")
+
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj };
     newInput[name] = value;
@@ -184,51 +182,33 @@ function Index() {
 
     const newInput1 = { ...lcData };
     newInput1[drop] = value;
-    // console.log(newInput1, "NEW INPUT 1")
+
     setLcData(newInput1);
   };
 
   const saveDropDownDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
-    console.log(text, 'dateee');
+
     arrChange(name, text);
   };
 
   const addToArr = () => {
-    if (fieldType == 'date' || fieldType == 'drop') {
-      setFieldType('');
-    }
-    inputRef1.current.value = '';
-    setClauseObj(initialState);
-    const newArr = [...clauseArr];
-    if (
-      clauseObj.dropDownValue === 'Select an option' ||
-      clauseObj.dropDownValue === ''
-    ) {
-      let toastMessage = 'please select a dropdown value first ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage });
+    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '')
+      handleErrorToast('please select a clause to update value ');
+    else if (clauseObj.newValue === 'Select an option' || clauseObj.newValue === '')
+      handleErrorToast('Please specify a new value first');
+    else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
+      handleErrorToast('CLAUSE ALREADY ADDED');
+    else {
+      const newArr = [...clauseArr];
+      if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
+        setFieldType('');
       }
-    } else {
-      console.log('this is ccccc');
-      if (
-        clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
-      ) {
-        let toastMessage = 'CLAUSE ALREADY ADDED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage, { toastId: toastMessage });
-        }
-      } else {
-        newArr.push(clauseObj);
-
-        setClauseArr(newArr);
-        // setClauseObj({
-        //   existingValue: '',
-        //   dropDownValue: '',
-        //   newValue: '',
-        // })
-      }
+      inputRef1.current.value = '';
+      setClauseObj(initialState);
+      newArr.push(clauseObj);
+      setClauseArr(newArr);
     }
   };
 
@@ -243,7 +223,6 @@ function Index() {
     lcDraftDoc: null,
   });
 
-  // console.log(lcDoc, "THIS IS LC DOC")
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
@@ -258,10 +237,7 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else if (
-      lcData.numberOfAmendment === '' ||
-      lcData.numberOfAmendment == undefined
-    ) {
+    } else if (lcData.numberOfAmendment === '' || lcData.numberOfAmendment == undefined) {
       let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
@@ -273,9 +249,7 @@ function Index() {
       }
     } else {
       let sendLcData = { ...lcData };
-      sendLcData.tolerancePercentage = Number(
-        removePrefixOrSuffix(lcData.tolerancePercentage),
-      );
+      sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
@@ -291,10 +265,7 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else if (
-      lcData.numberOfAmendment === '' ||
-      lcData.numberOfAmendment == undefined
-    ) {
+    } else if (lcData.numberOfAmendment === '' || lcData.numberOfAmendment == undefined) {
       let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
@@ -307,7 +278,6 @@ function Index() {
     } else {
       let tempData = { ...lcData };
 
-      // console.log(tempData,"tempData",clauseArr)
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(tempData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
@@ -318,23 +288,72 @@ function Index() {
   };
 
   const getData = (value, type) => {
-    // console.log(value,"775456")
+    if (type == '(43P) Partial Shipment' && value == 'Conditional') {
+      return 'Conditional';
+    }
     if (type == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    } else if (type == '(43P) Partial Shipment') {
+    } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
+    } else if (type == '(32B) Currency Code & Amount') {
+      return Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
     } else {
       return value;
     }
   };
+
   const getDataFormDropDown = (value) => {
-    // console.log(value,"ssdsdsdsd")
     if (fieldType == 'date') {
       return moment(value).format('DD-MM-YYYY');
+    } else if (fieldType == 'number') {
+      return Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    } else if (fieldType == 'drop') {
+      if (value == 'Yes') {
+        return 'Allowed';
+      }
+      if (value == 'No') {
+        return 'Not Allowed';
+      }
+      if (value == 'Conditional') {
+        return 'Conditional';
+      }
+      if (value == '') {
+        return '';
+      } else {
+        return value;
+      }
     } else {
       return value;
     }
   };
+
+  const [isDisabled, setDisabled] = useState(false);
+
+  useEffect(() => {}, [clauseObj]);
+
+  const getExistingValue = (value, existing) => {
+    if (value === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
+    } else if (value === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${getData(existing, value)}  %`;
+    } else {
+      return getData(existing, value);
+    }
+  };
+
   return (
     <>
       {' '}
@@ -347,9 +366,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={`${styles.heading}`}>
-              {lcModuleData?.company?.companyName}{' '}
-            </h1>
+            <h1 className={`${styles.heading}`}>{lcModuleData?.company?.companyName} </h1>
           </div>
 
           <div className={`${styles.wrapper} vessel_card card upload_main`}>
@@ -369,46 +386,29 @@ function Index() {
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
-              <div
-                className={` ${styles.cardBody} vessel_card card-body  border_color`}
-              >
+              <div className={` ${styles.cardBody} vessel_card card-body  border_color`}>
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body}`}>
                     <Row>
-                      <div
-                        className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}>
                         <div className={`${styles.label} mb-2 text`}>
-                          (51D) LC Issuing Bank{' '}
-                          <strong className="text-danger ml-n1">*</strong>
+                          (51D) LC Issuing Bank <strong className="text-danger ml-n1">*</strong>
                         </div>
-                        <span className={`${styles.value}`}>
-                          {lcModuleData?.lcApplication?.lcIssuingBank}
-                        </span>
+                        <span className={`${styles.value}`}>{lcModuleData?.lcApplication?.lcIssuingBank}</span>
                       </div>
-                      <div
-                        className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}>
                         <div className={`${styles.label}  mb-2 text`}>
-                          (20) Documentary Credit Number{' '}
-                          <strong className="text-danger ml-n1">*</strong>
+                          (20) Documentary Credit Number <strong className="text-danger ml-n1">*</strong>
                         </div>
-                        <span className={styles.value}>
-                          {lcModuleData?.lcApplication?.documentaryCreditNumber}
-                        </span>
+                        <span className={styles.value}>{lcModuleData?.lcApplication?.documentaryCreditNumber}</span>
                       </div>
-                      <div
-                        className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}>
                         <div className={`${styles.label}  mb-2 text`}>
-                          (31C) Date Of Issue{' '}
-                          <strong className="text-danger ml-n1">*</strong>{' '}
+                          (31C) Date Of Issue <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
                         <span className={styles.value}>
                           {lcModuleData?.lcApplication?.dateOfIssue
-                            ? moment(
-                                lcModuleData?.lcApplication?.dateOfIssue,
-                              ).format('DD-MM-YYYY')
+                            ? moment(lcModuleData?.lcApplication?.dateOfIssue).format('DD-MM-YYYY')
                             : ''}
                         </span>
                       </div>
@@ -416,9 +416,7 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfAmendment"
-                            defaultDate={
-                              lcModuleData?.lcApplication?.dateOfAmendment
-                            }
+                            defaultDate={lcModuleData?.lcApplication?.dateOfAmendment}
                             saveDate={saveDate}
                             labelName="(30) Date Of Ammendment"
                           />
@@ -434,22 +432,13 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           type="number"
                           onWheel={(event) => event.currentTarget.blur()}
-                          defaultValue={
-                            lcModuleData?.lcApplication?.numberOfAmendment
-                          }
-                          onKeyDown={(evt) =>
-                            ['e', 'E', '+', '-'].includes(evt.key) &&
-                            evt.preventDefault()
-                          }
+                          defaultValue={lcModuleData?.lcApplication?.numberOfAmendment}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           required
                           name="numberOfAmendment"
-                          onChange={(e) =>
-                            saveAmendmentData(e.target.name, e.target.value)
-                          }
+                          onChange={(e) => saveAmendmentData(e.target.name, e.target.value)}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (26E) Number of Amendment
                           <strong className="text-danger">*</strong>
                         </label>
@@ -465,78 +454,48 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            defaultValue={
-                              editInput ? editCurrent.dropDownValue : ''
-                            }
+                            defaultValue={editInput ? editCurrent.dropDownValue : ''}
                             ref={inputRef1}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
                             <option value="">Select an option</option>
-                            <option value="shipmentForm">
-                              (44A) Shipment From
-                            </option>
-                            <option value="applicableRules">
-                              (40E) Application Rules
-                            </option>
-                            <option value="placeOfExpiry">
-                              (32D) Place Of Expiry
-                            </option>
-                            <option value="dateOfExpiry">
-                              (32D) Date Of Expiry
-                            </option>
-                            <option value="formOfDocumentaryCredit">
-                              (40A) Form of Documentary Credit
-                            </option>
+                            <option value="shipmentForm">(44A) Shipment From</option>
+                            <option value="applicableRules">(40E) Application Rules</option>
+                            <option value="placeOfExpiry">(32D) Place Of Expiry</option>
+                            <option value="dateOfExpiry">(32D) Date Of Expiry</option>
+                            <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
                             <option value="applicant">(50) Applicant</option>
-                            <option value="beneficiary">
-                              (59) Beneficiary
-                            </option>
-                            <option value="currecyCodeAndAmountValue">
-                              (32B) Currency Code &amp; Amount
-                            </option>
-                            <option value="tolerancePercentage">
-                              (39A) Tolerance (+/-) Percentage
-                            </option>
-                            <option value="creditAvailablewith">
-                              {' '}
-                              (41A) Credit Available With
-                            </option>
-                            <option value="creditAvailableBy">
-                              (41A) Credit Available By
-                            </option>
+                            <option value="beneficiary">(59) Beneficiary</option>
+                            <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
+                            <option value="tolerancePercentage">(39A) Tolerance (+/-) Percentage</option>
+                            <option value="creditAvailablewith"> (41A) Credit Available With</option>
+                            <option value="creditAvailableBy">(41A) Credit Available By</option>
                             <option value="draftAt">(42C) Draft At</option>
                             <option value="drawee">(42A) Drawee</option>
-                            <option value="deferredPayment">
-                              (42P) Deferred Payment
-                            </option>
-                            <option value="partialShipment">
-                              (43P) Partial Shipment
-                            </option>
-                            <option value="transhipments">
-                              (43T) Transhipments
-                            </option>
-                            <option value="portOfLoading">
-                              (44E) Port of Loading
-                            </option>
-                            <option value="portOfDischarge">
+                            <option value="deferredPayment">(42P) Deferred Payment</option>
+                            <option value="partialShipment">(43P) Partial Shipment</option>
+                            <option value="transhipments">(43T) Transhipments</option>
+                            <option value="portOfLoading">(44E) Port of Loading</option>
+                            <option value="portOfDischarge"> (44F) Port of Discharge</option>
+                            <option value="latestDateOfShipment">(44C) Latest Date Of Shipment</option>
+                            <option value="DescriptionOfGoods"> (45A) Description Of The Goods</option>
+                            <option value="lcDocuments">46A DOCUMENT REQUIRED</option>
+                            <option value="lcComments"> 47A ADDITIONAL CONDITIONS</option>
+                            <option value="presentaionPeriod"> (48) Presentation Period</option>
+                            <option value="reimbursingBank"> (53A) Reimbursing Bank</option>
+                            <option value="adviceThroughBank"> (57) Advise Through Bank</option>
+                            <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
+                            <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
+                            <option value="charges"> (71B) Charges</option>
+                            <option value="instructionToBank">
                               {' '}
-                              (44F) Port of Discharge
+                              (78) Instructions To Paying / Accepting / Negotiating Bank
                             </option>
-                            <option value="latestDateOfShipment">
-                              (44C) Latest Date Of Shipment
-                            </option>
-                            <option value="DescriptionOfGoods">
-                              {' '}
-                              (45A) Description Of The Goods
-                            </option>
+                            <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Clause
-                          </label>
+                          <label className={`${styles.label_heading} label_heading`}>Clause</label>
                           <img
                             className={`${styles.arrow} image_arrow img-fluid`}
                             src="/static/inputDropDown.svg"
@@ -550,17 +509,9 @@ function Index() {
                           style={{ opacity: '0.5' }}
                           disabled
                           type="text"
-                          value={getDataFormDropDown(
-                            editInput
-                              ? editCurrent.existingValue
-                              : clauseObj?.existingValue,
-                          )}
+                          value={getDataFormDropDown(editInput ? editCurrent.existingValue : clauseObj?.existingValue)}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Existing Value
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>Existing Value</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
@@ -574,6 +525,24 @@ function Index() {
                               //   editInput ? editCurrent?.newValue : ''
                               // }
                               value={clauseObj?.newValue}
+                              disabled={isDisabled}
+                              onChange={(e) => {
+                                // inputRef.current.value = ''
+                                arrChange('newValue', e.target.value);
+                              }}
+                            />
+                          ) : null}
+                          {fieldType == 'number' ? (
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              ref={inputRef}
+                              // defaultValue={
+                              //   editInput ? editCurrent?.newValue : ''
+                              // }
+                              value={clauseObj?.newValue}
+                              disabled={isDisabled}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value);
@@ -605,15 +574,82 @@ function Index() {
                                 // value={
 
                                 // }
+                                value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
-                                <option selected disabled>
+                                <option disabled value="">
                                   Select an option
-                                </option>
-
-                                <option value="Yes">Allowed</option>
-                                <option value="No">Not Allowed</option>
-                                <option value="No">Conditional</option>
+                                </option>{' '}
+                                {clauseObj.dropDownValue === '(50) Applicant' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Indo intertrade AG">Indo intertrade AG</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Irrevocable">Irrevocable</option>
+                                    <option value="Revocable">Revocable</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(41A) Credit Available With' ? (
+                                  <>
+                                    {' '}
+                                    <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">
+                                      BNP PARIBAS PARIBAS _ BNPAFRPPS
+                                    </option>
+                                    <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(41A) Credit Available By' ? (
+                                  <>
+                                    {' '}
+                                    <option value="By Negotiation">By Negotiation</option>
+                                    <option value="By Payment">By Payment</option>
+                                    <option value="By Acceptance">By Acceptance</option>
+                                    <option value="By Deffered Payment">By Deffered Payment</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
+                                  <>
+                                    {getPortsMasterData?.filter((val, index) => {
+                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
+                                          return val;
+                                        }
+                                      })?.map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                            {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
+                                  <>
+                                    {getPortsMasterData
+                                      .filter((val, index) => {
+                                        if (val.Country.toLowerCase() !== 'india') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                            {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) : (
+                                  <>
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                    <option value="Conditional">Conditional</option>
+                                  </>
+                                )}
                               </select>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
@@ -622,9 +658,7 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             New Value<strong className="text-danger">*</strong>
                           </label>
                           {fieldType == '' ? (
@@ -650,86 +684,43 @@ function Index() {
                     <div className={styles.table_container}>
                       <div className={styles.table_scroll_outer}>
                         <div className={styles.table_scroll_inner}>
-                          <table
-                            className={`${styles.table_clause} table`}
-                            cellPadding="0"
-                            cellSpacing="0"
-                            border="0"
-                          >
+                          <table className={`${styles.table_clause} table`} cellPadding="0" cellSpacing="0" border="0">
                             <thead>
                               <tr>
-                                <th
-                                  width="35%"
-                                  className={`${styles.table_header} label_heading`}
-                                >
+                                <th width="35%" className={`${styles.table_header} label_heading`}>
                                   CLAUSE{' '}
                                 </th>
-                                <th
-                                  className={`${styles.table_header} label_heading`}
-                                >
-                                  EXISTING VALUE{' '}
-                                </th>
-                                <th
-                                  className={`${styles.table_header} label_heading`}
-                                >
-                                  NEW VALUE{' '}
-                                </th>
+                                <th className={`${styles.table_header} label_heading`}>EXISTING VALUE</th>
+                                <th className={`${styles.table_header} label_heading`}>NEW VALUE</th>
                                 <th className={`${styles.table_header}`}></th>
                               </tr>
                             </thead>
                             <tbody>
                               {clauseArr &&
                                 clauseArr?.map((clause, index) => (
-                                  <tr key={index} className="table_row">
-                                    <td>{clause.dropDownValue}</td>
-                                    <td>
-                                      {getData(
-                                        clause.existingValue,
-                                        clause.dropDownValue,
-                                      )}{' '}
-                                    </td>
-                                    <td>
-                                      {getData(
-                                        clause.newValue,
-                                        clause.dropDownValue,
-                                      )}
-                                    </td>
-                                    <td>
-                                      {/* <img
-                                        src="/static/mode_edit.svg"
-                                        className="img-fluid ml-n5"
-                                        alt="edit"
-                                        onClick={() => handleEdit(clause)}
-                                      /> */}
-                                      <img
-                                        src="/static/delete 2.svg"
-                                        className="img-fluid ml-3 mr-n5"
-                                        alt="delete"
-                                        onClick={() =>
-                                          removeFromArr(clause.dropDownValue)
-                                        }
-                                      />
-                                    </td>
-                                  </tr>
+                                  <>
+                                    <tr key={index} className="table_row">
+                                      <td>{clause.dropDownValue}</td>
+                                      <td>{getExistingValue(clause.dropDownValue, clause.existingValue)}</td>
+                                      <td>
+                                        {clause.dropDownValue === '(32B) Currency Code & Amount'
+                                          ? `${lcModuleData?.order?.orderCurrency} `
+                                          : ''}
+                                        {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                          ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
+                                          : getData(clause.newValue, clause.dropDownValue)}
+                                      </td>
+                                      <td>
+                                        <img
+                                          src="/static/delete 2.svg"
+                                          className="ml-3"
+                                          alt="delete"
+                                          onClick={() => removeFromArr(clause.dropDownValue)}
+                                        />
+                                      </td>
+                                    </tr>
+                                  </>
                                 ))}
-                              {/* <tr className="table_row">
-                                <td>(44A) SHIPMENT FROM </td>
-                                <td>Owendo </td>
-                                <td>Russia</td>
-                                <td>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className="img-fluid ml-n5"
-                                    alt="edit"
-                                  />
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid ml-3 mr-n5"
-                                    alt="delete"
-                                   
-                                  />
-                                </td>
-                              </tr> */}
                             </tbody>
                           </table>
                         </div>
@@ -747,7 +738,7 @@ function Index() {
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC AMENDMENT DRAFT"
-            module="Agreements&Insurance&LC&Opening"
+            module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             setLcDoc={setLcDoc}
           />
         </div>

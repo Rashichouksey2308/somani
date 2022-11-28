@@ -43,10 +43,7 @@
   text-align: center;
   border-radius: 8px;
   background: #fafafb;
-  display: inline-block;
   border: 1px solid #f2f5f9;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -124,10 +121,7 @@
   text-align: center;
   border-radius: 8px;
   background: #fafafb;
-  display: inline-block;
   border: 1px solid #f2f5f9;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -185,4 +179,5 @@
   width: 8px;
   height: 13px;
 }
+
 /*# sourceMappingURL=index.module.css.map */

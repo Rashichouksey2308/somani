@@ -1,4 +1,5 @@
 @import '../../src/components/styles/Core/config';
+
 .container_inner {
   margin: 28px;
   margin-bottom: 68px;
@@ -15,6 +16,7 @@
     margin-bottom: 71px;
   }
 }
+
 .filter {
   margin-bottom: 15px;
   @include respond(sm-desktop) {
@@ -35,6 +37,7 @@
         height: auto;
       }
     }
+
     .heading {
       font-size: 34px;
       font-weight: bold;
@@ -42,12 +45,15 @@
       margin: 0;
       padding-left: 18px;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -61,6 +67,7 @@
       }
     }
   }
+
   .search {
     width: 492px;
     position: relative;
@@ -74,6 +81,7 @@
       width: 100%;
       margin-bottom: 15px;
     }
+
     .inputGroupPrepend {
       top: 50%;
       left: 31px;
@@ -89,6 +97,7 @@
       @include respond(sm-desktop) {
         left: 20px;
       }
+
       img {
         @include respond(lg-desktop) {
           height: 20px;
@@ -101,6 +110,7 @@
         }
       }
     }
+
     .formControl {
       font-size: 18px !important;
       font-weight: 500 !important;
@@ -127,6 +137,7 @@
         padding-left: 45px !important;
       }
     }
+
     .searchResults {
       width: 100%;
       top: 65px;
@@ -144,6 +155,7 @@
       @include respond(md-desktop) {
         padding: 7px 15px;
       }
+
       &::after {
         top: -15px;
         left: 40px;
@@ -153,10 +165,12 @@
         border-right: 12px solid transparent;
         border-bottom: 15px solid #d2d7e5;
       }
+
       ul {
         margin: 0;
         padding: 0;
         list-style: none;
+
         li {
           font-size: 18px;
           color: #3687e8;
@@ -177,12 +191,14 @@
           @include respond(sm-desktop) {
             font-size: 14px;
           }
+
           span {
             font-size: 15px;
             font-weight: 500;
             color: #8492a6;
             margin-left: 10px;
           }
+
           @include respond(lg-desktop) {
             font-size: 14px;
           }
@@ -192,6 +208,7 @@
           @include respond(sm-desktop) {
             font-size: 12px;
           }
+
           &:last-child {
             border-bottom: none;
           }
@@ -199,6 +216,7 @@
       }
     }
   }
+
   .filterIcon {
     width: 48px;
     height: 48px;
@@ -219,12 +237,14 @@
       margin-left: 0;
       line-height: 36px;
     }
+
     img {
       @include respond(md-desktop) {
         height: 18px;
       }
     }
   }
+
   .filterList {
     font-size: 18px;
     font-weight: 500;
@@ -244,12 +264,14 @@
       font-size: 14px;
       padding: 6px 10px 7px;
     }
+
     img {
       width: 10px;
       margin-left: 12px;
       display: inline-block;
     }
   }
+
   .btnPrimary {
     font-size: 20px;
     color: #ffffff;
@@ -276,10 +298,12 @@
     @include respond(sm-desktop) {
       font-size: 15px;
     }
+
     & > span {
       @include respond(lg-desktop) {
         font-size: 22px !important;
       }
+
       & + span {
         @include respond(lg-desktop) {
           font-size: 16px !important;
@@ -288,6 +312,7 @@
     }
   }
 }
+
 .statusBox {
   margin: 20px 0;
   border-radius: 8px;
@@ -296,13 +321,16 @@
   @include respond(lg-desktop) {
     margin-bottom: 18px;
   }
+
   .boxInner {
     width: 20%;
     padding: 21px 24px;
     border-right: 1px solid #d2d7e5;
+
     &:last-child {
       border-right: none;
     }
+
     @include respond(lg-desktop) {
       padding: 12px 16px;
     }
@@ -317,6 +345,7 @@
     @include respond(phone) {
       padding: 10px;
     }
+
     h3 {
       font-size: 28px;
       color: #111111;
@@ -339,6 +368,7 @@
       @include respond(phone) {
         font-size: 18px;
       }
+
       span {
         font-size: 15px;
         color: #8492a6;
@@ -356,6 +386,7 @@
         }
       }
     }
+
     .iconBox {
       height: 58px;
       min-width: 58px;
@@ -382,26 +413,31 @@
         margin: 0 auto;
       }
     }
+
     &.all {
       .iconBox {
         background: rgba(40, 132, 222, 0.2);
       }
     }
+
     &.approved {
       .iconBox {
         background: rgba(76, 175, 80, 0.2);
       }
     }
+
     &.review {
       .iconBox {
         background: rgba(255, 157, 0, 0.2);
       }
     }
+
     &.rejected {
       .iconBox {
         background: rgba(234, 63, 63, 0.2);
       }
     }
+
     &.saved {
       .iconBox {
         background: rgba(202, 208, 214, 0.2);
@@ -417,6 +453,7 @@
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .tableFilter {
     min-height: 80px;
     padding: 0 15px 0 35px;
@@ -426,6 +463,7 @@
     @include respond(md-desktop) {
       padding: 0 15px;
     }
+
     h3 {
       font-size: 22px !important;
       font-weight: bold;
@@ -445,6 +483,7 @@
         margin: 13px 0;
       }
     }
+
     .pageList {
       span {
         font-size: 18px;
@@ -465,6 +504,7 @@
           display: none;
         }
       }
+
       .arrow {
         width: 50px;
         height: 50px;
@@ -489,6 +529,7 @@
           height: 28px;
           line-height: 25px;
         }
+
         img {
           height: 18px;
           @include respond(lg-desktop) {
@@ -501,6 +542,7 @@
             height: 10px;
           }
         }
+
         &.rightArrow {
           img {
             transform: rotate(180deg);
@@ -515,15 +557,19 @@
       }
     }
   }
+
   .table_scroll_outer {
     width: 100%;
     display: table;
     table-layout: fixed;
+
     .table_scroll_inner {
       display: table-cell;
       overflow-x: auto;
+
       .table {
         margin-bottom: 0;
+
         th {
           font-size: 15px;
           font-weight: bold;
@@ -533,12 +579,14 @@
           white-space: nowrap;
           vertical-align: middle;
           text-transform: uppercase;
+
           &:first-child {
             padding-left: 35px;
             @include respond(md-desktop) {
               padding-left: 15px;
             }
           }
+
           img {
             width: 14px;
             height: 14px;
@@ -547,6 +595,7 @@
               height: 12px;
             }
           }
+
           @include respond(lg-desktop) {
             height: 50px;
             font-size: 14px;
@@ -559,10 +608,12 @@
             font-size: 12px;
           }
         }
+
         tr {
           &:last-child {
             border-bottom: none;
           }
+
           td {
             color: #111111;
             font-size: 19px;
@@ -579,6 +630,7 @@
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
@@ -590,6 +642,7 @@
             }
           }
         }
+
         .edit_image {
           background: #c3c3c31f;
           border: 1px solid #0000001f;
@@ -609,6 +662,7 @@
             padding: 5px;
           }
         }
+
         .buyerName {
           color: #3687e8;
           opacity: 1 !important;
@@ -617,6 +671,7 @@
           text-transform: capitalize;
           cursor: pointer;
         }
+
         .status {
           width: 15px;
           height: 15px;
@@ -624,22 +679,32 @@
           border-radius: 50%;
           display: inline-block;
           vertical-align: middle;
+          @include respond(lg-desktop) {
+            width: 12px;
+            height: 12px;
+          }
         }
+
         .approved {
           background: #26dd73;
         }
+
         .rejected {
           background: #ed714c;
         }
+
         .review {
           background: #ffce00;
         }
+
         .closed {
           background: #a1a1a1;
         }
+
         .open {
           background: #3687e8;
         }
+
         .expired {
           background: #ea3f3f;
         }

@@ -3,48 +3,38 @@ import React, { useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
-import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
-
-const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity }) => {
+const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
   });
-
-  const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
+  console.log(commodity,"country")
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const saveDate = (value, name) => {
-    // console.log(e.target.value, "this is date")
-    console.log('savedata', value);
     const d = new Date(value);
     let text = d.toISOString();
     saveOrderData(name, text);
   };
-  const filterCommodity=(value)=>{
-    if(value==""){
-      setToShow([])
-      setToView(false)
-      return
+  const filterCommodity = (value) => {
+    if (value == '') {
+      setToShow([]);
+      setToView(false);
+      return;
     }
-   let filterData = commodity.filter(o => {
-    return o.Commodity.toLowerCase().includes(value.toLowerCase())
-   });
-   console.log(filterData,"filterData")
-
-   setToShow(filterData)
-     setToView(true)
-
-  }
-  const handleData=(name,value)=>{
-    saveOrderData(name,value)
-      setToView(false)
-  }
-  console.log(orderDetails, 'orderDetails');
+    let filterData = commodity.filter((o) => {
+      return o.Commodity.toLowerCase().includes(value.toLowerCase());
+    });
+    setToShow(filterData);
+    setToView(true);
+  };
+  const handleData = (name, value) => {
+    saveOrderData(name, value);
+    setToView(false);
+  };
   return (
     <div className={`${styles.main} border_color`}>
-      <div className={`${styles.heading} heading_card_switch_blue`}>
-        Order Details
-      </div>
+      <h3 className={`${styles.heading} heading_card_switch_blue`}>Order Details</h3>
       <form id="OrderDetailsForm">
         <div className={`${styles.input_container} vessel_card row`}>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -55,36 +45,31 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                 name="commodity"
                 value={orderDetails.commodity}
                 onChange={(e) => {
-                  filterCommodity(e.target.value)
+                  filterCommodity(e.target.value);
                   saveOrderData(e.target.name, e.target.value);
                 }}
                 className={`${styles.input_field} input form-control`}
                 required
               />
-              {toShow.length>0 && toView &&  (
+              {toShow.length > 0 && toView && (
                 <div className={styles.searchResults}>
                   <ul>
                     {toShow
-                      ? toShow?.map(
-                          (results, index) => (
-                            <li
-                              onClick={() => handleData("commodity",results.Commodity)}
-                              id={results._id}
-                              key={index}
-                              value={results.Commodity}
-                            >
-                              {results.Commodity}{' '}
-                            </li>
-                          ),
-                        )
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleData('commodity', results.Commodity)}
+                            id={results._id}
+                            key={index}
+                            value={results.Commodity}
+                          >
+                            {results.Commodity}{' '}
+                          </li>
+                        ))
                       : ''}
                   </ul>
                 </div>
               )}
-              <label
-                className={`${styles.label_heading}  label_heading`}
-                id="textInput"
-              >
+              <label className={`${styles.label_heading}  label_heading`} id="textInput">
                 Commodity<strong className="text-danger">*</strong>
               </label>
               {/* <img
@@ -94,77 +79,46 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
               /> */}
             </div>
           </div>
-          <div
-            className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}
-          >
+          <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
               type="text"
               id="textInput"
               name="quantity"
               onWheel={(event) => event.currentTarget.blur()}
               onFocus={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                  (e.target.type = 'number');
+                setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
               }}
               onBlur={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                  (e.target.type = 'text');
+                setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
               }}
-              // onKeyDown={(evt) =>{
-              //   const re = /^[0-9\b]+$/;
-              //   console.log(re.test(evt.target.value),"keydone",evt.target.value)
-              //   if (re.test(evt.target.value) == false) {
-              //     // evt.preventDefault()
-              //   }
-              //   }
-
-              // }
               onChange={(e) => {
-                // e.target.value.replaceAll('M', '')
-                //   .replaceAll('T', '')
-                //   .replace(/ /g, '')
-                // console.log(e.target.value, " e.target.value ")
-                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 saveOrderData(e.target.name, e.target.value);
               }}
-              onKeyDown={(evt) =>
-                ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-              }
+              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
               value={
                 isFieldInFocus.quantity
                   ? orderDetails?.quantity
-                  : Number(orderDetails?.quantity).toLocaleString('en-In') +
-                    ` ${orderDetails.unitOfQuantity}`
+                  : Number(orderDetails?.quantity).toLocaleString('en-In') + ` ${orderDetails.unitOfQuantity}`
               }
               className={`${styles.input_field} input form-control`}
               required
-              // value={addPrefixOrSuffix(orderDetails?.quantity?.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)}
             />
-            <label
-              className={`${styles.label_heading}  label_heading`}
-              id="textInput"
-            >
+            <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Quantity<strong className="text-danger">*</strong>
             </label>
           </div>
-          <div
-            className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}
-          >
+          <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
               type="text"
               id="textInput"
               name="orderValue"
               onFocus={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                  (e.target.type = 'number');
+                setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
               }}
               onBlur={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                  (e.target.type = 'text');
+                setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
               }}
-              onKeyDown={(evt) =>
-                ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-              }
+              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
               onWheel={(event) => event.currentTarget.blur()}
               value={
                 isFieldInFocus.orderValue
@@ -179,29 +133,15 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                     }`
               }
               onChange={(e) => {
-                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
-                //  saveOrderData(e.target.name, e.target.value * 10000000)
                 saveOrderData(e.target.name, e.target.value);
               }}
-              // onChange={(e) => {
-              //   saveOrderData(e.target.name, e.target.value)
-              // }}
               className={`${styles.input_field} input form-control`}
-              // value={
-              //   addPrefixOrSuffix(orderDetails?.orderValue?.toString(),
-              // orderDetails?.unitOfValue == "Millions" ? "Mn" :
-              //   orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)}
-
               required
             />
-            <label
-              className={`${styles.label_heading}  label_heading`}
-              id="textInput"
-            >
+            <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Order Value<strong className="text-danger">*</strong>
             </label>
           </div>
-
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <input
               type="text"
@@ -213,10 +153,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
               className={`${styles.input_field} input form-control`}
               required
             />
-            <label
-              className={`${styles.label_heading} label_heading`}
-              id="textInput"
-            >
+            <label className={`${styles.label_heading} label_heading`} id="textInput">
               Supplier Name
             </label>
           </div>
@@ -232,29 +169,23 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                 required
               >
                 <option>Select an option</option>
-
-                {country.map((val,index)=>{
-                   return(
-                     <option value={`${val.Country}`}>
-                  {val.Country}
-                  </option>
-                   )
-                })}
+                {country?.length>0
+                ?
+                <>
+                {country.map((val, index) => {
+                    return <option value={`${val.Country}`}>{val.Country}</option>;
+                  })} 
+                </>
+                :null
+                }
+                
               </select>
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="dropCountry"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="dropCountry">
                 Country Of Origin<strong className="text-danger">*</strong>
               </label>
-              <img
-                className={`${styles.arrow} image_arrow img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="Search"
-              />
+              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>
           </div>
-
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <div className="d-flex">
               <select
@@ -267,31 +198,24 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                 required
               >
                 <option>Select an option</option>
-                {port.filter((val,index)=>{
-                  if(val.Country.toLowerCase()=="india"){
-                    return val
-                  }
-                }).map((val,index)=>{
-                   return(
-                     <option value={`${val.Port_Name},${val.Country}`}>
-                  {val.Port_Name},{val.Country}
-                  </option>
-                   )
-                })}
-              
-               
+                {port
+                  .filter((val, index) => {
+                    if (val.Country.toLowerCase() == 'india') {
+                      return val;
+                    }
+                  })
+                  .map((val, index) => {
+                    return (
+                      <option value={`${val.Port_Name}`}>
+                       {val.Port_Name}, {val.Country}
+                      </option>
+                    );
+                  })}
               </select>
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="dropPort"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="dropPort">
                 Port Of Discharge<strong className="text-danger">*</strong>
               </label>
-              <img
-                className={`${styles.arrow} image_arrow img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="Search"
-              />
+              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -308,7 +232,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                 alt="Search"
               />
             </div>
-
             {/* <div className="d-flex">
               <input
               type="date" 
@@ -318,7 +241,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
               className={`${styles.calender} ${styles.customSelect}  input form-control`}
               required
             />
-            
               <label className={`${styles.label_heading} label_heading`} id="textDate">
                 Expected Date Of Shipment<strong className='text-danger'>*</strong>
               </label>
@@ -329,7 +251,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                />
              </div> */}
           </div>
-
           <div className={`${styles.radio_form} col-md-12`}>
             <div className={`${styles.sub_heading} label_heading`}>
               INCO Terms<strong className="text-danger">*</strong>
@@ -355,7 +276,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                     type={type}
                     id={`inline-${type}-2`}
                   />
-
                   <Form.Check
                     className={`${styles.radio} radio`}
                     inline
@@ -374,5 +294,4 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
     </div>
   );
 };
-
 export default Index;

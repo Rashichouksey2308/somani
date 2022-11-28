@@ -1,5 +1,6 @@
 /*-----Dashboard Tab------*/
 @import '../../src/components/styles/Core/config';
+
 .dashboardTab {
   .tabHeader {
     padding: 28px 28px 0;
@@ -13,6 +14,7 @@
     @include respond(phone) {
       padding: 15px 15px 0;
     }
+
     .tab_header_inner {
       height: 48px;
       margin: 0 0 27px 10px;
@@ -26,6 +28,7 @@
       @include respond(phone) {
         margin-top: -20px;
       }
+
       img {
         width: 13px;
         height: 21px;
@@ -36,6 +39,7 @@
           height: auto;
         }
       }
+
       .title {
         font-size: 34px;
         font-weight: bold;
@@ -43,12 +47,15 @@
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
+
         &:first-letter {
           text-transform: uppercase;
         }
+
         &:first-line {
           text-transform: capitalize;
         }
+
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -72,6 +79,7 @@
           font-size: 12px;
           line-height: 1.2;
         }
+
         span {
           color: #283756;
           font-weight: bold;
@@ -82,6 +90,7 @@
         }
       }
     }
+
     .navTabs {
       border-bottom: none;
       @include respond(phone) {
@@ -116,6 +125,7 @@
             margin: 0 10px;
             padding-left: 0px;
           }
+
           &.active {
           }
         }
@@ -139,9 +149,10 @@
         margin: 5px 15px 15px;
         margin-bottom: 121px;
       }
+
       .card {
         margin-bottom: 1rem;
-        // box-shadow: 0 3px 6px #cad0e2;
+
         .cardHeader {
           height: 80px;
           cursor: pointer;
@@ -188,7 +199,7 @@
 
             .status {
               height: 31px;
-              background: #ea3f3f42 0% 0% no-repeat padding-box;
+              background: #ea3f3f42;
               letter-spacing: 0px;
 
               span {
@@ -203,11 +214,13 @@
               }
             }
           }
+
           .commodity {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+
             .comm_head {
               letter-spacing: 0.53px;
               text-transform: capitalize;
@@ -219,6 +232,7 @@
                 font-size: 10px;
               }
             }
+
             .comm_val {
               text-transform: capitalize;
               font-weight: 500;
@@ -265,6 +279,7 @@
                 margin-right: 0px;
               }
             }
+
             .pay {
               display: flex;
               @include respond(phone) {
@@ -272,6 +287,7 @@
                 margin-right: 0px !important;
                 font-size: 10px;
               }
+
               .round {
                 width: 15px;
                 height: 15px;
@@ -279,6 +295,7 @@
                 /* UI Properties */
                 background: #ff9d00 0% 0% no-repeat padding-box;
               }
+
               span {
                 font-size: 20px;
                 letter-spacing: 0px;
@@ -293,20 +310,24 @@
 
         .cardBody {
           padding: 0px;
+
           .content {
             padding: 25px 35px;
             border-top: 2px solid red;
           }
+
           span {
             text-transform: capitalize;
             font-weight: bold;
             font-size: 20px;
             line-height: 25px;
           }
+
           .input_container {
             margin-top: 20px;
             margin-bottom: 10px;
             padding-bottom: 14px;
+
             .radio_heading {
               letter-spacing: 0.53px;
               color: #00000080;
@@ -314,6 +335,7 @@
               line-height: 17px;
               font-weight: 500;
             }
+
             .each_input {
               position: relative;
               margin: 30px 0 20px;
@@ -324,6 +346,7 @@
                 /* UI Properties */
                 background: #f0f8ff 0% 0% no-repeat padding-box;
                 border-radius: 6px;
+
                 span {
                   font-size: 16px;
                   font-weight: bold;
@@ -349,6 +372,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
                 &::before {
                   top: 51%;
                   left: 0;
@@ -359,9 +383,11 @@
                   position: absolute;
                   transform: translateY(-50%);
                 }
+
                 .blue {
                   color: #3687e8;
                 }
+
                 @include respond(lg-desktop) {
                   top: 15px;
                   font-size: 14px;
@@ -392,6 +418,7 @@
                     }
                   }
                 }
+
                 @include respond(lg-desktop) {
                   height: 45px;
                   font-size: 15px;
@@ -421,6 +448,7 @@
                 border-radius: 4px;
               }
             }
+
             .radio_form {
               padding-top: 20px;
 
@@ -435,6 +463,7 @@
                 }
               }
             }
+
             .phone {
               .label_heading {
                 left: 90px;
@@ -621,8 +650,6 @@
             margin-bottom: 1rem;
             border-radius: 6px !important;
 
-            // border: 1px solid #D2D7E5;
-            // box-shadow: 0 3px 6px #CAD0E2;
             .cardHeader {
               height: 80px;
               cursor: pointer;
@@ -669,7 +696,7 @@
 
                 .status {
                   height: 31px;
-                  background: #ea3f3f42 0% 0% no-repeat padding-box;
+                  background: #ea3f3f42;
                   letter-spacing: 0px;
 
                   span {
@@ -726,8 +753,6 @@
 
           .cardBody {
             padding: 17px 25px;
-            // border: 2px solid #e6eaf0;
-            // border-left: 9px solid #c4d7ef;
           }
         }
       }
@@ -756,17 +781,11 @@
             }
           }
         }
-
-        // .card_compliance_wrapper {
-        //   // height: 70px;
-        // }
       }
 
       .cardBody_litigations {
         padding-left: 35px;
 
-        // .checkbox_Container {
-        // }
         .risk_Container {
           .risk {
             width: 25%;

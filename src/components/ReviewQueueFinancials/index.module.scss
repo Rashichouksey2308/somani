@@ -1,13 +1,14 @@
 @import '../styles/Core/config';
+
 .card {
   margin-bottom: 26px;
-  // box-shadow: 0 3px 6px #cad0e2;
+
   border-radius: 6px !important;
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .cardHeader {
-    // cursor: pointer;
     min-height: 80px;
     border-bottom: none;
     padding: 0 35px !important;
@@ -17,6 +18,7 @@
     @include respond(md-desktop) {
       padding: 0 15px !important;
     }
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -35,11 +37,13 @@
         margin: 13px 0;
       }
     }
+
     .charges {
       margin: 0 auto 0 128px !important;
+
       label {
         font-size: 20px;
-        // color: #111111;
+
         font-weight: normal;
         line-height: 25px;
         letter-spacing: 0.19px;
@@ -50,6 +54,7 @@
         }
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -65,6 +70,7 @@
         line-height: 20px;
       }
     }
+
     .label {
       font-size: 16px;
       font-weight: 500;
@@ -72,17 +78,21 @@
       margin: 10px;
       letter-spacing: 0.53px;
     }
+
     .categories {
       margin-right: 1rem;
       width: 80%;
+
       .label {
         margin-right: 1rem;
         margin-bottom: 0px;
       }
+
       .status {
         height: 31px;
-        background: #ea3f3f42 0% 0% no-repeat padding-box;
+        background: #ea3f3f42;
         letter-spacing: 0px;
+
         span {
           padding-left: 0.5rem;
           padding-right: 0.5rem;
@@ -96,6 +106,7 @@
       }
     }
   }
+
   .cardBody {
     padding: 25px 35px;
     border-top: 2px solid #cad6e6;
@@ -108,6 +119,7 @@
     @include respond(phone) {
       padding: 15px !important;
     }
+
     .label {
       font-size: 16px;
       font-weight: 500;
@@ -115,17 +127,20 @@
       margin-bottom: 10px;
       letter-spacing: 0.53px;
     }
+
     .value {
       font-size: 20px;
       color: #111111;
       font-weight: bold;
       line-height: 25px;
       min-height: 70px;
+
       &.warning {
         color: #ea3f3f !important;
       }
     }
   }
+
   .noBorderTable {
     padding-bottom: 20px;
     @include respond(md-desktop) {
@@ -143,15 +158,17 @@
       overflow-x: auto;
       padding: 15px 15px !important;
     }
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
-          // border-top: 2px solid #D9DDE8;
           th {
             font-size: 15px;
             color: #3687e8;
@@ -162,12 +179,14 @@
             padding: 0 35px;
             white-space: nowrap;
             vertical-align: middle;
+
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               height: 60px;
               font-size: 14px;
@@ -179,6 +198,7 @@
             @include respond(phone) {
               font-size: 12px;
             }
+
             h3 {
               @include respond(lg-desktop) {
                 font-size: 18px;
@@ -189,6 +209,7 @@
               }
             }
           }
+
           td {
             font-size: 19px;
             font-weight: normal;
@@ -196,12 +217,14 @@
             line-height: 23px;
             padding: 15px 35px;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
@@ -212,6 +235,7 @@
               padding: 10px;
               white-space: nowrap;
             }
+
             &.trend {
               img {
                 @include respond(lg-desktop) {
@@ -220,9 +244,10 @@
               }
             }
           }
+
           h3 {
             font-size: 22px;
-            // color: #111111;
+
             font-weight: bold;
             line-height: 27px;
             margin-bottom: 0;
@@ -231,9 +256,11 @@
       }
     }
   }
+
   .borderTable {
     padding: 35px;
     box-sizing: border-box;
+
     .table {
       th {
         font-size: 15px;
@@ -246,38 +273,46 @@
         text-transform: uppercase;
         border: 3px solid #f0f2f6;
       }
+
       td {
         font-size: 19px;
-        //color: rgba(17, 17, 17, 0.7);
+
         font-weight: 500;
         line-height: 24px;
         padding: 15px 30px;
         vertical-align: middle;
         border: 3px solid #f0f2f6;
+
         &.stable {
           line-height: 19px;
+
           span {
             font-size: 16px;
             color: #ff9d00;
             display: block;
           }
         }
+
         &.negative {
           line-height: 19px;
+
           span {
             font-size: 16px;
             color: #ea3f3f;
             display: block;
           }
         }
+
         &.positive {
           line-height: 19px;
+
           span {
             font-size: 16px;
             color: #43c34d;
             display: block;
           }
         }
+
         &.trend {
           img {
             @include respond(lg-desktop) {
@@ -288,22 +323,24 @@
       }
     }
   }
+
   .directorDetails {
     .card {
       margin-bottom: 1rem;
       border-radius: 6px !important;
-      // border: 1px solid #D2D7E5;
-      // box-shadow: 0 3px 6px #CAD0E2;
+
       .cardHeader {
         cursor: pointer;
         border-bottom: none;
         padding: 25px 35px !important;
+
         h2 {
           font-size: 22px;
           color: #3687e8;
           font-weight: bold;
           line-height: 27px;
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -313,6 +350,7 @@
             font-size: 35px;
           }
         }
+
         .label {
           font-size: 16px;
           font-weight: 500;
@@ -320,17 +358,21 @@
           margin-bottom: 10px;
           letter-spacing: 0.53px;
         }
+
         .categories {
           margin-right: 1rem;
           width: 30%;
+
           .label {
             margin-right: 1rem;
             margin-bottom: 0px;
           }
+
           .status {
             height: 31px;
-            background: #ea3f3f42 0% 0% no-repeat padding-box;
+            background: #ea3f3f42;
             letter-spacing: 0px;
+
             span {
               padding-left: 0.5rem;
               padding-right: 0.5rem;
@@ -344,8 +386,10 @@
           }
         }
       }
+
       &.collapsed {
         border-radius: 8px !important;
+
         .downArrow {
           right: 46px;
           margin-top: -8px;
@@ -353,16 +397,20 @@
         }
       }
     }
+
     .detailsBox {
       font-size: 20px;
       font-weight: 500;
       line-height: 25px;
+
       &.warning {
         color: #ea3f3f !important;
       }
+
       &.success {
         color: #43c34d !important;
       }
+
       label {
         font-size: 16px;
         font-weight: 500;
@@ -371,40 +419,44 @@
         letter-spacing: 0.53px;
       }
     }
+
     .cardBody {
       padding: 17px 25px;
-      // border: 2px solid #e6eaf0;
-      // border-left: 9px solid #c4d7ef;
     }
   }
 }
+
 .table_details {
   border-collapse: collapse;
+
   thead {
     tr {
       th {
         background: #fafafb 0% 0% no-repeat padding-box;
-        // border: none;
+
         font-weight: bold;
         font-size: 15px;
         color: #3687e8;
       }
     }
   }
+
   tbody {
     tr {
       border: none;
       font-size: 19px;
+
       .firstCell {
         font-weight: bold;
       }
     }
   }
 }
+
 .unit_container {
   .unit_label {
     font-size: 18px;
-    // color: #2837566A;
+
     text-transform: capitalize;
     font-weight: bold;
     margin: 0;
@@ -418,6 +470,7 @@
       font-size: 12px;
     }
   }
+
   .options {
     font-size: 18px;
     color: #3687e8;
@@ -440,17 +493,20 @@
     }
   }
 }
+
 img {
   &.arrow2 {
     width: 13px !important;
     pointer-events: none;
     position: absolute;
     right: 60px;
-    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
-      brightness(103%) contrast(82%);
+    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+    @include respond(lg-desktop) {
+      width: 10px !important;
+    }
   }
 }
+
 .customSelect {
   appearance: none;
-  // position: relative;
 }

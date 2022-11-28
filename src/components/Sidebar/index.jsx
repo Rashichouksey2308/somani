@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import dash from '../../../public/static/dashboard-icon.svg';
-import accord from '../../../public/static/next-logo.png';
 import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Index() {
   let tempArr = [
@@ -124,28 +122,36 @@ function Index() {
           route: '/masters/users',
         },
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
-        { name: 'Vendors', image: '/static/vendors.svg', route: '' },
+        { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
+        { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
+        { name: 'Ports', image: '/static/vendors.svg', route: '/ports' },
+        { name: 'Document Master', image: '/static/vendors.svg', route: '/document-master' },
+        { name: 'Currency Master', image: '/static/vendors.svg', route: '/currency-master' },
+        { name: 'Go No Go Logic', image: '/static/vendors.svg', route: '/go-no-go-logic' },
+
+
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',
           route: '',
         },
-        { name: 'Commodity', image: '/static/commodity.svg', route: '' },
+        { name: 'Commodity', image: '/static/commodity.svg', route: '/commodity' },
         { name: 'GL', image: '/static/gl.svg', route: '' },
         { name: 'Others', image: '/static/others.svg', route: '' },
-        {
-          name: 'Third-Party Inspection',
-          image: '/static/Review Queue.svg',
-          route: '',
-        },
       ],
       image: '/static/Masters.svg',
       route: '',
     },
     {
       main: 'Supplier Onboarding',
+      Other: [],
       image: '/static/Masters.svg',
       route: '/add-supplier',
+    },
+    {
+      main: '',
+      Other: [],
+      route: '',
     },
   ];
   const [className, setClassName] = useState('');
@@ -153,21 +159,16 @@ function Index() {
   const [subCategory, setsubCategory] = useState(null);
   const [index12, setIndex] = useState('');
   const side = useSelector((state) => state.breadcrumb);
-  console.log(side, 'subsideBarMain');
+
   useEffect(() => {
-    console.log('aaasqqaq');
     if (window) {
       sessionStorage.setItem(
         'sideBarMain',
-        sessionStorage.getItem('loadedPage')
-          ? sessionStorage.getItem('loadedPage')
-          : 'Dashboard',
+        sessionStorage.getItem('loadedPage') ? sessionStorage.getItem('loadedPage') : 'Dashboard',
       );
       sessionStorage.setItem(
         'subsideBarMain',
-        sessionStorage.getItem('loadedSubPage')
-          ? sessionStorage.getItem('loadedSubPage')
-          : null,
+        sessionStorage.getItem('loadedSubPage') ? sessionStorage.getItem('loadedSubPage') : null,
       );
       setcategory(sessionStorage.getItem('sideBarMain'));
       setsubCategory(sessionStorage.getItem('subsideBarMain'));
@@ -182,12 +183,6 @@ function Index() {
   }, []);
   useEffect(() => {
     if (window) {
-      console.log(
-        'changed',
-        sessionStorage.getItem('sideBarMain'),
-        sessionStorage.getItem('subsideBarMain'),
-      );
-
       setcategory(sessionStorage.getItem('sideBarMain'));
       setsubCategory(sessionStorage.getItem('subsideBarMain'));
       if (sessionStorage.getItem('openList')) {
@@ -200,21 +195,7 @@ function Index() {
     }
   }, [Router.asPath]);
 
-  // useEffect(() => {
-  //     const onHashChangeStart = (url) => {
-  //         console.log(`Path changing to ${url}`);
-  //     };
-
-  //       Router.events.on("hashChangeStart", onHashChangeStart);
-
-  //     return () => {
-  //         Router.events.off("hashChangeStart", onHashChangeStart);
-  //     };
-  // }, [Router.events]);
-
-  console.log(subCategory, 'opne');
   const handleOpen = (val, index, from) => {
-    console.log(val, 'val233');
     if (from == 'main') {
       sessionStorage.setItem('sideBarMain', val);
       sessionStorage.setItem('subsideBarMain', null);
@@ -233,21 +214,16 @@ function Index() {
     }
   };
 
-  console.log(category, subCategory, 'sub');
-
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const openList = useSelector((state) => state.sidebar.openList);
 
   const isMobile = useSelector((state) => state.sidebar.isMobile);
-  //   console.log(isMobile,"isMobile123")
-  //   console.log("sidebar",)
-  // console.log(tempArr,"yem")
+
   return (
     <>
       {isMobile ? (
         <div
-          className={`${styles.main_container_mobile} sidebar-bg  ${!sidebar ? styles.collapse_sidebar_mobile : null
-            }`}
+          className={`${styles.main_container_mobile} sidebar-bg  ${!sidebar ? styles.collapse_sidebar_mobile : null}`}
         >
           {tempArr.map((val, index) => {
             const className1 =
@@ -267,62 +243,48 @@ function Index() {
                     }}
                   >
                     <div>
-                      <img src={`${val.image}`}></img>
+                      {index === tempArr.length - 1 && <img src={`${val.image}`}></img>}
                       <span>{val.main}</span>
                     </div>
                     {val?.Other?.length > 0 ? (
-                      <img
-                        src="/static/Accordion - menu.svg"
-                        className={styles.icon}
-                      ></img>
+                      <img src="/static/Accordion - menu.svg" className={styles.icon}></img>
                     ) : (
                       <div className={styles.icon}></div>
                     )}
                   </div>
-                  <div
-                    className={`${styles.sub_wrapper} ${index12 == index ? className : null
-                      }`}
-                  >
+                  <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-
-                        const className12 =
-                          index12 == index || subCategory == other.main
-                            ? `${styles.openlist} sidebar-selected`
-                            : null;
-                        return (
-                          <>
-                            <div
-                              index={index2}
-                              className={`${styles.sub_header} ${subCategory == null
-                                  ? null
-                                  : subCategory == other.name
-                                    ? styles.subSelected
-                                    : null
+                          const className12 =
+                            index12 == index || subCategory == other.main
+                              ? `${styles.openlist} sidebar-selected`
+                              : null;
+                          return (
+                            <>
+                              <div
+                                index={index2}
+                                className={`${styles.sub_header} ${
+                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
-                              onClick={() => {
-                                
-                                handleOpen(other.name, index2, '');
-                                Router.push(other.route);
-                              }}
-                            >
-                              <div>
-                                <img src={`${other.image}`}></img>
-                                <span
-                                  className={`${subCategory == null
-                                      ? null
-                                      : subCategory == other.name
-                                        ? styles.subSelected
-                                        : null
+                                onClick={() => {
+                                  handleOpen(other.name, index2, '');
+                                  Router.push(other.route);
+                                }}
+                              >
+                                <div>
+                                  <img src={`${other.image}`}></img>
+                                  <span
+                                    className={`${
+                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
-                                >
-                                  {other.name}
-                                </span>
+                                  >
+                                    {other.name}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </>
-                        );
-                      })
+                            </>
+                          );
+                        })
                       : null}
                   </div>
                 </div>
@@ -331,12 +293,8 @@ function Index() {
           })}
         </div>
       ) : (
-        <div
-          className={`${styles.main_container} sidebar-bg  ${!sidebar ? styles.collapse_sidebar : null
-            }`}
-        >
+        <div className={`${styles.main_container} sidebar-bg  ${!sidebar ? styles.collapse_sidebar : null}`}>
           {tempArr.map((val, index) => {
-
             const className1 =
               subCategory == null || subCategory == 'null'
                 ? category == val.main
@@ -347,84 +305,67 @@ function Index() {
               <>
                 <div
                   key={index}
-                  className={`${styles.wrapper} ${category == val.main ? styles.wrapperSlected : null
-                    } `}
+                  className={`${styles.wrapper} ${category == val.main ? styles.wrapperSlected : null} `}
                 >
                   <div
                     className={`${styles.header} ${className1}`}
                     onClick={(e) => {
-                     
                       handleOpen(val.main, index, 'main');
-                      console.log('router', val.route);
 
-                      if (val.route !== "") {
+                      if (val.route !== '') {
                         Router.push(val.route);
                       }
                     }}
                   >
                     <div>
-                      <img
-                        src={`${val.image}`}
-                        style={{
-                          filter:
-                            'invert(50%) sepia(9%) saturate(5858%) hue-rotate(183deg) brightness(92%) contrast(92%)',
-                        }}
-                      ></img>
+                      {index !== tempArr.length - 1 && (
+                        <img
+                          src={`${val.image}`}
+                          style={{
+                            filter:
+                              'invert(50%) sepia(9%) saturate(5858%) hue-rotate(183deg) brightness(92%) contrast(92%)',
+                          }}
+                        ></img>
+                      )}
                       <span>{val.main}</span>
                     </div>
                     {val.Other?.length > 0 ? (
-                      <img
-                        src="/static/Accordion - menu.svg"
-                        className={styles.icon}
-                      ></img>
+                      <img src="/static/Accordion - menu.svg" className={styles.icon}></img>
                     ) : (
                       <div className={styles.icon}></div>
                     )}
                   </div>
-                  <div
-                    className={`${styles.sub_wrapper} ${index12 == index ? className : null
-                      }`}
-                  >
+                  <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                        const className12 =
-                          index12 == index
-                            ? `${styles.openlist} sidebar-selected`
-                            : null;
+                          const className12 = index12 == index ? `${styles.openlist} sidebar-selected` : null;
 
-                        return (
-                          <>
-                            <div
-                              index={index2}
-                              className={`${styles.sub_header} ${subCategory == null
-                                  ? null
-                                  : subCategory == other.name
-                                    ? styles.subSelected
-                                    : null
+                          return (
+                            <>
+                              <div
+                                index={index2}
+                                className={`${styles.sub_header} ${
+                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
-                              onClick={() => {
-                                console.log(other, 'sidebarRoyte1')
-                                handleOpen(other.name, index2, '');
-                                Router.push(other.route);
-                              }}
-                            >
-                              <div>
-                                <img src={`${other.image}`}></img>
-                                <span
-                                  className={`${subCategory == null
-                                      ? null
-                                      : subCategory == other.name
-                                        ? styles.subSelected
-                                        : null
+                                onClick={() => {
+                                  handleOpen(other.name, index2, '');
+                                  Router.push(other.route);
+                                }}
+                              >
+                                <div>
+                                  <img src={`${other.image}`}></img>
+                                  <span
+                                    className={`${
+                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
-                                >
-                                  {other.name}
-                                </span>
+                                  >
+                                    {other.name}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </>
-                        );
-                      })
+                            </>
+                          );
+                        })
                       : null}
                   </div>
                 </div>

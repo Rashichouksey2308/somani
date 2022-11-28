@@ -1,29 +1,27 @@
 @import '../styles/Core/config';
 .main {
   max-height: 279px;
-  //background: #FFFFFF 0% 0% no-repeat padding-box;
-  //box-shadow: 0px 3px 12px #E5E7ED;
-  border: 1px solid #d2d7e5;
   border-radius: 8px;
   margin-bottom: 24px;
+  border: 1px solid #d2d7e5;
+  @include respond(lg-desktop) {
+    margin-bottom: 20px;
+  }
   @include respond(phone) {
     max-height: none;
   }
   .top_container {
+    padding: 16px 23px 14px;
     border-bottom: 2px solid #f2f5f9;
-    // padding: 9px 15px 9px 22px;
-    // margin-bottom: 20px;
-    padding: 14px 22px;
-    @include respond(md-desktop) {
-      padding: 14px 15px;
+    @include respond(lg-desktop) {
+      padding: 15px 20px;
     }
-    .heading {
-      font-weight: bold;
+    .title {
       font-size: 18px;
+      font-weight: bold;
       line-height: 23px;
-      text-transform: capitalize;
-      margin: 0;
-      @include respond(md-desktop) {
+      margin-bottom: 0;
+      @include respond(lg-desktop) {
         font-size: 16px;
         line-height: 1.3;
       }
@@ -32,14 +30,14 @@
       display: flex;
       justify-content: center;
       .image_container {
-        background-color: #fafafb;
-        border: 1px solid #f2f5f9;
         border-radius: 8px;
         height: 36px;
         width: 35px;
         line-height: 34px;
         text-align: center;
         margin-left: 10px;
+        background-color: #fafafb;
+        border: 1px solid #f2f5f9;
         .image {
           width: 8px;
           height: 13px;
@@ -55,10 +53,11 @@
   .country_container {
     overflow-y: auto;
     max-height: 256px;
-    padding: 16px 22px;
     padding: 20px 22px 22px;
     border-radius: 0 0 8px 8px;
-
+    @include respond(lg-desktop) {
+      padding: 20px;
+    }
     @include respond(md-desktop) {
       padding: 15px;
     }
@@ -76,60 +75,70 @@
       }
       .bar_container {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         .progress_bar {
+          width: 75%;
           display: flex;
           flex-direction: column;
-          width: 75%;
           .container {
             height: 9px;
-            background-color: #e4ecf7;
             border-radius: 2px;
+            background-color: #e4ecf7;
           }
           .barCompleted1 {
             height: 9px;
-            background-color: #2884de;
             border-radius: 2px;
+            background-color: #2884de;
           }
           .barCompleted2 {
             height: 9px;
-            background-color: #876eb1;
             border-radius: 2px;
+            background-color: #876eb1;
           }
           .barCompleted3 {
             height: 9px;
-            background-color: #4caf50;
             border-radius: 2px;
+            background-color: #4caf50;
           }
           .barCompleted4 {
             height: 9px;
-            background-color: rgb(234, 63, 63);
             border-radius: 2px;
+            background-color: rgb(234, 63, 63);
           }
           .barCompleted0 {
             height: 9px;
-            background-color: rgb(255, 206, 0);
             border-radius: 2px;
+            background-color: rgb(255, 206, 0);
           }
         }
         .number_container {
           display: flex;
           margin-left: 10px;
+          align-items: center;
           .percent {
-            text-align: left;
-            font-size: 16px;
+            font-size: 14px;
             color: #8492a6;
-            text-transform: capitalize;
-            margin-top: -5px;
+            line-height: 19px;
+            margin-bottom: 0;
+            text-align: left;
+            @include respond(lg-desktop) {
+              font-size: 10px;
+              line-height: 1.3;
+            }
           }
           .amount {
-            padding-left: 35px;
             font-size: 18px;
-            font-weight: bold;
             color: #111111cc;
-            text-transform: capitalize;
-            margin-top: -7px;
+            font-weight: bold;
+            line-height: 23px;
             white-space: nowrap;
+            margin-bottom: 0;
+            padding-left: 25px;
+            @include respond(lg-desktop) {
+              font-size: 14px;
+              line-height: 1.3;
+            }
           }
         }
       }
@@ -138,8 +147,12 @@
         color: #8492a6;
         font-weight: bold;
         line-height: 17px;
-        margin: 0 0 7px;
+        margin: 0;
         text-transform: uppercase;
+        @include respond(lg-desktop) {
+          font-size: 10px;
+          line-height: 1.3;
+        }
       }
     }
   }
@@ -149,7 +162,6 @@
   height: 9px;
   background: #f3f4f7;
   border-radius: 2px;
-
   .fill {
     position: absolute;
     height: 12px;

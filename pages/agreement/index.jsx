@@ -1,42 +1,46 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
-import AgreementSales from '../../src/components/AgreementSales';
-import SalesAgreement from '../../src/components/SalesAgreement';
-import SalesContract from '../../src/components/SalesContract';
+import React, { useEffect, useState } from 'react';
 import Contract from '../../src/components/A2S_Sales_Contract';
+import AssignmentLetter from '../../src/components/AssignmentLetter';
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement';
-import TPASeller from '../../src/components/TPASeller';
-import TPAIGI from '../../src/components/TPAIGI';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import QPA from '../../src/components/QPA';
-import { setPageName } from '../../src/redux/userData/action';
-
-import { Form } from 'react-bootstrap';
-
-import AssignmentLetter from '../../src/components/AssignmentLetter';
+import TPAIGI from '../../src/components/TPAIGI';
+import TPASeller from '../../src/components/TPASeller';
+import styles from './index.module.scss';
 
 function Index() {
-  const [preview, setPreview] = useState(false);
-
+  const [preview, setPreview] = useState('');
+const [agreementDoc, setagreementDoc] = useState({
+      lcDraftDoc: null,
+  });
   const setPreviewValue = (val) => {
+    sessionStorage.setItem('agreementPreview', val);
     setPreview(val);
   };
   const [name, setName] = useState('');
+   const [orderId, setOrderID] = useState('');
+  const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      setOrderID(data.order._id)
       setName(data.company.companyName);
     }
   });
+
+   const uploadDocument1 = (e) => {
+    const newInput = { ...agreementDoc };
+    newInput.lcDraftDoc = e.target.files[0];
+    setagreementDoc(newInput);
+  };
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
-        <div
-          className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}
-        >
+        <div className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}>
           <img
             onClick={() => Router.push('/agreement-table')}
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
@@ -47,17 +51,10 @@ function Index() {
           <h1 className={`${styles.title} heading `}>{name}</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto mr-2">
-              <button
-                type="button"
-                className={`${styles.btnPrimary} btn btn-primary`}
-              >
+              <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>
                 Print
               </button>
             </div>
-            {/* <div className="ml-auto text-right">
-              <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-              <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </div> */}
           </div>
         </div>
         <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -153,56 +150,46 @@ function Index() {
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane fade show active"
-                  id="SalesContract"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade show active" id="SalesContract" role="tabpanel">
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <Contract
-                      preview={preview}
-                      setPreviewValue={setPreviewValue}
-                    />
+                    <Contract preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="Associateship"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="Associateship" role="tabpanel">
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssociateshipAgreement setPreviewValue={setPreviewValue} />
+                    <AssociateshipAgreement preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Assignment" role="tabpanel">
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssignmentLetter setPreviewValue={setPreviewValue} />
+                    <AssignmentLetter preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPASeller" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPASeller setPreviewValue={setPreviewValue} />
+                    <TPASeller preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPACMA" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPAIGI setPreviewValue={setPreviewValue} />
+                    <TPAIGI preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="QPA" role="tabpanel">
                   <div className="accordion shadow-none" id="qpaAgreement">
-                    <QPA setPreviewValue={setPreviewValue} />
+                    <QPA preview={preview} setPreviewValue={setPreviewValue} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">
-                  <div
-                    className="accordion shadow-none"
-                    id="inspectionDocument"
-                  >
-                    <InspectionDocument
-                      documentName="Sales Agreement"
-                      isOpen="false"
-                      setLcDoc
+                  <div className="accordion shadow-none" id="inspectionDocument">
+                    <InspectionDocument 
+                    orderId={orderId} 
+                    module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
+                    documentName="Sales Agreement" 
+                    isOpen="false" 
+                    setLcDoc={setagreementDoc} 
+                    lcDoc={agreementDoc}
+                    uploadDocument1={uploadDocument1}
                     />
                   </div>
                 </div>
@@ -214,4 +201,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

@@ -1,552 +1,494 @@
-// import Cookies from 'js-cookie'
-import Axios from 'axios';
-import Router from 'next/router';
-import API from '../../utils/endpoints';
-import * as types from './actionType';
-import { toast } from 'react-toastify';
-// import history from '../../history'
-import Cookies from 'js-cookie';
-import { setAuthenticationCookie } from '../../utils/authentication';
+import Axios from 'axios'
+import Router from 'next/router'
+import API from '../../utils/endpoints'
+import * as types from './actionType'
+import { toast } from 'react-toastify'
+
+import Cookies from 'js-cookie'
+import { setAuthenticationCookie } from '../../utils/authentication'
 
 const errorMessage = {
   status: 400,
-  message: 'Something went wrong',
-};
-
-function loggingUser() {
-  return {
-    type: types.LOGIN_USER,
-  };
+  message: 'Something went wrong'
 }
 
-function loggingUserSuccess(payload) {
+function loggingUser () {
+  return {
+    type: types.LOGIN_USER
+  }
+}
+
+function loggingUserSuccess (payload) {
   return {
     type: types.LOGIN_USER_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function loggingUserFailed(payload) {
+function loggingUserFailed (payload) {
   return {
     type: types.LOGIN_USER_FAILED,
-    payload,
-  };
+    payload
+  }
 }
 
-function fetchingUserPermissions() {
+function fetchingUserPermissions () {
   return {
-    type: types.FETCH_USER_PERMISSIONS,
-  };
+    type: types.FETCH_USER_PERMISSIONS
+  }
 }
 
-function fetchingUserPermissionsSuccess(payload, user) {
+function fetchingUserPermissionsSuccess (payload, user) {
   return {
     type: types.FETCH_USER_PERMISSIONS_SUCCESS,
     payload,
-    user,
-  };
+    user
+  }
 }
 
-function fetchingUserPermissionsFailed(payload) {
+function fetchingUserPermissionsFailed (payload) {
   return {
     type: types.FETCH_USER_PERMISSIONS_FAILED,
-    payload,
-  };
+    payload
+  }
 }
 
-function fetchingCurrentUserProfile() {
+function fetchingCurrentUserProfile () {
   return {
-    type: types.FETCH_CURRENT_USER_PROFILE,
-  };
+    type: types.FETCH_CURRENT_USER_PROFILE
+  }
 }
 
-function fetchingCurrentUserProfileSuccess(payload) {
+function fetchingCurrentUserProfileSuccess (payload) {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function fetchingCurrentUserProfileFailed(payload) {
+function fetchingCurrentUserProfileFailed (payload) {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE_FAILED,
-    payload,
-  };
+    payload
+  }
 }
 
-export function authenticateUser(payload) {
+export function authenticateUser (payload) {
   return {
     type: types.AUTHENTICATE_USER,
-    payload,
-  };
+    payload
+  }
 }
-//****** Verify Token   ********//
 
-export function validatingToken() {
+//* ***** Verify Token   ********//
+
+export function validatingToken () {
   return {
     type: types.VERIFY_TOKEN,
-    payload: Cookies.get('guid'),
-  };
+    payload: Cookies.get('guid')
+  }
 }
 
-export function validatingTokenSuccess(payload) {
+export function validatingTokenSuccess (payload) {
   return {
     type: types.VERIFY_TOKEN_SUCCESS,
-    payload: payload,
-  };
+    payload: payload
+  }
 }
 
-export function validatingTokenFailed(payload) {
+export function validatingTokenFailed (payload) {
   return {
-    type: types.VERIFY_TOKEN_FAILED,
-  };
+    type: types.VERIFY_TOKEN_FAILED
+  }
 }
 
-//****** Generate Token   ********//
+//* ***** Generate Token   ********//
 
-export function generatingToken() {
-  return { type: types.GENERATE_TOKEN };
+export function generatingToken () {
+  return { type: types.GENERATE_TOKEN }
 }
 
-export function generatingTokenSuccess(payload) {
+export function generatingTokenSuccess (payload) {
   return {
     type: types.GENERATE_TOKEN_SUCCESS,
-    payload: payload,
-  };
+    payload: payload
+  }
 }
 
-export function generatingTokenFailed(payload) {
+export function generatingTokenFailed (payload) {
   return {
-    type: types.GENERATE_TOKEN_FAILED,
-  };
+    type: types.GENERATE_TOKEN_FAILED
+  }
 }
 
-//****** logging out user  ********//
-
-// export function loggingoutUserSuccess() {
-//   return {
-//     type: types.LOGOUT_USER_SUCCESS,
-//   };
-// }
-
-// export function loggingoutUserFailed(payload) {
-//   return {
-//     type: types.LOGOUT_USER_FAILED,
-//   };
-// }
-
-function loggingoutUser() {
+function loggingoutUser () {
   return {
-    type: types.LOGOUT_USER,
-  };
+    type: types.LOGOUT_USER
+  }
 }
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
-export function resetPassword() {
-  return { type: types.RESET_PASSWORD };
+export function resetPassword () {
+  return { type: types.RESET_PASSWORD }
 }
 
-export function resetPasswordSuccess() {
+export function resetPasswordSuccess () {
   toast('Password Successfully Changed', {
     position: 'bottom-center',
     autoClose: 1200,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
-  });
-  return { type: types.RESET_PASSWORD_SUCCESS };
+    draggable: true
+  })
+  return { type: types.RESET_PASSWORD_SUCCESS }
 }
 
-export function resetPasswordFailed() {
+export function resetPasswordFailed () {
   toast.error('Something went wrong', {
     position: 'bottom-center',
     autoClose: 1200,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
-  });
-  return { type: types.RESET_PASSWORD_FAILED };
+    draggable: true
+  })
+  return { type: types.RESET_PASSWORD_FAILED }
 }
 
-export function handlePageLoading(payload) {
+export function handlePageLoading (payload) {
   return {
     type: types.HANDLE_PAGE_LOADING,
-    payload,
-  };
+    payload
+  }
 }
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
-export function forgotpassword() {
-  return { type: types.FORGOT_PASSWORD };
+export function forgotpassword () {
+  return { type: types.FORGOT_PASSWORD }
 }
 
-export function forgotPasswordSuccess(payload) {
-  history.push('/OTP-verification');
+export function forgotPasswordSuccess (payload) {
+  history.push('/OTP-verification')
   return {
     type: types.FORGOT_PASSWORD_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-export function forgotPasswordFailed() {
+export function forgotPasswordFailed () {
   toast.error('Something went wrong', {
     position: 'bottom-center',
     autoClose: 1200,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
-  });
-  return { type: types.FORGOT_PASSWORD_FAILED };
+    draggable: true
+  })
+  return { type: types.FORGOT_PASSWORD_FAILED }
 }
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
-export function otpverification() {
-  return { type: types.OTP_VARIFICATION };
+export function otpverification () {
+  return { type: types.OTP_VARIFICATION }
 }
 
-export function otpverificationSuccess() {
-  history.push('/set-new-password');
-  window.location.reload();
-  return { type: types.OTP_VARIFICATION_SUCCESS };
+export function otpverificationSuccess () {
+  history.push('/set-new-password')
+  window.location.reload()
+  return { type: types.OTP_VARIFICATION_SUCCESS }
 }
 
-export function otpverificationFailed() {
+export function otpverificationFailed () {
   toast.error('Something went wrong', {
     position: 'bottom-center',
     autoClose: 1200,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
-  });
-  return { type: types.OTP_VARIFICATION_FAILED };
+    draggable: true
+  })
+  return { type: types.OTP_VARIFICATION_FAILED }
 }
 
-//****** SET NEW PASSWORD   ********//
+//* ***** SET NEW PASSWORD   ********//
 
-export function setnewPassword() {
-  return { type: types.SET_NEW_PASSWORD };
+export function setnewPassword () {
+  return { type: types.SET_NEW_PASSWORD }
 }
 
-export function setnewPasswordSuccess() {
-  history.push('/login');
+export function setnewPasswordSuccess () {
+  history.push('/login')
   toast('Password Successfully Changed', {
     position: 'bottom-center',
     autoClose: 1200,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
-  });
-  return { type: types.SET_NEW_PASSWORD_SUCCESS };
+    draggable: true
+  })
+  return { type: types.SET_NEW_PASSWORD_SUCCESS }
 }
 
-export function setnewPasswordFailed() {
+export function setnewPasswordFailed () {
   toast.error('Something went wrong', {
     position: 'bottom-center',
     autoClose: 1200,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
-  });
-  return { type: types.SET_NEW_PASSWORD_FAILED };
+    draggable: true
+  })
+  return { type: types.SET_NEW_PASSWORD_FAILED }
 }
 
-//****** LOGIN  ********//
+//* ***** LOGIN  ********//
 
 export const loginUser = (payload) => async (dispatch, getState, api) => {
-  dispatch(loggingUser());
+  dispatch(loggingUser())
   try {
-    let headers = { authorization: '', Cache: 'no-cache' };
+    const headers = { authorization: '', Cache: 'no-cache' }
     // let response = await api.post(API.login, payload);
-    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
-      headers: headers,
-    });
-    console.log(response, 'response');
-    if (response.data.code === 200) {
-      dispatch(loggingUserSuccess(response.data));
+    const response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
+      headers: headers
+    })
 
-      // localStorage.setItem(response.data.token)
-      // Router.push("/")
-      // Cookies.set('refreshtoken', response.data.data.refreshToken)
-      // Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
-      setAuthenticationCookie(response.data.data);
+    if (response.data.code === 200) {
+      dispatch(loggingUserSuccess(response.data))
+
+      setAuthenticationCookie(response.data.data)
     } else {
-      dispatch(loggingUserFailed(response.data));
-      // Cookies.remove('token')
-      let toastMessage = 'Please check your credentials and Try Again!';
+      dispatch(loggingUserFailed(response.data))
+
+      const toastMessage = 'Please check your credentials and Try Again!'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   } catch (error) {
-    console.log('API FAILED');
-    dispatch(loggingUserFailed(errorMessage));
+    console.log('API FAILED')
+    dispatch(loggingUserFailed(errorMessage))
   }
-};
+}
 
 export const fetchUserPermissions = () => async (dispatch, getState, api) => {
-  dispatch(fetchingUserPermissions());
+  dispatch(fetchingUserPermissions())
   try {
-    let response = await api.get(API.getUserPermissions);
+    const response = await api.get(API.getUserPermissions)
     if (response.data.code === 200) {
-      dispatch(
-        fetchingUserPermissionsSuccess(
-          response.data.data.pageGroups,
-          response.data.data,
-        ),
-      );
+      dispatch(fetchingUserPermissionsSuccess(response.data.data.pageGroups, response.data.data))
     } else {
-      dispatch(fetchingUserPermissionsFailed(response.data));
+      dispatch(fetchingUserPermissionsFailed(response.data))
     }
   } catch (error) {
-    dispatch(fetchingUserPermissionsFailed(errorMessage));
+    dispatch(fetchingUserPermissionsFailed(errorMessage))
   }
-};
+}
 
-export const fetchCurrentUserProfile =
-  () => async (dispatch, getState, api) => {
-    dispatch(fetchingCurrentUserProfile());
-    try {
-      let response = await api.get(API.getUserProfile);
-      if (response.data.code === 200) {
-        dispatch(fetchingCurrentUserProfileSuccess(response.data.data));
-      } else {
-        dispatch(fetchingCurrentUserProfileFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(fetchingCurrentUserProfileFailed(errorMessage));
+export const fetchCurrentUserProfile = () => async (dispatch, getState, api) => {
+  dispatch(fetchingCurrentUserProfile())
+  try {
+    const response = await api.get(API.getUserProfile)
+    if (response.data.code === 200) {
+      dispatch(fetchingCurrentUserProfileSuccess(response.data.data))
+    } else {
+      dispatch(fetchingCurrentUserProfileFailed(response.data))
     }
-  };
-
-//********  Verify User Token Validity  ********//
-// export const validateToken = () => async (dispatch, getState, api) => {
-//   dispatch(validatingToken())
-
-//   let cookie = Cookies.get('SOMANI')
-
-//   try {
-//     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-//     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-//     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
-//       headers: {
-//         authorization: jwtAccessToken,
-//       },
-//     })
-
-//     if (response.data.code === 200)
-//        dispatch(validatingTokenSuccess(response.data.data))
-
-//     if (response.code === 401 || response.code === 402){
-//        dispatch(generateToken())
-//     }
-
-//     dispatch(validatingTokenFailed(response.data))
-//   } catch (error) {
-//     console.log(error, "validating token failed")
-//      dispatch(validatingTokenFailed(errorMessage))
-//   }
-// }
+  } catch (error) {
+    dispatch(fetchingCurrentUserProfileFailed(errorMessage))
+  }
+}
 
 export const validateToken = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
-    let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
-      headers: headers,
-    });
+    const response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
+      headers: headers
+    })
     if (response.data.code === 200) {
-      console.log(response.data.code, 'dfgfdg');
-
-      // dispatch(getVesselSuccess(response.data.data))
-      return response.data.data;
+      return response.data.data
     } else {
       if (response.data.code === 401) {
-        dispatch(generateToken());
+        dispatch(generateToken())
       }
-      dispatch(validatingTokenFailed(response.data.data));
+      dispatch(validatingTokenFailed(response.data.data))
 
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   } catch (error) {
-    dispatch(validatingTokenFailed());
-    dispatch(generateToken());
-    let toastMessage = 'cound not Process YOur Request ';
+    dispatch(validatingTokenFailed())
+    dispatch(generateToken())
+    const toastMessage = 'cound not Process YOur Request '
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-};
+}
 
-//****** Generate Token  ********//
+//* ***** Generate Token  ********//
 
 export const generateToken = () => async (dispatch, getState, api) => {
   try {
-    let cookie = await Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const cookie = await Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken] = decodedString.split('#');
+    const [userId, refreshToken] = decodedString.split('#')
 
-    let response = await api.post(API.generateNewToken, {
+    const response = await api.post(API.generateNewToken, {
       refreshToken: existingRefreshToken,
-      userId: guid,
-    });
+      userId: guid
+    })
 
     if (response.data.code === 200) {
-      let {
-        data: { data: jwtAccessToken },
-      } = response;
-      await Cookies.remove('SOMANI');
+      const {
+        data: { data: jwtAccessToken }
+      } = response
+      await Cookies.remove('SOMANI')
 
       await setAuthenticationCookie({
         jwtAccessToken,
         refreshToken,
-        user: { userId },
-      });
-      dispatch(generatingTokenSuccess(response.data.data));
+        user: { userId }
+      })
+      dispatch(generatingTokenSuccess(response.data.data))
     }
-    dispatch(logoutUser());
-    dispatch(generatingTokenFailed(response.data));
+    dispatch(logoutUser())
+    dispatch(generatingTokenFailed(response.data))
   } catch (error) {
-    dispatch(generatingTokenFailed(error));
-    dispatch(logoutUser());
+    dispatch(generatingTokenFailed(error))
+    dispatch(logoutUser())
   }
-};
+}
 
-//****** Logout User   ********//
+//* ***** Logout User   ********//
 
 export const logoutUser = () => async (dispatch, getState, api) => {
-  // let  cookie =  Cookies.get('SOMANI')
-  let cookie = Cookies.get('SOMANI');
-  console.log(cookie, 'cookie');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  console.log(decodedString, 'decodedString');
+  const cookie = Cookies.get('SOMANI')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   try {
     Axios.get(`${API.authbaseUrl}${API.logout}`, {
       headers: {
-        authorization: jwtAccessToken,
-      },
-    }).then((response) => console.log(response, 'logout Response'));
-    Cookies.remove('SOMANI');
+        authorization: jwtAccessToken
+      }
+    }).then((response) => console.log(response, 'logout Response'))
+    Cookies.remove('SOMANI')
 
-    dispatch(loggingoutUser());
+    dispatch(loggingoutUser())
     setTimeout(() => {
-      Router.push('/');
-      window.location.reload();
-    }, 1000);
+      Router.push('/')
+      window.location.reload()
+    }, 1000)
   } catch (error) {
-    console.log(error, 'LOGOUT API FAILED');
+    console.log(error, 'LOGOUT API FAILED')
   }
-};
+}
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
-export function resetpassword(state) {
+export function resetpassword (state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       prevPassword: state.recent_password,
       password: state.new_password,
-      cPassword: state.confirm_password,
-    };
-    dispatch(resetPassword());
+      cPassword: state.confirm_password
+    }
+    dispatch(resetPassword())
     try {
-      let response = await api.post(API.changePassword, payload);
+      const response = await api.post(API.changePassword, payload)
       if (response.data.code === 200) {
-        dispatch(resetPasswordSuccess(response.data));
+        dispatch(resetPasswordSuccess(response.data))
       } else {
-        dispatch(resetPasswordFailed(response.data));
+        dispatch(resetPasswordFailed(response.data))
       }
     } catch (error) {
-      dispatch(resetPasswordFailed());
+      dispatch(resetPasswordFailed())
     }
-  };
+  }
 }
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
-export function forgotPassword(state) {
+export function forgotPassword (state) {
   return async (dispatch, getState, api) => {
-    let payload = {
-      username: state.mobileNo,
-    };
-    dispatch(forgotpassword());
+    const payload = {
+      username: state.mobileNo
+    }
+    dispatch(forgotpassword())
     try {
-      let response = await api.post(API.forgotPassword, payload);
+      const response = await api.post(API.forgotPassword, payload)
       if (response.data.code === 200) {
-        dispatch(forgotPasswordSuccess(response.data.data));
+        dispatch(forgotPasswordSuccess(response.data.data))
       } else {
-        dispatch(forgotPasswordFailed(response.data));
+        dispatch(forgotPasswordFailed(response.data))
       }
     } catch (error) {
-      dispatch(forgotPasswordFailed(errorMessage));
+      dispatch(forgotPasswordFailed(errorMessage))
     }
-  };
+  }
 }
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
-export function optVerification(state) {
+export function optVerification (state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       otp: state.otp_number,
-      userid: getState().Auth.userId,
-    };
-    dispatch(otpverification());
+      userid: getState().Auth.userId
+    }
+    dispatch(otpverification())
     try {
-      let response = await api.post(API.varifyOTP, payload);
+      const response = await api.post(API.varifyOTP, payload)
       if (response.data.code === 200) {
-        await Cookies.set('token', response.data.jwtAccessToken);
-        dispatch(otpverificationSuccess(response.data));
+        await Cookies.set('token', response.data.jwtAccessToken)
+        dispatch(otpverificationSuccess(response.data))
       } else {
-        dispatch(otpverificationFailed(response.data));
+        dispatch(otpverificationFailed(response.data))
       }
     } catch (error) {
-      dispatch(otpverificationFailed(errorMessage));
+      dispatch(otpverificationFailed(errorMessage))
     }
-  };
+  }
 }
 
-//****** SET NEW PASSWORD   ********//
+//* ***** SET NEW PASSWORD   ********//
 
-export function setNewPassword(state) {
+export function setNewPassword (state) {
   return async (dispatch, getState, api) => {
-    let authorization = Cookies.get('token');
-    let headers = { Authorization: authorization, Cache: 'no-cache' };
-    let payload = {
+    const authorization = Cookies.get('token')
+    const headers = { Authorization: authorization, Cache: 'no-cache' }
+    const payload = {
       password: state.newPassword,
-      confirmPassword: state.confirmPassword,
-    };
-    dispatch(setnewPassword());
+      confirmPassword: state.confirmPassword
+    }
+    dispatch(setnewPassword())
     try {
-      let response = await api.post(API.setNewPassword, payload, {
-        headers: headers,
-      });
+      const response = await api.post(API.setNewPassword, payload, {
+        headers: headers
+      })
       if (response.data.code === 200) {
-        dispatch(setnewPasswordSuccess(response.data));
+        dispatch(setnewPasswordSuccess(response.data))
       } else {
-        dispatch(setnewPasswordFailed(response.data));
+        dispatch(setnewPasswordFailed(response.data))
       }
     } catch (error) {
-      dispatch(setnewPasswordFailed(errorMessage));
+      dispatch(setnewPasswordFailed(errorMessage))
     }
-  };
+  }
 }

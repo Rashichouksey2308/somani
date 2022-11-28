@@ -1,89 +1,22 @@
 @import '../styles/Core/config';
-.dashboardTab {
-  //background: #FFFFFF;
-  //box-shadow: 0px 3px 12px #CAD0E2;
-  border: 1px solid #d2d7e5;
-  .tabHeader {
-    padding: 30px;
-    @include respond(lg-desktop) {
-      padding: 20px;
-    }
-    @include respond(sm-desktop) {
-      padding: 18px;
-    }
-    @include respond(phone) {
-      padding: 15px;
-    }
-    .title {
-      font-size: 34px;
-      font-weight: bold;
-      line-height: 41px;
-      margin: 0;
-      text-transform: lowercase;
-      &:first-letter {
-        text-transform: uppercase;
-      }
-      &:first-line {
-        text-transform: capitalize;
-      }
-      @include respond(lg-desktop) {
-        font-size: 24px;
-        line-height: 1.4;
-      }
-      @include respond(sm-desktop) {
-        font-size: 20px;
-      }
-      @include respond(phone) {
-        font-size: 18px;
-      }
-      img {
-        width: 13px;
-        height: 21px;
-        margin: -5px 25px 0 0;
-        @include respond(lg-desktop) {
-          width: 10px;
-          height: auto;
-        }
-      }
-    }
-    .lastModified {
-      font-size: 14px;
-      color: rgba(40, 55, 86, 0.6);
-      font-weight: normal;
-      line-height: 16px;
-      margin-top: 7px;
-      @include respond(lg-desktop) {
-        font-size: 12px;
-        line-height: 1.2;
-      }
-      span {
-        color: #283756;
-        font-weight: bold;
-        line-height: 17px;
-        @include respond(lg-desktop) {
-          line-height: 1.2;
-        }
-      }
-    }
-  }
-}
+
 .backgroundMain {
-  //background: #F3F4F7 !important;
   .vessel_card {
-    // margin: 20px 5px 20px 5px;
     .main {
       margin-bottom: 26px;
       border-radius: 6px;
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
+
       .head_container {
         min-height: 80px;
-        padding: 0 35px !important;
+        padding: 0 35px;
         border-bottom: 2px solid #cad6e6;
         @include respond(lg-desktop) {
           min-height: 60px;
         }
+
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -104,6 +37,7 @@
             margin: 13px 0;
           }
         }
+
         span {
           font-size: 45px;
           color: #3687e8;
@@ -121,35 +55,12 @@
         }
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px;
-      .label {
-        font-size: 16px;
-        letter-spacing: 0.53px;
-        line-height: 17px;
-        top: 26px;
-        font-weight: 500;
-        left: 30px;
-        margin-bottom: 15px;
-        color: #00000080;
-        @include respond(lg-desktop) {
-          font-size: 14px;
-          line-height: 15px;
-        }
-      }
-      .value {
-        font-size: 20px;
-        height: 60px;
-        line-height: 25px;
-        font-weight: 500;
-        @include respond(lg-desktop) {
-          font-size: 15px;
-          line-height: 1.3;
-        }
-      }
+
       .comment_field {
         height: 156px;
-        // border: 2px solid #cad6e6;
         border-radius: 9px;
         font-size: 20px;
         font-weight: 500;
@@ -163,8 +74,55 @@
           height: 120px;
         }
       }
+      .edit_image {
+        background: #c3c3c31f;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        padding: 9px;
+        width: 40px;
+        height: 40px;
+        margin-top: 20px;
+        @include respond(lg-desktop) {
+          width: 30px;
+          height: 30px;
+          padding: 7px;
+        }
+        @include respond(sm-desktop) {
+          width: 28px;
+          height: 28px;
+          padding: 6px;
+        }
+        @include respond(phone) {
+          width: 25px;
+          height: 25px;
+          padding: 5px;
+        }
+      }
+
+      .delete_image {
+        background: #c3c3c31f;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        padding: 6px;
+        margin-top: 19px;
+        width: 40px;
+        height: 40px;
+        @include respond(lg-desktop) {
+          width: 30px;
+          height: 30px;
+          padding: 5px;
+        }
+        @include respond(sm-desktop) {
+          width: 28px;
+          height: 28px;
+          padding: 4px;
+        }
+        @include respond(phone) {
+          width: 25px;
+          height: 25px;
+        }
+      }
       .comment_heading {
-        // color: #111111;
         text-transform: capitalize;
         font-size: 20px;
         line-height: 25px;
@@ -174,6 +132,20 @@
           line-height: 1.3;
         }
       }
+      .calanderIcon {
+        margin-left: -40px;
+        margin-top: 15px;
+        width: 23px;
+        height: 26px;
+        z-index: 1;
+        pointer-events: none;
+        @include respond(lg-desktop) {
+          width: 18px;
+          margin-top: 9px;
+          margin-left: -33px;
+        }
+      }
+
       .address_type {
         color: #3687e8;
         font-size: 20px;
@@ -187,7 +159,6 @@
 
       .address_detail {
         letter-spacing: 0.19px;
-        // color: #111111;
         font-size: 20px;
         line-height: 25px;
         @include respond(lg-desktop) {
@@ -195,6 +166,7 @@
           line-height: 1.3;
         }
       }
+
       .sub_heading {
         font-size: 20px;
         font-weight: bold;
@@ -205,23 +177,12 @@
           line-height: 1.3;
         }
       }
-      .upload_button {
-        border: 3px solid #3687e8;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 20px;
-        line-height: 25px;
-        color: #3687e8;
-        font-weight: bold;
-        text-transform: capitalize;
-        width: 220px;
-        height: 46px;
-        background-color: transparent;
-      }
+
       .form_group {
         margin-top: 42px;
         position: relative;
         margin-bottom: 10px;
+
         .search_image {
           margin-left: -40px;
           @include respond(lg-desktop) {
@@ -229,6 +190,7 @@
             margin-left: -30px;
           }
         }
+
         .label_heading {
           font-size: 16px;
           letter-spacing: 0.53px;
@@ -246,6 +208,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -256,6 +219,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 14px;
             font-size: 14px;
@@ -263,9 +227,11 @@
             transform: translateY(-22px);
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -278,10 +244,10 @@
           letter-spacing: 0.19px;
           cursor: pointer;
           padding: 13px 30px 13px 17px;
-          // border: 1px solid #0000001f;
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -290,136 +256,73 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
             line-height: 1.3;
           }
         }
-        .cursor_none {
-          caret-color: transparent;
-        }
       }
     }
-    .search_container {
-      //background: #F0F0F0;
-      height: 62px;
-      .dropDown {
-        //background: #FFFFFF;
-        border: 1px solid #0000001f;
-        border-radius: 4px;
-        color: #3687e8;
-        text-transform: capitalize;
-        font-size: 16px;
-        line-height: 19px;
-        font-weight: bold;
-        width: 279px;
-        padding-left: 20px;
-        height: 40px;
-        @include respond(lg-desktop) {
-          font-size: 15px;
-          line-height: 1.3;
-        }
-      }
-    }
-  }
-}
-.edit_image {
-  background: #c3c3c31f;
-  border: 1px solid #0000001f;
-  border-radius: 4px;
-  padding: 9px;
-  width: 40px;
-  height: 40px;
-  margin-top: 20px;
-  @include respond(lg-desktop) {
-    width: 30px;
-    height: 30px;
-    padding: 7px;
-  }
-  @include respond(sm-desktop) {
-    width: 28px;
-    height: 28px;
-    padding: 6px;
-  }
-  @include respond(phone) {
-    width: 25px;
-    height: 25px;
-    padding: 5px;
-  }
-}
-.delete_image {
-  background: #c3c3c31f;
-  border: 1px solid #0000001f;
-  border-radius: 4px;
-  padding: 6px;
-  margin-top: 19px;
-  width: 40px;
-  height: 40px;
-  @include respond(lg-desktop) {
-    width: 30px;
-    height: 30px;
-    padding: 5px;
-  }
-  @include respond(sm-desktop) {
-    width: 28px;
-    height: 28px;
-    padding: 4px;
-  }
-  @include respond(phone) {
-    width: 25px;
-    height: 25px;
   }
 }
 
-.calanderIcon {
-  margin-left: -40px;
-  margin-top: 15px;
-  width: 23px;
-  height: 26px;
-  z-index: 1;
-  pointer-events: none;
-  @include respond(lg-desktop) {
-    width: 18px;
-    margin-top: 9px;
-    margin-left: -33px;
-  }
-}
+
+
 .newAddressContainer {
-  //margin: 19px 35px 41px !important;
-  // background: #FFFFFF;
   border: 2px solid #cad6e6;
   border-radius: 0.5rem;
 
   .newAddressHead {
-    // height: 80px;
     padding: 18px 25px 24px 35px !important;
     @include respond(lg-desktop) {
-      // height: 60px;
       padding: 15px 25px !important;
     }
+
     span {
       font-size: 22px;
       color: #3687e8;
       font-weight: bold;
       line-height: 27px;
-      // margin-bottom: 3rem;
       @include respond(lg-desktop) {
         font-size: 20px;
         line-height: 1.3;
       }
     }
+
     border-bottom: 2px solid #cad6e6;
   }
+
   .newAddressContent {
     padding: 15px 25px !important;
   }
+  .arrow {
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+  }
+  .customSelect {
+    appearance: none;
+  }
   .add {
-    background: #3687e8;
-    border-radius: 5px;
     width: 220px;
     height: 48px;
+    background: var(--unnamed-color-3687e8);
+    background: #3687e8;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25px;
     cursor: pointer;
+
     span {
       letter-spacing: 0px;
       color: #ffffff;
@@ -432,18 +335,25 @@
         line-height: 1.3;
       }
     }
+
     @include respond(lg-desktop) {
       width: 180px;
       height: 38px;
     }
   }
   .cancel {
-    border: 2.5px solid #3687e8;
+    width: 220px;
+    height: 48px;
+    border: 2.5px solid var(--unnamed-color-3687e8);
     border: 3px solid #3687e8;
     border-radius: 5px;
+    display: flex;
     margin-left: 13px;
     margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+
     span {
       letter-spacing: 0px;
       color: #3687e8;
@@ -456,58 +366,10 @@
         line-height: 1.3;
       }
     }
+
     @include respond(lg-desktop) {
       width: 180px;
       height: 38px;
     }
-  }
-}
-.arrow {
-  margin-left: -40px;
-  width: 13px;
-  pointer-events: none;
-
-  input[type='date']::-webkit-inner-spin-button,
-  input[type='date']::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-  }
-}
-
-.customSelect {
-  appearance: none;
-  // position: relative;
-}
-.add {
-  width: 220px;
-  height: 48px;
-  background: var(--unnamed-color-3687e8);
-  background: #3687e8;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 25px;
-  span {
-    font-size: 20px;
-    line-height: 25px;
-    font-weight: bold;
-    color: #ffffff;
-  }
-}
-.cancel {
-  width: 220px;
-  height: 48px;
-  border: 2.5px solid var(--unnamed-color-3687e8);
-  border: 3px solid #3687e8;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  span {
-    font-size: 20px;
-    line-height: 25px;
-    font-weight: bold;
-    color: #3687e8;
   }
 }

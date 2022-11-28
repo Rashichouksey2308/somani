@@ -1,80 +1,64 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './reviewqueue.module.scss';
-import Order from '../../src/components/Order';
-import ShipmentDetails from '../../src/components/ShipmentDetails';
-import ComplianceLigitations from '../../src/components/CompilanceLigitation';
-import LigitationsTable from '../../src/components/LigitationsTable';
-import GST from '../../src/components/GST';
 import jsPDF from 'jspdf';
+import { default as router, default as Router } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import ReactDOMServer from 'react-dom/server';
-import Credit from '../../src/components/Credit';
-import Recommendations from '../../src/components/Recommendations';
 import CAM from '../../src/components/CAM';
-import { Form } from 'react-bootstrap';
-import router from 'next/router';
-
-import PreviousBar from '../../src/components/PreviousBar';
-import DownloadBar from '../../src/components/DownloadBar';
+import Credit from '../../src/components/Credit';
+import GST from '../../src/components/GST';
+import LigitationsTable from '../../src/components/LigitationsTable';
+import Order from '../../src/components/Order';
+import Recommendations from '../../src/components/Recommendations';
+import ShipmentDetails from '../../src/components/ShipmentDetails';
+import styles from './reviewqueue.module.scss';
 import CommonSave from '../../src/components/CommonSave';
+import DownloadBar from '../../src/components/DownloadBar';
+import PreviousBar from '../../src/components/PreviousBar';
 //sub modules
-import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails';
-import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern';
 import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils';
 import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDetails';
+import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails';
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings';
-
+import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern';
+import { GetCompanyDetails } from 'redux/companyDetail/action';
+import { GetAllBuyer, GetAllOrders } from 'redux/registerBuyer/action';
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
 import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
 import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeStatement';
 import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges';
 import Peer from '../../src/components/ReviewQueueFinancials/Peer';
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios';
+import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
 import { ViewDocument } from '../../src/redux/ViewDoc/action';
-import Loader from '../../src/components/Loader/index';
-import { GetAllOrders } from 'redux/registerBuyer/action';
-import { GetCompanyDetails } from 'redux/companyDetail/action';
-import { getPorts,getCountries,getCommodities,getDocuments } from '../../src/redux/masters/action';
 import {
-  removePrefixOrSuffix,
-  CovertvaluefromtoCR,
-  checkNan,
   addPrefixOrSuffix,
+  checkNan,
   convertValue,
+  CovertvaluefromtoCR,
+  removePrefixOrSuffix,
 } from '../../src/utils/helper';
+
+import { orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
+import { handleErrorToast } from '../../src/utils/helpers/global';
+
 //redux
-import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { UpdateCredit, UpdateCreditCalculate, UpdateOrderShipment } from '../../src/redux/buyerProfile/action';
+import { RefetchCombineKarza, UpdateCompanyDetails } from '../../src/redux/companyDetail/action';
 
-import { Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import {
-  UpdateCredit,
-  UpdateCreditCalculate,
-  UpdateOrderShipment,
-} from '../../src/redux/buyerProfile/action';
-
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import { settingSidebar } from '../../src/redux/breadcrumb/action';
-
-import { RefetchCombineKarza } from '../../src/redux/companyDetail/action';
-import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
-import {
-  GetDocuments,
-  AddingDocument,
-  DeleteDocument,
-} from '../../src/redux/creditQueueUpdate/action';
+import _get from 'lodash/get';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import UploadOther from '../../src/components/UploadOther';
-import _get from 'lodash/get';
-import Router from 'next/router';
+import { settingSidebar } from '../../src/redux/breadcrumb/action';
+import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
+import { McaReportFetch } from '../../src/redux/mcaReport/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { returnReadableNumber } from '@/utils/helpers/global'
+
 
 let alertObj = {
   isShell: 'Shell',
@@ -83,6 +67,7 @@ let alertObj = {
   isVanishing: 'Vanishing',
   NA: 'Non-Genuine Dealers of Mahavat',
   isSebiDebarred: 'SEBI Debarred',
+  // file deepcode ignore DuplicateObjectProperty: Alert Object
   NA: 'BSE Disciplinary Action',
   isNseCompanySuspended: 'NSE Company Suspended',
   isNseExpelled: 'NSE Expelled',
@@ -90,8 +75,7 @@ let alertObj = {
   isNseUnderGsmSurveillance: 'NSE Under GSM Surveillance',
   isNseDefaulter: 'NSE Defaulter',
   isCompanyStrikedOffUs248: 'Company Striked Off Us 248',
-  isBseCompanySuspendedMoreThan7Years:
-    'BSE Company Suspended More Than 7 Years',
+  isBseCompanySuspendedMoreThan7Years: 'BSE Company Suspended More Than 7 Years',
   isBsePenalSuspended: 'BSE Penal Suspended',
   isBseExpelled: 'BSE Expelled',
   isBseDefaulter: 'BSE Defaulter',
@@ -158,10 +142,8 @@ let alertObj = {
   isRatedEntityNonCooperative: 'Entity Non-Cooperative',
   isCreditRatingOutlookNegative: 'Credit Rating Outlook Negative',
   isCreditRatingDowngraded: 'Credit Rating Downgraded',
-  isCreditWatchWithNegativeImplication:
-    'Credit Watch With Negative Implication',
-  isCreditWatchWithDevelopingImplication:
-    'Credit Watch With Developing Implication',
+  isCreditWatchWithNegativeImplication: 'Credit Watch With Negative Implication',
+  isCreditWatchWithDevelopingImplication: 'Credit Watch With Developing Implication',
   isDomainInvalid_: 'Domain Invalid',
   isEmailInvalid_: 'Email Invalid',
   isEmailDisposable_: 'Email Disposable',
@@ -181,23 +163,25 @@ let alertObj = {
 
 function Index() {
   const dispatch = useDispatch();
-
+ 
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
-  const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState(
-    [],
-  );
+  const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([]);
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
   const [litigationStatus, setlitigationStatus] = useState(null);
 
   const { fetchingKarzaGst } = useSelector((state) => state.review);
-  const { companyData, gettingCompanyDetail } = useSelector(
-    (state) => state.companyDetails,
-  );
+  const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
+  const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
- console.log(orderList,"orderList")
+  const mcaReportAvailable =
+    _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
+
+    let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+    let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID');
@@ -212,41 +196,34 @@ function Index() {
         let list = document.getElementsByClassName('nav-tabs') || [];
         let tab = document.getElementsByClassName('tab-content') || [];
 
-        //  console.log(list[0].children[i].children[0].innerHTML,"check")
-
         let tempIndex = 7;
 
         list[0]?.children[0]?.children[0]?.classList?.remove('active');
-        console.log(
-          tab[0]?.children[tempIndex],
-          'Dasdasdsadasd',
-          tab[0]?.children[0],
-        );
+
         list[0]?.children[tempIndex]?.children[0]?.classList?.add('active');
         tab[0]?.children[0]?.classList?.remove('show');
         tab[0]?.children[0]?.classList?.remove('active');
         tab[0]?.children[tempIndex]?.classList?.add('show');
         tab[0]?.children[tempIndex]?.classList?.add('active');
       }
-      if (
-        sessionStorage.getItem('showCAM') == 'false' ||
-        sessionStorage.getItem('showCAM') == undefined
-      ) {
+      if (sessionStorage.getItem('showCAM') == 'false' || sessionStorage.getItem('showCAM') == undefined) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
+        dispatch(GetAllBuyer(`?company=${id2}&limit=${6}`));
       }
     }
   }, [dispatch, fetchingKarzaGst]);
-    useEffect(() => {
-    dispatch(getCountries())
+  useEffect(() => {
+    dispatch(getCountries());
     dispatch(getPorts());
-    dispatch(getCommodities())
-    dispatch(getDocuments())
+    dispatch(getCommodities());
+    dispatch(getDocuments());
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+
   useEffect(() => {
     if (companyData) {
       let statutory = [];
@@ -265,61 +242,24 @@ function Index() {
     }
     if (Array.isArray(companyData?.error) && companyData?.error?.length > 0) {
       _get(companyData, 'error', [{}]).forEach((item) => {
-        let toastMessage = item.description + ', ' + item.message;
-
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          // toast.error(toastDiscription.toUpperCase(), {
-          //   toastId: toastDiscription,
-          // })
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleErrorToast(`${item.description} ${item.message}`);
       });
     }
 
-    if (
-      Array.isArray(companyData?.compliance?.error) &&
-      companyData?.compliance?.error?.length > 0
-    ) {
+    if (Array.isArray(companyData?.compliance?.error) && companyData?.compliance?.error?.length > 0) {
       _get(companyData, 'compliance.error', [{}]).forEach((item) => {
-        let toastMessage = item.description + ', ' + item.message;
-
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          // toast.error(toastDiscription.toUpperCase(), {
-          //   toastId: toastDiscription,
-          // })
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleErrorToast(`${item.description} ${item.message}`);
       });
     }
-    if (
-      Array.isArray(companyData?.profile?.error) &&
-      companyData?.profile?.error?.length > 0
-    ) {
+    if (Array.isArray(companyData?.profile?.error) && companyData?.profile?.error?.length > 0) {
       _get(companyData, 'profile.error', [{}]).forEach((item) => {
-        let toastMessage = item.description + ', ' + item.message;
-
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          // toast.error(toastDiscription.toUpperCase(), {
-          //   toastId: toastDiscription,
-          // })
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleErrorToast(`${item.description} ${item.message}`);
       });
     }
 
-    if (
-      Array.isArray(companyData?.financial?.error) &&
-      companyData?.financial?.error?.length > 0
-    ) {
+    if (Array.isArray(companyData?.financial?.error) && companyData?.financial?.error?.length > 0) {
       _get(companyData, 'financial.error', [{}]).forEach((item) => {
-        let toastMessage = item.description + ', ' + item.message;
-
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          // toast.error(toastDiscription.toUpperCase(), {
-          //   toastId: toastDiscription,
-          // })
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleErrorToast(`${item.description} ${item.message}`);
       });
     }
   }, [companyData]);
@@ -328,184 +268,38 @@ function Index() {
 
   const { orderList } = useSelector((state) => state.buyer);
 
-  const rtrnChartIndiaction = (latest, previous, last) => {
-    if (
-      Number(last) === NaN ||
-      last === null ||
-      (!last && last !== 0) ||
-      last === undefined ||
-      Number(previous) === NaN ||
-      previous === null ||
-      (!previous && previous !== 0) ||
-      previous === undefined ||
-      Number(latest) === NaN ||
-      latest === null ||
-      (!latest && latest !== 0) ||
-      latest === undefined
-    ) {
-      return <img src="/static/noTrend.svg" alt="Loss" className="img-fluid" />;
-    } else {
-      if (last === previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-green-311.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-      if (last < previous && previous < latest) {
-        console.log(last, latest, previous, 'trends');
-        return (
-          <img
-            src="/static/trend-green-321.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-
-      if (last > previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-green-312.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-      ////doubt
-
-      if (last == previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-red-123.svg"
-            alt="Loss"
-            className="img-fluid"
-          />
-        );
-      }
-      if (last > previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-orange-212.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-      if (last < previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-orange-121.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-
-      if (last == previous && previous == latest) {
-        console.log(last, previous, latest, 'trends');
-
-        return (
-          <img
-            src="/static/trend-orange-333.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-
-      ////////doubt
-      if (last == previous && previous == latest && last != undefined) {
-        return (
-          <img
-            src="/static/trend-orange-121.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-
-      if (last > previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-red-123.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-      /////doubt
-      if (last > previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-red-121.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
-      }
-      if (last > previous && previous == latest) {
-        return (
-          <img
-            src="/static/trend-red-113.svg"
-            alt="Loss"
-            className="img-fluid"
-          />
-        );
-      }
-
-      // if (latest > previous && previous > last) {
-      //   return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
-      // } else
-      // if (latest < previous && previous < last) {
-      //   return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
-      // } else
-      //   return (
-      //     <img src="/static/average.svg" alt="Average" className="img-fluid" />
-      //   )
-
-      // if (!last && !previous && !latest) {
-      //   return null
-      // }
-    }
-  };
-
   useEffect(() => {
     dispatch(setPageName('credit-queue'));
-    console.log(
-      orderList?.company?.companyName,
-      'orderList?.company?.companyName',
-    );
+
     dispatch(setDynamicName(orderList?.company?.companyName));
 
-    dispatch(
-      setDynamicOrder(
-        orderList?.company?.customerId || orderList?.applicationId,
-      ),
-    );
+    dispatch(setDynamicOrder(orderList?.company?.customerId || orderList?.applicationId));
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
-
+  const returnFilteredCharges = () => {
+    let data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return (!item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '');
+    });
+    return  data
+  }
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: "",
-    commodity: "",
-    quantity: "",
-    unitOfQuantity: "",
-    orderValue: "",
-    orderCurrency: "",
-    unitOfValue: "",
-    supplierName: "",
-    countryOfOrigin: "",
-    portOfDischarge:"",
-    ExpectedDateOfShipment: "",
-    incoTerm: "",
-    grade: "",
-    tolerance: "",
-    hsnCode: "",
-    manufacturerName:"",
+    transactionType: '',
+    commodity: '',
+    quantity: '',
+    unitOfQuantity: '',
+    orderValue: '',
+    orderCurrency: '',
+    unitOfValue: '',
+    supplierName: '',
+    countryOfOrigin: '',
+    portOfDischarge: '',
+    ExpectedDateOfShipment: '',
+    incoTerm: '',
+    grade: '',
+    tolerance: '',
+    hsnCode: '',
+    manufacturerName: '',
   });
   useEffect(() => {
     let newObj = {
@@ -526,7 +320,7 @@ function Index() {
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     };
-    console.log(newObj,"newObj")
+
     setOrderDetails({ ...newObj });
 
     setShipment({
@@ -565,251 +359,23 @@ function Index() {
     const newInput = { ...orderDetails };
 
     newInput[name] = value;
-    // console.log(newInput)
+
     setOrderDetails(newInput);
   };
 
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment };
     const namesplit = name.split('.');
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
     setShipment(newInput);
   };
 
-  const orderValidation = () => {
-    if (
-      orderDetails?.transactionType?.trim() === '' ||
-      orderDetails?.transactionType?.trim() == undefined
-    ) {
-      let toastMessage = 'Invalid Transaction Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.commodity?.trim() === '' ||
-      orderDetails?.commodity?.trim() == undefined
-    ) {
-      let toastMessage = 'the Commodity can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (orderDetails?.quantity === '' || orderDetails?.quantity == undefined) {
-      let toastMessage = 'Quantity can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.unitOfQuantity?.trim() === '' ||
-      orderDetails?.unitOfQuantity == undefined
-    ) {
-      let toastMessage = 'Please Provide a unit Of Quantity  ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.orderValue === '' ||
-      orderDetails?.orderValue == undefined ||
-      orderDetails?.orderValue == NaN
-    ) {
-      let toastMessage = 'Please Check the orderValue  ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-
-    if (
-      orderDetails?.unitOfValue?.trim() === '' ||
-      orderDetails?.unitOfValue?.trim() == undefined
-    ) {
-      let toastMessage = 'Please Set the unit of value';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.supplierName?.trim() === '' ||
-      orderDetails?.supplierName?.trim() == undefined
-    ) {
-      let toastMessage = 'the supplier Name can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.countryOfOrigin?.trim() === '' ||
-      orderDetails?.countryOfOrigin?.trim() == undefined
-    ) {
-      let toastMessage = 'the country Of Origin can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.portOfDischarge?.trim() === '' ||
-      orderDetails?.portOfDischarge?.trim() == undefined
-    ) {
-      let toastMessage = 'the port Of Discharge can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.ExpectedDateOfShipment?.trim() === '' ||
-      orderDetails?.ExpectedDateOfShipment?.trim() == undefined
-    ) {
-      let toastMessage = 'the Expected Date Of Shipment can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.incoTerm?.trim() === '' ||
-      orderDetails?.incoTerm?.trim() == undefined
-    ) {
-      let toastMessage = 'the incoTerm can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.grade?.trim() === '' ||
-      orderDetails?.grade?.trim() == undefined
-    ) {
-      let toastMessage = 'the grade can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      orderDetails?.tolerance === '' ||
-      orderDetails?.tolerance == undefined
-    ) {
-      let toastMessage = 'the tolerance can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
-      let toastMessage =
-        'HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    // if(orderDetails?.hsnCode?.length > 10){
-    //   console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
-    //   let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return false
-    // }
-    if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
-      let toastMessage = 'add shipment Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      shipment?.loadPort.toDate === '' ||
-      shipment?.loadPort.toDate == undefined
-    ) {
-      let toastMessage = 'add load Port  to';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      shipment?.loadPort.fromDate === '' ||
-      shipment?.loadPort.fromDate == undefined
-    ) {
-      let toastMessage = 'add load Port from date';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      shipment?.ETAofDischarge.fromDate === '' ||
-      shipment?.ETAofDischarge.fromDate == undefined
-    ) {
-      let toastMessage = 'add eta of discharge from';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      shipment?.ETAofDischarge.toDate === '' ||
-      shipment?.ETAofDischarge.toDate == undefined
-    ) {
-      let toastMessage = 'add eta of discharge to';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      shipment?.lastDateOfShipment === '' ||
-      shipment?.lastDateOfShipment == undefined
-    ) {
-      let toastMessage = 'add last date of shipment';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      shipment?.portOfLoading === '' ||
-      shipment?.portOfLoading == undefined
-    ) {
-      let toastMessage = 'add port Of Loading';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (
-      approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue
-    ) {
-      let toastMessage = 'Order Value Cannot Be Greater Than Limit Value';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    return true;
-  };
-
   const onOrderSave = () => {
-    if (!orderValidation()) return;
+    if (!orderValidation(orderDetails, shipment, approvedCredit)) return;
 
     let orderToSend = { ...orderDetails };
     orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity);
-    orderToSend.orderValue =
-      removePrefixOrSuffix(orderDetails.orderValue) * 10000000;
+    orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000;
     orderToSend.tolerance = removePrefixOrSuffix(orderDetails.tolerance);
     if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
       const obj = {
@@ -834,60 +400,47 @@ function Index() {
   const saveProductData = (name, value) => {
     const newInput = { ...product };
     newInput[name] = value;
-    // console.log(newInput, "prod")
+
     setProduct(newInput);
   };
-  console.log(product, 'productData');
+
   const [supplierCred, setSupplierCred] = useState();
-  console.log('orderList', orderList);
-  console.log(supplierCred, 'supplierCred');
+
   useEffect(() => {
     setProduct({
-      AvgMonthlyElectricityBill: orderList?.productSummary
-        ?.AvgMonthlyElectricityBill
+      AvgMonthlyElectricityBill: orderList?.productSummary?.AvgMonthlyElectricityBill
         ? orderList?.productSummary?.AvgMonthlyElectricityBill
         : '',
-      availableStock: orderList?.productSummary?.availableStock
-        ? orderList?.productSummary?.availableStock
-        : '',
+      availableStock: orderList?.productSummary?.availableStock ? orderList?.productSummary?.availableStock : '',
       averageStockInTransit: orderList?.productSummary?.averageStockInTransit
         ? orderList?.productSummary?.averageStockInTransit
         : '',
-      averageStockOfCommodity: orderList?.productSummary
-        ?.averageStockOfCommodity
+      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity
         ? orderList?.productSummary?.averageStockOfCommodity
         : '',
       capacityUtilization: orderList?.productSummary?.capacityUtilization
         ? orderList?.productSummary?.capacityUtilization
         : '',
-      contributionCommoditySenstivity: orderList?.productSummary
-        ?.contributionCommoditySenstivity
+      contributionCommoditySenstivity: orderList?.productSummary?.contributionCommoditySenstivity
         ? orderList?.productSummary?.contributionCommoditySenstivity
         : '',
-      dailyConsumptionOfCommodity: orderList?.productSummary
-        ?.dailyConsumptionOfCommodity
+      dailyConsumptionOfCommodity: orderList?.productSummary?.dailyConsumptionOfCommodity
         ? orderList?.productSummary?.dailyConsumptionOfCommodity
         : '',
-      existingCHA: orderList?.productSummary?.existingCHA
-        ? orderList?.productSummary?.existingCHA
-        : [],
-      existingProcurementOfCommodity: orderList?.productSummary
-        ?.existingProcurementOfCommodity
+      existingCHA: orderList?.productSummary?.existingCHA ? orderList?.productSummary?.existingCHA : [],
+      existingProcurementOfCommodity: orderList?.productSummary?.existingProcurementOfCommodity
         ? orderList?.productSummary?.existingProcurementOfCommodity
         : 'Import',
       existingSuppliers: orderList?.productSummary?.existingSuppliers
         ? orderList?.productSummary?.existingSuppliers
         : [],
-      monthlyProductionCapacity: orderList?.productSummary
-        ?.monthlyProductionCapacity
+      monthlyProductionCapacity: orderList?.productSummary?.monthlyProductionCapacity
         ? orderList?.productSummary?.monthlyProductionCapacity
         : '',
-      paymentStatusForElectricityBills: orderList?.productSummary
-        ?.paymentStatusForElectricityBills
+      paymentStatusForElectricityBills: orderList?.productSummary?.paymentStatusForElectricityBills
         ? orderList?.productSummary?.paymentStatusForElectricityBills
         : '',
-      stockCoverageOfCommodity: orderList?.productSummary
-        ?.stockCoverageOfCommodity
+      stockCoverageOfCommodity: orderList?.productSummary?.stockCoverageOfCommodity
         ? orderList?.productSummary?.stockCoverageOfCommodity
         : undefined,
       typeOfCurrency: orderList?.productSummary?.typeOfCurrency
@@ -900,14 +453,11 @@ function Index() {
     let tempSupplierCredentials = {
       ...supplierCred,
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
-      commodityOfTotalTrade:
-        orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
+      commodityOfTotalTrade: orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
       consigneesNumber: orderList?.supplierCredential?.consigneesNumber ?? '',
       countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin ?? '',
-      latestShipmentDate:
-        orderList?.supplierCredential?.latestShipmentDate ?? '',
-      oldestShipmentDate:
-        orderList?.supplierCredential?.oldestShipmentDate ?? '',
+      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate ?? '',
+      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate ?? '',
       portOfDestination: orderList?.supplierCredential?.portOfDestination ?? '',
       remarks: orderList?.supplierCredential?.remarks ?? '',
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
@@ -920,10 +470,7 @@ function Index() {
   }, [orderList]);
 
   const handleProductSave = (chas, exsupp) => {
-    if (
-      product.capacityUtilization === '' ||
-      product.contributionCommoditySenstivity === ''
-    ) {
+    if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -932,29 +479,17 @@ function Index() {
       let data = { ...product };
       data.existingCHA = chas;
       data.existingSuppliers = exsupp;
-      data.monthlyProductionCapacity = removePrefixOrSuffix(
-        product.monthlyProductionCapacity,
-      );
-      data.capacityUtilization = removePrefixOrSuffix(
-        product.capacityUtilization,
-      );
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(
-        product.AvgMonthlyElectricityBill,
-      );
-      data.averageStockOfCommodity = removePrefixOrSuffix(
-        product.averageStockOfCommodity,
-      );
-      data.averageStockInTransit = removePrefixOrSuffix(
-        product.averageStockInTransit,
-      );
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
       data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(
-        product.dailyConsumptionOfCommodity,
-      );
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
       let obj = {
         order: orderList._id,
         productSummary: { ...data },
-        gstin: gstData.gstin,
+        gstin: gstData.gstin ? gstData.gstin : orderList?.company?.GST,
       };
 
       dispatch(UpdateCreditCalculate(obj));
@@ -972,7 +507,7 @@ function Index() {
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred };
     newInput[name] = value;
-    // console.log(newInput)
+
     setSupplierCred(newInput);
   };
 
@@ -994,13 +529,9 @@ function Index() {
     },
   ]);
 
-  const [financialsComment, setFinancialsComment] = useState(
-    orderList?.company?.recommendations?.commentsOnFinancials,
-  );
+  const [financialsComment, setFinancialsComment] = useState(orderList?.company?.recommendations?.commentsOnFinancials);
 
-  const [companyComment, setCompanyComment] = useState(
-    orderList?.company?.recommendations?.companyProfile,
-  );
+  const [companyComment, setCompanyComment] = useState(orderList?.company?.recommendations?.companyProfile);
 
   const [sanctionComment, setSanctionComment] = useState([]);
   const [approveComment, setApproveComment] = useState();
@@ -1009,24 +540,14 @@ function Index() {
     setApproveComment(_get(orderList, 'cam.approvalRemarks', []));
   }, [orderList]);
 
-  const [strengthsComment, setStrengthsComment] = useState(
-    orderList?.company?.recommendations?.strengths,
-  );
+  const [strengthsComment, setStrengthsComment] = useState(orderList?.company?.recommendations?.strengths);
 
-  const [weaknessComment, setWeaknessComment] = useState(
-    orderList?.company?.recommendations?.weakness,
-  );
+  const [weaknessComment, setWeaknessComment] = useState(orderList?.company?.recommendations?.weakness);
   const deleteComponent = (index) => {
-    setKeyAddData([
-      ...keyAddData.slice(0, index),
-      ...keyAddData.slice(index + 1),
-    ]);
+    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const deleteAddress = (index) => {
-    setPersonData([
-      ...personData.slice(0, index),
-      ...personData.slice(index + 1),
-    ]);
+    setPersonData([...personData.slice(0, index), ...personData.slice(index + 1)]);
   };
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment];
@@ -1063,106 +584,116 @@ function Index() {
     // let newArr = [...companyComment]
     // newArr.pop(index)
     // setCompanyComment(newArr)
-    setCompanyComment([
-      ...companyComment.slice(0, index),
-      ...companyComment.slice(index + 1),
-    ]);
+    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)]);
   };
   const dltFinancialsCommentArr = (index) => {
     // let newArr = [...financialsComment]
     // newArr.pop(index)
-    setFinancialsComment([
-      ...financialsComment.slice(0, index),
-      ...financialsComment.slice(index + 1),
-    ]);
+    setFinancialsComment([...financialsComment.slice(0, index), ...financialsComment.slice(index + 1)]);
     // setFinancialsComment(newArr)
   };
   const dltSanctionCommentArr = (index) => {
     // let newArr = [...sanctionComment]
     // newArr.pop(index)
     // setSanctionComment(newArr)
-    setSanctionComment([
-      ...sanctionComment.slice(0, index),
-      ...sanctionComment.slice(index + 1),
-    ]);
+    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)]);
   };
   const dltApproveRemarkArr = (index) => {
     // let newArr = [...approveComment]
     // newArr.pop(index)
     // setApproveComment(newArr)
-    setApproveComment([
-      ...approveComment.slice(0, index),
-      ...approveComment.slice(index + 1),
-    ]);
+    setApproveComment([...approveComment.slice(0, index), ...approveComment.slice(index + 1)]);
   };
   const dltStrengthsCommentArr = (index) => {
     // let newArr = [...strengthsComment]
     // newArr.pop(index)
     // setStrengthsComment(newArr)
-    setStrengthsComment([
-      ...strengthsComment.slice(0, index),
-      ...strengthsComment.slice(index + 1),
-    ]);
+    setStrengthsComment([...strengthsComment.slice(0, index), ...strengthsComment.slice(index + 1)]);
   };
   const dltWeaknessCommentArr = (index) => {
     // let newArr = [...weaknessComment]
     // newArr.pop(index)
     // setWeaknessComment(newArr)
-    setWeaknessComment([
-      ...weaknessComment.slice(0, index),
-      ...weaknessComment.slice(index + 1),
-    ]);
+    setWeaknessComment([...weaknessComment.slice(0, index), ...weaknessComment.slice(index + 1)]);
   };
 
   const [debtData, setDebtData] = useState([]);
+   const FilterUniqueBank = () => {
+    let filtered = _get(companyData, 'financial.openCharges', []);
+    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
+
+    return unique;
+  };
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
-      orderList?.company?.debtProfile.forEach((val, index) => {
-        temp.push({
+      let repeat=[]
+     let filter = FilterUniqueBank()
+      orderList?.company?.debtProfile.forEach((val, index) => { 
+        // filter.forEach((fil,index2)=>{ 
+        //   if(val.bankName==fil){
+        //     temp.push({
+        //     bankName: val?.bankName,
+        //     conduct: val?.conduct,
+        //     limit: val?.limit,
+        //     limitType: val?.limitType,
+        //     primaryBank: val?.primaryBank,
+        //     addnew:"false"
+        //   })
+          
+        //   }
+        //   else{
+        //     if(!filter.includes(val?.bankName)){
+        //     if(temp.length <= orderList?.company?.debtProfile?.length){
+        //     temp.push({
+        //     bankName: val?.bankName,
+        //     conduct: val?.conduct,
+        //     limit: val?.limit,
+        //     limitType: val?.limitType,
+        //     primaryBank: val?.primaryBank,
+        //     addnew:"true"
+        //   })
+        //    }
+        //   }
+        //   }
+      
+         
+         
+        // })
+
+        if(filter.includes(val?.bankName)){
+          // if(temp.length <= orderList?.company?.debtProfile?.length){
+          temp.push({
           bankName: val?.bankName,
           conduct: val?.conduct,
           limit: val?.limit,
           limitType: val?.limitType,
           primaryBank: val?.primaryBank,
-        });
+          addnew:"false"
+        })
+        //  }
+        }
+        else{
+          temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew:"true"
+          })
+        }
+       
+      
       });
+
+  
       setDebtData([...temp]);
     }
-  }, [orderList?.company?.debtProfile]);
-  // console.log(debtData, 'debtData')
-  // const [personData, setPersonData] = useState([
-  //   {
-  //     contact: {
-  //       callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
-  //       number: orderList?.company?.keyContactPerson?.contact?.number,
-  //     },
-  //     department: orderList?.company?.keyContactPerson?.department,
-  //     designation: orderList?.company?.keyContactPerson?.designation,
-  //     email: orderList?.company?.keyContactPerson?.email,
-  //     name: orderList?.company?.keyContactPerson?.name,
-  //   },
-  // ])
+  }, [orderList?.company?.debtProfile,companyData]);
+
   const [personData, setPersonData] = useState([]);
-  console.log(personData, 'personData');
-  // useEffect(() => {
-  //   if (orderList?.company?.keyContactPerson.length > 0) {
-  //     setPersonData([
-  //       {
-  //         contact: {
-  //           callingCode:
-  //             orderList?.company?.keyContactPerson?.contact?.callingCode,
-  //           number: orderList?.company?.keyContactPerson?.contact?.number,
-  //         },
-  //         department: orderList?.company?.keyContactPerson?.department,
-  //         designation: orderList?.company?.keyContactPerson?.designation,
-  //         email: orderList?.company?.keyContactPerson?.email,
-  //         name: orderList?.company?.keyContactPerson?.name,
-  //         isEdit: false,
-  //       },
-  //     ])
-  //   }
-  // }, [orderList])
 
   useEffect(() => {
     let groupExposureArr = [];
@@ -1171,16 +702,8 @@ function Index() {
     });
     setGroupExposureData(groupExposureArr);
 
-    // let debtArr = []
-    // orderList?.company?.debtProfile?.forEach((element) => {
-    //   // console.log(element,"useEE")
-    //   debtArr.push(element)
-    // })
-    // setDebtData([...debtArr])
-
     let addressArr = [];
     orderList?.company?.keyAddress?.forEach((element) => {
-      // console.log(element,"useEE")
       addressArr.push(element);
     });
     setKeyAddData(addressArr);
@@ -1189,7 +712,6 @@ function Index() {
 
     if (orderList?.company?.keyContactPerson?.length > 0) {
       orderList?.company?.keyContactPerson?.forEach((element) => {
-        //  console.log(element,"useEE")
         personArr.push({
           contact: {
             callingCode: element.contact.callingCode,
@@ -1223,11 +745,9 @@ function Index() {
     setPersonData([...personArr]);
 
     let commentFinancialArr = [];
-    orderList?.company?.recommendation?.commentsOnFinancials.forEach(
-      (element) => {
-        commentFinancialArr.push(element);
-      },
-    );
+    orderList?.company?.recommendation?.commentsOnFinancials.forEach((element) => {
+      commentFinancialArr.push(element);
+    });
     setFinancialsComment(commentFinancialArr);
 
     let companyCommentArr = [];
@@ -1256,7 +776,7 @@ function Index() {
   }, [orderList, orderList?.company, companyData?.profile?.directorDetail]);
 
   const [groupExposureData, setGroupExposureData] = useState([]);
-  console.log(groupExposureData, 'groupExposureData');
+
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: '',
     suggestedOrderValue: '',
@@ -1269,9 +789,7 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: suggestedValue
-        ? suggestedValue / 10000000
-        : suggestedValue,
+      suggestedCreditLimit: suggestedValue ? suggestedValue / 10000000 : suggestedValue,
       suggestedOrderValue: orderList?.suggestedOrderValue
         ? orderList?.suggestedOrderValue / 10000000
         : orderList?.suggestedOrderValue,
@@ -1281,28 +799,23 @@ function Index() {
       approvedOrderValue: orderList?.approvedOrderValue
         ? orderList?.approvedOrderValue / 10000000
         : orderList?.approvedOrderValue,
-      approvedCreditValue: approvedCreditLimit
-        ? approvedCreditLimit / 10000000
-        : approvedCreditLimit,
+      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit / 10000000 : approvedCreditLimit,
     });
   }, [orderList]);
 
   const saveSuggestedCreditData = (name, value) => {
-    console.log(name, value, '');
     const newInput = { ...suggestedCredit };
     newInput[name] = value;
-    // console.log(newInput)
+
     setSuggestedCredit(newInput);
   };
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit };
     newInput[name] = value;
-    // console.log(newInput)
+
     setApprovedCredit(newInput);
   };
-
-  //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
     let newArr = [...groupExposureData];
@@ -1321,7 +834,7 @@ function Index() {
         if (i == index) {
           return newData;
         }
-        // 👇️ otherwise return object as is
+
         return obj;
       });
 
@@ -1384,11 +897,7 @@ function Index() {
     }
   };
 
-  // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
-    // let newArr = [...personData]
-    // newArr.push(keyPersonData)
-    // console.log(keyPersonData, 'This IS KEY PETDHDH')
     setPersonData([
       ...keyPersonData,
       {
@@ -1412,52 +921,37 @@ function Index() {
     });
     setPersonData(tempArr);
   };
-  console.log(product, 'xxxxxxxx');
+
   const creditValidation = () => {
-    if (
-      product.monthlyProductionCapacity == '' ||
-      product.monthlyProductionCapacity == undefined
-    ) {
+    if (product.monthlyProductionCapacity == '' || product.monthlyProductionCapacity == undefined) {
       let toastMessage = 'Please add  monthly Production Capacitye';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.capacityUtilization == '' ||
-      product.capacityUtilization == undefined
-    ) {
+    if (product.capacityUtilization == '' || product.capacityUtilization == undefined) {
       let toastMessage = 'Please add  capacity Utilization';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.averageStockOfCommodity == '' ||
-      product.averageStockOfCommodity == undefined
-    ) {
+    if (product.averageStockOfCommodity == '' || product.averageStockOfCommodity == undefined) {
       let toastMessage = 'Please add  average Stock Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.averageStockInTransit == '' ||
-      product.averageStockInTransit == undefined
-    ) {
+    if (product.averageStockInTransit == '' || product.averageStockInTransit == undefined) {
       let toastMessage = 'Please add  average Stock In Transit';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.AvgMonthlyElectricityBill == '' ||
-      product.AvgMonthlyElectricityBill == undefined
-    ) {
+    if (product.AvgMonthlyElectricityBill == '' || product.AvgMonthlyElectricityBill == undefined) {
       let toastMessage = 'Please add  Avg Monthly Electricity Bill';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1471,111 +965,85 @@ function Index() {
       }
       return false;
     }
-    if (
-      product.dailyConsumptionOfCommodity == '' ||
-      product.dailyConsumptionOfCommodity == undefined
-    ) {
+    if (product.dailyConsumptionOfCommodity == '' || product.dailyConsumptionOfCommodity == undefined) {
       let toastMessage = 'Please add  Daily Consumtion Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.stockCoverageOfCommodity == '' ||
-      product.stockCoverageOfCommodity == undefined
-    ) {
+    if (product.stockCoverageOfCommodity == '' || product.stockCoverageOfCommodity == undefined) {
       let toastMessage = 'Please add  stock Coverage Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.existingProcurementOfCommodity == '' ||
-      product.existingProcurementOfCommodity == undefined
-    ) {
+    if (product.existingProcurementOfCommodity == '' || product.existingProcurementOfCommodity == undefined) {
       let toastMessage = 'Please add  Existing Procurement Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.supplierName == '' ||
-      supplierCred.supplierName == undefined
-    ) {
+    if (supplierCred.supplierName == '' || supplierCred.supplierName == undefined) {
       let toastMessage = 'Please add supplier Name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.shipmentNumber == '' ||
-      supplierCred.shipmentNumber == undefined
-    ) {
+    if (supplierCred.shipmentNumber == '' || supplierCred.shipmentNumber == undefined) {
       let toastMessage = 'Please add number of shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.consigneesNumber == '' ||
-      supplierCred.consigneesNumber == undefined
-    ) {
+    if (supplierCred.consigneesNumber == '' || supplierCred.consigneesNumber == undefined) {
       let toastMessage = 'Please add consignees Number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.HSCodesNumber == '' ||
-      supplierCred.HSCodesNumber == undefined
-    ) {
+    if (supplierCred.HSCodesNumber == '' || supplierCred.HSCodesNumber == undefined) {
       let toastMessage = 'Please add HS Codes ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.countryOfOrigin == '' ||
-      supplierCred.countryOfOrigin == undefined
-    ) {
+    if (supplierCred.countryOfOrigin == '' || supplierCred.countryOfOrigin == undefined) {
       let toastMessage = 'Please add country Of Origin ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.portOfDestination == '' ||
-      supplierCred.portOfDestination == undefined
-    ) {
+    if (supplierCred.portOfDestination == '' || supplierCred.portOfDestination == undefined) {
       let toastMessage = 'Please add port Of Destination ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.oldestShipmentDate == '' ||
-      supplierCred.oldestShipmentDate == undefined
-    ) {
+    if (supplierCred.oldestShipmentDate == '' || supplierCred.oldestShipmentDate == undefined) {
       let toastMessage = 'Please add oldest Shipment Date ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.latestShipmentDate == '' ||
-      supplierCred.latestShipmentDate == undefined
-    ) {
+    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined || !supplierCred.latestShipmentDate || supplierCred.latestShipmentDate == 0) {
       let toastMessage = 'Please add latest Shipment Date ';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (supplierCred.commodityOfTotalTrade == '' || supplierCred.commodityOfTotalTrade == undefined) {
+      let toastMessage = 'please add commodity Of Total Trade';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1592,35 +1060,21 @@ function Index() {
 
       let tempDebtData = [...debtData];
       tempDebtData.forEach((val, index) => {
-        delete val.action && delete val.actions;
+        delete val.action && delete val.actions && delete val.addnew;
       });
       let data = { ...product };
-      data.monthlyProductionCapacity = removePrefixOrSuffix(
-        product.monthlyProductionCapacity,
-      );
-      data.capacityUtilization = removePrefixOrSuffix(
-        product.capacityUtilization,
-      );
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(
-        product.AvgMonthlyElectricityBill,
-      );
-      data.averageStockOfCommodity = removePrefixOrSuffix(
-        product.averageStockOfCommodity,
-      );
-      data.averageStockInTransit = removePrefixOrSuffix(
-        product.averageStockInTransit,
-      );
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
       data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(
-        product.dailyConsumptionOfCommodity,
-      );
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
 
       let supplierData = { ...supplierCred };
-      supplierData.commodityOfTotalTrade = removePrefixOrSuffix(
-        supplierCred.commodityOfTotalTrade,
-      );
+      supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade);
       let tempArray = [...groupExposureData];
-      // console.log(tempArray, 'groupExposure')
+
       tempArray.forEach((e) => {
         if (e.limit.length >= 5) {
           let oldValue = e?.limit?.replace(/,/g, '');
@@ -1635,8 +1089,6 @@ function Index() {
           Number(e.outstandingLimit);
         }
       });
-
-      console.log(tempArray, 'groupExposure');
 
       let obj = {
         productSummary: { ...data },
@@ -1653,37 +1105,25 @@ function Index() {
         },
         debtProfile: tempDebtData,
         groupExposureDetail: [...tempArray],
-        suggestedOrderValue:
-          removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
-        suggestedCreditLimit:
-          removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       };
 
-      console.log(obj, 'credit obj');
       dispatch(UpdateCredit({ ...obj }));
     }
   };
 
-  const filteredCreditRating =
-    orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
-      return orderList?._id === rating.order;
-    });
-
-  console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING');
+  const filteredCreditRating = orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
+    return orderList?._id === rating.order;
+  });
 
   let approvedCreditLimit =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.approved?.value
-      : '';
+    filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.approved?.value : '';
 
   let suggestedValue =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.suggested?.value
-      : '';
+    filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.suggested?.value : '';
   let derivedValue =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.derived?.value
-      : '';
+    filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.derived?.value : '';
   let approvedCreditValue = approvedCredit.approvedCreditValue;
 
   let suggestedOrder = orderList?.suggestedOrderValue;
@@ -1701,8 +1141,7 @@ function Index() {
     if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedCreditValue) {
-        let toastMessage =
-          'More than 30% diff in derived and suggested value,Approved credit value required';
+        let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
@@ -1716,8 +1155,7 @@ function Index() {
     if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedOrderValue) {
-        let toastMessage =
-          'More than 30% diff in applied and suggested order value,Approved order value required';
+        let toastMessage = 'More than 30% diff in applied and suggested order value,Approved order value required';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
@@ -1728,10 +1166,8 @@ function Index() {
   };
 
   const handleCamApprove = async () => {
-    if (orderValidation() && creditValidation()) {
-      console.log('CAAAAA2');
+    if (orderValidation(orderDetails, shipment, approvedCredit) && creditValidation()) {
       if (gettingPercentageCredit && gettingPercentageOrder) {
-        console.log('CAAAAA3', approveComment);
         const obj = {
           approvalRemarks: [...approveComment],
           approvedOrderValue: approvedCredit.approvedOrderValue * 10000000,
@@ -1739,10 +1175,10 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         };
-        let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
-        console.log(code, 'code');
+        let code = dispatch(UpdateCam(obj, 'CAM APPROVED'));
+
         if (code == 200) {
-          dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'));
+          dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
       }
@@ -1756,14 +1192,13 @@ function Index() {
     dispatch(UpdateCam(obj, 'CAM REJECTED'));
   };
 
-  const initials = () => {
-    let name = orderList?.company?.companyName ?? 'N A';
-    let Initials = name?.split(' ');
-    return `${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`;
-  };
+  // const initials = () => {
+  //   let name = orderList?.company?.companyName ?? 'N A';
+  //   let Initials = name?.split(' ');
+  //   return `${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`;
+  // };
 
   const currentOpenLink = (e) => {
-    console.log(e.target.attributes[4].nodeValue, 'eee');
     if (e.target.attributes[4].nodeValue == 'Compliance') {
       let list = document.getElementsByClassName('nav-tabs');
       let tab = document.getElementsByClassName('tab-content');
@@ -1785,18 +1220,12 @@ function Index() {
     let list = document.getElementsByClassName('nav-tabs');
     let tab = document.getElementsByClassName('tab-content');
     for (let i = 0; i < list[0].children.length; i++) {
-      //  console.log(list[0].children[i].children[0].innerHTML,"check")
       if (list[0].children[i].children[0].classList.contains('active')) {
         let tempIndex = i + 1;
         if (tempIndex < list[0].children.length) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML);
           list[0].children[i].children[0].classList.remove('active');
-          console.log(
-            list[0].children[tempIndex].children[0],
-            'okok',
-            tab[0].children[i],
-            tab[0].children,
-          );
+
           list[0].children[tempIndex].children[0].classList.add('active');
           tab[0].children[i].classList.remove('show');
           tab[0].children[i].classList.remove('active');
@@ -1807,15 +1236,15 @@ function Index() {
       }
     }
   };
-  console.log(selectedTab, 'specificationTable');
+
   const onPreviousClick = () => {
     Router.push('/credit-queue');
   };
+
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs');
     let tab = document.getElementsByClassName('tab-content');
     for (let i = 0; i < list[0].children.length; i++) {
-      //  console.log(list[0].children[i].children[0].classList,"check")
       if (list[0].children[i].children[0].classList.contains('active')) {
         let tempIndex = i - 1;
         if (tempIndex >= 0) {
@@ -1832,6 +1261,26 @@ function Index() {
     }
   };
 
+  const handleMcaReport = (task) => {
+    if (task === 'downlaod') {
+      if (mcaReportAvailable) {
+        dispatch(ViewDocument({ path: companyData?.mcaDocs[companyData?.mcaDocs?.length - 1].s3Path }));
+      } else {
+        let toastMessage = 'mca report not Available to download';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+      }
+    } else {
+      dispatch(
+        McaReportFetch({
+          company: orderList.company._id,
+          order: orderList?._id,
+        }),
+      );
+    }
+  };
+
   const updateLitigationStatus = (e) => {
     setlitigationStatus(e.target.value);
     dispatch(
@@ -1842,29 +1291,23 @@ function Index() {
     );
   };
   const primaryBankName = () => {
-    console.log(
-      orderList?.company?.debtProfile,
-      'orderList?.company?.debtProfile',
-    );
     let filteredData = [];
-    filteredData =
-      orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
+    filteredData = orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
     const length = _get(filteredData[0], 'bankName', '');
 
     return length;
   };
   const openChargesLength = () => {
-    const filteredData =
-      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
-        (data) => data.dateOfSatisfactionOfChargeInFull === null,
-      );
+    const filteredData = orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
+      (data) => data.dateOfSatisfactionOfChargeInFull === null,
+    );
 
     const length = filteredData?.length;
 
     return length;
   };
-  
+
   const debtProfileColor = (conduct) => {
     switch (conduct.toLowerCase()) {
       case 'good':
@@ -1887,15 +1330,20 @@ function Index() {
     shareHoldingChartImg,
     openBankChargeChartImg,
     debtProfileColor,
+    backgroundColor,
+    backgroundColor1,
+    returnFilteredCharges,
   ) => {
-    console.log(_get, 'get');
+
+  
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
       }
       return ((n2 - n1) / n1) * 100;
     }
-    let backgroundColor = ['#4CAF50', '#FF9D00', '#2884DE'];
+
+  //  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
     let neddle1 =
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALgAAACoCAYAAABT5SRcAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAAB3RJTUUH5gkeBzEgSWMhHQAAAAFvck5UAc+id5oAABmxSURBVHja7Z17eJTVnce/57xzz0ySmUlmEiCAQihqW7oShIDVsgoIVosbrgk3BWNrt1Z3t7vdbXeLvQiofZ5KkJaLbXd9tl3Rp1tbVgGxtpZbFKhU8RYgQEhICLnM/fa+79k/QsLMZJKZSfLOm0zO5x/4nfe85z3nzJfD7z2X90fAGVUwxsj+oycnUSpPAUgpZFYKSiaDwQHADAYzCCwAjACCALwM8BLAC4Y2RnAWjNQBrI5p5Dq9z/fJ3LlzRbXb1RdE7QpwlGXPnj1CbsmN0wjYnZSQOxjD7QAKhqp8AngYw1FC2Nsg5E+R9rx3Fy0qDand7qj6cbINxhjZ/87J24nMVhJgCYDCDD7ey4DfgZFf23Vsf1lZWUTNvuACzyL219beQGTNVwG2DMDEgZZDCIFAKSRZBmNsMFVqAyGvyIT89J6Zt55So0+4wLOAfbUnp1GZfRtgSwBokuU36vWw5BhhMhhgMuhhMuhh0OsgUAEagYJS2pNXlhkkWYIkyQiFI/AHg/AHQ/AHg/D4A/AFgqlUkQE4SMGevrt8xsFM9g0X+Ajm4OGT5TKRN4JgHvr5LY16Pex5FuTnWmC1mGHQ64asDuGIiE6PFx0eD9pdHnj9gWS3nCCE/WDerBmvZqKPuMBHIAePHXPKsvYZELYKffyGOq0GTrsNxXYb8iw5Gaub1x9Ac1sHLl9tQzAU7jMfA9tHiOax+bP+pk7J+nCBjyCOHz+u7RDxTcbwXQB5ifJYcy2YUOxEQX4uCFH35+30eHHhcgta2zvRhycfArBNJOL3F82a5VaiDlzgI4R9R05MppS9DIYvxF8jAApt+ZhYXJTR0TpVfIEgLlxuweWrbZDlhFJvkCmpumfm9D8P9bO5wEcAB46eWEfAtjLAEn8t32LGTTeMh9lkVLuaSQmGw6i7cAnNbR2JLotg+MGR8uk/3EiIPFTP5AIfxrz11mlzRB/cDsJWx18z6HQonTAORXar2tVMm3a3Bx/XX0w4A8NADhKJrJ1/+61NQ/EsLvBhyv7DpxyERg4AmBZ/bXyRA5NLxkIQ6ABKHh4wxnDhcgvONDQlmmtvYjJbsGDOjA8G+xwu8GHIm4ePT5IoXgdQGp2u1Qi4ZdJEFFrz1a7ikOHy+PD+mXoEQr1W9zsIIYvmzZp+bDDlc4EPMw7UniyDLO8F4IxOt+aa8dlJNwzpHPZwQZQkfHjuAlp6++Z+BrJiQfn03w+0bC7wYcS+2hNfpDJ7DYA5Or24wIZbJk1UfdpPaeobm3GmoTE+WSQMa+fNLvvVQMrM7h4bQRw8dvJmmcmHAMS8Nd4wthiTS8aoXb2M0XjlKj6qvxjvl0fA6ML5s299M93yuMCHAQcOnRwDQT4GoKQ7jQCYMqEE44sdalcv41xp78T7Z+ohy9dnCwngYZT+7fyZtx5PpywucJU5WFtrl2XhLQCfi06/+cYJGOsYsm3bI452lwd/+bgOcuxI3ipJ7IsLb5/xSarljNx5piyAMUZkmb6EOHFPHFM0qsUNALY8C26ZPDE+uVAQyO9fPXTIkmo5XOAq8kbticcAcld0WomzEKXjx6pdtWFBkd2GKRPGxSeXGgX99lTL4C6KSuw78u5tlJBDALTdaQ5bPj4/ZRL/UeKou9iI803NMWmEsbXzZs/4r2T38hFcBfYdOWKjhPwPosRt0Ou6pgLVrtwwZHLJGOSZYzeRMUKe33/k+NRk93KBqwAl2mcB3NBtE0Lwuck3QCMIaldtWEIIwedKe/WPGZT9nDHW75jABZ5h9h87MR0ga6PTbhxbjHyLeaBFjgqMej1uvnFCTBphpPyNoyeW9HcfF3gG2cgYBeQaRPV7vsWMG8YVq121EYHTbu09u0Tw4/2nTvW5CZ4LPIOUHz3+IGGkvNsmAKZOLOF+dxpMLhkLjSbGVSmBP/ytvvJzgWeIPadP60DID6PTigrtsOSY1K7aiEKn1WDSuNitCwTk228ePjkhUX4u8AxhdflXEKCo29ZqNJgyftxgihy1lDgL408w6SUqfy1RXi7wDLBnzx6BEfKv0WkTxzih0yb9hAknAYSQRBvQvvrG8eO9DmJzgWcAa8mkCgA9c7YaQcA4Zya/ppZ9FFrzYTLoo5PymIh18fm4wDMAA/4p2h5TaOdz3kNASVHcTksZ//Laa3UxqucCV5jXj/5lIsBmdNuUEkwY4xxEiZxuxjkKoNdprycQFAtW9/zoPFzgCiNAWh5tO6z5MOiy79iZGlBKe82LE4alMXnUrmS2QwgejLaLCmxqVymrKLLH9SdhD0Rvp+UCV5ADtSfLGMNnum2tRoA9L28wRXLiyDEakBu7lmA2avSLuw0ucCVh8n3RpsNmBaV83XKo6f2/Iunpdy5wJWHkzmgzm75nMpxwxPcrwx3df+UCV4iu6So2s9smAKx8x6AiGA362NkUwNm9V5wLXCGo3X0bAEO3bc4xxW8S4gwh1ty4Y5qU3AFwgSsGlfHFaJuP3soS379Exu0AF7hiMLBbom1+oEFZ8uL7l7CbAS5wxSDA5Gg7bt8EZ4jJ6d2/pQAXuJLECtxoGGg5nBSglMavEOfuP3zKwQWuAAdra+0AeiZn9TotBMq7Wmni/5ekQmQK73UFkEVSEm2b9Nw9yQTGeDdFxngucAUglORH21p+sCEjaDWx/SxTYuYCVwJKYk55c/ckM2jiQ7rIyOM9rwQyF7ga0Lh+pgQm3vMKIBPkR9saDXdRMoEQd0qKgQuck+VwgSsAZeiMtkVRVLtKowJJkmJsAvi5wJWAMl+0KcpDFriX0w9SXD/LjAtcGeRYgctc4BlBkuL6mcLFBa4ATGad0XY4wl2UTBCJcwWpzLxc4AogE/FitB0IhgZaFCcN4vuZEXaBC1wB7pk9ux1Ae7cdikR6//fJGXL88QKXdXVc4MpRF234g0G165PVyLKMYDgcneRaMGfaFS5whSDAmWjbx90URfEFeg0gZwA+D64YMsPpaNvl8apdpazG5Y2ZuAIjXf3PBa4QlOLP0XaH26N2lbKaDnfsAEJYV/9zgStEpD3vXQCBbtvrDyAiSoMokdMfHZ7YAUSSGBe4kixaVBoCUNttMwCdHj6KK4E/GEIoHOmxGdDcHc+eC1xBGNifou0r7Z1qVykrie9XArzd/XcucAVhIL+Ltq+0d/JlewVobmuPsaP7nQtcQe4pLzsJ4Hy3LUoSrna61a5WVuELBOHx+aOTgrqg4dVugwtceV6KNuJHG87gaL4a258EODh37i09Uypc4ArDGH4Zbbe2dyIciQywNE40MmNobL0am8jYy9EmF7jCLJhd9jGiZlNkxnCp5eogSuR009LWHjN7AqA1qCOvRCdwgWcARtiz0faF5haIfE58UDAA9Y3NcWls+31lZTEOORd4Bjg6s+w3YDjXbYuihIaWVrWrNaJpbe+M33/iE6hcE5+PCzwDbCREBsXW6LQLl1t6bdDnpAZjDGcbmuKTX7h75sy2+EQu8AxhlsM7AfT8KhFRxLlLl9Wu1oikoaUV3kAgOilCJPw4UV4u8Awxe/bsAEC+E53W0NIKd+wcLicJ4Ugk0ej903m3l11MlJ8LPIPMm3XrfwI40W0zxvDx+YuDKHH0UXexEWL05yEYLotE/Pe+8nOBZxBCCKMy/QYYY91pLo8PF5uvqF21EUFrRyeaWmPdbAL27UWzZvW5PMwFnmF27fyZ5YO/fhATLPPTC5d6bdjnxBIMh3H67IX45EN3l5e92N99XOAZZP369Ta/1//q22/+ER739UGHMYb36+r5fvE+uN4/MbNOXkql9YQQ1t+9XOAZpMMr1oqRiCEUCuK1V/fG7CwMhEI4fbY+2nvhXKPuYiM644/8Efbo3TNnfprsXh64MUNUrNzwYsDv/1K37XF7QChByfjxPXn8wRDCoohCK49n301D8xWcvRQ3a8LIi/PLy55M5X4+gmeAFasfXu33eVfFpx87dBTn6+tj0i61tOJ8U3PKZWczV9o78Mn5hvjkj7Uhw6OplsFHcIVZvubhKT6f7wCT5YSDSf2Zc7ixdBJMJlNPWrvLA71Oh9wcU8rPyTbaXG78ta6Xy9YmM3LXvDumpTwCcIEryNKlS3UhkXwoRiJ9RoGVRBHnzpzDlJunQhcVBq+twwWtVos8c05Kz8omWjtcOPXpufjTTz4q04Xz50z/azplcYEryNTPz3ozFAzclCxfOBRCw/kLmHLz1JhoEFc7XZBlBntertpNyRiNV67ig7Pn40fuMGXk7+6eM/2P6ZbHBa4QS1c+/KTf712ban6/z4+mS42YevNNoFHBlDo9XgRDYRRa80AISbW4Ecm5S5fx6YVL8ckSGFs7b3bZbwdSJhe4AiypeuQuv9+9GwxpKdLvD8DrC2BcydiYkdzjD6Dd7YE9PxcaIft+MlGUcPrsBTS09FrRDRCQlfNnl708kHIBLvAhZ/Hix/MjsuukLEnadO4TBAGFzjEIh8NoamxC0ZjiGJ88GA7jcms7TAYDcrIoLLjL68PJjz7tPc8NuAjBwnnlZfsHUz4X+BBz07TPnAqHws507qGUotBZDK2u699EOBTGpYuX4HQ6YIgSsyzLaGnrQDgiwppr7hU2byTBGMP5pmZ8cPZ8ohXcBkrIvHmzyt4d7HO4wIeQisoNOwJ+//x07qGEosBZBF1cuG9RFHHx/EUYjQbkW/Njrrl9fly+2gadVgOLaeRNJba73Hjvk7NoaevodY0Ab1EiLrh71m3nBlB0L7jAh4ilVdWVPp/nqXTuIYTAXuiE3pDY5ZBlGU2XmuDz+uAsdsaM2JIk40p7JzrcHphNJuh1aXlEqhAIhfDhuQs409CU6DSTSAi+09Fw7qv3LVgwZN+4y+7X8gxRUbmuNBQIfyhJUuoRXwlBQYEDhhRHYIvFgplzboPVZk14vSA/DxPHFsFqMadUXibxBYKob2xGc1t7X3ttzgNs1fzyGYeH+tl8BB88dMrUz3/c32JOImyFDhhNqS/ihMNh1J89j1A4jEJHoUwpjRmc/MEQmlrb0O7yQKvRwGTQqz6t2O724OP6Bnx6oQEefyBRljAIntYGjZV3f/ELZ5WoAx/BB0nFivWv+f3ehencY7UXIMdsGdDzGMjxabfe8tBnpk59DMBD6GM/kVajgdOWj6ICG/JzLRn7od0+P5qvtqOlvQPBULjPfATYS6j0j6nsCBwMXOCDYMmqDd/zuT0b07knz2aHxTLAlUmCvUGduOLFZ5/1AcCB2pNlkKX/AMiX0c9vqddpYcvLhdVihjXXApNBn/IjkxGKRNDh8qDD40W7y90rEFQC3mFgGxeUz3h9yCrRb5dxBkRV1YZZnV7fEZnJKfehJS8Pefm2gT2Q4Gedl8/+/csvv9xrTm3/4Xc/C4F8izCsBJD0bVOv08JiMsFk0MNkMMBk1MOg00EjCBAECkEQeoQhSTJEWYIkyQiFw/AHQ/AHg/AHQ/D6A6kIGgAYGF6TBbLlnpnT/5zKDUMFF/gAqKqqyvUEaVMkEk7ZiTbn5iLfah/I42Qw9g+7tm15LlnGNw+fnCBRqRqMrADBjYNpI6UUTJYxyOMXrQB5CbL0wvw5t703uKIGBhf4AHhg+YMfBgP+pJuousmxWGC1FQzkUQEGsmp3zabfpHMTY4wcOHbiNsKwkhEsJ0BRBrvHBeB/QfBrbcDzh7lz56r6dSMu8DSpqNyww+/1VKea35STA1uBYyCPugrCvrJr65Yjg6nvRsbonKMnbmEgd4CyO8FwJ4ABVagPXGA4xED+BMLetmtxsqysbNh8PpcLPA0qVj2yMuBx/4qx1KI0GIwm2B3OAXQyOUuJuHDH1mfq0r41CYwxsu/YexMoEUsBUkoZmQywUtYlejMAy7U/c9AVRMsLwAPGvKCkDTI7Q0DPQGB1YoSd8TTVn1m2bNmwPS3NBZ4ia9Y8MbbDd6VejIgpLRnq9QYUOIsGMBdN3hGBL/+iZhP/OucQMHJ362QW6g62v5OquHV6PQoczvTFTfAyCenncnEPHVzgKVCxYv3eUDA4JpW8Wq22yy1Jc6cfAZ4ZazOs2LlzI/9Y4RCS+t6JUcqy1dVPeFyulFYqNVotCpzFEGhaOyAkEPbEzq1batK5iZMa3Afvh+XrHp3hdXUekyUp6XAsaDRwFBVDENIaMwKEkcqd2zb9Vu22Zitc4H1QVVWV6wnRxkg4nHQTFRUEOJxjoNGmJe5WBvn+3TVPH1O7rdkMd1H6ICBq346EA8nFTSkKHUXpiZvhI1nG/S9sf/qM2u3MdvhLZgIqKjdsDwQC05LlI5TA7nBCG3V2MhmM4W2NhDkvbN/MxZ0BuIsSx9K11ff6Ot17k30Ek5AucRsMxpTLJsBLevjW1tTUpLRDiTN4uMCjWLPmibEd3tazohjpdz8pQfoHFgjIUztrNn0XGOz+JU46cB/8OtQVbK9NJm4AsBWkJW4JDI/t3LZpu9oNHI1wgV9jycqHXvH5fGOT5bPaC2DMSVncHjCyate2Tb9Tu32jFS5wAMsqqx/zel0PJMuXZ7Wlc9Tssgzc+8K2TX9Ru32jmVHvg1eu/dp0t9v1jpRkMSfN0zgfEsoW7nxuCw+hpjKjWuDr1q0ztHukK5FIuN9h2WzJRb4t5dM4f4wIhgd++ZONnWq3jzPK58HdQfJWMnGbcszpiPvXBvju4eIePoxaH7yicn2N3+ud1V8eU04OrPaUjpoxxvDk7m2bvw8+DTisGJUuSkXlI4sCPtf/9beYYzQaYXMUpdJBEQDVu2o2/1LtdnF6M+oEvqq6uth11V/f33y33mBM9cCCm8nykt3PP/2G2u3iJGbUuSjejtA7/Ylbp9PBXuhILm6GRkrYvTuef/qU2m3i9M2oesmsWLnhxVAoOK6v61qtDnZnUdLvbhPgA1EWynfUbOHiHuaMGoFXrK7+esDnWdXXdY1GiwJnUdLTOAzYhxC7/Rfbf9QAzrBnVAh8+fINN4W83q19vVIKGg0KHUUQksW/IeyFcXbDfTt3bnGp3SZOamT9S+a6desMHT6pKRwKJ/ywNhUEOIqKodH0e2CeMbDv7q7ZktYH7jnqk/Uvme4geasvcRMqoMBRlEzcERCyfvfWzS+q3RZO+mS1wJesfPgpn8+dcDGHUIIChyMmklkCXJTQih1bn3pT7bZwBkbWuijL11bP93Z69iX6vDEhBAWOoj5j41zjPGHs/p3btryvdls4AycrBb5ywzedns6281I40kvBhJBrBxb6jY1zQitJX96+/ZlmtdvCGRxZOYsScHW+k0jcAJBvs/cvbobXtJLhS1zc2UHWCfzaYs74RNesdnuSAwts19gCw1e2b9/oBScryKqXzBWrH17tciVezMnLtyHH3GdsHAZC/nnX1s3Pqt0GztCSNT748jUPT/F5faclsXesyiSncYIANuyq2fzfareBM/RkhcCXLl2qC8PYFA6Fep1M6C98CAPaKGWLdz635ZDabeAoQ1a4KJJgORD2+3qJ22Q29xMbh9XLlC3c/dzTn6hdf45yjPiXzCVV638Q8PvujE83mEz9jNzkOKNC+c+5uLOeEe2iLKl65C6/1/0Gi1vMMRhNfe/pjgumysluRqzAFy9+PF8Srl4WI7Hz3f3GxuknmConOxmxPjjRd9aKgVhxa3X6rvAhvcXdFUy1JnkwVU52MSIFvmTVhp/73J4pMQ3RalHoSHgapyuY6rbNaQVT5WQHI07gS1Y9XOXzeB6MaYTmmriFXuK+SmVy/47nNx1Vu94cdRhRPnhF5brSUCDyoSSJPf8wBUFAYdEYaDTx/1aVC6bKGTmMpBGcihH5SIy4KUWBsziRuLuCqW59hsebHOWMmHnwihXr94ZDoZ6JbUIFFDiLoNXGncbhwVQ5UYwIgS9ZteF7fr+3J1YloQSFDie0utjPm/Bgqpx4hr0PXlW1YVan13ek52QOISgodMJgjImNIxHg8Z01m7epXV/O8GJYC3zx4sfzZaHtUiQS7gmpYO8dG4cHU+X0ybB+ySR619FI4Lq4rfaCeHG3Msj379rGg6lyEjNsffCKyg07ggH/1G47zxZ3GofhI1nCbB4pmNMfw1LgFaseWRnw+aq77TyrDRbL9dM4PJgqJ1WGnQ++4sFHS3xu11kxImqB3qdxeDBVTjoMNx+cBn2+2m5xmy25MeJmDD/atW3zv4NHUeCkyLASeMWK9Xv9fm8x0Cs2jgSGx3Zv28yDqXLSYtgIfNnq6ic8LtdC4NppnOuxcTwyWNUL27b8Xu06ckYew8IHr1hdPTPk9RyRJJkajEbYC3v2dDdBoPfu+slT76ldR87IRHWBV1VV5XpCtDESDpu7TuM4QQgFeDBVzhCg+jRhQNS+HQmHzddP41CgK5jqHC5uzmBRVeAVlQ/9NBAITIs+jcMI+VWn3bCAB1PlDAWquShLKquX+n2ePYJAUegshqDR8GCqnCFHFYGvWfPE2A5vaz1jsvbaaRweTJWjCGpME1JXsL1WliWto+s0Dg+mylGMjPvgS1Y+9IoYCo8tcBZBo9U1UrA7uLg5SpFRgS+rrH4s4A88UOB0Qq/T82CqHMXJmA9eufZr090ed63VViDojcZ9NMRW8HiTHKXJyAi+bt06g8/n/UO+1SYYTAYeTJWTMTLykukOkLfMubkWY07Ov+3aunmT2o3mjB4UF3hF5foanVY3w2TOXbtr6yYeTJWTURQVeEXlI4u0GrImN8+6gAdT5aiBYi+Zq6qri8Ww8HquOXc1D6bKUQulRnAqhTVP2kw592zftoXHm+RkFysf+nr5N76xMXfwJXE4g+P/AV7rGy+iPVm7AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA5LTMwVDA3OjQ5OjMyKzAwOjAwh7oh8QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wOS0zMFQwNzo0OTozMiswMDowMPbnmU0AAAAASUVORK5CYII=';
     let neddle2 =
@@ -1923,12 +1371,11 @@ function Index() {
       width: '26%',
       height: '35%',
     };
-    const filteredCreditRating =
-      camData?.company?.creditLimit?.creditRating?.filter((rating) => {
-        return camData?._id === rating.order;
-      });
+    const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+      return camData?._id === rating.order;
+    });
     const getRotate = (rat = 1) => {
-      let r = Math.round(rat);
+      let r = Math.floor(rat);
       // let r = 4
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
@@ -2016,12 +1463,7 @@ function Index() {
     }
 
     const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {});
-    const previousYearData = _get(
-      companyData,
-      'financial.ratioAnalysis[1]',
-      {},
-    );
-
+    const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {});
 
     return (
       <table
@@ -2063,7 +1505,7 @@ function Index() {
                   Basic Info
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF" height="92">
+              <tr height="92">
                 <td
                   style={{
                     fontSize: '20px',
@@ -2071,6 +1513,8 @@ function Index() {
                     lineHeight: '24px',
                     opacity: '1',
                     paddingLeft: '35px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   Transaction Type
@@ -2081,6 +1525,8 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
+                    background: '#F7F9FF',
+                    borderRight: '0.5px solid #D2D7E5'
                   }}
                 >
                   {camData?.transactionType}
@@ -2132,10 +1578,7 @@ function Index() {
                     paddingTop: '37px',
                   }}
                 >
-                  {
-                    camData?.company?.detailedCompanyInfo?.profile
-                      ?.companyDetail?.city
-                  }
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
                 </td>
               </tr>
               <tr>
@@ -2176,10 +1619,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {
-                    camData?.company?.detailedCompanyInfo?.profile
-                      ?.companyDetail?.state
-                  }
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
                 </td>
               </tr>
               <tr>
@@ -2204,9 +1644,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(
-                    ', ',
-                  )}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(', ')}
                 </td>
                 <td
                   style={{
@@ -2227,13 +1665,10 @@ function Index() {
                     paddingBottom: '40px',
                   }}
                 >
-                  {
-                    camData?.company?.detailedCompanyInfo?.profile
-                      ?.companyDetail?.industry
-                  }
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.industry}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
@@ -2241,6 +1676,8 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     paddingTop: '29px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Order Value
@@ -2252,14 +1689,13 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
-                  {camData?.unitOfValue == 'Crores'
-                    ? 'Cr'
-                    : camData?.unitOfValue}
+                  {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
                 </td>
                 <td
                   style={{
@@ -2267,6 +1703,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Commodity
@@ -2278,19 +1715,22 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {' '}
                   {camData?.commodity}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
                     paddingLeft: '35px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   Quantity
@@ -2301,6 +1741,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.quantity?.toLocaleString('en-In', {
@@ -2313,6 +1754,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Supplier
@@ -2323,13 +1765,14 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {' '}
                   {camData?.supplierName}
                 </td>
               </tr>
-              <tr bgColor="#F7F9FF">
+              <tr>
                 <td
                   style={{
                     fontSize: '20px',
@@ -2337,6 +1780,8 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF',
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Country of Origin
@@ -2348,6 +1793,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.countryOfOrigin}
@@ -2358,6 +1804,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   Transaction Period
@@ -2369,6 +1816,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
+                    background: '#F7F9FF'
                   }}
                 >
                   {camData?.transactionPeriodDays}
@@ -2458,9 +1906,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {moment(
-                    camData?.shipmentDetail?.ETAofDischarge?.fromDate,
-                  ).format('DD-MM-YYYY')}
+                  {moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format('DD-MM-YYYY')}
                 </td>
               </tr>
               <tr>
@@ -2484,9 +1930,7 @@ function Index() {
                     paddingBottom: '50px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.loadPort?.fromDate).format(
-                    'DD-MM-YYYY',
-                  )}
+                  {moment(camData?.shipmentDetail?.loadPort?.fromDate).format('DD-MM-YYYY')}
                 </td>
                 <td
                   style={{
@@ -2507,9 +1951,7 @@ function Index() {
                     paddingBottom: '50px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.loadPort?.toDate).format(
-                    'DD-MM-YYYY',
-                  )}
+                  {moment(camData?.shipmentDetail?.loadPort?.toDate).format('DD-MM-YYYY')}
                 </td>
               </tr>
             </table>
@@ -2568,12 +2010,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.shipmentNumber?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}
+                  {camData?.supplierCredential?.shipmentNumber?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -2618,12 +2057,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.consigneesNumber?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}
+                  {camData?.supplierCredential?.consigneesNumber?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -2643,9 +2079,7 @@ function Index() {
                   }}
                 >
                   {camData?.supplierCredential?.latestShipmentDate
-                    ? moment(
-                        camData?.supplierCredential?.latestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                    ? moment(camData?.supplierCredential?.latestShipmentDate).format('DD-MM-YYYY')
                     : ''}
                 </td>
               </tr>
@@ -2689,9 +2123,7 @@ function Index() {
                 >
                   {' '}
                   {camData?.supplierCredential?.oldestShipmentDate
-                    ? moment(
-                        camData?.supplierCredential?.oldestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                    ? moment(camData?.supplierCredential?.oldestShipmentDate).format('DD-MM-YYYY')
                     : ''}
                 </td>
               </tr>
@@ -2737,10 +2169,9 @@ function Index() {
                     paddingBottom: '25px',
                   }}
                 >
-                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 2 },
-                  )}{' '}
+                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
                   %
                 </td>
               </tr>
@@ -2810,12 +2241,7 @@ function Index() {
               </tr>
               <tr>
                 <td width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         width="50%"
@@ -2863,36 +2289,48 @@ function Index() {
                           }}
                         >
                           {checkNan(
-                            Math.round(
-                              filteredCreditRating
-                                ? filteredCreditRating[0]?.totalRating
-                                : 0,
-                            ),
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}
                         </span>
                       </td>
-                      <td
-                        width="50%"
-                        style={{ padding: '35px 35px 35px 17px' }}
-                      >
-                        <div align="center">
+                      <td width="50%" style={{ padding: '35px 35px 35px 17px', }}>
+                        <div  align="center">
                           <span
                             style={{
                               fontSize: '20px',
-                              color: '#00B81E',
+                              color: `${
+                                filteredCreditRating?.length > 0
+                                  ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ff4230'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#ffb700'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#8ac41c'
+                                    : '#0b81f30'
+                                  : null
+                              }`,
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
-                              background: '#CFF2D5',
+                              background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ffccc7'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#FFECCF'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00B81E'
+                            : '#E4ECF7'
+                          : null
+                      }`,
+                          
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
                           >
-                            {filteredCreditRating
-                              ? filteredCreditRating[0]?.creditResult?.toUpperCase()
-                              : ''}
+                            {filteredCreditRating ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ''}
                           </span>
                         </div>
                         <br />
@@ -2909,10 +2347,7 @@ function Index() {
                           }}
                         >
                           <tr>
-                            <td
-                              width="25%"
-                              style={{ padding: '20px 10px 20px 20px' }}
-                            >
+                            <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
                                   background: '#CEEFD1',
@@ -2953,14 +2388,12 @@ function Index() {
                                     color: '#111111',
                                     lineHeight: '37px',
                                     display: 'inline-block',
+                                   
                                   }}
+                                 
                                 >
                                   {checkNan(
-                                    Math.round(
-                                      filteredCreditRating
-                                        ? filteredCreditRating[0]?.totalRating
-                                        : 0,
-                                    ),
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
                                   )}
@@ -2991,10 +2424,7 @@ function Index() {
                           }}
                         >
                           <tr>
-                            <td
-                              width="25%"
-                              style={{ padding: '20px 10px 20px 20px' }}
-                            >
+                            <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
                                   background: '#CEEFD1',
@@ -3036,9 +2466,7 @@ function Index() {
                                     lineHeight: '37px',
                                   }}
                                 >
-                                  {filteredCreditRating
-                                    ? filteredCreditRating[0]?.creditGrade
-                                    : ''}
+                                  {filteredCreditRating ? filteredCreditRating[0]?.creditGrade : ''}
                                 </span>
                               </p>
                             </td>
@@ -3087,7 +2515,12 @@ function Index() {
                           <span
                             style={{
                               background: '#FFB700',
-                              width: '80%',
+                              width: `${filteredCreditRating?.length > 0
+                                ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                                : '0'
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3104,9 +2537,18 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
-                          80%
+                          {filteredCreditRating?.length > 0
+                            ? (
+                              Number(
+                                filteredCreditRating[0].businessProfile.total.overallValue /
+                                filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
+                            : '0'}{' '}
+                          %
                         </span>
                       </td>
                     </tr>
@@ -3149,7 +2591,12 @@ function Index() {
                           <span
                             style={{
                               background: '#FF4230',
-                              width: '40%',
+                              width: `${filteredCreditRating?.length > 0
+                                ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                                : '0'
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3166,9 +2613,18 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
-                          40%
+                          {filteredCreditRating?.length > 0
+                            ? (
+                              Number(
+                                filteredCreditRating[0].revenueProfile.total.overallValue /
+                                filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
+                            : '0'}{' '}
+                          %
                         </span>
                       </td>
                     </tr>
@@ -3208,7 +2664,12 @@ function Index() {
                           <span
                             style={{
                               background: '#83C400',
-                              width: '80%',
+                              width: `${filteredCreditRating?.length > 0
+                                ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                                : '0'
+                                }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3225,9 +2686,18 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
+                            whiteSpace: 'nowrap'
                           }}
                         >
-                          40%
+                          {filteredCreditRating?.length > 0
+                            ? (
+                              Number(
+                                filteredCreditRating[0].financialProfile.total.overallValue /
+                                filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
+                            : '0'}{' '}
+                          %
                         </span>
                       </td>
                     </tr>
@@ -3270,17 +2740,13 @@ function Index() {
               </tr>
               <tr>
                 <td valign="top" style={{ padding: '27px' }}>
-                  <table
-                    width="100%"
-                    cellPadding="15"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
-                      {camData?.company.groupExposureData?.map((exp, index) => {
-                        let name = exp?.name?.split(' ') ?? 'NA';
+                      {camData?.company?.groupExposureDetail?.map((exp, index) => {
+                      
+                        let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td valign="top" width="33.33%">
+                          <td key={index} valign="top" width="33.33%">
                             <table
                               width="100%"
                               cellPadding="0"
@@ -3314,7 +2780,7 @@ function Index() {
                                       display: 'inline-block',
                                     }}
                                   >
-                                    {isArray(name) &&
+                                    {Array.isArray(name) &&
                                       name?.map((item, index) => {
                                         if (index < 2) {
                                           return item?.charAt(0).toUpperCase();
@@ -3337,17 +2803,14 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  height="33"
-                                  style={{ padding: '19px 0 19px 22px' }}
-                                >
+                                <td height="33" style={{ padding: '19px 0 19px 22px' }}>
                                   <span
                                     style={{
                                       fontSize: '16px',
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
@@ -3366,14 +2829,13 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.limit}
+                                  {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  colSpan={2}
-                                  style={{ padding: '0 22px 19px' }}
-                                >
+                                <td colSpan={2} style={{ padding: '0 22px 19px' }}>
                                   <span
                                     style={{
                                       background: '#F3F4F7',
@@ -3398,20 +2860,18 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  height="33"
-                                  style={{ padding: '19px 0 19px 22px' }}
-                                >
+                                <td height="33" style={{ padding: '19px 0 19px 22px' }}>
                                   <span
                                     style={{
                                       fontSize: '16px',
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
+                                      whiteSpace: 'nowrap'
                                     }}
                                   >
                                     {' '}
@@ -3428,14 +2888,13 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {exp.outstandingLimit}
+                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  colSpan={2}
-                                  style={{ padding: '0 22px 19px' }}
-                                >
+                                <td colSpan={2} style={{ padding: '0 22px 19px' }}>
                                   <span
                                     style={{
                                       background: '#F3F4F7',
@@ -3460,18 +2919,14 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  colSpan={2}
-                                  height="33"
-                                  style={{ padding: '19px 22px' }}
-                                >
+                                <td colSpan={2} height="33" style={{ padding: '19px 22px' }}>
                                   <span
                                     style={{
                                       fontSize: '16px',
                                       color: '#111111',
                                       lineHeight: '19px',
                                       fontWeight: 'bold',
-                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      background: '#efefef',
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
@@ -3547,10 +3002,12 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   CUSTOMER NAME
                 </td>
+
                 {/* <td
                   style={{
                     fontSize: '15px',
@@ -3572,6 +3029,17 @@ function Index() {
                   }}
                 >
                   ORDER NO
+                </td>
+                <td
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  ORDER DATE
                 </td>
 
                 <td
@@ -3622,12 +3090,7 @@ function Index() {
               </tr>
               <tr>
                 <td valign="top" colSpan={8}>
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         width="2%"
@@ -3658,46 +3121,52 @@ function Index() {
                   </table>
                 </td>
               </tr>
-              <tr>
-                <td
-                  width="5%"
-                  height="60"
-                  style={{
-                    padding: '21px 12px 21px 35px',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: '28px',
-                      color: '#FF9D00',
-                      lineHeight: '34px',
-                      fontWeight: 'bold',
-                      background: '#FFECCF',
-                      borderRadius: '8px',
-                      padding: '13px 0',
-                      width: '60px',
-                      height: '60px',
-                      textAlign: 'center',
-                      display: 'inline-block',
-                    }}
-                  >
-                    {initials()}
-                  </span>{' '}
-                </td>
-                <td
-                  width="30%"
-                  style={{
-                    fontSize: '22px',
-                    color: '#111111',
-                    lineHeight: '27px',
-                    fontWeight: 'bold',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {camData?.company?.companyName}
-                </td>
-                {/* <td
+
+              {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
+                let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                let [fName, lName] = name?.split(' ');
+                return (
+                  <tr>
+                    <td
+                      width="5%"
+                      height="30"
+                      style={{
+                        padding: '14px 11px 14px 32px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: '24px',
+                          color: '#FF9D00',
+                          lineHeight: '30px',
+                          fontWeight: 'bold',
+                          background: '#FFECCF',
+                          borderRadius: '8px',
+                          padding: '9px 0',
+                          width: '50px',
+                          height: '50px',
+                          textAlign: 'center',
+                          display: 'inline-block',
+                          // marginBottom: '15px'
+                        }}
+                      >
+                        {fName?.charAt(0)}{lName?.charAt(0)}
+                      </span>{' '}
+                    </td>
+                    <td
+                      width="30%"
+                      style={{
+                        fontSize: '22px',
+                        color: '#111111',
+                        lineHeight: '27px',
+                        fontWeight: 'bold',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.supplierName}
+                    </td>
+                    {/* <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
@@ -3708,77 +3177,88 @@ function Index() {
                 >
                   Customer Name
                 </td> */}
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {camData?.orderId}
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
-                  })}
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  {camData?.commodity}
-                </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.orderId ? item?.orderId : item?.applicationId}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {item?.commodity}
+                    </td>
 
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                    fontWeight: '500',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  <span
-                    style={{
-                      padding: '7.5px',
-                      display: 'inline-block',
-                      background: '#FF9D00',
-                      borderRadius: '50%',
-                      marginRight: '10px',
-                    }}
-                  ></span>
-                  In Process
-                </td>
-                <td
-                  align="center"
-                  style={{
-                    fontSize: '19px',
-                    color: '#EA3F3F',
-                    lineHeight: '24px',
-                    fontWeight: 'bold',
-                    paddingTop: '21px',
-                    paddingBottom: '21px',
-                  }}
-                >
-                  12
-                </td>
-              </tr>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        fontWeight: '500',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          padding: '5.5px',
+                          display: 'inline-block',
+                          background: '#FF9D00',
+                          borderRadius: '50%',
+                          marginRight: '10px',
+                        }}
+                      ></span>
+                      In Process
+                    </td>
+                    <td
+                      align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#EA3F3F',
+                        lineHeight: '24px',
+                        fontWeight: 'bold',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      12
+                    </td>
+                  </tr>
+                )
+              })}
             </table>
           </td>
         </tr>
@@ -3922,10 +3402,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {
-                    camData.company.detailedCompanyInfo.profile.auditorDetail[0]
-                      .nameOfAuditor
-                  }
+                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor}
                 </td>
                 <td
                   style={{
@@ -3946,12 +3423,9 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
-                    .nameOfAuditor
-                    ? camData.company.detailedCompanyInfo.profile
-                        .auditorDetail[0].nameOfAuditor ==
-                      camData.company.detailedCompanyInfo.profile
-                        .auditorDetail[1].nameOfAuditor
+                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor
+                    ? camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor ==
+                      camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
                       ? 'No'
                       : 'Yes'
                     : ''}
@@ -4002,6 +3476,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   NAME
@@ -4051,99 +3526,97 @@ function Index() {
                   % SHAREHOLDING
                 </td>
               </tr>
-              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
-                (director, index) => {
-                  let name = director?.name;
-                  let [fName, lName] = director?.name.split(' ');
-                  return (
-                    <tr>
-                      <td
-                        width="5%"
-                        height="60"
+              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map((director, index) => {
+                let name = director?.name;
+                let [fName, lName] = director?.name.split(' ');
+                return (
+                  <tr>
+                    <td
+                      width="5%"
+                      height="60"
+                      style={{
+                        padding: '21px 12px 21px 35px',
+                      }}
+                    >
+                      <span
                         style={{
-                          padding: '21px 12px 21px 35px',
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block',
-                          }}
-                        >
-                          {fName?.charAt(0)}
-                          {lName?.charAt(0)}
-                        </span>
-                      </td>
-                      <td
-                        width="25%"
-                        style={{
-                          fontSize: '22px',
-                          color: '#111111',
-                          lineHeight: '27px',
+                          fontSize: '28px',
+                          color: '#FF9D00',
+                          lineHeight: '34px',
                           fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          background: '#FFECCF',
+                          borderRadius: '8px',
+                          padding: '13px 0',
+                          width: '60px',
+                          height: '60px',
+                          textAlign: 'center',
+                          display: 'inline-block',
                         }}
                       >
-                        {director?.name}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director?.pan[0]}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director.din}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director.tenureStartDate}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '24px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director.percentageShareHolding}%
-                      </td>
-                    </tr>
-                  );
-                },
-              )}
+                        {fName?.charAt(0)}
+                        {lName?.charAt(0)}
+                      </span>
+                    </td>
+                    <td
+                      width="25%"
+                      style={{
+                        fontSize: '22px',
+                        color: '#111111',
+                        lineHeight: '27px',
+                        fontWeight: 'bold',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director?.name}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director?.pan[0]}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director.din}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director.tenureStartDate}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '24px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director.percentageShareHolding}%
+                    </td>
+                  </tr>
+                );
+              })}
             </table>
           </td>
         </tr>
@@ -4179,34 +3652,16 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  width="33%"
-                  valign="middle"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td width="33%" valign="middle" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="center" style={{ padding: '35px' }}>
                         <img src={`${shareHoldingChartImg}`}></img>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        valign="top"
-                        align="center"
-                        style={{ padding: '20px 35px' }}
-                      >
-                        <table
-                          width="100%"
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                      <td valign="top" align="center" style={{ padding: '20px 35px' }}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Share.datasets &&
                               top3Share?.datasets[0]?.data.map((val, index) => {
@@ -4233,11 +3688,7 @@ function Index() {
                                         fontWeight: '500',
                                       }}
                                     >
-                                      <span>
-                                        {top3Share.labels[index] == ''
-                                          ? 'NA'
-                                          : top3Share.labels[index]}
-                                      </span>
+                                      <span>{top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}</span>
                                     </td>
                                   </>
                                 );
@@ -4249,12 +3700,7 @@ function Index() {
                   </table>
                 </td>
                 <td width="66%" valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         colSpan={2}
@@ -4305,115 +3751,108 @@ function Index() {
                       </td>
                     </tr>
                     {camData &&
-                      camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
-                        (share, index) => {
-                          let name = share?.fullName ?? 'N A';
-                          let [fName, lName] = name?.split(' ');
+                      camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map((share, index) => {
+                        let name = share?.fullName ?? 'N A';
+                        let [fName, lName] = name?.split(' ');
 
-                          let colors = [
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#3687E8',
-                            },
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#43C34D',
-                            },
-                            {
-                              primary: '#FFECCF',
-                              secondary: '#FF9D00',
-                            },
-                          ];
-                          let randColor =
-                            colors[Math.floor(Math.random() * colors.length)];
-                          return (
-                            <tr>
-                              <td
-                                width="5%"
-                                height="60"
+                        let colors = [
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ];
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return (
+                          <tr>
+                            <td
+                              width="5%"
+                              height="60"
+                              style={{
+                                padding: '21px 12px 21px 35px',
+                              }}
+                            > 
+                              <span
                                 style={{
-                                  padding: '21px 12px 21px 35px',
-                                }}
-                              >
-                                <span
-                                  style={{
-                                    fontSize: '28px',
-                                    color: `${randColor.secondary}`,
-                                    lineHeight: '34px',
-                                    fontWeight: 'bold',
-                                    background: `${randColor.primary}`,
-                                    borderRadius: '8px',
-                                    padding: '13px 0',
-                                    width: '60px',
-                                    height: '60px',
-                                    textAlign: 'center',
-                                    display: 'inline-block',
-                                  }}
-                                >
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                                </span>
-                              </td>
-                              <td
-                                width="25%"
-                                style={{
-                                  fontSize: '20px',
-                                  color: '#111111',
-                                  lineHeight: '27px',
+                                  fontSize: '28px',
+                                  color: `${ index < 4 ?  backgroundColor[index] : randColor.primary}`,
+                                  lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  background: `${index < 4 ?  backgroundColor1[index] : randColor.secondary}`,
+                                  borderRadius: '8px',
+                                  padding: '13px 0',
+                                  width: '60px',
+                                  height: '60px',
+                                  textAlign: 'center',
+                                  display: 'inline-block',
                                 }}
                               >
-                                {' '}
-                                {share?.fullName}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {Number(share?.numberOfShares)?.toLocaleString(
-                                  'en-In',
-                                )}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {share?.percentageShareHolding
-                                  ? Number(
-                                      share?.percentageShareHolding,
-                                    )?.toLocaleString('en-In', {
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2,
-                                    }) + '%'
-                                  : ''}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {share?.director ? 'Yes' : 'No'}
-                              </td>
-                            </tr>
-                          );
-                        },
-                      )}
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                              </span>
+                            </td>
+                            <td
+                              width="25%"
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {' '}
+                              {share?.fullName}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {Number(share?.numberOfShares)?.toLocaleString('en-In')}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {share?.percentageShareHolding
+                                ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }) + '%'
+                                : ''}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {share?.director ? 'Yes' : 'No'}
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </table>
                 </td>
               </tr>
@@ -4452,37 +3891,19 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  width="33%"
-                  valign="middle"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td width="33%" valign="middle" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="center" style={{ padding: '35px' }}>
                         <img src={`${openBankChargeChartImg}`}></img>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        valign="top"
-                        align="center"
-                        style={{ padding: '20px 35px' }}
-                      >
-                        <table
-                          width="100%"
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                      <td valign="top" align="center" style={{ padding: '20px 35px' }}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Open.datasets &&
-                              top3Open?.datasets[0]?.data.map((val, index) => {
+                              top3Open?.datasets[0]?.data.map((val, index) => { 
                                 return (
                                   <>
                                     <td width="5%">
@@ -4506,10 +3927,7 @@ function Index() {
                                         fontWeight: '500',
                                       }}
                                     >
-                                      &nbsp;{' '}
-                                      {top3Open.labels[index] == ''
-                                        ? 'NA'
-                                        : top3Open.labels[index]}
+                                      &nbsp; {top3Open.labels[index] == '' ? 'NA' : top3Open.labels[index]}
                                     </td>
                                   </>
                                 );
@@ -4521,12 +3939,7 @@ function Index() {
                   </table>
                 </td>
                 <td width="66%" valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         colSpan={2}
@@ -4566,106 +3979,100 @@ function Index() {
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
-                        (charge, index) => {
-                          let name = charge?.nameOfChargeHolder;
-                          let [fName, lName] = name?.split(' ');
+                      returnFilteredCharges()?.map((charge, index) => { 
+                        let name = charge?.nameOfChargeHolder;
+                        let [fName, lName] = name?.split(' ');
 
-                          let colors = [
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#3687E8',
-                            },
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#43C34D',
-                            },
-                            {
-                              primary: '#FFECCF',
-                              secondary: '#FF9D00',
-                            },
-                          ];
-                          let randColor =
-                            colors[Math.floor(Math.random() * colors.length)];
+                        let colors = [
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ];
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
+                          return null;
+                        } else {
                           return (
-                            <tr>
-                              <td
-                                width="5%"
-                                height="60"
+                          <tr>
+                            <td
+                              width="5%"
+                              height="60"
+                              style={{
+                                padding: '21px 12px 21px 35px',
+                              }}
+                            >
+                              <span
                                 style={{
-                                  padding: '21px 12px 21px 35px',
-                                }}
-                              >
-                                <span
-                                  style={{
-                                    fontSize: '28px',
-                                    color: `${randColor.secondary}`,
-                                    lineHeight: '34px',
-                                    fontWeight: 'bold',
-                                    background: `${randColor.primary}`,
-                                    borderRadius: '8px',
-                                    padding: '13px 0',
-                                    width: '60px',
-                                    height: '60px',
-                                    textAlign: 'center',
-                                    display: 'inline-block',
-                                  }}
-                                >
-                                  {' '}
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                                </span>
-                              </td>
-                              <td
-                                width="25%"
-                                style={{
-                                  fontSize: '20px',
-                                  color: '#111111',
-                                  lineHeight: '27px',
+                                  fontSize: '28px',
+                                  color: `${ index < 4 ?  backgroundColor[index] : randColor.primary}`,
+                                  lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  background: `${index < 4 ?  backgroundColor1[index] : randColor.secondary}`,
+                                  borderRadius: '8px',
+                                  padding: '13px 0',
+                                  width: '60px',
+                                  height: '60px',
+                                  textAlign: 'center',
+                                  display: 'inline-block',
                                 }}
                               >
                                 {' '}
-                                {charge?.nameOfChargeHolder1}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {convertValue(
-                                  charge?.finalAmountSecured,
-                                  camConversionunit,
-                                ).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {charge?.dateOfCreationOfCharge
-                                  ? moment(
-                                      charge?.dateOfCreationOfCharge,
-                                      'DD-MM-YYYY',
-                                    ).format('DD-MM-YYYY')
-                                  : ''}
-                              </td>
-                            </tr>
-                          );
-                        },
-                      )}
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                              </span>
+                            </td>
+                            <td
+                              width="25%"
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {' '}
+                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge?.nameOfChargeHolder1}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                              })}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {charge?.dateOfCreationOfCharge
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
+                                : ''}
+                            </td>
+                          </tr>
+                        )};
+                      })}
                     {/* <tr>
                       <td
                         width="5%"
@@ -4767,13 +4174,7 @@ function Index() {
               </tr>
               <tr>
                 <td width="33%" valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="6"
-                    cellSpacing="0"
-                    border="0"
-                    style={{ marginBottom: '40px' }}
-                  >
+                  <table width="100%" cellPadding="6" cellSpacing="0" border="0" style={{ marginBottom: '40px' }}>
                     <tr>
                       <td
                         style={{
@@ -4873,12 +4274,10 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debtProfileColor(debt.conduct)}`,
-                                    width: `${
-                                      (Number(debt.limit) / totalLimitDebt() > 1
-                                        ? 1
-                                        : Number(debt.limit) /
-                                          totalLimitDebt()) * 100
-                                    }%`,
+                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
+                                      ? 1
+                                      : Number(debt.limit) / totalLimitDebt()) * 100
+                                      }%`,
                                     height: '10px',
                                     borderRadius: '2px',
                                     display: 'inline-block',
@@ -4909,17 +4308,8 @@ function Index() {
                   </table>
                 </td>
 
-                <td
-                  width="67%"
-                  valign="top"
-                  style={{ borderLeft: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td width="67%" valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         style={{
@@ -5009,20 +4399,18 @@ function Index() {
                           <td
                             style={{
                               fontSize: '19px',
-                              color: '#EA3F3F',
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
-                              color: `${
-                                debt.conduct == 'Good'
-                                  ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
+                              color: `${debt.conduct == 'Good'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
                                   : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : '#EA3F3F'
-                              }`,
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`,
                             }}
                           >
                             {debt?.conduct}
@@ -5092,15 +4480,11 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.monthlyProductionCapacity
-                    ? Number(
-                        camData?.productSummary?.monthlyProductionCapacity,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                    ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
-                  {camData?.productSummary?.monthlyProductionCapacity
-                    ? 'MT'
-                    : ''}
+                  {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                 </td>
                 <td
                   width="30%"
@@ -5125,11 +4509,9 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.averageStockInTransit
-                    ? Number(
-                        camData?.productSummary?.averageStockInTransit,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                    ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
                   {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                 </td>
@@ -5154,12 +4536,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.capacityUtilization?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}{' '}
+                  {camData?.productSummary?.capacityUtilization?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
                   {camData?.productSummary?.capacityUtilization ? '%' : ''}
                 </td>
                 <td
@@ -5179,15 +4558,10 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {camData?.productSummary?.averageStockOfCommodity?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}{' '}
-                  {camData?.productSummary?.averageStockOfCommodity
-                    ? 'Days'
-                    : ''}
+                  {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
+                  {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
                 </td>
               </tr>
               <tr>
@@ -5211,11 +4585,9 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.availableStock
-                    ? Number(
-                        camData?.productSummary?.availableStock,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                    ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
                   {camData?.productSummary?.availableStock ? 'MT' : ''}
                 </td>
@@ -5253,11 +4625,9 @@ function Index() {
                       true,
                     )} */}
                   {camData?.productSummary?.AvgMonthlyElectricityBill
-                    ? Number(
-                        camData?.productSummary?.AvgMonthlyElectricityBill,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                    ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })
                     : ''}
                 </td>
               </tr>
@@ -5285,15 +4655,11 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity
-                    ? Number(
-                        camData?.productSummary?.dailyConsumptionOfCommodity,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                    ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })
                     : ''}{' '}
-                  {camData?.productSummary?.dailyConsumptionOfCommodity
-                    ? 'MT'
-                    : ''}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                 </td>
               </tr>
             </table>
@@ -5331,7 +4697,7 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <td width="50%" style={{ paddingLeft: '35px' }}></td>
+                <td width="50%" style={{ paddingLeft:'35px', borderLeft:'1px solid #D2D7E5'}}></td>
                 <td
                   style={{
                     fontSize: '15px',
@@ -5391,8 +4757,7 @@ function Index() {
                   Gross Revenue
                 </td>
                 <td align="center" style={{ paddingTop: '23px' }}>
-                  {RevenueDetails?.grossTurnover?.previous?.value ||
-                  RevenueDetails?.grossTurnover?.current?.value ? (
+                  {RevenueDetails?.grossTurnover?.previous?.value || RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5416,9 +4781,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.grossTurnover?.current?.value),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.current?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5433,9 +4796,7 @@ function Index() {
                 >
                   {' '}
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.grossTurnover?.previous?.value),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.previous?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5469,7 +4830,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5492,9 +4853,7 @@ function Index() {
                 >
                   {' '}
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.relatedPartySales?.current?.value),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.current?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5507,11 +4866,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.relatedPartySales?.previous?.value,
-                      ),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.previous?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5544,7 +4899,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5566,11 +4921,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                      ),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.current?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5583,11 +4934,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.intraOrgSalesPercent?.previous?.value,
-                      ),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.previous?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5620,14 +4967,10 @@ function Index() {
                   B2B Sales
                 </td>
                 <td align="center">
-                  {RevenueDetails?.B2BSales?.previous?.value ||
-                  RevenueDetails?.B2BSales?.current?.value ? (
+                  {RevenueDetails?.B2BSales?.previous?.value || RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
-                        calcPc(
-                          RevenueDetails?.B2BSales?.previous?.value,
-                          RevenueDetails?.B2BSales?.current?.value,
-                        ) > 0
+                        calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value) > 0
                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
                           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
                       }
@@ -5642,13 +4985,16 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2BSales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.current?.value)).toFixed(2), true)} Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.previous?.value)).toFixed(2), true)} Cr
                 </td>
                 <td
                   style={{
@@ -5658,25 +5004,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2BSales?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.B2BSales?.previous?.value,
-                      RevenueDetails?.B2BSales?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5693,14 +5021,10 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.B2CSales?.previous?.value ||
-                  RevenueDetails?.B2CSales?.current?.value ? (
+                  {RevenueDetails?.B2CSales?.previous?.value || RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
-                        calcPc(
-                          RevenueDetails?.B2CSales?.previous?.value,
-                          RevenueDetails?.B2CSales?.current?.value,
-                        ) > 0
+                        calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value) > 0
                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
                           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
                       }
@@ -5715,13 +5039,16 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2CSales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.current?.value)).toFixed(2), true)} Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.previous?.value)).toFixed(2), true)} Cr
                 </td>
                 <td
                   style={{
@@ -5731,25 +5058,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2CSales?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.B2CSales?.previous?.value,
-                      RevenueDetails?.B2CSales?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5766,8 +5075,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.exportSales?.previous?.value ||
-                  RevenueDetails?.exportSales?.current?.value ? (
+                  {RevenueDetails?.exportSales?.previous?.value || RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5788,12 +5096,17 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.exportSales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.current?.value)).toFixed(2), true)}{' '}
+                  Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.previous?.value)).toFixed(2), true)}{' '}
                   Cr
                 </td>
                 <td
@@ -5804,25 +5117,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.exportSales?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.exportSales?.previous?.value,
-                      RevenueDetails?.exportSales?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5839,8 +5134,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.ttlCustomer?.previous?.value ||
-                  RevenueDetails?.ttlCustomer?.current?.value ? (
+                  {RevenueDetails?.ttlCustomer?.previous?.value || RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5861,10 +5155,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlCustomer?.current?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 0 },
-                  )}
+                  {RevenueDetails?.ttlCustomer?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
                 </td>
                 <td
                   style={{
@@ -5873,10 +5164,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 0 },
-                  )}
+                  {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
                 </td>
                 <td
                   style={{
@@ -5886,10 +5174,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    calcPc(
-                      RevenueDetails?.ttlCustomer?.previous?.value,
-                      RevenueDetails?.ttlCustomer?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5906,14 +5191,10 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.ttlInv?.previous?.value ||
-                  RevenueDetails?.ttlInv?.current?.value ? (
+                  {RevenueDetails?.ttlInv?.previous?.value || RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
-                        calcPc(
-                          RevenueDetails?.ttlInv?.previous?.value,
-                          RevenueDetails?.ttlInv?.current?.value,
-                        ) > 0
+                        calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value) > 0
                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
                           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
                       }
@@ -5928,10 +5209,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlInv?.current?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 2 },
-                  )}
+                  {RevenueDetails?.ttlInv?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -5940,10 +5218,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 2 },
-                  )}
+                  {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -5952,12 +5227,8 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.ttlInv?.previous?.value,
-                      RevenueDetails?.ttlInv?.current?.value,
-                    ),
-                  ) + '%'}
+                  {checkNan(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value)) +
+                    '%'}
                 </td>
               </tr>
               <tr>
@@ -6057,10 +5328,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}>
-                    {' '}
-                    Quarterly
-                  </span>
+                  <span style={{ color: '#3687E8', float: 'right' }}> Quarterly</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -6076,6 +5344,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -6083,10 +5352,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.grossTurnover?.current?.value,
-                        ),
+                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6110,10 +5376,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                            ?.grossPurchases?.current?.value,
-                        ),
+                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6122,10 +5385,7 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  align="center"
-                  style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}
-                >
+                <td align="center" style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}>
                   <img src={`${trendChartRevenueImg}`}></img>
                 </td>
                 <td align="center" style={{ padding: '35px' }}>
@@ -6133,16 +5393,8 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  valign="top"
-                  style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td valign="top" style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         align="center"
@@ -6168,12 +5420,7 @@ function Index() {
                   </table>
                 </td>
                 <td valign="top" style={{ padding: '35px' }}>
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         align="center"
@@ -6243,9 +5490,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}>
-                    Quarterly
-                  </span>
+                  <span style={{ color: '#3687E8', float: 'right' }}>Quarterly</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -6261,6 +5506,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
+                    borderLeft: '1px solid #D2D7E5'
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -6268,10 +5514,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.grossTurnover?.current?.value,
-                        ),
+                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6295,10 +5538,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                            ?.grossPurchases?.current?.value,
-                        ),
+                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6307,73 +5547,54 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  align="left"
-                  valign="middle"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td align="left" valign="middle" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td width="45%" style={{ padding: '35px' }}>
                         <img src={`${skewnessChartRevenueImg}`}></img>
                       </td>
                       <td width="55%" style={{ padding: '35px' }}>
-                        <table
-                          width="100%"
-                          cellPadding="10"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
                           {top5Customers.datasets &&
-                            top5Customers?.datasets[0]?.data?.map(
-                              (val, index) => {
-                                return (
-                                  <tr>
-                                    <td width="5%" align="left">
-                                      <span
-                                        style={{
-                                          background: `${backgroundColor[index]}`,
-                                          borderRadius: '4px',
-                                          width: '16px',
-                                          height: '16px',
-                                          display: 'inline-block',
-                                        }}
-                                      ></span>
-                                    </td>
-                                    <td
-                                      width="55%"
-                                      align="left"
+                            top5Customers?.datasets[0]?.data?.map((val, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td width="5%" align="left">
+                                    <span
                                       style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
+                                        background: `${backgroundColor[index]}`,
+                                        borderRadius: '4px',
+                                        width: '16px',
+                                        height: '16px',
+                                        display: 'inline-block',
                                       }}
-                                    >
-                                      {top5Customers.labels[index]}
-                                    </td>
-                                    <td
-                                      width="40%"
-                                      align="left"
-                                      style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
-                                      }}
-                                    >
-                                      {((val / totalCustomer) * 100)?.toFixed(
-                                        2,
-                                      )}
-                                      %
-                                    </td>
-                                  </tr>
-                                );
-                              },
-                            )}
+                                    ></span>
+                                  </td>
+                                  <td
+                                    width="55%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {top5Customers.labels[index]}
+                                  </td>
+                                  <td
+                                    width="40%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {((val / totalCustomer) * 100)?.toFixed(2)}%
+                                  </td>
+                                </tr>
+                              );
+                            })}
                           {/* <tr>
                             <td width="5%" align="left">
                               <span
@@ -6415,68 +5636,53 @@ function Index() {
                   </table>
                 </td>
                 <td align="left" valign="middle">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td width="45%" style={{ padding: '35px' }}>
                         <img src={`${skewnessChartPurchasesImg}`}></img>
                       </td>
                       <td width="45%" style={{ padding: '35px' }}>
-                        <table
-                          width="100%"
-                          cellPadding="10"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
                           {top5Suppliers.datasets &&
-                            top5Customers?.datasets[0]?.data?.map(
-                              (val, index) => {
-                                return (
-                                  <tr>
-                                    <td width="5%" align="left">
-                                      <span
-                                        style={{
-                                          background: `${backgroundColor[index]}`,
-                                          borderRadius: '4px',
-                                          width: '16px',
-                                          height: '16px',
-                                          display: 'inline-block',
-                                        }}
-                                      ></span>
-                                    </td>
-                                    <td
-                                      width="55%"
-                                      align="left"
+                            top5Customers?.datasets[0]?.data?.map((val, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td width="5%" align="left">
+                                    <span
                                       style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
+                                        background: `${backgroundColor[index]}`,
+                                        borderRadius: '4px',
+                                        width: '16px',
+                                        height: '16px',
+                                        display: 'inline-block',
                                       }}
-                                    >
-                                      {top5Suppliers.labels[index]}
-                                    </td>
-                                    <td
-                                      width="40%"
-                                      align="left"
-                                      style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
-                                      }}
-                                    >
-                                      {((val / totalSupplier) * 100)?.toFixed(
-                                        2,
-                                      )}
-                                      %
-                                    </td>
-                                  </tr>
-                                );
-                              },
-                            )}
+                                    ></span>
+                                  </td>
+                                  <td
+                                    width="55%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {top5Suppliers.labels[index]}
+                                  </td>
+                                  <td
+                                    width="40%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {((val / totalSupplier) * 100)?.toFixed(2)}%
+                                  </td>
+                                </tr>
+                              );
+                            })}
                         </table>
                       </td>
                     </tr>
@@ -6518,25 +5724,11 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  valign="top"
-                  width="50%"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td valign="top" width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="13"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
                           <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                             <td
                               width="50%"
@@ -6546,6 +5738,7 @@ function Index() {
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
                                 paddingLeft: '35px',
+                                borderLeft: '1px solid #D2D7E5'
                               }}
                             >
                               Liabilities
@@ -6559,11 +5752,7 @@ function Index() {
                                 textTransform: 'uppercase',
                               }}
                             >
-                              {moment(
-                                companyData?.financial?.balanceSheet[0]?.date,
-                              )
-                                .format('MMM-YY')
-                                ?.toUpperCase()}
+                              {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')?.toUpperCase()}
                             </td>
                             <td
                               style={{
@@ -6574,11 +5763,7 @@ function Index() {
                                 textTransform: 'uppercase',
                               }}
                             >
-                              {moment(
-                                companyData?.financial?.balanceSheet[1]?.date,
-                              )
-                                .format('MMM-YY')
-                                ?.toUpperCase()}
+                              {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')?.toUpperCase()}
                             </td>
                           </tr>
                           <tr>
@@ -6603,11 +5788,7 @@ function Index() {
                               }}
                             >
                               {convertValue(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.totalEquity',
-                                  '',
-                                ),
+                                _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
                               ).toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumSignificantDigits: 2,
@@ -6623,11 +5804,7 @@ function Index() {
                               }}
                             >
                               {convertValue(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.totalEquity',
-                                  '',
-                                ),
+                                _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
                               ).toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumSignificantDigits: 2,
@@ -6660,11 +5837,11 @@ function Index() {
                                     'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                                     '',
                                   ) +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                      '',
-                                    ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                                    '',
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -6686,11 +5863,11 @@ function Index() {
                                     'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                                     '',
                                   ) +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                      '',
-                                    ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                                    '',
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -6719,16 +5896,12 @@ function Index() {
                             >
                               {convertValue(
                                 Number(
+                                  _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
                                   _get(
                                     companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.tradePay',
+                                    'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
                                     '',
-                                  ) +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                      '',
-                                    ),
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -6745,16 +5918,12 @@ function Index() {
                             >
                               {convertValue(
                                 Number(
+                                  _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
                                   _get(
                                     companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.tradePay',
+                                    'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
                                     '',
-                                  ) +
-                                    _get(
-                                      companyData,
-                                      'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                      '',
-                                    ),
+                                  ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -6820,17 +5989,14 @@ function Index() {
                     </tr>
                     <tr>
                       <td valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="13"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
                           <tr
                             bgColor="#FAFAFB"
                             style={{
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
+                              borderLeft: '1px solid #D2D7E5',
+                              borderRight: '1px solid #D2D7E5'
                             }}
                           >
                             <td
@@ -6868,11 +6034,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )?.workingCapitalTurnover?.toFixed(2)}
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.workingCapitalTurnover?.toFixed(2)}
                             </td>
                             <td
                               style={{
@@ -6883,11 +6045,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
                                 ?.workingCapitalTurnover?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -6911,11 +6069,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})
                                 ?.daysOfSalesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -6927,11 +6081,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
                                 ?.daysOfSalesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -6955,11 +6105,9 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )?.daysOfPayablesOutstanding?.toFixed(2)}
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding?.toFixed(
+                                2,
+                              )}
                             </td>
                             <td
                               style={{
@@ -6969,11 +6117,9 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )?.daysOfPayablesOutstanding?.toFixed(2)}
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(
+                                2,
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -6995,11 +6141,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})
                                 .daysOfInventoryOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -7011,11 +6153,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
                                 .daysOfInventoryOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -7025,17 +6163,14 @@ function Index() {
                     </tr>
                     <tr>
                       <td valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="13"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
                           <tr
                             bgColor="#FAFAFB"
                             style={{
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
+                              borderLeft: '1px solid #D2D7E5',
+                              borderRight: '1px solid #D2D7E5'
                             }}
                           >
                             <td
@@ -7073,9 +6208,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {latestYearData?.interestCoverage
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -7086,9 +6219,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {previousYearData?.interestCoverage
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -7112,9 +6243,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {latestYearData?.currentRatio
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -7125,9 +6254,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {previousYearData?.currentRatio
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -7151,9 +6278,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {latestYearData?.debtEquity
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -7164,9 +6289,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {previousYearData?.debtEquity
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
                             </td>
                           </tr>
                         </table>
@@ -7175,12 +6298,7 @@ function Index() {
                   </table>
                 </td>
                 <td valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="15"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         width="50%"
@@ -7621,9 +6739,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {latestYearData?.interestCoverage
-                        ?.toFixed(2)
-                        ?.toLocaleString()}
+                        {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7633,9 +6749,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {previousYearData?.interestCoverage
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                        {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -7657,9 +6771,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
-                          .currentRatio?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7669,9 +6781,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
-                          .currentRatio?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -7693,9 +6803,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
-                          .debtEquity?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7705,9 +6813,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
-                          .debtEquity?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
                       </td>
                     </tr>
                     {/* <tr>
@@ -7777,20 +6883,12 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {[].forEach((l, index2) => {})}
-                  {_get(
-                    companyData,
-                    'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                    '',
-                  ) != ''
+                  {[].forEach((l, index2) => { })}
+                  {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
                     ? moment(
-                        _get(
-                          companyData,
-                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                          '',
-                        ),
-                        'MMyyyy',
-                      ).format('MM-yyyy')
+                      _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
+                      'MMyyyy',
+                    ).format('MM-yyyy')
                     : ''}
                 </td>
                 <td
@@ -7881,9 +6979,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {litigationStatus
-                    ? litigationStatus
-                    : camData?.company?.litigationStatus}
+                  {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                 </td>
                 <td
                   style={{
@@ -7902,9 +6998,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {companyData?.compliance.other?.defaulterCompany
-                    ? 'YES'
-                    : 'NO'}
+                  {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
                 </td>
               </tr>
               <tr>
@@ -8032,11 +7126,9 @@ function Index() {
                     }}
                   >
                     {camData &&
-                      camData?.company?.recommendation?.strengths?.map(
-                        (comment, index) => (
-                          <li style={{ padding: '15px 0' }}>{comment}</li>
-                        ),
-                      )}
+                      camData?.company?.recommendation?.strengths?.map((comment, index) => (
+                        <li style={{ padding: '15px 0' }}>{comment}</li>
+                      ))}
                   </ul>
                 </td>
                 <td
@@ -8083,11 +7175,9 @@ function Index() {
                     }}
                   >
                     {camData &&
-                      camData?.company?.recommendation?.weakness?.map(
-                        (comment, index) => (
-                          <li style={{ padding: '15px 0' }}>{comment}</li>
-                        ),
-                      )}
+                      camData?.company?.recommendation?.weakness?.map((comment, index) => (
+                        <li style={{ padding: '15px 0' }}>{comment}</li>
+                      ))}
                   </ul>
                 </td>
               </tr>
@@ -8145,13 +7235,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {addPrefixOrSuffix(
-                      convertValue(
-                        camData?.company?.creditLimit?.totalLimit,
-                      )?.toLocaleString('en-In'),
-                      'Cr',
-                      '',
-                    )}
+                    {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
                   </span>
                 </td>
                 <td
@@ -8176,9 +7260,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.utilizedLimit?.toLocaleString(
-                      'en-In',
-                    )}
+                    {camData?.company?.creditLimit?.utilizedLimit?.toLocaleString('en-In')}
                   </span>
                 </td>
                 <td
@@ -8203,21 +7285,15 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.availableLimit?.toLocaleString(
-                      'en-In',
-                    )}
+                    {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                   </span>
                 </td>
               </tr>
               <tr>
                 <td colSpan={4} valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
-                    <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr bgColor="#FAFAFB" style={{ height: '67px',
+                          borderLeft: '1px solid #D2D7E5' }}>
                       <td
                         style={{
                           fontSize: '15px',
@@ -8313,9 +7389,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {camData?.company?.creditLimit?.availableLimit?.toLocaleString(
-                          'en-In',
-                        )}
+                        {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                       </td>
                       <td
                         align="center"
@@ -8326,16 +7400,11 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {filteredCreditRating &&
-                        filteredCreditRating?.length > 0
+                        {filteredCreditRating && filteredCreditRating?.length > 0
                           ? filteredCreditRating?.length > 0 &&
-                            filteredCreditRating?.map((val, index) => {
-                              checkNan(
-                                convertValue(
-                                  val?.derived?.value,
-                                )?.toLocaleString('en-In'),
-                              );
-                            })
+                          filteredCreditRating?.map((val, index) => {
+                            checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
+                          })
                           : '-'}
                       </td>
                       <td
@@ -8352,9 +7421,7 @@ function Index() {
                             return camData?._id === rating.order;
                           })
                           .map((val, index) => {
-                            <td key={index}>
-                              {val?.derived?.value?.toLocaleString('en-In')}
-                            </td>;
+                            <td key={index}>{val?.derived?.value?.toLocaleString('en-In')}</td>;
                           })}
                       </td>
                       <td
@@ -8383,12 +7450,7 @@ function Index() {
                           })
                           .map((val, index) => {
                             <td key={index}>
-                              {checkNan(
-                                convertValue(
-                                  val?.suggested?.value,
-                                )?.toLocaleString('en-In'),
-                              )}{' '}
-                              Cr
+                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
                             </td>;
                           })}
                       </td>
@@ -8401,9 +7463,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {approvedCredit?.approvedCreditValue?.toLocaleString(
-                          'en-In',
-                        )}
+                        {approvedCredit?.approvedCreditValue?.toLocaleString('en-In')}
                       </td>
                     </tr>
                     <tr>
@@ -8437,12 +7497,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.orderValue)?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                          },
-                        )}
+                        {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td
                         align="center"
@@ -8464,9 +7521,7 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(
-                          camData?.suggestedOrderValue,
-                        )?.toLocaleString('en-In', {
+                        {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
                         Cr
@@ -8489,9 +7544,7 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {approvedCredit?.approvedOrderValue?.toLocaleString(
-                          'en-In',
-                        )}
+                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -8504,6 +7557,7 @@ function Index() {
                           lineHeight: '27px',
                           textTransform: 'capitalize',
                           paddingLeft: '35px',
+                          borderLeft: '1px solid #D2D7E5'
                         }}
                       >
                         Sanction Conditions
@@ -8523,13 +7577,9 @@ function Index() {
                           }}
                         >
                           {camData &&
-                            camData?.company?.recommendation?.sanctionTerms?.map(
-                              (condition, index) => (
-                                <li style={{ padding: '15px 0' }}>
-                                  {condition}
-                                </li>
-                              ),
-                            )}
+                            camData?.company?.recommendation?.sanctionTerms?.map((condition, index) => (
+                              <li style={{ padding: '15px 0' }}>{condition}</li>
+                            ))}
                         </ul>
                       </td>
                     </tr>
@@ -8572,16 +7622,21 @@ function Index() {
       </table>
     );
   };
-
+const [expectedLimit,setexpectedLimit] = useState(null)
+const setLimit=(date)=>{
+setexpectedLimit(date)
+}
   const GstDataHandler = (data) => {
-    console.log(data, 'gst3234');
+
     setGstData(data);
   };
-  console.log(gstData, 'gstDAta');
+  const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
+  const returnDataPeriodAndColour = (period, index) => {
+    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' }
+    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' }
+  }
 
   const handleGSTDownload = (value) => {
-    // console.log(gstData?.detail?.other?.pdfLink, 'efgilegleghlui')
-
     let path = '';
     if (value === 'pdf') {
       path = gstData?.detail?.other?.savedLinks?.pdfPath;
@@ -8598,19 +7653,13 @@ function Index() {
       dispatch(
         ViewDocument({
           path: path,
-          // orderId: documentsFetched._id,
         }),
       );
-      // window.open(gstData?.detail?.other?.pdfLink, '_blank')
     }
   };
 
   const deleteData = (index) => {
-    //console.log("indexssd",index)
-    setCompanyComment([
-      ...companyComment.slice(0, index),
-      ...companyComment.slice(index + 1),
-    ]);
+    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)]);
   };
 
   const [totalCourt, setTotalCourt] = useState({
@@ -8635,26 +7684,20 @@ function Index() {
     class: '',
     risk: '',
   });
-  // console.log(filterType, 'filtertype')
+
   useEffect(() => {
     const filter = {
       caseStatus: 'Disposed',
       memberType: 'Petitioner',
     };
-    const users = companyData?.compliance?.districtCourt?.cases?.filter(
-      (item) => {
-        for (let key in filter) {
-          if (item[key] === undefined || item[key] != filter[key]) return false;
-        }
-        return true;
-      },
-    );
-    console.log(users, 'data1110filter');
+    const users = companyData?.compliance?.districtCourt?.cases?.filter((item) => {
+      for (let key in filter) {
+        if (item[key] === undefined || item[key] != filter[key]) return false;
+      }
+      return true;
+    });
   }, [companyData]);
 
-  // console.log(filterType, 'filterType')
-  // console.log(district,'filtered')
-  console.log(filterType.party, 'filterType.class');
   useEffect(() => {
     if (companyData) {
       filterLitigation();
@@ -8666,19 +7709,16 @@ function Index() {
     setFilterType({ ...filter });
   };
   const changeParty = (val) => {
-    console.log(val, 'valval');
     let filter = { ...filterType };
     filter.party = val;
     setFilterType({ ...filter });
   };
   const changeRisk = (val) => {
-    console.log(val, 'valval');
     let filter = { ...filterType };
     filter.risk = val;
     setFilterType({ ...filter });
   };
   const filterLitigation = () => {
-    console.log('hit');
     let count = {
       pending: 0,
       disposed: 0,
@@ -8687,8 +7727,7 @@ function Index() {
       medium: 0,
       relevence: 0,
     };
-    console.log(filterType, 'filterType', companyData?.compliance?.highCourt);
-    //getCount
+
     companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
       if (val.caseStatus == 'Disposed') {
@@ -8769,104 +7808,57 @@ function Index() {
     let districtCourt = [];
 
     /////***********filterby */
-    if (
-      filterType.filterBy.pending ||
-      filterType.filterBy.disposed ||
-      filterType.filterBy.total
-    ) {
+    if (filterType.filterBy.pending || filterType.filterBy.disposed || filterType.filterBy.total) {
       const filter = (val) => {
-        if (
-          filterType.filterBy.pending &&
-          !filterType.filterBy.total &&
-          !filterType.filterBy.disposed
-        ) {
+        if (filterType.filterBy.pending && !filterType.filterBy.total && !filterType.filterBy.disposed) {
           if (val.caseStatus == 'Pending') {
-            console.log('Ssssss1');
             return val;
           }
         }
-        if (
-          filterType.filterBy.disposed &&
-          !filterType.filterBy.total &&
-          !filterType.filterBy.pending
-        ) {
+        if (filterType.filterBy.disposed && !filterType.filterBy.total && !filterType.filterBy.pending) {
           if (val.caseStatus == 'Disposed') {
-            console.log('Ssssss2');
             return val;
           }
         }
-        if (
-          filterType.filterBy.total &&
-          !filterType.filterBy.disposed &&
-          !filterType.filterBy.pending
-        ) {
-          console.log('Ssssss3');
+        if (filterType.filterBy.total && !filterType.filterBy.disposed && !filterType.filterBy.pending) {
           return val;
         }
-        if (
-          filterType.filterBy.pending &&
-          filterType.filterBy.disposed &&
-          !filterType.filterBy.total
-        ) {
+        if (filterType.filterBy.pending && filterType.filterBy.disposed && !filterType.filterBy.total) {
           if (val.caseStatus == 'Pending' || val.caseStatus == 'Disposed') {
-            console.log('Ssssss5');
             return val;
           }
         }
 
-        if (
-          filterType.filterBy.pending &&
-          filterType.filterBy.totall &&
-          !filterType.filterBy.disposed
-        ) {
-          console.log('Ssssss6');
+        if (filterType.filterBy.pending && filterType.filterBy.totall && !filterType.filterBy.disposed) {
           return val;
         }
-        if (
-          filterType.filterBy.disposed &&
-          filterType.filterBy.total &&
-          !filterType.filterBy.pending
-        ) {
-          console.log('Ssssss7');
+        if (filterType.filterBy.disposed && filterType.filterBy.total && !filterType.filterBy.pending) {
           return val;
         }
-        if (
-          filterType.filterBy.disposed &&
-          filterType.filterBy.total &&
-          filterType.filterBy.pending
-        ) {
-          console.log('Ssssss');
+        if (filterType.filterBy.disposed && filterType.filterBy.total && filterType.filterBy.pending) {
           return val;
         }
       };
 
-      supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
-        (val) => {
-          return filter(val);
-        },
-      );
+      supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+        return filter(val);
+      });
       highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
         return filter(val);
       });
 
-      tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter(
-        (val) => {
-          return filter(val);
-        },
-      );
-      districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-        (val) => {
-          return filter(val);
-        },
-      );
+      tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        return filter(val);
+      });
+      districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
+        return filter(val);
+      });
     }
-    console.log(filterType.risk, 'filterType.risk ');
+
     if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
       const partyFilter = (val) => {
-        console.log(val.memberType, 'val.memberType');
         if (filterType.party == 'Respondent') {
           if (val.memberType == 'Respondent') {
-            console.log('1111111111');
             return val;
           }
         }
@@ -8880,47 +7872,44 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : supremeCourt?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : highCourt?.filter((val) => {
-              console.log(val, 'secodnoneene');
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
 
       tribunalCourts =
         tribunalCourts.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : tribunalCourts?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
       districtCourt =
         districtCourt.length <= 0
           ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
+            return partyFilter(val);
+          })
           : districtCourt?.filter((val) => {
-              return partyFilter(val);
-            });
+            return partyFilter(val);
+          });
     }
-    console.log(highCourt, 'highCourt44444');
+
     //civil Crimnal
-    console.log(highCourt, 'highCourt111');
+
     if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
       const civilfilter = (val) => {
-        console.log(val.civilCriminal, 'val.civilCriminal');
         if (filterType.class == 'Criminal') {
           if (val.civilCriminal == 'Criminal') {
-            console.log('1111111111');
             return val;
           }
         }
@@ -8932,55 +7921,47 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
+        supremeCourt?.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : supremeCourt?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
       highCourt =
-        highCourt.length <= 0
+        highCourt?.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : highCourt?.filter((val) => {
-              console.log(val, 'secodnoneene');
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : tribunalCourts?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
+            return civilfilter(val);
+          })
           : districtCourt?.filter((val) => {
-              return civilfilter(val);
-            });
+            return civilfilter(val);
+          });
     }
-    console.log(highCourt, 'highCourt222');
 
     //party2
 
     //risk
-    if (
-      filterType.risk == 'relevence' ||
-      filterType.risk == 'medium' ||
-      filterType.risk == 'high'
-    ) {
+    if (filterType.risk == 'relevence' || filterType.risk == 'medium' || filterType.risk == 'high') {
       const riskFilter = (val) => {
-        console.log(val.civilCriminal, 'val.civilCriminal');
         if (filterType.risk == 'high') {
           if (val.severity_ == 'high') {
-            console.log('1111111111');
             return val;
           }
         }
@@ -8999,74 +7980,50 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : supremeCourt?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : highCourt?.filter((val) => {
-              console.log(val, 'secodnoneene');
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
 
       tribunalCourts =
         tribunalCourts.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : tribunalCourts?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
       districtCourt =
         districtCourt.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
+            return riskFilter(val);
+          })
           : districtCourt?.filter((val) => {
-              return riskFilter(val);
-            });
+            return riskFilter(val);
+          });
     }
-    console.log(districtCourt,"districtCourt",highCourt)
+
     setSupreme([...supremeCourt]);
     setTribunal([...tribunalCourts]);
     setHigh([...highCourt]);
-    if(Array.isArray(districtCourt)){
+    if (Array.isArray(districtCourt)) {
       setDistrict([...districtCourt]);
-    }else{
-       setDistrict([]);
+    } else {
+      setDistrict([]);
     }
-    
+
     setTotalCourt(count);
   };
-  console.log(High, 'highCourtDisplay');
-  // useEffect(() => {
-  //   let temp = []
-  //   if (companyData?.profile?.directorDetail.length > 0) {
-  //     companyData?.profile?.directorDetail.forEach((val, index) => {
-  //       temp.push({
-  //         contact: {
-  //           callingCode: '+91',
-  //           number: '',
-  //         },
-  //         department: '',
-  //         designation: val.designation,
-  //         email: val.email,
-  //         name: val.name,
-  //         isEdit: false,
-  //         addnew: false,
-  //       })
-  //     })
-  //   }
-  //   console.log(temp, 'temp')
-  //   setPersonData([...temp])
-  // }, [companyData?.profile?.directorDetail])
-  console.log(personData, 'per');
-  console.log(companyData?.profile?.directorDetail, 'director');
+
   const [top5Customers, setTop5Customers1] = useState({
     labels: [],
     datasets: [],
@@ -9086,37 +8043,20 @@ function Index() {
     datasets: [],
   });
   const exportPDF = async () => {
-    console.log(orderList, 'orderList');
     const doc = new jsPDF('p', 'pt', 'a4');
 
     const trendChartRevenue = document.getElementById('trendChartRevenue');
     const trendChartRevenueImg = trendChartRevenue?.toDataURL('image/png', 1.0);
     const trendChartPurchases = document.getElementById('trendChartPurchases');
-    const trendChartPurchasesImg = trendChartPurchases?.toDataURL(
-      'image/png',
-      1.0,
-    );
-    const skewnessChartPurchases = document.getElementById(
-      'skewnessChartPurchases',
-    );
-    const skewnessChartPurchasesImg = skewnessChartPurchases?.toDataURL(
-      'image/png',
-      1.0,
-    );
-    const skewnessChartRevenue = document.getElementById(
-      'skewnessChartRevenue',
-    );
-    const skewnessChartRevenueImg = skewnessChartRevenue?.toDataURL(
-      'image/png',
-      1.0,
-    );
+    const trendChartPurchasesImg = trendChartPurchases?.toDataURL('image/png', 1.0);
+    const skewnessChartPurchases = document.getElementById('skewnessChartPurchases');
+    const skewnessChartPurchasesImg = skewnessChartPurchases?.toDataURL('image/png', 1.0);
+    const skewnessChartRevenue = document.getElementById('skewnessChartRevenue');
+    const skewnessChartRevenueImg = skewnessChartRevenue?.toDataURL('image/png', 1.0);
     const shareHoldingChart = document.getElementById('shareHoldingChart');
     const shareHoldingChartImg = shareHoldingChart?.toDataURL('image/png', 1.0);
     const openBankChargeChart = document.getElementById('openBankChargeChart');
-    const openBankChargeChartImg = openBankChargeChart?.toDataURL(
-      'image/png',
-      1.0,
-    );
+    const openBankChargeChartImg = openBankChargeChart?.toDataURL('image/png', 1.0);
 
     doc.html(
       ReactDOMServer.renderToString(
@@ -9130,20 +8070,13 @@ function Index() {
           shareHoldingChartImg,
           openBankChargeChartImg,
           debtProfileColor,
+          backgroundColor,
+          backgroundColor1,
+          returnFilteredCharges
         ),
       ),
       {
         callback: function (doc) {
-          // var pageSize = doc.internal.pageSize
-          // var pdf_pages = doc.internal.pages;
-          // var pageHeight = pageSize.height
-          //   ? pageSize.height
-          //   : pageSize.getHeight();
-
-          // doc.setFont('helvetica', "normal")
-
-          // var line = "Footer Content";
-
           doc.save('CAM.pdf');
         },
         margin: [20, 20, 20, 30],
@@ -9151,8 +8084,7 @@ function Index() {
           scale: 0.33, //this was my solution, you have to adjust to your size
           width: 1000, //for some reason width does nothing
         },
-        // x: 32,
-        // y: 32,
+
         autoPaging: 'text',
       },
     );
@@ -9163,8 +8095,7 @@ function Index() {
         ...keyAddData,
         {
           addressType: 'Registered Office',
-          completeAddress:
-            companyData?.profile?.companyDetail?.registeredAddress,
+          completeAddress: companyData?.profile?.companyDetail?.registeredAddress,
           contact: {
             callingCode: '+91',
             number: companyData?.profile?.companyDetail?.contactNumber,
@@ -9173,6 +8104,9 @@ function Index() {
       ]);
     }
   }, [companyData]);
+
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -9187,19 +8121,13 @@ function Index() {
                 style={{ cursor: 'pointer' }}
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName
-                  ? orderList?.company?.companyName
-                  : ''}
+                {orderList?.company?.companyName ? orderList?.company?.companyName : ''}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
               <>
-                <div
-                  className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}
-                >
-                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>
-                    Unit :
-                  </h5>
+                <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
+                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
                   <div className="d-flex align-items-center position-relative">
                     <select
                       className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
@@ -9221,9 +8149,7 @@ function Index() {
               </>
             ) : null}
             {uploadBtn ? (
-              <div className="ml-auto text-right">
-                {uploadButton(dispatch, orderList, companyData)}{' '}
-              </div>
+              <div className="ml-auto text-right">{uploadButton(dispatch, orderList, companyData)} </div>
             ) : null}
             {/* <div className="ml-auto text-right">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
@@ -9365,53 +8291,24 @@ function Index() {
           <div className="row">
             <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane fade show active"
-                  id="Profile"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <CompanyDetails
-                      order={orderList?.company}
-                      companyDetail={companyData}
-                    />
-                    <AuditorsDetail
-                      companyData={companyData}
-                      auditorsDetails={companyData?.profile?.auditorDetail}
-                    />
+                    <CompanyDetails order={orderList?.company} companyDetail={companyData} />
+                    <AuditorsDetail companyData={companyData} auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
-                    <ShareHoldingPattern
-                      shareHolding={companyData?.profile?.shareholdingPattern}
-                    />
-                    <CreditRatings
-                      creditRating={companyData?.profile?.creditRating}
-                    />
+                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
+                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
-                  <div
-                    className="accordion shadow-none"
-                    id="FinancialsAccordion"
-                  >
-                    <BalanceSheet
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      balanceData={companyData}
-                    />
+                  <div className="accordion shadow-none" id="FinancialsAccordion">
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <IncomeStatement
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      incomeData={companyData}
-                    />
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <CashFlow
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      cashData={companyData}
-                    />
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
-                    <Ratios
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      ratioData={companyData}
-                    />
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
 
                     <Peer peerData={companyData} />
 
@@ -9429,9 +8326,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
-                  <div
-                    className={`${styles.card} card border_color border-bottom`}
-                  >
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
@@ -9440,14 +8335,10 @@ function Index() {
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
                       >
                         <h2 className="mb-0 w-100 ">Compliance</h2>
-                        <div
-                          className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}
-                        >
+                        <div className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}>
                           <label className={styles.label}>Status:</label>
                           <div className={`${styles.status}`}>
-                            <span>
-                              {companyData?.compliance?.other?.complianceStatus}{' '}
-                            </span>
+                            <span>{companyData?.compliance?.other?.complianceStatus} </span>
                           </div>
                         </div>
                       </div>
@@ -9460,22 +8351,11 @@ function Index() {
                         +
                       </span>
                     </div>
-                    <div
-                      id="compliance"
-                      // className="collapse"
-                      aria-labelledby="compliance"
-                      data-parent="#profileAccordion"
-                    >
-                      <div
-                        className={` ${styles.cardBody_compliance} card-body p-0 border_color`}
-                      >
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                    <div id="compliance" aria-labelledby="compliance" data-parent="#profileAccordion">
+                      <div className={` ${styles.cardBody_compliance} card-body p-0 border_color`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span
-                              className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
-                            >
+                            <span className={`${styles.head} d-flex align-items-center justify-content-flex-start`}>
                               Severe Risk ({level.sever.length})
                             </span>
                           </Col>
@@ -9483,164 +8363,106 @@ function Index() {
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert?.severity?.trim().toLowerCase() ===
-                                      'severe'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div
-                                            className={styles.purple_dot}
-                                          ></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert?.severity?.trim().toLowerCase() === 'severe') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.purple_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>
-                              High Risk ({level.high.length})
-                            </span>
+                            <span className={styles.head}>High Risk ({level.high.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert.severity.trim().toLowerCase() ===
-                                      'high'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div className={styles.red_dot}></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === 'high') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.red_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>
-                              Medium Risk ({level.medium.length})
-                            </span>
+                            <span className={styles.head}>Medium Risk ({level.medium.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert.severity.trim().toLowerCase() ===
-                                      'medium'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div
-                                            className={styles.yellow_dot}
-                                          ></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === 'medium') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.yellow_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>
-                              Low Risk ({level.low.length})
-                            </span>
+                            <span className={styles.head}>Low Risk ({level.low.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert.severity.trim().toLowerCase() ===
-                                      'low'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div
-                                            className={styles.orange_dot}
-                                          ></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === 'low') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.orange_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
@@ -9649,24 +8471,18 @@ function Index() {
                     </div>
                   </div>
                   {/* details */}
-                  <div
-                    className={`${styles.card} card border_color border-bottom`}
-                  >
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
                     >
                       <h2 className="mb-0 ">Details</h2>
-                      <div
-                        className={`${styles.categories} mb-0 d-flex align-items-center`}
-                      >
+                      <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <div className="d-flex align-items-center position-relative">
                           <select
                             style={{ minWidth: '252px' }}
-                            onChange={(e) =>
-                              setComplienceFilter(e.target.value)
-                            }
+                            onChange={(e) => setComplienceFilter(e.target.value)}
                             className={`${styles.form_control} ${styles.customSelect} input form-control`}
                           >
                             <option>Select an option</option>
@@ -9674,12 +8490,8 @@ function Index() {
                             <option selected value="All">
                               All
                             </option>
-                            <option value="StatutoryCompliance">
-                              Statutory Compliance
-                            </option>
-                            <option value="BankingDefaults">
-                              Banking Defaults
-                            </option>
+                            <option value="StatutoryCompliance">Statutory Compliance</option>
+                            <option value="BankingDefaults">Banking Defaults</option>
                           </select>
                           <img
                             className={`${styles.arrow3} image_arrow img-fluid`}
@@ -9697,30 +8509,17 @@ function Index() {
                         </span>
                       </div>
                     </div>
-                    <div
-                      id="details"
-                      className="collapse"
-                      aria-labelledby="details"
-                      data-parent="#profileAccordion"
-                    >
-                      <div
-                        className={` ${styles.cardBody_details} card-body pb-0 border_color`}
-                      >
+                    <div id="details" className="collapse" aria-labelledby="details" data-parent="#profileAccordion">
+                      <div className={` ${styles.cardBody_details} card-body pb-0 border_color`}>
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
-                            {table2(
-                              complienceStatutoryFilter,
-                              complienceBalanceFilter,
-                              complienceFilter,
-                            )}
+                            {table2(complienceStatutoryFilter, complienceBalanceFilter, complienceFilter)}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    className={`${styles.card} card border_color border-bottom`}
-                  >
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
@@ -9729,22 +8528,14 @@ function Index() {
                         className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}
                       >
                         <h2 className="mb-0">Litigations</h2>
-                        <div
-                          className={`${styles.categories}  d-flex align-items-center`}
-                        >
-                          <label className={styles.label}>
-                            Litigations Status:
-                          </label>
+                        <div className={`${styles.categories}  d-flex align-items-center`}>
+                          <label className={styles.label}>Litigations Status:</label>
                           <div className="d-flex align-items-center position-relative">
                             <select
                               style={{ minWidth: '140px' }}
                               onChange={updateLitigationStatus}
                               className={`${styles.form_control} ${styles.customSelect} input form-control`}
-                              value={
-                                litigationStatus
-                                  ? litigationStatus
-                                  : orderList?.company?.litigationStatus
-                              }
+                              value={litigationStatus ? litigationStatus : orderList?.company?.litigationStatus}
                             >
                               <option selected value="All">
                                 All
@@ -9775,88 +8566,63 @@ function Index() {
                       aria-labelledby="litigations"
                       data-parent="#profileAccordion"
                     >
-                      <div
-                        className={` ${styles.cardBody_litigations} card-body border_color`}
-                      >
-                        <div
-                          className={`${styles.checkbox_Container}`}
-                          data-toggle="collapse"
-                        >
+                      <div className={` ${styles.cardBody_litigations} card-body border_color`}>
+                        <div className={`${styles.checkbox_Container}`} data-toggle="collapse">
                           <Row>
-                            <Col md={4}>
+                            <Col md={6}>
                               <p className={`mb-3 text`}>Filter by</p>
-                              <div
-                                className={` d-flex align-items-center justify-content-start`}
-                              >
-                                <div className="form-check">
+                              <div className={`flex-wrap d-flex align-items-center justify-content-start`}>
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault"
                                     onChange={() => {
-                                      filterType.filterBy.pending =
-                                        !filterType.filterBy.pending;
+                                      filterType.filterBy.pending = !filterType.filterBy.pending;
                                       setFilterType({ ...filterType });
                                     }}
-                                    checked={
-                                      filterType.filterBy.pending
-                                        ? 'checked'
-                                        : ''
-                                    }
+                                    checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexCheckDefault"
-                                  >
-                                    Pending ({totalCourt.pending})
+                                  <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    Pending<span className='pl-1'>({totalCourt.pending})</span>
                                   </label>
                                 </div>
-                                <div className="form-check ml-4">
+                                <div className="form-check mr-4">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault1"
                                     onChange={() => {
-                                      filterType.filterBy.disposed =
-                                        !filterType.filterBy.disposed;
+                                      filterType.filterBy.disposed = !filterType.filterBy.disposed;
                                       setFilterType({ ...filterType });
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexCheckDefault1"
-                                  >
-                                    Disposed ({totalCourt.disposed})
+                                  <label className="form-check-label" htmlFor="flexCheckDefault1">
+                                    Disposed<span className='pl-1'>({totalCourt.disposed})</span>
                                   </label>
                                 </div>
-                                <div className="form-check  ml-4">
+                                <div className="form-check">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault3"
                                     onChange={() => {
-                                      filterType.filterBy.total =
-                                        !filterType.filterBy.total;
+                                      filterType.filterBy.total = !filterType.filterBy.total;
                                       setFilterType({ ...filterType });
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexCheckDefault3"
-                                  >
-                                    Total Cases ({totalCourt.total})
+                                  <label className="form-check-label" htmlFor="flexCheckDefault3">
+                                    Total Cases<span className='pl-1'>({totalCourt.total})</span>
                                   </label>
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3}>
                               <p className={`mb-3 text`}>Select a Party</p>
-                              <div
-                                className={` d-flex align-items-center justify-content-start`}
-                              >
+                              <div className={`d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -9868,10 +8634,7 @@ function Index() {
                                       changeParty('Respondent');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault1"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     Respondent
                                   </label>
                                 </div>
@@ -9886,20 +8649,15 @@ function Index() {
                                       changeParty('Petitioner');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault2"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault2">
                                     Petitioner
                                   </label>
                                 </div>
                               </div>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3} className="pl-5">
                               <p className={`mb-3 text`}>Classification</p>
-                              <div
-                                className={` d-flex align-items-center justify-content-start`}
-                              >
+                              <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -9911,10 +8669,7 @@ function Index() {
                                       changeClass('Civil');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault3"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault3">
                                     Civil
                                   </label>
                                 </div>
@@ -9929,10 +8684,7 @@ function Index() {
                                       changeClass('Criminal');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault4"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault4">
                                     Criminal
                                   </label>
                                 </div>
@@ -9943,9 +8695,7 @@ function Index() {
                         <div
                           className={`${styles.risk_Container} d-flex align-items-center justify-content-between  mb-4`}
                         >
-                          <div
-                            className={` w-100 d-flex align-items-center justify-content-start  `}
-                          >
+                          <div className={` w-100 d-flex align-items-center justify-content-start  `}>
                             <label className={styles.control} htmlFor={'high'}>
                               <input
                                 className={styles.checkbox}
@@ -9955,7 +8705,6 @@ function Index() {
                                 id={'high'}
                                 onChange={() => {
                                   changeRisk('high');
-                                  // setFilterType({ ...filterType, risk: 'high' })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -9964,10 +8713,7 @@ function Index() {
                               </span>
                             </label>
 
-                            <label
-                              className={styles.control}
-                              htmlFor={'medium'}
-                            >
+                            <label className={styles.control} htmlFor={'medium'}>
                               <input
                                 className={styles.checkbox}
                                 type="radio"
@@ -9976,10 +8722,6 @@ function Index() {
                                 id={'medium'}
                                 onChange={() => {
                                   changeRisk('medium');
-                                  // setFilterType({
-                                  //   ...filterType,
-                                  //   risk: 'medium',
-                                  // })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -9987,10 +8729,7 @@ function Index() {
                                 <span>({totalCourt.medium})</span>
                               </span>
                             </label>
-                            <label
-                              className={styles.control}
-                              htmlFor={'Relevance'}
-                            >
+                            <label className={styles.control} htmlFor={'Relevance'}>
                               <input
                                 className={styles.checkbox}
                                 type="radio"
@@ -9999,10 +8738,6 @@ function Index() {
                                 id={'Relevance'}
                                 onChange={() => {
                                   changeRisk('relevance');
-                                  // setFilterType({
-                                  //   ...filterType,
-                                  //   risk: 'relevence',
-                                  // })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -10011,46 +8746,9 @@ function Index() {
                               </span>
                             </label>
                           </div>
-
-                          {/* <ComplianceLigitations
-                            icon={'/static/danger.svg'}
-                            backColor={'#E3F0FF'}
-                            iconBackGroudColor={'#3687E8 '}
-                            heading={'High Risk (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          />
-                          <ComplianceLigitations
-                            icon={'/static/danger.svg'}
-                            backColor={'#FFE9C5'}
-                            iconBackGroudColor={'#FF9D00'}
-                            heading={'Medium Risk (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          />
-                          <ComplianceLigitations
-                            icon={'/static/Path 3369.svg'}
-                            backColor={'#F3F4F7'}
-                            iconBackGroudColor={'#9EB6FF'}
-                            heading={'High Priority (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          />
-                          <ComplianceLigitations
-                            icon={'/static/Group 1240.svg'}
-                            backColor={'#FFE8E8'}
-                            iconBackGroudColor={'#EA3F3F'}
-                            heading={'Stagnant Cases (5)'}
-                            content={'Pending Case: 4 Disposed Case: 4'}
-                          /> */}
                         </div>
 
-                        <div>
-                          {ligitations(
-                            Supreme,
-                            District,
-                            High,
-                            Tribunal,
-                            companyData,
-                          )}
-                        </div>
+                        <div>{ligitations(Supreme, District, High, Tribunal, companyData)}</div>
                       </div>
                     </div>
                   </div>
@@ -10063,12 +8761,14 @@ function Index() {
                       commodity={getCommoditiesMasterData}
                       country={getCountriesMasterData}
                       port={getPortsMasterData}
+                      orderList={orderList}
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
                       saveShipmentData={saveShipmentData}
                       shipment={shipment}
-                       port={getPortsMasterData}
+                      port={getPortsMasterData}
+                      setLimit={setLimit}
                     />
                     <CommonSave onSave={onOrderSave} />
                   </div>
@@ -10118,19 +8818,14 @@ function Index() {
                     suggestedCredit={suggestedCredit}
                     setGroupExposureData={setGroupExposureData}
                     setSanctionComment={setSanctionComment}
+                    allBuyerList={allBuyerList}
+
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="DocumentsTab"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther
-                      module="LeadOnboarding&OrderApproval"
-                      orderid={id}
-                    />
+                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
@@ -10156,6 +8851,7 @@ function Index() {
                     CreditAgency={CreditAgency}
                     litigationStatus={litigationStatus}
                     debtProfileColor={debtProfileColor}
+                    allBuyerList={allBuyerList}
                   />
                 </div>
               </div>
@@ -10163,11 +8859,7 @@ function Index() {
           </div>
         </div>
       </div>
-      {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+      {selectedTab == 'Financials' || 'Compliance' || 'Orders' || 'Credit' || 'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -10179,9 +8871,8 @@ function Index() {
           rightButtonName={`Next`}
           handleApprove={onNext}
           handleUpdate={onPreviousClick}
-          handleReject={() => {
-            console.log('download pdf');
-          }}
+          handleReject={handleMcaReport}
+          mcaReportAvailable={mcaReportAvailable}
         />
       ) : null}
       {selectedTab == 'GST' ? (
@@ -10212,15 +8903,14 @@ function Index() {
     </>
   );
 }
+
 export default Index;
 
 const uploadButton = (dispatch, orderList, companyData) => {
   return (
     <>
       <button
-        onClick={() =>
-          dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
-        }
+        onClick={() => dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))}
         type="button"
         className={`${styles.btnPrimary} btn btn-primary`}
       >
@@ -10229,15 +8919,13 @@ const uploadButton = (dispatch, orderList, companyData) => {
       </button>
       <div className={`${styles.lastModified} text `}>
         <span className="accordion_Text">Last Modified:</span>
-        {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
+        {moment(companyData?.updatedAt).format(' D MMM, h:mm a')}
       </div>
     </>
   );
 };
 
 const ligitations = (Supreme, District, High, Tribunal, companyData) => {
-  console.log(High, 'High');
-
   return (
     <>
       <LigitationsTable
@@ -10269,9 +8957,7 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 };
 
 const table2 = (sat, balance, complienceFilter) => {
-  console.log(balance, complienceFilter, 'oi');
-  let length =
-    complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
+  let length = complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
   if (complienceFilter == 'All') {
     complienceFilter == sat.length;
   }
@@ -10285,7 +8971,6 @@ const table2 = (sat, balance, complienceFilter) => {
       let caps = '';
       let myArray = result.split(' ');
       if (myArray.length > 1) {
-        console.log(myArray, 'myArray');
         const getText = (arr) => {
           let text = '';
           arr.forEach((val, index) => {
@@ -10293,7 +8978,7 @@ const table2 = (sat, balance, complienceFilter) => {
               text = `${text} ${val}`;
             }
           });
-          console.log(text, 'etxtxttx');
+
           return text;
         };
         if (myArray[0] == 'Gst' || myArray[0] == 'Epf' || myArray[0] == 'Tan') {
@@ -10302,19 +8987,14 @@ const table2 = (sat, balance, complienceFilter) => {
         }
       }
     }
-    console.log(result, 'caps');
+
     if (result == 'Ibbi') {
       result = 'IBBI';
     }
     return result;
   };
   return (
-    <table
-      className={`${styles.table_details} mb-0 table border_color`}
-      cellPadding="0"
-      cellSpacing="0"
-      border="1"
-    >
+    <table className={`${styles.table_details} mb-0 table border_color`} cellPadding="0" cellSpacing="0" border="1">
       <thead>
         <tr>
           <th className=""></th>
@@ -10327,15 +9007,12 @@ const table2 = (sat, balance, complienceFilter) => {
       </thead>
       <tbody>
         <tr>
-          <td
-            className={`${styles.firstCell} text-nowrap`}
-            rowSpan={length + 3}
-          >
+          <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-              ? 'All'
-              : `Banking Defaults`}
+                ? 'All'
+                : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -10345,115 +9022,73 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-            sat?.map((alert, index) => {
-              {
-                console.log(alert.source, 'alert.value');
-              }
-              return (
-                <tr key={index}>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.alert, true)}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.severity)}
-                  </td>
-                  <td className="text-capitalize">
-                    {alert.source.toUpperCase()}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert?.value?.length > 1 ? (
-                      <>
-                        {alert.value.map((val, index) => {
-                          return (
-                            <>
-                              {val}
-                              {index !== alert.value.length - 1 ? ', ' : ''}
-                            </>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <>
-                        {alert.idType == 'dateOfIssuance'
-                          ? moment(alert.value).format('DD-MM-YYYY')
-                          : alert.value}
-                      </>
-                    )}
-                  </td>
-                </tr>
-              );
-            })
+          sat?.map((alert, index) => {
+            {
+            }
+            return (
+              <tr key={index}>
+                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                <td className="text-capitalize">
+                  {' '}
+                  {alert?.value?.length > 1 ? (
+                    <>
+                      {alert.value.map((val, index) => {
+                        return (
+                          <>
+                            {val}
+                            {index !== alert.value.length - 1 ? ', ' : ''}
+                          </>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                  )}
+                </td>
+              </tr>
+            );
+          })
           : balance.length > 0 &&
-            balance?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.alert, true)}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.severity)}
-                  </td>
-                  <td className="text-capitalize">
-                    {alert.source.toUpperCase()}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert?.value?.length > 1 ? (
-                      <>
-                        {alert.value.map((val, index) => {
-                          return (
-                            <>
-                              {val}
-                              {index !== alert.value.length - 1 ? ', ' : ''}
-                            </>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <>
-                        {alert.idType == 'dateOfIssuance'
-                          ? moment(alert.value).format('DD-MM-YYYY')
-                          : alert.value}
-                      </>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+          balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                <td className="text-capitalize">
+                  {' '}
+                  {alert?.value?.length > 1 ? (
+                    <>
+                      {alert.value.map((val, index) => {
+                        return (
+                          <>
+                            {val}
+                            {index !== alert.value.length - 1 ? ', ' : ''}
+                          </>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&
               sat?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.alert, true)}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.severity)}
-                    </td>
-                    <td className="text-capitalize">
-                      {alert.source.toUpperCase()}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                    </td>
+                    <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                    <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                    <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                     <td className="text-capitalize">
                       {' '}
                       {alert?.value?.length > 1 ? (
@@ -10468,11 +9103,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>
-                          {alert.idType == 'dateOfIssuance'
-                            ? moment(alert.value).format('DD-MM-YYYY')
-                            : alert.value}
-                        </>
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
                       )}
                     </td>
                   </tr>
@@ -10482,21 +9113,10 @@ const table2 = (sat, balance, complienceFilter) => {
               balance?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.alert, true)}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.severity)}
-                    </td>
-                    <td className="text-capitalize">
-                      {alert.source.toUpperCase()}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                    </td>
+                    <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                    <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                    <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                     <td className="text-capitalize">
                       {' '}
                       {alert?.value?.length > 1 ? (
@@ -10511,11 +9131,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>
-                          {alert.idType == 'dateOfIssuance'
-                            ? moment(alert.value).format('DD-MM-YYYY')
-                            : alert.value}
-                        </>
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
                       )}
                     </td>
                   </tr>

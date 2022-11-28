@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action';
@@ -10,14 +10,21 @@ import Router from 'next/router';
 import InspectionDocument from '../InspectionDocument';
 import { toast } from 'react-toastify';
 import _get from 'lodash/get';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../src/redux/userData/action';
+import moment from 'moment';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
+import { handleErrorToast } from '@/utils/helpers/global';
+import { getPorts } from 'redux/masters/action';
 
 function Index() {
+
   const dispatch = useDispatch();
+
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+
+  useEffect(() => {
+    dispatch(getPorts());
+  
+  }, []);
 
   const [editInput, setEditInput] = useState(false);
   const [editCurrent, setEditCurrent] = useState();
@@ -26,9 +33,6 @@ function Index() {
     newValue: false,
   });
   const handleEdit = (index) => {
-    // console.log('THIS IS HANDLE EDIT', val)
-    // setEditCurrent(val)
-    // setEditInput(true)
     const newArr = [...clauseArr];
     newArr.forEach((val, i) => {
       if (i == index) {
@@ -39,27 +43,15 @@ function Index() {
     setClauseArr(newArr);
   };
 
-  console.log(clauseData, 'clauseData');
-  console.log(editCurrent, 'THIS IS EDIT LC', editInput);
-
   const { lcModule } = useSelector((state) => state.lc);
 
   let lcModuleData = _get(lcModule, 'data[0]', {});
 
   useEffect(() => {
     dispatch(setPageName('Lc'));
-    console.log(
-      lcModule?.data?.order?.orderId,
-      'lcModule?.data?.order?.orderId',
-    );
-    dispatch(
-      setDynamicName(
-        _get(lcModule, 'data[0].company.companyName', 'Company Name'),
-      ),
-    );
-    dispatch(
-      setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')),
-    );
+
+    dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')));
+    dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')));
   }, [lcModuleData]);
 
   useEffect(() => {
@@ -71,20 +63,15 @@ function Index() {
 
   useEffect(() => {
     setLcData({
-      formOfDocumentaryCredit:
-        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank:
-        lcModuleData?.lcApplication?.lcIssuingBank ||
-        'First Class European Bank',
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || 'First Class European Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
-      currecyCodeAndAmountValue:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-      currecyCodeAndAmountUnit:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
       creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
       creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
@@ -100,35 +87,30 @@ function Index() {
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
       presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
-      confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions,
+      confirmationInstructions: lcModuleData?.lcApplication?.confirmationInstructions,
       reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
-      requestedConfirmationParty:
-        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      requestedConfirmationParty: lcModuleData?.lcApplication?.requestedConfirmationParty,
       charges: lcModuleData?.lcApplication?.charges,
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
-      senderToReceiverInformation:
-        lcModuleData?.lcApplication?.senderToReceiverInformation,
-      documentaryCreditNumber:
-        lcModuleData?.lcApplication?.documentaryCreditNumber,
-      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
+      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber
+        ? lcModuleData?.lcApplication?.documentaryCreditNumber
+        : '',
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue ? lcModuleData?.lcApplication?.dateOfIssue : '',
     });
 
     setClauseData({
-      formOfDocumentaryCredit:
-        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-      applicableRules: lcModuleData?.lcApplication?.applicableRules,
+      formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+      lcIssuingBank: 'ING Bank',
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
-      currecyCodeAndAmountValue:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-      currecyCodeAndAmountUnit:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
       creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
       creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
@@ -144,30 +126,20 @@ function Index() {
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
       presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
-      confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions,
+      confirmationInstructions: lcModuleData?.lcApplication?.confirmationInstructions,
       reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
-      requestedConfirmationParty:
-        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      requestedConfirmationParty: lcModuleData?.lcApplication?.requestedConfirmationParty,
       charges: lcModuleData?.lcApplication?.charges,
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
-      senderToReceiverInformation:
-        lcModuleData?.lcApplication?.senderToReceiverInformation,
-      documentaryCreditNumber:
-        lcModuleData?.lcApplication?.documentaryCreditNumber,
-      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
+      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber
+        ? lcModuleData?.lcApplication?.documentaryCreditNumber
+        : '',
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue ? lcModuleData?.lcApplication?.dateOfIssue : '',
     });
   }, [lcModuleData]);
-
-  console.log(lcData, 'LC DATA');
-
-  const saveAmendmentData = (name, value) => {
-    const newInput = { ...lcData };
-    newInput[name] = value;
-    setLcData(newInput);
-  };
 
   const saveDate = (value, name) => {
     const d = new Date(value);
@@ -176,31 +148,12 @@ function Index() {
   };
 
   const [clauseData, setClauseData] = useState();
-  // {
-  //   formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-  //   applicableRules: lcModuleData?.lcApplication?.applicableRules,
-  //   dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
-  //   placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-  //   applicant: lcModuleData?.lcApplication?.applicant,
-  //   beneficiary: lcModuleData?.lcApplication?.beneficiary,
-  //   currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-  //   currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-  //   tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
-  //   creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
-  //   creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
-  //   atSight: lcModuleData?.lcApplication?.atSight,
-  //   drawee: lcModuleData?.lcApplication?.drawee,
-  //   deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-  //   partialShipment: lcModuleData?.lcApplication?.partialShipment,
-  //   transhipments: lcModuleData?.lcApplication?.transhipments,
-  //   shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-  //   portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-  //   portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
-  //   latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
-  //   DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-  // },
 
-  console.log(clauseData, 'CLAUSE DATA');
+  const saveAmendmentData = (name, value) => {
+    const newInput = { ...lcData };
+    newInput[name] = value;
+    setLcData(newInput);
+  };
 
   const initialState = {
     existingValue: '',
@@ -214,35 +167,42 @@ function Index() {
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
-  console.log(clauseObj, 'this is ccccc');
-
   const [clauseArr, setClauseArr] = useState([]);
-  // console.log(clauseArr, 'new arr', clauseArr.map((e)=>e.dropDownValue))
 
   const [drop, setDrop] = useState('');
 
   const [fieldType, setFieldType] = useState('');
 
   const dropDownChange = (e) => {
-    if (
-      e.target.value == 'latestDateOfShipment' ||
-      e.target.value == 'dateOfExpiry'
-    ) {
+    if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'partialShipment') {
-      setFieldType('select');
+    } else if (e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage') {
+      setFieldType('number');
+    } else if (
+      e.target.value == 'partialShipment' ||
+      e.target.value == 'transhipments' ||
+      e.target.value == 'formOfDocumentaryCredit' ||
+      e.target.value == 'creditAvailableBy' ||
+      e.target.value == 'creditAvailablewith' ||
+      e.target.value == 'applicant' || 
+      e.target.value == 'portOfDischarge' || 
+      e.target.value == 'portOfLoading'
+    ) {
+      setFieldType('drop');
     } else {
       setFieldType('');
     }
 
     let newInput = { ...clauseObj };
 
-    let val1 = e.target.options[e.target.selectedIndex].text;
-    let val2 = e.target.value;
+    let val1 = e.target.options[e.target.selectedIndex].text || '';
+    let val2 = e.target.value || '';
     setDrop(val2);
 
-    newInput['existingValue'] = clauseData[e.target.value];
-    newInput['dropDownValue'] = val1;
+    newInput['existingValue'] = lcData[e.target.value] || '';
+    if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
+    newInput['dropDownValue'] = val1 || '';
+    newInput['newValue'] = '';
 
     setClauseObj(newInput);
   };
@@ -264,35 +224,29 @@ function Index() {
   };
 
   const addToArr = () => {
-    // console.log(inputRef, 'THIS IN INPUT REF')
-    // inputRef.current.value = '';
-    if (fieldType == 'date' || fieldType == 'select') {
-      setFieldType('');
-    }
-    inputRef1.current.value = '';
-    setClauseObj(initialState);
-    if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
-      let toastMessage = 'CANNOT ADD A CLAUSE WITH EMPTY VALUES';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-    } else {
+    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '')
+      handleErrorToast('please select a clause to update value ');
+    else if (clauseObj.newValue === 'Select an option' || clauseObj.newValue === '')
+      handleErrorToast('Please specify a new value first');
+    else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
+      handleErrorToast('CLAUSE ALREADY ADDED');
+    else {
       const newArr = [...clauseArr];
-      if (
-        clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
-      ) {
-        let toastMessage = 'Please select a different Clause from drop down';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-      } else {
-        newArr.push(clauseObj);
-
-        setClauseArr(newArr);
+      if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
+        setFieldType('');
       }
+      inputRef1.current.value = '';
+      setClauseObj(initialState);
+      newArr.push(clauseObj);
+      setClauseArr(newArr);
+      // setClauseObj({
+      //   existingValue: '',
+      //   dropDownValue: '',
+      //   newValue: '',
+      // })
     }
   };
-  console.log(clauseArr, 'clauseArr');
+
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
       return item.dropDownValue !== arr;
@@ -304,49 +258,153 @@ function Index() {
     lcDraftDoc: null,
   });
 
-  console.log(lcDoc, 'THIS IS LOC DOC');
-
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
     newInput.lcDraftDoc = e.target.files[0];
     setLcDoc(newInput);
   };
 
-  const handleSubmit = () => {
-    if (
-      lcData.documentaryCreditNumber === '' ||
-      lcData.documentaryCreditNumber == undefined
-    ) {
+  const validation = () => {
+    if (lcData.documentaryCreditNumber === '' || lcData.documentaryCreditNumber == undefined) {
       let toastMessage = 'DOCUMENTARY CREDIT NUMBER IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else if (
-      lcData.lcIssuingBank === '' ||
-      lcData.lcIssuingBank == undefined
-    ) {
+      return false;
+    } else if (lcData.lcIssuingBank === '' || lcData.lcIssuingBank == undefined) {
       let toastMessage = 'SELECT LC ISSUING BANK FROM DROPDOWN';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
+      return false;
     } else if (lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined) {
       let toastMessage = 'DATE OF ISSUE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
+      return false;
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
       let toastMessage = 'PLEASE UPLOAD LC DRAFT';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
-    } else {
-      setLcData(clauseData);
-      let fd = new FormData();
-      fd.append('lcApplication', JSON.stringify(lcData));
-      fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-      fd.append('document1', lcDoc.lcDraftDoc);
+      return false;
+    }
+    return true;
+  };
 
-      dispatch(UpdateLcAmendment(fd));
+  const handleSubmit = () => {
+    if (!validation()) return;
+
+    let sendLcData = { ...clauseData };
+
+    sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
+    sendLcData.dateOfIssue = lcData.dateOfIssue;
+    // setLcData(sendLcData);
+
+    let fd = new FormData();
+    fd.append('lcApplication', JSON.stringify(sendLcData));
+    fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
+    fd.append('document1', lcDoc.lcDraftDoc);
+
+    dispatch(UpdateLcAmendment(fd));
+  };
+
+  const [existingValue, setExistingValue] = useState('');
+
+  const getDataFormDropDown = (value) => {
+    if (fieldType == 'date') {
+      setExistingValue(moment(value).format('DD-MM-YYYY'));
+    }
+     if(fieldType == 'number') {
+       setExistingValue(Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }))
+    }
+
+   else if (fieldType == 'drop') {
+      if (value == 'Yes') {
+        setExistingValue('Allowed');
+        return;
+      }
+      if (value == 'No') {
+        setExistingValue('Not Allowed');
+        return;
+      }
+      if (value == 'Conditional') {
+        setExistingValue('Conditional');
+        return;
+      }
+      if (value == '') {
+        setExistingValue('');
+      } else {
+        setExistingValue(value);
+      }
+    } else {
+      setExistingValue(value);
+    }
+  };
+  const getValue = (value, toCheck) => {
+
+    if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+      return moment(value).format('DD-MM-YYYY');
+    }
+    else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
+      if (value == 'Yes') {
+        return 'Allowed';
+      }
+      if (value == 'No') {
+        return 'Not Allowed';
+      }
+      if (value == 'Conditional') {
+        return 'Conditional';
+      }
+      if (value == '') {
+        return '';
+      }
+
+    }else if(toCheck == '(32B) Currency Code & Amount'){
+      return Number(value).toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    } 
+    else {
+      return value;
+    }
+  };
+
+  useEffect(() => {
+    getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
+  }, [editCurrent?.existingValue, clauseObj?.existingValue]);
+
+  const [isDisabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
+      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
+        setDisabled(true);
+      }
+    } else {
+      setDisabled(false);
+    }
+  }, [clauseObj]);
+
+  const getExistingValue = (value, existing) => {
+    if (value === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString('en-In', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
+    } else if (value === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${getValue(existing, value)}  %`;
+    } else {
+      return getValue(existing, value);
     }
   };
 
@@ -363,9 +421,7 @@ function Index() {
               onClick={() => Router.push('/lc-module')}
               style={{ cursor: 'pointer' }}
             />
-            <h1 className={`${styles.heading}`}>
-              {lcModuleData?.company?.companyName}{' '}
-            </h1>
+            <h1 className={`${styles.heading}`}>{lcModuleData?.company?.companyName} </h1>
           </div>
 
           <div className={`${styles.wrapper} card upload_main`}>
@@ -394,29 +450,17 @@ function Index() {
                           <select
                             name="lcIssuingBank"
                             required
-                            onChange={(e) =>
-                              saveAmendmentData(e.target.name, e.target.value)
-                            }
+                            onChange={(e) => saveAmendmentData(e.target.name, e.target.value)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             value={lcData?.lcIssuingBank}
                           >
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="First Class European Bank">
-                              First Class European Bank
-                            </option>
-                            <option value="Reserve Bank of Spain">
-                              Reserve Bank of Spain
-                            </option>
-                            <option value="Zurcher Kantonal Bank,Zurich">
-                              Zurcher Kantonal Bank,Zurich
-                            </option>
+                            <option value="ING Bank">ING Bank</option>
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             (51D) LC Issuing Bank
                             <strong className="text-danger">*</strong>
                           </label>
@@ -433,14 +477,10 @@ function Index() {
                           required
                           type="text"
                           name="documentaryCreditNumber"
-                          defaultValue={lcData?.documentaryCreditNumber}
-                          onChange={(e) =>
-                            saveAmendmentData(e.target.name, e.target.value)
-                          }
+                          value={lcData?.documentaryCreditNumber}
+                          onChange={(e) => saveAmendmentData(e.target.name, e.target.value)}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           (20) Documentary Credit Number
                           <strong className="text-danger">*</strong>
                         </label>
@@ -449,7 +489,7 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfIssue"
-                            defaultDate={lcData?.dateOfIssue}
+                            value={lcData?.dateOfIssue}
                             saveDate={saveDate}
                             labelName="(31C) Date Of Issue"
                           />
@@ -471,78 +511,45 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            defaultValue={
-                              editInput ? editCurrent.dropDownValue : ''
-                            }
+                            defaultValue={editInput ? editCurrent.dropDownValue : ''}
                             ref={inputRef1}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
                             <option selected>Select an option</option>
-                            <option value="shipmentForm">
-                              (44A) Shipment From
-                            </option>
-                            <option value="applicableRules">
-                              (40E) Application Rules
-                            </option>
-                            <option value="placeOfExpiry">
-                              (32D) Place Of Expiry
-                            </option>
-                            <option value="dateOfExpiry">
-                              (32D) Date Of Expiry
-                            </option>
-                            <option value="formOfDocumentaryCredit">
-                              (40A) Form of Documentary Credit
-                            </option>
+                            <option value="shipmentForm">(44A) Shipment From</option>
+                            <option value="applicableRules">(40E) Application Rules</option>
+                            <option value="placeOfExpiry">(32D) Place Of Expiry</option>
+                            <option value="dateOfExpiry">(32D) Date Of Expiry</option>
+                            <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
                             <option value="applicant">(50) Applicant</option>
-                            <option value="beneficiary">
-                              (59) Beneficiary
-                            </option>
-                            <option value="currecyCodeAndAmountValue">
-                              (32B) Currency Code &amp; Amount
-                            </option>
-                            <option value="tolerancePercentage">
-                              (39A) Tolerance (+/-) Percentage
-                            </option>
-                            <option value="creditAvailablewith">
-                              {' '}
-                              (41A) Credit Available With
-                            </option>
-                            <option value="creditAvailableBy">
-                              (41A) Credit Available By
-                            </option>
+                            <option value="beneficiary">(59) Beneficiary</option>
+                            <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
+                            <option value="tolerancePercentage">(39A) Tolerance (+/-) Percentage</option>
+                            <option value="creditAvailablewith"> (41A) Credit Available With</option>
+                            <option value="creditAvailableBy">(41A) Credit Available By</option>
                             <option value="draftAt">(42C) DRAFT AT</option>
                             <option value="drawee">(42A) Drawee</option>
-                            <option value="deferredPayment">
-                              (42P) Deferred Payment
-                            </option>
-                            <option value="partialShipment">
-                              (43P) Partial Shipment
-                            </option>
-                            <option value="transhipments">
-                              (43T) Transhipments
-                            </option>
-                            <option value="portOfLoading">
-                              (44E) Port of Loading
-                            </option>
-                            <option value="portOfDischarge">
-                              {' '}
-                              (44F) Port of Discharge
-                            </option>
-                            <option value="latestDateOfShipment">
-                              (44C) Latest Date Of Shipment
-                            </option>
-                            <option value="DescriptionOfGoods">
-                              {' '}
-                              (45A) Description Of The Goods
-                            </option>
+                            <option value="deferredPayment">(42P) Deferred Payment</option>
+                            <option value="partialShipment">(43P) Partial Shipment</option>
+                            <option value="transhipments">(43T) Transhipments</option>
+                            <option value="portOfLoading">(44E) Port of Loading</option>
+                            <option value="portOfDischarge"> (44F) Port of Discharge</option>
+                            <option value="latestDateOfShipment">(44C) Latest Date Of Shipment</option>
+                            <option value="DescriptionOfGoods"> (45A) Description Of The Goods</option>
+                            <option value="lcDocuments">46A DOCUMENT REQUIRED</option>
+                            <option value="lcComments"> 47A ADDITIONAL CONDITIONS</option>
+                            <option value="presentaionPeriod"> (48) Presentation Period</option>
+                            <option value="reimbursingBank">  (53A) Reimbursing Bank</option>
+                            <option value="adviceThroughBank">  (57) Advise Through Bank</option>
+                            <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
+                            <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
+                            <option value="charges">   (71B) Charges</option>
+                            <option value="instructionToBank">  (78) Instructions To Paying / Accepting / Negotiating Bank</option>
+                            <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
                           </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Clause
-                          </label>
+                          <label className={`${styles.label_heading} label_heading`}>Clause</label>
                           <img
                             className={`${styles.arrow} image_arrow img-fluid`}
                             src="/static/inputDropDown.svg"
@@ -556,14 +563,10 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             disabled
                             type="text"
-                            value={clauseObj?.existingValue}
+                            value={fieldType == 'date' ? moment(existingValue).format('DD-MM-YYYY') : existingValue}
                           />
                         </form>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Existing Value
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>Existing Value</label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex align-items-center">
@@ -572,26 +575,21 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              // ref={inputRef}
-                              // onFocus={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: true }),
-                              //     e.target.type = 'number'
-                              // }}
-                              // onBlur={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: false }),
-                              //     e.target.type = 'text'
-                              // }}
-
-                              // value={isFieldInFocus.existingValue ?
-                              //   editInput ? editCurrent?.newValue : ''  :
-                              //   Number(editInput ? editCurrent?.newValue : '' ).toLocaleString('en-In')
-                              // }
-                              // defaultValue={
-                              //   editInput ? editCurrent?.newValue : ''
-                              // }
                               value={clauseObj?.newValue}
+                              disabled={isDisabled}
                               onChange={(e) => {
-                                // inputRef.current.value = ''
+                                arrChange('newValue', e.target.value);
+                              }}
+                            />
+                          ) : null}
+                          {fieldType == 'number' ? (
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              value={clauseObj?.newValue}
+                              disabled={isDisabled}
+                              onChange={(e) => {
                                 arrChange('newValue', e.target.value);
                               }}
                             />
@@ -611,23 +609,88 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          {fieldType == 'select' ? (
+                          {fieldType == 'drop' ? (
                             <>
                               <select
-                                defaultValue={
-                                  editInput ? editCurrent?.newValue : ''
-                                }
+                                value={clauseObj?.newValue}
                                 onChange={(e) => {
                                   // inputRef.current.value = ''
                                   arrChange('newValue', e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option disabled selected>
+                                <option value="" selected>
                                   Select an option
                                 </option>
-                                <option value="No">Prohibited</option>
-                                <option value="Yes">Allowed</option>
+                                {clauseObj.dropDownValue === '(50) Applicant' ? (
+                                  <>
+                                    <option value="Indo intertrade AG">Indo intertrade AG</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(40A) Form of Documentary Credit' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Irrevocable">Irrevocable</option>
+                                    <option value="Revocable">Revocable</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(41A) Credit Available With' ? (
+                                  <>
+                                    {' '}
+                                    <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">
+                                      BNP PARIBAS PARIBAS _ BNPAFRPPS
+                                    </option>
+                                    <option value="BNP_BNPAFRPPS">BNP_BNPAFRPPS</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(41A) Credit Available By' ? (
+                                  <>
+                                    {' '}
+                                    <option value="By Negotiation">By Negotiation</option>
+                                    <option value="By Payment">By Payment</option>
+                                    <option value="By Acceptance">By Acceptance</option>
+                                    <option value="By Deffered Payment">By Deffered Payment</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                  <>
+                                    {' '}
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                  </>
+                                ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
+                                  <>
+                                    {getPortsMasterData.filter((val, index) => {
+                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                          {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
+                                  <>
+                                    {getPortsMasterData.filter((val, index) => {
+                                        if (val.Country.toLowerCase() !== 'india') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                          {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) :  (
+                                  <>
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                    <option value="Conditional">Conditional</option>
+                                  </>
+                                )}
                               </select>
 
                               <img
@@ -637,17 +700,25 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          <img
-                            className="ml-4"
-                            src="/static/add-btn.svg"
-                            alt="add button"
-                            onClick={() => addToArr()}
-                          />
+                          {fieldType == '' ? (
+                            <img
+                              className={`${styles.add_btn} ml-4`}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          ) : (
+                            <img
+                              className={`${styles.add_btn}`}
+                              style={{ marginLeft: '40px' }}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          )}
                         </div>
                       </Col>
                     </Row>
@@ -655,26 +726,14 @@ function Index() {
                     <div className={styles.table_container}>
                       <div className={styles.table_scroll_outer}>
                         <div className={styles.table_scroll_inner}>
-                          <table
-                            className={`${styles.table_clause} table`}
-                            cellPadding="0"
-                            cellSpacing="0"
-                            border="0"
-                          >
+                          <table className={`${styles.table_clause} table`} cellPadding="0" cellSpacing="0" border="0">
                             <thead>
                               <tr>
-                                <th
-                                  width="35%"
-                                  className={`${styles.table_header} text`}
-                                >
+                                <th width="35%" className={`${styles.table_header} text`}>
                                   CLAUSE{' '}
                                 </th>
-                                <th className={`${styles.table_header} text`}>
-                                  EXISTING VALUE{' '}
-                                </th>
-                                <th className={`${styles.table_header} text`}>
-                                  NEW VALUE{' '}
-                                </th>
+                                <th className={`${styles.table_header} text`}>EXISTING VALUE</th>
+                                <th className={`${styles.table_header} text`}>NEW VALUE</th>
                                 <th className={`${styles.table_header}`}></th>
                               </tr>
                             </thead>
@@ -687,75 +746,35 @@ function Index() {
                                         <td>
                                           <div className="d-flex">
                                             <select
-                                              defaultValue={
-                                                editInput
-                                                  ? editCurrent.dropDownValue
-                                                  : ''
-                                              }
-                                              onChange={(e) =>
-                                                dropDownChange(e)
-                                              }
+                                              defaultValue={editInput ? editCurrent.dropDownValue : ''}
+                                              onChange={(e) => dropDownChange(e)}
                                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                             >
-                                              <option selected>
-                                                Select an option
-                                              </option>
-                                              <option value="shipmentForm">
-                                                (44A) Shipment From
-                                              </option>
-                                              <option value="applicableRules">
-                                                (40E) Application Rules
-                                              </option>
-                                              <option value="placeOfExpiry">
-                                                (32D) Place Of Expiry
-                                              </option>
-                                              <option value="dateOfExpiry">
-                                                (32D) Date Of Expiry
-                                              </option>
+                                              <option value="">Select an option</option>
+                                              <option value="shipmentForm">(44A) Shipment From</option>
+                                              <option value="applicableRules">(40E) Application Rules</option>
+                                              <option value="placeOfExpiry">(32D) Place Of Expiry</option>
+                                              <option value="dateOfExpiry">(32D) Date Of Expiry</option>
                                               <option value="formOfDocumentaryCredit">
                                                 (40A) Form of Documentary Credit
                                               </option>
-                                              <option value="applicant">
-                                                (50) Applicant
-                                              </option>
-                                              <option value="beneficiary">
-                                                (59) Beneficiary
-                                              </option>
+                                              <option value="applicant">(50) Applicant</option>
+                                              <option value="beneficiary">(59) Beneficiary</option>
                                               <option value="currecyCodeAndAmountValue">
                                                 (32B) Currency Code &amp; Amount
                                               </option>
                                               <option value="tolerancePercentage">
                                                 (39A) Tolerance (+/-) Percentage
                                               </option>
-                                              <option value="creditAvailablewith">
-                                                {' '}
-                                                (41A) Credit Available With
-                                              </option>
-                                              <option value="creditAvailableBy">
-                                                (41A) Credit Available By
-                                              </option>
-                                              <option value="draftAt">
-                                                (42C) Draft At
-                                              </option>
-                                              <option value="drawee">
-                                                (42A) Drawee
-                                              </option>
-                                              <option value="deferredPayment">
-                                                (42P) Deferred Payment
-                                              </option>
-                                              <option value="partialShipment">
-                                                (43P) Partial Shipment
-                                              </option>
-                                              <option value="transhipments">
-                                                (43T) Transhipments
-                                              </option>
-                                              <option value="portOfLoading">
-                                                (44E) Port of Loading
-                                              </option>
-                                              <option value="portOfDischarge">
-                                                {' '}
-                                                (44F) Port of Discharge
-                                              </option>
+                                              <option value="creditAvailablewith"> (41A) Credit Available With</option>
+                                              <option value="creditAvailableBy">(41A) Credit Available By</option>
+                                              <option value="draftAt">(42C) Draft At</option>
+                                              <option value="drawee">(42A) Drawee</option>
+                                              <option value="deferredPayment">(42P) Deferred Payment</option>
+                                              <option value="partialShipment">(43P) Partial Shipment</option>
+                                              <option value="transhipments">(43T) Transhipments</option>
+                                              <option value="portOfLoading">(44E) Port of Loading</option>
+                                              <option value="portOfDischarge"> (44F) Port of Discharge</option>
                                               <option value="latestDateOfShipment">
                                                 (44C) Latest Date Of Shipment
                                               </option>
@@ -765,11 +784,7 @@ function Index() {
                                               </option>
                                             </select>
 
-                                            <label
-                                              className={`${styles.label_heading} label_heading`}
-                                            >
-                                              Clause
-                                            </label>
+                                            <label className={`${styles.label_heading} label_heading`}>Clause</label>
                                             <img
                                               className={`${styles.arrow} image_arrow img-fluid`}
                                               src="/static/inputDropDown.svg"
@@ -782,15 +797,9 @@ function Index() {
                                             className={`${styles.input_field} input form-control`}
                                             disabled
                                             type="text"
-                                            value={
-                                              editInput
-                                                ? editCurrent.existingValue
-                                                : clauseObj?.existingValue
-                                            }
+                                            value={existingValue}
                                           />
-                                          <label
-                                            className={`${styles.label_heading} label_heading`}
-                                          >
+                                          <label className={`${styles.label_heading} label_heading`}>
                                             Existing Value
                                           </label>
                                         </td>
@@ -802,17 +811,10 @@ function Index() {
                                                 required
                                                 type="text"
                                                 ref={inputRef}
-                                                defaultValue={
-                                                  editInput
-                                                    ? editCurrent?.newValue
-                                                    : ''
-                                                }
+                                                value={editInput ? editCurrent?.newValue : ''}
                                                 onChange={(e) => {
                                                   inputRef.current.value = '';
-                                                  arrChange(
-                                                    'newValue',
-                                                    e.target.value,
-                                                  );
+                                                  arrChange('newValue', e.target.value);
                                                 }}
                                               />
                                             ) : (
@@ -825,13 +827,9 @@ function Index() {
                                                 />
                                               </>
                                             )}
-                                            <label
-                                              className={`${styles.label_heading} label_heading`}
-                                            >
+                                            <label className={`${styles.label_heading} label_heading`}>
                                               New Value
-                                              <strong className="text-danger">
-                                                *
-                                              </strong>
+                                              <strong className="text-danger">*</strong>
                                             </label>
                                           </div>
                                         </td>
@@ -846,9 +844,7 @@ function Index() {
                                             src="/static/delete 2.svg"
                                             className="ml-3"
                                             alt="delete"
-                                            onClick={() =>
-                                              removeFromArr(arr.dropDownValue)
-                                            }
+                                            onClick={() => removeFromArr(arr.dropDownValue)}
                                           />
                                         </td>
                                       </tr>
@@ -857,8 +853,15 @@ function Index() {
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>{arr.existingValue}</td>
-                                        <td>{arr.newValue}</td>
+                                        <td>{getExistingValue(arr.dropDownValue, arr.existingValue)}</td>
+                                        <td>
+                                          {arr.dropDownValue === '(32B) Currency Code & Amount'
+                                            ? `${lcModuleData?.order?.orderCurrency} `
+                                            : ''}
+                                          {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
+                                            : getValue(arr.newValue, arr.dropDownValue)}
+                                        </td>
                                         <td>
                                           {/* <img
                                             src="/static/mode_edit.svg"
@@ -870,9 +873,7 @@ function Index() {
                                             src="/static/delete 2.svg"
                                             className="ml-3"
                                             alt="delete"
-                                            onClick={() =>
-                                              removeFromArr(arr.dropDownValue)
-                                            }
+                                            onClick={() => removeFromArr(arr.dropDownValue)}
                                           />
                                         </td>
                                       </tr>
@@ -898,7 +899,7 @@ function Index() {
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"
-              module="Agreements&Insurance&LC&Opening"
+              module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
             />
           </div>
         </div>

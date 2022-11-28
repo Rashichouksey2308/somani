@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './index.module.scss';
@@ -23,7 +23,6 @@ const Index = ({
 
   useEffect(() => {
     if (startFrom) {
-      console.log('in start DAte');
       setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
     } else {
       setlastDate(new Date());
@@ -32,8 +31,7 @@ const Index = ({
   useEffect(() => {
     setStartDate(null);
   }, [reset]);
-  console.log(defaultDate, 'lastDate', startDate);
-  // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
+
   return (
     <>
       <div className="vessel_card w-100">
@@ -51,9 +49,7 @@ const Index = ({
             e.preventDefault();
           }}
           portalId="root-portal"
-          className={`${styles.input_field} input form-control ${
-            small ? styles.input_small : ''
-          }`}
+          className={`${styles.input_field} input form-control ${small ? styles.input_small : ''}`}
           onChange={(startDate) => {
             setStartDate(startDate);
             saveDate(startDate, name, index);

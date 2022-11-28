@@ -1,28 +1,22 @@
-import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
-import { GetAllOrders } from 'redux/registerBuyer/action';
-import { GetCompanyDetails } from 'redux/companyDetail/action';
+import * as types from './actionType'
 
-export function isLoading(payload) {
+export function isLoading (payload) {
   return {
     type: types.IS_LOADING,
-    payload,
-  };
+    payload
+  }
 }
 
-export function notLoading(payload) {
+export function notLoading (payload) {
   return {
     type: types.NOT_LOADING,
-    payload,
-  };
+    payload
+  }
 }
 
 export const setIsLoading = (payload) => (dispatch, getState) => {
-  dispatch(isLoading(true));
-};
+  dispatch(isLoading(true))
+}
 export const setNotLoading = (payload) => (dispatch, getState) => {
-  dispatch(isLoading(false));
-};
+  dispatch(isLoading(false))
+}

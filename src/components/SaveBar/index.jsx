@@ -1,20 +1,11 @@
-import Router from 'next/router';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from './index.module.scss';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import styles from '../PreviewBar/index.module.scss'
 
-function Index({
-  handleSave,
-  rightBtn,
-  rightBtnClick,
-  handleRoute,
-  buttonText = 'Save',
-}) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
+function Index ({ handleSave, rightBtn, rightBtnClick, handleRoute, buttonText = 'Save' }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
 
-  console.log(rightBtnClick, 'handleSave');
-  // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
     <div
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
@@ -24,8 +15,7 @@ function Index({
         <div
           onClick={() => {
             if (handleSave) {
-              console.log('thsu');
-              handleSave();
+              handleSave()
             }
           }}
           className={`${styles.reject} ml-3`}
@@ -37,22 +27,16 @@ function Index({
         <div
           className={`${styles.approve} ml-3`}
           onClick={() => {
-            console.log('INspection Submitted');
             if (rightBtnClick) {
-              console.log('INspection Submitted2');
-              rightBtnClick();
-
-              // handleRoute()
+              rightBtnClick()
             }
-
-            // handleSave()
           }}
         >
           <span>{rightBtn}</span>
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

@@ -1,174 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart, ArcElement, registerables } from 'chart.js';
-import _get from 'lodash/get';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Card } from 'react-bootstrap'
+import { Doughnut } from 'react-chartjs-2'
+import { ArcElement, Chart } from 'chart.js'
 
-function Index({ customerSummary }) {
-  Chart.register(ArcElement);
-  let tempArr = [
-    { name: 'Sail', value: '21', color: '#9675CE' },
-    { name: 'Jindal Group', value: '23', color: '#4CAF50' },
-    { name: 'SR Steel', value: '23', color: '#EA3F3F' },
-    { name: 'Tradex India Corporation', value: '45', color: '#2884DE' },
-    { name: 'Metalco India', value: '34', color: '#FFCE00' },
-  ];
-  console.log(customerSummary, 'sssssss');
-  const [data, setData] = useState({
+/* An array of colors that will be used to color the doughnut chart. */
+const bgColors = ['#9675CE', '#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00']
+
+/* Setting the options for the doughnut chart. */
+const graphOptions = {
+  elements: {
+    arc: { borderWidth: 0 }
+  },
+  plugins: {
+    title: {
+      animation: {
+        animateScale: true
+      }
+    },
+    legend: { display: false }
+  },
+  responsive: false,
+  cutout: 55
+}
+
+const listCompanies = (companies) => {
+  return companies.map((company, index) => {
+    return <div key={index} className={styles.name_wrapper}>
+      <div>
+        <div className={styles.round} style={{ backgroundColor: `${bgColors[index]}` }}/>
+      </div>
+      <span className={` heading`}>{company}</span>
+    </div>
+  })
+}
+
+const DoughnutChart = ({ customerSummary }) => {
+  Chart.register(ArcElement)
+
+  const [graphData, setData] = useState({
     labels: [],
     datasets: [
-      {
-        label: '',
-        data: [],
+      { label: '', data: [], backgroundColor: bgColors }
+    ]
+  })
 
-        backgroundColor: [
-          '#9675CE',
-          '#4CAF50',
-          '#EA3F3F',
-          '#2884DE',
-          '#FFCE00',
-        ],
-      },
-    ],
-  });
+  const totalValue = customerSummary.map(val => val.total).reduce((a, b) => a + b, 0)
+  const companyNames = customerSummary.map(val => val.company[0]?.companyName)
+  const companyValue = customerSummary.map(val => (val.total / totalValue) * 100)
+
   useEffect(() => {
-    let tempData = [];
-    let tempPoint = [];
-
-    if (customerSummary?.length > 0) {
-      customerSummary.forEach((val, index) => {
-        console.log(val.total, 'qqqqqqq');
-        tempData.push(val?.company[0]?.companyName);
-        tempPoint.push(val.total);
-      });
+    if (customerSummary.length) {
       setData({
-        labels: tempData,
+        labels: companyNames,
         datasets: [
-          {
-            label: '',
-            data: tempPoint,
-
-            backgroundColor: [
-              '#9675CE',
-              '#4CAF50',
-              '#EA3F3F',
-              '#2884DE',
-              '#FFCE00',
-            ],
-          },
-        ],
-      });
+          { label: '', data: companyValue, backgroundColor: bgColors }
+        ]
+      })
     }
-    console.log(tempData, tempPoint, 'ssssss');
-  }, [customerSummary]);
-  console.log(data, 'datadatadata');
-  // const data = {
-  //   labels: [
-  //     'Sail',
-  //     'Jindal Grou',
-  //     'SR Steel',
-  //     'Tradex India Corporation',
-  //     'Metalco India',
-  //   ],
-  //   datasets: [
-  //     {
-  //       label: '',
-  //       data: [25, 24, 25, 25, 3],
-
-  //       backgroundColor: ["#9675CE",'#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
-  //     },
-  //   ],
-  // }
-  const options = {
-    elements: {
-      arc: {
-        borderWidth: 0,
-      },
-    },
-    plugins: {
-      title: {
-        animation: {
-          animateScale: true,
-        },
-      },
-
-      legend: {
-        display: false,
-      },
-    },
-    responsive: false,
-    cutout: 55,
-  };
-  //   const options = {
-  //        elements: {
-  //       arc: {
-  //           borderWidth: 0
-  //       }
-  //   }
-  // ,
-  //     plugins: {
-  //       title: {
-  //         display: false,
-  //         text: 'Doughnut Chart',
-  //         color: 'blue',
-
-  //         font: {
-  //           size: 34,
-  //         },
-  //         padding: {
-  //           top: 30,
-  //           bottom: 30,
-  //         },
-
-  //         animation: {
-  //           animateScale: true,
-  //         },
-  //         legend: {
-  //         display: false
-  //       }
-  //       },
-
-  //     },
-  //      responsive: false,
-  //      cutout: 55
-
-  //   }
+  }, [customerSummary])
 
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header}  border_color  heading_card`}>
-        Top 5 Customers
+      <Card.Header className={`${styles.header} border_color heading_card`}>
+        <h3 className={styles.title}>Top 5 Customers</h3>
       </Card.Header>
       <Card.Body className={`${styles.body} row no-gutters`}>
         <div className={`${styles.name} col-sm-7`}>
-          {customerSummary?.length > 0 &&
-            customerSummary?.map((val, index) => {
-              return (
-                <div key={index} className={styles.name_wrapper}>
-                  <div>
-                    <div
-                      className={styles.round}
-                      style={{ backgroundColor: `${tempArr[index].color}` }}
-                    ></div>
-                  </div>
-                  <span className={` heading`}>
-                    {val?.company[0]?.companyName}
-                  </span>
-                </div>
-              );
-            })}
+          {listCompanies(companyNames)}
         </div>
         <div className={`${styles.chart} col-sm-5`}>
-          <Doughnut data={data} options={options} />
-          <div className={`${styles.total_value} `}>
-            {/* <span>₹ 24.00 Cr</span>
-            <span className="mt-1">50%</span> */}
-          </div>
+          <Doughnut data={graphData} options={graphOptions}/>
+          <div className={`${styles.total_value} `}/>
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
-export default Index;
+export default DoughnutChart

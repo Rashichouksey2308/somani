@@ -3,40 +3,39 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
-import { addPrefixOrSuffix } from 'utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
-const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
+const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
     tolerance: false,
   });
+  let numberArr=["1","2","3","4","5","6","7","8","9","0","."]
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     saveOrderData(name, text);
   };
-  const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
-   const filterCommodity=(value)=>{
-    if(value==""){
-      setToShow([])
-      setToView(false)
-      return
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const filterCommodity = (value) => {
+    if (value == '') {
+      setToShow([]);
+      setToView(false);
+      return;
     }
-   let filterData = commodity.filter(o => {
-    return o.Commodity.toLowerCase().includes(value.toLowerCase())
-   });
-   console.log(filterData,"filterData")
+    let filterData = commodity.filter((o) => {
+      return o.Commodity.toLowerCase().includes(value.toLowerCase());
+    });
 
-   setToShow(filterData)
-     setToView(true)
-
-  }
-   const handleData=(name,value)=>{
-    saveOrderData(name,value)
-      setToView(false)
-  }
+    setToShow(filterData);
+    setToView(true);
+  };
+  const handleData = (name, value) => {
+    saveOrderData(name, value);
+    setToView(false);
+  };
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
       <div
@@ -47,59 +46,52 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Quantity:</h5>
-            <select
-              className={`${styles.options} accordion_DropDown`}
-              name="unitOfQuantity"
-              onChange={(e) => {
-                saveOrderData(e.target.name, e.target.value);
-              }}
-            >
-              <option>Select</option>
-              <option selected value="MT">
-                MT
-              </option>
-              <option value="KG">KG</option>
-            </select>
+            <div className='d-flex align-items-center position-relative'>
+              <select
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
+                name="unitOfQuantity"
+                onChange={(e) => {
+                  console.log(e.target.value, "Ssdd")
+                  saveOrderData(e.target.name, e.target.value);
+                }}
+              >
+                <option value="" disabled>Select</option>
+                <option selected value="MT">
+                  MT
+                </option>
+                <option value="KG">KG</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+            </div>
           </div>
 
-          <div
-            className={`${styles.unit_container} ${styles.last} d-flex align-items-center`}
-          >
+          <div className={`${styles.unit_container} ${styles.last} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit:</h5>
-            <select
-              className={`${styles.options} accordion_DropDown `}
-              name="unitOfValue"
-              onChange={(e) => saveOrderData(e.target.name, e.target.value)}
-              style={{ paddingRight: '0px' }}
-            >
-              <option>Select </option>
-              <option value="Crores" selected>
-                Crores
-              </option>
-              <option value="Million">Million</option>
-              <option value="Lakh">Lakh</option>
-            </select>
+            <div className='d-flex align-items-center position-relative'>
+              <select
+                className={`${styles.options} ${styles.customSelect} pr-0 accordion_DropDown `}
+                name="unitOfValue"
+                onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+              >
+                <option value="" disabled>Select</option>
+                <option value="Crores" selected>
+                  Crores
+                </option>
+                <option value="Million">Million</option>
+                <option value="Lakh">Lakh</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+            </div>
           </div>
-          <span
-            data-toggle="collapse"
-            data-target="#orderSummary"
-            aria-expanded="true"
-            aria-controls="orderSummary"
-          >
+          <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
             +
           </span>
         </div>
       </div>
-      <div
-        id="orderSummary"
-        className="collapse show"
-        aria-labelledby="orderSummary"
-      >
+      <div id="orderSummary" className="collapse show" aria-labelledby="orderSummary">
         <div className={`${styles.dashboard_form} card-body border_color`}>
           <div className={styles.radio_form}>
-            <div className={`${styles.sub_heading} sub_heading`}>
-              Transaction Type
-            </div>
+            <div className={`${styles.sub_heading} sub_heading`}>Transaction Type</div>
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
                 <Form.Check
@@ -138,41 +130,35 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     type="text"
                     name="commodity"
                     value={orderData.commodity}
+                     onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
-                      filterCommodity(e.target.value)
+                    
+                      filterCommodity(e.target.value);
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-              {toShow.length>0 && toView &&  (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {toShow
-                      ? toShow?.map(
-                          (results, index) => (
+                  {toShow.length > 0 && toView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toShow
+                          ? toShow?.map((results, index) => (
                             <li
-                              onClick={() => handleData("commodity",results.Commodity)}
+                              onClick={() => handleData('commodity', results.Commodity)}
                               id={results._id}
                               key={index}
                               value={results.Commodity}
                             >
                               {results.Commodity}{' '}
                             </li>
-                          ),
-                        )
-                      : ''}
-                  </ul>
-                </div>
-              )}
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                          ))
+                          : ''}
+                      </ul>
+                    </div>
+                  )}
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Commodity<strong className="text-danger">*</strong>
                   </Form.Label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </Form.Group>
 
@@ -183,24 +169,17 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   type="text"
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                   }}
-                  // value={addPrefixOrSuffix(
-                  //   orderData.quantity ? orderData.quantity : 0,
-                  //   orderData.unitOfQuantity,
-                  //   '',
-                  // )}
                   value={
                     isFieldInFocus.quantity
                       ? orderData.quantity
-                      : Number(orderData.quantity).toLocaleString('en-In') +
-                        ` ${orderData.unitOfQuantity}`
+                      : returnReadableNumber(orderData.quantity, 'en-In', 2) + ` ${orderData.unitOfQuantity}`
                   }
+                  
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -218,42 +197,22 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   type="text"
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.orderValue
                       ? orderData.orderValue
-                      : Number(orderData.orderValue).toLocaleString('en-In') +
-                        ` ${
-                          orderData.unitOfValue == 'Crores'
-                            ? 'Cr'
-                            : orderData.unitOfValue == 'Million'
-                            ? 'Mn'
-                            : orderData.unitOfValue
-                        }`
+                      : returnReadableNumber(orderData.orderValue,'en-In',2) +
+                      ` ${orderData.unitOfValue == 'Crores'
+                        ? 'Cr'
+                        : orderData.unitOfValue == 'Million'
+                          ? 'Mn'
+                          : orderData.unitOfValue
+                      }`
                   }
-                  // value={addPrefixOrSuffix(
-                  //   orderData.orderValue ? orderData.orderValue : 0,
-                  //   orderData.unitOfValue == 'Crores'
-                  //     ? 'Cr'
-                  //     : orderData.unitOfValue == 'Million'
-                  //       ? 'Mn'
-                  //       : orderData.unitOfValue,
-                  //   '',
-                  // )}
-                  // value={
-                  //   isFieldInFocus.orderValue ?
-                  //     orderData.orderValue :
-                  //     Number(orderData.orderValue).toLocaleString() + ` ${orderData.unitOfValue == 'Crores'
-                  //       ? 'Cr'
-                  //       : orderData.unitOfValue == 'Million'
-                  //         ? 'Mn'
-                  //         : orderData.unitOfValue}`}
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -290,17 +249,11 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     }}
                   >
                     <option selected>Select an option</option>
-                     {country.map((val,index)=>{
-                   return(
-                     <option value={`${val.Country}`}>
-                  {val.Country}
-                  </option>
-                   )
-                })}
+                    {country.map((val, index) => {
+                      return <option value={`${val.Country}`}>{val.Country}</option>;
+                    })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Country Of Origin<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -317,12 +270,10 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   required
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }), (e.target.type = 'text');
                   }}
                   type="text"
                   name="tolerance"
@@ -330,12 +281,11 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     isFieldInFocus.tolerance
                       ? orderData.tolerance
                       : '± ' +
-                        Number(orderData.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) +
-                        ' %'
+                      Number(orderData.tolerance)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }) +
+                      ' %'
                   }
-                  // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -353,13 +303,12 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     required
                     type="text"
                     name="supplierName"
+                    onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </Form.Label>
                   {/* <img
@@ -389,16 +338,12 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     required
                     type="text"
                     name="manufacturerName"
+                    onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Manufacturer / Mines name
-                    <strong className="text-danger">*</strong>
-                  </Form.Label>
+                  <Form.Label className={`${styles.label_heading} label_heading`}>Manufacturer / Mines name</Form.Label>
                   {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
@@ -418,21 +363,21 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     }}
                   >
                     <option selected>Select an option</option>
-                    {port.filter((val,index)=>{
-                  if(val.Country.toLowerCase()=="india"){
-                    return val
-                  }
-                }).map((val,index)=>{
-                   return(
-                     <option value={`${val.Port_Name},${val.Country}`}>
-                  {val.Port_Name},{val.Country}
-                  </option>
-                   )
-                })}
+                    {port
+                      .filter((val, index) => {
+                        if (val.Country.toLowerCase() == 'india' ) {
+                          return val;
+                        }
+                      })
+                      .map((val, index) => {
+                        return (
+                          <option value={`${val.Port_Name}`}>
+                            {val.Port_Name},{val.Country}
+                          </option>
+                        );
+                      })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Port Of Discharge<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -458,9 +403,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     <option value="CIF">CIF</option>
                     <option value="FOB">FOB</option>
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     INCO Terms<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -509,10 +452,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
-                  onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                    evt.preventDefault()
-                  }
+                  onKeyDown={(evt) => ['e', 'E', '+', '-',"."].includes(evt.key) && evt.preventDefault()}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)

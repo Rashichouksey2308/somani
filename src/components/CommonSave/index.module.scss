@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .main {
   // position: fixed;
   // bottom: 42px;
@@ -25,17 +26,17 @@
     bottom: 55px;
     align-items: center !important;
   }
+
   .submit {
     cursor: pointer;
     width: 260px;
     height: 48px;
-    background: #3687e8 0% 0% no-repeat padding-box;
+    background: #3687e8;
     border-radius: 5px;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 1rem;
     margin: 10px 5px !important;
     @include respond(lg-desktop) {
       width: 200px;

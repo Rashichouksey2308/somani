@@ -1,68 +1,66 @@
-import * as types from './actionType';
-import Axios from 'axios';
-import { toast } from 'react-toastify';
-import API from '../../utils/endpoints';
-import Cookies from 'js-cookie';
-import router from 'next/router';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
-function shareDocument() {
+import * as types from './actionType'
+import Axios from 'axios'
+import { toast } from 'react-toastify'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
+
+function shareDocument () {
   return {
-    type: types.SHARE_DOCUMENT,
-  };
+    type: types.SHARE_DOCUMENT
+  }
 }
-function shareDocumentSuccess(payload) {
+
+function shareDocumentSuccess (payload) {
   return {
     type: types.SHARE_DOCUMENT_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
-function shareDocumentFailed() {
+
+function shareDocumentFailed () {
   return {
-    type: types.SHARE_DOCUMENT_FAILED,
-  };
+    type: types.SHARE_DOCUMENT_FAILED
+  }
 }
 
 export const ShareDocument = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  console.log(
-    `${API.corebaseUrl}${API.getVessel}`,
-    `API.corebaseUrl{API.getVessel}`,
-  );
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.viewDoc}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(shareDocumentSuccess(response.data.data));
-        console.log('ViewDocument');
-        dispatch(setNotLoading());
-        dispatch(shareDocumentFailed(response.data.data));
-        let toastMessage = 'DOcument Shared Successfully';
+        dispatch(shareDocumentSuccess(response.data.data))
+
+        dispatch(setNotLoading())
+        dispatch(shareDocumentFailed(response.data.data))
+        const toastMessage = 'DOcument Shared Successfully'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         return response.data
       } else {
-        dispatch(shareDocumentFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        dispatch(shareDocumentFailed(response.data.data))
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(shareDocumentFailed());
+    dispatch(shareDocumentFailed())
 
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}

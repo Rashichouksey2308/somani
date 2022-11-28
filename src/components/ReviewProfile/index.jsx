@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { DropdownButton, Dropdown, Form } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { Form } from 'react-bootstrap';
 import moment from 'moment';
 import { convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 
 import DateCalender from '../DateCalender';
+import { returnReadableNumber } from '@/utils/helpers/global';
+
 function Index({
   handleChange,
   reviewedProfile,
@@ -19,27 +20,12 @@ function Index({
   country,
   port,
   commodity,
-
 }) {
-  const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
-    'Import',
-    'Domestic',
-  ]);
-  console.log(country,port,commodity,"sasdasdad")
-  console.log(fields, 'payloadData');
+  const [transactionTypeDropdown, settransactionTypeDropdown] = useState(['Import', 'Domestic']);
+
   const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
-  const countryOfOriginDropdown = [
-    'India',
-    'Australia',
-    'Sri Lanka',
-    'Qatar',
-    'Dubai',
-  ];
-  const portOfDischargeDropdown = [
-    'Mumbai, India',
-    'Gujrat, India',
-    'Vishakapatnam, India',
-  ];
+  const countryOfOriginDropdown = ['India', 'Australia', 'Sri Lanka', 'Qatar', 'Dubai'];
+  const portOfDischargeDropdown = ['Mumbai, India', 'Gujrat, India', 'Vishakapatnam, India'];
   useEffect(() => {
     if (reviewedProfile) {
       if (reviewedProfile?.transactionType?.originalValue == 'Domestic') {
@@ -53,8 +39,8 @@ function Index({
   }, [reviewedProfile]);
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail'];
 
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
-  const DropDown = (values, name, disabled,) => {
+  const [isFieldInFocus, setIsFieldInFocus] = useState({ turnover: false, orderValue: false });
+  const DropDown = (values, name, disabled) => {
     return (
       <div className="d-inline-flex align-items-center position-relative">
         <Form.Select
@@ -73,21 +59,24 @@ function Index({
             return <option>{options}</option>;
           })}{' '}
         </Form.Select>
-        <img
-          className={`${styles.arrow2} image_arrow img-fluid`}
-          src="/static/inputDropDown.svg"
-          alt="Search"
-        />
+        <img className={`${styles.arrow2} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
       </div>
     );
   };
 
-
   const clearData = () => {
     document.getElementById('ReviewProfileForm').reset();
+    let inputs = document.querySelectorAll('#checkBoxId');
+    inputs.forEach((item)=> item.checked = false)
+    let tempArr = [...fields]
+    tempArr.forEach((item)=> {
+      return item.isEdit = true
+    })
+    setFields(tempArr)
+    setPayloadData({
+      action: 'APPROVE',
+    })
   };
-
-  console.log(payloadData, 'payloadData');
 
   const handleCheckBox = (index, name) => {
     let tempArr = [...fields];
@@ -100,58 +89,26 @@ function Index({
       setPayloadData(tempObj);
     }
   };
-  console.log(fields, 'fields');
-  console.log(reviewedProfile, 'this is reviewed');
 
   return (
     <div className={`${styles.leads} border card`}>
-      <div
-        className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}
-      >
+      <div className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}>
         <h3>Review Profile</h3>
-        <div
-          className={`${styles.pageList}  d-flex justify-content-center align-items-center`}
-          onClick={clearData}
-        >
+        <div className={`${styles.pageList}  d-flex justify-content-center align-items-center`} onClick={clearData}>
           <span>Clear All</span>
         </div>
       </div>
       <div className={`${styles.scrollouter}`}>
         <div className={`${styles.scrollInner}`}>
           <form id="ReviewProfileForm">
-            <table
-              className={styles.table}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
+            <table className={styles.table} cellPadding="0" cellSpacing="0" border="0">
               <thead>
                 <tr>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    CATEGORIES
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    VALUES
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color text-center table_heading`}
-                  >
-                    API RESPONSE
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    MANUAL APPROVAL
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    REVIEWED VALUE
-                  </th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>CATEGORIES</th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>VALUES</th>
+                  <th className={`${styles.table_heading} border_color text-center table_heading`}>API RESPONSE</th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>MANUAL APPROVAL</th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>REVIEWED VALUE</th>
                 </tr>
               </thead>
 
@@ -163,9 +120,7 @@ function Index({
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.transactionType?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
+                          reviewedProfile?.transactionType?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'
                         }
                         alt="Check"
                         className="img-fluid"
@@ -175,6 +130,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.transactionType?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(0, 'transactionType')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -183,11 +139,7 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.transactionType?.apiResponse &&
-                      DropDown(
-                        transactionTypeDropdown,
-                        'transactionType',
-                        fields[0]?.isEdit,
-                      )}
+                      DropDown(transactionTypeDropdown, 'transactionType', fields[0]?.isEdit)}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -196,11 +148,7 @@ function Index({
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.typeOfBusiness?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.typeOfBusiness?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -209,6 +157,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.typeOfBusiness?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(1, 'typeOfBusiness')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -217,29 +166,16 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.typeOfBusiness?.apiResponse &&
-                      DropDown(
-                        typeOfBusinessDropdown,
-                        'typeOfBusiness',
-                        fields[1].isEdit,
-                      )}
+                      DropDown(typeOfBusinessDropdown, 'typeOfBusiness', fields[1].isEdit)}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Turnover (Cr)</td>
-                  <td>
-                    {convertValue(
-                      reviewedProfile?.turnOver?.originalValue,
-                    ).toLocaleString('en-in')}{' '}
-                    Cr
-                  </td>
+                  <td>{convertValue(reviewedProfile?.turnOver?.originalValue).toLocaleString('en-in')} Cr</td>
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.turnOver?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.turnOver?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -248,6 +184,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(2, 'turnOver')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -259,30 +196,22 @@ function Index({
                       <Form.Control
                         type="text"
                         onFocus={(e) => {
-                          setIsFieldInFocus(true), (e.target.type = 'number');
+                          setIsFieldInFocus({ ...isFieldInFocus, turnover: true }), (e.target.type = 'number');
                         }}
                         onBlur={(e) => {
-                          setIsFieldInFocus(false), (e.target.type = 'text');
+                          setIsFieldInFocus({ ...isFieldInFocus, turnover: false }), (e.target.type = 'text');
                         }}
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onWheel={(e) => e.target.blur()}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name="turnOver"
                         id="textDate"
                         value={
-                          isFieldInFocus
+                          isFieldInFocus.turnover
                             ? payloadData?.turnOver
-                            : Number(
-                                payloadData?.turnOver
-                                  ? payloadData?.turnOver
-                                  : 0,
-                              )?.toLocaleString('en-IN') + ` Cr`
+                            : returnReadableNumber(payloadData?.turnOver ? payloadData?.turnOver : 0, 'en-In', 2) + ` Cr`
                         }
                         className={`${styles.input} input`}
-                        onChange={(e) =>
-                          handleChange(e.target.name, Number(e.target.value))
-                        }
+                        onChange={(e) => handleChange(e.target.name, Number(e.target.value))}
                         disabled={fields[2]?.isEdit}
                       />
                     )}
@@ -295,11 +224,7 @@ function Index({
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.commodity?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.commodity?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -308,6 +233,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse ? (
                       <input
+                      id='checkBoxId'
                         onChange={(e) => handleCheckBox(3, 'commodity')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -315,55 +241,43 @@ function Index({
                     ) : null}
                   </td>
                   <td>
-                    {!reviewedProfile?.commodity?.apiResponse &&
-                   
-                    <>
+                    {!reviewedProfile?.commodity?.apiResponse && (
+                      <>
                         <div className="d-inline-flex align-items-center position-relative">
-                    <Form.Select
-                      size="sm"
-                      name={"commodity"}
-                      className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-                      onChange={(e) => {
-                        handleChange(e.target.name, e.target.value);
-                      }}
-                      value={payloadData.commodity}
-                      disabled={ fields[3]?.isEdit}
-                    >
-                      {' '}
-                      <option value="">Select an option</option>
-                      {commodity.map((options) => {
-                        return <option  value={`${options.Commodity}`}>{options.Commodity}</option>;
-                      })}{' '}
-                    </Form.Select>
-                    <img
-                      className={`${styles.arrow2} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-        />
-      </div>
-                     </>
-                    
-                   
-                      }
+                          <Form.Select
+                            size="sm"
+                            name={'commodity'}
+                            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                            onChange={(e) => {
+                              handleChange(e.target.name, e.target.value);
+                            }}
+                            value={payloadData.commodity}
+                            disabled={fields[3]?.isEdit}
+                          >
+                            {' '}
+                            <option value="">Select an option</option>
+                            {commodity.map((options) => {
+                              return <option value={`${options.Commodity}`}>{options.Commodity}</option>;
+                            })}{' '}
+                          </Form.Select>
+                          <img
+                            className={`${styles.arrow2} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </>
+                    )}
                   </td>
                 </tr>
 
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Order Value</td>
-                  <td>
-                    {CovertvaluefromtoCR(
-                      reviewedProfile?.orderValue?.originalValue,
-                    ).toLocaleString('en-in')}{' '}
-                    Cr
-                  </td>
+                  <td>{CovertvaluefromtoCR(reviewedProfile?.orderValue?.originalValue).toLocaleString('en-in')} Cr</td>
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.orderValue?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.orderValue?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -372,6 +286,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.orderValue?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(4, 'orderValue')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -382,20 +297,24 @@ function Index({
                     {!reviewedProfile?.orderValue?.apiResponse && (
                       <Form.Control
                         type="number"
-                        onWheel={(event) => event.currentTarget.blur()}
                         name="orderValue"
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
+                        onFocus={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
+                        }}
+                        onWheel={(e) => e.target.blur()}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        onChange={(e) => handleChange(e.target.name, Number(e.target.value))}
+                        value={
+                          isFieldInFocus.orderValue
+                            ? payloadData?.orderValue
+                            : returnReadableNumber(payloadData?.orderValue ? payloadData?.orderValue : 0, 'en-In', 2) + ` Cr`
                         }
                         id="textDate"
                         className={`${styles.input} input`}
-                        onBlur={(e) =>
-                          handleChange(
-                            e.target.name,
-                            Number(e.target.value * 10000000),
-                          )
-                        }
+                        // onBlur={(e) => }
                         disabled={fields[4]?.isEdit}
                       />
                     )}
@@ -409,9 +328,7 @@ function Index({
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.countryOfOrigin?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
+                          reviewedProfile?.countryOfOrigin?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'
                         }
                         alt="Check"
                         className="img-fluid"
@@ -421,6 +338,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(5, 'countryOfOrigin')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -428,40 +346,33 @@ function Index({
                     ) : null}
                   </td>
                   <td>
-                    {!reviewedProfile?.countryOfOrigin?.apiResponse &&
-                    <>
+                    {!reviewedProfile?.countryOfOrigin?.apiResponse && (
+                      <>
                         <div className="d-inline-flex align-items-center position-relative">
-                    <Form.Select
-                      size="sm"
-                      name={"countryOfOrigin"}
-                      className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-                      onChange={(e) => {
-                        handleChange(e.target.name, e.target.value);
-                      }}
-                      value={payloadData.country}
-                      disabled={fields[5].isEdit}
-                    >
-                      {' '}
-                      <option value="">Select an option</option>
-                      {country.map((options) => {
-                        return <option value={`${options.Country}`}>{options.Country}</option>;
-                      })}{' '}
-                    </Form.Select>
-                    <img
-                      className={`${styles.arrow2} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-        />
-      </div>
-                     </>
-                      // DropDown2(
-                      //   country,
-                      //   'countryOfOrigin',
-                      //   fields[5].isEdit,
-                      //   "Country"
-
-                      // )
-                      }
+                          <Form.Select
+                            size="sm"
+                            name={'countryOfOrigin'}
+                            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                            onChange={(e) => {
+                              handleChange(e.target.name, e.target.value);
+                            }}
+                            value={payloadData.country}
+                            disabled={fields[5].isEdit}
+                          >
+                            {' '}
+                            <option value="">Select an option</option>
+                            {country.map((options) => {
+                              return <option value={`${options.Country}`}>{options.Country}</option>;
+                            })}{' '}
+                          </Form.Select>
+                          <img
+                            className={`${styles.arrow2} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </>
+                    )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -471,9 +382,7 @@ function Index({
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.portOfDischarge?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
+                          reviewedProfile?.portOfDischarge?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'
                         }
                         alt="Check"
                         className="img-fluid"
@@ -483,6 +392,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse ? (
                       <input
+                        id='checkBoxId'
                         onChange={(e) => handleCheckBox(6, 'portOfDischarge')}
                         className={styles.checkBox}
                         type="checkbox"
@@ -490,53 +400,48 @@ function Index({
                     ) : null}
                   </td>
                   <td>
-                    {!reviewedProfile?.portOfDischarge?.apiResponse &&
-                     <>
+                    {!reviewedProfile?.portOfDischarge?.apiResponse && (
+                      <>
                         <div className="d-inline-flex align-items-center position-relative">
-                    <Form.Select
-                      size="sm"
-                      name={"portOfDischarge"}
-                      className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-                      onChange={(e) => {
-                        handleChange(e.target.name, e.target.value);
-                      }}
-                      value={payloadData.port}
-                      disabled={fields[6]?.isEdit}
-                    >
-                      {' '}
-                      <option value="">Select an option</option>
-                      {port.filter((val,index)=>{
-                        if(val.Country.toLowerCase()=="india"){
-                          return val
-                        }
-                      }).map((options) => {
-                        return <option value={`${options.Port_Name},${options.Country}`}>{options.Port_Name},{options.Country}</option>;
-                      })}{' '}
-                    </Form.Select>
-                    <img
-                      className={`${styles.arrow2} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-        />
-      </div>
-                     </>
-                      // DropDown(
-                      //   port,
-                      //   'portOfDischarge',
-                      //   fields[6]?.isEdit,
-                      //   "Port_Name"
-                      // )
-                      
-                      }
+                          <Form.Select
+                            size="sm"
+                            name={'portOfDischarge'}
+                            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                            onChange={(e) => {
+                              handleChange(e.target.name, e.target.value);
+                            }}
+                            value={payloadData.port}
+                            disabled={fields[6]?.isEdit}
+                          >
+                            {' '}
+                            <option value="">Select an option</option>
+                            {port
+                              .filter((val, index) => {
+                                if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == "yes") {
+                                  return val;
+                                }
+                              })
+                              .map((options) => {
+                                return (
+                                  <option value={`${options.Port_Name}`}>
+                                    {options.Port_Name},{options.Country}
+                                  </option>
+                                );
+                              })}{' '}
+                          </Form.Select>
+                          <img
+                            className={`${styles.arrow2} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </>
+                    )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Expected Date Of Shipment</td>
-                  <td>
-                    {moment(
-                      reviewedProfile?.ExpectedDateOfShipment?.originalValue,
-                    ).format('DD-MM-YYYY')}
-                  </td>
+                  <td>{moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue).format('DD-MM-YYYY')}</td>
                   <td>
                     <div className={styles.tick}>
                       <img
@@ -553,9 +458,8 @@ function Index({
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                       <input
-                        onChange={(e) =>
-                          handleCheckBox(7, 'ExpectedDateOfShipment')
-                        }
+                        id='checkBoxId'
+                        onChange={(e) => handleCheckBox(7, 'ExpectedDateOfShipment')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -563,16 +467,6 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
-                      // <Form.Control
-                      //   type="date"
-                      //   name="ExpectedDateOfShipment"
-                      //   id="textDate"
-                      //   className={`${styles.input}`}
-                      //   onBlur={(e) =>
-                      //     handleChange(e.target.name, e.target.value)
-                      //   }
-                      //   disabled={fields[8]?.isEdit}
-                      // />
                       <div className={`${styles.calender}  d-flex`}>
                         <DateCalender
                           defaultDate={payloadData.ExpectedDateOfShipment}
@@ -584,10 +478,7 @@ function Index({
                           disabled={fields[7]?.isEdit}
                           labelName=""
                           maxDate={moment(new Date()).add(3, 'months').toDate()}
-                          lastDate={moment(
-                            reviewedProfile?.ExpectedDateOfShipment
-                              ?.originalValue,
-                          ).toDate()}
+                          lastDate={moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
                           small={true}
                         />
                         <img
@@ -602,8 +493,7 @@ function Index({
                 {isAddedRow ? (
                   <tr className={`${styles.table_row} table_row`}>
                     <td>
-                      Delinquency in Past Orders{' '}
-                      <span className={styles.view_btn}>View</span>
+                      Delinquency in Past Orders <span className={styles.view_btn}>View</span>
                     </td>
                     <td>Yes</td>
                     <td>
@@ -622,25 +512,21 @@ function Index({
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                         <input
-                          onChange={(e) =>
-                            handleCheckBox(8, 'ExpectedDateOfShipment')
-                          }
+                          id='checkBoxId'
+                        onChange={(e) => handleCheckBox(8, 'ExpectedDateOfShipment')}
                           className={styles.checkBox}
                           type="checkbox"
                         />
                       ) : null}
                     </td>
                     <td>
-                      {!reviewedProfile?.ExpectedDateOfShipment
-                        ?.apiResponse && (
+                      {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
                         <Form.Control
                           type="date"
                           name="ExpectedDateOfShipment"
                           id="textDate"
                           className={`${styles.input}`}
-                          onBlur={(e) =>
-                            handleChange(e.target.name, e.target.value)
-                          }
+                          onBlur={(e) => handleChange(e.target.name, e.target.value)}
                           disabled={fields[8]?.isEdit}
                         />
                       )}
@@ -655,38 +541,12 @@ function Index({
 
           <div className={`${styles.remarks} border-bottom-0 table_row`}>
             <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              className={`${styles.remarksTextarea} input`}
-            />
+            <Form.Control as="textarea" rows={3} className={`${styles.remarksTextarea} input`} />
           </div>
         </div>
       </div>
     </div>
   );
 }
-export default Index;
 
-// const tableRow = (props) => {
-//   return (
-//     <tr className={`${styles.table_row} table_row`}>
-//       <td>{props}</td>
-//       <td>Domestic</td>
-//       <td>
-//         <div className={styles.tick}>
-//           <img src="/static/check.svg" alt="Check" className="img-fluid" />
-//         </div>
-//       </td>
-//       <td>
-//         <input className={styles.checkBox} type="checkbox" />
-//       </td>
-//       <td>
-//         <Form.Select size="sm" className={`${styles.dropDown} dropDown`}>
-//           <option>Retailer</option>
-//           <option>Copper</option>
-//         </Form.Select>
-//       </td>
-//     </tr>
-//   )
-// }
+export default Index;

@@ -1,12 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import styles from './index.module.scss';
-import {
-  addPrefixOrSuffix,
-  addPrefixSymbol,
-  removePrefixOrSuffix,
-} from '../../utils/helper';
+import { addPrefixOrSuffix, addPrefixSymbol } from '../../utils/helper';
 
 const Index = ({
   termsheet,
@@ -22,11 +17,12 @@ const Index = ({
   onChangeCommodityDetails2,
   port,
   country,
-  currency
+  currency,
 }) => {
+  console.log(termsheetDetails,"termsheetDetails")
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
-
+  console.log(port,"port")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,
@@ -52,48 +48,37 @@ const Index = ({
 
   const payementchangeFunc = (value) => {
     if (value === 'DaysfromBLDate') {
-      console.log('herer12');
-
       setIsBlSelected('DaysfromBLDate');
       changePayment('DaysfromBLDate');
-      // onChangePaymentDueDate({
-      //   target: { value: '', id: 'daysFromVesselDischargeDate' },
-      // })
-    } else if (value === 'DaysfromVesselDischargeDate') {
-      setIsBlSelected('DaysfromVesselDischargeDate');
-      changePayment('DaysfromVesselDischargeDate');
-      // onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
+    } else if (value === 'DaysfromVesselDate') {
+      setIsBlSelected('DaysfromVesselDate');
+      changePayment('DaysfromVesselDate');
     } else {
       setIsBlSelected(value);
       changePayment('val');
     }
   };
 
-  console.log(
-    termsheetDetails?.transactionDetails?.incoTerms,
-    'dkfgdfhjgdjfhgdkjfgdkjg',
-  );
-  const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
-  const filterCommodity=(value)=>{
-    if(value==""){
-      setToShow([])
-      setToView(false)
-      return
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const filterCommodity = (value) => {
+    if (value == '') {
+      setToShow([]);
+      setToView(false);
+      return;
     }
-   let filterData = commodity.filter(o => {
-    return o.Commodity.toLowerCase().includes(value.toLowerCase())
-   });
-   console.log(filterData,"filterData")
+    let filterData = commodity.filter((o) => {
+      return o.Commodity.toLowerCase().includes(value.toLowerCase());
+    });
 
-   setToShow(filterData)
-     setToView(true)
+    setToShow(filterData);
+    setToView(true);
+  };
+  const handleData = (name, value) => {
+    onChangeCommodityDetails2(name, value);
+    setToView(false);
+  };
 
-  }
-    const handleData=(name,value)=>{
-      onChangeCommodityDetails2(name,value)
-      setToView(false)
-  }
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -106,15 +91,8 @@ const Index = ({
         <h3 className={styles.heading}>Transaction Summary</h3>
         <span>+</span>
       </div>
-      <div
-        id="termDetails"
-        // className="collapse"
-        aria-labelledby="termDetails"
-        data-parent="#termDetails"
-      >
-        <div
-          className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}
-        >
+      <div id="termDetails" aria-labelledby="termDetails" data-parent="#termDetails">
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
 
           <div className="row">
@@ -124,41 +102,35 @@ const Index = ({
                   id="commodity"
                   className={`${styles.value} input form-control`}
                   value={termsheetDetails?.commodityDetails?.commodity}
-                  onChange={(e)=>{
-                    filterCommodity(e.target.value)
-                    onChangeCommodityDetails(e)
+                  onChange={(e) => {
+                    filterCommodity(e.target.value);
+                    onChangeCommodityDetails(e);
                   }}
                   type="text"
                   required
                 />
-              {toShow.length>0 && toView &&  (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {toShow
-                      ? toShow?.map(
-                          (results, index) => (
+                {toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
                             <li
-                              onClick={() => handleData("commodity",results.Commodity)}
+                              onClick={() => handleData('commodity', results.Commodity)}
                               id={results._id}
                               key={index}
                               value={results.Commodity}
                             >
                               {results.Commodity}{' '}
                             </li>
-                          ),
-                        )
-                      : ''}
-                  </ul>
-                </div>
-              )}
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
                 <label className={`${styles.label} label_heading`}>
                   Commodity<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.search_image} img-fluid`}
-                  src="/static/search-grey.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -184,16 +156,15 @@ const Index = ({
                       ? 'MT'
                       : termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
                   </option>
+                  <option value={"L"}>L</option>
+                  <option value={"KG"}>KG</option>
+                  <option value={"M"}>M</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Units of Measurement (UOM)
                   <strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -208,13 +179,13 @@ const Index = ({
                   <option disabled selected>
                     Select
                   </option>
-                      {currency.map((val,index)=>{
-                   return(
-                     <option value={`${val.Currency}`}>
-                  {val.Currency}
-                  </option>
-                   )
-                })}
+                  {currency.map((val, index) => {
+                    return (
+                      <option key={index} value={`${val.Currency}`}>
+                        {val.Currency}
+                      </option>
+                    );
+                  })}
                   {/* <option value="USD">USD</option>
                   <option value="INR">INR</option>
                   <option disabled value="Euro">
@@ -227,43 +198,27 @@ const Index = ({
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 id="quantity"
                 className={`${styles.value} input form-control`}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
-                //  value={termsheetDetails?.commodityDetails?.quantity}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                    (e.target.type = 'number');
+                  setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                    (e.target.type = 'text');
+                  setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
-                    : Number(
-                        termsheetDetails?.commodityDetails?.quantity,
-                      ).toLocaleString('en-In') +
+                    : Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString('en-In') +
                       ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.commodityDetails?.quantity,
-                //   termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase(),
-                //   '',
-                // )}
                 onChange={(e) => {
                   onChangeCommodityDetails(e);
                 }}
@@ -281,44 +236,23 @@ const Index = ({
               <input
                 id="perUnitPrice"
                 className={`${styles.value} ${styles.inrValue} input form-control`}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, unitPrice: true }),
-                    (e.target.type = 'number');
+                  setIsFieldInFocus({ ...isFieldInFocus, unitPrice: true }), (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, unitPrice: false }),
-                    (e.target.type = 'text');
+                  setIsFieldInFocus({ ...isFieldInFocus, unitPrice: false }), (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                      Number(
-                        termsheetDetails?.commodityDetails?.perUnitPrice,
-                      )?.toLocaleString('en-In', {
+                      Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })
                 }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
-                //     ? 0
-                //     : termsheetDetails?.commodityDetails?.perUnitPrice,
-                //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
-                //   'front',
-                // )}
-                // onChange={(e) => {
-                //   let temp = e.target.value.replace(/[^\w\s]/gi, '')
-                //   if (temp == '_') {
-                //     temp = ''
-                //   }
-                //   e.target.value = temp
-                //   onChangeCommodityDetails(e)
-                // }}
                 onChange={onChangeCommodityDetails}
                 type="text"
                 required
@@ -329,63 +263,41 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div
-                className={`${styles.suffixWrapper} d-flex text-muted`}
-                // customSuffix="%"
-              >
+              <div className={`${styles.suffixWrapper} d-flex text-muted`}>
                 <input
                   id="tolerance"
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
                       : '±' +
-                        Number(
-                          termsheetDetails?.commodityDetails?.tolerance,
-                        )?.toLocaleString('en-In', {
+                        Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         }) +
                         ` %`
                   }
-                  // value={
-                  //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
-                  // }
-                  onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                    evt.preventDefault()
-                  }
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
                 />
-                {/* <option value="10">±10%</option>
-                  <option value="20">±20%</option>
-                </select> */}
+
                 <label className={`${styles.label} label_heading`}>
                   Tolerance (+/-) Percentage
                   <strong className="text-danger">*</strong>
                 </label>
-                {/* <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                /> */}
               </div>
             </div>
           </div>
         </div>
-        <div
-          className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}
-        >
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={styles.sub_heading}>Transaction Details</h3>
 
           <div className="row">
@@ -398,28 +310,12 @@ const Index = ({
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
-                // onFocus={(e) => {
-                //   setIsFieldInFocus({ ...isFieldInFocus, lcValue: true }),
-                //     e.target.type = 'number'
-                // }}
-                // onBlur={(e) => {
-                //   setIsFieldInFocus({ ...isFieldInFocus, lcValue: false }),
-                //     e.target.type = 'text'
-                // }}
-                // value={
-                //   isFieldInFocus.lcValue ?
-                //     termsheetDetails?.transactionDetails?.lcValue :
-                //     ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
-                // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
+                disabled
               />
-              {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
-                                <option value="USD 2000">USD 2000</option>
-                                <option value="RS 1000">RS 1000</option> 
-                            </select>*/}
+
               <label className={`${styles.label} label_heading`}>
                 LC Value<strong className="text-danger">*</strong>
               </label>
@@ -431,39 +327,38 @@ const Index = ({
                 type="text"
                 onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, marginMoney: true }),
-                    (e.target.type = 'number');
+                  setIsFieldInFocus({ ...isFieldInFocus, marginMoney: true }), (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, marginMoney: false }),
-                    (e.target.type = 'text');
+                  setIsFieldInFocus({ ...isFieldInFocus, marginMoney: false }), (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.marginMoney
                     ? termsheetDetails?.transactionDetails?.marginMoney
-                    : Number(
-                        termsheetDetails?.transactionDetails?.marginMoney,
-                      ).toLocaleString() + ` %`
+                    : Number(termsheetDetails?.transactionDetails?.marginMoney).toLocaleString() + ` %`
                 }
-                // defaultValue={termsheetDetails?.transactionDetails?.marginMoney}
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.transactionDetails?.marginMoney?.toString(),
-                //   '%',
-                //   '',
-                // )}
-                // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
                 onChange={onChangeTransactionDetails}
                 required
               />
-              {/* <span className={styles.percent}><strong>%</strong></span> */}
 
               <label className={`${styles.label} label_heading`}>
                 Margin Money (%)<strong className="text-danger">*</strong>
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex">
+            <input
+                id="lcOpeningBank"
+                className={`${styles.value} ${styles.marginPercent} input form-control`}
+                type="text"
+                value={termsheetDetails?.transactionDetails?.lcOpeningBank}
+                onChange={onChangeTransactionDetails}
+                required
+              />
+
+              <label className={`${styles.label} label_heading`}>
+              LC Opening Bank<strong className="text-danger">*</strong>
+              </label>
+              {/* <div className="d-flex">
                 <select
                   id="lcOpeningBank"
                   className={`${styles.value} ${styles.customSelect} 
@@ -475,22 +370,15 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option value="Reserve Bank of Spain">
-                    Reserve Bank of Spain
-                  </option>
-                  <option value="Zurcher Kantonal Bank,Zurich">
-                    Zurcher Kantonal Bank,Zurich
-                  </option>
+                  <option value="First Class European Bank">First Class European Bank</option>
+                  <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                  <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   LC Opening Bank<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
-              </div>
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
+              </div> */}
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
@@ -514,11 +402,7 @@ const Index = ({
                 <label className={`${styles.label} label_heading`}>
                   INCO Terms<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -531,29 +415,25 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
-                  <option  selected>
-                    Select an option
-                  </option>
-                  {port.filter((val,index)=>{
-                  if(val.Country.toLowerCase()!=="india"){
-                    return val
-                  }
-                }).map((val,index)=>{
-                   return(
-                     <option value={`${val.Port_Name},${val.Country}`}>
-                  {val.Port_Name},{val.Country}
-                  </option>
-                   )
-                })}
+                  <option selected>Select an option</option>
+                  {port
+                    .filter((val, index) => {
+                      if (val.Country.toLowerCase() !== 'india' ) {
+                        return val;
+                      }
+                    })
+                    .map((val, index) => {
+                      return (
+                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                         {val.Port_Name}, {val.Country}
+                        </option>
+                      );
+                    })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Loading<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -565,30 +445,22 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                 
-                    <option selected>Select an option</option>
-                    {country.map((val,index)=>{
-                   return(
-                     <option value={`${val.Country}`}>
-                  {val.Country}
-                  </option>
-                   )
-                })}
+                  <option selected>Select an option</option>
+                  {country.map((val, index) => {
+                    return (
+                      <option key={index} value={`${val.Country}`}>
+                        {val.Country}
+                      </option>
+                    );
+                  })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
-            {console.log(
-              'country origin',
-              termsheetDetails?.transactionDetails?.shipmentType,
-            )}
+
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
@@ -607,19 +479,13 @@ const Index = ({
                 <label className={`${styles.label} label_heading`}>
                   Shipment Type<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
-                  value={
-                    termsheetDetails?.transactionDetails?.partShipmentAllowed
-                  }
+                  value={termsheetDetails?.transactionDetails?.partShipmentAllowed}
                   id="partShipmentAllowed"
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   onChange={onChangeTransactionDetails}
@@ -628,16 +494,15 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                  'Yes' ? (
+                  {termsheetDetails?.transactionDetails?.partShipmentAllowed === 'Yes' ? (
                     <>
                       {' '}
-                      <option value="Yes">Yes</option>{' '}
+                      <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </>
                   ) : (
                     <>
-                      <option value="No">No</option>{' '}
+                      <option value="No">No</option>
                       <option value="Yes">Yes</option>{' '}
                     </>
                   )}
@@ -647,11 +512,7 @@ const Index = ({
                   Part Shipment Allowed
                   <strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -663,20 +524,20 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option  selected>
-                    Select an option
-                  </option>
-                    {port.filter((val,index)=>{
-                  if(val.Country.toLowerCase()=="india"){
-                    return val
-                  }
-                }).map((val,index)=>{
-                   return(
-                     <option value={`${val.Port_Name},${val.Country}`}>
-                  {val.Port_Name},{val.Country}
-                  </option>
-                   )
-                })}
+                  <option disabled selected>Select an option</option>
+                  {port
+                    .filter((val, index) => {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                        return val;
+                      }
+                    })
+                    .map((val, index) => {
+                      return (
+                        <option key={index} value={`${val.Port_Name}`}>
+                          {val.Port_Name}, {val.Country}
+                        </option>
+                      );
+                    })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
@@ -703,17 +564,13 @@ const Index = ({
                   </option>
                   <option value="Home Consumption">Home Consumption</option>
                   <option value="Into-Bond">Into-Bond</option>
-                  <option value="EX-Bond">EX-Bond </option>
+                  <option value="EX-Bond">EX-Bond</option>
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
                   Bill of Entry<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -725,9 +582,7 @@ const Index = ({
                     updateThirdPartyInspection(e);
                     onChangeTransactionDetails(e);
                   }}
-                  value={
-                    termsheetDetails.transactionDetails?.thirdPartyInspectionReq
-                  }
+                  value={termsheetDetails.transactionDetails?.thirdPartyInspectionReq}
                   required
                 >
                   <option disabled selected>
@@ -747,10 +602,8 @@ const Index = ({
                 />
               </div>
             </div>
-            {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-              'true' ||
-            termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-              true ? (
+            {termsheetDetails.transactionDetails?.thirdPartyInspectionReq == 'true' ||
+            termsheetDetails.transactionDetails?.thirdPartyInspectionReq == true ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -760,14 +613,10 @@ const Index = ({
                     required
                     id={'typeOfPort'}
                   >
-                    <option disabled selected>
-                      Select an option
-                    </option>
+                    <option selected>Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">
-                      Both Load Port and Discharge Port
-                    </option>
+                    <option value="Both">Both Load Port and Discharge Port</option>
                   </select>
 
                   <img
@@ -800,31 +649,33 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.storageOfGoods}
                   required
                 >
-                  <option disabled selected>
+                  <option disabled >
                     Select an option
                   </option>
-                  <option value="Vishakapatnam, India">
-                    Visakhapatnam, India
-                  </option>
-                  <option value="Mumbai, India">Mumbai, India</option>
-                  <option value="Gujrat, India">Gujrat, India</option>
+                    {port
+                    .filter((val, index) => {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                        return val;
+                      }
+                    })
+                    .map((val, index) => {
+                      return (
+                        <option key={index} value={`${val.Port_Name}`}>
+                         {val.Port_Name}, {val.Country}
+                        </option>
+                      );
+                    })}
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
                   Storage of Goods<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
           </div>
         </div>
-        <div
-          className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}
-        >
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={styles.sub_heading}>Deliveries/Due date/Payment</h3>
 
           <div className="row">
@@ -835,8 +686,7 @@ const Index = ({
                   value={termsheetDetails?.paymentDueDate?.computationOfDueDate}
                   onChange={(e) => {
                     {
-                      payementchangeFunc(e.target.value),
-                        onChangePaymentDueDate(e);
+                      payementchangeFunc(e.target.value), onChangePaymentDueDate(e);
                     }
                   }}
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
@@ -846,42 +696,27 @@ const Index = ({
                     Select an option
                   </option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate">
-                    {' '}
-                    Days from Vessel Discharge Date{' '}
-                  </option>
-                  <option value="Whicheverisearlier">
-                    Whichever is earlier
-                  </option>
+                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
+                  <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Computation of Due date
                   <strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 id="daysFromBlDate"
                 className={`${styles.value} input form-control`}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 type="number"
                 onWheel={(event) => event.currentTarget.blur()}
                 value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
-                  IsBlSelected == 'DaysfromBLDate'
-                    ? false
-                    : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                  IsBlSelected == 'DaysfromBLDate' ? false : IsBlSelected == 'Whicheverisearlier' ? false : true
                 }
                 required
               />
@@ -891,19 +726,15 @@ const Index = ({
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
-                id="daysFromVesselDischargeDate"
+                id="daysFromVesselDate"
                 className={`${styles.value} input form-control`}
                 type="number"
                 onWheel={(event) => event.currentTarget.blur()}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
-                value={
-                  termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
-                }
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                value={termsheetDetails?.paymentDueDate?.daysFromVesselDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
-                  IsBlSelected == 'DaysfromVesselDischargeDate'
+                  IsBlSelected == 'DaysfromVesselDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
                     ? false
@@ -912,15 +743,13 @@ const Index = ({
                 required
               />
               <label className={`${styles.label} label_heading`}>
-                Days From Vessel Discharge Date
+                Days From Vessel Date
                 <strong className="text-danger">*</strong>
               </label>
             </div>
           </div>
         </div>
-        <div
-          className={`${styles.dashboard_form} card-body rounded-0 border-0`}
-        >
+        <div className={`${styles.dashboard_form} card-body rounded-0 border-0`}>
           <h3 className={styles.sub_heading}>Commercial Terms</h3>
           <div className="row">
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -948,49 +777,26 @@ const Index = ({
                 value={
                   isFieldInFocus.tradeMarginPercentage
                     ? termsheetDetails.commercials?.tradeMarginPercentage
-                    : Number(
-                        termsheetDetails.commercials?.tradeMarginPercentage,
-                      ).toLocaleString() + ` %`
+                    : Number(termsheetDetails.commercials?.tradeMarginPercentage).toLocaleString() + ` %`
                 }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails.commercials?.tradeMarginPercentage?.toString(),
-                //   '%',
-                //   '',
-                // )}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
-                // defaultValue={termsheetDetails.commercials?.tradeMarginPercentage}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}
                 required
               />
-              {/* <span className={styles.percent}><strong>%</strong></span> */}
+
               <label className={`${styles.label} label_heading`}>
                 Trade Margin(%)<strong className="text-danger">*</strong>
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6 d-flex`}>
-              <div
-                className={`${styles.value} input form-control w-25 disable border-right-0 rounded-left pt-3`}
-              >
-                {addPrefixSymbol(
-                  termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),
-                )}
+              <div className={`${styles.value} input form-control w-25 disable d-flex align-items-center border-right-0 rounded-left`}>
+                {addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase())}
               </div>
               <input
                 id="lcOpeningChargesUnit"
                 className={`${styles.value} input form-control border-left-0`}
                 type="text"
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.commercials?.lcOpeningChargesUnit
-                //     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
-                //     : 0,
-                //   'USD',
-                //   'front',
-                // )}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
@@ -1006,17 +812,10 @@ const Index = ({
                   }),
                     (e.target.type = 'text');
                 }}
-                // value={
-                //   isFieldInFocus.lcOpeningCharges ?
-                //     termsheetDetails?.commercials?.lcOpeningChargesUnit :
-                //     `USD` + ` ` +
-                //     Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')}
                 value={
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
-                    : Number(
-                        termsheetDetails?.commercials?.lcOpeningChargesUnit,
-                      ).toLocaleString('en-In')
+                    : Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -1051,24 +850,13 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
-                    : Number(
-                        termsheetDetails?.commercials
-                          ?.lcOpeningChargesPercentage,
-                      ).toLocaleString('en-In') + ` %`
+                    : Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString('en-In') + ` %`
                 }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.commercials?.lcOpeningChargesPercentage?.toString(),
-                //   '%',
-                //   '',
-                // )}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
-                // defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}
                 required
               />
-              {/* <span className={styles.percent}><strong>%</strong></span> */}
+
               <label className={`${styles.label} label_heading`}>
                 LC Opening Charges (%)<strong className="text-danger">*</strong>
               </label>
@@ -1098,18 +886,9 @@ const Index = ({
                 value={
                   isFieldInFocus.usanceInterestPercetage
                     ? termsheetDetails?.commercials?.usanceInterestPercetage
-                    : Number(
-                        termsheetDetails?.commercials?.usanceInterestPercetage,
-                      ).toLocaleString() + ` %`
+                    : Number(termsheetDetails?.commercials?.usanceInterestPercetage).toLocaleString() + ` %`
                 }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.commercials?.usanceInterestPercetage?.toString(),
-                //   '%',
-                //   '',
-                // )}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -1144,19 +923,9 @@ const Index = ({
                 value={
                   isFieldInFocus.overDueInterestPerMonth
                     ? termsheetDetails?.commercials?.overDueInterestPerMonth
-                    : Number(
-                        termsheetDetails?.commercials?.overDueInterestPerMonth,
-                      ).toLocaleString() + ` %`
+                    : Number(termsheetDetails?.commercials?.overDueInterestPerMonth).toLocaleString() + ` %`
                 }
-                // value={addPrefixOrSuffix(
-                //   termsheetDetails?.commercials?.overDueInterestPerMonth?.toString(),
-                //   '%',
-                //   '',
-                // )}
-                onKeyDown={(evt) =>
-                  ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-                }
-                // defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -1184,11 +953,7 @@ const Index = ({
                 <label className={`${styles.label} label_heading`}>
                   Exchange Fluctation<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1209,11 +974,7 @@ const Index = ({
                 <label className={`${styles.label} label_heading`}>
                   Forex Hedging<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
 
@@ -1222,9 +983,7 @@ const Index = ({
                 id="otherTermsAndConditions"
                 className={`${styles.value} input form-control`}
                 type="text"
-                defaultValue={
-                  termsheetDetails?.commercials?.otherTermsAndConditions
-                }
+                defaultValue={termsheetDetails?.commercials?.otherTermsAndConditions}
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -1254,11 +1013,7 @@ const Index = ({
                 <label className={`${styles.label} label_heading`}>
                   Version<strong className="text-danger">*</strong>
                 </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </div>
           </div>

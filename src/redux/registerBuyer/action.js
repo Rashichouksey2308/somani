@@ -1,535 +1,499 @@
-import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Router from 'next/router';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
-import { data } from 'jquery';
-import { settingSidebar } from '../breadcrumb/action';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
-function createBuyer() {
+import * as types from './actionType'
+import API from '../../utils/endpoints'
+import Axios from 'axios'
+import Router from 'next/router'
+import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
+
+function createBuyer () {
   return {
-    type: types.REGISTER_BUYER,
-  };
+    type: types.REGISTER_BUYER
+  }
 }
 
-function createBuyerSuccess() {
+function createBuyerSuccess () {
   return {
-    type: types.REGISTER_BUYER_SUCCESS,
-  };
+    type: types.REGISTER_BUYER_SUCCESS
+  }
 }
 
-function createBuyerFailed() {
+function createBuyerFailed () {
   return {
-    type: types.REGISTER_BUYER_FAILED,
-  };
-}
-function updateBuyer() {
-  return {
-    type: types.UPDATE_BUYER,
-  };
+    type: types.REGISTER_BUYER_FAILED
+  }
 }
 
-function updateBuyerSuccess() {
+function updateBuyer () {
   return {
-    type: types.UPDATE_BUYER_SUCCESSFULL,
-  };
+    type: types.UPDATE_BUYER
+  }
 }
 
-function updateBuyerFailed() {
+function updateBuyerSuccess () {
   return {
-    type: types.UPDATE_BUYER_FAILED,
-  };
-}
-function deleteBuyer() {
-  return {
-    type: types.DELETE_BUYER,
-  };
+    type: types.UPDATE_BUYER_SUCCESSFULL
+  }
 }
 
-function deleteBuyerSuccess() {
+function updateBuyerFailed () {
   return {
-    type: types.DELETE_BUYER_SUCCESSFULL,
-  };
+    type: types.UPDATE_BUYER_FAILED
+  }
 }
 
-function deleteBuyerFailed() {
+function deleteBuyer () {
   return {
-    type: types.DELETE_BUYER_FAILED,
-  };
-}
-function getBuyer() {
-  return {
-    type: types.GET_BUYER,
-  };
+    type: types.DELETE_BUYER
+  }
 }
 
-function getBuyerSuccess(payload) {
+function deleteBuyerSuccess () {
+  return {
+    type: types.DELETE_BUYER_SUCCESSFULL
+  }
+}
+
+function deleteBuyerFailed () {
+  return {
+    type: types.DELETE_BUYER_FAILED
+  }
+}
+
+function getBuyer () {
+  return {
+    type: types.GET_BUYER
+  }
+}
+
+function getBuyerSuccess (payload) {
   return {
     type: types.GET_BUYER_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function getBuyerFailed() {
+function getBuyerFailed () {
   return {
-    type: types.GET_BUYER_FAILED,
-  };
+    type: types.GET_BUYER_FAILED
+  }
 }
 
-function getAllBuyer() {
+function getAllBuyer () {
   return {
-    type: types.GET_ALL_BUYER,
-  };
+    type: types.GET_ALL_BUYER
+  }
 }
 
-function getAllBuyerSuccess(payload) {
+function getAllBuyerSuccess (payload) {
   return {
     type: types.GET_ALL_BUYER_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function getAllBuyerFailed() {
+function getAllBuyerFailed () {
   return {
-    type: types.GET_ALL_BUYER_FAILED,
-  };
+    type: types.GET_ALL_BUYER_FAILED
+  }
 }
 
-function getAllOrder() {
+function getAllOrder () {
   return {
-    type: types.GET_ALL_ORDER,
-  };
+    type: types.GET_ALL_ORDER
+  }
 }
 
-function getAllOrderSuccess(payload) {
+function getAllOrderSuccess (payload) {
   return {
     type: types.GET_ALL_ORDER_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function getAllOrderFailed() {
+function getAllOrderFailed () {
   return {
-    type: types.GET_ALL_ORDER_FAILED,
-  };
+    type: types.GET_ALL_ORDER_FAILED
+  }
 }
 
-function getOrder() {
+function getOrder () {
   return {
-    type: types.GET_ORDER,
-  };
+    type: types.GET_ORDER
+  }
 }
 
-function getOrderSuccess(payload) {
+function getOrderSuccess (payload) {
   return {
     type: types.GET_ORDER_SUCCESSFULL,
-    payload,
-  };
+    payload
+  }
 }
 
-function getOrderFailed() {
+function getOrderFailed () {
   return {
-    type: types.GET_ORDER_FAILED,
-  };
+    type: types.GET_ORDER_FAILED
+  }
 }
 
-function getGst() {
+function getGst () {
   return {
-    type: types.GET_GST,
-  };
+    type: types.GET_GST
+  }
 }
 
-function getGstSuccess(payload) {
+function getGstSuccess (payload) {
   return {
     type: types.GET_GST_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function getGstFailed() {
+function getGstFailed () {
   return {
-    type: types.GET_GST_FAILED,
-  };
+    type: types.GET_GST_FAILED
+  }
 }
 
-//////////**********  Image UPload   *********////////////
+/// ///////**********  Image UPload   *********////////////
 
-function uploadingDocument() {
-  return { type: types.UPLOADDOCUMENT };
+function uploadingDocument () {
+  return { type: types.UPLOADDOCUMENT }
 }
 
-function uploadingDocumentSuccess(payload) {
+function uploadingDocumentSuccess (payload) {
   return {
     type: types.UPLOADDOCUMENT_SUCCESS,
-    payload,
-  };
+    payload
+  }
 }
 
-function uploadingDocumentFailed() {
-  return { type: types.UPLOADDOCUMENT_FAILED };
+function uploadingDocumentFailed () {
+  return { type: types.UPLOADDOCUMENT_FAILED }
 }
 
-function createBuyerRouted() {
+function createBuyerRouted () {
   return {
-    type: types.REGISTER_BUYER_ROUTED,
-  };
+    type: types.REGISTER_BUYER_ROUTED
+  }
 }
+
 export const routeNewBuyer = (payload) => async (dispatch, getState, api) => {
-  dispatch(createBuyerRouted());
-};
+  dispatch(createBuyerRouted())
+}
 
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  dispatch(createBuyer());
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  dispatch(createBuyer())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(createBuyerSuccess(response.data.data));
-        // document.getElementById('CompanyDetailsForm').reset()
-        // document.getElementById('OrderDetailsForm').reset()
-        // console.log(response.data.data, "THIS IS CREATE BUYER")
-        let toastMessage = 'Lead Created Successfully';
+        dispatch(createBuyerSuccess(response.data.data))
+
+        const toastMessage = 'Lead Created Successfully'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        sessionStorage.setItem(
-          'orderID',
-          response.data.data.form.orderDetails[0],
-        );
-        sessionStorage.setItem('company', response.data.data.form._id);
-        sessionStorage.setItem('companyID', response.data.data.form._id);
-        Router.push(`/review/${response.data.data.form._id}`);
-        // if (response.data.data.queue == 'ReviewQueue') {
-        //   dispatch(
-        //     GetBuyer({
-        //       companyId: response.data.data.form._id,
-        //       orderId: response.data.data.form.orderDetails[0],
-        //     }),
-        //   )
+        sessionStorage.setItem('orderID', response.data.data.form.orderDetails[0])
+        sessionStorage.setItem('company', response.data.data.form._id)
+        sessionStorage.setItem('companyID', response.data.data.form._id)
+        Router.push(`/review/${response.data.data.form._id}`)
 
-        // }
-
-        // Router.push('/leads')
-
-        // payload.history.goBack()
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       } else {
-        dispatch(createBuyerFailed(response.data.data));
-        let toastMessage = response.data.message;
+        dispatch(createBuyerFailed(response.data.data))
+        const toastMessage = response.data.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    console.log(error, 'API FAILED');
-    dispatch(createBuyerFailed());
-    let toastMessage = error.message;
+    dispatch(createBuyerFailed())
+    const toastMessage = error.message
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
-  // dispatch(updateBuyer()
-  dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
-    let response = await Axios.post(
-      `${API.corebaseUrl}${API.updateBuyer}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.post(`${API.corebaseUrl}${API.updateBuyer}`, payload, {
+      headers: headers
+    })
 
     if (response.data.code === 200) {
-      dispatch(updateBuyerSuccess(response.data));
+      dispatch(updateBuyerSuccess(response.data))
 
-      dispatch(setNotLoading());
-      return 200;
+      dispatch(setNotLoading())
+      return 200
     } else {
-      dispatch(updateBuyerFailed(response.data));
-      console.log('UPDATE REQUEST FAILED');
-      dispatch(setNotLoading());
-      return 500;
+      dispatch(updateBuyerFailed(response.data))
+
+      dispatch(setNotLoading())
+      return 500
     }
   } catch (error) {
-    dispatch(updateBuyerFailed());
-    console.log(error, 'UPDATE API FAILED');
-    dispatch(setNotLoading());
-    return 500;
+    dispatch(updateBuyerFailed())
+
+    dispatch(setNotLoading())
+    return 500
   }
-};
+}
 
 export const settingSelectBuyer = (payload) => {
   return {
     type: types.SET_BUYER,
-    payload,
-  };
-};
+    payload
+  }
+}
 
 export const settingDocument = (payload) => {
-  // console.log("reached here")
   return {
     type: types.SET_DOCUMENT,
-    payload,
-  };
-};
+    payload
+  }
+}
 
 export const GetBuyer = (payload) => async (dispatch, getState, api) => {
-  // dispatch(createBuyer())
-  dispatch(setIsLoading());
-  // console.log(company, "in getbuyer1")
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
-  try {
-    // console.log("in getbuyer")
-    Axios.get(
-      `${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`,
-      { headers: headers },
-    ).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(getBuyerSuccess(response.data.data));
-        // toast.error("Buyers fetched")
-        dispatch(setNotLoading());
-      } else {
-        dispatch(getBuyerFailed(response.data.data));
-        let toastMessage = 'Could not fetch Company Details';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      }
-    });
-  } catch (error) {
-    dispatch(getBuyerFailed());
-    dispatch(setNotLoading());
+    'Access-Control-Allow-Origin': '*'
   }
-};
-
-export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
-    authorization: jwtAccessToken,
-    Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
   try {
-    dispatch(getAllBuyer());
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
-      headers: headers,
+    Axios.get(`${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`, {
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllBuyerSuccess(response.data));
-        dispatch(setNotLoading());
+        dispatch(getBuyerSuccess(response.data.data))
+
+        dispatch(setNotLoading())
       } else {
-        dispatch(getAllBuyerFailed(response.data));
-        let toastMessage = 'Could not fetch Company Details';
+        dispatch(getBuyerFailed(response.data.data))
+        const toastMessage = 'Could not fetch Company Details'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getAllBuyerFailed());
-    console.log(error, 'GET ALL BUYER API FAILED');
-    dispatch(setNotLoading());
+    dispatch(getBuyerFailed())
+    dispatch(setNotLoading())
   }
-};
+}
+
+export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*'
+  }
+  try {
+    dispatch(getAllBuyer())
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
+      headers: headers
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllBuyerSuccess(response.data))
+        dispatch(setNotLoading())
+      } else {
+        dispatch(getAllBuyerFailed(response.data))
+        const toastMessage = 'Could not fetch Company Details'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+      }
+    })
+  } catch (error) {
+    dispatch(getAllBuyerFailed())
+
+    dispatch(setNotLoading())
+  }
+}
 
 export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   try {
-    dispatch(setIsLoading());
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    dispatch(setIsLoading())
+    const cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    let response = await Axios.get(
-      `${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`,
-      {
-        headers: headers,
-      },
-    );
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    const response = await Axios.get(`${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`, {
+      headers: headers
+    })
     if (response.data.code === 200) {
-      dispatch(getAllOrderSuccess(response.data.data));
-      // toast.error("Buyers fetched")
-      dispatch(setNotLoading());
+      dispatch(getAllOrderSuccess(response.data.data))
+
+      dispatch(setNotLoading())
     } else {
-      dispatch(getAllOrderFailed(response.data.data));
-      let toastMessage = 'Getting orders failed';
+      dispatch(getAllOrderFailed(response.data.data))
+      const toastMessage = 'Getting orders failed'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      dispatch(setNotLoading());
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(getAllOrderFailed());
-    console.log(error, 'GET ALL ORDER API FAILED');
-    dispatch(setNotLoading());
+    dispatch(getAllOrderFailed())
+
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const GetOrders = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
+  dispatch(setIsLoading())
   try {
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
-      headers: headers,
+      'Access-Control-Allow-Origin': '*'
+    }
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getOrderSuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(getOrderSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(getOrderFailed(response.data.data));
-        let toastMessage = 'Getting Order List Failed';
+        dispatch(getOrderFailed(response.data.data))
+        const toastMessage = 'Getting Order List Failed'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(getOrderFailed());
-    console.log(error, 'GET ALL ORDERS API FAILED');
-    dispatch(setNotLoading());
+    dispatch(getOrderFailed())
+
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
-  // dispatch(createBuyer())
-  dispatch(setIsLoading());
+  dispatch(setIsLoading())
   try {
-    const response = await api.delete(
-      `${API.createBuyer}?BuyerId=${payload.BuyerId}`,
-    );
+    const response = await api.delete(`${API.createBuyer}?BuyerId=${payload.BuyerId}`)
 
     if (response.data.code === 200) {
-      dispatch(deleteBuyerSuccess(response.data.data));
-      // window.location.reload(false)
-      payload.history.go(0);
-      toast.error('Buyer Deleted Succesfully');
-      dispatch(setNotLoading());
+      dispatch(deleteBuyerSuccess(response.data.data))
+
+      payload.history.go(0)
+      toast.error('Buyer Deleted Succesfully')
+      dispatch(setNotLoading())
     } else {
-      dispatch(deleteBuyerFailed(response.data.data));
-      toast.error('Buyer could not be deleted');
-      dispatch(setNotLoading());
+      dispatch(deleteBuyerFailed(response.data.data))
+      toast.error('Buyer could not be deleted')
+      dispatch(setNotLoading())
     }
   } catch (error) {
-    dispatch(deleteBuyerFailed());
-    toast.error('Buyer could not be deleted');
-    dispatch(setNotLoading());
+    dispatch(deleteBuyerFailed())
+    toast.error('Buyer could not be deleted')
+    dispatch(setNotLoading())
   }
-};
+}
 
 export const GetGst = (payload) => async (dispatch, getState, api) => {
-  // dispatch(createBuyer())
-  dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
-  try {
-    // console.log(payload,"in getbuyer")
-    Axios.post(
-      `${API.userbaseUrl}${API.getGst}`,
-      { pan: payload },
-      { headers: headers },
-    ).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(getGstSuccess(response.data));
-        // toast.error("Buyers fetched")
-        dispatch(setNotLoading());
-      } else {
-        dispatch(getGstFailed(response.data));
-        let toastMessage = 'Could not fetch Gst at this moment';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      }
-    });
-  } catch (error) {
-    dispatch(getGstFailed());
-    console.log('GET GST API FAILED');
-    dispatch(setNotLoading());
+    'Access-Control-Allow-Origin': '*'
   }
-};
+  try {
+    Axios.post(`${API.userbaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getGstSuccess(response.data))
+
+        dispatch(setNotLoading())
+      } else {
+        dispatch(getGstFailed(response.data))
+        const toastMessage = 'Could not fetch Gst at this moment'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+      }
+    })
+  } catch (error) {
+    dispatch(getGstFailed())
+
+    dispatch(setNotLoading())
+  }
+}
 
 export const UploadDocument = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  dispatch(setIsLoading())
+  const cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
   try {
     Axios.post(`${API.corebaseUrl}${API.uploadDocuments}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(uploadingDocumentSuccess(response.data.data));
-        dispatch(setNotLoading());
+        dispatch(uploadingDocumentSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
-        dispatch(uploadingDocumentFailed());
-        dispatch(setNotLoading());
+        dispatch(uploadingDocumentFailed())
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(uploadingDocumentFailed());
-    dispatch(setNotLoading());
+    dispatch(uploadingDocumentFailed())
+    dispatch(setNotLoading())
   }
-};
+}

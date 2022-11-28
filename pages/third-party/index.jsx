@@ -7,39 +7,31 @@ import ThirdPartyInspection from '../../src/components/ThirdPartyInspection';
 import PlotInspection from '../../src/components/PlotInspection';
 import Appointment from '../../src/components/Appointment';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import _get from 'lodash/get';
 import { GetAllInspection } from '../../src/redux/Inspections/action';
 import Router from 'next/router';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 import { getVendors } from '../../src/redux/masters/action';
+
 function Index() {
   const dispatch = useDispatch();
 
   const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
-
-     useEffect(() => {
-    dispatch(getVendors())
-   
+  const [componentId, setComponentId] = useState(1);
+  useEffect(() => {
+    dispatch(getVendors());
   }, []);
-   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
+  const { getVendorsMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
     let id = sessionStorage.getItem('inspectionId');
     dispatch(GetAllInspection(`?inspectionId=${id}`));
   }, [dispatch]);
-  const { allInspection, modifiedDate } = useSelector(
-    (state) => state.Inspection,
-  );
+  const { allInspection, modifiedDate } = useSelector((state) => state.Inspection);
   useEffect(() => {
     if (window) {
-      setlastModified(
-        modifiedDate || localStorage.getItem('inceptionlastmodified'),
-      );
+      setlastModified(modifiedDate || localStorage.getItem('inceptionlastmodified'));
     }
   }, [modifiedDate]);
 
@@ -49,12 +41,10 @@ function Index() {
     dispatch(setDynamicName(_get(inspectionData, 'company.companyName')));
     dispatch(setDynamicOrder(_get(inspectionData, 'order.orderId')));
   }, [inspectionData]);
-  console.log(inspectionData, 'THIS IS INSPECTION DATA');
 
   const [addTPI, setAddTPI] = useState([{}]);
 
   const setDate = (date) => {
-    console.log(date, 'setDatesetDate');
     setlastModified(date);
   };
   const handleBreadcrumbClick = (value) => {
@@ -63,13 +53,12 @@ function Index() {
   useEffect(() => {
     dispatch(getBreadcrumbValues({ upperTabs: 'Appointment' }));
   }, []);
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -91,10 +80,14 @@ function Index() {
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li
               className={`${styles.navItem}  nav-item`}
-              onClick={() => handleBreadcrumbClick('Appointment')}
+              onClick={() => {
+                setComponentId(1);
+                dispatch(getBreadcrumbValues({ upperTabs: 'Appointment' }));
+                handleBreadcrumbClick('Appointment');
+              }}
             >
               <a
-                className={`${styles.navLink} navLink  nav-link active`}
+                className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
                 data-toggle="tab"
                 href="#appointment"
                 role="tab"
@@ -104,14 +97,17 @@ function Index() {
                 Appointment
               </a>
             </li>
-            {inspectionData &&
-            inspectionData?.thirdPartyInspectionRequired == true ? (
+            {inspectionData && inspectionData?.thirdPartyInspectionRequired == true ? (
               <li
                 className={`${styles.navItem}  nav-item`}
-                onClick={() => handleBreadcrumbClick('Third-Party Inspection')}
+                onClick={() => {
+                  setComponentId(2);
+                  dispatch(getBreadcrumbValues({ upperTabs: 'Third-Party Inspection' }));
+                  handleBreadcrumbClick('Third-Party Inspection');
+                }}
               >
                 <a
-                  className={`${styles.navLink} navLink  nav-link `}
+                  className={`${styles.navLink} navLink  nav-link ${componentId === 2 && 'active'}`}
                   data-toggle="tab"
                   href="#thirdParty"
                   role="tab"
@@ -126,10 +122,14 @@ function Index() {
             )}
             <li
               className={`${styles.navItem} nav-item`}
-              onClick={() => handleBreadcrumbClick(' Plot Inspection')}
+              onClick={() => {
+                setComponentId(3);
+                dispatch(getBreadcrumbValues({ upperTabs: 'Plot Inspection' }));
+                handleBreadcrumbClick('Plot Inspection');
+              }}
             >
               <a
-                className={`${styles.navLink} navLink nav-link `}
+                className={`${styles.navLink} navLink  nav-link ${componentId === 3 && 'active'}`}
                 data-toggle="tab"
                 href="#plotInspection"
                 role="tab"
@@ -146,53 +146,67 @@ function Index() {
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane show active fade"
-                  id="appointment"
-                  role="tabpanel"
-                >
+                <div className="tab-pane show active fade" id="appointment" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <Appointment
-                      inspectionData={inspectionData}
-                      setDate={setDate}
-                      vendor={getVendorsMasterData[5]}
-                    />
+                    {componentId === 1 && (
+                      <Appointment
+                        inspectionData={inspectionData}
+                        setDate={setDate}
+                        vendor={getVendorsMasterData}
+                        required={inspectionData?.thirdPartyInspectionRequired}
+                        setComponentId={setComponentId}
+                        componentId={componentId}
+                      />
+                    )}
                   </div>
                 </div>
-                {inspectionData &&
-                inspectionData?.thirdPartyInspectionRequired == true ? (
+                {inspectionData && inspectionData?.thirdPartyInspectionRequired == true ? (
                   <>
                     {' '}
                     {addTPI?.map((e, index) => (
-                      <div
-                        key={index}
-                        className="tab-pane fade"
-                        id="thirdParty"
-                        role="tabpanel"
-                      >
+                      <div className="tab-pane show active fade" id="appointment" role="tabpanel">
                         <div className={`${styles.card}  accordion_body`}>
-                          <ThirdPartyInspection
-                            inspectionData={inspectionData}
-                            addButton={() => setAddTPI(addTPI + 1)}
-                            setDate={setDate}
-                          />
+                          {componentId === 2 && (
+                            <ThirdPartyInspection
+                              inspectionData={inspectionData}
+                              addButton={() => setAddTPI(addTPI + 1)}
+                              setDate={setDate}
+                              setComponentId={setComponentId}
+                              componentId={componentId}
+                            />
+                          )}
                         </div>
                       </div>
+
+                      //   <div key={index} className="tab-pane fade" id="thirdParty" role="tabpanel">
+                      //     <div className={`${styles.card}  accordion_body`}>
+                      //        {componentId === 2 && (
+                      //       <ThirdPartyInspection
+                      //         inspectionData={inspectionData}
+                      //         addButton={() => setAddTPI(addTPI + 1)}
+                      //         setDate={setDate}
+                      //          setComponentId={setComponentId}
+                      //          componentId={componentId}
+                      //       />
+                      //  )}
+
+                      //     </div>
+                      //   </div>
                     ))}{' '}
                   </>
                 ) : (
                   ''
                 )}
-                <div
-                  className="tab-pane fade"
-                  id="plotInspection"
-                  role="tabpanel"
-                >
+                <div className="tab-pane show active fade" id="appointment" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <PlotInspection
-                      inspectionData={inspectionData}
-                      setDate={setDate}
-                    />
+                    {componentId === 3 && (
+                      <PlotInspection
+                        inspectionData={inspectionData}
+                        setDate={setDate}
+                        setComponentId={setComponentId}
+                        componentId={componentId}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -203,4 +217,5 @@ function Index() {
     </>
   );
 }
+
 export default Index;

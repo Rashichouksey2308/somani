@@ -1,22 +1,20 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
+
 let cma = {
   authorisedSignatoryDetails: [],
 };
+
 function Index(props) {
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
 
-  console.log(list, 'val.dateOfExecution');
-
   useEffect(() => {
     if (window) {
-      console.log(sessionStorage.getItem('exe'), '.getItem');
       if (sessionStorage.getItem('exe')) {
         let savedData = JSON.parse(sessionStorage.getItem('exe'));
 
@@ -34,7 +32,7 @@ function Index(props) {
         setList(temp);
       }
     }
-  }, [props]);
+  }, [props.data]);
   useEffect(() => {
     if (props.saveData == true && props.active == 'Place of Execution') {
       let data = {
@@ -50,12 +48,13 @@ function Index(props) {
       props.updateData('Place of Execution', data);
     }
   }, [props.saveData, props.submitData]);
-  const onEdit = (index) => {
+    const onEdit = (index) => {
+   
     let tempArr = list;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' };
+          return { ...obj, actions: 'true' };
         }
         // 👇️ otherwise return object as is
         return obj;
@@ -68,7 +67,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'false' };
         }
 
         return obj;
@@ -91,16 +90,9 @@ function Index(props) {
   const handleRemove = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
   };
-  const handleInput = (name, value, key) => {
-    const newInput = { ...cmaState };
-
-    newInput[name] = value;
-    setCmaState(newInput);
-  };
+ 
 
   const handleChangeInput = (name, value, index) => {
-    console.log(name, 'name');
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -113,53 +105,17 @@ function Index(props) {
       return newState;
     });
   };
-  console.log(list, 'exx');
-  const handleAddressInput = () => {
-    // let tempArr=[...addressList]
-    setAddressList((current) => [...current, newAddress]);
-    // setAddressList([...addressList],newAddress)
-    setNewAddress({
-      addressType: '',
-      fullAddress: '',
-      pinCode: '',
-      country: '',
-      gstin: '',
-      state: '',
-      city: '',
-    });
-  };
-  const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
-  };
-  console.log(list, '564456');
+
+
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <div className={`${styles.tableContainer} border_color card p-0`}>
-          {/* <div
-            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-           
-          >
-            <div className={styles.header}>
-           
-              <span className=" d-flex align-items-center justify-content-between">
-          
-               
-              </span>
-            </div>
-          </div> */}
           <div id="customerDetail" className={` ${styles.body} card-body row`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table `}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <th className="border-0 generic_th">Agreement Name</th>
                     <th className="border-0 generic_th">Place of Execution</th>
@@ -171,18 +127,13 @@ function Index(props) {
                       list?.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions !== 'true' ? (
                               <tr key={index}>
                                 <td>{val.name}</td>
                                 <td>{val.execution}</td>
                                 <td>
-                                  {val.dateOfExecution == null
-                                    ? ''
-                                    : moment(val.dateOfExecution).format(
-                                        'DD-MM-YYYY',
-                                      )}
+                                  {val.dateOfExecution == null ? '' : moment(val.dateOfExecution).format('DD-MM-YYYY')}
                                 </td>
-
                                 <td className={`d-flex`}>
                                   <img
                                     className={`${styles.image} img-fluid mr-3`}
@@ -190,10 +141,7 @@ function Index(props) {
                                     src="/static/mode_edit.svg"
                                     alt="edit"
                                   />
-                                  <img
-                                    onClick={() => handleRemove(index)}
-                                    src="/static/delete 2.svg"
-                                  ></img>
+                                  <img onClick={() => handleRemove(index)} src="/static/delete 2.svg"></img>
                                 </td>
                               </tr>
                             ) : (
@@ -204,30 +152,16 @@ function Index(props) {
                                     className={`${styles.customSelect} input`}
                                     name="name"
                                     onChange={(e) => {
-                                      handleChangeInput(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   >
-                                    <option>Select an option</option>
-                                    <option value={'Sales Agreement'}>
-                                      {'Sales Agreement'}
-                                    </option>
-                                    <option value={'Associateship Agreement'}>
-                                      {'Associateship Agreement'}
-                                    </option>
-                                    <option value={'TPA (Seller)'}>
-                                      {'TPA (Seller)'}
-                                    </option>
-                                    <option value={'Assignment Letter'}>
-                                      {'Assignment Letter'}
-                                    </option>
+                                    <option value="">Select an option</option>
+                                    <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
+                                    <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
+                                    <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
+                                    <option value={'Assignment Letter'}>{'Assignment Letter'}</option>
                                     <option value={'QPA'}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'}>
-                                      {'TPA (CMA)'}
-                                    </option>
+                                    <option value={'TPA (CMA)'}>{'TPA (CMA)'}</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}
@@ -244,11 +178,7 @@ function Index(props) {
                                     name="execution"
                                     value={val.execution}
                                     onChange={(e) => {
-                                      handleChangeInput(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -260,15 +190,13 @@ function Index(props) {
                                         handleChangeInput(name, val, index);
                                       }}
                                       defaultDate={
-                                        val.dateOfExecution == null
-                                          ? null
-                                          : moment(val.dateOfExecution).toDate()
+                                        val.dateOfExecution == null ? null : moment(val.dateOfExecution).toDate()
                                       }
                                       // small={true}
                                       index={index}
                                     />
                                     <img
-                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                       src="/static/caldericon.svg"
                                       alt="Search"
                                     />
@@ -281,10 +209,7 @@ function Index(props) {
                                     src="/static/save-3.svg"
                                     alt="save"
                                   />
-                                  <img
-                                    onClick={() => handleRemove(index)}
-                                    src="/static/delete 2.svg"
-                                  ></img>
+                                  <img onClick={() => handleRemove(index)} src="/static/delete 2.svg"></img>
                                 </td>
                               </tr>
                             )}

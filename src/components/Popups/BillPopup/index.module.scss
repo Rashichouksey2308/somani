@@ -48,19 +48,24 @@
       font-size: 19px;
       font-weight: 24px;
       font-weight: 500;
+
       tr {
         height: 67px;
         border-bottom: 2px solid red;
+
         th {
           text-align: center;
           vertical-align: revert;
+
           &:first-child {
             font-weight: bold;
             padding-left: 35px;
           }
         }
+
         td {
           vertical-align: revert;
+
           &:first-child {
             font-weight: bold;
             padding-left: 35px;
@@ -68,6 +73,7 @@
         }
       }
     }
+
     div {
       font-size: 20px;
       font-weight: 25px;

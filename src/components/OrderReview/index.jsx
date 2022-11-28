@@ -1,24 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { ViewDocument } from 'redux/ViewDoc/action';
-// import {GetBuyer} from '../../redux/registerBuyer/action'
+
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  // useEffect(() => {
-  //   const orderId = sessionStorage.getItem('orderId')
-  //   const companyId = sessionStorage.getItem('company')
-  //   dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
-  // }, [dispatch])
-
   const { buyerList } = useSelector((state) => state.buyer);
-  console.log(
-    moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
-    'moment list',
-  );
 
   return (
     <div className={`${styles.wrapper} card`}>
@@ -31,24 +20,16 @@ function Index() {
       >
         <div className={styles.header}>
           <h2 className={`mb-0`}>Order Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            +
-          </span>
+          <span className=" d-flex align-items-center justify-content-between">+</span>
         </div>
       </div>
       <div
         id="orderDetail"
         className={`collapse ${styles.body} value_card card-body row`}
         aria-labelledby="orderDetail"
-        //   data-parent="#profileAccordion"
       >
         {fields('Commodity', buyerList?.order?.commodity)}
-        {fields(
-          'Quantity (in MT)',
-          buyerList?.order?.quantity,
-          false,
-          buyerList?.order?.unitOfQuantity.toUpperCase(),
-        )}
+        {fields('Quantity (in MT)', buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}
         {fields(
           'Order value (in INR)',
           CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString(),
@@ -72,17 +53,7 @@ function Index() {
         {fields('Document Name', 'Insurance Certificate', true)}
 
         {buyerList?.company?.documents?.map((val, index) => {
-          return (
-            <>
-              {fields(
-                'Document Type',
-                val?.typeOfDocument,
-                true,
-                null,
-                val?.path,
-              )}
-            </>
-          );
+          return <>{fields('Document Type', val?.typeOfDocument, true, null, val?.path)}</>;
         })}
       </div>
     </div>
@@ -95,19 +66,14 @@ const fields = (head, value, isButton, value2, value3) => {
 
   return (
     <>
-      <div
-        className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}
-      >
+      <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
         <span className={`${styles.top} label`}>{head}</span>
         <div className="d-flex align-items-center">
           <span className={`${styles.value} value `}>
             {value} {value2 ? value2 : ''}
           </span>
           {isButton ? (
-            <a
-              onClick={() => dispatch(ViewDocument({ path: value3 }))}
-              className={styles.button}
-            >
+            <a onClick={() => dispatch(ViewDocument({ path: value3 }))} className={styles.button}>
               View
             </a>
           ) : null}

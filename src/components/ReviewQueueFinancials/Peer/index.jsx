@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import styles from '../index.module.scss';
 import moment from 'moment';
 import { checkNan, convertValue } from 'utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index({ peerData }) {
   const [conversionUnit, setConversionUnit] = useState(10000000);
-
-  // console.log(peerData?.financial?.peerComparison, 'THIS IS PEER COMPARISON DATA')
 
   return (
     <>
@@ -26,11 +25,7 @@ function Index({ peerData }) {
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -48,17 +43,10 @@ function Index({ peerData }) {
           aria-labelledby="peerComparison"
           data-parent="#FinancialsAccordion"
         >
-          <div
-            className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}
-          >
+          <div className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="30%">COMPANY</th>
@@ -81,87 +69,24 @@ function Index({ peerData }) {
                   </thead>
                   <tbody>
                     {peerData &&
-                      peerData?.financial?.peerComparison?.map(
-                        (peers, index) => (
-                          <tr key={index}>
-                            <td>{peers.name}</td>
-                            <td className="text-center">
-                              {moment(peers?.finyrEnddate)
-                                .format('MMM-YY')
-                                .toUpperCase()}
-                            </td>
-                            <td className="text-center">
-                              {convertValue(
-                                peers.revenue,
-                                conversionUnit,
-                              )?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })}
-                            </td>
-                            <td className="text-center">
-                              {checkNan(
-                                peers?.ebidtaMargin * 100,
-                              )?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })}{' '}
-                              %
-                            </td>
-                            <td className="text-center">
-                              {checkNan(peers?.patMargin * 100)?.toLocaleString(
-                                'en-In',
-                                {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                },
-                              )}
-                              %
-                            </td>
-                            <td className="text-center">
-                              {convertValue(
-                                peers.borrowings,
-                                conversionUnit,
-                              )?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })}
-                            </td>
-                          </tr>
-                        ),
-                      )}
-                    {/* <tr>
-                      <td>Ascent Hotels Private Limited</td>
-                      <td className="text-center">Mar-2018</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">285.01</td>
-                    </tr>
-                    <tr>
-                      <td>Orange Country Resorts & Hotels Limited</td>
-                      <td className="text-center">Mar-2018</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">285.01</td>
-                    </tr>
-                    <tr>
-                      <td>Divine Infracon Private Limited</td>
-                      <td className="text-center">Mar-2018</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">285.01</td>
-                    </tr>
-                    <tr>
-                      <td>Gujarat Jhm Hotels Limited</td>
-                      <td className="text-center">Mar-2018</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">45.26%</td>
-                      <td className="text-center">285.01</td>
-                    </tr> */}
+                      peerData?.financial?.peerComparison?.map((peers, index) => (
+                        <tr key={index}>
+                          <td>{peers.name}</td>
+                          <td className="text-center">{peers?.finyrEnddate && moment(peers?.finyrEnddate).format('MMM-YY').toUpperCase()}</td>
+                          <td className="text-center">
+                          {returnReadableNumber(convertValue(peers.revenue, conversionUnit), 'en-In', 2, 2,)}
+                          </td>
+                          <td className="text-center">
+                          {peers?.ebidtaMargin && returnReadableNumber(peers?.ebidtaMargin * 100, 'en-In', 2, 2) +' %'}
+                          </td>
+                          <td className="text-center">
+                            {peers?.patMargin && returnReadableNumber(peers?.patMargin * 100, 'en-In', 2, 2) +' %'}
+                          </td>
+                          <td className="text-center">
+                            {returnReadableNumber(convertValue(peers.borrowings, conversionUnit), 'en-In', 2, 2)}
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

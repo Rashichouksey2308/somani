@@ -1,26 +1,19 @@
-import React, { Component } from 'react';
-import { withRouter } from 'next/router';
-//import ContactDelershipModal from "../contactDealershipModal";
-// import captureErrorForLogs from "../../utility/error-logger";
-// import Error from '../../pages/404'
+import React, { Component } from 'react'
+import { withRouter } from 'next/router'
 
 export class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      hasError: false,
-    };
+      hasError: false
+    }
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError () {
+    return { hasError: true }
   }
 
-  // componentDidCatch(error, errorInfo) {
-  //     captureErrorForLogs({ error, errorInfo }, "client");
-  // }
-
-  render() {
+  render () {
     if (this.state.hasError) {
       return (
         <div
@@ -30,36 +23,33 @@ export class ErrorBoundary extends Component {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column',
+            flexDirection: 'column'
           }}
         >
           <h2>Something went wrong</h2>
           <div>
-            <button
-              type="button"
-              onClick={() => this.setState({ hasError: false })}
-            >
+            <button type='button' onClick={() => this.setState({ hasError: false })}>
               Try again?
             </button>
             <button
               style={{ marginLeft: '1rem' }}
-              type="button"
+              type='button'
               onClick={() => {
-                window.history.back();
+                window.history.back()
                 setTimeout(() => {
-                  location.reload();
-                }, 100);
+                  location.reload()
+                }, 100)
               }}
             >
               Previous Page
             </button>
           </div>
         </div>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default withRouter(ErrorBoundary);
+export default withRouter(ErrorBoundary)

@@ -1,26 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import SalesAgreement from '../../src/components/SalesAgreement';
-import Cookies from 'js-cookie';
-import API from '../../src/utils/endpoints';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { useDispatch,useSelector } from 'react-redux';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import Router from 'next/router';
 import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 import { GetAllOrders } from '../../src/redux/registerBuyer/action';
+import _get from 'lodash/get'
+import moment from 'moment';
 
 function Index(props) {
   const [genericData, setGenericData] = useState();
   const dispatch = useDispatch();
   const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
-
+  const { companyData,  } = useSelector((state) => state.companyDetails);
+ console.log(companyData)
   useEffect(() => {
     if (window) {
       dispatch(setPageName('generic'));
@@ -37,16 +34,13 @@ function Index(props) {
       setGenericData(JSON.parse(sessionStorage.getItem('genericSelected')));
     }
   }, []);
-  console.log(genericData, 'genericData');
 
   const setDate = (date) => {
     setlastModified(date);
   };
   return (
     <div className={`${styles.dashboardTab} w-100`}>
-      <div
-        className={`${styles.tabHeader} tabHeader d-flex align-items-center`}
-      >
+      <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
         <div className={`${styles.tabHeaderInner} d-flex align-items-center`}>
           <img
             src="/static/keyboard_arrow_right-3.svg"
@@ -57,15 +51,12 @@ function Index(props) {
             }}
             style={{ cursor: 'pointer' }}
           />
-          <h1 className={`${styles.title} heading`}>
-            {genericData?.company?.companyName}
-          </h1>
+          <h1 className={`${styles.title} heading`}>{genericData?.company?.companyName}</h1>
         </div>
         <div className={'ml-auto d-flex'}>
           <div className="ml-auto  mr-2">
             <div className={`${styles.lastModified} text `}>
-              <span className="accordion_Text">Last Modified:</span>{' '}
-              {lastModified}
+              <span className="accordion_Text">Last Modified:</span>  {moment(companyData?.updatedAt).format(' D MMM, h:mm a')}
             </div>
           </div>
         </div>
@@ -75,7 +66,7 @@ function Index(props) {
         <div className="row">
           <div className="col-md-12  accordion_body">
             <div className={`${styles.tabContent} tab-content`}>
-              <SalesAgreement genericData={genericData} setDate={setDate} />
+              <SalesAgreement genericData={genericData} setDate={setDate} directors={_get(companyData,"profile.directorDetail",[])} />
             </div>
           </div>
         </div>

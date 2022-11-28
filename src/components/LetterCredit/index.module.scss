@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .container_inner {
   margin: 28px;
   min-height: 74vh;
@@ -17,6 +18,7 @@
     min-height: auto;
     margin-bottom: 71px;
   }
+
   .filter {
     min-height: 48px;
     margin: 0 0 27px 0;
@@ -32,6 +34,7 @@
     }
   }
 }
+
 .search {
   width: 492px;
   position: relative;
@@ -45,6 +48,7 @@
     width: 100%;
     margin-bottom: 15px;
   }
+
   .inputGroupPrepend {
     top: 50%;
     left: 31px;
@@ -60,6 +64,7 @@
     @include respond(sm-desktop) {
       left: 20px;
     }
+
     img {
       @include respond(lg-desktop) {
         height: 20px;
@@ -72,6 +77,7 @@
       }
     }
   }
+
   .formControl {
     font-size: 18px !important;
     font-weight: 500 !important;
@@ -98,6 +104,7 @@
       padding-left: 45px !important;
     }
   }
+
   .searchResults {
     width: 100%;
     top: 65px;
@@ -115,6 +122,7 @@
     @include respond(md-desktop) {
       padding: 7px 15px;
     }
+
     &::after {
       top: -15px;
       left: 40px;
@@ -124,10 +132,12 @@
       border-right: 12px solid transparent;
       border-bottom: 15px solid #d2d7e5;
     }
+
     ul {
       margin: 0;
       padding: 0;
       list-style: none;
+
       li {
         font-size: 18px;
         color: #3687e8;
@@ -148,12 +158,14 @@
         @include respond(sm-desktop) {
           font-size: 14px;
         }
+
         span {
           font-size: 15px;
           font-weight: 500;
           color: #8492a6;
           margin-left: 10px;
         }
+
         @include respond(lg-desktop) {
           font-size: 14px;
         }
@@ -163,6 +175,7 @@
         @include respond(sm-desktop) {
           font-size: 12px;
         }
+
         &:last-child {
           border-bottom: none;
         }
@@ -170,6 +183,7 @@
     }
   }
 }
+
 .filterList {
   font-size: 18px;
   font-weight: 500;
@@ -189,12 +203,14 @@
     font-size: 14px;
     padding: 6px 10px 7px;
   }
+
   img {
     width: 10px;
     margin-left: 12px;
     display: inline-block;
   }
 }
+
 .createBtn {
   font-size: 20px;
   color: #ffffff;
@@ -224,9 +240,11 @@
     font-size: 15px;
   }
 }
+
 .datatable {
   border: 1px solid #d2d7e5;
   border-radius: 6px;
+
   .tableFilter {
     min-height: 80px;
     padding: 0 15px 0 35px;
@@ -236,6 +254,7 @@
     @include respond(sm-desktop) {
       padding: 0 15px;
     }
+
     h3 {
       font-size: 22px !important;
       font-weight: bold;
@@ -256,15 +275,19 @@
       }
     }
   }
+
   .table_scroll_outer {
     width: 100%;
     display: table;
     table-layout: fixed;
+
     .table_scroll_inner {
       display: table-cell;
       overflow-x: auto;
+
       .table {
         margin-bottom: 0px;
+
         th {
           font-size: 15px;
           font-weight: bold;
@@ -273,12 +296,14 @@
           text-transform: uppercase;
           border-top: 2px solid #f2f5f9;
           border-bottom: 2px solid #f2f5f9;
+
           &:first-child {
             padding-left: 35px;
             @include respond(sm-desktop) {
               padding-left: 15px;
             }
           }
+
           img {
             width: 14px;
             height: 14px;
@@ -287,6 +312,7 @@
               height: 12px;
             }
           }
+
           @include respond(lg-desktop) {
             height: 50px;
             font-size: 14px;
@@ -300,10 +326,12 @@
             font-size: 12px;
           }
         }
+
         tr {
           &:last-child {
             border-bottom: none;
           }
+
           td {
             font-size: 19px;
             font-weight: 500;
@@ -311,17 +339,20 @@
             padding: 24px 15px;
             border-top: none;
             white-space: nowrap;
+
             &:first-child {
               padding-left: 35px;
               @include respond(sm-desktop) {
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
               padding: 17px 10px;
             }
+
             &.buyerName {
               color: #3687e8;
               opacity: 1 !important;
@@ -329,6 +360,7 @@
               text-transform: capitalize;
               cursor: pointer;
             }
+
             .status {
               width: 15px;
               height: 15px;
@@ -336,27 +368,38 @@
               border-radius: 50%;
               display: inline-block;
               vertical-align: middle;
+              @include respond(lg-desktop) {
+                width: 12px;
+                height: 12px;
+              }
             }
+
             .approved {
               background: #26dd73;
             }
+
             .rejected {
               background: #ed714c;
             }
+
             .review {
               background: #ffce00;
             }
           }
         }
+
         .table_scroll_outer {
           width: 100%;
           display: table;
           table-layout: fixed;
+
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
+
             .table {
               margin-bottom: 0px;
+
               th {
                 font-size: 15px;
                 font-weight: bold;
@@ -365,12 +408,14 @@
                 text-transform: uppercase;
                 border-top: 2px solid #f2f5f9;
                 border-bottom: 2px solid #f2f5f9;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 img {
                   width: 14px;
                   height: 14px;
@@ -379,6 +424,7 @@
                     height: 12px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -391,6 +437,7 @@
                   font-size: 12px;
                 }
               }
+
               td {
                 font-size: 19px;
                 font-weight: 500;
@@ -398,12 +445,14 @@
                 padding: 24px 15px;
                 border-top: none;
                 white-space: nowrap;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   font-size: 15px;
                   line-height: 1.3;
@@ -414,11 +463,13 @@
                   padding: 10px;
                 }
               }
+
               .buyerName {
                 color: #3687e8;
                 font-weight: bold;
                 text-transform: capitalize;
               }
+
               .status {
                 width: 15px;
                 height: 15px;
@@ -426,17 +477,25 @@
                 border-radius: 50%;
                 display: inline-block;
                 vertical-align: middle;
+                @include respond(lg-desktop) {
+                  width: 12px;
+                  height: 12px;
+                }
               }
+
               .approved {
                 background: #26dd73;
               }
+
               .rejected {
                 background: #ed714c;
               }
+
               .review {
                 background: #ffce00;
               }
             }
+
             @include respond(phone) {
               font-size: 14px;
               padding: 10px;
@@ -447,6 +506,7 @@
     }
   }
 }
+
 .searchResults {
   width: 100%;
   top: 65px;
@@ -461,6 +521,7 @@
   }
   @include respond(sm-desktop) {
   }
+
   &::after {
     top: -15px;
     left: 40px;
@@ -470,10 +531,12 @@
     border-right: 12px solid transparent;
     border-bottom: 15px solid #d2d7e5;
   }
+
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
+
     li {
       font-size: 18px;
       color: #3687e8;
@@ -490,18 +553,21 @@
       @include respond(sm-desktop) {
         font-size: 14px;
       }
+
       span {
         font-size: 15px;
         font-weight: 500;
         color: #8492a6;
         margin-left: 10px;
       }
+
       @include respond(md-desktop) {
         font-size: 14px;
       }
       @include respond(sm-desktop) {
         font-size: 12px;
       }
+
       &:last-child {
         border-bottom: none;
       }
@@ -536,6 +602,7 @@
     height: 40px;
     line-height: 35px;
   }
+
   img {
     @include respond(lg-desktop) {
       height: 16px;

@@ -1,15 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import { Form } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Form, Modal } from 'react-bootstrap';
+import { checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import styles from './index.module.scss';
-import {
-  CovertvaluefromtoCR,
-  checkNan,
-  addPrefixOrSuffix,
-} from '../../utils/helper';
-import { add } from 'lodash';
-import { array } from 'prop-types';
+import moment from 'moment';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({
   financialsComment,
@@ -35,6 +31,8 @@ const Index = ({
   deleteData,
   setSanctionComment,
   suggestedCredit,
+  allBuyerList,
+
 }) => {
   const [editProfile, setEditProfile] = useState([]);
   const [editFinance, setEditFinance] = useState([]);
@@ -50,6 +48,8 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('');
   const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([]);
   const [weaknessComments, setWeaknessComments] = useState('');
+  const [show, setShow] = useState(false);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
@@ -58,15 +58,9 @@ const Index = ({
     suggestedCreditLimit: false,
   });
 
-  console.log(financialsComment, editProfile, 'companyComments');
-  // console.log(creditDetail, 'THIS IS CREDIT DETAIL')
-
-  const filteredCreditRating =
-    creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
-      return creditDetail?._id === rating.order;
-    });
-
-  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
+  const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
+    return creditDetail?._id === rating.order;
+  });
 
   const [exposureData, setExposureData] = useState({
     accountConduct: '',
@@ -101,12 +95,6 @@ const Index = ({
     setEditStren(strenthCommentseditable);
   }, [companyComment, financialsComment, strengthsComment, weaknessComment]);
 
-  // const handleGroupExpChange = (name, value) => {
-  //   const newInput = { ...exposureData }
-  //   newInput[name] = value
-  //   setExposureData(newInput)
-  // }
-
   const onExpSave = () => {
     addGroupExpArr(exposureData);
   };
@@ -125,26 +113,21 @@ const Index = ({
   };
 
   const handleGroupExpChange = (name, value, index) => {
-    console.log(name, value, index, 'name,value');
     let tempArr = [...groupExposureData];
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
       }
     });
-    console.log(tempArr, 'tempArr');
-    // console.log(tempArr, 'tempArr')
+
     setGroupExposureData([...tempArr]);
   };
+
   const handleRemoveRowEx = (index) => {
-    setGroupExposureData([
-      ...groupExposureData.slice(0, index),
-      ...groupExposureData.slice(index + 1),
-    ]);
+    setGroupExposureData([...groupExposureData.slice(0, index), ...groupExposureData.slice(index + 1)]);
   };
 
   const setActions = (index, val, editType) => {
-    console.log(index, val, editType, 'DANGEROUS');
     if (editType === 'sanctionComments') {
       setSanctionComment((prevState) => {
         const newState = prevState.map((obj, i) => {
@@ -179,6 +162,7 @@ const Index = ({
     temp.splice(index, 1, val);
     setSanctionComment(temp);
   };
+
   const onEditClickHandler = (index, task) => {
     if (task === 'edit') {
       let tempIndex = [...sanctionCommentsIndex];
@@ -192,12 +176,9 @@ const Index = ({
   };
 
   const onSanctionCommentRemove = (index) => {
-    setSanctionComment([
-      ...sanctionComment.slice(0, index),
-      ...sanctionComment.slice(index + 1),
-    ]);
+    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)]);
   };
-  console.log(sanctionCommentsIndex, 'INDEXOF');
+
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color `}>
@@ -217,15 +198,11 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          {/* <hr className={styles.line} style={{ margin: '0' }}></hr> */}
           <div className={`${styles.dashboard_form} card-body`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
-                <div
-                  key={index}
-                  className={`${styles.comment_para} border_color d-flex justify-content-between`}
-                >
+                <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
@@ -236,18 +213,13 @@ const Index = ({
 
                   <div className="mr-3">
                     <img
-                      src={`/static/${
-                        editProfile[index]?.editable
-                          ? 'save-3.svg'
-                          : 'mode_edit.svg'
-                      }`}
+                      src={`/static/${editProfile[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       alt="edit"
                       onClick={(e) => {
                         let tempEditProfile = [...editProfile];
-                        tempEditProfile[index].editable =
-                          !tempEditProfile[index].editable;
+                        tempEditProfile[index].editable = !tempEditProfile[index].editable;
                         setEditProfile(tempEditProfile);
                       }}
                     />
@@ -265,17 +237,14 @@ const Index = ({
               ))}
 
             <div className="d-flex mt-4 mb-3 position-relative">
-              <input
-                as="textarea"
+              <textarea
                 rows={3}
                 placeholder=""
                 className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setCompanyComments(e.target.value)}
                 value={companyComments}
               />
-              <label className={`${styles.label_heading} label_heading`}>
-                Comments
-              </label>
+              <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
               <img
                 className={`${styles.add_btn} ml-4`}
@@ -283,8 +252,7 @@ const Index = ({
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() => {
-                  companyComments.length > 0 &&
-                    addCompanyCommentArr(companyComments);
+                  companyComments.length > 0 && addCompanyCommentArr(companyComments);
                   setCompanyComments('');
                 }}
               />
@@ -295,10 +263,7 @@ const Index = ({
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
-                <div
-                  key={index}
-                  className={`${styles.comment_para} border_color d-flex justify-content-between`}
-                >
+                <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
@@ -308,11 +273,7 @@ const Index = ({
                   />
                   <div className="mr-3">
                     <img
-                      src={`/static/${
-                        editFinance[index]?.editable
-                          ? 'save-3.svg'
-                          : 'mode_edit.svg'
-                      }`}
+                      src={`/static/${editFinance[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       onClick={(e) => {
@@ -333,17 +294,14 @@ const Index = ({
               ))}
 
             <div className="d-flex mt-4 position-relative">
-              <input
-                as="textarea"
+              <textarea
                 rows={3}
                 placeholder=""
                 className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setFinancialsComments(e.target.value)}
                 value={financialsComments}
               />
-              <label className={`${styles.label_heading} label_heading`}>
-                Comments
-              </label>
+              <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
               <img
                 className={`${styles.add_btn} ml-4`}
@@ -351,8 +309,7 @@ const Index = ({
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() => {
-                  financialsComments.length > 0 &&
-                    addFinancialsCommentArr(financialsComments);
+                  financialsComments.length > 0 && addFinancialsCommentArr(financialsComments);
 
                   setFinancialsComments('');
                 }}
@@ -367,12 +324,7 @@ const Index = ({
             </h5>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th>S.NO.</th>
@@ -385,156 +337,24 @@ const Index = ({
                   </thead>
                   <tbody>
                     {groupExposureData &&
-                      groupExposureData?.map((profile, index) => (
-                        <tr key={index} className="table_credit shadow-none">
+                      groupExposureData?.map((profile, index) => {
+                        return(
+                          profile.actions==false?
+                          <>
+                          <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
                           <td className="position-relative">
-                            {/* <input
-                              className={`${styles.input} input form-control`}
-                              name="name"
-                              disabled={!profile.actions}
-                              defaultValue={profile?.name}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }}
-                            ></input> */}
-                            <select
-                              className={`${styles.input} ${styles.customSelect} input form-control`}
-                              name="name"
-                              disabled={!profile.actions}
-                              defaultValue={profile?.name}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                            >
-                              <option>Select an option</option>
-                              <option value="Emerging Traders">
-                                Emerging Traders
-                              </option>
-                              <option value="Bhutani Traders">
-                                Bhutani Traders
-                              </option>
-                              <option value="Krishna Traders">
-                                Krishna Traders
-                              </option>
-                            </select>
-                            <img
-                              className={`${styles.arrow} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                           {profile?.name}
+
                           </td>
                           <td>
-                            <input
-                              name="limit"
-                              type="text"
-                              // onFocus={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, groupExposureLimit: true }),
-                              //     e.target.type = 'number'
-                              // }}
-                              // onBlur={(e) => {
-                              //   setIsFieldInFocus({ ...isFieldInFocus, groupExposureLimit: false }),
-                              //     e.target.type = 'text'
-                              // }}
-                              // value={
-                              //   isFieldInFocus.groupExposureLimit ?
-                              //   profile?.limit:
-                              //     Number(profile?.limit)?.toLocaleString() + ` Lakhs`}
-                              value={profile?.limit}
-                              disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
-                                console.log(
-                                  re.test(evt.target.value),
-                                  'keydone',
-                                  evt.target.value,
-                                );
-                                if (re.test(evt.target.value) == false) {
-                                  // evt.preventDefault()
-                                }
-                              }}
-                              onChange={(e) => {
-                                e.target.value = (
-                                  parseInt(
-                                    e.target.value.replace(/[^\d]+/gi, ''),
-                                  ) || 0
-                                ).toLocaleString('en-IN');
-
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                              className={`${styles.input} input`}
-                              pattern="^[\d,]+$"
-                            />
+                            {profile?.limit}
                           </td>
                           <td>
-                            <input
-                              name="outstandingLimit"
-                              type="text"
-                              value={profile?.outstandingLimit}
-                              disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
-                                console.log(
-                                  re.test(evt.target.value),
-                                  'keydone',
-                                  evt.target.value,
-                                );
-                                if (re.test(evt.target.value) == false) {
-                                  // evt.preventDefault()
-                                }
-                              }}
-                              onChange={(e) => {
-                                e.target.value = (
-                                  parseInt(
-                                    e.target.value.replace(/[^\d]+/gi, ''),
-                                  ) || 0
-                                ).toLocaleString('en-IN');
-
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value.toString(),
-                                  index,
-                                );
-                              }}
-                              className={`${styles.input} input`}
-                            />
+                           {profile?.outstandingLimit}
                           </td>
                           <td className="position-relative">
-                            <select
-                              className={`${styles.input} ${styles.customSelect} input form-control`}
-                              name="accountConduct"
-                              disabled={!profile.actions}
-                              defaultValue={profile?.accountConduct}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                            >
-                              <option>Select an Option</option>
-                              <option value="Poor">Poor</option>
-                              <option value="Good">Good</option>
-                              <option value="Satisfactory">Satisfactory</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                           {profile?.accountConduct}
                           </td>
                           <td>
                             <div>
@@ -569,8 +389,123 @@ const Index = ({
                               />
                             </div>
                           </td>
-                        </tr>
-                      ))}
+                           </tr>
+                          </>
+                          :
+                          <>
+                           <tr key={index} className="table_credit shadow-none">
+                          <td>{index + 1}</td>
+                          <td className="position-relative">
+                            <input
+                              className={`${styles.input} input form-control`}
+                              name="name"
+                              disabled={!profile.actions}
+                              value={profile?.name}
+                              onChange={(e) => {
+                                handleGroupExpChange(e.target.name, e.target.value, index);
+                              }}
+                            ></input>
+
+                          </td>
+                          <td>
+                            <input
+                              name="limit"
+                              type="text"
+                              value={profile?.limit}
+                              disabled={!profile.actions}
+                              onKeyDown={(evt) => {
+                                const re = /^[0-9\b]+$/;
+
+                                if (re.test(evt.target.value) == false) {
+                                }
+                              }}
+                              onChange={(e) => {
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
+                                  'en-IN',
+                                );
+
+                                handleGroupExpChange(e.target.name, e.target.value, index);
+                              }}
+                              className={`${styles.input} input`}
+                              pattern="^[\d,]+$"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              name="outstandingLimit"
+                              type="text"
+                              value={profile?.outstandingLimit}
+                              disabled={!profile.actions}
+                              onKeyDown={(evt) => {
+                                const re = /^[0-9\b]+$/;
+
+                                if (re.test(evt.target.value) == false) {
+                                }
+                              }}
+                              onChange={(e) => {
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
+                                  'en-IN',
+                                );
+
+                                handleGroupExpChange(e.target.name, e.target.value.toString(), index);
+                              }}
+                              className={`${styles.input} input`}
+                            />
+                          </td>
+                          <td className="position-relative">
+                            <select
+                              className={`${styles.input} ${styles.customSelect} input form-control`}
+                              name="accountConduct"
+                              disabled={!profile.actions}
+                              value={profile?.accountConduct}
+                              onChange={(e) => {
+                                handleGroupExpChange(e.target.name, e.target.value, index);
+                              }}
+                            >
+                              <option selected>Select an Option</option>
+                              <option value="Poor">Poor</option>
+                              <option value="Good">Good</option>
+                              <option value="Satisfactory">Satisfactory</option>
+                            </select>
+                            <img className={`${styles.arrow} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
+                          </td>
+                          <td>
+                            <div>
+                              {!profile.actions ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  role="button"
+                                  className={`${styles.edit_image} mr-3`}
+                                  onClick={() => {
+                                    setActions(index, true);
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  role="button"
+                                  className={`${styles.edit_image} mr-3`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setActions(index, false);
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                role="button"
+                                className={`${styles.delete_image}`}
+                                onClick={() => {
+                                  handleRemoveRowEx(index);
+                                }}
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                           </tr>
+                          </>
+                        )
+                      })}
                   </tbody>
                 </table>
               </div>
@@ -579,7 +514,6 @@ const Index = ({
               <div
                 role="button"
                 onClick={(e) => {
-                  //  onExpSave(exposureData)
                   addMoreExpRows();
                 }}
               >
@@ -587,10 +521,8 @@ const Index = ({
               </div>
             </div>
           </div>
-          <span className={styles.view_order}>View Past Orders</span>
-
+          <span className={styles.view_order} role="button" onClick={() => setShow(true)}>View Past Orders</span>
           <hr className={`${styles.line} border-0 mt-5`}></hr>
-
           <div className={`${styles.dashboard_form} border_color p-0`}>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Strengths</div>
@@ -603,29 +535,21 @@ const Index = ({
                   className={`${styles.comment_field} input form-control`}
                   onChange={(e) => setStrengthsComments(e.target.value)}
                 />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Comments
-                </label>
-
+                <label className={`${styles.label_heading} label_heading`}>Comments</label>
                 <img
                   className={`${styles.add_btn} ml-4`}
                   role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
                   onClick={() => {
-                    strengthsComments.length > 0 &&
-                      addStrengthsCommentArr(strengthsComments);
+                    strengthsComments.length > 0 && addStrengthsCommentArr(strengthsComments);
                     setStrengthsComments('');
                   }}
                 />
               </div>
-              {/* <div className={`${styles.strength} value`}>Strengths</div> */}
               {strengthsComment &&
                 strengthsComment.map((strengths, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
-                  >
+                  <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
@@ -635,18 +559,13 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${
-                          editStren[index]?.editable
-                            ? 'save-3.svg'
-                            : 'mode_edit.svg'
-                        }`}
+                        src={`/static/${editStren[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
                           let tempArrEdit = [...editStren];
-                          tempArrEdit[index].editable =
-                            !tempArrEdit[index].editable;
+                          tempArrEdit[index].editable = !tempArrEdit[index].editable;
                           setEditProfile(tempArrEdit);
                         }}
                       />
@@ -661,24 +580,18 @@ const Index = ({
                   </div>
                 ))}
             </div>
-            <hr
-              className={`${styles.line} border_color`}
-              style={{ margin: '-1px 0 0' }}
-            ></hr>
+            <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Weakness</div>
               <div className="d-flex mt-5 pb-5 position-relative">
-                <input
-                  as="textarea"
+                <textarea
                   rows={3}
                   placeholder=""
                   value={weaknessComments}
                   className={`${styles.comment_field} input form-control`}
                   onChange={(e) => setWeaknessComments(e.target.value)}
                 />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Comments
-                </label>
+                <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
                 <img
                   className={`${styles.add_btn} ml-4`}
@@ -686,19 +599,14 @@ const Index = ({
                   src="/static/add-btn.svg"
                   alt="add button"
                   onClick={() => {
-                    weaknessComments.length > 0 &&
-                      addWeaknessCommentArr(weaknessComments);
+                    weaknessComments.length > 0 && addWeaknessCommentArr(weaknessComments);
                     setWeaknessComments('');
                   }}
                 />
               </div>
-              {/* <div className={`${styles.strength} value`}>Weakness</div> */}
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
-                  >
+                  <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={weakness}
@@ -708,18 +616,13 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${
-                          editWeak[index]?.editable
-                            ? 'save-3.svg'
-                            : 'mode_edit.svg'
-                        }`}
+                        src={`/static/${editWeak[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
                           let tempArrEdit = [...editWeak];
-                          tempArrEdit[index].editable =
-                            !tempArrEdit[index].editable;
+                          tempArrEdit[index].editable = !tempArrEdit[index].editable;
                           setEditWeak(tempArrEdit);
                         }}
                       />
@@ -737,26 +640,15 @@ const Index = ({
                 ))}
             </div>
 
-            <hr
-              className={`${styles.line} border_color`}
-              style={{ margin: '-1px 0 0' }}
-            ></hr>
-            <div
-              className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}
-            >
-              <div className={`${styles.sanction_heading} value`}>
-                Sanction Terms
-              </div>
-              <div
-                className={`${styles.limit_container} d-flex justify-content-center`}
-              >
+            <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
+            <div className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}>
+              <div className={`${styles.sanction_heading} value`}>Sanction Terms</div>
+              <div className={`${styles.limit_container} d-flex justify-content-center`}>
                 <div className={`${styles.limit} accordion_Text`}>
                   Total Limit:{' '}
                   <span className="text1">
                     {checkNan(
-                      CovertvaluefromtoCR(
-                        creditDetail?.company?.creditLimit?.totalLimit ?? '',
-                      ),
+                      CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.totalLimit ?? ''),
                     )?.toLocaleString()}
                   </span>
                 </div>
@@ -765,10 +657,7 @@ const Index = ({
                   <span>
                     <span className="text1">
                       {checkNan(
-                        CovertvaluefromtoCR(
-                          creditDetail?.company?.creditLimit?.utilizedLimt ??
-                            '',
-                        ),
+                        CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.utilizedLimt ?? ''),
                       )?.toLocaleString()}
                     </span>
                   </span>
@@ -778,10 +667,7 @@ const Index = ({
                   <span>
                     <span className="text1">
                       {checkNan(
-                        CovertvaluefromtoCR(
-                          creditDetail?.company?.creditLimit?.availableLimit ??
-                            '',
-                        ),
+                        CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.availableLimit ?? ''),
                       )?.toLocaleString()}
                     </span>
                   </span>
@@ -790,12 +676,7 @@ const Index = ({
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.sectionTable} table mb-0`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.sectionTable} table mb-0`} cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <th></th>
                     <th>PREVIOUS LIMIT</th>
@@ -805,28 +686,19 @@ const Index = ({
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>
-                      {(
-                        creditDetail?.company?.creditLimit?.availableLimit ?? ''
-                      )?.toLocaleString('en-In')}
-                    </td>
+                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString('en-In')}</td>
                     <td>-</td>
 
-                    {filteredCreditRating &&
-                    filteredCreditRating.length != 0 &&
-                    filteredCreditRating != 0 ? (
+                    {filteredCreditRating && filteredCreditRating.length != 0 && filteredCreditRating != 0 ? (
                       <>
                         {' '}
                         {filteredCreditRating &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
-                              {(val.derived.value ?? '')?.toLocaleString(
-                                'en-In',
-                                {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                },
-                              )}
+                              {(val.derived.value ?? '')?.toLocaleString('en-In', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </td>
                           ))}{' '}
                       </>
@@ -857,21 +729,10 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedCreditLimit
                             ? suggestedCredit?.suggestedCreditLimit
-                            : Number(
-                                suggestedCredit?.suggestedCreditLimit ?? '',
-                              )?.toLocaleString('en-In') + ` CR`
+                            : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
                         }
-                        // value={addPrefixOrSuffix(
-                        //   suggestedCredit?.suggestedCreditLimit,
-                        //   '',
-                        // )?.toLocaleString(undefined, {
-                        //   minimumFractionDigits: 2,
-                        // })}
                         onChange={(e) => {
-                          saveSuggestedCreditData(
-                            e.target.name,
-                            e.target.value,
-                          );
+                          saveSuggestedCreditData(e.target.name, e.target.value);
                         }}
                       ></input>
                     </td>
@@ -880,9 +741,7 @@ const Index = ({
                     <td>Order Value</td>
                     <td>-</td>
                     <td>
-                      {checkNan(
-                        CovertvaluefromtoCR(creditDetail?.orderValue ?? ''),
-                      )?.toLocaleString('en-In', {
+                      {checkNan(CovertvaluefromtoCR(creditDetail?.orderValue ?? ''))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -894,9 +753,7 @@ const Index = ({
                       <input
                         className={`${styles.text} input`}
                         type="text"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                         onWheel={(event) => event.currentTarget.blur()}
                         name="suggestedOrderValue"
                         onFocus={(e) => {
@@ -916,24 +773,10 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedOrderValue
                             ? suggestedCredit?.suggestedOrderValue
-                            : Number(
-                                suggestedCredit?.suggestedOrderValue ?? '',
-                              )?.toLocaleString('en-In') + ` CR`
+                            : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
                         }
-                        // value={(
-                        //   addPrefixOrSuffix(
-                        //     suggestedCredit?.suggestedOrderValue,
-                        //     '',
-                        //   ) ?? ''
-                        // )?.toLocaleString(undefined, {
-                        //   minimumFractionDigits: 2,
-                        // })}
-                        // defaultValue={creditDetail?.suggestedOrderValue}
                         onChange={(e) => {
-                          saveSuggestedCreditData(
-                            e.target.name,
-                            e.target.value,
-                          );
+                          saveSuggestedCreditData(e.target.name, e.target.value);
                         }}
                       ></input>
                     </td>
@@ -943,17 +786,14 @@ const Index = ({
             </div>
             <div className={`${styles.comment_inner}`}>
               <div className="d-flex mt-5 pb-5 position-relative">
-                <input
-                  as="textarea"
+                <textarea
                   rows={3}
                   placeholder=""
                   value={sanctionComments}
                   className={`${styles.comment_field} input form-control`}
                   onChange={(e) => setSanctionComments(e.target.value)}
                 />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Comments
-                </label>
+                <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
                 <img
                   className={`${styles.add_btn} ml-4`}
@@ -961,8 +801,7 @@ const Index = ({
                   src="/static/add-btn.svg"
                   alt="add button"
                   onClick={() => {
-                    sanctionComments.length > 0 &&
-                      addSanctionCommentArr(sanctionComments);
+                    sanctionComments.length > 0 && addSanctionCommentArr(sanctionComments);
                     setSanctionComments('');
                   }}
                 />
@@ -970,10 +809,7 @@ const Index = ({
               {/* <div className={`${styles.strength} value`}>Weakness</div> */}
               {sanctionComment &&
                 sanctionComment.map((sanction, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
-                  >
+                  <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={sanction}
@@ -1017,6 +853,71 @@ const Index = ({
           </div>
         </div>
       </div>
+
+      <Modal
+        show={show}
+        size="lg"
+        // onHide={handleClose}
+        className={styles.updated_successfully}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={`${styles.card_header} background`}>
+          <Modal.Title>
+            <div className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}>
+              <h5 className='heading_card'>Order Summary - Last 6 Orders</h5>
+              <div className={`${styles.pageList} d-flex align-items-center`}
+                onClick={() => setShow(false)}>
+                <img src='/static/accordion_close_black.svg' alt='close' className='img-fluid' />
+              </div>
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.card_body} card-body`}>
+          <div className={styles.table_scroll_outer}>
+            <div className={styles.table_scroll_inner}>
+              <table className={`${styles.table} table`} cellPadding='0' cellSpacing='0' border='0'>
+                <thead>
+                  <tr className='table_row'>
+                    <th>SUPPLIER NAME</th>
+                    <th>ORDER ID</th>
+                    <th>ORDER DATE</th>
+                    <th>ORDER VALUE</th>
+                    <th>COMMODITY</th>
+                    <th>STATUS</th>
+                    {/* <th>DAYS DUE</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
+                    let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                    let [fName, lName] = name?.split(' ');
+                    return (
+                      <tr ke={index} className='table_row'>
+                        <td className={`d-flex justify-content-start align-items-center`}>
+                          <div className={`${styles.icon} `}>
+                            <span className={`d-flex justify-content-center align-items-center`}> {fName?.charAt(0)}{lName?.charAt(0)}</span>
+                          </div>
+
+                          <span className={` ${styles.name} ml-4`}>{item?.supplierName}</span>
+                        </td>
+                        <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
+                        <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
+                        <td>{returnReadableNumber(convertValue(item?.orderValue), 'en-In', 2, 2)} CR</td>
+                        <td>{item?.commodity}</td>
+                        <td>
+                          <span className={`${styles.status} ${styles.rejected}`} />
+                          In Process
+                        </td>
+                        {/* <td> 12</td> */}
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

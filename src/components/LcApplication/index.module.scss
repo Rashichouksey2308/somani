@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .container_inner {
   margin: 28px;
   margin-bottom: 152px;
@@ -14,6 +15,7 @@
     margin: 15px;
     margin-bottom: 121px;
   }
+
   .head_header {
     height: 48px;
     display: flex;
@@ -23,6 +25,7 @@
       height: 40px;
       margin-bottom: 20px;
     }
+
     .back_arrow {
       width: 13px;
       height: 21px;
@@ -33,6 +36,7 @@
         height: auto;
       }
     }
+
     .heading {
       font-size: 34px;
       font-weight: bold;
@@ -40,12 +44,15 @@
       margin: 0;
       padding-left: 18px;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -59,6 +66,7 @@
       }
     }
   }
+
   .wrapper {
     margin-bottom: 26px;
     border: 1px solid #d2d7e5;
@@ -66,6 +74,7 @@
     @include respond(lg-desktop) {
       margin-bottom: 20px;
     }
+
     .cardHeader {
       min-height: 80px;
       cursor: pointer;
@@ -74,6 +83,7 @@
       @include respond(lg-desktop) {
         min-height: 60px;
       }
+
       h2 {
         font-size: 22px;
         color: #3687e8;
@@ -92,6 +102,7 @@
           margin: 13px 0;
         }
       }
+
       span {
         font-size: 45px;
         color: #3687e8;
@@ -108,15 +119,18 @@
         }
       }
     }
+
     .cardBody {
       padding: 0px;
       border-top: 2px solid #cad6e6;
+
       .content {
         .header {
           padding: 25px 35px !important;
           font-weight: bold;
           line-height: 27px;
         }
+
         h5 {
           font-size: 22px;
           font-weight: bold;
@@ -131,8 +145,10 @@
           }
         }
       }
+
       .body {
         padding: 25px 35px;
+
         .small_box {
           @include respond(lg-desktop) {
             flex: 0 0 50%;
@@ -143,6 +159,7 @@
             max-width: 50%;
           }
         }
+
         .document_label {
           @include respond(lg-desktop) {
             flex: 0 0 60%;
@@ -153,6 +170,7 @@
             max-width: 50%;
           }
         }
+
         .date_label {
           @include respond(lg-desktop) {
             flex: 0 0 40%;
@@ -163,6 +181,7 @@
             max-width: 50%;
           }
         }
+
         .label_heading {
           top: 22px;
           left: 30px;
@@ -179,6 +198,7 @@
           max-width: 77%;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -189,16 +209,18 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
-            line-height: 15px;
+            line-height: 14px;
             transform: translateY(-22px);
           }
           @include respond(phone) {
             font-size: 12px;
           }
         }
+
         .labels {
           top: 22px;
           left: 30px;
@@ -211,11 +233,11 @@
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
           white-space: nowrap;
-          white-space: nowrap;
           z-index: 0;
           max-width: 77%;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -226,6 +248,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 13px;
             font-size: 15px;
@@ -236,6 +259,7 @@
             font-size: 12px;
           }
         }
+
         .input_field {
           height: 60px;
           border-radius: 4px;
@@ -247,10 +271,12 @@
           box-sizing: border-box;
           padding-right: 40px;
           padding-top: 15px;
+
           &:invalid + label {
             //background: none;
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -259,6 +285,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -268,6 +295,7 @@
             font-size: 14px;
           }
         }
+
         .input_labels {
           height: 60px;
           //background-color: #c3c3c31f;
@@ -288,14 +316,18 @@
             font-size: 14px;
           }
         }
+
         .search_image {
           margin-left: -40px;
         }
       }
+
       .dashboard_form {
         padding: 10px 20px 0px 20px;
+
         .doc_card {
           margin: 15px 15px 0;
+
           .sub_heading {
             margin-top: 20px;
             font-size: 20px;
@@ -307,6 +339,7 @@
               line-height: 1.3;
             }
           }
+
           .number {
             letter-spacing: 0.19px;
             //color: #111111;
@@ -319,6 +352,7 @@
               line-height: 1.3;
             }
           }
+
           h5 {
             letter-spacing: 0.19px;
             //color: #111111;
@@ -332,9 +366,11 @@
               line-height: 1.3;
             }
           }
+
           .textarea_main {
             padding: 20px 0;
             border-bottom: 1px solid #d9dde8;
+
             .paragraph {
               line-height: 25px;
               letter-spacing: 0.19px;
@@ -348,11 +384,13 @@
                 line-height: 1.3;
               }
             }
+
             &:last-child {
               padding-bottom: 0;
               border-bottom: none;
             }
           }
+
           .label_heading {
             font-size: 16px;
             font-weight: 500;
@@ -367,6 +405,7 @@
               line-height: 15px;
             }
           }
+
           .search_image {
             margin-left: -40px;
             @include respond(sm-desktop) {
@@ -374,6 +413,7 @@
             @include respond(phone) {
             }
           }
+
           .comment_field {
             height: 106px;
             // background-color: #c3c3c31f;
@@ -390,6 +430,7 @@
               line-height: 1.3;
             }
           }
+
           .add_btn {
             @include respond(lg-desktop) {
               width: 30px;
@@ -405,6 +446,7 @@
             }
           }
         }
+
         .image {
           padding: 9px;
           border-radius: 4px;
@@ -427,20 +469,25 @@
           }
         }
       }
+
       .datatable {
         width: 100%;
         margin: 0 12px 0 12px;
         box-shadow: none !important;
         border: none !important;
+
         .table_scroll_outer {
           width: 90%;
           display: table;
           table-layout: fixed;
+
           .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
+
             .table {
               border: 1px solid #cad6e6;
+
               th {
                 font-size: 15px;
                 line-height: 18px;
@@ -448,12 +495,14 @@
                 border: 1px solid #cad6e6;
                 text-transform: uppercase;
                 background: transparent !important;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   height: 50px;
                   font-size: 14px;
@@ -466,6 +515,7 @@
                   font-size: 12px;
                 }
               }
+
               td {
                 font-size: 19px;
                 font-weight: 500;
@@ -473,12 +523,14 @@
                 padding: 15px 15px;
                 border: 1px solid #cad6e6;
                 white-space: nowrap;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   font-size: 15px;
                   line-height: 1.3;
@@ -489,11 +541,13 @@
                   padding: 10px;
                 }
               }
+
               .buyerName {
                 color: #3687e8;
                 font-weight: bold;
                 text-transform: capitalize;
               }
+
               .status {
                 width: 15px;
                 height: 15px;
@@ -501,13 +555,20 @@
                 border-radius: 50%;
                 display: inline-block;
                 vertical-align: middle;
+                @include respond(lg-desktop) {
+                  width: 12px;
+                  height: 12px;
+                }
               }
+
               .approved {
                 background: #26dd73;
               }
+
               .rejected {
                 background: #ed714c;
               }
+
               .review {
                 background: #ffce00;
               }
@@ -515,12 +576,14 @@
           }
         }
       }
+
       .line {
         border: 2px solid #cad6e6;
       }
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -534,6 +597,7 @@
     margin-left: -33px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -545,6 +609,7 @@
     -webkit-appearance: none;
   }
 }
+
 .delete_image {
   width: 38px;
   height: 38px;
@@ -561,10 +626,12 @@
     height: 25px;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;
 }
+
 .tableWrapper {
   table {
     font-family: arial, sans-serif;

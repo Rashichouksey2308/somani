@@ -1,25 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReviewProfile from '../../src/components/ReviewProfile';
 import CompanyReviewProfile from '../../src/components/CompanyReviewProfile';
 import ApproveBar from '../../src/components/ApproveBar';
 import OrderReview from '../../src/components/OrderReview';
 import Router from 'next/router';
+import router from 'next/router';
 import styles from './profile.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { UpdateBuyer } from '../../src/redux/registerBuyer/action';
-import router from 'next/router';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
-import { GetBuyer } from '../../src/redux/registerBuyer/action';
+import { GetBuyer, UpdateBuyer } from '../../src/redux/registerBuyer/action';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 
 const Index = () => {
   const dispatch = useDispatch();
 
   const { buyerList } = useSelector((state) => state.buyer);
-  console.log(
-    '🚀 ~ file: [profile].jsx ~ line 19 ~ Index ~ buyerList',
-    buyerList,
-  );
 
   const [payloadData, setPayloadData] = useState({
     action: 'APPROVE',
@@ -70,21 +65,12 @@ const Index = () => {
             />
             <h1 className={styles.heading}>{buyerList?.companyName}</h1>
           </div>
-          <ReviewProfile
-            reviewedProfile={buyerList}
-            handleChange={handleChange}
-            isAddedRow={true}
-          />
+          <ReviewProfile reviewedProfile={buyerList} handleChange={handleChange} isAddedRow={true} />
           <CompanyReviewProfile />
           <OrderReview />
         </div>
         <div className={styles.approve_Container}>
-          <ApproveBar
-            handleApprove={handleApprove}
-            handleReject={handleReject}
-            button={'Reject'}
-            button2={'Approve'}
-          />
+          <ApproveBar handleApprove={handleApprove} handleReject={handleReject} button={'Reject'} button2={'Approve'} />
         </div>
       </div>
     </>

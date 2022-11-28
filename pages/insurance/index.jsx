@@ -1,17 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import TableMain from '../../src/components/TableMain';
 import Router from 'next/router';
 import Filter from '../../src/components/Filter';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GettingAllInsurance } from '../../src/redux/insurance/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import moment from 'moment';
 
 function Index() {
@@ -52,7 +48,6 @@ function Index() {
   };
 
   const handleEditRoute = (insured) => {
-    // console.log("asdas",d,insured)
     sessionStorage.setItem('quotationId', insured._id);
 
     if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
@@ -78,14 +73,8 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
               <input
                 value={searchTerm}
@@ -99,11 +88,7 @@ function Index() {
               <div className={styles.searchResults}>
                 <ul>
                   {searchedLeads?.data?.data?.map((results, index) => (
-                    <li
-                      onClick={handleFilteredData}
-                      id={results._id}
-                      key={index}
-                    >
+                    <li onClick={handleFilteredData} id={results._id} key={index}>
                       {results.companyName} <span>{results.customerId}</span>
                     </li>
                   ))}
@@ -136,4 +121,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

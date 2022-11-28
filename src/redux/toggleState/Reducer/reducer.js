@@ -1,34 +1,33 @@
 const initialState = {
   show_sidebar: true,
-  isMobile: false,
-};
+  isMobile: false
+}
 
 export const sidebar = (state = initialState, action) => {
   switch (action.type) {
     case 'SHOW_SIDEBAR':
       return {
         ...state,
-        show_sidebar: true,
-      };
+        show_sidebar: true
+      }
 
     case 'HIDE_SIDEBAR':
       return {
         ...state,
-        show_sidebar: false,
-      };
+        show_sidebar: false
+      }
     case 'IS_MOBILE':
       return {
         ...state,
-        isMobile: action.value,
-      };
+        isMobile: action.value
+      }
     case 'SET_MOBILE':
-      // console.log(action, 'setmobie')
       return {
         ...state,
-        isMobile: action.value,
-      };
+        isMobile: action.value
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}

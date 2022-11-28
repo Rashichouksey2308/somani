@@ -19,7 +19,6 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order);
 
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney);
-  // console.log(marginMoneyResponse, 'THIS IS MARGIN MONEY RESPONSE')
 
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`));
@@ -40,22 +39,24 @@ function Index() {
   };
 
   const handleRoute = (margin) => {
-    // console.log(margin, "THIS IS MARGIN MONEY")
     sessionStorage.setItem('marginId', margin?.order?._id);
+    sessionStorage.setItem('orderID', margin?.order?._id);
+
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
     Router.push('/margin-money/id');
   };
 
   const handlePreviewRoute = (margin) => {
-    // console.log(margin, "THIS IS MARGIN MONEY")
     if (margin.revisedMarginMoney.isActive !== true) {
-      sessionStorage.setItem('marginId', margin?.order?._id);
+        sessionStorage.setItem('marginId', margin?.order?._id);
+           sessionStorage.setItem('orderID', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
       Router.push('/margin-preview');
     } else {
-      sessionStorage.setItem('marginId', margin?.order?._id);
+         sessionStorage.setItem('marginId', margin?.order?._id);
+             sessionStorage.setItem('orderID', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
       Router.push('/revised-margin-preview');
@@ -71,14 +72,8 @@ function Index() {
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
               <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
+                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
                   value={searchTerm}
@@ -92,11 +87,7 @@ function Index() {
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
                     ))}
@@ -114,25 +105,17 @@ function Index() {
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a> */}
           </div>
-          <div
-            className={`${styles.datatable} border datatable table_container card`}
-          >
-            <div
-              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-            >
+          <div className={`${styles.datatable} border datatable table_container card`}>
+            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
               <h3 className="heading_card">Margin Money</h3>
-              <div
-                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-              >
+              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(marginMoneyResponse?.totalCount / 7)}
+                  Showing Page {currentPage + 1} out of {Math.ceil(marginMoneyResponse?.totalCount / 7)}
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
@@ -140,40 +123,24 @@ function Index() {
                   className={`${styles.arrow} ${styles.leftArrow} arrow`}
                 >
                   {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
                 <a
                   onClick={() => {
-                    if (
-                      currentPage + 1 <
-                      Math.ceil(marginMoneyResponse?.totalCount / 7)
-                    ) {
+                    if (currentPage + 1 < Math.ceil(marginMoneyResponse?.totalCount / 7)) {
                       setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table `}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr className="table_row table_row_head">
                       <th>ORDER ID</th>
@@ -187,11 +154,7 @@ function Index() {
                   {marginMoneyResponse?.data?.map((margin, index) => (
                     <tbody key={index}>
                       <tr className="table_row">
-                        <td>
-                          {margin?.order?.orderId
-                            ? margin?.order?.orderId
-                            : margin?.order?.applicationId}
-                        </td>
+                        <td>{margin?.order?.orderId ? margin?.order?.orderId : margin?.order?.applicationId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => {
@@ -200,15 +163,8 @@ function Index() {
                         >
                           {margin?.company?.companyName}
                         </td>
-                        <td>
-                          {margin?.order?.existingCustomer ? 'Yes' : 'No'}
-                        </td>
-                        <td>
-                          {' '}
-                          {moment(margin?.createdAt?.split('T')[0]).format(
-                            'DD-MM-yyyy',
-                          )}
-                        </td>
+                        <td>{margin?.order?.existingCustomer ? 'Yes' : 'No'}</td>
+                        <td> {moment(margin?.createdAt?.split('T')[0]).format('DD-MM-yyyy')}</td>
                         <td>
                           <span
                             className={`${styles.status} ${
@@ -233,7 +189,7 @@ function Index() {
                         <td>
                           <img
                             src="/static/preview.svg"
-                            className="img-fluid"
+                            className={`${styles.eye_icon}`}
                             alt="Preview"
                             onClick={() => {
                               handlePreviewRoute(margin);
@@ -262,7 +218,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
@@ -292,7 +248,7 @@ function Index() {
                         <img
                           src="/static/preview.svg"
                           className="img-fluid"
-                          alt="Preview"
+                          className={`${styles.eye_icon}`}
                           onClick={() => {
                             Router.push('/margin-preview')
                           }}
@@ -320,7 +276,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
@@ -349,7 +305,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
