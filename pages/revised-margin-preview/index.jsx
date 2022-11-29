@@ -600,6 +600,7 @@ function Index() {
         leftButtonTitle={'Revised Margin Money'}
         rightButtonTitle={'Send to Buyer'}
         openbar={() => setOpen(true)}
+        pagesDetails={{total : 1, current:1}}
       />
       {open ? <TermsheetPopUp 
       close={() => setOpen(false)} 

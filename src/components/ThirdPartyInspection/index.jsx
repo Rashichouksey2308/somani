@@ -1151,6 +1151,7 @@ const handleData = (name, value,type) => {
                     )}
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
+                        {console.log(inspectionDetails?.loadPortInspectionDetails?.inspectionPort,"======")}
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
