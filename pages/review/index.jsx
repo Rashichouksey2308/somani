@@ -3633,7 +3633,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '70px',
               }}
             >
               <tr>
