@@ -54,7 +54,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       color: '#000000',
                     }}
                   >
-                    <strong>{data.buyer}</strong> , a company incorporated under the Companies Act, 1956, having its
+                    <strong>{data.buyer}</strong> , (CIN : {data.cin}) a company incorporated under the Companies Act, 1956, having its
                     registered office at{' '}
                     <strong>
                       {data.buyerAddress?.fullAddress}, {data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
@@ -455,7 +455,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         to&nbsp;
                         <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate Buyer shall
                         pay Port Charges directly to port or through the Stevedore who will take care of the payments to
-                        Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI. Any
+                        Port and raise bills on {data?.shortbuyer} for this. A copy of the same has to be furnished to{data?.shortbuyer}. Any
                         penalty/demurrage on account of delayed payment shall be solely to the account of the Associate
                         Buyer.
                       </p>
@@ -528,7 +528,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity
                         kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall
                         be claimed and pursued till realization by the Associate Buyer at its sole cost and the
-                        Associate Buyer shall indemnify Stevedore and IGI against all risks.
+                        Associate Buyer shall indemnify Stevedore and{data?.shortbuyer} against all risks.
                       </p>
                     </li>
                     <li>
@@ -1495,7 +1495,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          Storage Plot allotted to IGI
+                          Storage Plot allotted to{data?.shortbuyer}
                         </p>
                       </td>
                       <td

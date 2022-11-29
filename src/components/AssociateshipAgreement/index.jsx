@@ -52,7 +52,8 @@ function Index(props) {
           sellerAddress: data.sellerAddress,
           buyerAddress: data.buyerAddress,
           shortseller: data?.shortseller,
-          shortbuyer: `${data?.buyer == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+          shortbuyer: `${data?.shortbuyer}`,
+
           sellerSignature: data?.sellerSignature,
           buyerSignature: data?.buyerSignature,
           dateOfExecution: data?.dateOfExecution,
@@ -135,7 +136,8 @@ function Index(props) {
           sellerAddress: _get(data, 'seller.addresses[0]', {}),
           buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
-          shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+         shortbuyer: `${data?.buyer.shortName}`,
+
           sellerSignature: data?.seller?.name,
           buyerSignature: data?.buyer?.name,
           dateOfExecution: dat,

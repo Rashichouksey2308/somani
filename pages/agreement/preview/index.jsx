@@ -110,7 +110,8 @@ function index() {
         sellerAddress: _get(data, 'seller.addresses[0]', {}),
         buyerAddress: _get(data, 'buyer.addresses[0]', {}),
         shortseller: data?.seller?.shortName,
-        shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+       shortbuyer: `${data?.buyer.shortName}`,
+
         sellerSignature: data?.seller?.name,
         buyerSignature: data?.buyer?.name,
         dateOfExecution: dat,

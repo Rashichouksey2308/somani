@@ -158,6 +158,7 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
     if (props.saveData == true && props.active == 'Buyer') {
       let data = {
         buyerData: buyerData,
+         shortName:shortName,
         list: list,
         addresses: addressList,
         list: list,
@@ -170,6 +171,7 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
     if (props.submitData == true && props.active == 'Buyer') {
       let data = {
         buyerData: buyerData,
+        shortName:shortName,
         list: list,
         addresses: addressList,
         list: list,
