@@ -55,6 +55,8 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
+  console.log(lcData, 'LC')
+
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -164,7 +166,7 @@ function Index() {
     newInput['existingValue'] = lcData[e.target.value] || '';
     if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
     newInput['dropDownValue'] = val1 || '';
-
+ 
     setClauseObj(newInput);
     if (e.target.value == 'draftAt') {
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
@@ -181,7 +183,11 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...lcData };
+    if(drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == "Usuance"){
+      newInput1['numberOfDays'] = value
+    }else{
     newInput1[drop] = value;
+    }
 
     setLcData(newInput1);
   };

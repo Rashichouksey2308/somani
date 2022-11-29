@@ -213,7 +213,11 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...clauseData };
+    if(drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == "Usuance"){
+      newInput1['numberOfDays'] = value
+    }else{
     newInput1[drop] = value;
+    }
     setClauseData(newInput1);
   };
 

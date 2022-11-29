@@ -2113,17 +2113,7 @@ let masterList = [
         }
       }
 
-      if (
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
-      ) {
-        toastMessage = `Please select month Of Loading Cargo  `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+     
     }
 
     if (key == 'Product Specifications') {
