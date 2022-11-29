@@ -162,6 +162,7 @@
       box-sizing: border-box;
       @include respond(lg-desktop) {
         font-size: 15px;
+        height: 80px;
         line-height: 1.3;
       }
     }

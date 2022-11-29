@@ -178,8 +178,8 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality  !== null &&
-      documents.certificateOfWeight  !== null &&
+      documents.certificateOfQuality  !== null ||
+      documents.certificateOfWeight  !== null ||
       documents.certificateOfOrigin  !== null
     ) {
       sethaveDoc(true);
@@ -190,8 +190,8 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
 console.log(haveDischargeDoc,"haveDoc",haveDoc)
   useEffect(() => {
     if (
-      dischargeDocuments.dischargeCertificateOfQuality !== null &&
-      dischargeDocuments.dischargeCertificateOfWeight !== null &&
+      dischargeDocuments.dischargeCertificateOfQuality !== null ||
+      dischargeDocuments.dischargeCertificateOfWeight !== null ||
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
       setHaveDischargeDoc(true);
@@ -357,7 +357,7 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
           if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ALL DOCUMENT ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
             if (!toast.isActive(toastMessage)) {
               toast.error(toastMessage, { toastId: toastMessage });
             }
@@ -408,7 +408,7 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENST ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -463,7 +463,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher1")
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -570,7 +570,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher")
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
+          let toastMessage = 'ANY ONE DOCUMENT ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -676,7 +676,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -710,7 +710,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS  REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -798,7 +798,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS  MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -885,7 +885,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -1616,7 +1616,7 @@ const handleData = (name, value,type) => {
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      All document is mandatory
+                      Any one document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1989,7 +1989,7 @@ const handleData = (name, value,type) => {
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      All document is mandatory
+                      Any one document is mandatory
                     </div>
                   </div>
                 </div>
