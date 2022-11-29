@@ -12,6 +12,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
       return index + 1;
     }
   };
+  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),)
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -1485,7 +1486,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     </tr>
 
                     <tr></tr>
-                    {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
+                    {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
                       <>
                         <tr>
                           <td
