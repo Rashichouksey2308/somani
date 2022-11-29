@@ -39,7 +39,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     address: '',
   });
 
-  console.log(consigneeInfo,"consigneeInfo")
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
@@ -195,7 +194,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       setConsigneeName('');
     }
   };
-  console.log(consigneeInfo, 'consigneeInfo');
+
   const filterBranch = (company) => {
       console.log(company,"company")
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
