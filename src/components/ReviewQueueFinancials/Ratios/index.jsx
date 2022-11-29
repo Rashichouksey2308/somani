@@ -65,7 +65,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         <h3 className="text-color">Activity &amp; Profitibility Ratio</h3>
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(latestYearData?.financialEndDate).colour}`,
@@ -74,7 +74,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(latestYearData?.financialEndDate, 0).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(previousYearData?.financialEndDate).colour}`,
@@ -83,7 +83,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(previousYearData?.financialEndDate, 0).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}`,
@@ -104,13 +104,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Working Capital Turnover Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.workingCapitalTurnover, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.workingCapitalTurnover, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(lastYearData?.workingCapitalTurnover, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -123,7 +123,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Fixed Assets Turnover Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {checkNan(
                           latestIncomeData?.revenue?.revenueFromOperations /
                             ((latestBalanceData?.assets?.propertyPlantAndEquipment +
@@ -131,7 +131,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                               2),
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {checkNan(
                           previousIncomeData?.revenue?.revenueFromOperations /
                             ((previousBalanceData?.assets?.propertyPlantAndEquipment +
@@ -139,7 +139,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                               2),
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {checkNan(
                           lastIncomeData?.revenue?.revenueFromOperations /
                             ((lastBalanceData?.assets?.propertyPlantAndEquipment +
@@ -166,13 +166,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Working Capital Cycle (Days)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.daysWorkingCapital, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.daysWorkingCapital, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(lastYearData?.daysWorkingCapital, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -186,13 +186,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
 
                     <tr>
                       <td>Debtors Period (Days)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.daysOfSalesOutstanding, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.daysOfSalesOutstanding, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(lastYearData?.daysOfSalesOutstanding, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -205,13 +205,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Inventory Period (Days)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.daysOfInventoryOutstanding, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.daysOfInventoryOutstanding, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(lastYearData?.daysOfInventoryOutstanding, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -224,13 +224,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Creditors Period (Days)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.daysOfPayablesOutstanding, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.daysOfPayablesOutstanding, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(lastYearData?.daysOfPayablesOutstanding, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -251,7 +251,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Operating Profit Margin (EBITDA Margin)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {/* {convertValue(((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
@@ -263,12 +263,12 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                           ? returnReadableNumber(latestYearData?.operatingProfitMargin * 100, 'en-In', 2, 2) + '%'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {previousYearData?.operatingProfitMargin
                           ? returnReadableNumber(previousYearData?.operatingProfitMargin * 100, 'en-In', 2, 2) + '%'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {lastYearData?.operatingProfitMargin
                           ? returnReadableNumber(lastYearData?.operatingProfitMargin * 100, 'en-In', 2, 2) + '%'
                           : ''}
@@ -293,7 +293,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Return On Capital Employed (%)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(
                           ((latestIncomeData?.revenue?.revenueFromOperations -
                             latestIncomeData?.expenses?.totExp +
@@ -323,7 +323,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                             ) + ' %'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(
                           ((previousIncomeData?.revenue?.revenueFromOperations -
                             previousIncomeData?.expenses?.totExp +
@@ -354,7 +354,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                             ) + ' %'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(
                           ((lastIncomeData?.revenue?.revenueFromOperations -
                             lastIncomeData?.expenses?.totExp +
@@ -415,17 +415,17 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Return On Total Assets (%)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {latestYearData?.returnOnAssets
                           ? returnReadableNumber(latestYearData?.returnOnAssets * 100, 'en-In', 2, 2) + ' %'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {previousYearData?.returnOnAssets
                           ? returnReadableNumber(previousYearData?.returnOnAssets * 100, 'en-In', 2, 2) + ' %'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {lastYearData?.returnOnAssets
                           ? returnReadableNumber(lastYearData?.returnOnAssets * 100, 'en-In', 2, 2) + ' %'
                           : ''}
@@ -454,7 +454,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         <h3 className="text-color">Coverage, Liquidity &amp; Growth Ratio</h3>
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(latestYearData?.financialEndDate).colour}`,
@@ -463,7 +463,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(latestYearData?.financialEndDate, 0).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(previousYearData?.financialEndDate).colour}`,
@@ -472,7 +472,7 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(previousYearData?.financialEndDate, 0).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}`,
@@ -493,11 +493,11 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Debt Equity Ratio</td>
-                      <td className="text-center">{returnReadableNumber(latestYearData?.debtEquity, 'en-In', 2, 2)}</td>
-                      <td className="text-center">
+                      <td className="text-right">{returnReadableNumber(latestYearData?.debtEquity, 'en-In', 2, 2)}</td>
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.debtEquity, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">{returnReadableNumber(lastYearData?.debtEquity, 'en-In', 2, 2)}</td>
+                      <td className="text-right">{returnReadableNumber(lastYearData?.debtEquity, 'en-In', 2, 2)}</td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.debtEquity,
@@ -508,13 +508,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Debt EBITDA Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.debtToEbitda, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.debtToEbitda, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">{returnReadableNumber(lastYearData?.debtToEbitda, 'en-In', 2, 2)}</td>
+                      <td className="text-right">{returnReadableNumber(lastYearData?.debtToEbitda, 'en-In', 2, 2)}</td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.debtToEbitda,
@@ -525,13 +525,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Interest Coverage Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(latestYearData?.interestCoverage, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(previousYearData?.interestCoverage, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(lastYearData?.interestCoverage, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -545,17 +545,17 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
 
                     <tr>
                       <td>Debt Service Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {latestYearData?.longTermDebtCoverage >= 0
                           ? returnReadableNumber(latestYearData?.longTermDebtCoverage * 100, 'en-In', 2, 2)
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {previousYearData?.longTermDebtCoverage >= 0
                           ? returnReadableNumber(previousYearData?.longTermDebtCoverage * 100, 'en-In', 2, 2)
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {lastYearData?.longTermDebtCoverage >= 0
                           ? returnReadableNumber(lastYearData?.longTermDebtCoverage * 100, 'en-In', 2, 2)
                           : ''}
@@ -587,13 +587,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
 
                     <tr>
                       <td>Curent Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {returnReadableNumber(latestYearData?.currentRatio, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {returnReadableNumber(previousYearData?.currentRatio, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {returnReadableNumber(lastYearData?.currentRatio, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -606,13 +606,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Quick Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {returnReadableNumber(latestYearData?.quickRatio, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {returnReadableNumber(previousYearData?.quickRatio, 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {returnReadableNumber(lastYearData?.quickRatio, 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -633,13 +633,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Asset Growth Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {latestYearData?.totalAssetsGrowth ? returnReadableNumber(latestYearData?.totalAssetsGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {previousYearData?.totalAssetsGrowth ? returnReadableNumber(previousYearData?.totalAssetsGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {lastYearData?.totalAssetsGrowth ? returnReadableNumber(lastYearData?.totalAssetsGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -652,13 +652,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Net Worth Growth Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {latestYearData?.netWorthGrowth ? returnReadableNumber(latestYearData?.netWorthGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {previousYearData?.netWorthGrowth ? returnReadableNumber(previousYearData?.netWorthGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {lastYearData?.netWorthGrowth ? returnReadableNumber(lastYearData?.netWorthGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -671,13 +671,13 @@ function Index({ ratioData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Sales Growth Ratio</td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {latestYearData?.netSalesGrowth ? returnReadableNumber(latestYearData?.netSalesGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {previousYearData?.netSalesGrowth ? returnReadableNumber(previousYearData?.netSalesGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                       {lastYearData?.netSalesGrowth ? returnReadableNumber(lastYearData?.netSalesGrowth*100, 'en-In', 2, 2) + ' %' : ''}
                       </td>
                       <td className={`${styles.trend} text-center`}>

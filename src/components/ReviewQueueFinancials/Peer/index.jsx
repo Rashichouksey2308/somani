@@ -53,16 +53,16 @@ function Index({ peerData }) {
                       <th className="text-center" width="14%">
                         FY ENDING
                       </th>
-                      <th className="text-center" width="14%">
+                      <th className="text-right" width="14%">
                         REVENUE
                       </th>
-                      <th className="text-center" width="14%">
+                      <th className="text-right" width="14%">
                         EBDITA MARGIN (%)
                       </th>
-                      <th className="text-center" width="14%">
+                      <th className="text-right" width="14%">
                         PAT MARGIN (%)
                       </th>
-                      <th className="text-center" width="14%">
+                      <th className="text-right" width="14%">
                         BORROWINGS
                       </th>
                     </tr>
@@ -73,16 +73,16 @@ function Index({ peerData }) {
                         <tr key={index}>
                           <td>{peers.name}</td>
                           <td className="text-center">{peers?.finyrEnddate && moment(peers?.finyrEnddate).format('MMM-YY').toUpperCase()}</td>
-                          <td className="text-center">
+                          <td className="text-right">
                           {returnReadableNumber(convertValue(peers.revenue, conversionUnit), 'en-In', 2, 2,)}
                           </td>
-                          <td className="text-center">
+                          <td className="text-right">
                           {peers?.ebidtaMargin && returnReadableNumber(peers?.ebidtaMargin * 100, 'en-In', 2, 2) +' %'}
                           </td>
-                          <td className="text-center">
+                          <td className="text-right">
                             {peers?.patMargin && returnReadableNumber(peers?.patMargin * 100, 'en-In', 2, 2) +' %'}
                           </td>
-                          <td className="text-center">
+                          <td className="text-right">
                             {returnReadableNumber(convertValue(peers.borrowings, conversionUnit), 'en-In', 2, 2)}
                           </td>
                         </tr>

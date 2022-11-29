@@ -58,7 +58,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                         <h3 className="text-color">Liabilities</h3>
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(latestYearData?.date).colour}`,
@@ -67,7 +67,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                         {returnDataPeriodAndColour(latestYearData?.date, 0).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(previousYearData?.date).colour}`,
@@ -76,7 +76,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                         {returnDataPeriodAndColour(previousYearData?.date, 1).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(lastYearData?.date).colour}`,
@@ -92,13 +92,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                   <tbody>
                     <tr>
                       <td>Capital</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.shareCap, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.shareCap, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.shareCap, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -111,13 +111,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Reserves</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.otherEquity, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.otherEquity, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.otherEquity, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -132,17 +132,17 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                       <td>
                         <strong>Total Equity / Net Worth</strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.totalEquity, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.totalEquity, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.totalEquity, unit), 'en-In', 2, 2,)}
                         </strong>
@@ -160,13 +160,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Long Term Borrowings</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.borrowingsNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.borrowingsNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.borrowingsNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -179,13 +179,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Short Term Borrowings</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.borrowingsCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.borrowingsCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.borrowingsCurrent, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -200,19 +200,19 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                       <td>
                         <strong>Total Borrowings</strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.borrowingsCurrent +
                             latestYearData?.equityLiabilities?.borrowingsNonCurrent, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.borrowingsCurrent +
                             previousYearData?.equityLiabilities?.borrowingsNonCurrent, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.borrowingsCurrent +
                             lastYearData?.equityLiabilities?.borrowingsNonCurrent, unit), 'en-In', 2, 2,)}
@@ -234,15 +234,15 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Creditors</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.tradePay +
                           latestYearData?.equityLiabilities?.tradePayablesNoncurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.tradePay +
                           previousYearData?.equityLiabilities?.tradePayablesNoncurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.tradePay +
                           lastYearData?.equityLiabilities?.tradePayablesNoncurrent, unit), 'en-In', 2, 2,)}
                       </td>
@@ -259,7 +259,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Other Current Liabilities</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.totalEl -
                           (latestYearData?.equityLiabilities?.totalEquity +
                             latestYearData?.equityLiabilities?.borrowingsNonCurrent +
@@ -267,7 +267,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                             latestYearData?.equityLiabilities?.tradePay +
                             latestYearData?.equityLiabilities?.tradePayablesNoncurrent), unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
 
                         {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.totalEl -
                           (previousYearData?.equityLiabilities?.totalEquity +
@@ -276,7 +276,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                             previousYearData?.equityLiabilities?.tradePay +
                             previousYearData?.equityLiabilities?.tradePayablesNoncurrent), unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.totalEl -
                           (lastYearData?.equityLiabilities?.totalEquity +
                             lastYearData?.equityLiabilities?.borrowingsNonCurrent +
@@ -316,17 +316,17 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                       <td>
                         <strong>Total Liabilities</strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(latestYearData?.equityLiabilities?.totalEl, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(previousYearData?.equityLiabilities?.totalEl, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(lastYearData?.equityLiabilities?.totalEl, unit), 'en-In', 2, 2,)}
                         </strong>
@@ -353,7 +353,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                         <h3 className="text-color">Assets</h3>
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(latestYearData?.date).colour}`,
@@ -362,7 +362,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                         {returnDataPeriodAndColour(latestYearData?.date, 0).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(previousYearData?.date).colour}`,
@@ -371,7 +371,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                         {returnDataPeriodAndColour(previousYearData?.date, 1).date}
                       </th>
                       <th
-                        className="text-center"
+                        className="text-right"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(lastYearData?.date).colour}`,
@@ -387,13 +387,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                   <tbody>
                     <tr>
                       <td>Net Block (Land, Building, Plant &amp; Machinery)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.propertyPlantAndEquipment, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.propertyPlantAndEquipment, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.propertyPlantAndEquipment, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -406,21 +406,21 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Net Block (Other Assets)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.biologicalAssetsOtherThanBearerPlants +
                           latestYearData?.assets?.goodwill +
                           latestYearData?.assets?.intangAsset +
                           latestYearData?.assets?.intangAssetAud +
                           latestYearData?.assets?.investmentProperty, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.biologicalAssetsOtherThanBearerPlants +
                           previousYearData?.assets?.goodwill +
                           previousYearData?.assets?.intangAsset +
                           previousYearData?.assets?.intangAssetAud +
                           previousYearData?.assets?.investmentProperty, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.biologicalAssetsOtherThanBearerPlants +
                           lastYearData?.assets?.goodwill +
                           lastYearData?.assets?.intangAsset +
@@ -449,14 +449,14 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>CWIP</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.capWip, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.capWip, unit), 'en-In', 2, 2,)}
 
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.capWip, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -469,13 +469,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Investment</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.currInv + latestYearData?.assets?.nonCurrInv, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.currInv + previousYearData?.assets?.nonCurrInv, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className={`${styles.trend} text-center`}>
+                      <td className={`${styles.trend} text-right`}>
                         {returnReadableNumber(convertValue(lastYearData?.assets?.currInv + lastYearData?.assets?.nonCurrInv, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -490,7 +490,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                       <td>
                         <strong>Total Non-Current Assets</strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(latestYearData?.assets?.propertyPlantAndEquipment +
                             (latestYearData?.assets?.biologicalAssetsOtherThanBearerPlants +
@@ -502,7 +502,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                             (latestYearData?.assets?.currInv + latestYearData?.assets?.nonCurrInv), unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(previousYearData?.assets?.propertyPlantAndEquipment +
                             (previousYearData?.assets?.biologicalAssetsOtherThanBearerPlants +
@@ -514,7 +514,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                             (previousYearData?.assets?.currInv + previousYearData?.assets?.nonCurrInv), unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(lastYearData?.assets?.propertyPlantAndEquipment +
                             (lastYearData?.assets?.biologicalAssetsOtherThanBearerPlants +
@@ -560,13 +560,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Inventories</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.inventory, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.inventory, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.inventory, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -579,13 +579,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Trade Receivables (Debtors)</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -598,13 +598,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Cash &amp; Bank Balance</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -620,13 +620,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Loans &amp; Advances</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -639,13 +639,13 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                     </tr>
                     <tr>
                       <td>Other Current Assets</td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.othCurrAsset, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.othCurrAsset, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.othCurrAsset, unit), 'en-In', 2, 2,)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -660,7 +660,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                       <td>
                         <strong>Total Current Assets</strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(latestYearData?.assets?.inventory +
                           (latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent) +
                           (latestYearData?.assets?.cashEqui +
@@ -668,7 +668,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                           (latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent) +
                           latestYearData?.assets?.othCurrAsset, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(previousYearData?.assets?.inventory +
                           (previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent) +
                           (previousYearData?.assets?.cashEqui +
@@ -676,7 +676,7 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                           (previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent) +
                           previousYearData?.assets?.othCurrAsset, unit), 'en-In', 2, 2,)}
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         {returnReadableNumber(convertValue(lastYearData?.assets?.inventory +
                           (lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent) +
                           (lastYearData?.assets?.cashEqui +
@@ -717,17 +717,17 @@ function Index({ balanceData, rtrnChartIndiaction, returnDataPeriodAndColour }) 
                       <td>
                         <strong>Total Assets</strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(latestYearData?.assets?.totalAssets, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(previousYearData?.assets?.totalAssets, unit), 'en-In', 2, 2,)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className="text-right">
                         <strong>
                           {returnReadableNumber(convertValue(lastYearData?.assets?.totalAssets, unit), 'en-In', 2, 2,)}
                         </strong>
