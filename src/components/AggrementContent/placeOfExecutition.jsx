@@ -80,7 +80,7 @@ function Index(props) {
     setList([
       ...list,
       {
-        name: 'Sales Agreement',
+        name: '',
         execution: '',
         dateOfExecution: null,
         actions: 'false',

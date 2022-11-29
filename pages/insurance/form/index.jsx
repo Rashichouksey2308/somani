@@ -184,7 +184,7 @@ const Index = () => {
         return false;
       }
     }
-    if (quotationData?.insuranceType == 'Storage Insurance') {
+    if (quotationData?.insuranceType == 'Storage Insurance' || quotationData?.insuranceType == 'Marine & Storage Insurance'  ) {
       if (
         quotationData.storageDetails.placeOfStorage == '' ||
         quotationData.storageDetails.placeOfStorage == undefined ||
@@ -221,7 +221,7 @@ const Index = () => {
     }
     return true;
   };
-
+ 
   const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {

@@ -909,6 +909,7 @@ function Index() {
 
   useEffect(() => {
     if (marginData) {
+      console.log(marginData?.invoiceDetail?.isConsigneeSameAsBuyer,"marginData?.invoiceDetail?.isConsigneeSameAsBuyer")
       setInvoiceData({
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
