@@ -881,6 +881,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       className={`${styles.previewImg} ml-n4`}
                                       alt="Preview"
                                       onClick={(e) => {
+                                      
                                         getDoc(blEntry?.blDoc?.path);
                                       }}
                                     />
