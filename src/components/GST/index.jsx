@@ -3503,7 +3503,7 @@ const gstCustomerDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       </tr> */}
                       <tr className={styles.second_head}>
                         <td className="text-nowrap">CUSTOMER NAME</td>
-                        <td>PAN</td>
+                        <td className='text-left'>PAN</td>
                         <td>SALES</td>
                         <td className="text-nowrap">% OF TOTAL SALES</td>
                         <td>INVOICES</td>
@@ -3514,7 +3514,7 @@ const gstCustomerDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           gstFilteredData?.detail?.customerDetail?.recurringPartySales?.map((customer, index) => (
                             <tr key={index}>
                               <td>{customer?.name}</td>
-                              <td>{customer?.pan}</td>
+                              <td className='text-left'>{customer?.pan}</td>
                               <td>
                                 {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
@@ -3564,7 +3564,7 @@ const gstCustomerDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       </tr> */}
                       <tr className={styles.second_head}>
                         <td className="text-nowrap">CUSTOMER NAME</td>
-                        <td>PAN</td>
+                        <td className='text-left'>PAN</td>
                         <td>SALES</td>
                         <td className="text-nowrap">% OF TOTAL SALES</td>
                         <td>INVOICES</td>
@@ -3575,7 +3575,7 @@ const gstCustomerDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           gstFilteredData?.detail?.customerDetail?.relatedPartySales?.map((customer, index) => (
                             <tr key={index}>
                               <td>{customer?.name}</td>
-                              <td>{customer?.pan}</td>
+                              <td className='text-left'>{customer?.pan}</td>
                               <td>
                                 {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
@@ -3627,7 +3627,7 @@ const gstCustomerDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       </tr> */}
                       <tr className={styles.second_head}>
                         <td className="text-nowrap">CUSTOMER NAME</td>
-                        <td>PAN</td>
+                        <td className='text-left'>PAN</td>
                         <td>SALES</td>
                         <td className="text-nowrap">% OF TOTAL SALES</td>
                         <td>INVOICES</td>
@@ -3638,7 +3638,7 @@ const gstCustomerDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           gstFilteredData?.detail?.customerDetail?.top10Customers?.map((customer, index) => (
                             <tr key={index}>
                               <td>{customer?.name}</td>
-                              <td>{customer?.pan}</td>
+                              <td className='text-left'>{customer?.pan}</td>
                               <td>
                                 {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
@@ -3802,7 +3802,7 @@ const gstSupplierDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                       </tr> */}
                       <tr className={styles.second_head}>
                         <td className="text-nowrap">SUPPLIER NAME</td>
-                        <td>PAN</td>
+                        <td className='text-left'>PAN</td>
                         <td>PURCHASE</td>
                         <td className="text-nowrap">% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
@@ -3813,7 +3813,7 @@ const gstSupplierDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           gstFilteredData?.detail?.supplierDetail?.recurringPartyPurchase?.map((customer, index) => (
                             <tr key={index}>
                               <td>{customer?.name}</td>
-                              <td>{customer?.pan}</td>
+                              <td className='text-left'>{customer?.pan}</td>
                               <td>
                                 {convertValue(customer?.ttlVal, supplierDetailsUnit)?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
@@ -3869,7 +3869,7 @@ const gstSupplierDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                       </tr> */}
                       <tr className={styles.second_head}>
                         <td className="text-nowrap">SUPPLIER NAME</td>
-                        <td>PAN</td>
+                        <td className='text-left'>PAN</td>
                         <td>PURCHASE</td>
                         <td className="text-nowrap">% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
@@ -3880,7 +3880,7 @@ const gstSupplierDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           gstFilteredData?.detail?.supplierDetail?.relatedPartyPurchase?.map((customer, index) => (
                             <tr key={index}>
                               <td>{customer?.name}</td>
-                              <td>{customer?.pan}</td>
+                              <td className='text-left'>{customer?.pan}</td>
                               <td>
                                 {/* {customer?.ttlVal?.toLocaleString()} */}
                                 {convertValue(customer?.ttlVal, supplierDetailsUnit)?.toLocaleString('en-In', {
@@ -3928,7 +3928,7 @@ const gstSupplierDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                       </tr>
                       <tr className={styles.second_head}>
                         <td className="text-nowrap">SUPPLIER NAME</td>
-                        <td>PAN</td>
+                        <td className='text-left'>PAN</td>
                         <td>PURCHASE</td>
                         <td className="text-nowrap">% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
@@ -3939,7 +3939,7 @@ const gstSupplierDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           gstFilteredData?.detail?.supplierDetail?.top10Suppliers?.map((customer, index) => (
                             <tr key={index}>
                               <td>{customer?.name}</td>
-                              <td>{customer?.pan}</td>
+                              <td className='text-left'>{customer?.pan}</td>
                               <td>
                                 {/* {customer?.ttlVal?.toLocaleString()} */}
                                 {Number(
