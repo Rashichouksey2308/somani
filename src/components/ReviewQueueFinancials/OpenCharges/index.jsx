@@ -102,7 +102,7 @@ function Index({ chargesData }) {
                     <tr>
                       <th width="15%">CHARGE ID</th>
                       <th width="25%">CHARGE HOLDER</th>
-                      <th className="text-right" width="12%">
+                      <th  width="12%">
                         AMOUNT
                       </th>
                       <th className="text-center" width="12%">
@@ -125,7 +125,7 @@ function Index({ chargesData }) {
                         <tr key={index}>
                           <td>{charges.chargeId}</td>
                           <td>{charges.nameOfChargeHolder}</td>
-                          <td className="text-right">
+                          <td >
                             {/* {charges.finalAmountSecured} */}
                             {convertValue(charges.finalAmountSecured, unit)?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
