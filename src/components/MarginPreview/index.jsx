@@ -455,7 +455,7 @@ const shareEmail = () => {}
         </Card>
       </div>
 
-      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'}  />
+      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'}   pagesDetails={{total : 1, current:1}}  />
 
       {open ? <TermsheetPopUp
       close={() => setOpen(false)}

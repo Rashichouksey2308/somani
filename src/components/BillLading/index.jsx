@@ -17,6 +17,7 @@ import { number } from 'prop-types';
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
   let transId = _get(TransitDetails, 'data[0]', '');
   const initialStateForLiner = {
+    isSubmitted: false,
     vesselName: '',
     imoNumber: '',
     blNumber: '',
@@ -39,6 +40,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     },
   };
   const initialStateForBulk = {
+    isSubmitted: false,
     vesselName: '',
     imoNumber: '',
     blNumber: '',
