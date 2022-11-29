@@ -15,9 +15,9 @@ export default function QuadripartiteAgreement(data) {
       </p>
       <p className="text_sales">
         {' '}
-        <b>{data.buyer}</b> , a company incorporated under the Companies Act,
+        <b>{data.buyer}</b> ,(CIN : {data.cin}) a company incorporated under the Companies Act,
         1956, having its registered office at <b> 
-          {data.buyerAddress?.fullAddress},
+              {data.buyerAddress?.fullAddress},
               {data.buyerAddress?.city}{" "} 
               {data.buyerAddress?.country},{" "}
               
@@ -127,7 +127,7 @@ export default function QuadripartiteAgreement(data) {
             Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer to{' '}
             <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate Buyer shall pay Port
             Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills
-            on IGI for this. A copy of the same has to be furnished to IGI. Any penalty/demurrage on account of delayed
+            on {data?.shortbuyer} for this. A copy of the same has to be furnished to {data?.shortbuyer}. Any penalty/demurrage on account of delayed
             payment shall be solely to the account of the Associate Buyer.
           </p>
         </li>
@@ -154,7 +154,7 @@ export default function QuadripartiteAgreement(data) {
         <li>
           <p className=" text_sales">
             Scanned copy of RR shall be furnished by Stevedore to <u>{data.shortbuyer}</u> as well as to Associate Buyer
-            as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for
+            as soon as it is issued after loading. The or{data?.shortbuyer}nal RR shall be sent by Stevedore to the Associate Buyer for
             taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
           </p>
         </li>
@@ -163,11 +163,11 @@ export default function QuadripartiteAgreement(data) {
             The Associate Buyer will arrange comprehensive storage insurance against all risks for <strong>110%</strong>{' '}
             of the value of goods. The insurance policy will indicate <u>{data.shortbuyer}</u> or its nominated Bank (as
             per <u>{data.shortbuyer}</u>'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore
-            the details of the goods for which <u>{data.shortbuyer}</u>/IGI's nominated Bank shall be the beneficiary
+            the details of the goods for which <u>{data.shortbuyer}</u>/{data?.shortbuyer}'s nominated Bank shall be the beneficiary
             for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of
             CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till
             realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and
-            IGI against all risks.
+            {data?.shortbuyer} against all risks.
           </p>
         </li>
         <li>
@@ -452,7 +452,7 @@ export default function QuadripartiteAgreement(data) {
         </Row>
         <Row className={`${styles.row} ${styles.last} border_black`}>
           <Col md={5} className={`${styles.left} border_black`}>
-            Storage Plot allotted to IGI
+            Storage Plot allotted to {data?.shortbuyer}
           </Col>
           <Col md={7} className={styles.right}>
             {data.storagePlot}

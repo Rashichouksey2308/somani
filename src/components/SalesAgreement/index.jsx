@@ -1374,6 +1374,7 @@ let masterList = [
           branch: data.buyerData.branchName,
           gstin: data.gstin,
           pan: data.pan,
+          shortName: data.shortName,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
@@ -2112,17 +2113,7 @@ let masterList = [
         }
       }
 
-      if (
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
-      ) {
-        toastMessage = `Please select month Of Loading Cargo  `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+     
     }
 
     if (key == 'Product Specifications') {

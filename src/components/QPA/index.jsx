@@ -46,7 +46,8 @@ function Index(props) {
           buyer: data?.buyer?.toLowerCase(),
 
           shortseller: data?.shortseller,
-          shortbuyer: `${data?.buyer == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+          shortbuyer: `${data?.shortbuyer}`,
+
           sellerSignature: data?.sellerSignature,
           buyerSignature: data?.buyerSignature,
           dateOfExecution: data?.dateOfExecution,
@@ -61,7 +62,7 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-
+          
           addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
@@ -89,6 +90,8 @@ function Index(props) {
           cmaAuthorized: data.cmaAuthorized,
           vessel: data.vessel,
           storagePlot: data.storagePlot,
+          cin:data.cin,
+          buyerAddress: data.buyerAddress,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -115,7 +118,8 @@ function Index(props) {
           buyer: data?.buyer?.name,
 
           shortseller: data?.seller?.shortName,
-          shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+         shortbuyer: `${data?.buyer.shortName}`,
+
           sellerSignature: data?.seller?.name,
           buyerSignature: data?.buyer?.name,
           dateOfExecution: dat,
@@ -162,6 +166,8 @@ function Index(props) {
           vessel: data?.shippingLine?.vesselName,
           storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+           cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+           buyerAddress: _get(data, 'buyer.addresses[0]', {}),
         });
       }
     }

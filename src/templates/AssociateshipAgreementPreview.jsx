@@ -29,8 +29,10 @@ export default function AssociateshipAgreementPreview(data) {
                 <td align="justify">
                   <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                     {data.buyer},(CIN : {data.cin}) a company incorporated under the Indian Companies Act, 1956, having its Registered
-                    Office at {data.buyerAddress?.fullAddress},{data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
-                    {data.buyerAddress?.pinCode}, through its Authorised Signatory (hereinafter called{' '}
+                    Office at {data.buyerAddress?.fullAddress},
+                    {/* {data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+                    {data.buyerAddress?.pinCode},  */}
+                    through its Authorised Signatory (hereinafter called{' '}
                     <strong>{data.shortbuyer}</strong> or <strong>“Seller”</strong>, which expression shall, unless it
                     be repugnant to the context or meaning thereof, be deemed to mean and include its successors and
                     permitted assigns, attorneys) of One Part.
@@ -78,7 +80,7 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify">
                   <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                    WHEREAS Associate Buyer has requested IGI to arrange import purchase of Goods (Details of the Goods
+                    WHEREAS Associate Buyer has requested {data.shortbuyer} to arrange import purchase of Goods (Details of the Goods
                     including quantity, quality, Inco terms is annexed in Schedule I) from the Supplier and sale of the
                     same to the Associate Buyer on stock &amp; sale basis.{' '}
                   </p>
@@ -206,7 +208,7 @@ export default function AssociateshipAgreementPreview(data) {
                             a)&nbsp;the price at which the forward is booked or
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft:'-10px'}}>
-                            b)&nbsp;the average of the exchanges rate at which the payment of Import is made by IGI to Indo
+                            b)&nbsp;the average of the exchanges rate at which the payment of Import is made by {data.shortbuyer} to Indo
                             for this transaction.
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
@@ -217,7 +219,7 @@ export default function AssociateshipAgreementPreview(data) {
                             adjustments in regards to exchange rate variation / expenses &amp; charges.
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The amount payable as per the final invoice issued by IGI shall be final and binding on the
+                            The amount payable as per the final invoice issued by {data.shortbuyer} shall be final and binding on the
                             Associate Buyer.
                           </p>
                         </li>
@@ -289,11 +291,11 @@ export default function AssociateshipAgreementPreview(data) {
                     </li>
                     <li style={{ fontWeight: 'bold' }}>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                        <strong>IGI 's trading Margin</strong>
+                        <strong>{data.shortbuyer} 's trading Margin</strong>
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight: 'normal' }}>
-                        The Trading margin of IGI shall be paid by the Associate Buyer as per details mentioned in
-                        Schedule I, and the same shall be collected in the Sale Invoice raised by IGI on the Associate
+                        The Trading margin of {data.shortbuyer} shall be paid by the Associate Buyer as per details mentioned in
+                        Schedule I, and the same shall be collected in the Sale Invoice raised by {data.shortbuyer} on the Associate
                         Buyer.
                       </p>
                     </li>
@@ -370,9 +372,9 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The Marine Insurance will be arranged by the Associate Buyer in favour of IGI or IGI's
-                            nominated Bank (as per IGI's discretion), for 110% of Import Cargo Value, the cost of it
-                            shall be borne by the Associate Buyer. In case IGI decides to take the insurance directly in
+                            The Marine Insurance will be arranged by the Associate Buyer in favour of {data.shortbuyer} or {data.shortbuyer}'s
+                            nominated Bank (as per {data.shortbuyer}'s discretion), for 110% of Import Cargo Value, the cost of it
+                            shall be borne by the Associate Buyer. In case {data.shortbuyer} decides to take the insurance directly in
                             its name, the cost of it shall be borne by the Associate Buyer.
                           </p>
                         </li>
@@ -380,7 +382,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The cargo while in the port, during transit from port to godown/plot/warehouse and while in
                             the godown/plot/warehouse and while in Ocean shall be insured by way of insurance by
-                            Associate Buyer in favour of IGI or IGI's nominated Bank (as per IGI's discretion), for 110%
+                            Associate Buyer in favour of {data.shortbuyer} or {data.shortbuyer}'s nominated Bank (as per {data.shortbuyer}'s discretion), for 110%
                             of landed cost (inclusive of custom duty, all other taxes applicable under GST Act 2017 as
                             amended till date). Associate Buyer will ensure that the material shall at all times remain
                             insured.
@@ -390,8 +392,8 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The Insurance policy in original or digitally signed by Insurance Company whichever is
                             required to file and process the claim before Insurance Company, shall be submitted by
-                            Associate Buyer to IGI immediately on demand. In case the Associate Buyer fails to take the
-                            Insurance as desired by IGI, IGI shall among other rights reserved under this Agreement,
+                            Associate Buyer to {data.shortbuyer} immediately on demand. In case the Associate Buyer fails to take the
+                            Insurance as desired by {data.shortbuyer}, {data.shortbuyer} shall among other rights reserved under this Agreement,
                             including right to terminate the Agreement, be at liberty to take such insurance at cost of
                             the Associate Buyer.
                           </p>
@@ -401,8 +403,8 @@ export default function AssociateshipAgreementPreview(data) {
                             In the event of any loss, or any other event, leading to invocation of insurance policy, the
                             process of filing of claim, settlement of amount, etc. shall be the sole responsibility of
                             the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any,
-                            arrived with the Insurance Company, shall be paid directly by the Insurance Company to IGI
-                            or IGI's nominated bank as the case may be and the same shall not absolve the Associate
+                            arrived with the Insurance Company, shall be paid directly by the Insurance Company to {data.shortbuyer}
+                            or {data.shortbuyer}'s nominated bank as the case may be and the same shall not absolve the Associate
                             Buyer of their liability under the Associateship Agreement towards Seller.
                           </p>
                         </li>
@@ -415,8 +417,8 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The Goods shall be sold by IGI to Associate Buyer on Stock &amp; Sale basis as per delivery
-                            terms mentioned in Schedule I. IGI shall file the Bill of Entry in its name and the
+                            The Goods shall be sold by {data.shortbuyer} to Associate Buyer on Stock &amp; Sale basis as per delivery
+                            terms mentioned in Schedule I. {data.shortbuyer} shall file the Bill of Entry in its name and the
                             Associate Buyer shall arrange to clear the cargo at the port.
                             <br />
                             In case the shipment is under Form A-1 the same shall be arranged by the Associate Buyer on
@@ -425,13 +427,13 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            IGI shall generate e-way bill from the GST portal under its registration for movement of the
+                            {data.shortbuyer} shall generate e-way bill from the GST portal under its registration for movement of the
                             goods by Rail or Road.{' '}
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            All Duties and taxes shall be paid by the Associate Buyer to CHA/IGI in advance at the time
+                            All Duties and taxes shall be paid by the Associate Buyer to CHA/{data.shortbuyer} in advance at the time
                             of Custom Clearance. The Associate Buyer shall bear all Handling Charges, Port Charges, Plot
                             Rentals, t etc. to CHA who will take care of the payments to Port and raise bills on
                             “Associate Buyer” for this. The Associate Buyer shall separately take care of the
@@ -449,7 +451,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             BL quantity shall be considered the final quantity. Any shortage from the BL quantity shall
-                            be to the account of Associate Buyer and IGI shall in no way be responsible for the same.
+                            be to the account of Associate Buyer and {data.shortbuyer} shall in no way be responsible for the same.
                           </p>
                         </li>
                       </ol>
@@ -488,7 +490,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             <strong>Safekeeping and Security of the Goods: </strong>
                             <br />
-                            Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. IGI shall in no way be responsible or liable for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
+                            Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. {data.shortbuyer} shall in no way be responsible or liable for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
                           </p>
                         </li>
                       </ol>
@@ -500,34 +502,34 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            On Associate Buyer's request, IGI has agreed to appoint Associate Buyer's nominated
+                            On Associate Buyer's request, {data.shortbuyer} has agreed to appoint Associate Buyer's nominated
                             Stevedoring agent for providing the stevedoring services as specified in the agreement to be
                             entered with Stevedoring Agent.
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The Associate Buyer confirms and agrees that IGI shall not be liable or responsible for any
+                            The Associate Buyer confirms and agrees that {data.shortbuyer} shall not be liable or responsible for any
                             non-performance or breach of the terms of the Agreement by the stevedores in any manner
                             whatsoever, including but not limited to shortage, theft, mix-up of the Goods with other
                             goods or materials, delay in performance of terms of Stevedoring agreement by Stevedores.
                             For any claims arising out of the breach of the terms of the stevedoring agreement by the
                             Stevedores, the Associate Buyer shall be solely responsible without any liability or
-                            responsibility of IGI whatsoever.
+                            responsibility of {data.shortbuyer} whatsoever.
                           </p>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            The Associate Buyer indemnifies and holds harmless IGI from any losses, damages, claims,
-                            costs incurred or suffered by IGI due to breach of the obligations, misrepresentation or
+                            The Associate Buyer indemnifies and holds harmless {data.shortbuyer} from any losses, damages, claims,
+                            costs incurred or suffered by {data.shortbuyer} due to breach of the obligations, misrepresentation or
                             breach of trust by the Stevedoring agent.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            IGI will instruct the stevedoring agent consign the material directly to the IGI's nominated
+                            {data.shortbuyer} will instruct the stevedoring agent consign the material directly to the {data.shortbuyer}'s nominated
                             warehouse/plot/etc, where the goods will be stored. The Goods shall remain under the control
-                            and custody of the Stevedoring Agent who will work under the sole instructions of IGI. The
+                            and custody of the Stevedoring Agent who will work under the sole instructions of {data.shortbuyer}. The
                             Stevedoring Agent, shall furnish an undertaking that goods will not be released to Associate
-                            Buyer or to their nominees without a written Release order from IGI. IGI shall enter into an
+                            Buyer or to their nominees without a written Release order from {data.shortbuyer}. {data.shortbuyer} shall enter into an
                             agreement with Stevedoring Agent &amp; the Associate Buyer. Stevedoring Agent will raise
-                            invoice on IGI.
+                            invoice on {data.shortbuyer}.
                           </p>
                         </li>
                         <li>
@@ -536,7 +538,7 @@ export default function AssociateshipAgreementPreview(data) {
                             Stevedoring Agent will place indent online. The Associate Buyer will coordinate with
                             “Stevedoring Agent for making necessary arrangements to place for Railway Rakes. The
                             Associate Buyer will pay the railway freight and related charges directly. Scanned copy of
-                            RR shall be furnished by Stevedoring Agent to IGI as well as the Associate Buyer as soon as
+                            RR shall be furnished by Stevedoring Agent to {data.shortbuyer} as well as the Associate Buyer as soon as
                             it is issued after loading. The original RR/LR shall be sent by Stevedoring Agent to the
                             Associate Buyer for taking delivery of the rake.
                           </p>
@@ -633,13 +635,13 @@ export default function AssociateshipAgreementPreview(data) {
                             <li>
                               <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                                 Ocean transportation will be arranged by the Associate Buyer. The freight payment will
-                                be made by IGI as directed by the Associate buyers upon receipt of the freight invoice.
+                                be made by {data.shortbuyer} as directed by the Associate buyers upon receipt of the freight invoice.
                               </p>
                             </li>
                             <li>
                               <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                                 Associate Buyer will be solely responsible for the settlement and confirmation of
-                                demurrage / dispatch / laytime calculation with shippers/ stevedores/ receivers and IGI
+                                demurrage / dispatch / laytime calculation with shippers/ stevedores/ receivers and {data.shortbuyer}
                                 will only be responsible for make the freight / demurrage payment as and when remitted
                                 by Associate Buyer.
                               </p>
@@ -659,11 +661,11 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>Independent Surveyor/Security</strong>
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                        IGI will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost
+                        {data.shortbuyer} will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost
                         who will be present at the time of release of each consignment and will provide a daily report
                         of the stock at godown/warehouse/plot. The Stevedoring agent and the Associate Buyer shall
                         provide unrestricted and unfettered access to the said collateral manager. Stevedoring agent,
-                        Associate Buyer, IGI and the Collateral Manager shall enter into an agreement detailing the
+                        Associate Buyer, {data.shortbuyer} and the Collateral Manager shall enter into an agreement detailing the
                         rights and responsibility of each party.
                       </p>
                     </li>
@@ -672,7 +674,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>Payment before Completion of Due Date</strong>
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                        IGI will sell the goods to Associate Buyer against 100% payment including IGI 's Trading Margin
+                        {data.shortbuyer} will sell the goods to Associate Buyer against 100% payment including {data.shortbuyer} 's Trading Margin
                         and other expenses to be made by Associate Buyer as per Payment Terms.
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
@@ -682,9 +684,9 @@ export default function AssociateshipAgreementPreview(data) {
                         advance.
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                        In case IGI and/or Indo remains out of pocket beyond the agreed due date and/or Indo's/IGI's
+                        In case {data.shortbuyer} and/or Indo remains out of pocket beyond the agreed due date and/or Indo's/{data.shortbuyer}'s
                         funds are blocked in this transaction, the Associate Buyer will pay interest at the rate of
-                        1.25% per month to IGI.
+                        1.25% per month to {data.shortbuyer}.
                       </p>
                     </li>
                     <li>
@@ -721,25 +723,25 @@ export default function AssociateshipAgreementPreview(data) {
                             not limited to any delay/failure/refusal on the part of the Associate Buyer to pay for the
                             entire cost of the import consignment within the due date as aforesaid, or refusal to take
                             delivery of the consignment for any reason whatsoever, apart from the rights and remedies
-                            available to IGI, the margin money paid by the Associate buyer shall be forfeited and IGI
+                            available to {data.shortbuyer}, the margin money paid by the Associate buyer shall be forfeited and {data.shortbuyer}
                             shall be at liberty to sell the Goods to any other party at the costs, risks and
                             responsibility of the Associate Buyer. It is confirmed and undertaken by the Associate
-                            Buyer, that Associate Buyer shall not raise any objection to the method adopted by IGI to
-                            sell the said goods, in case IGI wishes to exercise its discretion under this clause. The
+                            Buyer, that Associate Buyer shall not raise any objection to the method adopted by {data.shortbuyer} to
+                            sell the said goods, in case {data.shortbuyer} wishes to exercise its discretion under this clause. The
                             amount received by selling the Goods shall be adjusted towards the expenses, costs, losses
-                            incurred by IGI in disposal of goods and against the outstanding amount in the account of
-                            the Associate Buyer maintained by IGI. Any amount still due and payable by the Associate
+                            incurred by {data.shortbuyer} in disposal of goods and against the outstanding amount in the account of
+                            the Associate Buyer maintained by {data.shortbuyer}. Any amount still due and payable by the Associate
                             Buyer after such adjustment shall be payable by the Associate Buyer forthwith upon receipt
-                            of demand from IGI, failing which IGI shall have the right to recover the same by exercising
-                            any and/or all legal remedies available to IGI.
+                            of demand from {data.shortbuyer}, failing which {data.shortbuyer} shall have the right to recover the same by exercising
+                            any and/or all legal remedies available to {data.shortbuyer}.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            Any shortfall on account of such disposal of Goods and any loss incurred by IGI, including
+                            Any shortfall on account of such disposal of Goods and any loss incurred by {data.shortbuyer}, including
                             and not limited to, interest/ detention/ demurrage/ storage/ carrying charges, direct or
-                            consequential losses or damages after adjustment of amounts received by IGI shall be payable
-                            by the Associate Buyer forthwith within 3 days upon receipt of demand for the same from IGI
+                            consequential losses or damages after adjustment of amounts received by {data.shortbuyer} shall be payable
+                            by the Associate Buyer forthwith within 3 days upon receipt of demand for the same from {data.shortbuyer}
                             failing which the Associate Buyer will be liable to pay interest at the rate of 18% per
                             annum on monthly rest basis.
                           </p>
@@ -747,7 +749,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             It is made clear that any profit made upon disposal of the goods to any third party under
-                            this clause, shall solely belong to IGI.
+                            this clause, shall solely belong to {data.shortbuyer}.
                           </p>
                         </li>
                       </ol>
@@ -762,20 +764,20 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The GST Liability and issuance of certificates under the GST Act 2017 as applicable will be
                             the responsibility of Associate Buyer. However, if any other tax liability is levied on this
-                            transaction on IGI, the same shall be reimbursed to IGI by Associate Buyer within 7 days of
-                            IGI notifying the Associate Buyer of the levy.
+                            transaction on {data.shortbuyer}, the same shall be reimbursed to {data.shortbuyer} by Associate Buyer within 7 days of
+                            {data.shortbuyer} notifying the Associate Buyer of the levy.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             Withholding tax, if any, will be to the account of Associate Buyer. Any excess/refund will
-                            be settled within a week's time after getting such advice from IGI.
+                            be settled within a week's time after getting such advice from {data.shortbuyer}.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            Associate Buyer to submit Form 27C (in original) to IGI on monthly basis, in advance. In
-                            absence of form 27C IGI will collect the TCS as applicable.
+                            Associate Buyer to submit Form 27C (in original) to {data.shortbuyer} on monthly basis, in advance. In
+                            absence of form 27C {data.shortbuyer} will collect the TCS as applicable.
                           </p>
                         </li>
                       </ol>
@@ -806,10 +808,10 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             In relation to any dispute arising out of in connection with this Agreement and for the
-                            exclusive benefit of IGI, the Associate Buyer hereby irrevocably and unconditionally submits
+                            exclusive benefit of {data.shortbuyer}, the Associate Buyer hereby irrevocably and unconditionally submits
                             to the jurisdiction of the Courts in Delhi and waives any objection to proceedings with
                             respect to this Agreement in those Courts on the grounds of venue, inconvenient forum of
-                            otherwise. However, IGI shall at its sole discretion have the right to file proceedings in
+                            otherwise. However, {data.shortbuyer} shall at its sole discretion have the right to file proceedings in
                             other Courts with jurisdiction.
                           </p>
                         </li>
@@ -846,7 +848,7 @@ export default function AssociateshipAgreementPreview(data) {
                             and Supplier, and due to which any Award/Judgment/decree/Order is passed or otherwise a
                             settlement is reached, the Associate Buyer shall be bound to accept the same and bear the
                             liability, costs, expenses arising there from. In the event, any judicial/ legal proceedings
-                            are initiated against the Indo/ IGI by the Supplier, the Associate Buyer shall be required
+                            are initiated against the Indo/ {data.shortbuyer} by the Supplier, the Associate Buyer shall be required
                             to be present and associated at all stages of the proceedings and shall bear the entire
                             expenses of arbitration/litigation and/or of the negotiated settlement. The Associate Buyer
                             shall have no authority or excuse to challenge the same on any ground including that the
@@ -858,11 +860,11 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             In case there is any dispute, arising out of and/or pursuant to this Agreement, either
-                            between Associate Buyer and the Supplier and/ or the Supplier and Indo/IGI, the same shall
+                            between Associate Buyer and the Supplier and/ or the Supplier and Indo/{data.shortbuyer}, the same shall
                             be settled amicably directly by Associate Buyer with the Supplier. In case, such dispute is
                             not settled amicably, any arbitration proceedings and/or other proceedings, which may be
                             initiated by any of the Parties, shall be solely at the cost and risk of Associate Buyer and
-                            IGI shall in no manner be liable and responsible for the same.
+                            {data.shortbuyer} shall in no manner be liable and responsible for the same.
                           </p>
                         </li>
                       </ol>
@@ -874,14 +876,14 @@ export default function AssociateshipAgreementPreview(data) {
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            After conclusion of the deal i.e. receipt of the amounts due to IGI from Associate Buyer/remittance against the import & receipt of RR copies and all other supporting documents related to domestic sale, account maintained by IGI for the Associate Buyer will be settled as per the procedure followed by IGI.
+                            After conclusion of the deal i.e. receipt of the amounts due to {data.shortbuyer} from Associate Buyer/remittance against the import & receipt of RR copies and all other supporting documents related to domestic sale, account maintained by {data.shortbuyer} for the Associate Buyer will be settled as per the procedure followed by {data.shortbuyer}.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             In case after opening of Letter of credit by Indo, the supply contract with Supplier is
-                            cancelled for any reason whatsoever, IGI shall be entitled to receive from Associate Buyer
-                            all costs incurred by Indo and IGI along with its margin/ service charges + applicable GST
+                            cancelled for any reason whatsoever, {data.shortbuyer} shall be entitled to receive from Associate Buyer
+                            all costs incurred by Indo and {data.shortbuyer} along with its margin/ service charges + applicable GST
                             rate + other costs etc.
                           </p>
                         </li>
@@ -896,13 +898,13 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             Associate Buyer agrees to defend, indemnify, keep indemnified and hold harmless at all
-                            times, IGI including, IGI's directors, officers and employees from and/or against all and
+                            times, {data.shortbuyer} including, {data.shortbuyer}'s directors, officers and employees from and/or against all and
                             any claims, losses. damages, demands or costs including but not limited to taxes/duties
                             damages, expenses, demurrage, penalties, liabilities, legal cost, no shipment, delayed
                             shipment, short shipment, claims on account of quality/quantity/making/weight/specifications
                             etc., of whatever nature, arising from but not limited to any action, omission, willful
                             conduct, negligence and/or breach of any term or condition of this Agreement, on part of the
-                            Associate Buyer or Supplier or Stevedore. No claim shall be passed on to IGI or Indo either
+                            Associate Buyer or Supplier or Stevedore. No claim shall be passed on to {data.shortbuyer} or Indo either
                             by Supplier or Associate Buyer.
                           </p>
                         </li>
@@ -915,14 +917,14 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             Associate Buyer shall always abide by the laws of the State and Central Government as
-                            applicable/in force from time to time. IGI shall not be responsible for any repercussion on
+                            applicable/in force from time to time. {data.shortbuyer} shall not be responsible for any repercussion on
                             this Agreement on account of any change in Government Acts, Rules and Regulations, or for
                             any failure on the part of the Supplier/Associate Buyer to comply with the same.
                           </p>
                         </li>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                            That it is made clear that IGI shall not be liable for any loss or damage emanating from the
+                            That it is made clear that {data.shortbuyer} shall not be liable for any loss or damage emanating from the
                             present Agreement and executing the transaction contemplated hereto under any circumstances
                             whatsoever.
                           </p>
@@ -1103,7 +1105,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             <span style={{ marginLeft: '-19px' }}>iv)</span>&nbsp; Notwithstanding anything contained herein to
                             the contrary, all risks, consequences arising out of the actual transaction(s) taking place
-                            between Supplier &amp; Indo, Indo &amp; IGI and Associate Buyer and IGI and/or agreement
+                            between Supplier &amp; Indo, Indo &amp; {data.shortbuyer} and Associate Buyer and {data.shortbuyer} and/or agreement
                             with Stevedore under this contract and/or any modified/amended agreement will be to the
                             account of the Associate Buyer only. Indo/Seller shall in no way be responsible or liable
                             for the same.
@@ -1113,9 +1115,9 @@ export default function AssociateshipAgreementPreview(data) {
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             <span style={{ marginLeft: '-16px' }}>v)</span>&nbsp; In the event of any breach or default by
                             Associate Buyer or the stevedore of the terms of this Agreement or the Quadripartite
-                            agreement, IGI at its sole discretion shall have the right to adjust/set off any amounts
+                            agreement, {data.shortbuyer} at its sole discretion shall have the right to adjust/set off any amounts
                             paid to it by the Associate Buyer. If the Associate Buyer owes several, independent debts to
-                            IGI based on the same or different legal nature, IGI is entitled to declare which debt shall
+                            {data.shortbuyer} based on the same or different legal nature, {data.shortbuyer} is entitled to declare which debt shall
                             be settled in full or in part with any payment made by the Associate Buyer.
                           </p>
                         </li>
@@ -1174,9 +1176,9 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>Force Majeur</strong>
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                        That IGI shall not be liable for any damages or losses on account of Force Majeure, as defined
+                        That {data.shortbuyer} shall not be liable for any damages or losses on account of Force Majeure, as defined
                         herein below. However, the Associate Buyer shall at all times remain liable for payment of the
-                        Goods to IGI, irrespective of occurrence of any force majeure condition.
+                        Goods to {data.shortbuyer}, irrespective of occurrence of any force majeure condition.
                       </p>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         “Force Majeure Events” means any event, act or performance which is beyond the control of a
