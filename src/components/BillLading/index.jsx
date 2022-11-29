@@ -12,6 +12,7 @@ import { convertValue, removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import { returnDocFormat } from '@/utils/helpers/global';
+import { number } from 'prop-types';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
   let transId = _get(TransitDetails, 'data[0]', '');
@@ -79,6 +80,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null);
   const [startblSurrenderDate, setblSurrenderDate] = useState(null);
   const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null);
+
 
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -151,7 +153,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       });
     }
-
+   console.log(filteredVessel,"filteredVessel")
     let newArray = [...bolList];
     newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '');
     newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '');
@@ -328,6 +330,18 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
           bolList[i]?.containerDetails?.numberOfContainers == undefined
         ) {
           toastMessage = `Please mention number of containers in Bill of lading ${i}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+       
+        if (
+          Number(bolList[i]?.containerDetails?.numberOfContainers) > 
+          _get(TransitDetails,"data[0].order.vessel.vessels[0].shippingInformation.numberOfContainers")
+        ) {
+          toastMessage = `Number of Container cannot be greator than vessel nomination ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             isOk = false;
@@ -825,11 +839,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
+                            {console.log(bol,"bol")}
                             {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input
                                 // disabled
-                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
+                                onChange={(e) => {
+                                  onChangeContainerDetailsHandler(e, index)
+                                }}
                                 value={bol?.containerDetails?.numberOfContainers}
                                 className={`${styles.input_field} input form-control`}
                                 required

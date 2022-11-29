@@ -502,6 +502,7 @@ const Index = () => {
           return false;
         }
       }
+    
    if(storageValidation()==false){
       return false
 

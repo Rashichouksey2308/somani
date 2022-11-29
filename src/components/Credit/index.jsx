@@ -761,6 +761,7 @@ const index = ({
                     </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
+                    <option value="Both">Both</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing Procurement of Commodity
@@ -2083,7 +2084,18 @@ const index = ({
                             disabled={!profile.actions}
                           />
                         </td>
-                        {profile.addnew == 'false' ? (
+                       
+                        {
+                          !profile.actions?
+                          <>
+                           <td>{profile.bankName}</td>
+                          <td>{profile.limitType}</td>
+                          <td>{ Number(profile?.limit)?.toLocaleString('en-In')}</td>
+                          <td>{profile?.conduct}</td>
+                          </>
+                          :
+                          <>
+                           {profile.addnew == 'false' ? (
                           <td>
                             <select
                               onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
@@ -2119,18 +2131,29 @@ const index = ({
                             />
                           </td>
                         )}
-                        <td>
-                          <input
+                            <td>
+                          <select
                             type="text"
                             className="input"
                             disabled={!profile.actions}
                             value={profile.limitType}
+
                             name="limitType"
                             onChange={(e) => {
                               handleDebtChange(e.target.name, e.target.value, index);
                             }}
                           // placeholder={'Limit type'}
-                          />
+                          >
+                            <option value="">Select an option</option>
+                            <option value="Cash Credit">Cash Credit</option>
+                            <option value="LC Limits">LC Limits</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Bank Guarantee">Bank Guarantee</option>
+                            <option value="Buyers Credit">Buyers Credit</option>
+                            <option value="Packing Credit">Packing Credit</option>
+                            <option value="Post Ship Credit">Post Ship Credit</option>
+                            
+                          </select>
                         </td>
                         <td>
                           <input
@@ -2148,6 +2171,7 @@ const index = ({
                               }),
                                 (e.target.type = 'text');
                             }}
+                               onWheel={(event) => event.currentTarget.blur()}
                             value={
                               profile?.actions
                                 ? isFieldInFocus.limit
@@ -2180,6 +2204,9 @@ const index = ({
                             <option value="Poor">Poor</option>
                           </select>
                         </td>
+                          </>
+                        }
+                      
                         <td>
                           <div>
                             {!profile.actions ? (
