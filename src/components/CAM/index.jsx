@@ -3066,7 +3066,7 @@ const sectionTerms = (
                         type="text"
                         disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
-                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedCreditValue"
                         onFocus={(e) => {
@@ -3119,7 +3119,7 @@ const sectionTerms = (
                         type="text"
                         disabled={!orderValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
-                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"
                         onFocus={(e) => {
