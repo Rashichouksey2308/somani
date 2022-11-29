@@ -3085,8 +3085,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? approvedCredit?.approvedCreditValue
-                            : (Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
+                            ? `${approvedCredit?.approvedCreditValue} Cr`
+                            : `${(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')} Cr`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3138,8 +3138,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? approvedCredit?.approvedOrderValue
-                            : checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')
+                            ? `${approvedCredit?.approvedOrderValue} Cr`
+                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} Cr`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {

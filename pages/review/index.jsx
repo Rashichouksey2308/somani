@@ -7996,7 +7996,7 @@ setexpectedLimit(date)
           });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
             return riskFilter(val);
           })
@@ -8004,7 +8004,7 @@ setexpectedLimit(date)
             return riskFilter(val);
           });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
             return riskFilter(val);
           })

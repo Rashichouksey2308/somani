@@ -12,7 +12,7 @@ import _get from 'lodash/get';
 import { GetAllInspection } from '../../src/redux/Inspections/action';
 import Router from 'next/router';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
-import { getVendors } from '../../src/redux/masters/action';
+import { getVendors,getPorts } from '../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
@@ -22,8 +22,10 @@ function Index() {
   const [componentId, setComponentId] = useState(1);
   useEffect(() => {
     dispatch(getVendors());
+     dispatch(getPorts());
   }, []);
   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
+    const { getPortsMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
     let id = sessionStorage.getItem('inspectionId');
     dispatch(GetAllInspection(`?inspectionId=${id}`));
@@ -173,6 +175,7 @@ function Index() {
                               setDate={setDate}
                               setComponentId={setComponentId}
                               componentId={componentId}
+                              ports={getPortsMasterData}
                             />
                           )}
                         </div>

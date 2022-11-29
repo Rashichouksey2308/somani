@@ -178,10 +178,12 @@
             height: 77px;
             padding: 0 35px;
             white-space: nowrap;
+            text-align: right;
             vertical-align: middle;
 
             &:first-child {
               padding-left: 35px;
+              text-align: left;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
@@ -217,9 +219,11 @@
             line-height: 23px;
             padding: 15px 35px;
             white-space: nowrap;
+            text-align: right;
 
             &:first-child {
               padding-left: 35px;
+              text-align: left;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
