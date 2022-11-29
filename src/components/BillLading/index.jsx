@@ -76,13 +76,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
 
   const handleShow = () => setShow(true);
 
-
   const [bolList, setBolList] = useState([initalState]);
   const [startBlDate, setBlDate] = useState(null);
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null);
   const [startblSurrenderDate, setblSurrenderDate] = useState(null);
   const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null);
-
 
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -155,7 +153,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       });
     }
-   console.log(filteredVessel,"filteredVessel")
+    console.log(filteredVessel, 'filteredVessel');
     let newArray = [...bolList];
     newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '');
     newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '');
@@ -167,7 +165,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         'shippingInformation.numberOfContainers',
         '',
       );
-      newArray[index].containerDetails.freeDetentionPeriod =  _get(
+      newArray[index].containerDetails.freeDetentionPeriod = _get(
         filteredVessel,
         'shippingInformation.freeDetentionPeriod',
         '',
@@ -338,10 +336,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-       
+
         if (
-          Number(bolList[i]?.containerDetails?.numberOfContainers) > 
-          _get(TransitDetails,"data[0].order.vessel.vessels[0].shippingInformation.numberOfContainers")
+          Number(bolList[i]?.containerDetails?.numberOfContainers) >
+          _get(TransitDetails, 'data[0].order.vessel.vessels[0].shippingInformation.numberOfContainers')
         ) {
           toastMessage = `Number of Container cannot be greator than vessel nomination ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -479,7 +477,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const saveData = async () => {
     if (!validation()) return;
 
-    let bol = { billOfLanding: bolList };
+    let tempArray = [...bolList];
+    if (!shipmentTypeBulk) {
+      tempArray?.forEach((item) => {
+        item.isSubmitted = true;
+        return item;
+      });
+    }
+    let bol = { billOfLanding: tempArray };
+    console.log(bol, 'bolbol');
 
     bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(bolList[0].blQuantity);
     let fd = new FormData();
@@ -625,6 +631,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             </div>
           </div>
           {bolList?.map((bol, index) => {
+            console.log(!shipmentTypeBulk ? bolList[0] : false, 'shipmentTypeBulk');
             return (
               <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div
@@ -641,7 +648,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
-                  {index > 0 ? (
+                  {index > 0 && !bol?.isSubmitted ? (
                     <button
                       onClick={() => onDeleteClick(index)}
                       className={`${styles.add_btn} border-danger text-danger`}
@@ -657,6 +664,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <select
+                              disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                               value={bol?.vesselName}
                               id="vesselName"
                               onChange={(e) => onChangeVessel(e, index)}
@@ -700,6 +708,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
+                          disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                             value={bol?.blNumber}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blNumber"
@@ -716,6 +725,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
+                              disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                               // selected={
                               //   startBlDate ? moment(startBlDate).toDate() : ''
                               // }
@@ -745,6 +755,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
+                            disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                             onFocus={(e) => {
                               setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
@@ -777,6 +788,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                           <div className="d-flex">
                             {/* //<DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
+                              disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                               // value={moment((bol?.etaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                               // value={moment(bol?.etaAtDischargePortFrom).toDate()}
                               defaultDate={startetaAtDischargePortFrom}
@@ -807,6 +819,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         <div className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             <DatePicker
+                              disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                               // value={moment((bol?.startetaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
 
                               selected={
@@ -841,13 +854,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {console.log(bol,"bol")}
+                            {console.log(bol, 'bol')}
                             {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input
+                                disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                                 // disabled
                                 onChange={(e) => {
-                                  onChangeContainerDetailsHandler(e, index)
+                                  onChangeContainerDetailsHandler(e, index);
                                 }}
                                 value={bol?.containerDetails?.numberOfContainers}
                                 className={`${styles.input_field} input form-control`}
@@ -865,6 +879,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             {/* ) : null} */}
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input
+                                disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                                 onChange={(e) => onChangeContainerDetailsHandler(e, index)}
                                 value={bol?.containerDetails?.freeDetentionPeriod}
                                 className={`${styles.input_field} input form-control`}
@@ -918,7 +933,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   <img
                                     className={`${styles.close_image} ml-2 image_arrow`}
                                     src="/static/close.svg"
-                                    onClick={(e) => handleCloseContanierDoc('', index)}
+                                    onClick={(e) => !bol.isSubmitted && handleCloseContanierDoc('', index)}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -969,7 +984,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blDoc ? returnDocFormat( bolList[index]?.blDoc?.originalName) : null}
+                                {bolList[index]?.blDoc ? returnDocFormat(bolList[index]?.blDoc?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
@@ -995,7 +1010,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc('blDoc', index)}
+                                      onClick={(e) => !bol.isSubmitted && handleCloseDoc('blDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
@@ -1010,7 +1025,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.containerNumberListDoc ? returnDocFormat(bolList[index]?.containerNumberListDoc?.originalName) : null}
+                                    {bolList[index]?.containerNumberListDoc
+                                      ? returnDocFormat(bolList[index]?.containerNumberListDoc?.originalName)
+                                      : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.containerNumberListDoc == null
@@ -1038,7 +1055,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         <img
                                           className={`${styles.close_image} ml-2 image_arrow`}
                                           src="/static/close.svg"
-                                          onClick={(e) => handleCloseDoc('containerNumberListDoc', index)}
+                                          onClick={(e) =>
+                                            !bol.isSubmitted && handleCloseDoc('containerNumberListDoc', index)
+                                          }
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1051,7 +1070,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.packingListDoc ? returnDocFormat(bolList[index]?.packingListDoc?.originalName) : null}
+                                    {bolList[index]?.packingListDoc
+                                      ? returnDocFormat(bolList[index]?.packingListDoc?.originalName)
+                                      : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
@@ -1077,7 +1098,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                         <img
                                           className={`${styles.close_image} ml-2 image_arrow`}
                                           src="/static/close.svg"
-                                          onClick={(e) => handleCloseDoc('packingListDoc', index)}
+                                          onClick={(e) => !bol.isSubmitted && handleCloseDoc('packingListDoc', index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1100,6 +1121,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <DatePicker
+                              disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                               selected={bol?.blSurrenderDate == null ? '' : moment(bol?.blSurrenderDate).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -1159,7 +1181,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blSurrenderDoc ? returnDocFormat(bolList[index]?.blSurrenderDoc?.originalName) : null}
+                                {bolList[index]?.blSurrenderDoc
+                                  ? returnDocFormat(bolList[index]?.blSurrenderDoc?.originalName)
+                                  : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null
@@ -1185,7 +1209,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
+                                      onClick={(e) => !bol.isSubmitted && handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
@@ -1203,7 +1227,20 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
           })}
 
           <div className="0">
-            <UploadOther orderid={orderid}  module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
+            <UploadOther
+              orderid={orderid}
+              module={[
+                '3rd Party Inspection',
+                'Plot Inspection',
+                'Bill of Lading',
+                'Letter of Indemnity',
+                'BL Surrender',
+                'Forward Hedging',
+                'CIMS',
+                'IGM',
+                'Intercompany Invoicing',
+              ]}
+            />
           </div>
         </div>
         <SaveBar handleSave={saveData} rightBtn="Submit" rightBtnClick={handleShow} />
