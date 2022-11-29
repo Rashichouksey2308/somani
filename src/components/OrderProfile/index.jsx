@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { ViewDocument } from 'redux/ViewDoc/action';
+import { previewDocument } from 'redux/ViewDoc/action';
 
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
@@ -57,7 +57,7 @@ function Index() {
         )}
 
         {buyerList?.company?.documents.map((val, index) => {
-          return <>{fields('Document Type', val?.typeOfDocument, true, null, val?.path)}</>;
+          return <>{fields('Document Type', val?.typeOfDocument, true, null, val?.path, buyerList)}</>;
         })}
       </div>
     </div>
@@ -65,7 +65,7 @@ function Index() {
 }
 
 export default Index;
-const fields = (head, value, isButton, value2, value3) => {
+const fields = (head, value, isButton, value2, value3, buyerList) => {
   const dispatch = useDispatch();
 
   return (
@@ -77,7 +77,18 @@ const fields = (head, value, isButton, value2, value3) => {
             {value} {value2 ? value2 : ''}
           </span>
           {isButton ? (
-            <a onClick={() => dispatch(ViewDocument({ path: value3 }))} className={styles.button}>
+            <a
+              onClick={() =>
+                dispatch(
+                  previewDocument({
+                    path: value3,
+                    order: buyerList.order._id,
+                    company: buyerList.company._id,
+                  }),
+                )
+              }
+              className={styles.button}
+            >
               View
             </a>
           ) : null}
