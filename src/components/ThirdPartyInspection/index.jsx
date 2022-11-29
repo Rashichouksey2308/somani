@@ -14,7 +14,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther/index';
 import styles from './index.module.scss';
 
-export default function Index({ addButton , setComponentId,componentId }) {
+export default function Index({ addButton , setComponentId,componentId,ports }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -916,6 +916,64 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
     setComponentId(componentId + 1);
   };
 
+  const [toDischargeShow, setToDischargeShow] = useState([]);
+  const [toDischargeView, setToDischargeView] = useState(false);
+ console.log(toDischargeShow,"toDischargeShow")
+  const [toLoadShow, setToLoadShow] = useState([]);
+  const [toLoadView, setToLoadView] = useState(false);
+ 
+  const filterPort = (value,type) => {
+    if (value == '') {
+      if(type=="load"){
+        setToLoadShow([]);
+        setToLoadView(false);
+        return;
+      }else{
+        setToDischargeShow([]);
+        setToDischargeView(false)
+        return;
+      }
+     
+    }
+    let filterData=[]
+    if(type=="load"){
+    filterData = ports.filter((o) => {
+        if(o.Approved.toLowerCase()=="yes" && o.Country.toLowerCase()!=="india"){
+           return o.Port_Name.toLowerCase().includes(value.toLowerCase());
+        }
+    });
+    }else{
+     
+       filterData = ports.filter((o) => {
+        if(o.Approved?.toLowerCase()=="yes" && o.Country.toLowerCase()=="india"){
+         
+           return o.Port_Name.toLowerCase().includes(value.toLowerCase());
+        }
+    });
+    console.log(filterData,"filterData")
+    }
+    
+   if(type=="load"){
+        setToLoadShow(filterData);
+        setToLoadView(true);
+        
+      }else{
+        setToDischargeShow(filterData);
+        setToDischargeView(true)
+        
+      }
+    
+  };
+const handleData = (name, value,type) => {
+  if(type == "load"){
+  saveInspectionDetails(name,value)
+  }else{
+    saveDischargeInspectionDetails(name,value)
+  }
+   
+    setToLoadView(false);
+    setToDischargeView(false)
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 `}>
@@ -1093,18 +1151,41 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                     )}
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
+                        {console.log(inspectionDetails?.loadPortInspectionDetails?.inspectionPort,"======")}
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
                           name="loadPortInspectionDetails.inspectionPort"
                           value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
-                          onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
+                          onChange={(e) => {
+                            filterPort(e.target.value,"load");
+                            saveInspectionDetails(e.target.name, e.target.value)
+                          }}
                         />
+                         {toLoadShow.length > 0 && toLoadView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toLoadShow
+                          ? toLoadShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('loadPortInspectionDetails.inspectionPort', results.Port_Name,"load")}
+                              id={results._id}
+                              key={index}
+                              value={results?.Port_Name}
+                            >
+                              {results?.Port_Name}{' '}
+                            </li>
+                          ))
+                          : ''}
+                      </ul>
+                    </div>
+                         )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
+                        <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
@@ -1172,6 +1253,10 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                 setStartDate,
                 setDateStartFrom,
                 handleShow,
+                toDischargeShow,
+                toDischargeView,
+                handleData,
+                filterPort
               )
             : ''}
           {inspectionDetails.loadPortInspection && (
@@ -1970,6 +2055,10 @@ const Discharge = (
   setDateStartFrom,
   setStartDate,
   handleShow,
+  toDischargeShow,
+  toDischargeView,
+  handleData,
+  filterPort
 ) => {
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
@@ -2015,12 +2104,35 @@ const Discharge = (
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
                 value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
-                onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
+                onChange={(e) =>{
+                  
+                   filterPort(e.target.value,"dischatge");
+                   saveInspectionDetails(e.target.name, e.target.value)
+                }}
               />
+               {toDischargeShow.length > 0 && toDischargeView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toDischargeShow
+                          ? toDischargeShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('dischargePortInspectionDetails.inspectionPort', results.Port_Name,"discharge")}
+                              id={results._id}
+                              key={index}
+                              value={results?.Port_Name}
+                            >
+                              {results?.Port_Name}{' '}
+                            </li>
+                          ))
+                          : ''}
+                      </ul>
+                    </div>
+                  )}
               <label className={`${styles.label_heading} label_heading`}>
                 Inspection Port
                 <strong className="text-danger">*</strong>
               </label>
+                <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </div>
           </div>
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>

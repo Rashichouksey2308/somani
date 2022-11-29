@@ -98,14 +98,15 @@ function Index({ shareHolding }) {
 
   const equitydata = {
     labels: equityShareName,
+   
     datasets: [
       {
         data: equityShareNo,
 
         backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
-
         hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
         hoverBorderWidth: 3,
+        
       },
     ],
   };

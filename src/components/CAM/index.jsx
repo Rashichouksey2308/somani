@@ -3085,8 +3085,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? approvedCredit?.approvedCreditValue
-                            : (Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
+                            ? `${approvedCredit?.approvedCreditValue} Cr`
+                            : `${(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')} Cr`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3116,7 +3116,7 @@ const sectionTerms = (
                     <td>
                       <input
                         className={`${styles.text} input`}
-                        type="number"
+                        type="text"
                         disabled={!orderValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -3138,8 +3138,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? approvedCredit?.approvedOrderValue
-                            : checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')
+                            ? `${approvedCredit?.approvedOrderValue} Cr`
+                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} Cr`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {

@@ -1102,6 +1102,7 @@ function Index() {
       </div>
 
       <Paginatebar
+      pagesDetails={{total : 1, current:1}}
         exportPDF={exportPDF}
         openbar={openbar}
         rightButtonTitle="Send To Buyer"

@@ -5,9 +5,7 @@ import _get from 'lodash/get';
 import { convertValue } from '../../../utils/helper';
 import { returnReadableNumber } from '@/utils/helpers/global';
 
-
 function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
-
   const [unit, setUnit] = useState(10000000);
 
   const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {});
@@ -63,7 +61,6 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     <tr>
                       <th width="50%"></th>
                       <th
-                        className="text-center"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(latestYearData?.financialEndDate).colour}`,
@@ -72,7 +69,6 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(latestYearData?.financialEndDate, 0).date}
                       </th>
                       <th
-                        className="text-center"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(previousYearData?.financialEndDate).colour}`,
@@ -81,7 +77,6 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(latestYearData?.financialEndDate, 1).date}
                       </th>
                       <th
-                        className="text-center"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}`,
@@ -97,16 +92,41 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                   <tbody>
                     <tr>
                       <td>Operating Cash Flow</td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestYearData?.cashFlowsFromUsedInOperatingActivities
+                              ?.cashFlowsFromUsedInOperatingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities, unit), 'en-In', 2, 2,)}
-
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousYearData?.cashFlowsFromUsedInOperatingActivities
+                              ?.cashFlowsFromUsedInOperatingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities, unit), 'en-In', 2, 2,)}
-
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearData?.cashFlowsFromUsedInOperatingActivities
+                              ?.cashFlowsFromUsedInOperatingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -120,33 +140,89 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Investing Cash Flow</td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(latestYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestYearData?.cashFlowsFromUsedInInvestingActivities
+                              ?.cashFlowsFromUsedInInvestingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(previousYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousYearData?.cashFlowsFromUsedInInvestingActivities
+                              ?.cashFlowsFromUsedInInvestingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(lastYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearData?.cashFlowsFromUsedInInvestingActivities
+                              ?.cashFlowsFromUsedInInvestingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
-                          latestYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities,
-                          previousYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities,
+                          latestYearData?.cashFlowsFromUsedInInvestingActivities
+                            ?.cashFlowsFromUsedInInvestingActivities,
+                          previousYearData?.cashFlowsFromUsedInInvestingActivities
+                            ?.cashFlowsFromUsedInInvestingActivities,
                           lastYearData?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities,
                         )}
                       </td>
                     </tr>
                     <tr>
                       <td>Financing Cash Flow</td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(latestYearData?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestYearData?.cashFlowsFromUsedInFinancingActivities
+                              ?.cashFlowsFromUsedInFinancingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(previousYearData?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousYearData?.cashFlowsFromUsedInFinancingActivities
+                              ?.cashFlowsFromUsedInFinancingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(lastYearData?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearData?.cashFlowsFromUsedInFinancingActivities
+                              ?.cashFlowsFromUsedInFinancingActivities,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -160,14 +236,41 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Net Change in Cash</td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(latestYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents?.increaseDecreaseInCashAndCashEquivalents, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                              ?.increaseDecreaseInCashAndCashEquivalents,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(previousYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents?.increaseDecreaseInCashAndCashEquivalents, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                              ?.increaseDecreaseInCashAndCashEquivalents,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(lastYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents?.increaseDecreaseInCashAndCashEquivalents, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                              ?.increaseDecreaseInCashAndCashEquivalents,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -182,63 +285,111 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Free Cash Flow</td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestBalanceData?.assets?.propertyPlantAndEquipment -
+                              latestYearData?.previous?.propertyPlantAndEquipment +
+                              latestIncomeStatement?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(previousBalanceData?.assets?.propertyPlantAndEquipment -
-                          previousYearData?.previous?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousBalanceData?.assets?.propertyPlantAndEquipment -
+                              previousYearData?.previous?.propertyPlantAndEquipment +
+                              previousIncomeStatement?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(lastYearBalanceData?.assets?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearBalanceData?.assets?.propertyPlantAndEquipment -
+                              lastYearData?.previous?.propertyPlantAndEquipment +
+                              previousIncomeStatement?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort,
+                            latestYearData?.previous?.propertyPlantAndEquipment +
+                            latestIncomeStatement?.expenses?.deprcnAmort,
                           previousBalanceData?.assets?.propertyPlantAndEquipment -
-                          previousYearData?.previous?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            previousYearData?.previous?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           lastYearBalanceData?.assets?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          lastYearIncomeStatement?.expenses?.deprcnAmort,
+                            lastYearData?.previous?.propertyPlantAndEquipment +
+                            lastYearIncomeStatement?.expenses?.deprcnAmort,
                         )}
                       </td>
                     </tr>
                     <tr>
                       <td>Capex</td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestBalanceData?.assets?.propertyPlantAndEquipment -
+                              latestYearData?.previous?.propertyPlantAndEquipment +
+                              latestIncomeStatement?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(previousBalanceData?.assets?.propertyPlantAndEquipment -
-                          previousYearData?.previous?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousBalanceData?.assets?.propertyPlantAndEquipment -
+                              previousYearData?.previous?.propertyPlantAndEquipment +
+                              previousIncomeStatement?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                        {returnReadableNumber(convertValue(lastYearBalanceData?.assets?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          lastYearIncomeStatement?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearBalanceData?.assets?.propertyPlantAndEquipment -
+                              lastYearData?.previous?.propertyPlantAndEquipment +
+                              lastYearIncomeStatement?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort,
+                            latestYearData?.previous?.propertyPlantAndEquipment +
+                            latestIncomeStatement?.expenses?.deprcnAmort,
                           previousBalanceData?.assets?.propertyPlantAndEquipment -
-                          previousYearData?.previous?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            previousYearData?.previous?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           lastYearBalanceData?.assets?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          lastYearIncomeStatement?.expenses?.deprcnAmort,
+                            lastYearData?.previous?.propertyPlantAndEquipment +
+                            lastYearIncomeStatement?.expenses?.deprcnAmort,
                         )}
                       </td>
                     </tr>
