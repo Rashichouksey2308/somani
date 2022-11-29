@@ -198,7 +198,7 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} vessel_card card-body`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
