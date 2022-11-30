@@ -84,7 +84,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
-        balance = balance - item2.blQuantity;
+        balance = Number(balance) - Number(item2.blQuantity==undefined?0:item2.blQuantity);
+          
       });
     });
     if (balance < 0) {
@@ -719,15 +720,21 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>Balance Quantity:</div>
                     <div className={`${styles.value} ml-2 mr-4`}>
+                      
                       {checkNan(checkRemainingBalance())} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
-                    <button
+                    {checkRemainingBalance()!==0?
+                    <>
+                      <button
                       onClick={() => onigmAdd(index)}
                       className={styles.add_btn}
                       style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
+                    </>  :null
+                  }
+                  
                     {index > 0 ? (
                       <button
                         onClick={() => onDeleteClick(index)}

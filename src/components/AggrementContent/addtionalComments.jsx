@@ -86,7 +86,7 @@ function Index(props) {
         dateOfExecution: null,
         dateOfContract: null,
         monthOfLoadingCargo: '',
-        actions: 'false',
+        actions: 'true',
       },
     ]);
   };
