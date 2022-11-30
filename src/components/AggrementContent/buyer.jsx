@@ -734,7 +734,6 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                   type="text"
                   name="name"
                   value={buyerData.name}
@@ -765,7 +764,6 @@ const { getPincodesMasterData } = useSelector((state) => state.MastersData);
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                   type="text"
                   name="branchName"
                   value={buyerData.branchName}
