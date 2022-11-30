@@ -857,15 +857,15 @@
 }
 
 .chart {
-  height: 250px;
+  height: 280px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 
   canvas {
-    height: 250px !important;
-    width: 250px !important;
+    height: 280px !important;
+    width: 280px !important;
   }
 
   .total_value {
