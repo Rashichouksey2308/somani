@@ -243,9 +243,12 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
     setDischargeDocuments(newUploadDoc1);
   
   };
-
+  console.log(dischargeDocuments,"dischargeDocuments")
+  let k
   const uploadDischargeDocument3 = (e) => {
     const newUploadDoc1 = { ...dischargeDocuments };
+    console.log(e.target.files)
+    k=e.target.files
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
@@ -1312,15 +1315,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ||documents.certificateOfOrigin ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path == undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(documents.certificateOfOrigin);
+                                       
+                                      reader.onload = function() {
+                                        
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }
+                                      else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1412,16 +1432,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfQuality ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfQuality || documents?.certificateOfQuality  ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                   {  if(inspectionData?.thirdPartyInspection?.certificateOfQuality?.path== undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(documents.certificateOfQuality);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                     }
+                                     else{
+                                       dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                     }
                                     }
+                                  }
                                   >
                                     View
                                   </span>
@@ -1512,15 +1548,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfWeight || documents.certificateOfWeight? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.certificateOfWeight?.path == undefined ){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(documents.certificateOfWeight);
+                                       
+                                        reader.onload = function() {
+                                       
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }
+                                      else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1682,16 +1735,35 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || dischargeDocuments.dischargeCertificateOfOrigin ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      console.log(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin,"dischargeDocuments.dischargeCertificateOfOrigin")
+                                     if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.path==undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfOrigin);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                     
+                                      }else{
+                                          dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      } 
+                                    }
+                                    
                                     }
                                   >
                                     View
@@ -1783,16 +1855,33 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || dischargeDocuments.dischargeCertificateOfQuality ? (
+                                  
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.path == undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfQuality);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1884,16 +1973,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || dischargeDocuments.dischargeCertificateOfWeight ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.path ==undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfWeight);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
