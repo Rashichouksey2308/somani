@@ -135,13 +135,18 @@ function Index({ shareHolding }) {
       legend: {
         display: false,
       },
+      tooltip: {
+                  position: 'nearest',
+                
+              }
+      ,
       title: {
         display: false,
         text: 'Doughnut Chart',
         color: 'blue',
 
         font: {
-          size: 34,
+          size: 20,
         },
         padding: {
           top: 30,
