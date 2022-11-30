@@ -183,7 +183,6 @@ function Index() {
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
-      e.target.value == 'creditAvailablewith' ||
       e.target.value == 'applicant' || 
       e.target.value == 'portOfDischarge' || 
       e.target.value == 'portOfLoading'
@@ -590,6 +589,7 @@ function Index() {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
+                          onWheel={(event) => event.currentTarget.blur()}
                               type="number"
                               value={clauseObj?.newValue}
                               disabled={isDisabled}

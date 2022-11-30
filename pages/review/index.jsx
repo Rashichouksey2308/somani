@@ -779,6 +779,7 @@ function Index() {
     approvedOrderValue: '',
     approvedCreditValue: '',
   });
+  
 
   useEffect(() => {
     setSuggestedCredit({
@@ -1172,7 +1173,7 @@ function Index() {
       handleErrorToast('approved order value cannot be 0');
       return false;
     }
- 
+ return true
   };
 
   const handleCamApprove = async () => {
