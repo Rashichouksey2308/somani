@@ -1330,7 +1330,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           {data.quan?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
                           })}{' '}
-                          MT
+                          {data?.unitOfQuantity?.toUpperCase()}
                         </p>
                       </td>
                     </tr>
@@ -1476,7 +1476,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           }}
                         >
                           {' '}
-                          {data.dischargePort}
+                          {data.dischargePort}, India
                         </p>
                       </td>
                     </tr>
@@ -1495,7 +1495,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          Storage Plot allotted to{data?.shortbuyer}
+                          Storage Plot allotted to {data?.shortbuyer}
                         </p>
                       </td>
                       <td
@@ -1512,7 +1512,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          {data.storagePlot}
+                          {data.storagePlot}, India
                         </p>
                       </td>
                     </tr>
