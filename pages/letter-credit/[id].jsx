@@ -147,7 +147,6 @@ function Index() {
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
-      e.target.value == 'creditAvailablewith' ||
       e.target.value == 'applicant' ||
       e.target.value == 'portOfDischarge' ||
       e.target.value == 'portOfLoading'
