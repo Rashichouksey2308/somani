@@ -1086,7 +1086,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               Total Contract Value
             </Col>
             <Col md={7} className={styles.right}>
-              {data.orderValueCurrency}{' '}
+              {data.curr}{' '}
               {data.totalPrice?.toLocaleString(`${data.orderValueCurrency == "INR" ? "en-IN" : "en-EN"}`, {
                 maximumFractionDigits: 2,
               })}

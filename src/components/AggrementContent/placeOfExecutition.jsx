@@ -83,7 +83,7 @@ function Index(props) {
         name: '',
         execution: '',
         dateOfExecution: null,
-        actions: 'false',
+        actions: 'true',
       },
     ]);
   };
