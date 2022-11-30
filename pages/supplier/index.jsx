@@ -859,7 +859,6 @@ console.log(apiData,"apiData")
                       <select
                         onChange={onChangeHandler}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        required
                         name="constitution"
                         value={formData?.constitution}
                       >

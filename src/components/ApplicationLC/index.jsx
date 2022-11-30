@@ -73,7 +73,7 @@ useEffect(() => {
     setNumber([...number.slice(0, index), ...number.slice(index + 1)]);
   };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 2100]);
+    const doc = new jsPDF('p', 'pt', [1500, 2250]);
     doc.html(ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
       callback: function (doc) {
         doc.save('ApplicationLC.pdf');
