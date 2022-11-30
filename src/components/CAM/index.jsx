@@ -271,7 +271,7 @@ function Index({
     },
 
     responsive: true,
-    cutout: 110,
+    cutout: 95,
   };
   const options2 = {
     aspectRatio: 1,
