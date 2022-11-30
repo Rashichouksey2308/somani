@@ -612,7 +612,7 @@ const cancelEditAddress = () => {
                   }}
                   value={associateData.gstin}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {props.gstList &&
                     props.gstList.map((val, index) => {
                       return <option value={val}>{val}</option>;
@@ -721,7 +721,7 @@ const cancelEditAddress = () => {
                         setAddress(e.target.name, e.target.value);
                       }}
                     >
-                      <option disabled>Select an option</option>
+                      <option disabled >Select an option</option>
                       <option value="Registered">Registered Office</option>
                       {/* <option value="Branch">Branch </option> */}
                       <option value="Supplier">Supplier Address</option>
@@ -904,7 +904,7 @@ const cancelEditAddress = () => {
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
-                                        <option>Select an option</option>
+                                        <option value="">Select an option</option>
                                       
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;

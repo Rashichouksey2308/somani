@@ -415,7 +415,7 @@ export default function QuadripartiteAgreement(data) {
             Quantity
           </Col>
           <Col md={7} className={styles.right}>
-            {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
+            {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} {data?.unitOfQuantity?.toUpperCase()}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -447,7 +447,7 @@ export default function QuadripartiteAgreement(data) {
             Port of Discharge
           </Col>
           <Col md={7} className={styles.right}>
-            {data.dischargePort}
+            {data.dischargePort}, India
           </Col>
         </Row>
         <Row className={`${styles.row} ${styles.last} border_black`}>
@@ -455,7 +455,7 @@ export default function QuadripartiteAgreement(data) {
             Storage Plot allotted to {data?.shortbuyer}
           </Col>
           <Col md={7} className={styles.right}>
-            {data.storagePlot}
+            {data.storagePlot}, India
           </Col>
         </Row>
       </div>

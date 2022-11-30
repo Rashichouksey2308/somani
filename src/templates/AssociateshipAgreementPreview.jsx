@@ -1444,7 +1444,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          {data.dischargePort}
+                          {data.dischargePort}, India
                         </p>
                       </td>
                     </tr>
@@ -1562,7 +1562,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          {data.orderValueCurrency}{' '}
+                          {data.curr}{' '}
                           {data.totalPrice?.toLocaleString(`${data.orderValueCurrency == 'INR' ? 'en-IN' : 'en-EN'}`, {
                             maximumFractionDigits: 2,
                           })}
