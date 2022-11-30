@@ -132,6 +132,8 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
+  //mcaReport 
+  getMcaReport : '/karza/request-mca-document',
   // preview
   preview: '/document/access/preview',
 
