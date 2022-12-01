@@ -73,21 +73,16 @@ function Index({
 
   const darkMode = useSelector((state) => state.user.isDark);
 
-
   useEffect(() => {
     let id1 = sessionStorage.getItem('orderID');
     dispatch(GetDocuments(`?order=${id1}`));
   }, [dispatch]);
-
-
 
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
   });
 
   const { documentsFetched } = useSelector((state) => state.review);
-
-
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -99,8 +94,6 @@ function Index({
     saveApprovedCreditData(name, value);
     // }
   };
-
-
 
   const [sanctionComments, setSanctionComments] = useState('');
 
@@ -125,12 +118,10 @@ function Index({
   };
 
   const primaryBankName = () => {
-    
     let filteredData = [];
     filteredData = camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
     const length = _get(filteredData[0], 'bankName', '');
-
 
     return length;
   };
@@ -206,10 +197,7 @@ function Index({
         }
       });
     }
-
-
   }, [camData]);
-
 
   let data = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
@@ -289,14 +277,10 @@ function Index({
     },
   };
 
-
   function createGradient(ctx, area, color, color2) {
-
-
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
-
 
     return gradient;
   }
@@ -405,7 +389,6 @@ function Index({
     }
   };
   const findTop3Share = (data) => {
-
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
@@ -438,11 +421,14 @@ function Index({
     }
   };
   const findTop3Open = (data) => {
-
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
-        if (val.finalAmountSecured !== null || !val.dateOfSatisfactionOfChargeInFull  ||val.dateOfSatisfactionOfChargeInFull === '' ) {
+        if (
+          val.finalAmountSecured !== null ||
+          !val.dateOfSatisfactionOfChargeInFull ||
+          val.dateOfSatisfactionOfChargeInFull === ''
+        ) {
           temp.push({
             name: val.nameOfChargeHolder1,
             value: val.finalAmountSecured,
@@ -474,7 +460,6 @@ function Index({
       setTop3Open1({ ...top5data });
     }
   };
-
 
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus);
@@ -639,7 +624,7 @@ function Index({
 
 export default Index;
 
-const basicInfo = (camData, orderDetails, camConversionunit) => {
+export const basicInfo = (camData, orderDetails, camConversionunit) => {
   // console
   return (
     <>
@@ -658,7 +643,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
           id="basicInfo"
           // className="collapse"
           aria-labelledby="basicInfo"
-          data-parent="#profileAccordion"
+          data-parent="#basicInfo"
         >
           <div className={`${styles.info_wrapper}  card-body border_color pb-4`}>
             <div className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}>
@@ -836,8 +821,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
     </>
   );
 };
-const supplierInfo = (camData) => {
-
+export const supplierInfo = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -851,7 +835,7 @@ const supplierInfo = (camData) => {
           <h2 className="mb-0">Supplier Info</h2>
           <span>+</span>
         </div>
-        <div id="supplierInfo" className="collapse" aria-labelledby="supplierInfo" data-parent="#profileAccordion">
+        <div id="supplierInfo" className="collapse" aria-labelledby="supplierInfo" data-parent="#supplierInfo">
           <div className={`${styles.info_wrapper}  card-body border_color`}>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
@@ -932,7 +916,7 @@ const supplierInfo = (camData) => {
     </>
   );
 };
-const groupExposure = (camData, camConversionunit) => {
+export const groupExposure = (camData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -946,7 +930,7 @@ const groupExposure = (camData, camConversionunit) => {
           <h2 className="mb-0">Group Exposure Details</h2>
           <span>+</span>
         </div>
-        <div id="groupExposure" className="collapse" aria-labelledby="groupExposure" data-parent="#profileAccordion">
+        <div id="groupExposure" className="collapse" aria-labelledby="groupExposure" data-parent="#groupExposure">
           <div className={`${styles.info_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
               {camData &&
@@ -1027,7 +1011,7 @@ const groupExposure = (camData, camConversionunit) => {
     </>
   );
 };
-const orderSummary = (camData, camConversionunit) => {
+export const orderSummary = (camData, camConversionunit) => {
   let name = camData?.company?.companyName ?? 'N A';
   let Initials = name?.split(' ');
 
@@ -1044,7 +1028,7 @@ const orderSummary = (camData, camConversionunit) => {
           <h2 className="mb-0">Order Summary - Last 6 Orders</h2>
           <span>+</span>
         </div>
-        <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">
+        <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#orderSummary">
           <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
@@ -1094,14 +1078,14 @@ const orderSummary = (camData, camConversionunit) => {
     </>
   );
 };
-const creditProfile = (
+export const creditProfile = (
   camData,
-  openChargesLength,
-  primaryBankName,
+  openChargesLength = () => {},
+  primaryBankName = () => {},
   latestAuditorData,
   previousAuditorData,
   companyData,
-  CreditAgency,
+  CreditAgency = () => {},
 ) => {
   return (
     <>
@@ -1116,7 +1100,7 @@ const creditProfile = (
           <h2 className="mb-0">Credit Profile</h2>
           <span>+</span>
         </div>
-        <div id="creditProfile" className="collapse" aria-labelledby="creditProfile" data-parent="#profileAccordion">
+        <div id="creditProfile" className="collapse" aria-labelledby="creditProfile" data-parent="#creditProfile">
           <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
             <div className={`${styles.content}`}>
               <Row className={`mb-3`}>
@@ -1162,7 +1146,7 @@ const creditProfile = (
     </>
   );
 };
-const directorDetails = (camData) => {
+export const directorDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1176,12 +1160,7 @@ const directorDetails = (camData) => {
           <h2 className="mb-0">Director Details</h2>
           <span>+</span>
         </div>
-        <div
-          id="directorDetails"
-          className="collapse"
-          aria-labelledby="directorDetails"
-          data-parent="#profileAccordion"
-        >
+        <div id="directorDetails" className="collapse" aria-labelledby="directorDetails" data-parent="#directorDetails">
           <div className={`${styles.order_wrapper} px-0 card-body`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
@@ -1225,7 +1204,8 @@ const directorDetails = (camData) => {
     </>
   );
 };
-const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
+export const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
+  const { datasets = [] } = top3Share;
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1243,7 +1223,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
           id="shareHolding"
           // className="collapse open"
           aria-labelledby="shareHolding"
-          data-parent="#profileAccordion"
+          data-parent="#shareHolding"
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <Row>
@@ -1256,14 +1236,17 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {top3Share.datasets &&
-                    top3Share?.datasets[0]?.data.map((val, index) => {
+                  {datasets !== [] &&
+                    datasets[0]?.data?.map((val, index) => {
                       return (
                         <div
                           key={index}
                           className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
                         >
-                          <div className={styles.round} style={{ backgroundColor: backgroundColor[index] }}></div>
+                          <div
+                            className={styles.round}
+                            style={{ backgroundColor: chargeDetailsbackgroundColor[index] }}
+                          ></div>
                           <span className={` heading ml-2`}>
                             {top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}
                           </span>
@@ -1320,9 +1303,9 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                           <td>
                             {share?.percentageShareHolding
                               ? (share?.percentageShareHolding * 100)?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }) + '%'
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                }) + '%'
                               : ''}
                           </td>
                           <td>{share?.director ? 'Yes' : 'No'}</td>
@@ -1378,8 +1361,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
-
+export const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1397,7 +1379,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
           id="chargeDetails"
           // className="collapse open"
           aria-labelledby="chargeDetails"
-          data-parent="#profileAccordion"
+          data-parent="#chargeDetails"
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <Row>
@@ -1455,8 +1437,8 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                       ];
                       let randColor = colors[Math.floor(Math.random() * colors.length)];
                       if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
-                        return null
-                      }else{
+                        return null;
+                      } else {
                         return (
                           <tr key={index}>
                             <td className={`d-flex justify-content-start align-content-center`}>
@@ -1469,7 +1451,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                                   {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                                 </span>
                               </div>
-  
+
                               <span className={` ${styles.name} ml-3  `}>
                                 {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
                               </span>
@@ -1482,14 +1464,14 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                                   charge?.finalAmountSecured,
                                 )?.toLocaleString('en-In')} */}
                             </td>
-  
+
                             <td>
                               {charge?.dateOfCreationOfCharge
                                 ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
                                 : ''}
                             </td>
                           </tr>
-                        )
+                        );
                       }
                     })}
                   {/* <tr>
@@ -1541,7 +1523,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
     </>
   );
 };
-const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor) => {
+export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1555,7 +1537,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
           <h2 className="mb-0">Debt Profile</h2>
           <span>+</span>
         </div>
-        <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">
+        <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#debtProfile">
           <div className={`${styles.order_wrapper} card-body`}>
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
@@ -1601,10 +1583,11 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           <div
                             style={{
                               backgroundColor: `${debtProfileColor(debt.conduct)}`,
-                              width: `${(Number(debt.limit) / totalLimitDebt() > 1
-                                ? 1
-                                : Number(debt.limit) / totalLimitDebt()) * 100
-                                }%`,
+                              width: `${
+                                (Number(debt.limit) / totalLimitDebt() > 1
+                                  ? 1
+                                  : Number(debt.limit) / totalLimitDebt()) * 100
+                              }%`,
                             }}
                             className={`${styles.fill}`}
                           ></div>
@@ -1668,14 +1651,15 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           })}
                         </td>
                         <td
-                          className={`${styles.conduct}  ${debt.conduct == 'Good'
-                            ? 'good'
-                            : debt.conduct == 'Satisfactory'
+                          className={`${styles.conduct}  ${
+                            debt.conduct == 'Good'
+                              ? 'good'
+                              : debt.conduct == 'Satisfactory'
                               ? 'satisfactory'
                               : debt.conduct == 'Average'
-                                ? 'average'
-                                : 'danger'
-                            }`}
+                              ? 'average'
+                              : 'danger'
+                          }`}
                         >
                           {debt?.conduct}
                         </td>
@@ -1714,8 +1698,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
     </>
   );
 };
-const operationalDetails = (camData) => {
-
+export const operationalDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1733,7 +1716,7 @@ const operationalDetails = (camData) => {
           id="operationalDetails"
           className="collapse"
           aria-labelledby="operationalDetails"
-          data-parent="#profileAccordion"
+          data-parent="#operationalDetails"
         >
           <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
             <div className={`${styles.content}`}>
@@ -1743,8 +1726,8 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                   </span>
@@ -1754,8 +1737,8 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                   </span>
@@ -1795,8 +1778,8 @@ const operationalDetails = (camData) => {
                     })} */}
                     {camData?.productSummary?.availableStock
                       ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.availableStock ? 'MT' : ''}
                   </span>
@@ -1813,8 +1796,8 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.AvgMonthlyElectricityBill
                       ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}
                   </span>
                 </Col>
@@ -1831,8 +1814,8 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                   </span>
@@ -1845,7 +1828,7 @@ const operationalDetails = (camData) => {
     </>
   );
 };
-const revenuDetails = (gstData, camConversionunit) => {
+export const revenuDetails = (gstData, camConversionunit) => {
   const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary;
 
   function calcPc(n1, n2) {
@@ -1868,7 +1851,7 @@ const revenuDetails = (gstData, camConversionunit) => {
           <h2 className="mb-0">Revenue Details</h2>
           <span>+</span>
         </div>
-        <div id="revenuDetails" className="collapse" aria-labelledby="revenuDetails" data-parent="#profileAccordion">
+        <div id="revenuDetails" className="collapse" aria-labelledby="revenuDetails" data-parent="#revenuDetails">
           <div className={`${styles.order_wrapper} p-0 card-body`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
@@ -1930,7 +1913,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                 <td>Related Party Sales</td>
                 <td>
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                    RevenueDetails?.relatedPartySales?.current?.value ? (
+                  RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -1978,7 +1961,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                 <td>Intra Organization Sales</td>
                 <td>
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2281,7 +2264,7 @@ const revenuDetails = (gstData, camConversionunit) => {
     </>
   );
 };
-const financeDetails = (
+export const financeDetails = (
   latestBalanceData,
   previousBalanceData,
   data,
@@ -2305,7 +2288,7 @@ const financeDetails = (
           <h2 className="mb-0">Financial Summary</h2>
           <span>+</span>
         </div>
-        <div id="financeDetails" className="collapse" aria-labelledby="financeDetails" data-parent="#profileAccordion">
+        <div id="financeDetails" className="collapse" aria-labelledby="financeDetails" data-parent="#financeDetails">
           <div className={`${styles.order_wrapper2} card-body`}>
             <Row className="no-gutters">
               <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
@@ -2316,15 +2299,15 @@ const financeDetails = (
                       {_get(companyData, 'financial.balanceSheet[0].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                            .format('MMM-YY')
+                            .toUpperCase()}
                     </th>
                     <th>
                       {_get(companyData, 'financial.balanceSheet[1].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                            .format('MMM-YY')
+                            .toUpperCase()}
                     </th>
                   </tr>
                   <tr>
@@ -2354,7 +2337,7 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
-                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
+                            _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2366,7 +2349,7 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
-                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
+                            _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2381,11 +2364,11 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                            '',
-                          ),
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                              '',
+                            ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2397,11 +2380,11 @@ const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                            '',
-                          ),
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                              '',
+                            ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2642,7 +2625,7 @@ const financeDetails = (
     </>
   );
 };
-const compilanceStatus = (companyData, camData, litigationStatus) => {
+export const compilanceStatus = (companyData, camData, litigationStatus) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2660,7 +2643,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
           id="compilanceStatus"
           className="collapse"
           aria-labelledby="compilanceStatus"
-          data-parent="#profileAccordion"
+          data-parent="#compilanceStatus"
         >
           <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
             <div className={`${styles.content}`}>
@@ -2668,17 +2651,17 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
                   <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
-                    {[].forEach((l, index2) => { })}
+                    {[].forEach((l, index2) => {})}
                     {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !=
-                      ''
+                    ''
                       ? moment(
-                        _get(
-                          companyData,
-                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                          '',
-                        ),
-                        'MMyyyy',
-                      ).format('MM-yyyy')
+                          _get(
+                            companyData,
+                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                            '',
+                          ),
+                          'MMyyyy',
+                        ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
@@ -2732,7 +2715,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
     </>
   );
 };
-const strengthAndWeakness = (camData) => {
+export const strengthAndWeakness = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2750,7 +2733,7 @@ const strengthAndWeakness = (camData) => {
           id="strengthAndWeakness"
           className="collapse"
           aria-labelledby="strengthAndWeakness"
-          data-parent="#profileAccordion"
+          data-parent="#strengthAndWeakness"
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <Row>
@@ -2835,7 +2818,7 @@ const strengthAndWeakness = (camData) => {
     </>
   );
 };
-const sectionTerms = (
+export const sectionTerms = (
   camData,
   sanctionComments,
   setSanctionComments,
@@ -2882,7 +2865,7 @@ const sectionTerms = (
             +
           </span>
         </div>
-        <div id="sectionTerms" className="collapse" aria-labelledby="sectionTerms" data-parent="#profileAccordion">
+        <div id="sectionTerms" className="collapse" aria-labelledby="sectionTerms" data-parent="#sectionTerms">
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -3070,7 +3053,7 @@ const sectionTerms = (
     </>
   );
 };
-const Documents = (documentsFetched) => {
+export const Documents = (documentsFetched) => {
   const dispatch = useDispatch();
   return (
     <>
@@ -3085,7 +3068,7 @@ const Documents = (documentsFetched) => {
           <h2 className="mb-0">Documents Available</h2>
           <span>+</span>
         </div>
-        <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#profileAccordion">
+        <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#Documents">
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
               {documentsFetched &&
@@ -3198,7 +3181,7 @@ const Documents = (documentsFetched) => {
     </>
   );
 };
-const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit) => {
+export const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3230,7 +3213,7 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
           id="trends"
           //  className="collapse open"
           aria-labelledby="trends"
-          data-parent="#profileAccordion"
+          data-parent="#trends"
         >
           <div className={`${styles.graph_wrapper} card-body`}>
             <Row className={`m-0`}>
@@ -3321,7 +3304,7 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
     </>
   );
 };
-const skewness = (
+export const skewness = (
   top5Customers,
   options,
   tempArr,
@@ -3363,7 +3346,7 @@ const skewness = (
           id="skewness"
           // className="collapse open"
           aria-labelledby="skewness"
-          data-parent="#profileAccordion"
+          data-parent="#skewness"
         >
           <div className={`${styles.graph_wrapper} card-body`}>
             <Row className={`m-0`}>
@@ -3499,8 +3482,7 @@ const skewness = (
     </>
   );
 };
-const customerRating = (data, filteredCreditRating, rating, darkMode) => {
-
+export const customerRating = (data, filteredCreditRating, rating, darkMode) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3516,7 +3498,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
             <span className={` d-flex align-items-center justify-content-between`}></span>+
           </span>
         </div>
-        <div id="rating" className="collapse" aria-labelledby="rating" data-parent="#profileAccordion">
+        <div id="rating" className="collapse" aria-labelledby="rating" data-parent="#rating">
           <div className={`${styles.rating_wrapper} card-body`}>
             <Row className={`m-0`}>
               <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
@@ -3711,23 +3693,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#FFB700',
-                          width: `${filteredCreditRating?.length > 0
-                            ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating) *
-                            100
-                            : '0'
-                            }%`,
+                          width: `${
+                            filteredCreditRating?.length > 0
+                              ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                            Number(
-                              filteredCreditRating[0].businessProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating,
-                            ) * 100
-                          ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].businessProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3741,23 +3724,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#FF4230',
-                          width: `${filteredCreditRating?.length > 0
-                            ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating) *
-                            100
-                            : '0'
-                            }%`,
+                          width: `${
+                            filteredCreditRating?.length > 0
+                              ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                            Number(
-                              filteredCreditRating[0].revenueProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating,
-                            ) * 100
-                          ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].revenueProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3771,23 +3755,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#83C400',
-                          width: `${filteredCreditRating?.length > 0
-                            ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating) *
-                            100
-                            : '0'
-                            }%`,
+                          width: `${
+                            filteredCreditRating?.length > 0
+                              ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                            Number(
-                              filteredCreditRating[0].financialProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating,
-                            ) * 100
-                          ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].financialProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
