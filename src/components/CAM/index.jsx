@@ -1590,6 +1590,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, bac
                           </td>
                           <td>
                             {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                              minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}
                             {/* {Number(
