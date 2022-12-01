@@ -1181,12 +1181,12 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       </td>
                       <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
                       <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
-                      <td className='text-right'>
+                      <td>
                         {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
                       </td>
                       <td>{item?.commodity}</td>
                       <td>In Process</td>
-                      <td className='text-right'> 12</td>
+                      <td> 12</td>
                     </tr>
                   );
                 })}
