@@ -266,7 +266,7 @@ const assignmentSupplier = (props) => {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>Assignment Letter between Seller, Buyer and Supplier</u>
+            Assignment Letter between Seller, Buyer and Supplier
           </strong>
         </p>
         <p className="text_sales">
@@ -508,7 +508,7 @@ const tripartiteAgreement = () => {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>TRIPARTITE AGREEMENT</u>
+            TRIPARTITE AGREEMENT
           </strong>
         </p>
         <p className="text_sales">
@@ -739,7 +739,7 @@ const salesContract = () => {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>SALES CONTRACT</u>
+            SALES CONTRACT
           </strong>
         </p>
         <p className="text_sales">

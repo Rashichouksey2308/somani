@@ -15,13 +15,13 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           {' '}
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
-            <u>
-              {data.buyer},</u>
+            
+              {data.buyer},
               <br />
-              <u>{data.buyerAddress?.fullAddress}</u>,{" "}
-              <u>{data.buyerAddress?.city}</u>{" "}<br/>
-              <u>{data.buyerAddress?.country}</u>,{" "}
-              <u>{data.buyerAddress?.pinCode}</u>            
+              {data.buyerAddress?.fullAddress},{" "}
+              {data.buyerAddress?.city}{" "}<br/>
+              {data.buyerAddress?.country},{" "}
+              {data.buyerAddress?.pinCode}            
           </span>
         </p>
         <p className="text-center text_sales">
@@ -42,7 +42,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               That we have requested 
               Seller to import on our behalf the Goods and sell the same to us on stock and sale basis as per
               Associateship Agreement. We confirm and undertake that all the terms &amp; conditions of the Sales
-              Contract entered into between <u>{data.shortseller}</u> and the Supplier (hereinafter referred to as “Sales Contract”)
+              Contract entered into between {data.shortseller} and the Supplier (hereinafter referred to as “Sales Contract”)
               are acceptable and binding on us.
             </p>
           </li>
@@ -92,7 +92,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>
-                <u>Place:</u> <u>{data.placeOfExecution}</u>
+                Place: {data.placeOfExecution}
               </strong>
             </p>
           </Col>
@@ -103,7 +103,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               data?.associateBuyerAuthorized?.map((val, index) => {
                 return (                  
                   <p className='mb-0'>                      
-                    <strong><u>Name :</u> <u>{val.name}</u></strong>
+                    <strong>Name : {val.name}</strong>
                   </p>                  
                 );
               })
@@ -116,7 +116,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <Col md={6}>
             <p className="text_sales m-0">
               <strong>
-                <u>Date:</u> <u>{data.dateOfExecution}</u>
+                Date: {data.dateOfExecution}
               </strong>
             </p>
           </Col>
@@ -127,7 +127,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               data?.associateBuyerAuthorized?.map((val, index) => {
                 return (                  
                   <p className='mb-0'>
-                    <strong><u>Designation :</u> <u>{val.designation}</u></strong>
+                    <strong>Designation : {val.designation}</strong>
                   </p>                  
                 );s
               })
