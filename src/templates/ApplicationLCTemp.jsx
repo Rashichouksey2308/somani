@@ -1025,13 +1025,15 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
+                            {lcModuleData?.lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' :lcModuleData?.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()== "NO" ?' Not Allowed' :"Conditional" }
+                            
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
+                   
                     {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments ? (
                       <tr>
                         <td
@@ -1083,7 +1085,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
+                             {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}
+                            
                           </p>
                         </td>
                       </tr>

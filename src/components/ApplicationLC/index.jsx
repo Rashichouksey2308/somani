@@ -318,7 +318,7 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>43P </span>
                             <span>PARTIAL SHIPMENT</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}</td>
+                          <td className="term_para">{lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' :lcModuleData?.lcApplication?.partialShipment?.toUpperCase()== "NO" ?' Not Allowed' :"Conditional" }</td>
                         </tr>
                       ) : (
                         ''
