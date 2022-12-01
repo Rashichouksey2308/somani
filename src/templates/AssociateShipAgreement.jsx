@@ -482,7 +482,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
                 <ol type="A" className={`${styles.oderListChild} pl-0`}>
                   <p className="ml-n4">
                     <strong>
-                      11 (A). <u>OCEAN TRANSPORTATION:</u>
+                      11 (A). OCEAN TRANSPORTATION:
                     </strong>
                   </p>
                   <li>
