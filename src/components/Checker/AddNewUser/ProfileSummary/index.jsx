@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 import ProfileDetails from './ProfileDetails';
 import ProfessionalDetails from './ProfessionalDetails';
 import Documents from './Documents';
-import Remarks from '../Remarks';
+import Remarks from '../../Common/Remarks';
 
 function Index() {
     return (

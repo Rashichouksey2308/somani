@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import VendorDetails from './VendorDetails';
 import BankDetails from '../BankDetails';
 import Documents from '../Documents';
-import Remarks from '../Remarks';
+import Remarks from '../../Common/Remarks';
 
 function Index() {
 
