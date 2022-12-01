@@ -1570,10 +1570,31 @@ export default function QuadripartiteAgreementPreview(data) {
                             textTransform: 'capitalize'
                           }}
                         >
-                          <strong>{data.seller}</strong>
+                          <strong>{data.associateBuyer}</strong>
                         </p>
                       </td>
                       <td align="left">
+                          {data?.associateBuyerAuthorized?.length > 0 &&
+                            data?.associateBuyerAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
                         <p
                           style={{
                             fontSize: '12px',
@@ -1593,24 +1614,47 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
-                          FOR & ON BEHALF OF
+                          <strong>{data.cha}</strong>
                         </p>
                       </td>
                       <td align="left">
+                          {data?.chaAuthorized?.length > 0 &&
+                            data?.chaAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
                         <p
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
-                          FOR & ON BEHALF OF
+                          <strong>{data.buyer}</strong>
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                     <tr>
                       <td align="left">
                         <p
                           style={{
@@ -1620,10 +1664,78 @@ export default function QuadripartiteAgreementPreview(data) {
                             textTransform: 'capitalize'
                           }}
                         >
-                          <strong>{data.seller}</strong>
+                          <strong>{data.cma}</strong>
                         </p>
                       </td>
                       <td align="left">
+                          {data?.cmaAuthorized?.length > 0 &&
+                            data?.cmaAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000',
+                            textTransform: 'capitalize'
+                          }}
+                        >
+                          <strong>{data.buyer}</strong>
+                        </p>
+                      </td>
+                    </tr>
+                     <tr>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000',
+                            textTransform: 'capitalize'
+                          }}
+                        >
+                          <strong>{data.buyer}</strong>
+                        </p>
+                      </td>
+                      <td align="left">
+                          {data?.buyerAuthorized?.length > 0 &&
+                            data?.buyerAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
                         <p
                           style={{
                             fontSize: '12px',
