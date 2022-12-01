@@ -1136,19 +1136,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
             </Col>
           </Row> */}
         </div>
-          {data?.cmaAuthorized?.length > 0 &&
-                  data?.cmaAuthorized?.map((val, index) => {
-                    return (
-                      <li key={index}>
-                        <p className='mb-0'>
-                          Name - {val.name}
-                        </p>
-                        <p className='mb-0'>
-                          Designation - {val.designation}
-                        </p>
-                      </li>
-                    );
-                  })}
+       
         <div className={`row`}>
           <Col md={6}>
             <p className="text_sales">
