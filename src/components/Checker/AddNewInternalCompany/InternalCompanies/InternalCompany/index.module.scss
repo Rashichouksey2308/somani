@@ -1,0 +1,97 @@
+@import '../../../../styles/Core/config';
+
+.main {
+  margin-bottom: 26px;
+  border-radius: 6px !important;
+
+  .head_container {
+    border-bottom: 2px solid #cad6e6;
+    padding: 25px 35px !important;
+    height: 80px;
+    cursor: pointer;
+
+    .heading {
+      color: #3687e8;
+      font-weight: bold;
+      font-size: 22px;
+      text-transform: capitalize;
+      line-height: 27px;
+    }
+
+    .status_heading {
+      letter-spacing: 0.53px;
+      color: #00000080;
+      font-size: 16px;
+      line-height: 17px;
+      font-weight: 500;
+
+      .active {
+        color: #43c34d;
+        font-size: 22px;
+        line-height: 27px;
+        font-weight: bold;
+        margin-left: 12px;
+      }
+    }
+
+    span {
+      font-size: 45px;
+      color: #3687e8;
+      font-weight: normal;
+      line-height: 20px;
+
+      @include respond(lg-desktop) {
+        font-size: 35px;
+      }
+    }
+  }
+  .border_bottom {
+    border-bottom: 2px solid #cad6e6;
+  }
+}
+.inner_head_container {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #0000001f;
+  border-radius: 9px;
+  padding: 25px 35px !important;
+  cursor: pointer;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  .heading {
+    color: #3687e8;
+    font-weight: bold;
+    font-size: 22px;
+    text-transform: capitalize;
+    line-height: 27px;
+  }
+}
+.inner_head_containt {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #0000001f;
+  border-radius: 9px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 25px;
+  border-top: 0;
+}
+.registered_address {
+  background: #ffffff;
+  border: 1px solid #0000001f;
+  border-radius: 9px;
+  padding: 36px 39px;
+  & p {
+    font-size: 20px;
+    color: #111111;
+  }
+  & h3 {
+    font: normal normal bold 20px/25px Helvetica Neue;
+    letter-spacing: 0px;
+    color: #111111;
+    text-transform: capitalize;
+    & span {
+      font: normal normal normal 20px/25px Helvetica Neue;
+      letter-spacing: 0.19px;
+    }
+  }
+}
