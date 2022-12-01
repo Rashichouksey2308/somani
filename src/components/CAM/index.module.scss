@@ -519,6 +519,7 @@
         font-weight: bold;
         color: #8492a6;
         text-align: right;
+        white-space: nowrap;
         background: #fafafb;
         @include respond(lg-desktop) {
           font-size: 14px;
@@ -527,11 +528,7 @@
         &:first-child {
           text-align: left;
         }
-        &:last-child {
-          padding-right: 35px;
-          //text-align: left;
-         
-        }
+      
       }
 
       td {
@@ -545,10 +542,7 @@
           font-size: 14px;
           line-height: 1.2;
         }
-        &:last-child {
-          padding-right: 35px;
-        
-        }
+      
         .dashedLine {
           border-bottom: 1px dashed black;
         }
