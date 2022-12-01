@@ -859,7 +859,6 @@ console.log(apiData,"apiData")
                       <select
                         onChange={onChangeHandler}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        required
                         name="constitution"
                         value={formData?.constitution}
                       >
@@ -2153,10 +2152,10 @@ console.log(apiData,"apiData")
                             <strong className="text-danger ml-0">*</strong>{' '}
                           </td>
 
-                          <td>{incumbencyDoc?.document?.originalName ? returnDocFormat(incumbencyDoc?.document?.originalName) : null}</td>
+                          <td>{incumbencyDoc?.originalName ? returnDocFormat(incumbencyDoc?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {incumbencyDoc && incumbencyDoc?.document?.date
-                              ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
+                            {incumbencyDoc && incumbencyDoc?.date
+                              ? moment(incumbencyDoc?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
                           <td colSpan={2}>
@@ -2176,7 +2175,7 @@ console.log(apiData,"apiData")
                               <div
                                 className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                               >
-                                <span>{incumbencyDoc?.document?.name ? incumbencyDoc?.document?.name : incumbencyDoc?.document?.originalName}</span>
+                                <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
                                 <img
                                   onClick={(e) => setIncumbencyDoc(null)}
                                   className={`${styles.close_image} image_arrow mx-2`}
@@ -2196,8 +2195,8 @@ console.log(apiData,"apiData")
 
                           <td>{thirdParty?.originalName ? returnDocFormat(thirdParty?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {thirdParty && thirdParty?.lastModifiedDate
-                              ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
+                            {thirdParty && thirdParty?.date
+                              ? moment(thirdParty?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
                           <td colSpan={2}>

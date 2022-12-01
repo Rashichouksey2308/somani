@@ -648,7 +648,7 @@ export default function AssignmentLetterPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                           {data.orderValueCurrency}{" "}
+                           {data.curr}{" "}
                             {data.priceOfGoods?.toLocaleString(`${data.orderValueCurrency=="INR"?"en-In":"en-En"}`, {
                               maximumFractionDigits: 2,
                             })}{' '}
@@ -687,7 +687,7 @@ export default function AssignmentLetterPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          {data.toleranceLevel?.toLocaleString('en-In', {
+                         +/- {data.toleranceLevel?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
                           })}{' '}
                           %
@@ -762,7 +762,7 @@ export default function AssignmentLetterPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          {data.dischargePort}
+                          {data.dischargePort}, India
                         </p>
                       </td>
                     </tr>

@@ -1675,7 +1675,6 @@ function Index() {
                                   id="Code"
                                   name="buyerGSTIN"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
                                   onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                   value={invoiceData?.buyerGSTIN}
                                 >
@@ -1806,7 +1805,6 @@ function Index() {
                                   id="Code"
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
                                   value={invoiceData?.importerName}
                                   onChange={(e) => dropDownChange(e.target.name, e.target.value)}
                                   style={{ paddingRight: '40px' }}
@@ -1933,7 +1931,6 @@ function Index() {
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
                                   value={invoiceData?.accountNo}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);

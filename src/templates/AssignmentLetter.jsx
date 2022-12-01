@@ -180,7 +180,7 @@ export default function AssignmentLetter(data) {
               Price of Goods / MT
             </Col>
             <Col md={7} className={styles.right}>
-              {data.orderValueCurrency}{" "}
+              {data.curr}{" "}
               {data.priceOfGoods?.toLocaleString(`${data.orderValueCurrency=="INR"?"en-In":"en-En"}`, {
                 maximumFractionDigits: 2,
               })}{' '}
@@ -192,7 +192,7 @@ export default function AssignmentLetter(data) {
               Tolerance levels
             </Col>
             <Col md={7} className={styles.right}>
-              {data.toleranceLevel?.toLocaleString('en-In', {
+              +/-  {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
               })}{' '}
               %
@@ -211,7 +211,7 @@ export default function AssignmentLetter(data) {
               Discharge Port
             </Col>
             <Col md={7} className={styles.right}>
-              {data.dischargePort}
+              {data.dischargePort}, India
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

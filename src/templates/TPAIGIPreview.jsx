@@ -1531,7 +1531,7 @@ export default function TPAPreview(data) {
                         {data?.quan?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
-                        MT
+                       {data?.unitOfQuantity?.toUpperCase()}
                       </p>
                     </td>
                   </tr>
