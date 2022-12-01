@@ -54,10 +54,10 @@ export default function QuadripartiteAgreementPreview(data) {
                       color: '#000000',
                     }}
                   >
-                    <strong>{data.buyer}</strong> , (CIN : {data.cin}) a company incorporated under the Companies Act, 1956, having its
+                    <strong>{data.buyer}</strong>, (CIN : {data.cin}) a company incorporated under the Companies Act, 1956, having its
                     registered office at{' '}
                     <strong>
-                      {data.buyerAddress?.fullAddress}, {data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
+                      {data.buyerAddress?.fullAddress}, {data.buyerAddress?.city}, {data.buyerAddress?.country},{' '}
                       {data.buyerAddress?.pinCode}
                     </strong>{' '}
                     through its Authorised Signatory (hereinafter called <strong>{data.shortbuyer}</strong>, which

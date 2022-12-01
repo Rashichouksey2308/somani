@@ -28,8 +28,8 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify">
                   <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
-                    {data.buyer},(CIN : {data.cin}) a company incorporated under the Indian Companies Act, 1956, having its Registered
-                    Office at {data.buyerAddress?.fullAddress},
+                    {data.buyer},  Indian Companies Act, 1956, having its Registered
+                    Office at {data.buyerAddress?.fullAddress}, 
                     {/* {data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
                     {data.buyerAddress?.pinCode},  */}
                     through its Authorised Signatory (hereinafter called{' '}
