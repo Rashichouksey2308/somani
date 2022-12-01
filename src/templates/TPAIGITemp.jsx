@@ -71,7 +71,7 @@ export default function TPAIGITemp(data) {
           supervision of Collateral Manager and under the order of Financing Bank.
         </p>
         <p className="text_sales">
-          <u>{data.shortbuyer}</u>hereby agrees that it shall grant unrestricted access to a clearly demarcated part of
+          <u>{data.shortbuyer}</u> hereby agrees that it shall grant unrestricted access to a clearly demarcated part of
           the Storage Facility (as per stocking requirement) in ready-to-operate-condition exclusively for the use of
           Collateral Manager where the pledged Goods shall only be stored (the “<strong>Designated Storage Area</strong>
           ”).
@@ -81,7 +81,7 @@ export default function TPAIGITemp(data) {
           <strong>Article 1 - STORAGE FACILITY</strong>
         </p>
         <p className=" text_sales">
-          <u>{data.shortbuyer}</u>hereby grants unrestricted access of the Designated Storage Area to Collateral Manager,
+          <u>{data.shortbuyer}</u> hereby grants unrestricted access of the Designated Storage Area to Collateral Manager,
           which is in a ready to store condition. The Plan duly marking the Designated Storage Area is attached Schedule 1
           to this Agreement. The Goods deposited in the Designated Storage Area shall be accessed exclusively by
           Collateral Manager during the term of this Agreement.{' '}
@@ -242,7 +242,7 @@ export default function TPAIGITemp(data) {
           Policy/ies in respect of the said Designated Storage Area.
         </p>
         <p className=" text_sales">
-          <u>{data.shortbuyer}</u>hereby agrees to make the payments referred above regularly without any delay and
+          <u>{data.shortbuyer}</u> hereby agrees to make the payments referred above regularly without any delay and
           default and shall produce to Collateral Manager, after expiry of every 12 months, certified copies of the
           receipts for the payments made during such period.
         </p>
@@ -278,7 +278,7 @@ export default function TPAIGITemp(data) {
           </li>
           <li>
             <p className=" text_sales">
-              <u>{data.shortbuyer}</u>shall furnish written confirmation to Collateral Manager that there are no
+              <u>{data.shortbuyer}</u> shall furnish written confirmation to Collateral Manager that there are no
               circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage
               Area or the Goods stored therein during the period of this Agreement.
             </p>
@@ -370,7 +370,7 @@ export default function TPAIGITemp(data) {
         <ol type="i" className="pl-4">
           <li>
             <p className=" text_sales">
-              <u>{data.shortbuyer}</u> 's breach of the terms of this Agreement or;
+              <u>{data.shortbuyer}</u>'s breach of the terms of this Agreement or;
             </p>
           </li>
           <li>
