@@ -38,6 +38,11 @@ function Index() {
     setOpen(false);
   };
 
+  const [openList, setOpenList] = useState(true);
+  const handleListClose = () => {
+    setOpenList(false);
+  };
+
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
@@ -68,25 +73,36 @@ function Index() {
   };
 
   const handleSearch = (e) => {
-    console.log('Filteritem', filterItem);
     const query = `${e.target.value}`;
     setSearchTerm(query);
     if (query.length >= 3) {
       let queryParams = '';
-      if (filterItem) {
+      if (Object.keys(filterItem).length !==0 && filterItem.status===true) {
         Object.keys(filterItem).forEach((item) => {
           const isTrue = filterItem[item];
           if (isTrue) {
             queryParams += `${item}=${query}&`;
           }
         });
+        dispatch(FilterLeads(`${queryParams}`));
       }
-      dispatch(FilterLeads(`${queryParams}`));
+      else {
+        dispatch(SearchLeads(query));
+      }
+      
     }
   };
 
+  const handleFilteredData = (e) => {
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetAllBuyer(`?company=${id}`));
+  };
+
   const handleBadge = (value) => {
+    setSearchTerm('');
     setShowBadges(value);
+    handleListClose();
   };
 
   const handleBoolean = (value) => {
@@ -233,9 +249,9 @@ function Index() {
                   placeholder="Search"
                 />
               </div>
-              {filteredLeads && searchterm && (
-                <div className={styles.searchResults}>
-                  <ul>
+              {filteredLeads && openList && (
+                <div className={styles.searchResults} onClick={handleListClose}>
+                 <ul>
                     {filterItem.orderId === true && (
                       <li onClick={() => handleBadge(filteredLeads.data[0].orderId)}>
                         <span>{filteredLeads.data[0].orderId}</span>
@@ -251,6 +267,17 @@ function Index() {
                         <span>{filteredLeads.data[0].status}</span>
                       </li>
                     )}
+                  </ul>
+                </div>
+              )}
+               {searchedLeads && searchterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}

@@ -75,35 +75,6 @@ function Index() {
     }
   };
 
-  // const handleSort = (column) => {
-  //   let columnName = slugify(column.Header, { lower: true });
-  //   let sortOrder = '';
-  //   if (column.id === sortByState.column) {
-  //     setSortByState((state) => {
-  //       let updatedOrder = !state.order;
-  //       sortOrder = updatedOrder ? 'asc' : 'desc';
-  //       return { ...state, order: updatedOrder };
-  //     });
-  //   } else {
-  //     let data = { column: column.id, order: column.isSortedDesc };
-  //     sortOrder = data.order ? 'asc' : 'desc';
-  //     setSortByState(data);
-  //   }
-   // dispatch(GetOrders(`?page=${currentPage}&column=${columnName}&order=${sortOrder}`));
- // };
-
-  //const [sorting, setSorting] = useState(1);
-  // const handleSort = () => {
-  //   let companyIDnewOrder = sessionStorage.getItem('companyID');
-  //   if (sorting == -1) {
-  //     dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
-  //     setSorting(1);
-  //   } else if (sorting == 1) {
-  //     dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
-  //     setSorting(-1);
-  //   }
-  // };
-
   const tableColumns = useMemo(() => [
     {
       Header: 'Order Id',
@@ -142,7 +113,6 @@ function Index() {
     },
   ]);
 
-console.log("SingleOrder", singleOrder)
   return (
     <>
       {' '}
@@ -175,41 +145,7 @@ console.log("SingleOrder", singleOrder)
           {/*status Box*/}
           <QueueStats data={statData} />
           {/*leads table*/}
-          {/* <div className={`${styles.datatable} border datatable card`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}> */}
-              {/* <h3 className="heading_card">All Orders</h3> */}
-              {/* <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(singleOrder?.totalCount / 7)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 7)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div> */}
-            {/* </div> */}
-            {singleOrder?.data && (
+          {singleOrder?.data && (
             <Table
               tableHeading="All Orders"
               currentPage={currentPage}
@@ -219,70 +155,12 @@ console.log("SingleOrder", singleOrder)
               data={singleOrder?.data}
               pageLimit={pageLimit}
               setPageLimit={setPageLimit}
-             // handleSort={handleSort}
-             // sortByState={sortByState}
               serverSortEnabled={true}
             />
-            )} 
-            {/* <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <thead>
-                    <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img className={`mb-1`} src="/static/icons8-sort-24.svg" onClick={() => handleSort()} />
-                      </th>
-                      <th>COMMODITY</th>
-                      <th>CREATED BY</th>
-                      <th>CREATED ON</th>
-                      <th>STATUS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {singleOrder &&
-                      singleOrder?.data?.map((buyer, index) => (
-                        <tr key={index} className={`${styles.table_row} table_row`}>
-                          <td>{buyer?.orderId ? buyer?.orderId : buyer?.applicationId}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer);
-                            }}
-                          >
-                            {buyer?.commodity}
-                          </td>
-                          <td>{buyer?.createdBy?.fName}</td>
-
-                          <td>{moment(buyer?.createdAt?.split('T')[0]).format('DD-MM-YYYY')}</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${buyer.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : buyer.queue === 'ReviewQueue'
-                                    ? styles.review
-                                    : buyer.queue === 'CreditQueue'
-                                      ? styles.approved
-                                      : styles.rejected
-                                }`}
-                            ></span>
-
-                            {buyer.queue === 'Rejected'
-                              ? 'Rejected'
-                              : buyer.queue === 'ReviewQueue'
-                                ? 'Review'
-                                : buyer.queue === 'CreditQueue'
-                                  ? 'Approved'
-                                  : 'Rejected'}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> */}
-          </div>
+          )}
         </div>
-        </>
-      );}
+      </div>
+    </>
+  );
+}
 export default Index;
