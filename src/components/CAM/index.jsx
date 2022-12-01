@@ -501,8 +501,9 @@ function Index({
     if (data?.length > 0) {
       data.forEach((val, index) => {
         if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
+          console.log(val,"val")
           temp.push({
-            name: val.nameOfChargeHolder1,
+            name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
           });
         }
@@ -512,6 +513,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
+      console.log(sortedval,"sortedval")
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -1351,10 +1353,10 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, bac
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut id={`shareHoldingChart`} data={top3Share} options={options} />
-                  <div className={styles.total_value}>
+                  {/* <div className={styles.total_value}>
                     <span></span>
                     <span className={styles.highlight}></span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className={`${styles.name} `}>
                   {top3Share.datasets &&
@@ -1489,6 +1491,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, bac
     });
     return data;
   };
+  console.log(top3Open,"top3Open")
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1513,10 +1516,10 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, bac
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut id={`openBankChargeChart`} data={top3Open} options={options} />
-                  <div className={styles.total_value}>
-                    {/* <span>Bindu Singh</span>
-                    <span className={styles.highlight}>83.80%</span> */}
-                  </div>
+                  {/* <div className={styles.total_value}>
+                    <span>Bindu Singh</span>
+                    <span className={styles.highlight}>83.80%</span>
+                  </div> */}
                 </div>
                 <div className={`${styles.name} `}>
                   {camData &&

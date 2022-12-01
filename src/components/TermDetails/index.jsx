@@ -145,17 +145,8 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option
-                    value={
-                      termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                        ? 'MT'
-                        : termsheetDetails?.commodityDetails?.unitOfQuantity
-                    }
-                  >
-                    {termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                      ? 'MT'
-                      : termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
-                  </option>
+                
+                   <option value={"MT"}>MT</option>
                   <option value={"L"}>L</option>
                   <option value={"KG"}>KG</option>
                   <option value={"M"}>M</option>

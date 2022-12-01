@@ -16,12 +16,9 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
           This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in{' '}
           <strong>Schedule I</strong> hereto by and between:
         </p>
-        <p className="text_sales">
-          {' '}
-          {data.buyer},(CIN : {data.cin}) a company incorporated under the Indian Companies Act, 1956, having its
-          Registered Office at
-          {data.buyerAddress?.fullAddress}
-          {/* {data.buyerAddress?.city} 
+        <p className="text_sales"> {' '} {data.buyer}, (CIN : {data.cin}) a company incorporated under the Indian Companies Act, 1956, having its Registered Office at{' '}
+        {data.buyerAddress?.fullAddress}
+        {/* {data.buyerAddress?.city} 
         {data.buyerAddress?.country},{' '} */}
           {/* {data.buyerAddress?.pinCode} */}, through its Authorised Signatory (hereinafter called{' '}
           <strong>IGIPL</strong> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the
@@ -1202,15 +1199,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
             </Col>
           </Row> */}
         </div>
-        {data?.cmaAuthorized?.length > 0 &&
-          data?.cmaAuthorized?.map((val, index) => {
-            return (
-              <li key={index}>
-                <p className="mb-0">Name - {val.name}</p>
-                <p className="mb-0">Designation - {val.designation}</p>
-              </li>
-            );
-          })}
+       
         <div className={`row`}>
           <Col md={6}>
             <p className="text_sales">
