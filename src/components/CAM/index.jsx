@@ -501,8 +501,9 @@ function Index({
     if (data?.length > 0) {
       data.forEach((val, index) => {
         if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
+          console.log(val,"val")
           temp.push({
-            name: val.nameOfChargeHolder1,
+            name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
           });
         }
@@ -512,6 +513,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
+      console.log(sortedval,"sortedval")
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -1489,6 +1491,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, bac
     });
     return data;
   };
+  console.log(top3Open,"top3Open")
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
