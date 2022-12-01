@@ -6,6 +6,8 @@ import DateCalender from '../DateCalender'
 import moment from 'moment'
 
 const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
+
+  console.log(shipment,'shipment')
   const [expShipment, setExpectedShipment] = useState(null)
   const [maxdate, setmaxDate] = useState(null)
   useEffect(() => {
@@ -179,7 +181,9 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName='ETA at Discharge Port from'
-                    startFrom={moment(expectedShipment).format('DD-MM-YYYY')}
+                    startFrom={moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')}
+
+                    // startFrom={moment(expectedShipment).format('DD-MM-YYYY')}
                    
 
                     // startFrom={
@@ -220,10 +224,10 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     saveDate={saveDate}
                     labelName='ETA at Discharge Port to'
                     // startFrom={moment(dateStartFrom.eta).format('DD-MM-YYYY')}
-                    startFrom={dateStartFrom.eta}
-                    maxDate={
-                      shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
-                    }
+                    startFrom={shipment?.ETAofDischarge.fromDate !== '' ? moment(shipment?.ETAofDischarge.fromDate).format('DD-MM-YYYY')  : moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') }
+                    // maxDate={
+                    //   shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
+                    // }
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
