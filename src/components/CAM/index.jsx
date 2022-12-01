@@ -73,16 +73,21 @@ function Index({
 
   const darkMode = useSelector((state) => state.user.isDark);
 
+
   useEffect(() => {
     let id1 = sessionStorage.getItem('orderID');
     dispatch(GetDocuments(`?order=${id1}`));
   }, [dispatch]);
+
+
 
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
   });
 
   const { documentsFetched } = useSelector((state) => state.review);
+
+
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -94,6 +99,8 @@ function Index({
     saveApprovedCreditData(name, value);
     // }
   };
+
+
 
   const [sanctionComments, setSanctionComments] = useState('');
 
@@ -118,10 +125,12 @@ function Index({
   };
 
   const primaryBankName = () => {
+    
     let filteredData = [];
     filteredData = camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
     const length = _get(filteredData[0], 'bankName', '');
+
 
     return length;
   };
@@ -197,7 +206,10 @@ function Index({
         }
       });
     }
+
+
   }, [camData]);
+
 
   let data = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
@@ -277,10 +289,14 @@ function Index({
     },
   };
 
+
   function createGradient(ctx, area, color, color2) {
+
+
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
+
 
     return gradient;
   }
@@ -389,6 +405,7 @@ function Index({
     }
   };
   const findTop3Share = (data) => {
+
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
@@ -421,14 +438,11 @@ function Index({
     }
   };
   const findTop3Open = (data) => {
+
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
-        if (
-          val.finalAmountSecured !== null ||
-          !val.dateOfSatisfactionOfChargeInFull ||
-          val.dateOfSatisfactionOfChargeInFull === ''
-        ) {
+        if (val.finalAmountSecured !== null || !val.dateOfSatisfactionOfChargeInFull  ||val.dateOfSatisfactionOfChargeInFull === '' ) {
           temp.push({
             name: val.nameOfChargeHolder1,
             value: val.finalAmountSecured,
@@ -460,6 +474,7 @@ function Index({
       setTop3Open1({ ...top5data });
     }
   };
+
 
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus);
@@ -835,7 +850,8 @@ export const supplierInfo = (camData) => {
           <h2 className="mb-0">Supplier Info</h2>
           <span>+</span>
         </div>
-        <div id="supplierInfo" className="collapse" aria-labelledby="supplierInfo" data-parent="#supplierInfo">
+        <div id="supplierInfo" className='collapse'  aria-labelledby="supplierInfo" data-parent="#supplierInfo">
+      
           <div className={`${styles.info_wrapper}  card-body border_color`}>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
@@ -930,7 +946,7 @@ export const groupExposure = (camData, camConversionunit) => {
           <h2 className="mb-0">Group Exposure Details</h2>
           <span>+</span>
         </div>
-        <div id="groupExposure" className="collapse" aria-labelledby="groupExposure" data-parent="#groupExposure">
+        <div id="groupExposure" className='collapse'  aria-labelledby="groupExposure" data-parent="#groupExposure">
           <div className={`${styles.info_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
               {camData &&
@@ -1028,7 +1044,7 @@ export const orderSummary = (camData, camConversionunit) => {
           <h2 className="mb-0">Order Summary - Last 6 Orders</h2>
           <span>+</span>
         </div>
-        <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#orderSummary">
+        <div id="orderSummary" className='collapse'  aria-labelledby="orderSummary" data-parent="#orderSummary">
           <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
@@ -1080,12 +1096,12 @@ export const orderSummary = (camData, camConversionunit) => {
 };
 export const creditProfile = (
   camData,
-  openChargesLength = () => {},
-  primaryBankName = () => {},
-  latestAuditorData,
+  openChargesLength = ()=>{},
+  primaryBankName = ()=>{},
+  latestAuditorData ,
   previousAuditorData,
   companyData,
-  CreditAgency = () => {},
+  CreditAgency = ()=>{}
 ) => {
   return (
     <>
@@ -1160,7 +1176,12 @@ export const directorDetails = (camData) => {
           <h2 className="mb-0">Director Details</h2>
           <span>+</span>
         </div>
-        <div id="directorDetails" className="collapse" aria-labelledby="directorDetails" data-parent="#directorDetails">
+        <div
+          id="directorDetails"
+          className="collapse"
+          aria-labelledby="directorDetails"
+          data-parent="#directorDetails"
+        >
           <div className={`${styles.order_wrapper} px-0 card-body`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
@@ -1205,7 +1226,6 @@ export const directorDetails = (camData) => {
   );
 };
 export const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
-  const { datasets = [] } = top3Share;
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1236,17 +1256,14 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {datasets !== [] &&
-                    datasets[0]?.data?.map((val, index) => {
+                  {top3Share.datasets &&
+                    top3Share?.datasets[0]?.data.map((val, index) => {
                       return (
                         <div
                           key={index}
                           className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
                         >
-                          <div
-                            className={styles.round}
-                            style={{ backgroundColor: chargeDetailsbackgroundColor[index] }}
-                          ></div>
+                          <div className={styles.round} style={{ backgroundColor: backgroundColor[index] }}></div>
                           <span className={` heading ml-2`}>
                             {top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}
                           </span>
@@ -1303,9 +1320,9 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
                           <td>
                             {share?.percentageShareHolding
                               ? (share?.percentageShareHolding * 100)?.toLocaleString('en-IN', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) + '%'
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) + '%'
                               : ''}
                           </td>
                           <td>{share?.director ? 'Yes' : 'No'}</td>
@@ -1362,6 +1379,7 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
   );
 };
 export const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1437,8 +1455,8 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
                       ];
                       let randColor = colors[Math.floor(Math.random() * colors.length)];
                       if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
-                        return null;
-                      } else {
+                        return null
+                      }else{
                         return (
                           <tr key={index}>
                             <td className={`d-flex justify-content-start align-content-center`}>
@@ -1451,7 +1469,7 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
                                   {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                                 </span>
                               </div>
-
+  
                               <span className={` ${styles.name} ml-3  `}>
                                 {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
                               </span>
@@ -1464,14 +1482,14 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
                                   charge?.finalAmountSecured,
                                 )?.toLocaleString('en-In')} */}
                             </td>
-
+  
                             <td>
                               {charge?.dateOfCreationOfCharge
                                 ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
                                 : ''}
                             </td>
                           </tr>
-                        );
+                        )
                       }
                     })}
                   {/* <tr>
@@ -1583,11 +1601,10 @@ export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, cam
                           <div
                             style={{
                               backgroundColor: `${debtProfileColor(debt.conduct)}`,
-                              width: `${
-                                (Number(debt.limit) / totalLimitDebt() > 1
-                                  ? 1
-                                  : Number(debt.limit) / totalLimitDebt()) * 100
-                              }%`,
+                              width: `${(Number(debt.limit) / totalLimitDebt() > 1
+                                ? 1
+                                : Number(debt.limit) / totalLimitDebt()) * 100
+                                }%`,
                             }}
                             className={`${styles.fill}`}
                           ></div>
@@ -1651,15 +1668,14 @@ export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, cam
                           })}
                         </td>
                         <td
-                          className={`${styles.conduct}  ${
-                            debt.conduct == 'Good'
-                              ? 'good'
-                              : debt.conduct == 'Satisfactory'
+                          className={`${styles.conduct}  ${debt.conduct == 'Good'
+                            ? 'good'
+                            : debt.conduct == 'Satisfactory'
                               ? 'satisfactory'
                               : debt.conduct == 'Average'
-                              ? 'average'
-                              : 'danger'
-                          }`}
+                                ? 'average'
+                                : 'danger'
+                            }`}
                         >
                           {debt?.conduct}
                         </td>
@@ -1699,6 +1715,7 @@ export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, cam
   );
 };
 export const operationalDetails = (camData) => {
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1726,8 +1743,8 @@ export const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                   </span>
@@ -1737,8 +1754,8 @@ export const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                   </span>
@@ -1778,8 +1795,8 @@ export const operationalDetails = (camData) => {
                     })} */}
                     {camData?.productSummary?.availableStock
                       ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.availableStock ? 'MT' : ''}
                   </span>
@@ -1796,8 +1813,8 @@ export const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.AvgMonthlyElectricityBill
                       ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}
                   </span>
                 </Col>
@@ -1814,8 +1831,8 @@ export const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                   </span>
@@ -1913,7 +1930,7 @@ export const revenuDetails = (gstData, camConversionunit) => {
                 <td>Related Party Sales</td>
                 <td>
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -1961,7 +1978,7 @@ export const revenuDetails = (gstData, camConversionunit) => {
                 <td>Intra Organization Sales</td>
                 <td>
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2299,15 +2316,15 @@ export const financeDetails = (
                       {_get(companyData, 'financial.balanceSheet[0].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
-                            .format('MMM-YY')
-                            .toUpperCase()}
+                          .format('MMM-YY')
+                          .toUpperCase()}
                     </th>
                     <th>
                       {_get(companyData, 'financial.balanceSheet[1].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
-                            .format('MMM-YY')
-                            .toUpperCase()}
+                          .format('MMM-YY')
+                          .toUpperCase()}
                     </th>
                   </tr>
                   <tr>
@@ -2337,7 +2354,7 @@ export const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
-                            _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
+                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2349,7 +2366,7 @@ export const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
-                            _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
+                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2364,11 +2381,11 @@ export const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                            '',
+                          ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2380,11 +2397,11 @@ export const financeDetails = (
                       {convertValue(
                         Number(
                           _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                            '',
+                          ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2651,17 +2668,17 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
                   <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
-                    {[].forEach((l, index2) => {})}
+                    {[].forEach((l, index2) => { })}
                     {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !=
-                    ''
+                      ''
                       ? moment(
-                          _get(
-                            companyData,
-                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                            '',
-                          ),
-                          'MMyyyy',
-                        ).format('MM-yyyy')
+                        _get(
+                          companyData,
+                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                          '',
+                        ),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
@@ -3483,6 +3500,7 @@ export const skewness = (
   );
 };
 export const customerRating = (data, filteredCreditRating, rating, darkMode) => {
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3498,7 +3516,7 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
             <span className={` d-flex align-items-center justify-content-between`}></span>+
           </span>
         </div>
-        <div id="rating" className="collapse" aria-labelledby="rating" data-parent="#rating">
+        <div id="rating" className='collapse'  aria-labelledby="rating" data-parent="#rating">
           <div className={`${styles.rating_wrapper} card-body`}>
             <Row className={`m-0`}>
               <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
@@ -3693,24 +3711,23 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
                       <div
                         style={{
                           backgroundColor: '#FFB700',
-                          width: `${
-                            filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                              : '0'
-                          }%`,
+                          width: `${filteredCreditRating?.length > 0
+                            ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
+                            }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                              Number(
-                                filteredCreditRating[0].businessProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            Number(
+                              filteredCreditRating[0].businessProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating,
+                            ) * 100
+                          ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3724,24 +3741,23 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
                       <div
                         style={{
                           backgroundColor: '#FF4230',
-                          width: `${
-                            filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                              : '0'
-                          }%`,
+                          width: `${filteredCreditRating?.length > 0
+                            ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
+                            }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                              Number(
-                                filteredCreditRating[0].revenueProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            Number(
+                              filteredCreditRating[0].revenueProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating,
+                            ) * 100
+                          ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3755,24 +3771,23 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
                       <div
                         style={{
                           backgroundColor: '#83C400',
-                          width: `${
-                            filteredCreditRating?.length > 0
-                              ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                              : '0'
-                          }%`,
+                          width: `${filteredCreditRating?.length > 0
+                            ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating) *
+                            100
+                            : '0'
+                            }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                              Number(
-                                filteredCreditRating[0].financialProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            Number(
+                              filteredCreditRating[0].financialProfile.total.overallValue /
+                              filteredCreditRating[0].totalRating,
+                            ) * 100
+                          ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
