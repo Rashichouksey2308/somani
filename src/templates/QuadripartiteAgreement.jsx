@@ -474,10 +474,53 @@ export default function QuadripartiteAgreement(data) {
       </div>
       <div className={`row`}>
         <Col md={6}>
-          <p className="w-50 text-capitalize"><u><strong>({data.seller})</strong></u></p>
+          <p className="w-50 text-capitalize"><u><strong>({data.associateBuyer})</strong></u></p>
         </Col>
         <Col md={6}>
-          <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
+        
+              {data?.associateBuyerAuthorized?.length > 0 &&
+              data?.associateBuyerAuthorized.map((val, index) => {
+                return (
+                  <>
+                    <p className="text_sales mt-5">
+                    <strong>
+                      Name: {val.name}
+                      <br />
+                      Designation:{val.designation}
+                    </strong>
+                    </p>
+                  </>
+                );
+              })}
+            
+        </Col>
+      </div>
+       <div className={`row`}>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+      </div>
+      <div className={`row`}>
+        <Col md={6}>
+          <p className="w-50 text-capitalize"><strong>({data.cha})</strong></p>
+        </Col>
+        <Col md={6}>
+           {data?.chaAuthorized?.length > 0 &&
+              data?.chaAuthorized.map((val, index) => {
+                return (
+                  <>
+                    <p className="text_sales mt-5"></p>
+                    <strong>
+                      Name: {val.name}
+                      <br />
+                      Designation:{val.designation}
+                    </strong>
+                  </>
+                );
+              })}
         </Col>
       </div>
       <div className={`row`}>
@@ -490,10 +533,50 @@ export default function QuadripartiteAgreement(data) {
       </div>
       <div className={`row`}>
         <Col md={6}>
-          <p className="w-50 text-capitalize"><strong>({data.seller})</strong></p>
+          <p className="w-50 text-capitalize"><strong>({data.cma})</strong></p>
         </Col>
         <Col md={6}>
+           {data?.cmaAuthorized?.length > 0 &&
+              data?.cmaAuthorized.map((val, index) => {
+                return (
+                  <>
+                    <p className="text_sales mt-5"></p>
+                    <strong>
+                      Name: {val.name}
+                      <br />
+                      Designation:{val.designation}
+                    </strong>
+                  </>
+                );
+              })}
+        </Col>
+      </div>
+       <div className={`row`}>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+      </div>
+      <div className={`row`}>
+        <Col md={6}>
           <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
+        </Col>
+        <Col md={6}>
+           {data?.buyerAuthorized?.length > 0 &&
+              data?.buyerAuthorized.map((val, index) => {
+                return (
+                  <>
+                    <p className="text_sales mt-5"></p>
+                    <strong>
+                      Name: {val.name}
+                      <br />
+                      Designation:{val.designation}
+                    </strong>
+                  </>
+                );
+              })}
         </Col>
       </div>
     </div>

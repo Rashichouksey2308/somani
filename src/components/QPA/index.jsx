@@ -92,6 +92,9 @@ function Index(props) {
           storagePlot: data.storagePlot,
           cin:data.cin,
           buyerAddress: data.buyerAddress,
+          cha: data.cha,
+          chaAddress: data.chaAddress,
+          chaAuthorized: data.chaAuthorized,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -168,6 +171,10 @@ function Index(props) {
           dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
            cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
            buyerAddress: _get(data, 'buyer.addresses[0]', {}),
+           cha: data?.CHA?.name,
+          chaAddress: _get(data, 'CHA.addresses[0]', {}),
+
+          chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         });
       }
     }

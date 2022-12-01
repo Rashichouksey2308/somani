@@ -156,6 +156,10 @@ function index() {
         cmaAddress: _get(data, 'CMA.addresses[0]', {}),
 
         cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+        cha: data?.CHA?.name,
+        chaAddress: _get(data, 'CHA.addresses[0]', {}),
+
+        chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         vessel: data?.shippingLine?.vesselName,
         storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
