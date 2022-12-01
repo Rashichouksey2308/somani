@@ -7,7 +7,7 @@ export default function AssignmentLetter(data) {
       <div className="card-body">
         <p className="text-center text_sales">
           <strong>
-            <u>Assignment Letter between Seller, Buyer and Supplier</u>
+            Assignment Letter between Seller, Buyer and Supplier
           </strong>
         </p>
         <p className="text_sales">

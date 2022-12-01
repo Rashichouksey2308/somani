@@ -625,7 +625,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <br/><br/><br/><br/><br/>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft: '-16px' }}>
                             <strong>
-                              11 (A). <u>OCEAN TRANSPORTATION:</u>
+                              11 (A). OCEAN TRANSPORTATION:
                             </strong>
                           </p>
                           <ol

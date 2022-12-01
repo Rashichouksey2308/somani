@@ -21,7 +21,7 @@ export default function SalesContract(changeHandler, data, preview) {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>SALES CONTRACT</u>
+            SALES CONTRACT
           </strong>
         </p>
         <p className="text_sales mt-3 mb-4">
@@ -194,7 +194,7 @@ export default function SalesContract(changeHandler, data, preview) {
                   </li>
                   <li>
                     <p className="text_sales mb-3">
-                      The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u>{' '}
+                      The Buyer shall pay for entire cargo within 90 days from the date of B/L or 60 days{' '}
                       from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
                       full payment of the material to be lifted through TT remittance. The Seller shall release the part
                       material to Buyer upon receipt of part payment for the part quantity of material to be lifted

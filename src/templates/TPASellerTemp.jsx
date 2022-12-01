@@ -9,7 +9,7 @@ export default function TPASeller(data) {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>TRIPARTITE AGREEMENT</u>
+            TRIPARTITE AGREEMENT
           </strong>
         </p>
         <p className="text_sales">

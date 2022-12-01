@@ -162,10 +162,10 @@ export default function QuadripartiteAgreementPreview(data) {
                       color: '#000000',
                     }}
                   >
-                    WHEREAS <u>{data.shortbuyer}</u> has agreed to import Goods as detailed in{' '}
+                    WHEREAS {data.shortbuyer} has agreed to import Goods as detailed in{' '}
                     <strong>Schedule I </strong>
                     hereof on stock and sale basis as per Associateship Agreement entered into between{' '}
-                    <u>{data.shortbuyer}</u>
+                    {data.shortbuyer}
                     and the Associate Buyer.
                   </p>
                 </td>
@@ -179,10 +179,10 @@ export default function QuadripartiteAgreementPreview(data) {
                       color: '#000000',
                     }}
                   >
-                    WHEREAS <u>{data.shortbuyer}</u>&nbsp;has appointed the Stevedore for handling the vessel as
+                    WHEREAS {data.shortbuyer}&nbsp;has appointed the Stevedore for handling the vessel as
                     detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge
                     port and the plot allotted to&nbsp;
-                    <u>{data.shortbuyer}</u>&nbsp;are mentioned at Schedule I.
+                    {data.shortbuyer}&nbsp;are mentioned at Schedule I.
                   </p>
                 </td>
               </tr>
@@ -234,11 +234,11 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         The Goods shall be stored at the Plot allotted to&nbsp;
-                        <u>{data.shortbuyer}</u> by the Discharge Port authorities and shall be kept under the control
+                        {data.shortbuyer} by the Discharge Port authorities and shall be kept under the control
                         and custody of CHA on behalf of&nbsp;
-                        <u>{data.shortbuyer}</u>. All dispatches from the plot shall be done by CHA solely on the basis
+                        {data.shortbuyer}. All dispatches from the plot shall be done by CHA solely on the basis
                         of Written Delivery Orders issued by&nbsp;
-                        <u>{data.shortbuyer}</u>.
+                        {data.shortbuyer}.
                       </p>
                     </li>
                     <li>
@@ -270,9 +270,9 @@ export default function QuadripartiteAgreementPreview(data) {
                           marginBottom: '0',
                         }}
                       >
-                        a) arranging plot allotment in the name of <u>{data.shortbuyer}</u>
+                        a) arranging plot allotment in the name of {data.shortbuyer}
                         from the discharge Port authorities to store&nbsp;
-                        <u>{data.shortbuyer}</u>'s cargo,
+                        {data.shortbuyer}'s cargo,
                       </p>
                       <p
                         style={{
@@ -312,7 +312,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           marginBottom: '0',
                         }}
                       >
-                        e) transportation from wharf to <u>{data.shortbuyer}</u> allotted plot, ensure that the plot
+                        e) transportation from wharf to {data.shortbuyer} allotted plot, ensure that the plot
                         where goods are being stored is suitable for the storage of the goods,
                       </p>
                       <p
@@ -375,7 +375,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         k) obtaining RRs and arranging dispatches as per Written release orders issued by{' '}
-                        <u>{data.shortbuyer}</u>,
+                        {data.shortbuyer},
                       </p>
                       <p
                         style={{
@@ -415,7 +415,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         o) water sprinkling as per PCB norms and other services as may be required by{' '}
-                        <u>{data.shortbuyer}</u>,
+                        {data.shortbuyer},
                       </p>
                     </li>
                     <li>
@@ -430,7 +430,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         joint and several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and
                         Stevedore shall provide round the clock security guards at the Storage Plot allotted at
                         Discharge Port, where Goods shall be stored.&nbsp;
-                        <u>{data.shortbuyer}</u> shall in no way be responsible or liable for any loss or damage to the
+                        {data.shortbuyer} shall in no way be responsible or liable for any loss or damage to the
                         Goods for any reason whatsoever including shortage, theft or mix up.
                       </p>
                       <br />
@@ -450,10 +450,10 @@ export default function QuadripartiteAgreementPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        Bill of Entry to be filed in the name <u>{data.shortbuyer}</u>. Payment of customs duty, IGST,
+                        Bill of Entry to be filed in the name {data.shortbuyer}. Payment of customs duty, IGST,
                         energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer
                         to&nbsp;
-                        <u>{data.shortbuyer}</u> in advance at the time of Custom Clearance. The Associate Buyer shall
+                        {data.shortbuyer} in advance at the time of Custom Clearance. The Associate Buyer shall
                         pay Port Charges directly to port or through the Stevedore who will take care of the payments to
                         Port and raise bills on {data?.shortbuyer} for this. A copy of the same has to be furnished to{data?.shortbuyer}. Any
                         penalty/demurrage on account of delayed payment shall be solely to the account of the Associate
@@ -469,7 +469,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty
-                        (if applicable) are to be paid by the Associate Buyer in advance to <u>{data.shortbuyer}</u> as
+                        (if applicable) are to be paid by the Associate Buyer in advance to {data.shortbuyer} as
                         per the Discharge Port. HMC crane charges at the Discharge Port and any pre berthing
                         delays/detentions/demurrages will be to the account of the Associate Buyer on actual basis.
                       </p>
@@ -507,7 +507,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         Scanned copy of RR shall be furnished by Stevedore to&nbsp;
-                        <u>{data.shortbuyer}</u> as well as to Associate Buyer as soon as it is issued after loading.
+                        {data.shortbuyer} as well as to Associate Buyer as soon as it is issued after loading.
                         The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery of the
                         rake. The final reconciliation shall be done based on the BL quantity.
                       </p>
@@ -522,9 +522,9 @@ export default function QuadripartiteAgreementPreview(data) {
                       >
                         The Associate Buyer will arrange comprehensive storage insurance against all risks for{' '}
                         <strong>110%</strong> of the value of goods. The insurance policy will indicate&nbsp;
-                        <u>{data.shortbuyer}</u> or its nominated Bank (as per&nbsp;
-                        <u>{data.shortbuyer}</u>'s discretion), as sole beneficiary. The Associate Buyer shall inform
-                        Stevedore the details of the goods for which <u>{data.shortbuyer}</u>/IGI's nominated Bank shall
+                        {data.shortbuyer} or its nominated Bank (as per&nbsp;
+                        {data.shortbuyer}'s discretion), as sole beneficiary. The Associate Buyer shall inform
+                        Stevedore the details of the goods for which {data.shortbuyer}/IGI's nominated Bank shall
                         be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity
                         kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall
                         be claimed and pursued till realization by the Associate Buyer at its sole cost and the
@@ -539,11 +539,11 @@ export default function QuadripartiteAgreementPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        <u>{data.shortbuyer}</u> and CMA Agent (Collateral Manager appointed by LC opening Bank) shall
+                        {data.shortbuyer} and CMA Agent (Collateral Manager appointed by LC opening Bank) shall
                         have free and unfettered access to the plot where the goods are stored without any prior notice
                         to the plot keeper during all reasonable hours including the right of ingress and egress to and
-                        from the plot by <u>{data.shortbuyer}</u> 's and /or CMA Agent's officials, agents, other
-                        nominated buyers, if any, of <u>{data.shortbuyer}</u> and/or CMA Agent, its vehicles, any
+                        from the plot by {data.shortbuyer} 's and /or CMA Agent's officials, agents, other
+                        nominated buyers, if any, of {data.shortbuyer} and/or CMA Agent, its vehicles, any
                         Government Agency, for storing/de-storing/removing the material in or from the plot without any
                         hindrance or obstruction.
                       </p>
@@ -576,12 +576,12 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         CHA/Stevedore shall at all times follow and be bound by the instructions solely of{' '}
-                        <u>{data.shortbuyer}</u> with regard to delivery of the Goods. Stevedore confirms and undertakes
+                        {data.shortbuyer} with regard to delivery of the Goods. Stevedore confirms and undertakes
                         that it shall not release the Goods without the written Release Order of&nbsp;
-                        <u>{data.shortbuyer}</u>. Stevedore shall have no objection whatsoever, if <u>{data.buyer}</u>{' '}
+                        {data.shortbuyer}. Stevedore shall have no objection whatsoever, if {data.buyer}{' '}
                         instructs it to deliver the Goods to any third party so nominated by them. The instructions of
                         the&nbsp;
-                        <u>{data.buyer}</u> shall be followed forthwith, without any objection, hindrance or delay
+                        {data.buyer} shall be followed forthwith, without any objection, hindrance or delay
                         whatsoever.
                       </p>
                     </li>
@@ -595,12 +595,12 @@ export default function QuadripartiteAgreementPreview(data) {
                       >
                         CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt,
                         storage and release of goods from the warehouse and furnish a daily report to{' '}
-                        <u>{data.shortbuyer}</u> & the Associate Buyer. Under no circumstance releases will be made by
+                        {data.shortbuyer} & the Associate Buyer. Under no circumstance releases will be made by
                         Stevedore or be taken by the Associate Buyer without obtaining proper Release Order in writing
-                        from <u>{data.shortbuyer}</u>. Stevedore and the Associate Buyer jointly and severally agree to
-                        indemnify and hold harmless at all times <u>{data.shortbuyer}</u>, its officers, agents,
+                        from {data.shortbuyer}. Stevedore and the Associate Buyer jointly and severally agree to
+                        indemnify and hold harmless at all times {data.shortbuyer}, its officers, agents,
                         employees for any losses, damages, claims, costs and expenses incurred by{' '}
-                        <u>{data.shortbuyer}</u> due to unauthorized, improper release of the Goods, shortage and/or for
+                        {data.shortbuyer} due to unauthorized, improper release of the Goods, shortage and/or for
                         breach of the terms of this Agreement.
                       </p>
                     </li>
@@ -614,7 +614,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       >
                         This Agreement is irrevocable and non-assignable by the Associate Buyer and Stevedore until the
                         entire Goods stored at the storage facility have been delivered to the Associate Buyer, or to
-                        the persons nominated by <u>{data.shortbuyer}</u> under the Authorized Release Orders.
+                        the persons nominated by {data.shortbuyer} under the Authorized Release Orders.
                       </p>
                     </li>
                     <li>
@@ -626,10 +626,10 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         In the event the Associate Buyer does not lift the goods/material within the scheduled period{' '}
-                        <u>{data.shortbuyer}</u> has the right to sell/dispose of the Goods at the sole risk, cost of
+                        {data.shortbuyer} has the right to sell/dispose of the Goods at the sole risk, cost of
                         the Associate Buyer. The Associate Buyer shall liable to pay to&nbsp;
-                        <u>{data.shortbuyer}</u> the loss (if any) incurred by&nbsp;
-                        <u>{data.shortbuyer}</u>.
+                        {data.shortbuyer} the loss (if any) incurred by&nbsp;
+                        {data.shortbuyer}.
                       </p>
                     </li>
                     <li>
@@ -1570,10 +1570,31 @@ export default function QuadripartiteAgreementPreview(data) {
                             textTransform: 'capitalize'
                           }}
                         >
-                          <strong>{data.seller}</strong>
+                          <strong>{data.associateBuyer}</strong>
                         </p>
                       </td>
                       <td align="left">
+                          {data?.associateBuyerAuthorized?.length > 0 &&
+                            data?.associateBuyerAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
                         <p
                           style={{
                             fontSize: '12px',
@@ -1593,24 +1614,47 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
-                          FOR & ON BEHALF OF
+                          <strong>{data.cha}</strong>
                         </p>
                       </td>
                       <td align="left">
+                          {data?.chaAuthorized?.length > 0 &&
+                            data?.chaAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
                         <p
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            textTransform: 'capitalize'
                           }}
                         >
-                          FOR & ON BEHALF OF
+                          <strong>{data.buyer}</strong>
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                     <tr>
                       <td align="left">
                         <p
                           style={{
@@ -1620,10 +1664,78 @@ export default function QuadripartiteAgreementPreview(data) {
                             textTransform: 'capitalize'
                           }}
                         >
-                          <strong>{data.seller}</strong>
+                          <strong>{data.cma}</strong>
                         </p>
                       </td>
                       <td align="left">
+                          {data?.cmaAuthorized?.length > 0 &&
+                            data?.cmaAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000',
+                            textTransform: 'capitalize'
+                          }}
+                        >
+                          <strong>{data.buyer}</strong>
+                        </p>
+                      </td>
+                    </tr>
+                     <tr>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000',
+                            textTransform: 'capitalize'
+                          }}
+                        >
+                          <strong>{data.buyer}</strong>
+                        </p>
+                      </td>
+                      <td align="left">
+                          {data?.buyerAuthorized?.length > 0 &&
+                            data?.buyerAuthorized.map((val, index) => {
+                              return (
+                                <>
+                                  <p
+                                  style={{
+                                    fontSize: '12px',
+                                    lineHeight: '18px',
+                                    color: '#000000',
+                                    textTransform: 'capitalize'
+                                  }}
+                                >
+                                  <strong>
+                                    Name: {val.name}
+                                    <br />
+                                    Designation:{val.designation}
+                                  </strong>
+                                  </p>
+                                </>
+                              );
+                            })}
                         <p
                           style={{
                             fontSize: '12px',
