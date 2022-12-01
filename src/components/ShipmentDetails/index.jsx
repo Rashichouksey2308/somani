@@ -209,7 +209,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
                       })
                       .map((val, index) => {
                         return (
-                          <option value={`${val.Port_Name},${val.Country}`}>
+                          <option value={`${val.Port_Name}, ${val.Country}`}>
                            {val.Port_Name}, {val.Country}
                           </option>
                         );
