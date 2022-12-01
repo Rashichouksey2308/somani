@@ -480,7 +480,22 @@ export default function QuadripartiteAgreement(data) {
           <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
         </Col>
       </div>
-                
+      <div className={`row`}>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+        <Col md={6}>
+          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        </Col>
+      </div>
+      <div className={`row`}>
+        <Col md={6}>
+          <p className="w-50 text-capitalize"><strong>({data.seller})</strong></p>
+        </Col>
+        <Col md={6}>
+          <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
+        </Col>
+      </div>
     </div>
   );
 }
