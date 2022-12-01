@@ -1,6 +1,6 @@
 @import '../styles/Core/config';
 .root_container {
-  margin: 28px 28px 152px, 28px;
+  margin: 28px 28px 152px 28px;
   @include respond(lg-desktop) {
     margin: 20px 20px 144px 20px;
   }
