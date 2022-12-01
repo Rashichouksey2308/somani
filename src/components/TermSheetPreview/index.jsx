@@ -185,6 +185,7 @@ function Index() {
       ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
       {
         callback: function (doc) {
+          console.log
           doc.save('TransactionSummary.pdf');
         },
 
@@ -194,25 +195,45 @@ function Index() {
   };
   const exportPDF2 = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1600]);
-    doc.addFileToVFS(
-      'Termsheet.pdf',
-      toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions, filteredValue),
+ 
+
+   let a=  doc.html(
+      ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
+      {
+        callback: function (doc) {
+          console.log(doc,"doc")
+         var out = doc.output('blob');
+         var reader = new FileReader();
+          let blob =  reader.readAsBinaryString(out);
+         reader.onload = () => {
+            // console.log(reader.result,"image.png");
+            
+          }
+         
+       
+      
+          
+          
+        },
+
+        autoPaging: 'text',
+      },
     );
-    return doc.getFileFromVFS('Termsheet.pdf');
+    return a
   };
   const shareEmail = async (email) => {
     let doc = exportPDF2();
+   console.log(doc,"ASdasdasd")
+    // let formData = new FormData();
+    // formData.append('document1', '');
+    // formData.append('data', {
+    //   subject: 'this is subject',
+    //   text: 'this is text',
+    //   receiver: email,
+    // });
 
-    let formData = new FormData();
-    formData.append('document1', '');
-    formData.append('data', {
-      subject: 'this is subject',
-      text: 'this is text',
-      receiver: email,
-    });
-
-    await dispatch(sharingTermsheetEmail(formData));
-    setOpen(false);
+    // await dispatch(sharingTermsheetEmail(formData));
+    // setOpen(false);
   };
   return (
     <>
