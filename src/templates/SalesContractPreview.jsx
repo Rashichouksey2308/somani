@@ -1552,7 +1552,7 @@ export default function SalesContractPreview(data) {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}, India</p>
               </td>
             </tr>
             <tr>

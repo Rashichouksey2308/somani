@@ -1181,12 +1181,12 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       </td>
                       <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
                       <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
-                      <td className='text-right'>
+                      <td>
                         {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
                       </td>
                       <td>{item?.commodity}</td>
                       <td>In Process</td>
-                      <td className='text-right'> 12</td>
+                      <td> 12</td>
                     </tr>
                   );
                 })}
@@ -1376,12 +1376,12 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, bac
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
-                <table className={`${styles.table} table  border_color `} cellPadding="0" cellSpacing="0">
+                <table className={`${styles.table} table  border_color mr-3`} cellPadding="0" cellSpacing="0">
                   <tr>
                     <th>NAME</th>
                     <th>NO. OF SHARES</th>
                     <th>% SHARE</th>
-                    <th className='text-right'>DIRECTOR</th>
+                    <th>DIRECTOR</th>
                   </tr>
 
                   {camData &&
@@ -1431,7 +1431,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, bac
                                 }) + '%'
                               : ''}
                           </td>
-                          <td className='text-right'>{share?.director ? 'Yes' : 'No'}</td>
+                          <td>{share?.director ? 'Yes' : 'No'}</td>
                         </tr>
                       );
                     })}

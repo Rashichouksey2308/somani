@@ -17,7 +17,7 @@ import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
 import TPASellerPreview from '../../../src/templates/TPASellerPreview';
-
+import { returnReadableNumber } from '@/utils/helpers/global';
 function index() {
   const [data, setData] = useState({
     seller: '',
@@ -156,6 +156,10 @@ function index() {
         cmaAddress: _get(data, 'CMA.addresses[0]', {}),
 
         cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+        cha: data?.CHA?.name,
+        chaAddress: _get(data, 'CHA.addresses[0]', {}),
+
+        chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         vessel: data?.shippingLine?.vesselName,
         storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
@@ -427,7 +431,10 @@ export const undertaking1Pdf = (data) => {
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {val.amount}</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                           INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                         
+                           </p>
                       </td>
                     </tr>
               );

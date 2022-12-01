@@ -101,7 +101,7 @@ function Index({ chargesData }) {
                   <thead>
                     <tr>
                       <th width="15%">CHARGE ID</th>
-                      <th width="25%">CHARGE HOLDER</th>
+                      <th className='text-left' width="25%">CHARGE HOLDER</th>
                       <th  width="12%">
                         AMOUNT
                       </th>
@@ -124,7 +124,7 @@ function Index({ chargesData }) {
                       chargesDatas?.map((charges, index) => (
                         <tr key={index}>
                           <td>{charges.chargeId}</td>
-                          <td>{charges.nameOfChargeHolder}</td>
+                          <td className='text-left'>{charges.nameOfChargeHolder}</td>
                           <td >
                             {/* {charges.finalAmountSecured} */}
                             {convertValue(charges.finalAmountSecured, unit)?.toLocaleString('en-In', {
