@@ -936,6 +936,14 @@ function Index() {
         accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+    // if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
+    //     setInvoiceData({
+    //             ...invoiceData,
+    //             consigneeName:  marginData?.company?.companyName,
+    //             consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN,
+    //             consigneeAddress:  marginData?.invoiceDetail?.buyerAddress,
+    //           });
+    //   }
     }
   }, [marginData, getInternalCompaniesMasterData]);
 

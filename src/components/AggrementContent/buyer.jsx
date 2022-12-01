@@ -147,7 +147,7 @@ function Index(props) {
         setOptions([...optionArray]);
       }
     }
-  }, [props, props.internal]);
+  }, [props.data, props.internal]);
   console.log(branchOptions, 'setbranchOptions');
   useEffect(() => {
     if (props.saveData == true && props.active == 'Buyer') {

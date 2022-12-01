@@ -463,9 +463,10 @@ const Index = ({
                               }}
                             >
                               <option selected>Select an Option</option>
-                              <option value="Poor">Poor</option>
-                              <option value="Good">Good</option>
-                              <option value="Satisfactory">Satisfactory</option>
+                              <option value="Poor">Good</option>
+                              <option value="Good">Satisfactory</option>
+                              <option value="Satisfactory">Average</option>
+                              <option value="Satisfactory">Poor</option>
                             </select>
                             <img className={`${styles.arrow} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                           </td>

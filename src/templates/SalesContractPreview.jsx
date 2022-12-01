@@ -20,7 +20,7 @@ export default function SalesContractPreview(data) {
             color: '#000000',
           }}
         >
-          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
+          <p align="center" style={{color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000', marginBottom: '0' }}>
@@ -394,7 +394,6 @@ export default function SalesContractPreview(data) {
                     <em
                       style={{
                         fontStyle: 'normal',
-                        textDecoration: 'underline',
                       }}
                     >
                       90 days
@@ -403,7 +402,6 @@ export default function SalesContractPreview(data) {
                     <em
                       style={{
                         fontStyle: 'normal',
-                        textDecoration: 'underline',
                       }}
                     >
                       60 days

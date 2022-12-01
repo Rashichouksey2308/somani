@@ -27,7 +27,7 @@ export default function AssignmentLetterPreview(data) {
                     }}
                   >
                     <strong>
-                      <u>Assignment Letter between Seller, Buyer and Supplier</u>
+                      Assignment Letter between Seller, Buyer and Supplier
                     </strong>
                   </p>
                 </td>
