@@ -38,8 +38,8 @@ function PersonComponent({countryName, bankData, handleBankCancel, handleBankCha
               value={bankData?.department}
               onChange={(e)=>handleBankChange(e.target.name, e.target.value)}
             >
-              <option value="India">Finance</option>
-              <option value="Dubai">Operations</option>
+              <option value="Finance">Finance</option>
+              <option value="Operations">Operations</option>
             </select>
             <label className={`${styles.label_heading} label_heading`}>Department</label>
             <div className={`${styles.image_arrow} image_arrow`}>

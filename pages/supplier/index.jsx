@@ -17,13 +17,48 @@ import AddressComponent from '../../src/components/AddressSupplier';
 import DateCalender from '../../src/components/DateCalender';
 import SaveBar from '../../src/components/SaveBar';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp';
-import { setPageName } from '../../src/redux/userData/action';
-import { handleErrorToast } from '../../src/utils/helpers/global';
+import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src/utils/helpers/global';
 import styles from './index.module.scss';
+import { ShareDocument } from 'redux/shareDoc/action';
+import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
+import { getPincodes } from 'redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const specialCharacter = [
+    '+',
+    '-',
+    '.',
+    '@',
+    '$',
+    '#',
+    '%',
+    '^',
+    '',
+    '!',
+    ';',
+    '/',
+    '|',
+    `'`,
+    `[`,
+    ']',
+    ',',
+    '{',
+    '}',
+    '?',
+    `'`,
+    ':',
+    '<',
+    '>',
+    `"`,
+  ];
+
+  const gettingPins = (value) => {
+    dispatch(getPincodes(value));
+  };
 
   let id = sessionStorage.getItem('supplier');
 
@@ -54,13 +89,28 @@ function Index() {
     setListCommodity(supplierData?.commoditiesTraded ?? []);
     setInfoArray(supplierData?.additionalInformation ?? []);
     setdocs(supplierData?.extraDocument ?? []);
-  setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
-   SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
-    
+    setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
+    SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
 
-  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
 
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
+    }
+  }, [getPincodesMasterData]);
+
+  useEffect(() => {
+    dispatch(setPageName('Supplier'));
+    // dispatch(setDynamicName(_get(TransitDetails, 'data[0].company.companyName')));
+    dispatch(setDynamicOrder(supplierName));
+  }, [supplierName]);
   const [open, setOpen] = useState(false);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
@@ -98,9 +148,25 @@ function Index() {
       designation: '',
       contact: '',
       emailId: '',
-      action: false,
+      callingCode: '+91',
+      action: true,
     },
   ]);
+
+  const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
+  useEffect(() => {
+    let tempArray = [{ value: false }];
+    person.forEach((item) => {
+      tempArray.push({ value: false });
+    });
+    setIsPercentageInFocus(tempArray);
+  }, [person]);
+
+  const handleFocusChange = (index, value) => {
+    let tempArray = [...isPercentageInFocus];
+    tempArray[index].value = value;
+    setIsPercentageInFocus(tempArray);
+  };
 
   const [detail, setDetail] = useState([
     {
@@ -108,7 +174,7 @@ function Index() {
       designation: '',
       contact: '',
       ownershipPercentage: '',
-      action: false,
+      action: true,
     },
   ]);
 
@@ -126,7 +192,6 @@ function Index() {
   });
 
   const [docs, setdocs] = useState([]);
-
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
@@ -144,7 +209,7 @@ function Index() {
     {
       hsnCode: '',
       commodity: '',
-      action: false,
+      action: true,
     },
   ]);
 
@@ -154,7 +219,7 @@ function Index() {
       {
         hsnCode: '',
         commodity: '',
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -173,8 +238,9 @@ function Index() {
         name: '',
         designation: '',
         contactNo: '',
+        callingCode: '+91',
         emailID: '',
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -184,7 +250,7 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
-      action: false,
+      action: true,
     },
   ]);
   const onAddShare = () => {
@@ -195,7 +261,7 @@ function Index() {
         designation: '',
         contact: '',
         ownershipPercentage: '',
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -204,7 +270,7 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-      action: false,
+      action: true,
     },
   ]);
 
@@ -216,7 +282,7 @@ function Index() {
         nationality: '',
         authorityToSign: false,
 
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -224,9 +290,7 @@ function Index() {
   const handleShareDoc = async () => {
     if (emailValidation(sharedDoc.data.receiver)) {
       let tempArr = { ...sharedDoc };
-      tempArr.company = documentsFetched.company;
-      tempArr.order = orderid;
-
+      let data = await dispatch(ShareDocument(tempArr));
       if (data?.code == 200) {
         setClose(false);
       }
@@ -321,7 +385,7 @@ function Index() {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
         isOk = false;
       }
-      if (person[i].contact === '' || person[i].contact === null || person[i].contact.length !== 10) {
+      if (person[i].contact === '' || person[i].contact === null || person[i]?.contact?.length !== 10) {
         handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
         isOk = false;
       }
@@ -333,32 +397,16 @@ function Index() {
     return isOk;
   };
 
-  const shareholdersDetailsValidation = () => {
-    let isOk = true;
-    for (let i = 0; i <= detail.length - 1; i++) {
-      if (detail[i].shareHoldersName === '' || detail[i].shareHoldersName === null) {
-        handleErrorToast(`shareHolders Name cannot be empty in shareHolder Details ${i + 1}`);
-      }
-
-      if (
-        detail[i].ownershipPercentage === '' ||
-        detail[i].ownershipPercentage === null ||
-        detail[i].ownershipPercentage >= 100
-      ) {
-        handleErrorToast(`please provide a valid ownership Percentage in shareholder  Details ${i + 1}`);
-      }
-    }
-    return isOk;
-  };
-
   const directorsAndAuthorisedSignatoryValidation = () => {
     let isOk = true;
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (listDirector[i].name === '' || listDirector[i].name === null) {
         handleErrorToast(`Name cannot be empty in Directors And Authorized Signatory ${i + 1}`);
+        isOk = false;
       }
       if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
         handleErrorToast(`nationality cannot be empty in Directors And Authorized Signatory ${i + 1}`);
+        isOk = false;
       }
     }
     return isOk;
@@ -368,9 +416,11 @@ function Index() {
     for (let i = 0; i <= listCommodity.length - 1; i++) {
       if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
         handleErrorToast(`hsn code cannot be empty in Commodities Traded ${i + 1}`);
+        isOk = false;
       }
       if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
         handleErrorToast(`commodity cannot be empty in Commodities Traded ${i + 1}`);
+        isOk = false;
         break;
       }
     }
@@ -395,18 +445,16 @@ function Index() {
       return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
-    } else if (!shareholdersDetailsValidation()) {
-      return false;
     } else if (!directorsAndAuthorisedSignatoryValidation()) {
       return false;
     } else if (!commoditiesTradedValidation()) {
       return false;
-    // } else if (!incumbencyDoc) {
-    //   handleErrorToast(`please upload incumbency certificate`);
-    //   return false;
-    // } else if (!thirdParty) {
-    //   handleErrorToast(`please upload third party certificate`);
-    //   return false;
+    } else if (!incumbencyDoc) {
+      handleErrorToast(`please upload incumbency certificate`);
+      return false;
+    } else if (!thirdParty) {
+      handleErrorToast(`please upload third party certificate`);
+      return false;
     } else {
       return true;
     }
@@ -427,13 +475,11 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-      let incumbencydoc = []
-      let thirdPartydoc = []
-
+console.log(apiData,"apiData")
       let fd = new FormData();
-    if(id) {
-      fd.append('supplierId', supplierData?._id);
-    } 
+      if (id) {
+        fd.append('supplierId', supplierData?._id);
+      }
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
@@ -445,7 +491,6 @@ function Index() {
       fd.append('incumbencyCertificateDocument', JSON.stringify(incumbencyDoc));
       fd.append('thirdPartyCertificateDocument', JSON.stringify(thirdParty));
       fd.append('extraDocument', JSON.stringify(docs));
-
       if (id) {
         dispatch(UpdateSupplier(fd));
       } else {
@@ -465,17 +510,17 @@ function Index() {
   };
 
   const [darkMode, setDarkMode] = useState(false);
-  useEffect(() => {
-    dispatch(setPageName('inception2'));
-  });
+
   const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
     setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const addressValidtion = (data) => {
+    let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
+
     const emailValidate = () => {
       let isOk = true;
-      data.email.forEach((email, index) => {
+      data.emailId.forEach((email, index) => {
         if (
           !String(email)
             .toLowerCase()
@@ -483,17 +528,16 @@ function Index() {
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             )
         ) {
-          let toastMessage = `Please add valid email id for Email Field ${index}`;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
+          handleErrorToast(`Please add valid email id for Email Field ${index}`);
           isOk = false;
         }
       });
-
       return isOk;
     };
-
+    if (findDuplicates(data.emailId).length > 0) {
+      handleErrorToast('cannot add duplicate email');
+      return false;
+    }
     if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -519,13 +563,18 @@ function Index() {
     } else if (
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
-      data.contact.phoneNumber === undefined
+      data.contact.phoneNumber === undefined ||
+      data.contact.phoneNumber?.length !== 10
     ) {
-      let toastMessage = 'Please add phone phoneNumber';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-
+      handleErrorToast('Please add a valid phone phoneNumber');
+      return false;
+    } else if (
+      data.contact.alternatePhoneNumber === null ||
+      data.contact.alternatePhoneNumber === '' ||
+      data.contact.alternatePhoneNumber === undefined ||
+      data.contact.alternatePhoneNumber?.length !== 10
+    ) {
+      handleErrorToast('Please add a valid alternate  phoneNumber');
       return false;
     } else {
       return true;
@@ -533,24 +582,24 @@ function Index() {
   };
   const [showAddress, setShowAddress] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [Index, setIndex] = useState('0');
+  const [Index, setIndex] = useState('');
   const [editData, setEditData] = useState({
-    GSTIN: '',
-    GSTIN_document: '',
-    addressType: '',
-    branch: '',
-    city: '',
-    state: '',
-    email: '',
-    completeAddress: '',
+    emailId: [''],
+    address: '',
+    country: '',
     contact: {
-      callingCode: '',
-      number: '',
+      phoneNumberCallingCode: '+91',
+      alternatePhoneNumberCallingCode: '+91',
+      phoneNumber: null,
+      alternatePhoneNumber: null,
     },
-    pinCode: '',
+    pinCode: null,
   });
+
+  const [editingAddress, setEditingAddress] = useState(false);
+
   const [keyAddressData, setKeyAddressData] = useState({
-    email: [''],
+    emailId: [''],
     address: '',
     country: '',
     contact: {
@@ -563,21 +612,20 @@ function Index() {
   });
 
   const editAddress = (index) => {
-    setShowAddress(false);
-    setShowEditAddress(true);
+    setEditingAddress(true);
     setIndex(index);
-
-    let tempArr = keyAddData;
+    let tempArr = keyAddData[index];
     setEditData({
-      email: tempArr[index].email,
-      country: tempArr[index].country,
-      address: tempArr[index].address,
+      emailId: tempArr?.emailId?.length > 1 ? tempArr?.emailId : [''],
+      country: tempArr?.country,
+      address: tempArr?.address,
       contact: {
-        callingCode: tempArr[index].contact.callingCode,
-        phoneNumber: tempArr[index].contact.phoneNumber,
-        alternatePhoneNumber: tempArr[index].contact.alternatePhoneNumber,
+        phoneNumberCallingCode: tempArr?.contact?.phoneNumberCallingCode,
+        alternatePhoneNumberCallingCode: tempArr?.contact?.alternatePhoneNumberCallingCode,
+        phoneNumber: tempArr?.contact?.phoneNumber,
+        alternatePhoneNumber: tempArr?.contact?.alternatePhoneNumber,
       },
-      pinCode: tempArr[index].pinCode,
+      pinCode: tempArr?.pinCode,
     });
   };
   const keyAddDataArr = (keyAddressData) => {
@@ -585,22 +633,46 @@ function Index() {
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
   };
+
+  const handleUpdateAdress = () => {
+    if (addressValidtion(editData)) {
+      let tempArr = [...keyAddData];
+      tempArr[Index] = editData;
+      setKeyAddData(tempArr);
+      setEditingAddress(false);
+    }
+  };
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
       setKeyAddressData({
-        email: [''],
+        emailId: [''],
         address: '',
         country: '',
         contact: {
           phoneNumberCallingCode: '+91',
           alternatePhoneNumberCallingCode: '+91',
-          phoneNumber: null,
-          alternatePhoneNumber: null,
+          phoneNumber: '',
+          alternatePhoneNumber: '',
         },
-        pinCode: null,
+        pinCode: '',
       });
     }
+  };
+  const handleAddressUpdate = (value, name, index) => {
+    const newInput = { ...editData };
+
+    let namesplit = name.split('.');
+
+    if (name === 'emailId') {
+      newInput.emailId[index] = value;
+    } else if (namesplit.length > 1) {
+      newInput[namesplit[0]][namesplit[1]] = value;
+    } else {
+      newInput[name] = value;
+    }
+
+    setEditData(newInput);
   };
 
   const handleChange = (value, name, index) => {
@@ -609,7 +681,7 @@ function Index() {
     let namesplit = name.split('.');
 
     if (name === 'emailId') {
-      newInput.email[index] = value;
+      newInput.emailId[index] = value;
     } else if (namesplit.length > 1) {
       newInput[namesplit[0]][namesplit[1]] = value;
     } else {
@@ -623,12 +695,12 @@ function Index() {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    try {let response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+    try {
+      let response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
         headers: headers,
       });
       if (response.data.code === 200) {
-        console.log(response.data.data,'incumbencyDoc')
-        return  response.data.data;
+        return response.data.data;
       } else {
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
       }
@@ -638,28 +710,37 @@ function Index() {
   };
 
   const uploadDocumentHandler = async (e) => {
-    e.preventDefault()
-    if (newDoc?.document) {
+    e.preventDefault();
+    if (!newDoc?.document) {
+      handleErrorToast('please upload a document first');
+    } else if (!newDoc?.name) {
+      handleErrorToast('please provide a document first');
+    } else {
       let fd = new FormData();
       fd.append('document', newDoc.document);
       let data = await docUploader(fd);
+      data.name = newDoc.name;
+      if (data?.originalName) handleSuccessToast('document uploaded successfully');
       setdocs([...docs, data]);
-    } else {
-      handleErrorToast('please upload a document first');
+      setNewDoc({
+        document: null,
+        name: '',
+      });
     }
   };
 
-  const uploadDocHandler2 = async(e,doc) => {
+  const uploadDocHandler2 = async (e, doc) => {
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     let data = await docUploader(fd);
-    if(doc == 'thirdPartyDoc') { SetThirdParty(data)} 
-    else {
-    setIncumbencyDoc(data);
+    if (doc == 'thirdPartyDoc') {
+      SetThirdParty(data);
+    } else {
+      setIncumbencyDoc(data);
     }
   };
 
-  const deleteDocumentHandler = ({ document, index }) => {
+  const deleteDocumentHandler = (document, index) => {
     let tempArray = docs;
     tempArray.splice(index, 1);
     setdocs(tempArray);
@@ -668,6 +749,27 @@ function Index() {
       path: document?.path,
     };
     dispatch(DeleteSupplierDoc(payload));
+  };
+
+  const filterDocBySearch = (searchQuery) => {
+    if (searchQuery.length > 0) {
+      let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
+      setdocs(filteredArray);
+    } else {
+      setdocs(supplierData?.extraDocument ?? []);
+    }
+  };
+
+  const handleDeleteUpdateAddress = (index) => {
+    let tempArr = { ...editData };
+    tempArr.emailId.splice(index, 1);
+    setEditData(tempArr);
+  };
+
+  const handleDeleteNewAddress = (index) => {
+    let tempArr = { ...keyAddressData };
+    tempArr.emailId.splice(index, 1);
+    setKeyAddressData(tempArr);
   };
 
   return (
@@ -702,6 +804,7 @@ function Index() {
                     className={`${styles.dropDown} ${styles.customSelect} input`}
                     style={{ marginRight: '5px' }}
                     name="status"
+                    value={formData?.status}
                     onChange={onChangeHandler}
                   >
                     <>
@@ -739,6 +842,7 @@ function Index() {
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
+                        onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                         onChange={onChangeHandler}
                         name="supplierName"
                         value={formData?.supplierName}
@@ -755,7 +859,6 @@ function Index() {
                       <select
                         onChange={onChangeHandler}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        required
                         name="constitution"
                         value={formData?.constitution}
                       >
@@ -818,7 +921,7 @@ function Index() {
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                      onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
                       required
                       name="nationalIdentificationNumber"
                       value={formData?.nationalIdentificationNumber}
@@ -869,7 +972,7 @@ function Index() {
                           alterNumber={address?.contact?.alternatePhoneNumber}
                           alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
                           country={address?.country}
-                          email={address?.email}
+                          email={address?.emailId}
                           deleteComponent={deleteComponent}
                           editAddress={editAddress}
                           pinCode={address.pinCode}
@@ -879,6 +982,225 @@ function Index() {
                     );
                   })}
                 </div>
+                {editingAddress && (
+                  <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
+                    <div
+                      className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
+                    >
+                      <h3 className={`${styles.heading}`} style={{ textTransform: 'none' }}>
+                        Update address
+                      </h3>
+                      <img
+                        onClick={() => {
+                          setEditingAddress(false);
+                        }}
+                        style={{ marginRight: '-15px' }}
+                        src="/static/accordion_close_black.svg"
+                        className="image_arrow"
+                      />
+                    </div>
+                    <div className={`${styles.dashboard_form} card-body border_color`}>
+                      <div className="row">
+                        <div className={`${styles.form_group} col-md-12 col-sm-6`}>
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            type="text"
+                            name="address"
+                            value={editData?.address}
+                            onChange={(e) => {
+                              handleAddressUpdate(e.target.value, e.target.name);
+                            }}
+                          />
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Address
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
+                          <div className="d-flex">
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              name="pinCode"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                              value={editData?.pinCode}
+                              onWheel={(e) => e.target.blur()}
+                              onChange={(e) => {
+                                gettingPins(e.target.value);
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            {editData?.pinCode?.length > 0 && toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() => {
+                                            handleAddressUpdate(results.Pincode, 'pinCode');
+                                            //  handleChange('pinCode', results.Pincode)
+                                            setToShow([]);
+                                            setToView(false);
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Pin Code
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.search_image} img-fluid`}
+                              src="/static/search-grey.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
+                          <div className="d-flex">
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              name="country"
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                              value={editData?.country}
+                              onChange={(e) => handleAddressUpdate(e.target.value, e.target.name)}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Country
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.search_image} img-fluid`}
+                              src="/static/search-grey.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                          <div className={`${styles.phone_card}`}>
+                            <select
+                              type="tel"
+                              name="contact.phoneNumberCallingCode"
+                              id="Code"
+                              className={`${styles.code_phone} input border-right-0`}
+                              value={editData.contact.phoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+92">+92</option>
+                              <option value="+95">+95</option>
+                              <option value="+24">+24</option>
+                            </select>
+                            <input
+                              type="tel"
+                              id="textNumber"
+                              name="contact.phoneNumber"
+                              value={editData?.contact.phoneNumber}
+                              className={`${styles.input_field}  input form-control border-left-0`}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                              Phone Number
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </div>
+                        </div>
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                          <div className={`${styles.phone_card}`}>
+                            <select
+                              name="contact.alternatePhoneNumberCallingCode"
+                              id="Code"
+                              className={`${styles.code_phone} input border-right-0`}
+                              value={editData.contact.alternatePhoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              {' '}
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+92">+92</option>
+                              <option value="+95">+95</option>
+                              <option value="+24">+24</option>
+                            </select>
+                            <input
+                              type="tel"
+                              id="textNumber"
+                              name="contact.alternatePhoneNumber"
+                              value={editData?.contact.alternatePhoneNumber}
+                              className={`${styles.input_field} input form-control border-left-0`}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                              Alternate Phone Number
+                            </label>
+                          </div>
+                        </div>
+                        {editData.emailId.map((email, index) => (
+                          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <div className="d-flex">
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="text"
+                                name="emailId"
+                                value={email}
+                                onChange={(e) => {
+                                  handleAddressUpdate(e.target.value, e.target.name, index);
+                                }}
+                              />
+                              <label className={`${styles.label_heading} label_heading`}>
+                                Email ID
+                                <strong className="text-danger">*</strong>
+                              </label>
+
+                              <img
+                                onClick={() =>
+                                  setEditData((prev) => {
+                                    return { ...prev, emailId: [...prev.emailId, ''] };
+                                  })
+                                }
+                                className={`${styles.plus_add} img-fluid`}
+                                src="/static/add-btn.svg"
+                                alt="Search"
+                              />
+                            {editData?.emailId?.length > 1 &&  <img
+                                onClick={() => handleDeleteUpdateAddress(index)}
+                                src="/static/delete 2.svg"
+                                className={`${styles.plus_add} img-fluid`}
+                                alt="Delete"
+                              />}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <button className={`${styles.add_btn}`} onClick={() => handleUpdateAdress()}>
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                   <div
                     className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
@@ -911,12 +1233,37 @@ function Index() {
                             required
                             type="number"
                             name="pinCode"
+                            onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
+                              gettingPins(e.target.value);
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
+                          {keyAddressData?.pinCode?.length > 0 && toShow.length > 0 && toView && (
+                            <div className={styles.searchResults}>
+                              <ul>
+                                {toShow
+                                  ? toShow?.map((results, index) => (
+                                      <li
+                                        onClick={() => {
+                                          handleChange(results.Pincode, 'pinCode');
+                                          //  handleChange('pinCode', results.Pincode)
+                                          setToShow([]);
+                                          setToView(false);
+                                        }}
+                                        id={results._id}
+                                        key={index}
+                                        value={results.Pincode}
+                                      >
+                                        {results.Pincode}{' '}
+                                      </li>
+                                    ))
+                                  : ''}
+                              </ul>
+                            </div>
+                          )}
                           <label className={`${styles.label_heading} label_heading`}>
                             Pin Code
                             <strong className="text-danger">*</strong>
@@ -936,10 +1283,9 @@ function Index() {
                             required
                             type="text"
                             name="country"
+                            onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.country}
-                            onChange={(e) => {
-                              handleChange(e.target.value, e.target.name);
-                            }}
+                            onChange={(e) => handleChange(e.target.value, e.target.name)}
                           />
                           <label className={`${styles.label_heading} label_heading`}>
                             Country
@@ -956,6 +1302,7 @@ function Index() {
                       <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={`${styles.phone_card}`}>
                           <select
+                            type="tel"
                             name="contact.phoneNumberCallingCode"
                             id="Code"
                             className={`${styles.code_phone} input border-right-0`}
@@ -974,7 +1321,7 @@ function Index() {
                             type="tel"
                             id="textNumber"
                             name="contact.phoneNumber"
-                            value={keyAddressData?.phoneNumber}
+                            value={keyAddressData?.contact.phoneNumber}
                             className={`${styles.input_field}  input form-control border-left-0`}
                             onChange={(e) => {
                               handleChange(e.target.value, e.target.name);
@@ -1008,7 +1355,7 @@ function Index() {
                             type="tel"
                             id="textNumber"
                             name="contact.alternatePhoneNumber"
-                            value={keyAddressData?.alternatePhoneNumber}
+                            value={keyAddressData?.contact.alternatePhoneNumber}
                             className={`${styles.input_field} input form-control border-left-0`}
                             onChange={(e) => {
                               handleChange(e.target.value, e.target.name);
@@ -1019,7 +1366,7 @@ function Index() {
                           </label>
                         </div>
                       </div>
-                      {keyAddressData.email.map((email, index) => (
+                      {keyAddressData.emailId.map((email, index) => (
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             <input
@@ -1040,13 +1387,20 @@ function Index() {
                             <img
                               onClick={() =>
                                 setKeyAddressData((prev) => {
-                                  return { ...prev, email: [...prev.email, ''] };
+                                  return { ...prev, emailId: [...prev.emailId, ''] };
                                 })
                               }
                               className={`${styles.plus_add} img-fluid`}
                               src="/static/add-btn.svg"
                               alt="Search"
                             />
+
+                           {keyAddressData?.emailId?.length > 1 && <img
+                              onClick={() => handleDeleteNewAddress(index)}
+                              src="/static/delete 2.svg"
+                              className={`${styles.plus_add} img-fluid`}
+                              alt="Delete"
+                            />}
                           </div>
                         </div>
                       ))}
@@ -1096,55 +1450,105 @@ function Index() {
                           person?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="name"
-                                  value={val?.name}
-                                  type="text"
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                  readOnly={!val.action}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.name}</span>
+                                ) : (
+                                  <input
+                                    className="input font-weight-bold"
+                                    name="name"
+                                    value={val?.name}
+                                    type="text"
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="designation"
-                                  value={val?.designation}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.designation}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="designation"
+                                    value={val?.designation}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
 
                               <td>
-                                <input
-                                  className="input"
-                                  name="contact"
-                                  value={val?.contact}
-                                  type="number"
-                                  onWheel={(event) => event.currentTarget.blur()}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                                  readOnly={!val.action}
-                                />
+                                {!val.action ? (
+                                  <span>
+                                    {val?.callingCode} {val?.contact}
+                                  </span>
+                                ) : (
+                                  <div className={`${styles.phone_card}`}>
+                                    <select
+                                      name="callingCode"
+                                      id="Code"
+                                      className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                      value={val?.callingCode}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                    >
+                                      {' '}
+                                      <option value="+91">+91</option>
+                                      <option value="+1">+1</option>
+                                      <option value="+92">+92</option>
+                                      <option value="+95">+95</option>
+                                      <option value="+24">+24</option>
+                                    </select>
+                                    <input
+                                      name="contact"
+                                      value={val?.contact}
+                                      type="number"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                                      }
+                                      readOnly={!val.action}
+                                    />
+                                  </div>
+
+                                  // <input
+                                  //   className="input"
+                                  //   name="contact"
+                                  //   value={val?.contact}
+                                  //   type="number"
+                                  //   onWheel={(event) => event.currentTarget.blur()}
+                                  //   onChange={(e) => {
+                                  //     onChangeHandler2(e.target.name, e.target.value, index);
+                                  //   }}
+                                  //   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                                  //   readOnly={!val.action}
+                                  // />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="emailId"
-                                  value={val?.emailId}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.emailId}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="emailId"
+                                    value={val?.emailId}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
 
                               <td className="text-right">
@@ -1230,43 +1634,72 @@ function Index() {
                             return (
                               <tr key={index} className="table_credit">
                                 <td>
-                                  <input
-                                    className="input font-weight-bold"
-                                    name="shareHoldersName"
-                                    value={val?.shareHoldersName}
-                                    type="text"
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index);
-                                    }}
-                                    readOnly={!val.action}
-                                  />
+                                  {!val.action ? (
+                                    <span>{val?.shareHoldersName}</span>
+                                  ) : (
+                                    <input
+                                      className="input font-weight-bold"
+                                      name="shareHoldersName"
+                                      value={val?.shareHoldersName}
+                                      type="text"
+                                      onChange={(e) => {
+                                        onChangeHandler3(e.target.name, e.target.value, index);
+                                      }}
+                                      readOnly={!val.action}
+                                    />
+                                  )}
                                 </td>
                                 <td>
-                                  <input
-                                    className="input"
-                                    name="designation"
-                                    value={val?.designation}
-                                    type="text"
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index);
-                                    }}
-                                    readOnly={!val.action}
-                                  />
+                                  {!val.action ? (
+                                    <span>{val?.designation}</span>
+                                  ) : (
+                                    <input
+                                      className="input"
+                                      name="designation"
+                                      value={val?.designation}
+                                      type="text"
+                                      onChange={(e) => {
+                                        onChangeHandler3(e.target.name, e.target.value, index);
+                                      }}
+                                      readOnly={!val.action}
+                                    />
+                                  )}
                                 </td>
 
                                 <td>
-                                  <input
-                                    className="input"
-                                    name="ownershipPercentage"
-                                    value={val?.ownershipPercentage}
-                                    type="number"
-                                    onWheel={(event) => event.currentTarget.blur()}
-                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index);
-                                    }}
-                                    readOnly={!val.action}
-                                  />
+                                  {!val.action ? (
+                                    <span>{val?.ownershipPercentage ? val?.ownershipPercentage + ' %' : ''}</span>
+                                  ) : (
+                                    <input
+                                      className="input"
+                                      name="ownershipPercentage"
+                                      onFocus={(e) => {
+                                        handleFocusChange(index, true);
+                                        e.target.type = 'number';
+                                      }}
+                                      onBlur={(e) => {
+                                        handleFocusChange(index, false);
+                                        e.target.type = 'text';
+                                      }}
+                                      value={
+                                        isPercentageInFocus[index].value
+                                          ? val?.ownershipPercentage
+                                          : Number(val?.ownershipPercentage)?.toLocaleString('en-In', {
+                                              maximumFractionDigits: 2,
+                                            }) + ` %`
+                                      }
+                                      // value={val?.ownershipPercentage}
+                                      type="text"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                                      }
+                                      onChange={(e) => {
+                                        onChangeHandler3(e.target.name, e.target.value, index);
+                                      }}
+                                      readOnly={!val.action}
+                                    />
+                                  )}
                                 </td>
 
                                 <td className="text-right">
@@ -1359,28 +1792,38 @@ function Index() {
                           listDirector?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="name"
-                                  value={val?.name}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.name}</span>
+                                ) : (
+                                  <input
+                                    className="input font-weight-bold"
+                                    name="name"
+                                    value={val?.name}
+                                    type="text"
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler4(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="nationality"
-                                  value={val?.nationality}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.nationality}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="nationality"
+                                    value={val?.nationality}
+                                    type="text"
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler4(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
                                 <input
@@ -1526,28 +1969,36 @@ function Index() {
                           listCommodity.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="hsnCode"
-                                  value={val?.hsnCode}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.hsnCode}</span>
+                                ) : (
+                                  <input
+                                    className="input font-weight-bold"
+                                    name="hsnCode"
+                                    value={val?.hsnCode}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler6(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="commodity"
-                                  value={val?.commodity}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.commodity}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="commodity"
+                                    value={val?.commodity}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler6(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
 
                               <td className="text-right">
@@ -1701,20 +2152,10 @@ function Index() {
                             <strong className="text-danger ml-0">*</strong>{' '}
                           </td>
 
-                          <td>
-                            {incumbencyDoc?.name?.toLowerCase()?.endsWith('.xls') ||
-                            incumbencyDoc?.name?.toLowerCase()?.endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : incumbencyDoc?.name?.toLowerCase()?.endsWith('.doc') ||
-                              incumbencyDoc?.name?.toLowerCase()?.endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )}
-                          </td>
+                          <td>{incumbencyDoc?.originalName ? returnDocFormat(incumbencyDoc?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {incumbencyDoc && incumbencyDoc?.lastModifiedDate
-                              ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
+                            {incumbencyDoc && incumbencyDoc?.date
+                              ? moment(incumbencyDoc?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
                           <td colSpan={2}>
@@ -1725,7 +2166,7 @@ function Index() {
                                     type="file"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocHandler2(e,'incumbencyDoc')}
+                                    onChange={(e) => uploadDocHandler2(e, 'incumbencyDoc')}
                                   />
                                   <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
@@ -1752,20 +2193,10 @@ function Index() {
                             <strong className="text-danger ml-0">*</strong>{' '}
                           </td>
 
-                          <td>
-                            {thirdParty?.name?.toLowerCase()?.endsWith('.xls') ||
-                            thirdParty?.name?.toLowerCase()?.endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : thirdParty?.name?.toLowerCase()?.endsWith('.doc') ||
-                              thirdParty?.name?.toLowerCase()?.endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )}
-                          </td>
+                          <td>{thirdParty?.originalName ? returnDocFormat(thirdParty?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {thirdParty && thirdParty?.lastModifiedDate
-                              ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
+                            {thirdParty && thirdParty?.date
+                              ? moment(thirdParty?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
                           <td colSpan={2}>
@@ -1776,7 +2207,7 @@ function Index() {
                                     type="file"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocHandler2(e,'thirdPartyDoc')}
+                                    onChange={(e) => uploadDocHandler2(e, 'thirdPartyDoc')}
                                   />
                                   <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
@@ -1870,10 +2301,9 @@ function Index() {
                         </Form.Label>
                       </Form.Group>
                       <div className={styles.uploadBtnWrapper}>
-                        <button
-                          onClick={(e) => uploadDocumentHandler(e)}
-                          className={`${styles.upload_button} btn`}
-                        >Upload</button>
+                        <button onClick={(e) => uploadDocumentHandler(e)} className={`${styles.upload_button} btn`}>
+                          Upload
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -1942,18 +2372,8 @@ function Index() {
                             } else {
                               return (
                                 <tr key={index} className="uploadRowTable">
-                                  <td className={`${styles.doc_name}`}>{document?.originalName}</td>
-                                  <td>
-                                    {document?.originalName?.toLowerCase()?.endsWith('.xls') ||
-                                    document?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : document?.originalName?.toLowerCase().endsWith('.doc') ||
-                                      document?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                    ) : (
-                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                    )}
-                                  </td>
+                                  <td className={`${styles.doc_name}`}>{document?.name}</td>
+                                  <td>{document?.originalName ? returnDocFormat(document?.originalName) : null}</td>
                                   <td className={styles.doc_row}>
                                     {moment(document?.date).format('DD-MM-YYYY, h:mm A')}
                                   </td>
@@ -1962,7 +2382,7 @@ function Index() {
                                   </td>
                                   <td>
                                     <span className={`${styles.status} ${styles.approved}`}></span>
-                                    {document?.verification?.status}
+                                    {document?.verification?.status ?? 'Pending'}
                                   </td>
                                   <td colSpan="2">
                                     <img
@@ -1975,7 +2395,7 @@ function Index() {
                                     />
                                     <img
                                       src="/static/upload.svg"
-                                      className="mr-3"
+                                      className={`${styles.upload_image} mr-3`}
                                       alt="Share"
                                       onClick={() => {
                                         setOpen(true);
@@ -1985,64 +2405,6 @@ function Index() {
                                   </td>
                                 </tr>
                               );
-                            }
-                          })}
-                        {false &&
-                          documentsFetched?.documents?.map((document, index) => {
-                            if (document.deleted) {
-                              return null;
-                            } else if (document.module === documentsDropDownFilter) {
-                              return (
-                                <tr key={index} className="uploadRowTable">
-                                  <td className={`${styles.doc_name}`}>{document.name}</td>
-                                  <td>
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  </td>
-                                  <td className={styles.doc_row}>{document.date}</td>
-                                  <td className={styles.doc_row}>
-                                    {document.uploadedBy?.fName} {document.uploadedBy?.lName}
-                                  </td>
-                                  <td>
-                                    <span className={`${styles.status} ${styles.approved}`}></span>
-                                    {document?.verification?.status}
-                                  </td>
-                                  <td colSpan="2">
-                                    <img
-                                      onClick={() =>
-                                        dispatch(
-                                          DeleteDocument({
-                                            orderDocumentId: documentsFetched._id,
-                                            name: document.name,
-                                          }),
-                                        )
-                                      }
-                                      src="/static/delete.svg"
-                                      className={`${styles.delete_image} img-fluid mr-3`}
-                                      alt="Bin"
-                                    />
-                                    <img
-                                      src="/static/upload.svg"
-                                      className="img-fluid mr-3"
-                                      alt="Share"
-                                      onClick={() => {
-                                        dispatch(
-                                          ViewDocument({
-                                            path: document.path,
-                                            orderId: documentsFetched._id,
-                                          }),
-                                        );
-                                      }}
-                                    />
-                                    <img
-                                      src="/static/drive_file.svg"
-                                      className={`${styles.edit_image} img-fluid mr-3`}
-                                      alt="Share"
-                                    />
-                                  </td>
-                                </tr>
-                              );
-                            } else {
-                              return null;
                             }
                           })}
                       </tbody>

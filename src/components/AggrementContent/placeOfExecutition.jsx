@@ -48,12 +48,13 @@ function Index(props) {
       props.updateData('Place of Execution', data);
     }
   }, [props.saveData, props.submitData]);
-  const onEdit = (index) => {
+    const onEdit = (index) => {
+   
     let tempArr = list;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' };
+          return { ...obj, actions: 'true' };
         }
         // 👇️ otherwise return object as is
         return obj;
@@ -66,7 +67,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'false' };
         }
 
         return obj;
@@ -79,10 +80,10 @@ function Index(props) {
     setList([
       ...list,
       {
-        name: 'Sales Agreement',
+        name: '',
         execution: '',
         dateOfExecution: null,
-        actions: 'false',
+        actions: 'true',
       },
     ]);
   };
@@ -126,14 +127,13 @@ function Index(props) {
                       list?.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions !== 'true' ? (
                               <tr key={index}>
                                 <td>{val.name}</td>
                                 <td>{val.execution}</td>
                                 <td>
                                   {val.dateOfExecution == null ? '' : moment(val.dateOfExecution).format('DD-MM-YYYY')}
                                 </td>
-
                                 <td className={`d-flex`}>
                                   <img
                                     className={`${styles.image} img-fluid mr-3`}

@@ -88,10 +88,10 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
+  getGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
 
-  // mcaReport
-  getMcaReport: '/karza/request-mca-document',
+
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -132,6 +132,8 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
+  //mcaReport 
+  getMcaReport : '/karza/request-mca-document',
   // preview
   preview: '/document/access/preview',
 
@@ -155,6 +157,9 @@ export default {
 
   // GO NO GO
   getGoNoGo: '/gng-master',
+
+  // CURRENCY
+  getCurrency: '/currency-master',
 
   // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',

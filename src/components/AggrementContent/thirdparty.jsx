@@ -48,7 +48,7 @@ function Index(props) {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
-
+console.log(savedData,'savedData')
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
         setPaymentTerms(savedData?.paymentTerms);
@@ -74,9 +74,10 @@ function Index(props) {
           setIsFieldInFocus([...temp])
         }
       } else {
+        console.log(props?.data,'savedData1')
         setDeliveryData(props?.data?.deliveryTerm);
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
-        setPaymentTerms(props?.data?.paymentTerms);
+        setPaymentTerms(props?.data?.paymentTerms ? props?.data?.paymentTerms : props?.genericData?.order?.termsheet?.paymentDueDate?.computationOfDueDate);
         setListContact(
           props?.data?.cheque?.length > 0
             ? props.data.cheque
@@ -184,7 +185,7 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date</option>
+                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
@@ -193,7 +194,7 @@ function Index(props) {
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+            {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -223,7 +224,7 @@ function Index(props) {
                 </Form.Label>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
-            </Form.Group>
+            </Form.Group> */}
           </div>
         </Form>
       </div>

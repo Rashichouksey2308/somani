@@ -242,7 +242,6 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                           input3: 'IGM',
                         });
                       }}
-                      required
                     >
                       <option value="select an Option" disabled selected>
                         Select an option

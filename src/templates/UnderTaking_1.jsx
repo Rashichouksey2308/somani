@@ -1,4 +1,5 @@
 import styles from '@/components/AssociateshipAgreement/index.module.scss';
+import { returnReadableNumber } from '@/utils/helpers/global';
 import moment from 'moment';
 import Router from 'next/router';
 import { Col, Row } from 'react-bootstrap';
@@ -15,13 +16,13 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           {' '}
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
-            <u>
-              {data.buyer},</u>
+            
+              {data.buyer},
               <br />
-              <u>{data.buyerAddress?.fullAddress}</u>,{" "}
-              <u>{data.buyerAddress?.city}</u>{" "} 
-              <u>{data.buyerAddress?.country}</u>,{" "}
-              <u>{data.buyerAddress?.pinCode}</u>            
+              {data.buyerAddress?.fullAddress},{" "}
+              {data.buyerAddress?.city}{" "}<br/>
+              {data.buyerAddress?.country},{" "}
+              {data.buyerAddress?.pinCode}            
           </span>
         </p>
         <p className="text-center text_sales">
@@ -38,8 +39,8 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </li>
           <li>
             <p className="text_sales">
-              That as requested by us, the Supplier shall sell the Goods to <u>{data.shortseller}</u> and <u>{data.shortseller}</u> will establish
-              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>{data.shortseller}</u>{' '}
+              That as requested by us, the Supplier shall sell the Goods to {data.shortseller} and {data.shortseller} will establish
+              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. {data.shortseller}{' '}
               shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said
               Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to
               as “Contracts”.
@@ -48,7 +49,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the Contracts being entered into by{' '}
-              <u>{data.shortseller}</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship
+              {data.shortseller} and Seller on our request. It is pertinent to mention that the terms of the Associateship
               Agreement be read as a part of this Undertaking.
             </p>
           </li>
@@ -142,7 +143,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           <strong>Schedule I</strong>
         </p>
         <p className="text_sales pb-3">
-          <u>Details of post-dated Cheque(s)-</u>
+          Details of post-dated Cheque(s)-
         </p>
         <div className={`${styles.inputsContainer} border_black`}>
           <Row className={`${styles.row} border_black`}>
@@ -180,7 +181,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                     {moment(val.chequeDate).format('DD-MM-YYYY')}
                   </Col>
                   <Col md={3} className={styles.right}>
-                    {val.amount}
+                  INR  {returnReadableNumber(val.amount,"en-IN",2)}
                   </Col>
                 </Row>
               );

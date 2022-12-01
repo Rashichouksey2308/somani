@@ -592,7 +592,6 @@ const cancelEditAddress = () => {
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
-                required
                 type="text"
                 name="branchName"
                 value={associateData.branchName}
@@ -612,7 +611,7 @@ const cancelEditAddress = () => {
                   }}
                   value={associateData.gstin}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {props.gstList &&
                     props.gstList.map((val, index) => {
                       return <option value={val}>{val}</option>;
@@ -721,7 +720,7 @@ const cancelEditAddress = () => {
                         setAddress(e.target.name, e.target.value);
                       }}
                     >
-                      <option disabled>Select an option</option>
+                      <option disabled >Select an option</option>
                       <option value="Registered">Registered Office</option>
                       {/* <option value="Branch">Branch </option> */}
                       <option value="Supplier">Supplier Address</option>
@@ -893,7 +892,7 @@ const cancelEditAddress = () => {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
-                                  {console.log(val.addnew,"val.addnew ")}
+                               
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
@@ -904,7 +903,7 @@ const cancelEditAddress = () => {
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
-                                        <option>Select an option</option>
+                                        <option value="">Select an option</option>
                                       
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
@@ -954,6 +953,7 @@ const cancelEditAddress = () => {
                                     }}
                                   />
                                 </td>
+                                {console.log(val.phoneNo,"val.phoneNo")}
                                 <td>
                                   <input
                                     value={val.phoneNo}

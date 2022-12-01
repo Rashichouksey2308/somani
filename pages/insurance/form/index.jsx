@@ -69,9 +69,13 @@ const Index = () => {
       laycanTo: insuranceData?.quotationRequest?.laycanTo
         ? insuranceData?.quotationRequest?.laycanTo
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee
-        ? insuranceData?.quotationRequest?.lossPayee
-        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      lossPayee: _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+          insuranceData?.quotationRequest?.lossPayee,
+        ) || '',
+      
+  
       storageDetails: {
         placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge ,
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
@@ -180,7 +184,7 @@ const Index = () => {
         return false;
       }
     }
-    if (quotationData?.insuranceType == 'Storage Insurance') {
+    if (quotationData?.insuranceType == 'Storage Insurance' || quotationData?.insuranceType == 'Marine & Storage Insurance'  ) {
       if (
         quotationData.storageDetails.placeOfStorage == '' ||
         quotationData.storageDetails.placeOfStorage == undefined ||
@@ -217,7 +221,7 @@ const Index = () => {
     }
     return true;
   };
-
+ 
   const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
@@ -420,7 +424,11 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                                    :  _get(
+                                    insuranceData,
+                                    'order.lc.lcApplication.lcIssuingBank',
+                                    '',
+                                  )
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
@@ -625,7 +633,11 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                                    : _get(
+                                    insuranceData,
+                                    'order.lc.lcApplication.lcIssuingBank',
+                                    '',
+                                  )
                                 }
                               >
                                

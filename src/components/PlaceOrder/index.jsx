@@ -213,7 +213,7 @@ const Index = () => {
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
                 <span className={styles.value}>
                   {creditData?.data?.limitExpiry
-                    ? moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY')
+                    ? moment(creditData?.data?.limitExpiry).format('DD-MM-YYYY')
                     : ''}
                 </span>
               </div>

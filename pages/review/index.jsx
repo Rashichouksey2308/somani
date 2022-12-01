@@ -57,8 +57,7 @@ import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
 import { McaReportFetch } from '../../src/redux/mcaReport/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { returnReadableNumber } from '@/utils/helpers/global'
-
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 let alertObj = {
   isShell: 'Shell',
@@ -163,7 +162,7 @@ let alertObj = {
 
 function Index() {
   const dispatch = useDispatch();
- 
+
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
@@ -179,6 +178,8 @@ function Index() {
   const mcaReportAvailable =
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
+  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
 
   useEffect(() => {
     if (window) {
@@ -275,7 +276,12 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
-
+  const returnFilteredCharges = () => {
+    let data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
+    });
+    return data;
+  };
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -611,9 +617,9 @@ function Index() {
   };
 
   const [debtData, setDebtData] = useState([]);
-   const FilterUniqueBank = () => {
+  const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const openCharges = filtered?.filter((item) => !item.dateOfSatisfactionOfChargeInFull);
     const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
@@ -621,49 +627,64 @@ function Index() {
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
-      let repeat=[]
-     let filter = FilterUniqueBank()
-     
+      let repeat = [];
+      let filter = FilterUniqueBank();
       orderList?.company?.debtProfile.forEach((val, index) => {
-        
-        filter.forEach((fil,index2)=>{
-         
-          if(val.bankName==fil){
-            temp.push({
-            bankName: val?.bankName,
-            conduct: val?.conduct,
-            limit: val?.limit,
-            limitType: val?.limitType,
-            primaryBank: val?.primaryBank,
-            addnew:"false"
-          })
-          
-          }else{
-            if(!filter.includes(val?.bankName))
-            if(temp.length <= orderList?.company?.debtProfile.length){
+        // filter.forEach((fil,index2)=>{
+        //   if(val.bankName==fil){
+        //     temp.push({
+        //     bankName: val?.bankName,
+        //     conduct: val?.conduct,
+        //     limit: val?.limit,
+        //     limitType: val?.limitType,
+        //     primaryBank: val?.primaryBank,
+        //     addnew:"false"
+        //   })
 
-            console.log(val.bankName,"bankName")
-            temp.push({
+        //   }
+        //   else{
+        //     if(!filter.includes(val?.bankName)){
+        //     if(temp.length <= orderList?.company?.debtProfile?.length){
+        //     temp.push({
+        //     bankName: val?.bankName,
+        //     conduct: val?.conduct,
+        //     limit: val?.limit,
+        //     limitType: val?.limitType,
+        //     primaryBank: val?.primaryBank,
+        //     addnew:"true"
+        //   })
+        //    }
+        //   }
+        //   }
+
+        // })
+
+        if (filter.includes(val?.bankName)) {
+          // if(temp.length <= orderList?.company?.debtProfile?.length){
+          temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
             limitType: val?.limitType,
             primaryBank: val?.primaryBank,
-            addnew:"true"
-          })
-           }
-          }
-      
-         
-         
-        })
-       
-      
+            addnew: 'false',
+          });
+          //  }
+        } else {
+          temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew: 'true',
+          });
+        }
       });
-  
+
       setDebtData([...temp]);
     }
-  }, [orderList?.company?.debtProfile,companyData]);
+  }, [orderList?.company?.debtProfile, companyData]);
 
   const [personData, setPersonData] = useState([]);
 
@@ -758,6 +779,7 @@ function Index() {
     approvedOrderValue: '',
     approvedCreditValue: '',
   });
+  
 
   useEffect(() => {
     setSuggestedCredit({
@@ -1007,8 +1029,20 @@ function Index() {
       }
       return false;
     }
-    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined) {
+    if (
+      supplierCred.latestShipmentDate == '' ||
+      supplierCred.latestShipmentDate == undefined ||
+      !supplierCred.latestShipmentDate ||
+      supplierCred.latestShipmentDate == 0
+    ) {
       let toastMessage = 'Please add latest Shipment Date ';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (supplierCred.commodityOfTotalTrade == '' || supplierCred.commodityOfTotalTrade == undefined) {
+      let toastMessage = 'please add commodity Of Total Trade';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1025,7 +1059,7 @@ function Index() {
 
       let tempDebtData = [...debtData];
       tempDebtData.forEach((val, index) => {
-        delete val.action && delete val.actions;
+        delete val.action && delete val.actions && delete val.addnew;
       });
       let data = { ...product };
       data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
@@ -1130,8 +1164,20 @@ function Index() {
     }
   };
 
+  const sanctionTermsValidations = () => {
+    if (approvedCredit.approvedCreditValue == 0) {
+      handleErrorToast('approved limit value cannot be 0');
+      return false;
+    }
+    if (approvedCredit.approvedOrderValue === 0) {
+      handleErrorToast('approved order value cannot be 0');
+      return false;
+    }
+ return true
+  };
+
   const handleCamApprove = async () => {
-    if (orderValidation(orderDetails, shipment, approvedCredit) && creditValidation()) {
+    if (orderValidation(orderDetails, shipment, approvedCredit) && creditValidation() && sanctionTermsValidations()) {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
@@ -1295,9 +1341,10 @@ function Index() {
     shareHoldingChartImg,
     openBankChargeChartImg,
     debtProfileColor,
+    backgroundColor,
+    backgroundColor1,
+    returnFilteredCharges,
   ) => {
-
-  
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -1305,7 +1352,7 @@ function Index() {
       return ((n2 - n1) / n1) * 100;
     }
 
-    let backgroundColor = ['#4CAF50', '#FF9D00', '#2884DE'];
+    //  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
     let neddle1 =
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALgAAACoCAYAAABT5SRcAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAAB3RJTUUH5gkeBzEgSWMhHQAAAAFvck5UAc+id5oAABmxSURBVHja7Z17eJTVnce/57xzz0ySmUlmEiCAQihqW7oShIDVsgoIVosbrgk3BWNrt1Z3t7vdbXeLvQiofZ5KkJaLbXd9tl3Rp1tbVgGxtpZbFKhU8RYgQEhICLnM/fa+79k/QsLMZJKZSfLOm0zO5x/4nfe85z3nzJfD7z2X90fAGVUwxsj+oycnUSpPAUgpZFYKSiaDwQHADAYzCCwAjACCALwM8BLAC4Y2RnAWjNQBrI5p5Dq9z/fJ3LlzRbXb1RdE7QpwlGXPnj1CbsmN0wjYnZSQOxjD7QAKhqp8AngYw1FC2Nsg5E+R9rx3Fy0qDand7qj6cbINxhjZ/87J24nMVhJgCYDCDD7ey4DfgZFf23Vsf1lZWUTNvuACzyL219beQGTNVwG2DMDEgZZDCIFAKSRZBmNsMFVqAyGvyIT89J6Zt55So0+4wLOAfbUnp1GZfRtgSwBokuU36vWw5BhhMhhgMuhhMuhh0OsgUAEagYJS2pNXlhkkWYIkyQiFI/AHg/AHQ/AHg/D4A/AFgqlUkQE4SMGevrt8xsFM9g0X+Ajm4OGT5TKRN4JgHvr5LY16Pex5FuTnWmC1mGHQ64asDuGIiE6PFx0eD9pdHnj9gWS3nCCE/WDerBmvZqKPuMBHIAePHXPKsvYZELYKffyGOq0GTrsNxXYb8iw5Gaub1x9Ac1sHLl9tQzAU7jMfA9tHiOax+bP+pk7J+nCBjyCOHz+u7RDxTcbwXQB5ifJYcy2YUOxEQX4uCFH35+30eHHhcgta2zvRhycfArBNJOL3F82a5VaiDlzgI4R9R05MppS9DIYvxF8jAApt+ZhYXJTR0TpVfIEgLlxuweWrbZDlhFJvkCmpumfm9D8P9bO5wEcAB46eWEfAtjLAEn8t32LGTTeMh9lkVLuaSQmGw6i7cAnNbR2JLotg+MGR8uk/3EiIPFTP5AIfxrz11mlzRB/cDsJWx18z6HQonTAORXar2tVMm3a3Bx/XX0w4A8NADhKJrJ1/+61NQ/EsLvBhyv7DpxyERg4AmBZ/bXyRA5NLxkIQ6ABKHh4wxnDhcgvONDQlmmtvYjJbsGDOjA8G+xwu8GHIm4ePT5IoXgdQGp2u1Qi4ZdJEFFrz1a7ikOHy+PD+mXoEQr1W9zsIIYvmzZp+bDDlc4EPMw7UniyDLO8F4IxOt+aa8dlJNwzpHPZwQZQkfHjuAlp6++Z+BrJiQfn03w+0bC7wYcS+2hNfpDJ7DYA5Or24wIZbJk1UfdpPaeobm3GmoTE+WSQMa+fNLvvVQMrM7h4bQRw8dvJmmcmHAMS8Nd4wthiTS8aoXb2M0XjlKj6qvxjvl0fA6ML5s299M93yuMCHAQcOnRwDQT4GoKQ7jQCYMqEE44sdalcv41xp78T7Z+ohy9dnCwngYZT+7fyZtx5PpywucJU5WFtrl2XhLQCfi06/+cYJGOsYsm3bI452lwd/+bgOcuxI3ipJ7IsLb5/xSarljNx5piyAMUZkmb6EOHFPHFM0qsUNALY8C26ZPDE+uVAQyO9fPXTIkmo5XOAq8kbticcAcld0WomzEKXjx6pdtWFBkd2GKRPGxSeXGgX99lTL4C6KSuw78u5tlJBDALTdaQ5bPj4/ZRL/UeKou9iI803NMWmEsbXzZs/4r2T38hFcBfYdOWKjhPwPosRt0Ou6pgLVrtwwZHLJGOSZYzeRMUKe33/k+NRk93KBqwAl2mcB3NBtE0Lwuck3QCMIaldtWEIIwedKe/WPGZT9nDHW75jABZ5h9h87MR0ga6PTbhxbjHyLeaBFjgqMej1uvnFCTBphpPyNoyeW9HcfF3gG2cgYBeQaRPV7vsWMG8YVq121EYHTbu09u0Tw4/2nTvW5CZ4LPIOUHz3+IGGkvNsmAKZOLOF+dxpMLhkLjSbGVSmBP/ytvvJzgWeIPadP60DID6PTigrtsOSY1K7aiEKn1WDSuNitCwTk228ePjkhUX4u8AxhdflXEKCo29ZqNJgyftxgihy1lDgL408w6SUqfy1RXi7wDLBnzx6BEfKv0WkTxzih0yb9hAknAYSQRBvQvvrG8eO9DmJzgWcAa8mkCgA9c7YaQcA4Zya/ppZ9FFrzYTLoo5PymIh18fm4wDMAA/4p2h5TaOdz3kNASVHcTksZ//Laa3UxqucCV5jXj/5lIsBmdNuUEkwY4xxEiZxuxjkKoNdprycQFAtW9/zoPFzgCiNAWh5tO6z5MOiy79iZGlBKe82LE4alMXnUrmS2QwgejLaLCmxqVymrKLLH9SdhD0Rvp+UCV5ADtSfLGMNnum2tRoA9L28wRXLiyDEakBu7lmA2avSLuw0ucCVh8n3RpsNmBaV83XKo6f2/Iunpdy5wJWHkzmgzm75nMpxwxPcrwx3df+UCV4iu6So2s9smAKx8x6AiGA362NkUwNm9V5wLXCGo3X0bAEO3bc4xxW8S4gwh1ty4Y5qU3AFwgSsGlfHFaJuP3soS379Exu0AF7hiMLBbom1+oEFZ8uL7l7CbAS5wxSDA5Gg7bt8EZ4jJ6d2/pQAXuJLECtxoGGg5nBSglMavEOfuP3zKwQWuAAdra+0AeiZn9TotBMq7Wmni/5ekQmQK73UFkEVSEm2b9Nw9yQTGeDdFxngucAUglORH21p+sCEjaDWx/SxTYuYCVwJKYk55c/ckM2jiQ7rIyOM9rwQyF7ga0Lh+pgQm3vMKIBPkR9saDXdRMoEQd0qKgQuck+VwgSsAZeiMtkVRVLtKowJJkmJsAvi5wJWAMl+0KcpDFriX0w9SXD/LjAtcGeRYgctc4BlBkuL6mcLFBa4ATGad0XY4wl2UTBCJcwWpzLxc4AogE/FitB0IhgZaFCcN4vuZEXaBC1wB7pk9ux1Ae7cdikR6//fJGXL88QKXdXVc4MpRF234g0G165PVyLKMYDgcneRaMGfaFS5whSDAmWjbx90URfEFeg0gZwA+D64YMsPpaNvl8apdpazG5Y2ZuAIjXf3PBa4QlOLP0XaH26N2lbKaDnfsAEJYV/9zgStEpD3vXQCBbtvrDyAiSoMokdMfHZ7YAUSSGBe4kixaVBoCUNttMwCdHj6KK4E/GEIoHOmxGdDcHc+eC1xBGNifou0r7Z1qVykrie9XArzd/XcucAVhIL+Ltq+0d/JlewVobmuPsaP7nQtcQe4pLzsJ4Hy3LUoSrna61a5WVuELBOHx+aOTgrqg4dVugwtceV6KNuJHG87gaL4a258EODh37i09Uypc4ArDGH4Zbbe2dyIciQywNE40MmNobL0am8jYy9EmF7jCLJhd9jGiZlNkxnCp5eogSuR009LWHjN7AqA1qCOvRCdwgWcARtiz0faF5haIfE58UDAA9Y3NcWls+31lZTEOORd4Bjg6s+w3YDjXbYuihIaWVrWrNaJpbe+M33/iE6hcE5+PCzwDbCREBsXW6LQLl1t6bdDnpAZjDGcbmuKTX7h75sy2+EQu8AxhlsM7AfT8KhFRxLlLl9Wu1oikoaUV3kAgOilCJPw4UV4u8Awxe/bsAEC+E53W0NIKd+wcLicJ4Ugk0ej903m3l11MlJ8LPIPMm3XrfwI40W0zxvDx+YuDKHH0UXexEWL05yEYLotE/Pe+8nOBZxBCCKMy/QYYY91pLo8PF5uvqF21EUFrRyeaWmPdbAL27UWzZvW5PMwFnmF27fyZ5YO/fhATLPPTC5d6bdjnxBIMh3H67IX45EN3l5e92N99XOAZZP369Ta/1//q22/+ER739UGHMYb36+r5fvE+uN4/MbNOXkql9YQQ1t+9XOAZpMMr1oqRiCEUCuK1V/fG7CwMhEI4fbY+2nvhXKPuYiM644/8Efbo3TNnfprsXh64MUNUrNzwYsDv/1K37XF7QChByfjxPXn8wRDCoohCK49n301D8xWcvRQ3a8LIi/PLy55M5X4+gmeAFasfXu33eVfFpx87dBTn6+tj0i61tOJ8U3PKZWczV9o78Mn5hvjkj7Uhw6OplsFHcIVZvubhKT6f7wCT5YSDSf2Zc7ixdBJMJlNPWrvLA71Oh9wcU8rPyTbaXG78ta6Xy9YmM3LXvDumpTwCcIEryNKlS3UhkXwoRiJ9RoGVRBHnzpzDlJunQhcVBq+twwWtVos8c05Kz8omWjtcOPXpufjTTz4q04Xz50z/azplcYEryNTPz3ozFAzclCxfOBRCw/kLmHLz1JhoEFc7XZBlBntertpNyRiNV67ig7Pn40fuMGXk7+6eM/2P6ZbHBa4QS1c+/KTf712ban6/z4+mS42YevNNoFHBlDo9XgRDYRRa80AISbW4Ecm5S5fx6YVL8ckSGFs7b3bZbwdSJhe4AiypeuQuv9+9GwxpKdLvD8DrC2BcydiYkdzjD6Dd7YE9PxcaIft+MlGUcPrsBTS09FrRDRCQlfNnl708kHIBLvAhZ/Hix/MjsuukLEnadO4TBAGFzjEIh8NoamxC0ZjiGJ88GA7jcms7TAYDcrIoLLjL68PJjz7tPc8NuAjBwnnlZfsHUz4X+BBz07TPnAqHws507qGUotBZDK2u699EOBTGpYuX4HQ6YIgSsyzLaGnrQDgiwppr7hU2byTBGMP5pmZ8cPZ8ohXcBkrIvHmzyt4d7HO4wIeQisoNOwJ+//x07qGEosBZBF1cuG9RFHHx/EUYjQbkW/Njrrl9fly+2gadVgOLaeRNJba73Hjvk7NoaevodY0Ab1EiLrh71m3nBlB0L7jAh4ilVdWVPp/nqXTuIYTAXuiE3pDY5ZBlGU2XmuDz+uAsdsaM2JIk40p7JzrcHphNJuh1aXlEqhAIhfDhuQs409CU6DSTSAi+09Fw7qv3LVgwZN+4y+7X8gxRUbmuNBQIfyhJUuoRXwlBQYEDhhRHYIvFgplzboPVZk14vSA/DxPHFsFqMadUXibxBYKob2xGc1t7X3ttzgNs1fzyGYeH+tl8BB88dMrUz3/c32JOImyFDhhNqS/ihMNh1J89j1A4jEJHoUwpjRmc/MEQmlrb0O7yQKvRwGTQqz6t2O724OP6Bnx6oQEefyBRljAIntYGjZV3f/ELZ5WoAx/BB0nFivWv+f3ehencY7UXIMdsGdDzGMjxabfe8tBnpk59DMBD6GM/kVajgdOWj6ICG/JzLRn7od0+P5qvtqOlvQPBULjPfATYS6j0j6nsCBwMXOCDYMmqDd/zuT0b07knz2aHxTLAlUmCvUGduOLFZ5/1AcCB2pNlkKX/AMiX0c9vqddpYcvLhdVihjXXApNBn/IjkxGKRNDh8qDD40W7y90rEFQC3mFgGxeUz3h9yCrRb5dxBkRV1YZZnV7fEZnJKfehJS8Pefm2gT2Q4Gedl8/+/csvv9xrTm3/4Xc/C4F8izCsBJD0bVOv08JiMsFk0MNkMMBk1MOg00EjCBAECkEQeoQhSTJEWYIkyQiFw/AHQ/AHg/AHQ/D6A6kIGgAYGF6TBbLlnpnT/5zKDUMFF/gAqKqqyvUEaVMkEk7ZiTbn5iLfah/I42Qw9g+7tm15LlnGNw+fnCBRqRqMrADBjYNpI6UUTJYxyOMXrQB5CbL0wvw5t703uKIGBhf4AHhg+YMfBgP+pJuousmxWGC1FQzkUQEGsmp3zabfpHMTY4wcOHbiNsKwkhEsJ0BRBrvHBeB/QfBrbcDzh7lz56r6dSMu8DSpqNyww+/1VKea35STA1uBYyCPugrCvrJr65Yjg6nvRsbonKMnbmEgd4CyO8FwJ4ABVagPXGA4xED+BMLetmtxsqysbNh8PpcLPA0qVj2yMuBx/4qx1KI0GIwm2B3OAXQyOUuJuHDH1mfq0r41CYwxsu/YexMoEUsBUkoZmQywUtYlejMAy7U/c9AVRMsLwAPGvKCkDTI7Q0DPQGB1YoSd8TTVn1m2bNmwPS3NBZ4ia9Y8MbbDd6VejIgpLRnq9QYUOIsGMBdN3hGBL/+iZhP/OucQMHJ362QW6g62v5OquHV6PQoczvTFTfAyCenncnEPHVzgKVCxYv3eUDA4JpW8Wq22yy1Jc6cfAZ4ZazOs2LlzI/9Y4RCS+t6JUcqy1dVPeFyulFYqNVotCpzFEGhaOyAkEPbEzq1batK5iZMa3Afvh+XrHp3hdXUekyUp6XAsaDRwFBVDENIaMwKEkcqd2zb9Vu22Zitc4H1QVVWV6wnRxkg4nHQTFRUEOJxjoNGmJe5WBvn+3TVPH1O7rdkMd1H6ICBq346EA8nFTSkKHUXpiZvhI1nG/S9sf/qM2u3MdvhLZgIqKjdsDwQC05LlI5TA7nBCG3V2MhmM4W2NhDkvbN/MxZ0BuIsSx9K11ff6Ot17k30Ek5AucRsMxpTLJsBLevjW1tTUpLRDiTN4uMCjWLPmibEd3tazohjpdz8pQfoHFgjIUztrNn0XGOz+JU46cB/8OtQVbK9NJm4AsBWkJW4JDI/t3LZpu9oNHI1wgV9jycqHXvH5fGOT5bPaC2DMSVncHjCyate2Tb9Tu32jFS5wAMsqqx/zel0PJMuXZ7Wlc9Tssgzc+8K2TX9Ru32jmVHvg1eu/dp0t9v1jpRkMSfN0zgfEsoW7nxuCw+hpjKjWuDr1q0ztHukK5FIuN9h2WzJRb4t5dM4f4wIhgd++ZONnWq3jzPK58HdQfJWMnGbcszpiPvXBvju4eIePoxaH7yicn2N3+ud1V8eU04OrPaUjpoxxvDk7m2bvw8+DTisGJUuSkXlI4sCPtf/9beYYzQaYXMUpdJBEQDVu2o2/1LtdnF6M+oEvqq6uth11V/f33y33mBM9cCCm8nykt3PP/2G2u3iJGbUuSjejtA7/Ylbp9PBXuhILm6GRkrYvTuef/qU2m3i9M2oesmsWLnhxVAoOK6v61qtDnZnUdLvbhPgA1EWynfUbOHiHuaMGoFXrK7+esDnWdXXdY1GiwJnUdLTOAzYhxC7/Rfbf9QAzrBnVAh8+fINN4W83q19vVIKGg0KHUUQksW/IeyFcXbDfTt3bnGp3SZOamT9S+a6desMHT6pKRwKJ/ywNhUEOIqKodH0e2CeMbDv7q7ZktYH7jnqk/Uvme4geasvcRMqoMBRlEzcERCyfvfWzS+q3RZO+mS1wJesfPgpn8+dcDGHUIIChyMmklkCXJTQih1bn3pT7bZwBkbWuijL11bP93Z69iX6vDEhBAWOoj5j41zjPGHs/p3btryvdls4AycrBb5ywzedns6281I40kvBhJBrBxb6jY1zQitJX96+/ZlmtdvCGRxZOYsScHW+k0jcAJBvs/cvbobXtJLhS1zc2UHWCfzaYs74RNesdnuSAwts19gCw1e2b9/oBScryKqXzBWrH17tciVezMnLtyHH3GdsHAZC/nnX1s3Pqt0GztCSNT748jUPT/F5faclsXesyiSncYIANuyq2fzfareBM/RkhcCXLl2qC8PYFA6Fep1M6C98CAPaKGWLdz635ZDabeAoQ1a4KJJgORD2+3qJ22Q29xMbh9XLlC3c/dzTn6hdf45yjPiXzCVV638Q8PvujE83mEz9jNzkOKNC+c+5uLOeEe2iLKl65C6/1/0Gi1vMMRhNfe/pjgumysluRqzAFy9+PF8Srl4WI7Hz3f3GxuknmConOxmxPjjRd9aKgVhxa3X6rvAhvcXdFUy1JnkwVU52MSIFvmTVhp/73J4pMQ3RalHoSHgapyuY6rbNaQVT5WQHI07gS1Y9XOXzeB6MaYTmmriFXuK+SmVy/47nNx1Vu94cdRhRPnhF5brSUCDyoSSJPf8wBUFAYdEYaDTx/1aVC6bKGTmMpBGcihH5SIy4KUWBsziRuLuCqW59hsebHOWMmHnwihXr94ZDoZ6JbUIFFDiLoNXGncbhwVQ5UYwIgS9ZteF7fr+3J1YloQSFDie0utjPm/Bgqpx4hr0PXlW1YVan13ek52QOISgodMJgjImNIxHg8Z01m7epXV/O8GJYC3zx4sfzZaHtUiQS7gmpYO8dG4cHU+X0ybB+ySR619FI4Lq4rfaCeHG3Msj379rGg6lyEjNsffCKyg07ggH/1G47zxZ3GofhI1nCbB4pmNMfw1LgFaseWRnw+aq77TyrDRbL9dM4PJgqJ1WGnQ++4sFHS3xu11kxImqB3qdxeDBVTjoMNx+cBn2+2m5xmy25MeJmDD/atW3zv4NHUeCkyLASeMWK9Xv9fm8x0Cs2jgSGx3Zv28yDqXLSYtgIfNnq6ic8LtdC4NppnOuxcTwyWNUL27b8Xu06ckYew8IHr1hdPTPk9RyRJJkajEbYC3v2dDdBoPfu+slT76ldR87IRHWBV1VV5XpCtDESDpu7TuM4QQgFeDBVzhCg+jRhQNS+HQmHzddP41CgK5jqHC5uzmBRVeAVlQ/9NBAITIs+jcMI+VWn3bCAB1PlDAWquShLKquX+n2ePYJAUegshqDR8GCqnCFHFYGvWfPE2A5vaz1jsvbaaRweTJWjCGpME1JXsL1WliWto+s0Dg+mylGMjPvgS1Y+9IoYCo8tcBZBo9U1UrA7uLg5SpFRgS+rrH4s4A88UOB0Qq/T82CqHMXJmA9eufZr090ed63VViDojcZ9NMRW8HiTHKXJyAi+bt06g8/n/UO+1SYYTAYeTJWTMTLykukOkLfMubkWY07Ov+3aunmT2o3mjB4UF3hF5foanVY3w2TOXbtr6yYeTJWTURQVeEXlI4u0GrImN8+6gAdT5aiBYi+Zq6qri8Ww8HquOXc1D6bKUQulRnAqhTVP2kw592zftoXHm+RkFysf+nr5N76xMXfwJXE4g+P/AV7rGy+iPVm7AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA5LTMwVDA3OjQ5OjMyKzAwOjAwh7oh8QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wOS0zMFQwNzo0OTozMiswMDowMPbnmU0AAAAASUVORK5CYII=';
     let neddle2 =
@@ -1449,6 +1496,8 @@ function Index() {
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
                 marginBottom: '26px',
+                borderCollapse: 'separate',
+                borderSpacing: '0px',
               }}
             >
               <tr>
@@ -1476,7 +1525,7 @@ function Index() {
                     opacity: '1',
                     paddingLeft: '35px',
                     background: '#F7F9FF',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Transaction Type
@@ -1488,7 +1537,6 @@ function Index() {
                     color: '#111111',
                     lineHeight: '25px',
                     background: '#F7F9FF',
-                    borderRight: '0.5px solid #D2D7E5'
                   }}
                 >
                   {camData?.transactionType}
@@ -1651,7 +1699,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
@@ -1665,7 +1713,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingTop: '29px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   Commodity
@@ -1677,7 +1725,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {' '}
@@ -1692,7 +1740,7 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     background: '#F7F9FF',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Quantity
@@ -1703,7 +1751,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {camData?.quantity?.toLocaleString('en-In', {
@@ -1716,7 +1764,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   Supplier
@@ -1727,7 +1775,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {' '}
@@ -1755,7 +1803,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {camData?.countryOfOrigin}
@@ -1766,7 +1814,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingBottom: '31px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   Transaction Period
@@ -1778,7 +1826,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {camData?.transactionPeriodDays}
@@ -2257,8 +2305,8 @@ function Index() {
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px', }}>
-                        <div  align="center">
+                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
+                        <div align="center">
                           <span
                             style={{
                               fontSize: '20px',
@@ -2270,24 +2318,24 @@ function Index() {
                                     ? '#ffb700'
                                     : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                                     ? '#8ac41c'
-                                    : '00b81f30'
+                                    : '#0b81f30'
                                   : null
                               }`,
                               lineHeight: '24px',
                               fontWeight: 'bold',
                               padding: '6px 8px',
-                              background: '#CFF2D5',
-                              // background: `${
-                              //   filteredCreditRating?.length > 0
-                              //     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                              //       ? '#ff423045'
-                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                              //       ? '#ad7e0742'
-                              //       : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                              //       ? '#00b81e52'
-                              //       : 'rgba(0, 184, 31, 0.1882352941)'
-                              //     : null
-                              // }`
+                              background: `${
+                                filteredCreditRating?.length > 0
+                                  ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ffccc7'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#FFECCF'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#00B81E'
+                                    : '#E4ECF7'
+                                  : null
+                              }`,
+
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
@@ -2350,9 +2398,7 @@ function Index() {
                                     color: '#111111',
                                     lineHeight: '37px',
                                     display: 'inline-block',
-                                   
                                   }}
-                                 
                                 >
                                   {checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
@@ -2477,12 +2523,13 @@ function Index() {
                           <span
                             style={{
                               background: '#FFB700',
-                              width: `${filteredCreditRating?.length > 0
-                                ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                                : '0'
-                                }%`,
+                              width: `${
+                                filteredCreditRating?.length > 0
+                                  ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                                      filteredCreditRating[0].totalRating) *
+                                    100
+                                  : '0'
+                              }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2499,16 +2546,16 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {filteredCreditRating?.length > 0
                             ? (
-                              Number(
-                                filteredCreditRating[0].businessProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                                Number(
+                                  filteredCreditRating[0].businessProfile.total.overallValue /
+                                    filteredCreditRating[0].totalRating,
+                                ) * 100
+                              ).toFixed(2)
                             : '0'}{' '}
                           %
                         </span>
@@ -2553,12 +2600,13 @@ function Index() {
                           <span
                             style={{
                               background: '#FF4230',
-                              width: `${filteredCreditRating?.length > 0
-                                ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                                : '0'
-                                }%`,
+                              width: `${
+                                filteredCreditRating?.length > 0
+                                  ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                                      filteredCreditRating[0].totalRating) *
+                                    100
+                                  : '0'
+                              }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2575,16 +2623,16 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {filteredCreditRating?.length > 0
                             ? (
-                              Number(
-                                filteredCreditRating[0].revenueProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                                Number(
+                                  filteredCreditRating[0].revenueProfile.total.overallValue /
+                                    filteredCreditRating[0].totalRating,
+                                ) * 100
+                              ).toFixed(2)
                             : '0'}{' '}
                           %
                         </span>
@@ -2626,12 +2674,13 @@ function Index() {
                           <span
                             style={{
                               background: '#83C400',
-                              width: `${filteredCreditRating?.length > 0
-                                ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                                : '0'
-                                }%`,
+                              width: `${
+                                filteredCreditRating?.length > 0
+                                  ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                                      filteredCreditRating[0].totalRating) *
+                                    100
+                                  : '0'
+                              }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2648,16 +2697,16 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {filteredCreditRating?.length > 0
                             ? (
-                              Number(
-                                filteredCreditRating[0].financialProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                                Number(
+                                  filteredCreditRating[0].financialProfile.total.overallValue /
+                                    filteredCreditRating[0].totalRating,
+                                ) * 100
+                              ).toFixed(2)
                             : '0'}{' '}
                           %
                         </span>
@@ -2705,7 +2754,6 @@ function Index() {
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company?.groupExposureDetail?.map((exp, index) => {
-                      
                         let name = exp?.name?.split(' ') ?? 'N A';
                         return (
                           <td key={index} valign="top" width="33.33%">
@@ -2792,8 +2840,8 @@ function Index() {
                                   }}
                                 >
                                   {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                                    maximumFractionDigits: 2,
+                                  })}
                                 </td>
                               </tr>
                               <tr>
@@ -2833,7 +2881,7 @@ function Index() {
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
-                                      whiteSpace: 'nowrap'
+                                      whiteSpace: 'nowrap',
                                     }}
                                   >
                                     {' '}
@@ -2850,9 +2898,9 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                                  {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                  })}
                                 </td>
                               </tr>
                               <tr>
@@ -2964,7 +3012,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   CUSTOMER NAME
@@ -3084,51 +3132,53 @@ function Index() {
                 </td>
               </tr>
 
-              {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
-                let name = item?.supplierName?.toUpperCase() ?? 'N A';
-                let [fName, lName] = name?.split(' ');
-                return (
-                  <tr>
-                    <td
-                      width="5%"
-                      height="30"
-                      style={{
-                        padding: '14px 11px 14px 32px',
-                      }}
-                    >
-                      <span
+              {allBuyerList &&
+                allBuyerList?.data?.data.map((item, index) => {
+                  let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                  let [fName, lName] = name?.split(' ');
+                  return (
+                    <tr>
+                      <td
+                        width="5%"
+                        height="30"
                         style={{
-                          fontSize: '24px',
-                          color: '#FF9D00',
-                          lineHeight: '30px',
-                          fontWeight: 'bold',
-                          background: '#FFECCF',
-                          borderRadius: '8px',
-                          padding: '9px 0',
-                          width: '50px',
-                          height: '50px',
-                          textAlign: 'center',
-                          display: 'inline-block',
-                          // marginBottom: '15px'
+                          padding: '14px 11px 14px 32px',
                         }}
                       >
-                        {fName?.charAt(0)}{lName?.charAt(0)}
-                      </span>{' '}
-                    </td>
-                    <td
-                      width="30%"
-                      style={{
-                        fontSize: '22px',
-                        color: '#111111',
-                        lineHeight: '27px',
-                        fontWeight: 'bold',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.supplierName}
-                    </td>
-                    {/* <td
+                        <span
+                          style={{
+                            fontSize: '24px',
+                            color: '#FF9D00',
+                            lineHeight: '30px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '9px 0',
+                            width: '50px',
+                            height: '50px',
+                            textAlign: 'center',
+                            display: 'inline-block',
+                            // marginBottom: '15px'
+                          }}
+                        >
+                          {fName?.charAt(0)}
+                          {lName?.charAt(0)}
+                        </span>{' '}
+                      </td>
+                      <td
+                        width="30%"
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >
+                        {item?.supplierName}
+                      </td>
+                      {/* <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
@@ -3139,88 +3189,88 @@ function Index() {
                 >
                   Customer Name
                 </td> */}
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.orderId ? item?.orderId : item?.applicationId}
-                    </td>
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
-                    </td>
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
-                    </td>
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.commodity}
-                    </td>
-
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        fontWeight: '500',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      <span
+                      <td
                         style={{
-                          padding: '5.5px',
-                          display: 'inline-block',
-                          background: '#FF9D00',
-                          borderRadius: '50%',
-                          marginRight: '10px',
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
                         }}
-                      ></span>
-                      In Process
-                    </td>
-                    <td
-                      align="center"
-                      style={{
-                        fontSize: '19px',
-                        color: '#EA3F3F',
-                        lineHeight: '24px',
-                        fontWeight: 'bold',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      12
-                    </td>
-                  </tr>
-                )
-              })}
+                      >
+                        {item?.orderId ? item?.orderId : item?.applicationId}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >
+                        {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >
+                        {item?.commodity}
+                      </td>
+
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          fontWeight: '500',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            padding: '5.5px',
+                            display: 'inline-block',
+                            background: '#FF9D00',
+                            borderRadius: '50%',
+                            marginRight: '10px',
+                          }}
+                        ></span>
+                        In Process
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#EA3F3F',
+                          lineHeight: '24px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >
+                        12
+                      </td>
+                    </tr>
+                  );
+                })}
             </table>
           </td>
         </tr>
@@ -3438,7 +3488,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   NAME
@@ -3594,7 +3644,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '70px',
               }}
             >
               <tr>
@@ -3744,10 +3794,10 @@ function Index() {
                               <span
                                 style={{
                                   fontSize: '28px',
-                                  color: `${randColor.secondary}`,
+                                  color: `${index < 4 ? backgroundColor[index] : randColor.primary}`,
                                   lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  background: `${randColor.primary}`,
+                                  background: `${index < 4 ? backgroundColor1[index] : randColor.secondary}`,
                                   borderRadius: '8px',
                                   padding: '13px 0',
                                   width: '60px',
@@ -3796,9 +3846,9 @@ function Index() {
                             >
                               {share?.percentageShareHolding
                                 ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                }) + '%'
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }) + '%'
                                 : ''}
                             </td>
                             <td
@@ -3865,7 +3915,7 @@ function Index() {
                         <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Open.datasets &&
-                              top3Open?.datasets[0]?.data.map((val, index) => { 
+                              top3Open?.datasets[0]?.data.map((val, index) => {
                                 return (
                                   <>
                                     <td width="5%">
@@ -3941,7 +3991,7 @@ function Index() {
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => { 
+                      returnFilteredCharges()?.map((charge, index) => {
                         let name = charge?.nameOfChargeHolder;
                         let [fName, lName] = name?.split(' ');
 
@@ -3964,76 +4014,77 @@ function Index() {
                           return null;
                         } else {
                           return (
-                          <tr>
-                            <td
-                              width="5%"
-                              height="60"
-                              style={{
-                                padding: '21px 12px 21px 35px',
-                              }}
-                            >
-                              <span
+                            <tr>
+                              <td
+                                width="5%"
+                                height="60"
                                 style={{
-                                  fontSize: '28px',
-                                  color: `${randColor.secondary}`,
-                                  lineHeight: '34px',
+                                  padding: '21px 12px 21px 35px',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    fontSize: '28px',
+                                    color: `${index < 4 ? backgroundColor[index] : randColor.primary}`,
+                                    lineHeight: '34px',
+                                    fontWeight: 'bold',
+                                    background: `${index < 4 ? backgroundColor1[index] : randColor.secondary}`,
+                                    borderRadius: '8px',
+                                    padding: '13px 0',
+                                    width: '60px',
+                                    height: '60px',
+                                    textAlign: 'center',
+                                    display: 'inline-block',
+                                  }}
+                                >
+                                  {' '}
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                </span>
+                              </td>
+                              <td
+                                width="25%"
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '27px',
                                   fontWeight: 'bold',
-                                  background: `${randColor.primary}`,
-                                  borderRadius: '8px',
-                                  padding: '13px 0',
-                                  width: '60px',
-                                  height: '60px',
-                                  textAlign: 'center',
-                                  display: 'inline-block',
+                                  paddingTop: '21px',
+                                  paddingBottom: '21px',
                                 }}
                               >
                                 {' '}
-                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                              </span>
-                            </td>
-                            <td
-                              width="25%"
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '27px',
-                                fontWeight: 'bold',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
-                              }}
-                            >
-                              {' '}
-                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge?.nameOfChargeHolder1}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '19px',
-                                color: '#111111',
-                                lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
-                              }}
-                            >
-                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                              })}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '19px',
-                                color: '#111111',
-                                lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
-                              }}
-                            >
-                              {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
-                                : ''}
-                            </td>
-                          </tr>
-                        )};
+                                {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge?.nameOfChargeHolder1}
+                              </td>
+                              <td
+                                style={{
+                                  fontSize: '19px',
+                                  color: '#111111',
+                                  lineHeight: '23px',
+                                  paddingTop: '21px',
+                                  paddingBottom: '21px',
+                                }}
+                              >
+                                {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                })}
+                              </td>
+                              <td
+                                style={{
+                                  fontSize: '19px',
+                                  color: '#111111',
+                                  lineHeight: '23px',
+                                  paddingTop: '21px',
+                                  paddingBottom: '21px',
+                                }}
+                              >
+                                {charge?.dateOfCreationOfCharge
+                                  ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
+                                  : ''}
+                              </td>
+                            </tr>
+                          );
+                        }
                       })}
                     {/* <tr>
                       <td
@@ -4236,10 +4287,11 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debtProfileColor(debt.conduct)}`,
-                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
-                                      ? 1
-                                      : Number(debt.limit) / totalLimitDebt()) * 100
-                                      }%`,
+                                    width: `${
+                                      (Number(debt.limit) / totalLimitDebt() > 1
+                                        ? 1
+                                        : Number(debt.limit) / totalLimitDebt()) * 100
+                                    }%`,
                                     height: '10px',
                                     borderRadius: '2px',
                                     display: 'inline-block',
@@ -4365,14 +4417,15 @@ function Index() {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
-                              color: `${debt.conduct == 'Good'
-                                ? '#43C34D'
-                                : debt.conduct == 'Satisfactory'
+                              color: `${
+                                debt.conduct == 'Good'
+                                  ? '#43C34D'
+                                  : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
                                   : debt.conduct == 'Average'
-                                    ? 'average'
-                                    : '#EA3F3F'
-                                }`,
+                                  ? 'average'
+                                  : '#EA3F3F'
+                              }`,
                             }}
                           >
                             {debt?.conduct}
@@ -4443,8 +4496,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.monthlyProductionCapacity
                     ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
                   {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                 </td>
@@ -4472,8 +4525,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.averageStockInTransit
                     ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
                   {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                 </td>
@@ -4548,8 +4601,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.availableStock
                     ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
                   {camData?.productSummary?.availableStock ? 'MT' : ''}
                 </td>
@@ -4588,8 +4641,8 @@ function Index() {
                     )} */}
                   {camData?.productSummary?.AvgMonthlyElectricityBill
                     ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}
                 </td>
               </tr>
@@ -4618,8 +4671,8 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity
                     ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                 </td>
@@ -4659,7 +4712,7 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <td width="50%" style={{ paddingLeft:'35px', borderLeft:'1px solid #D2D7E5'}}></td>
+                <td width="50%" style={{ paddingLeft: '35px', borderLeft: '1px solid #D2D7E5' }}></td>
                 <td
                   style={{
                     fontSize: '15px',
@@ -4792,7 +4845,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                    RevenueDetails?.relatedPartySales?.current?.value ? (
+                  RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -4861,7 +4914,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5306,7 +5359,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -5468,7 +5521,7 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
@@ -5700,7 +5753,7 @@ function Index() {
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
                                 paddingLeft: '35px',
-                                borderLeft: '1px solid #D2D7E5'
+                                borderLeft: '1px solid #D2D7E5',
                               }}
                             >
                               Liabilities
@@ -5799,11 +5852,11 @@ function Index() {
                                     'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                                     '',
                                   ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                    '',
-                                  ),
+                                    _get(
+                                      companyData,
+                                      'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                                      '',
+                                    ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5825,11 +5878,11 @@ function Index() {
                                     'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                                     '',
                                   ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                    '',
-                                  ),
+                                    _get(
+                                      companyData,
+                                      'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                                      '',
+                                    ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5859,11 +5912,11 @@ function Index() {
                               {convertValue(
                                 Number(
                                   _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                    '',
-                                  ),
+                                    _get(
+                                      companyData,
+                                      'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                                      '',
+                                    ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5881,11 +5934,11 @@ function Index() {
                               {convertValue(
                                 Number(
                                   _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                    '',
-                                  ),
+                                    _get(
+                                      companyData,
+                                      'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                                      '',
+                                    ),
                                 ),
                               )?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -5958,7 +6011,7 @@ function Index() {
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
                               borderLeft: '1px solid #D2D7E5',
-                              borderRight: '1px solid #D2D7E5'
+                              borderRight: '1px solid #D2D7E5',
                             }}
                           >
                             <td
@@ -6132,7 +6185,7 @@ function Index() {
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
                               borderLeft: '1px solid #D2D7E5',
-                              borderRight: '1px solid #D2D7E5'
+                              borderRight: '1px solid #D2D7E5',
                             }}
                           >
                             <td
@@ -6845,12 +6898,12 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {[].forEach((l, index2) => { })}
+                  {[].forEach((l, index2) => {})}
                   {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
                     ? moment(
-                      _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
-                      'MMyyyy',
-                    ).format('MM-yyyy')
+                        _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                     : ''}
                 </td>
                 <td
@@ -7197,7 +7250,8 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                    {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
+                    {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
                   </span>
                 </td>
                 <td
@@ -7254,8 +7308,7 @@ function Index() {
               <tr>
                 <td colSpan={4} valign="top">
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                    <tr bgColor="#FAFAFB" style={{ height: '67px',
-                          borderLeft: '1px solid #D2D7E5' }}>
+                    <tr bgColor="#FAFAFB" style={{ height: '67px', borderLeft: '1px solid #D2D7E5' }}>
                       <td
                         style={{
                           fontSize: '15px',
@@ -7364,9 +7417,9 @@ function Index() {
                       >
                         {filteredCreditRating && filteredCreditRating?.length > 0
                           ? filteredCreditRating?.length > 0 &&
-                          filteredCreditRating?.map((val, index) => {
-                            checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
-                          })
+                            filteredCreditRating?.map((val, index) => {
+                              checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
+                            })
                           : '-'}
                       </td>
                       <td
@@ -7411,9 +7464,7 @@ function Index() {
                             return camData?._id === rating.order;
                           })
                           .map((val, index) => {
-                            <td key={index}>
-                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
-                            </td>;
+                            <td key={index}>{convertValue(val?.suggested?.value)?.toLocaleString('en-In')} Cr</td>;
                           })}
                       </td>
                       <td
@@ -7519,7 +7570,7 @@ function Index() {
                           lineHeight: '27px',
                           textTransform: 'capitalize',
                           paddingLeft: '35px',
-                          borderLeft: '1px solid #D2D7E5'
+                          borderLeft: '1px solid #D2D7E5',
                         }}
                       >
                         Sanction Conditions
@@ -7584,16 +7635,18 @@ function Index() {
       </table>
     );
   };
-
+  const [expectedLimit, setexpectedLimit] = useState(null);
+  const setLimit = (date) => {
+    setexpectedLimit(date);
+  };
   const GstDataHandler = (data) => {
-
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
   const returnDataPeriodAndColour = (period, index) => {
-    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' }
-    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' }
-  }
+    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' };
+    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' };
+  };
 
   const handleGSTDownload = (value) => {
     let path = '';
@@ -7831,36 +7884,36 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
+              return partyFilter(val);
+            })
           : supremeCourt?.filter((val) => {
-            return partyFilter(val);
-          });
+              return partyFilter(val);
+            });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
+              return partyFilter(val);
+            })
           : highCourt?.filter((val) => {
-            return partyFilter(val);
-          });
+              return partyFilter(val);
+            });
 
       tribunalCourts =
         tribunalCourts.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
+              return partyFilter(val);
+            })
           : tribunalCourts?.filter((val) => {
-            return partyFilter(val);
-          });
+              return partyFilter(val);
+            });
       districtCourt =
         districtCourt.length <= 0
           ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
+              return partyFilter(val);
+            })
           : districtCourt?.filter((val) => {
-            return partyFilter(val);
-          });
+              return partyFilter(val);
+            });
     }
 
     //civil Crimnal
@@ -7882,36 +7935,36 @@ function Index() {
       supremeCourt =
         supremeCourt?.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
+              return civilfilter(val);
+            })
           : supremeCourt?.filter((val) => {
-            return civilfilter(val);
-          });
+              return civilfilter(val);
+            });
       highCourt =
         highCourt?.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
+              return civilfilter(val);
+            })
           : highCourt?.filter((val) => {
-            return civilfilter(val);
-          });
+              return civilfilter(val);
+            });
 
       tribunalCourts =
         tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
+              return civilfilter(val);
+            })
           : tribunalCourts?.filter((val) => {
-            return civilfilter(val);
-          });
+              return civilfilter(val);
+            });
       districtCourt =
         districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
+              return civilfilter(val);
+            })
           : districtCourt?.filter((val) => {
-            return civilfilter(val);
-          });
+              return civilfilter(val);
+            });
     }
 
     //party2
@@ -7939,36 +7992,36 @@ function Index() {
       supremeCourt =
         supremeCourt.length <= 0
           ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
+              return riskFilter(val);
+            })
           : supremeCourt?.filter((val) => {
-            return riskFilter(val);
-          });
+              return riskFilter(val);
+            });
       highCourt =
         highCourt.length <= 0
           ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
+              return riskFilter(val);
+            })
           : highCourt?.filter((val) => {
-            return riskFilter(val);
-          });
+              return riskFilter(val);
+            });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
+        tribunalCourts?.length <= 0
           ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
+              return riskFilter(val);
+            })
           : tribunalCourts?.filter((val) => {
-            return riskFilter(val);
-          });
+              return riskFilter(val);
+            });
       districtCourt =
-        districtCourt.length <= 0
+        districtCourt?.length <= 0
           ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
+              return riskFilter(val);
+            })
           : districtCourt?.filter((val) => {
-            return riskFilter(val);
-          });
+              return riskFilter(val);
+            });
     }
 
     setSupreme([...supremeCourt]);
@@ -8029,6 +8082,9 @@ function Index() {
           shareHoldingChartImg,
           openBankChargeChartImg,
           debtProfileColor,
+          backgroundColor,
+          backgroundColor1,
+          returnFilteredCharges,
         ),
       ),
       {
@@ -8060,8 +8116,6 @@ function Index() {
       ]);
     }
   }, [companyData]);
-
-
 
   return (
     <>
@@ -8258,13 +8312,29 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <BalanceSheet
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      balanceData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <IncomeStatement
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      incomeData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <CashFlow
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      cashData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <Ratios
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      ratioData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
                     <Peer peerData={companyData} />
 
@@ -8541,7 +8611,7 @@ function Index() {
                                     checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Pending<span className='pl-1'>({totalCourt.pending})</span>
+                                    Pending<span className="pl-1">({totalCourt.pending})</span>
                                   </label>
                                 </div>
                                 <div className="form-check mr-4">
@@ -8556,7 +8626,7 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault1">
-                                    Disposed<span className='pl-1'>({totalCourt.disposed})</span>
+                                    Disposed<span className="pl-1">({totalCourt.disposed})</span>
                                   </label>
                                 </div>
                                 <div className="form-check">
@@ -8571,7 +8641,7 @@ function Index() {
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault3">
-                                    Total Cases<span className='pl-1'>({totalCourt.total})</span>
+                                    Total Cases<span className="pl-1">({totalCourt.total})</span>
                                   </label>
                                 </div>
                               </div>
@@ -8717,12 +8787,14 @@ function Index() {
                       commodity={getCommoditiesMasterData}
                       country={getCountriesMasterData}
                       port={getPortsMasterData}
+                      orderList={orderList}
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
                       saveShipmentData={saveShipmentData}
                       shipment={shipment}
                       port={getPortsMasterData}
+                      setLimit={setLimit}
                     />
                     <CommonSave onSave={onOrderSave} />
                   </div>
@@ -8773,13 +8845,12 @@ function Index() {
                     setGroupExposureData={setGroupExposureData}
                     setSanctionComment={setSanctionComment}
                     allBuyerList={allBuyerList}
-
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
+                    <UploadOther module={['Leads', 'Margin Money']} orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
@@ -8965,8 +9036,8 @@ const table2 = (sat, balance, complienceFilter) => {
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-                ? 'All'
-                : `Banking Defaults`}
+              ? 'All'
+              : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -8976,63 +9047,63 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-          sat?.map((alert, index) => {
-            {
-            }
-            return (
-              <tr key={index}>
-                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                <td className="text-capitalize">
-                  {' '}
-                  {alert?.value?.length > 1 ? (
-                    <>
-                      {alert.value.map((val, index) => {
-                        return (
-                          <>
-                            {val}
-                            {index !== alert.value.length - 1 ? ', ' : ''}
-                          </>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                  )}
-                </td>
-              </tr>
-            );
-          })
+            sat?.map((alert, index) => {
+              {
+              }
+              return (
+                <tr key={index}>
+                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                  <td className="text-capitalize">
+                    {' '}
+                    {alert?.value?.length > 1 ? (
+                      <>
+                        {alert.value.map((val, index) => {
+                          return (
+                            <>
+                              {val}
+                              {index !== alert.value.length - 1 ? ', ' : ''}
+                            </>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
           : balance.length > 0 &&
-          balance?.map((alert, index) => {
-            return (
-              <tr key={index}>
-                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                <td className="text-capitalize">
-                  {' '}
-                  {alert?.value?.length > 1 ? (
-                    <>
-                      {alert.value.map((val, index) => {
-                        return (
-                          <>
-                            {val}
-                            {index !== alert.value.length - 1 ? ', ' : ''}
-                          </>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
+            balance?.map((alert, index) => {
+              return (
+                <tr key={index}>
+                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                  <td className="text-capitalize">
+                    {' '}
+                    {alert?.value?.length > 1 ? (
+                      <>
+                        {alert.value.map((val, index) => {
+                          return (
+                            <>
+                              {val}
+                              {index !== alert.value.length - 1 ? ', ' : ''}
+                            </>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&

@@ -14,28 +14,30 @@ import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import { toast } from 'react-toastify';
 import { checkNan } from '../../utils/helper';
 import { previewDocument } from '../../redux/ViewDoc/action';
-import {getInternalCompanies } from '../../../src/redux/masters/action';
+import { getInternalCompanies } from '../../../src/redux/masters/action';
 // import { set } from 'lodash'
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
+import { returnDocFormat } from '@/utils/helpers/global';
+
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
   const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
 
   const dispatch = useDispatch();
-  
+
   const [isFieldInFocus2, setIsFieldInFocus2] = useState({
     invoiceValue: false,
     invoiceQuantity: false,
     conversionRate: false,
   });
-  const [bankNameOptions,setBankName]=useState([])
+  const [bankNameOptions, setBankName] = useState([]);
 
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const [saveContactTable, setContactTable] = useState(false);
   const [totalBl, setTotalBl] = useState(0);
   const [isFieldInFocus, setIsFieldInFocus] = useState([]);
   const { customClearance } = useSelector((state) => state.Custom);
-  const [bl,setbl]=useState([]);
+  const [bl, setbl] = useState([]);
   // useEffect(() => {
   //   if(customData){
   //     let temp=[]
@@ -52,32 +54,39 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   //     setbl([...temp])
   //   }
   // },[customData])
-  console.log(bl,"Sasdasd")
+  console.log(bl, 'Sasdasd');
   useEffect(() => {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
   }, []);
-useEffect(() => {
-   dispatch(getInternalCompanies());
+  useEffect(() => {
+    dispatch(getInternalCompanies());
   }, []);
   useEffect(() => {
-     if (customData) {
-      let check=""
-      if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Emergent Industrial Solutions Limited (EISL)"){
-        check="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"
-      }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
-         check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
+    if (customData) {
+      let check = '';
+      if (
+        _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank') ==
+        'Emergent Industrial Solutions Limited (EISL)'
+      ) {
+        check = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
+      } else if (
+        _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank') ==
+        'Indo German International Private Limited (IGPL)'
+      ) {
+        check = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
       }
-         let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                if (val.Company_Name == check) {
-                  return val;
-                }
+      let filter = getInternalCompaniesMasterData.filter((val, index) => {
+        if (val.Company_Name == check) {
+          return val;
+        }
       });
-      console.log(check,"check",_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank"))
-      console.log(filter,"filter")
-      setBankName(filter)
-}
-  }, [getInternalCompaniesMasterData,customData]);
+      console.log(check, 'check', _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank'));
+      console.log(filter, 'filter');
+      setBankName(filter);
+    }
+  }, [getInternalCompaniesMasterData, customData]);
+ 
   const [billOfEntryData, setBillOfEntryData] = useState([
     {
       boeAssessment: '',
@@ -98,7 +107,7 @@ useEffect(() => {
         boeRate: '',
         bankName: '',
         accessibleValue: 0,
-        adCode:""
+        adCode: '',
       },
       duty: [
         {
@@ -106,14 +115,13 @@ useEffect(() => {
           amount: '',
         },
       ],
-      bl:[],
+      bl: [],
 
       document1: null,
       document2: null,
       document3: null,
     },
   ]);
-  
 
   const totalCustomDuty = (index) => {
     let number = 0;
@@ -129,7 +137,7 @@ useEffect(() => {
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
-
+   console.log(name,"name")
     let newInput = [...billOfEntryData];
     newInput[index][name] = docs;
     setBillOfEntryData([...newInput]);
@@ -364,24 +372,23 @@ useEffect(() => {
         }
       }
     }
-    if(isOk==false){
-      return
+    if (isOk == false) {
+      return;
     }
-    isOk=false
-    bl.forEach((val,index)=>{
-      val.forEach((bl,index2)=>{
-        if(bl.check == true){
-            isOk = true;
-            
+    isOk = false;
+    bl.forEach((val, index) => {
+      val.forEach((bl, index2) => {
+        if (bl.check == true) {
+          isOk = true;
         }
-      })
-    })
-    if(isOk==false){
-       let toastMessage = 'Pls select atleast one bl';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        return
+      });
+    });
+    if (isOk == false) {
+      let toastMessage = 'Pls select atleast one bl';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return;
     }
     if (isOk) {
       let tempData = [...billOfEntryData];
@@ -390,7 +397,7 @@ useEffect(() => {
         tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceQuantity);
         tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceValue);
         tempData[i].duty = dutyData[i];
-        tempData[i].bl =bl[i]
+        tempData[i].bl = bl[i];
       }
 
       const billOfEntry = { billOfEntry: tempData };
@@ -415,7 +422,7 @@ useEffect(() => {
       tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceQuantity);
       tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData[i]?.boeDetails?.invoiceValue);
       tempData[i].duty = dutyData[i];
-      tempData[i].bl =bl[i]
+      tempData[i].bl = bl[i];
     }
     const billOfEntry = { billOfEntry: tempData };
     const fd = new FormData();
@@ -453,7 +460,7 @@ useEffect(() => {
 
       data.forEach((val, index) => {
         tempArray.push({
-          boeAssessment: val?.boeAssessment,
+          boeAssessment: val?.boeAssessment || "Provisional" ,
           pdBond: val?.pdBond || false,
           billOfEntryFor: val?.billOfEntryFor
             ? val?.billOfEntryFor
@@ -473,7 +480,7 @@ useEffect(() => {
             boeRate: val?.boeDetails?.boeRate,
             bankName: val?.boeDetails?.bankName,
             accessibleValue: val?.boeDetails?.accessibleValue,
-            adCode:val?.boeDetails?.adCode
+            adCode: val?.boeDetails?.adCode,
           },
           // duty: val.duty,
 
@@ -483,7 +490,7 @@ useEffect(() => {
         });
 
         duty11.push(JSON.parse(JSON.stringify(val.duty)));
-        bltable.push(JSON.parse(JSON.stringify(val.bl||[])));
+        bltable.push(JSON.parse(JSON.stringify(val.bl || [])));
       });
 
       setBillOfEntryData([...tempArray]);
@@ -504,26 +511,25 @@ useEffect(() => {
     } else {
       setDutyData([...duty11]);
     }
-    
-   if (bltable.length == 0) {
-    let temp=[]
-     _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
-        temp.push({
-           check:false,
-           blNumber:val.blNumber,
-           blDate:val.blDate,
-           blQuantity:val.blQuantity,
-           blDoc:val.blDoc
 
-        })
-      })
-      console.log(temp,"temp")
-      setbl([[...temp]])
+    if (bltable.length == 0) {
+      let temp = [];
+      _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val, index) => {
+        temp.push({
+          check: false,
+          blNumber: val.blNumber,
+          blDate: val.blDate,
+          blQuantity: val.blQuantity,
+          blDoc: val.blDoc,
+        });
+      });
+      console.log(temp, 'temp');
+      setbl([[...temp]]);
     } else {
       setbl([...bltable]);
     }
-  }, [customData,]);
-console.log(bl,"asdasd")
+  }, [customData]);
+  console.log(bl, 'asdasd');
   const getIndex = (index) => {
     return index + 1;
   };
@@ -550,7 +556,7 @@ console.log(bl,"asdasd")
           boeRate: '',
           bankName: '',
           accessibleValue: 0,
-          adCode:""
+          adCode: '',
         },
         // duty: [
         //   {
@@ -577,23 +583,17 @@ console.log(bl,"asdasd")
         },
       ],
     ]);
-     let temp=[]
-     _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val,index)=>{
-        temp.push({
-           check:false,
-           blNumber:val.blNumber,
-           blDate:val.blDate,
-           blQuantity:val.blQuantity,
-           blDoc:val.blDoc
-
-        })
-      })
-     setbl([
-      ...bl,
-      [
-       ...temp,
-      ],
-    ]);
+    let temp = [];
+    _get(customData, 'order.transit.BL.billOfLanding', []).forEach((val, index) => {
+      temp.push({
+        check: false,
+        blNumber: val.blNumber,
+        blDate: val.blDate,
+        blQuantity: val.blQuantity,
+        blDoc: val.blDoc,
+      });
+    });
+    setbl([...bl, [...temp]]);
   };
 
   const deleteNewRow = (index) => {
@@ -658,16 +658,14 @@ console.log(bl,"asdasd")
                         >
                           <span className={styles.add_sign}>+</span>Add
                         </button>
-                        {
-                          index > 0 ? (
-                            <button
-                              onClick={() => deleteNewRow(index)}
-                              className={`${styles.add_btn} border-danger text-danger`}
-                            >
-                              <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
-                            </button>
-                          ) : null
-                        }
+                        {index > 0 ? (
+                          <button
+                            onClick={() => deleteNewRow(index)}
+                            className={`${styles.add_btn} border-danger text-danger`}
+                          >
+                            <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
+                          </button>
+                        ) : null}
                       </div>
                     </div>
                     <div className={`${styles.dashboard_form} card-body`}>
@@ -789,7 +787,7 @@ console.log(bl,"asdasd")
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            BL Quantity <strong className="text-danger ml-n1">*</strong>
+                            Quantity <strong className="text-danger ml-n1">*</strong>
                           </div>
                           <span className={styles.value}>
                             {_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', '')
@@ -1101,45 +1099,51 @@ console.log(bl,"asdasd")
                             <select
                               name="boeDetails.bankName"
                               onChange={(e) => {
-                               let check=""
-                              if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Emergent Industrial Solutions Limited (EISL)"){
-                                check="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"
-                              }else if(_get(customData,"order.termsheet.otherTermsAndConditions.buyer.bank")=="Indo German International Private Limited (IGPL)"){
-                                check="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
-                              }
-                              let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                                      if(val.keyBanks.length > 0){
+                                let check = '';
+                                if (
+                                  _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank') ==
+                                  'Emergent Industrial Solutions Limited (EISL)'
+                                ) {
+                                  check = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
+                                } else if (
+                                  _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank') ==
+                                  'Indo German International Private Limited (IGPL)'
+                                ) {
+                                  check = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
+                                }
+                                let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                  if (val.keyBanks.length > 0) {
                                     if (val.keyBanks[0].Bank_Name == e.target.value && val.Company_Name == check) {
                                       return val;
                                     }
-                                    }
-                                  });
-                               if(filter.length == 0){
-                                 return
-                               }
-                                
-                                 const newInput = [...billOfEntryData];
+                                  }
+                                });
+                                if (filter.length == 0) {
+                                  return;
+                                }
 
-                                
-                                 newInput[index].boeDetails.bankName=filter[0].keyBanks[0].Bank_Name
-                                 newInput[index].boeDetails.adCode=filter[0].keyBanks[0].AD_Code || ""
-                               
-                                  setBillOfEntryData([...newInput]);
-                               
+                                const newInput = [...billOfEntryData];
+
+                                newInput[index].boeDetails.bankName = filter[0].keyBanks[0].Bank_Name;
+                                newInput[index].boeDetails.adCode = filter[0].keyBanks[0].AD_Code || '';
+
+                                setBillOfEntryData([...newInput]);
                               }}
                               value={val?.boeDetails?.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option >Select Bank</option>
-                               {bankNameOptions
-                                  .filter((val, index) => {
-                                    if (val.keyBanks[0].Bank_Name) {
-                                      return val;
-                                    }
-                                  })
-                             .map((val,index)=>{
-                                 return <option value={`${val.keyBanks[0].Bank_Name}`}>{val.keyBanks[0].Bank_Name}</option>;
-                               })}
+                              <option>Select Bank</option>
+                              {bankNameOptions
+                                .filter((val, index) => {
+                                  if (val.keyBanks[0].Bank_Name) {
+                                    return val;
+                                  }
+                                })
+                                .map((val, index) => {
+                                  return (
+                                    <option value={`${val.keyBanks[0].Bank_Name}`}>{val.keyBanks[0].Bank_Name}</option>
+                                  );
+                                })}
                             </select>
                             <label className={`${styles.label_heading} label_heading`}>Bank Name</label>
                             <img
@@ -1231,6 +1235,7 @@ console.log(bl,"asdasd")
                                               className={`${styles.dutyDropdown} input`}
                                               name="amount"
                                               // value={val.amount}
+                                              onWheel={(event) => event.currentTarget.blur()}
                                               value={
                                                 duty.value
                                                   ? duty.amount
@@ -1245,6 +1250,7 @@ console.log(bl,"asdasd")
                                           <td>
                                             <input
                                               className={`${styles.dutyDropdown} input`}
+                                              onWheel={(event) => event.currentTarget.blur()}
                                               onFocus={(e) => {
                                                 onFiledFocus(index2, e, index);
                                                 // setIsFieldInFocus(true),
@@ -1329,60 +1335,61 @@ console.log(bl,"asdasd")
                       </div>
 
                       <div className="row ml-auto align-items-center">
-                        {bl[index]?.length >0 && bl[index].map((blData, indexbl) => {
-                          return (
-                            <>
-                              {' '}
-                              <div key={indexbl} className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                                <div className='d-flex align-items-center'>
-                                  <Form.Check
-                                    inline
-                                    checked={blData.check}
-                                    onChange={(e)=>{
-                                      let temp=[...bl]
-                                      console.log(temp[index][indexbl],"ASdasd")
-                                      temp[index][indexbl].check=!temp[index][indexbl].check
-                                      setbl([...temp])
-                                    }}
+                        {bl[index]?.length > 0 &&
+                          bl[index].map((blData, indexbl) => {
+                            return (
+                              <>
+                                {' '}
+                                <div key={indexbl} className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
+                                  <div className="d-flex align-items-center">
+                                    <Form.Check
+                                      inline
+                                      checked={blData.check}
+                                      onChange={(e) => {
+                                        let temp = [...bl];
+                                        console.log(temp[index][indexbl], 'ASdasd');
+                                        temp[index][indexbl].check = !temp[index][indexbl].check;
+                                        setbl([...temp]);
+                                      }}
                                     />
-                                  <div>
-                                    <div className={`${styles.label} text ml-2`}>
-                                      BL Number <strong className="text-danger ml-n1">*</strong>
+                                    <div>
+                                      <div className={`${styles.label} text ml-2`}>
+                                        BL Number <strong className="text-danger ml-n1">*</strong>
+                                      </div>
+                                      <span className={`${styles.value} ml-2`}>{blData?.blNumber}</span>
                                     </div>
-                                    <span className={`${styles.value} ml-2`}>{blData?.blNumber}</span>
                                   </div>
                                 </div>
-                              </div>
-                              <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                                <div className={`${styles.label} text`}>
-                                  BL Date <strong className="text-danger ml-n1">*</strong>{' '}
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
+                                  <div className={`${styles.label} text`}>
+                                    BL Date <strong className="text-danger ml-n1">*</strong>{' '}
+                                  </div>
+                                  <span className={styles.value}>
+                                    {blData?.blDate ? moment(blData?.blDate).format('DD-MM-YYYY') : ''}
+                                  </span>
                                 </div>
-                                <span className={styles.value}>
-                                  {blData?.blDate ? moment(blData?.blDate).format('DD-MM-YYYY') : ''}
-                                </span>
-                              </div>
-                              <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                                <div className={`${styles.label} text`}>
-                                  BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
+                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
+                                  <div className={`${styles.label} text`}>
+                                    BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
+                                  </div>
+                                  <span className={styles.value}>
+                                    {blData?.blQuantity ? Number(blData?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
+                                    {customData?.order?.unitOfQuantity.toUpperCase()}
+                                  </span>
                                 </div>
-                                <span className={styles.value}>
-                                  {blData?.blQuantity ? Number(blData?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
-                                  {customData?.order?.unitOfQuantity.toUpperCase()}
-                                </span>
-                              </div>
-                              <div className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 text-center`}>
-                                <img
-                                  src="/static/preview.svg"
-                                  className={`${styles.previewImg} img-fluid ml-n4`}
-                                  alt="Preview"
-                                  onClick={(e) => {
-                                    getDoc(blData?.blDoc?.path);
-                                  }}
-                                />
-                              </div>
-                            </>
-                          );
-                        })}
+                                <div className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 text-center`}>
+                                  <img
+                                    src="/static/preview.svg"
+                                    className={`${styles.previewImg} img-fluid ml-n4`}
+                                    alt="Preview"
+                                    onClick={(e) => {
+                                      getDoc(blData?.blDoc?.path);
+                                    }}
+                                  />
+                                </div>
+                              </>
+                            );
+                          })}
                       </div>
                       <hr></hr>
                       <div className="text-right">
@@ -1434,30 +1441,15 @@ console.log(bl,"asdasd")
                             </tr>
                           </thead>
                           <tbody>
-                            <tr className="table_row">
-                              {val.boeAssessment === 'Final' ? (
-                                <td className={styles.doc_name}>
-                                  BOE Final
-                                  <strong className="text-danger ml-1">*</strong>
-                                </td>
-                              ) : (
+                              <tr className="table_row">
+                              
                                 <td className={styles.doc_name}>
                                   BOE Provisional
                                   <strong className="text-danger ml-1">*</strong>
                                 </td>
-                              )}
+                              
                               <td>
-                                {val.document1 ? (
-                                  val.document1?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document1?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document1?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document1?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                              {val.document1 ? returnDocFormat(val.document1?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document1 === null
@@ -1482,7 +1474,7 @@ console.log(bl,"asdasd")
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{val?.document1?.originalName}</span>
                                     <img
-                                      onClick={() => removeDoc('document1')}
+                                      onClick={() => removeDoc('document1',index)}
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       alt="Close"
@@ -1491,23 +1483,58 @@ console.log(bl,"asdasd")
                                 )}
                               </td>
                             </tr>
+                              {val.boeAssessment === 'Final' ?
+                                <tr className="table_row">
+                              
+                                <td className={styles.doc_name}>
+                                  BOE Final
+                                  <strong className="text-danger ml-1">*</strong>
+                                </td>
+                             
+                              <td>
+                                {val.document3 ? returnDocFormat(val.document3?.originalName) : null}
+                              </td>
+                              <td className={styles.doc_row}>
+                                {val.document3 === null
+                                  ? ''
+                                  : moment(val?.document3?.date).format('DD-MM-YYYY, h:mm a')}
+                              </td>
+
+                              <td>
+                                {val.document3 === null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name="document3"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDoc1(e, index)}
+                                      />
+                                      <button className={`${styles.button_upload} btn`}>Upload</button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{val?.document3?.originalName}</span>
+                                    <img
+                                      onClick={() => removeDoc('document3',index)}
+                                      className={`${styles.close_image} image_arrow`}
+                                      src="/static/close.svg"
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
+                              </td>
+                            </tr>
+                              :null}
+                          
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 Duty Paid Challan
                                 <strong className="text-danger ml-1">*</strong>
                               </td>
                               <td>
-                                {val.document2 ? (
-                                  val.document2?.originalName?.toLowerCase().endsWith('.xls') ||
-                                  val.document2?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                  ) : val.document2?.originalName?.toLowerCase().endsWith('.doc') ||
-                                    val.document2?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                  ) : (
-                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                  )
-                                ) : null}
+                              {val.document2 ? returnDocFormat(val.document2?.originalName) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {val.document2 === null
@@ -1601,7 +1628,7 @@ console.log(bl,"asdasd")
               );
             })}
           <div className="">
-            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']  } isDocumentName={true} />
+            <UploadOther orderid={OrderId}  module={['BOE','Discharge of Cargo']} isDocumentName={true} />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

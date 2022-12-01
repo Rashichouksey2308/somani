@@ -6,6 +6,8 @@ import DateCalender from '../DateCalender'
 import moment from 'moment'
 
 const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
+
+  console.log(shipment,'shipment')
   const [expShipment, setExpectedShipment] = useState(null)
   const [maxdate, setmaxDate] = useState(null)
   useEffect(() => {
@@ -86,8 +88,9 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     value={shipment.ETAofDischarge.fromDate}
                     name='loadPort.fromDate'
                     saveDate={saveDate}
+                    startFrom={dateStartFrom.laycan}
                     setStartDateFrom={setStartDate}
-                    maxDate={maxdate}
+                    maxDate={moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')}
                     labelName='Laycan at Load Port from'
                   />
                   <img
@@ -118,7 +121,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     name='loadPort.toDate'
                     saveDate={saveDate}
                     startFrom={dateStartFrom.laycan}
-                    maxDate={maxdate}
+                    maxDate={moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')}
                     labelName='Laycan at Load Port to'
                   />
                   <img
@@ -178,12 +181,17 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName='ETA at Discharge Port from'
-                    startFrom={
-                      shipment.loadPort.toDate
-                        ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY')
-                        : moment(new Date()).format('DD-MM-YYYY')
-                    }
-                    maxDate={maxdate}
+                    startFrom={moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')}
+
+                    // startFrom={moment(expectedShipment).format('DD-MM-YYYY')}
+                   
+
+                    // startFrom={
+                    //   shipment.loadPort.toDate
+                    //     ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY')
+                    //     : moment(new Date()).format('DD-MM-YYYY')
+                    // }
+                    // maxDate={maxdate}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -215,10 +223,11 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     labelName='ETA at Discharge Port to'
-                    startFrom={dateStartFrom.eta}
-                    maxDate={
-                      shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
-                    }
+                    // startFrom={moment(dateStartFrom.eta).format('DD-MM-YYYY')}
+                    startFrom={shipment?.ETAofDischarge.fromDate !== '' ? moment(shipment?.ETAofDischarge.fromDate).format('DD-MM-YYYY')  : moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') }
+                    // maxDate={
+                    //   shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
+                    // }
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -261,7 +270,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                       })
                       .map((val, index) => {
                         return (
-                          <option value={`${val.Port_Name},${val.Country}`}>
+                          <option value={`${val.Port_Name}, ${val.Country}`}>
                            {val.Port_Name}, {val.Country}
                           </option>
                         )

@@ -417,7 +417,7 @@ function Index({
                             <option value="">Select an option</option>
                             {port
                               .filter((val, index) => {
-                                if (val.Country.toLowerCase() == 'india' && val.Approved == "YES") {
+                                if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == "yes") {
                                   return val;
                                 }
                               })

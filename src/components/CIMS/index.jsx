@@ -23,7 +23,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       circNumber: '',
       circDate: '',
-      cimsCharges: '',
+      cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       paymentBy: '',
       coalImportRegistrationDoc: null,
       cimsPaymentReceiptDoc: null,
@@ -44,7 +44,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           circNumber: '',
           circDate: '',
-          cimsCharges: '',
+          cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
@@ -79,10 +79,20 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {
+          if(name=="quantity"){
+       return {
+            ...obj,
+            [name]: value,
+            cimsCharges:value
+
+          };
+          }else{
+             return {
             ...obj,
             [name]: value,
           };
+          }
+         
         }
         return obj;
       });
@@ -187,6 +197,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
       if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
         toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      
+      if (Number(cimsDetails[i]?.cimsCharges) > 100000 ) {
+        toastMessage = `CIMS CHARGES CANNOT BE GREATOR THAN 1 LAKH   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;

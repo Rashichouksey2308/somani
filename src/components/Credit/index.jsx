@@ -13,7 +13,7 @@ import DateCalender from '../DateCalender';
 import MultiSelect from '../MutilSelect';
 import AddressComponent from './addressComponent';
 import styles from './index.module.scss';
-import { getPincodes } from 'redux/masters/action'; 
+import { getPincodes } from 'redux/masters/action';
 
 const index = ({
   creditDetail,
@@ -58,7 +58,7 @@ const index = ({
   });
 
   const { updatingCreditCalculate } = useSelector((state) => state.review);
-   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const index = ({
         conduct: '',
         limit: null,
         action: false,
-        addnew:"false"
+        addnew: 'false',
       },
     ]);
   };
@@ -130,16 +130,15 @@ const index = ({
       if (i == index) {
         val[name] = value;
         if (value == 'addnew') {
-           val.addnew="true"
+          val.addnew = 'true';
         }
-
       } else {
         if (name == 'primaryBank') {
           val[name] = false;
         }
       }
     });
-     
+
     setDebtData([...tempArr]);
   };
 
@@ -163,7 +162,7 @@ const index = ({
 
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const openCharges = filtered?.filter((item) => !item.dateOfSatisfactionOfChargeInFull);
     const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
@@ -211,9 +210,9 @@ const index = ({
       setToView(false);
     }
   }, [getPincodesMasterData]);
-const gettingPins=(value)=>{
-   dispatch(getPincodes(value));
- }
+  const gettingPins = (value) => {
+    dispatch(getPincodes(value));
+  };
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData);
   };
@@ -224,7 +223,14 @@ const gettingPins=(value)=>{
 
     setKeyAddressData(newInput);
   };
-
+  const handleChange2 = (name, value) => {
+    const newInput = { ...keyAddressData };
+    newInput.pinCode = value.Pincode;
+    newInput.state = value.State;
+    newInput.city = value.City;
+    newInput.country = 'India';
+    setKeyAddressData({ ...newInput });
+  };
   const mobileFunction = (e) => {
     const newObj = { ...keyAddressData };
     newObj.contact.number = e.target.value;
@@ -417,6 +423,15 @@ const gettingPins=(value)=>{
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
+
+    setEditData(newInput);
+  };
+  const changeData2 = (name, value) => {
+    const newInput = { ...editData };
+    newInput[name] = value.Pincode;
+    newInput.state = value.State;
+    newInput.city = value.City;
+    newInput.country = 'India';
 
     setEditData(newInput);
   };
@@ -741,9 +756,12 @@ const gettingPins=(value)=>{
                       saveProductData(e.target.name, e.target.value);
                     }}
                   >
-                    <option selected value='' disabled>Select an option</option>
+                    <option selected value="" disabled>
+                      Select an option
+                    </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
+                    <option value="Both">Both</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing Procurement of Commodity
@@ -1331,32 +1349,42 @@ const gettingPins=(value)=>{
                             /> */}
                                 </div>
                               </td>
+
                               <td>
-                                <input
-                                  className="input"
-                                  defaultValue={person.contact.number}
-                                  placeholder={'Contact number'}
-                                  name="contact.number"
-                                  style={{ maxWidth: '170px' }}
-                                  onChange={(e) => {
-                                    handlePersonChange(e, index);
-                                  }}
-                                  onBlur={(e) => {
-                                    if (phoneValidation(e.target.value)) {
-                                      handlePersonChange(e, index);
-                                    } else {
-                                      let toastMessage = 'Enter a valid Phone Number';
-                                      if (!toast.isActive(toastMessage.toUpperCase())) {
-                                        toast.error(toastMessage, {
-                                          toastId: toastMessage,
-                                        });
-                                      }
-                                    }
-                                  }}
-                                  type="number"
-                                  onWheel={(event) => event.currentTarget.blur()}
-                                  disabled={!person.isEdit}
-                                />
+                                <div className="d-inline-flex align-items-center position-relative">
+                                  {person.addnew ? (
+                                    <>
+                                      <input
+                                        className="input"
+                                        defaultValue={person.contact.number}
+                                        placeholder={'Contact number'}
+                                        name="contact.number"
+                                        style={{ maxWidth: '170px' }}
+                                        onChange={(e) => {
+                                          handlePersonChange(e, index);
+                                        }}
+                                        type="text"
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <select
+                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                        name="name"
+                                        onChange={(e) => handlePersonChange(e, index)}
+                                        disabled={!person.isEdit}
+                                        defaultValue={person.contact.number}
+                                      >
+                                        <option selected>Select an Option</option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="arrow"
+                                      />
+                                    </>
+                                  )}
+                                </div>
                               </td>
                               <td>
                                 <input
@@ -1545,32 +1573,32 @@ const gettingPins=(value)=>{
                           onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? '' : keyAddressData.pinCode}
                           onChange={(e) => {
-                             gettingPins(e.target.value);
+                            gettingPins(e.target.value);
                             handleChange(e.target.name, e.target.value);
                           }}
                         />
-                        { toShow.length > 0 && toView && (
-                              <div className={styles.searchResults}>
-                                <ul>
-                                  {toShow
-                                    ? toShow?.map((results, index) => (
-                                        <li
-                                          onClick={() =>{
-                                             handleChange('pinCode', results.Pincode)
-                                             setToShow([])
-                                             setToView(false)
-                                          }}
-                                          id={results._id}
-                                          key={index}
-                                          value={results.Pincode}
-                                        >
-                                          {results.Pincode}{' '}
-                                        </li>
-                                      ))
-                                    : ''}
-                                </ul>
-                              </div>
-                            )}
+                        {toShow.length > 0 && toView && (
+                          <div className={styles.searchResults}>
+                            <ul>
+                              {toShow
+                                ? toShow?.map((results, index) => (
+                                    <li
+                                      onClick={() => {
+                                        handleChange2('pinCode', results);
+                                        setToShow([]);
+                                        setToView(false);
+                                      }}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ))
+                                : ''}
+                            </ul>
+                          </div>
+                        )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1823,34 +1851,34 @@ const gettingPins=(value)=>{
                           required
                           type="text"
                           name="pinCode"
-                          defaultValue={editData.pinCode}
+                          value={editData.pinCode}
                           onChange={(e) => {
-                               gettingPins(e.target.value);
+                            gettingPins(e.target.value);
                             changeData(e.target.name, e.target.value);
                           }}
                         />
-                          { toShow.length > 0 && toView && (
-                              <div className={styles.searchResults}>
-                                <ul>
-                                  {toShow
-                                    ? toShow?.map((results, index) => (
-                                        <li
-                                          onClick={() =>{
-                                             changeData('pinCode', results.Pincode)
-                                             setToShow([])
-                                             setToView(false)
-                                          }}
-                                          id={results._id}
-                                          key={index}
-                                          value={results.Pincode}
-                                        >
-                                          {results.Pincode}{' '}
-                                        </li>
-                                      ))
-                                    : ''}
-                                </ul>
-                              </div>
-                            )}
+                        {toShow.length > 0 && toView && (
+                          <div className={styles.searchResults}>
+                            <ul>
+                              {toShow
+                                ? toShow?.map((results, index) => (
+                                    <li
+                                      onClick={() => {
+                                        changeData2('pinCode', results);
+                                        setToShow([]);
+                                        setToView(false);
+                                      }}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ))
+                                : ''}
+                            </ul>
+                          </div>
+                        )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1868,7 +1896,7 @@ const gettingPins=(value)=>{
                         required
                         type="text"
                         name="state"
-                        defaultValue={editData.state}
+                        value={editData.state}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1884,7 +1912,7 @@ const gettingPins=(value)=>{
                         required
                         type="text"
                         name="city"
-                        defaultValue={editData.city}
+                        value={editData.city}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1900,7 +1928,7 @@ const gettingPins=(value)=>{
                         required
                         type="text"
                         name="email"
-                        defaultValue={editData.email}
+                        value={editData.email}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1961,9 +1989,7 @@ const gettingPins=(value)=>{
                           changeData(e.target.name, e.target.value);
                         }}
                       />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        Branch
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>Branch</label>
                     </div>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <input
@@ -1976,9 +2002,7 @@ const gettingPins=(value)=>{
                           changeData(e.target.name, e.target.value);
                         }}
                       />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        GSTIN
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
                     </div>
                     <div
                       className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
@@ -2013,14 +2037,16 @@ const gettingPins=(value)=>{
                 </div>
               </div>
             ) : null}
-            <div
-              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-              onClick={() => {
-                setShowAddress(true);
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className="d-flex justify-content-end">
+              <div
+                className={`${styles.add_row} pr-3 row`}
+                onClick={() => {
+                  setShowAddress(true);
+                }}
+              >
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
             {/* ))} */}
           </div>
@@ -2068,44 +2094,79 @@ const gettingPins=(value)=>{
                             disabled={!profile.actions}
                           />
                         </td>
-                        {profile.addnew=="false"?
-                        <td>
+                       
+                        {
+                          !profile.actions?
+                          <>
+                           <td>{profile.bankName}</td>
+                          <td>{profile.limitType}</td>
+                          <td>{ Number(profile?.limit)?.toLocaleString('en-In')}</td>
+                          <td>{profile?.conduct}</td>
+                          </>
+                          :
+                          <>
+                           {profile.addnew == 'false' ? (
+                          <td>
+                            <select
+                              onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
+                              // value={profile?.bankName}
+                              name="bankName"
+                              className={`${styles.dropDown} heading input`}
+                              disabled={!profile.actions}
+                              value={profile.bankName}
+                            >
+                              <option value="" selected>
+                                Select
+                              </option>
+                              {FilterUniqueBank().map((item) => (
+                                <>
+                                  <option value={item}>{item}</option>
+                                </>
+                              ))}
+                              <option value="addnew">Add new</option>
+                            </select>
+                          </td>
+                        ) : (
+                          <td>
+                            <input
+                              type="text"
+                              className="input"
+                              disabled={!profile.actions}
+                              value={profile?.bankName == 'addnew' ? '' : profile?.bankName}
+                              name="bankName"
+                              placeholder="Add new"
+                              // placeholder={'Add new'}
+                              // readOnly={val.addnew!="true"?true:false}
+                              onChange={(e) => {
+                                handleDebtChange(e.target.name, e.target.value, index);
+                              }}
+                            />
+                          </td>
+                        )}
+                            <td>
                           <select
-                            onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            // value={profile?.bankName}
-                            name="bankName"
-                            className={`${styles.dropDown} heading input`}
+                            type="text"
+                            className="input"
                             disabled={!profile.actions}
-                            value={profile.bankName}
+                            value={profile.limitType}
+
+                            name="limitType"
+                            onChange={(e) => {
+                              handleDebtChange(e.target.name, e.target.value, index);
+                            }}
+                          // placeholder={'Limit type'}
                           >
-                            <option selected>Select</option>
-                            {FilterUniqueBank().map((item) => (
-                              <>
-                                <option value={item}>{item}</option>
-                              </>
-                            ))}
-                            <option value="addnew">Add new</option>
+                            <option value="">Select an option</option>
+                            <option value="Cash Credit">Cash Credit</option>
+                            <option value="LC Limits">LC Limits</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Bank Guarantee">Bank Guarantee</option>
+                            <option value="Buyers Credit">Buyers Credit</option>
+                            <option value="Packing Credit">Packing Credit</option>
+                            <option value="Post Ship Credit">Post Ship Credit</option>
+                            
                           </select>
                         </td>
-                        :
-                       <td>
-                      <input
-                        type="text"
-                        className="input"
-                         disabled={!profile.actions}
-                        // value={profile.bankName}
-                        name="bankName"
-                        placeholder={"Add new"}
-                        // readOnly={val.addnew!="true"?true:false}
-                        onChange={(e) => {
-                          handleDebtChange(e.target.name, e.target.value, index);
-                        }}
-                      />
-                    </td>
-                        }
-                        
-                        
-
                         <td>
                           <input
                             onFocus={(e) => {
@@ -2122,6 +2183,7 @@ const gettingPins=(value)=>{
                               }),
                                 (e.target.type = 'text');
                             }}
+                               onWheel={(event) => event.currentTarget.blur()}
                             value={
                               profile?.actions
                                 ? isFieldInFocus.limit
@@ -2154,6 +2216,9 @@ const gettingPins=(value)=>{
                             <option value="Poor">Poor</option>
                           </select>
                         </td>
+                          </>
+                        }
+                      
                         <td>
                           <div>
                             {!profile.actions ? (
@@ -2190,14 +2255,17 @@ const gettingPins=(value)=>{
                 </table>
               </div>
             </div>
-            <div
-              className={`${styles.add_row} d-flex justify-content-end`}
-              onClick={(e) => {
-                addMoreDebtRows();
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className={`${styles.add_row} d-flex justify-content-end`}>
+              <div
+                className={`d-flex justify-content-end`}
+                onClick={(e) => {
+                  addMoreDebtRows();
+                }}
+              >
+                {' '}
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
           </div>
         </div>

@@ -36,7 +36,7 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
-  Tooltip,
+  // Tooltip,
   Legend,
 );
 
@@ -70,9 +70,8 @@ function Index({
     LimitValue: false,
     OrderValue: false,
   });
-  const [chartType,setChartType] = useState('Monthly')
+  const [chartType, setChartType] = useState('Monthly');
 
-  console.log(chartType,"chartType")
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -215,27 +214,99 @@ function Index({
     ],
   };
 
+  // const options = {
+  //   elements: {
+  //     arc: {
+  //       borderWidth: 0,
+  //     },
+  //   },
+  //   plugins: {
+  //     title: {
+  //       animation: {
+  //         animateScale: true,
+  //       },
+  //     },
+
+  //     legend: {
+  //       display: false,
+  //     },
+  //   },
+  //   responsive: true,
+  //   cutout: 130,
+  // };
+
   const options = {
+    aspectRatio: 1,
     elements: {
       arc: {
         borderWidth: 0,
       },
     },
     plugins: {
-      title: {
-        animation: {
-          animateScale: true,
-        },
-      },
-
       legend: {
         display: false,
       },
-    },
-    responsive: true,
-    cutout: 130,
-  };
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
 
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+        animation: {
+          animateScale: false,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 95,
+  };
+  const options2 = {
+    aspectRatio: 1,
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 110,
+  };
   const covertMonths = (months) => {
     const CovertedMonts = [];
     months?.map((month) => {
@@ -310,6 +381,8 @@ function Index({
   //   ],
   // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
     datasets: [],
@@ -415,7 +488,6 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 4,
           },
         ],
       };
@@ -429,8 +501,9 @@ function Index({
     if (data?.length > 0) {
       data.forEach((val, index) => {
         if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
+          console.log(val,"val")
           temp.push({
-            name: val.nameOfChargeHolder1,
+            name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
           });
         }
@@ -440,6 +513,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
+      console.log(sortedval,"sortedval")
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -451,7 +525,6 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 20,
           },
         ],
       };
@@ -469,11 +542,10 @@ function Index({
     findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges);
   }, [GstData, camData]);
 
-
   useEffect(() => {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
-    
+
     const filteredData = (data) => {
       let arr = [];
       if (!data || !data?.length) return arr;
@@ -490,7 +562,7 @@ function Index({
         let b = 0;
 
         b = data[i] + data[i - 1] + data[i - 2];
-        arr.push((Number(b)/1000).toFixed(2));
+        arr.push((Number(b) / 1000).toFixed(2));
       }
 
       return arr;
@@ -500,11 +572,17 @@ function Index({
     }
 
     const data = {
-      labels:chartType == 'Monthly'? covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month):  covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossRevenue?.month)) ,
+      labels:
+        chartType == 'Monthly'
+          ? covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month)
+          : covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossRevenue?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: chartType == 'Monthly'? gstData?.detail?.summaryCharts?.grossRevenue?.values : filteredData1(gstData?.detail?.summaryCharts?.grossRevenue?.values), 
+          data:
+            chartType == 'Monthly'
+              ? gstData?.detail?.summaryCharts?.grossRevenue?.values
+              : filteredData1(gstData?.detail?.summaryCharts?.grossRevenue?.values),
           fill: true,
           backgroundColor: createGradient(chart.ctx, chart.chartArea, 'rgb(71, 145, 255,0.1)', 'rgb(71, 145, 255,0.2)'),
           borderColor: '#2979F2',
@@ -516,11 +594,17 @@ function Index({
     }
 
     const data2 = {
-      labels:chartType == 'Monthly'?  covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month) :covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossPurchases?.month)),
+      labels:
+        chartType == 'Monthly'
+          ? covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month)
+          : covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossPurchases?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: chartType == 'Monthly'? gstData?.detail?.summaryCharts?.grossPurchases?.values : filteredData1(gstData?.detail?.summaryCharts?.grossPurchases?.values) ,
+          data:
+            chartType == 'Monthly'
+              ? gstData?.detail?.summaryCharts?.grossPurchases?.values
+              : filteredData1(gstData?.detail?.summaryCharts?.grossPurchases?.values),
           fill: true,
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: '#FA5F1C',
@@ -530,7 +614,7 @@ function Index({
 
     setChartData(data);
     setChartData2(data2);
-  }, [chartRef.current, chartRef2.current,gstData,chartType]);
+  }, [chartRef.current, chartRef2.current, gstData, chartType]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
   useEffect(() => {
@@ -596,12 +680,22 @@ function Index({
         CreditAgency,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor, camConversionunit)}
+      {shareHolding(top3Share, options, tempArr, camData, backgroundColor, backgroundColor1)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
-      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit,setChartType,chartType)}
+      {trends(
+        chartData,
+        chartRef,
+        chartRef2,
+        chartData2,
+        lineOption,
+        gstData,
+        camConversionunit,
+        setChartType,
+        chartType,
+      )}
       {skewness(
         top5Customers,
         options,
@@ -1055,11 +1149,11 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                 <th>SUPPLIER NAME</th>
                 <th>ORDER NO</th>
                 <th>ORDER DATE</th>
-                <th>ORDER VALUE</th>
+                <th className='text-right'>ORDER VALUE</th>
                 <th>COMMODITY</th>
                 <th>STATUS</th>
 
-                <th>DAYS DUE</th>
+                <th className='text-right'>DAYS DUE</th>
               </tr>
               {/* <tr>
                 <td>JUL 2022 - JUN 2023</td>
@@ -1091,10 +1185,7 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                         {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
                       </td>
                       <td>{item?.commodity}</td>
-                      <td>
-                        <span className={`${styles.status} ${styles.rejected}`} />
-                        In Process
-                      </td>
+                      <td>In Process</td>
                       <td> 12</td>
                     </tr>
                   );
@@ -1198,7 +1289,7 @@ const directorDetails = (camData) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th className="40%">NAME</th>
-                <th>PAN</th>
+                <th className='text-left'>PAN</th>
                 <th>DIN NUMBER</th>
                 <th>DATE OF APPOINTMENT</th>
                 <th>% SHAREHOLDING</th>
@@ -1220,7 +1311,7 @@ const directorDetails = (camData) => {
 
                       <span className={` ${styles.name} ml-3  `}>{director?.name}</span>
                     </td>
-                    <td>{director?.pan[0]}</td>
+                    <td className='text-left'>{director?.pan[0]}</td>
                     <td>{director.din}</td>
                     <td>{director.tenureStartDate}</td>
                     <td>{director.percentageShareHolding}%</td>
@@ -1237,7 +1328,7 @@ const directorDetails = (camData) => {
     </>
   );
 };
-const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
+const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, backgroundColor1) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1262,10 +1353,10 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut id={`shareHoldingChart`} data={top3Share} options={options} />
-                  <div className={styles.total_value}>
+                  {/* <div className={styles.total_value}>
                     <span></span>
                     <span className={styles.highlight}></span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className={`${styles.name} `}>
                   {top3Share.datasets &&
@@ -1285,7 +1376,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
-                <table className={`${styles.table} table  border_color `} cellPadding="0" cellSpacing="0">
+                <table className={`${styles.table} table  border_color mr-3`} cellPadding="0" cellSpacing="0">
                   <tr>
                     <th>NAME</th>
                     <th>NO. OF SHARES</th>
@@ -1316,9 +1407,12 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                       return (
                         <tr key={index}>
                           <td className={`d-flex justify-content-start align-content-center`}>
-                            <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
+                            <div
+                              style={{ background: `${index < 4 ? backgroundColor1[index] : randColor.primary}` }}
+                              className={`${styles.icon}   `}
+                            >
                               <span
-                                style={{ color: `${randColor.secondary}` }}
+                                style={{ color: `${index < 4 ? backgroundColor[index] : randColor.secondary}` }}
                                 className={`d-flex justify-content-center align-content-center`}
                               >
                                 {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
@@ -1390,7 +1484,14 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
+const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit) => {
+  const returnFilteredCharges = () => {
+    let data = _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
+    });
+    return data;
+  };
+  console.log(top3Open,"top3Open")
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1415,33 +1516,26 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut id={`openBankChargeChart`} data={top3Open} options={options} />
-                  <div className={styles.total_value}>
-                    {/* <span>Bindu Singh</span>
-                    <span className={styles.highlight}>83.80%</span> */}
-                  </div>
+                  {/* <div className={styles.total_value}>
+                    <span>Bindu Singh</span>
+                    <span className={styles.highlight}>83.80%</span>
+                  </div> */}
                 </div>
                 <div className={`${styles.name} `}>
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((val, index) => {
-                      if (
-                        val.dateOfSatisfactionOfChargeInFull ||
-                        val.dateOfSatisfactionOfChargeInFull === '' ||
-                        index > 2
-                      ) {
-                        return null;
-                      } else {
-                        return (
-                          <div
-                            key={index}
-                            className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
-                          >
-                            <div className={styles.round} style={{ backgroundColor: backgroundColor[index] }}></div>
-                            <span className={` heading ml-2`}>
-                              {top3Open.labels[index] == '' ? 'NA' : top3Open.labels[index]}
-                            </span>
-                          </div>
-                        );
-                      }
+                    returnFilteredCharges().map((val, index) => {
+                      if (index > 2) return null;
+                      return (
+                        <div
+                          key={index}
+                          className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
+                        >
+                          <div className={styles.round} style={{ backgroundColor: backgroundColor[index] }}></div>
+                          <span className={` heading ml-2`}>
+                            {top3Open.labels[index] == '' ? 'NA' : top3Open.labels[index]}
+                          </span>
+                        </div>
+                      );
                     })}
                 </div>
               </Col>
@@ -1454,7 +1548,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                   </tr>
 
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((charge, index) => {
+                    returnFilteredCharges().map((charge, index) => {
                       let name = charge?.nameOfChargeHolder;
                       let [fName, lName] = name?.split(' ');
 
@@ -1473,43 +1567,43 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                         },
                       ];
                       let randColor = colors[Math.floor(Math.random() * colors.length)];
-                      if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
-                        return null;
-                      } else {
-                        return (
-                          <tr key={index}>
-                            <td className={`d-flex justify-content-start align-content-center`}>
-                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon} `}>
-                                <span
-                                  style={{ color: `${randColor.secondary}` }}
-                                  className={`d-flex justify-content-center align-content-center`}
-                                >
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                                </span>
-                              </div>
 
-                              <span className={` ${styles.name} ml-3  `}>
-                                {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
+                      return (
+                        <tr key={index}>
+                          <td className={`d-flex justify-content-start align-content-center`}>
+                            <div
+                              style={{ background: `${index < 4 ? backgroundColor1[index] : randColor.primary}` }}
+                              className={`${styles.icon} `}
+                            >
+                              <span
+                                style={{ color: `${index < 4 ? backgroundColor[index] : randColor.secondary}` }}
+                                className={`d-flex justify-content-center align-content-center`}
+                              >
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                               </span>
-                            </td>
-                            <td>
-                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                              })}
-                              {/* {Number(
+                            </div>
+
+                            <span className={` ${styles.name} ml-3  `}>
+                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
+                            </span>
+                          </td>
+                          <td>
+                            {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                            })}
+                            {/* {Number(
                                   charge?.finalAmountSecured,
                                 )?.toLocaleString('en-In')} */}
-                            </td>
+                          </td>
 
-                            <td>
-                              {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format('DD-MM-YYYY')
-                                : ''}
-                            </td>
-                          </tr>
-                        );
-                      }
+                          <td>
+                            {charge?.dateOfCreationOfCharge
+                              ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format('DD-MM-YYYY')
+                              : ''}
+                          </td>
+                        </tr>
+                      );
                     })}
                   {/* <tr>
                     <td
@@ -1672,7 +1766,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     <th>BANK NAME</th>
                     <th>LIMIT TYPE</th>
                     <th>LIMITS</th>
-                    <th>CONDUCT</th>
+                    <th className='text-right'>CONDUCT</th>
                   </tr>
 
                   {camData &&
@@ -1695,7 +1789,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                               : debt.conduct == 'Average'
                               ? 'average'
                               : 'danger'
-                          }`}
+                          } text-right`}
                         >
                           {debt?.conduct}
                         </td>
@@ -1892,7 +1986,7 @@ const revenuDetails = (gstData, camConversionunit) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th></th>
-                <th className='text-center'>TREND</th>
+                <th className="text-center">TREND</th>
                 <th>LATEST YEAR</th>
                 <th>PREVIOUS YEAR</th>
                 <th>GROWTH</th>
@@ -1900,7 +1994,7 @@ const revenuDetails = (gstData, camConversionunit) => {
 
               <tr>
                 <td>Gross Revenue</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.grossTurnover?.previous?.value || RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
@@ -1947,7 +2041,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Related Party Sales</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
                   RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
@@ -1995,7 +2089,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
                   RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
@@ -2059,7 +2153,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>B2B Sales</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.B2BSales?.previous?.value || RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
@@ -2106,7 +2200,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>B2C Sales</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.B2CSales?.previous?.value || RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
@@ -2153,7 +2247,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Export Sales</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.exportSales?.previous?.value || RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
@@ -2209,7 +2303,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Total Customers</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.ttlCustomer?.previous?.value || RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
@@ -2245,7 +2339,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Total Invoices</td>
-                <td>
+                <td className='text-center'>
                   {RevenueDetails?.ttlInv?.previous?.value || RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
@@ -2283,7 +2377,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Gross Margin</td>
-                <td>
+                <td className='text-center'>
                   <img src="/static/arrow-down-red.svg" alt="Arrow Red" className="img-fluid" />
                 </td>
                 <td>11,900.00</td>
@@ -2703,7 +2797,9 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
-                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
+                  <span className={`${styles.value} value`}>
+                    {companyData?.compliance.other?.nclt ? 'YES' : 'NO'}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -2715,7 +2811,9 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>BIFR</span>
-                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
+                  <span className={`${styles.value} value`}>
+                    {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -2741,7 +2839,9 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
-                  <span className={`${styles.value} value`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
+                  <span className={`${styles.value} value`}>
+                    {companyData?.profile?.directorDetail?.length ?? 0}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -2887,7 +2987,8 @@ const sectionTerms = (
                 'Cr',
                 '',
               )} */}
-              {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+              {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
+              {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>
@@ -2954,13 +3055,15 @@ const sectionTerms = (
                         onChange={() => setLimitValueChecked(!limitValueChecked)}
                       ></input>
                     </td>
-                    <td>
+                    {/* <td>
                       <input
                         className={`${styles.text} input`}
-                        disabled={!limitValueChecked}
                         required={true}
                         type="number"
+                        disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
+
+                        name="approvedCreditValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -2980,10 +3083,41 @@ const sectionTerms = (
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
-                        // defaultValue={approvedCredit?.approvedCreditValue}
-                        name="approvedCreditValue"
-                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
+                        onChange={(e) => {
+                          onApprove(e.target.name, Number(e.target.value));
+                        }}
+                      ></input>
+                    </td> */}
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="text"
+                        disabled={!limitValueChecked}
+                        onWheel={(event) => event.currentTarget.blur()}
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
+                        name="approvedCreditValue"
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: true,
+                          }),
+                            (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: false,
+                          }),
+                            (e.target.type = 'text');
+                        }}
+                        value={
+                          isFieldInFocus.LimitValue
+                            ? (approvedCredit?.approvedCreditValue)
+                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')} Cr`
+                        }
+                        // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApprove(e.target.name, Number(e.target.value));
                         }}
@@ -3011,10 +3145,10 @@ const sectionTerms = (
                     <td>
                       <input
                         className={`${styles.text} input`}
-                        type="number"
+                        type="text"
                         disabled={!orderValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
-                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"
                         onFocus={(e) => {
@@ -3033,8 +3167,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? approvedCredit?.approvedOrderValue
-                            : checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')
+                            ? `${Number(approvedCredit?.approvedOrderValue)?? 0}`
+                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} Cr`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3218,7 +3352,17 @@ const Documents = (documentsFetched) => {
     </>
   );
 };
-const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit,setChartType,chartType) => {
+const trends = (
+  chartData,
+  chartRef,
+  chartRef2,
+  chartData2,
+  lineOption,
+  gstData,
+  camConversionunit,
+  setChartType,
+  chartType,
+) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3231,16 +3375,17 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
             <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
             <div className="d-flex align-items-center position-relative">
               <select
-              value={chartType}
-              onChange={(e)=> { 
-                console.log(e.target.value,'chartType')
-                setChartType(e.target.value)}}
+                value={chartType}
+                onChange={(e) => {
+                  console.log(e.target.value, 'chartType');
+                  setChartType(e.target.value);
+                }}
                 className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
                 aria-label="Default select example"
               >
-                <option disabled >Select an option</option>
-                <option  value="Monthly">Monthly</option>
-                <option  value="Quarterly">Quarterly</option>
+                <option disabled>Select an option</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Quarterly">Quarterly</option>
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>

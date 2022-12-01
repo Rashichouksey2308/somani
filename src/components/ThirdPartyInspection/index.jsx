@@ -14,7 +14,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther/index';
 import styles from './index.module.scss';
 
-export default function Index({ addButton , setComponentId,componentId }) {
+export default function Index({ addButton , setComponentId,componentId,ports }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -178,8 +178,8 @@ export default function Index({ addButton , setComponentId,componentId }) {
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality  !== null &&
-      documents.certificateOfWeight  !== null &&
+      documents.certificateOfQuality  !== null ||
+      documents.certificateOfWeight  !== null ||
       documents.certificateOfOrigin  !== null
     ) {
       sethaveDoc(true);
@@ -190,8 +190,8 @@ export default function Index({ addButton , setComponentId,componentId }) {
 console.log(haveDischargeDoc,"haveDoc",haveDoc)
   useEffect(() => {
     if (
-      dischargeDocuments.dischargeCertificateOfQuality !== null &&
-      dischargeDocuments.dischargeCertificateOfWeight !== null &&
+      dischargeDocuments.dischargeCertificateOfQuality !== null ||
+      dischargeDocuments.dischargeCertificateOfWeight !== null ||
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
       setHaveDischargeDoc(true);
@@ -243,9 +243,12 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
     setDischargeDocuments(newUploadDoc1);
   
   };
-
+  console.log(dischargeDocuments,"dischargeDocuments")
+  let k
   const uploadDischargeDocument3 = (e) => {
     const newUploadDoc1 = { ...dischargeDocuments };
+    console.log(e.target.files)
+    k=e.target.files
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
@@ -357,7 +360,7 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
           if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ALL DOCUMENT ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
             if (!toast.isActive(toastMessage)) {
               toast.error(toastMessage, { toastId: toastMessage });
             }
@@ -408,7 +411,7 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENST ARE REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -463,7 +466,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher1")
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -570,7 +573,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
         console.log("herher")
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
+          let toastMessage = 'ANY ONE DOCUMENT ARE MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -676,7 +679,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT ARE MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -710,7 +713,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENST ARE REQUIRED REQUIRED IN LOAD PORT & DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS  REQUIRED IN LOAD PORT & DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -798,7 +801,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
         var noError2 = false;
         if (haveDoc == false) {
-          let toastMessage = 'ALL DOCUMENTS ARE MANDATORY IN LOAD PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS  MANDATORY IN LOAD PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -885,7 +888,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
           return (noError3 = true);
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'All DOCUMENTS ARE MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT MANDATORY IN DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -916,6 +919,64 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
     setComponentId(componentId + 1);
   };
 
+  const [toDischargeShow, setToDischargeShow] = useState([]);
+  const [toDischargeView, setToDischargeView] = useState(false);
+ console.log(toDischargeShow,"toDischargeShow")
+  const [toLoadShow, setToLoadShow] = useState([]);
+  const [toLoadView, setToLoadView] = useState(false);
+ 
+  const filterPort = (value,type) => {
+    if (value == '') {
+      if(type=="load"){
+        setToLoadShow([]);
+        setToLoadView(false);
+        return;
+      }else{
+        setToDischargeShow([]);
+        setToDischargeView(false)
+        return;
+      }
+     
+    }
+    let filterData=[]
+    if(type=="load"){
+    filterData = ports.filter((o) => {
+        if(o.Approved.toLowerCase()=="yes" && o.Country.toLowerCase()!=="india"){
+           return o.Port_Name.toLowerCase().includes(value.toLowerCase());
+        }
+    });
+    }else{
+     
+       filterData = ports.filter((o) => {
+        if(o.Approved?.toLowerCase()=="yes" && o.Country.toLowerCase()=="india"){
+         
+           return o.Port_Name.toLowerCase().includes(value.toLowerCase());
+        }
+    });
+    console.log(filterData,"filterData")
+    }
+    
+   if(type=="load"){
+        setToLoadShow(filterData);
+        setToLoadView(true);
+        
+      }else{
+        setToDischargeShow(filterData);
+        setToDischargeView(true)
+        
+      }
+    
+  };
+const handleData = (name, value,type) => {
+  if(type == "load"){
+  saveInspectionDetails(name,value)
+  }else{
+    saveDischargeInspectionDetails(name,value)
+  }
+   
+    setToLoadView(false);
+    setToDischargeView(false)
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 `}>
@@ -1093,18 +1154,41 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                     )}
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
+                        {console.log(inspectionDetails?.loadPortInspectionDetails?.inspectionPort,"======")}
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
                           name="loadPortInspectionDetails.inspectionPort"
                           value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
-                          onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
+                          onChange={(e) => {
+                            filterPort(e.target.value,"load");
+                            saveInspectionDetails(e.target.name, e.target.value)
+                          }}
                         />
+                         {toLoadShow.length > 0 && toLoadView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toLoadShow
+                          ? toLoadShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('loadPortInspectionDetails.inspectionPort', results.Port_Name,"load")}
+                              id={results._id}
+                              key={index}
+                              value={results?.Port_Name}
+                            >
+                              {results?.Port_Name}{' '}
+                            </li>
+                          ))
+                          : ''}
+                      </ul>
+                    </div>
+                         )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
+                        <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
@@ -1172,6 +1256,10 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                 setStartDate,
                 setDateStartFrom,
                 handleShow,
+                toDischargeShow,
+                toDischargeView,
+                handleData,
+                filterPort
               )
             : ''}
           {inspectionDetails.loadPortInspection && (
@@ -1227,15 +1315,32 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ||documents.certificateOfOrigin ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path == undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(documents.certificateOfOrigin);
+                                       
+                                      reader.onload = function() {
+                                        
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }
+                                      else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1327,16 +1432,32 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfQuality ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfQuality || documents?.certificateOfQuality  ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                   {  if(inspectionData?.thirdPartyInspection?.certificateOfQuality?.path== undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(documents.certificateOfQuality);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                     }
+                                     else{
+                                       dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                     }
                                     }
+                                  }
                                   >
                                     View
                                   </span>
@@ -1427,15 +1548,32 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfWeight || documents.certificateOfWeight? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.certificateOfWeight?.path == undefined ){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(documents.certificateOfWeight);
+                                       
+                                        reader.onload = function() {
+                                       
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }
+                                      else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1531,7 +1669,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      All document is mandatory
+                      Any one document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1597,16 +1735,35 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || dischargeDocuments.dischargeCertificateOfOrigin ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      console.log(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin,"dischargeDocuments.dischargeCertificateOfOrigin")
+                                     if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.path==undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfOrigin);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                     
+                                      }else{
+                                          dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      } 
+                                    }
+                                    
                                     }
                                   >
                                     View
@@ -1698,16 +1855,33 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || dischargeDocuments.dischargeCertificateOfQuality ? (
+                                  
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.path == undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfQuality);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1799,16 +1973,32 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || dischargeDocuments.dischargeCertificateOfWeight ? (
                                   <span
                                     onClick={() =>
-                                      dispatch(
+                                     {
+                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.path ==undefined){
+                                      let reader = new FileReader();
+                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfWeight);
+                                       
+                                      reader.onload = function() {
+                                        console.log(reader.result,"reader");
+                                        var file = new Blob([reader.result], {type: 'application/pdf'});
+                                        var fileURL = URL.createObjectURL(file);
+                                        window.open(fileURL);
+
+
+                                      };
+                                      }else{
+                                         dispatch(
                                         ViewDocument({
                                           path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
                                             ?.path,
                                           order: inspectionData?.order?._id,
                                         }),
                                       )
+                                      }
+                                     }
                                     }
                                   >
                                     View
@@ -1904,7 +2094,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
                     <div className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}>
                       <strong className="text-danger">*</strong>
-                      All document is mandatory
+                      Any one document is mandatory
                     </div>
                   </div>
                 </div>
@@ -1970,6 +2160,10 @@ const Discharge = (
   setDateStartFrom,
   setStartDate,
   handleShow,
+  toDischargeShow,
+  toDischargeView,
+  handleData,
+  filterPort
 ) => {
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
@@ -2015,12 +2209,35 @@ const Discharge = (
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
                 value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
-                onChange={(e) => saveInspectionDetails(e.target.name, e.target.value)}
+                onChange={(e) =>{
+                  
+                   filterPort(e.target.value,"dischatge");
+                   saveInspectionDetails(e.target.name, e.target.value)
+                }}
               />
+               {toDischargeShow.length > 0 && toDischargeView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toDischargeShow
+                          ? toDischargeShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('dischargePortInspectionDetails.inspectionPort', results.Port_Name,"discharge")}
+                              id={results._id}
+                              key={index}
+                              value={results?.Port_Name}
+                            >
+                              {results?.Port_Name}{' '}
+                            </li>
+                          ))
+                          : ''}
+                      </ul>
+                    </div>
+                  )}
               <label className={`${styles.label_heading} label_heading`}>
                 Inspection Port
                 <strong className="text-danger">*</strong>
               </label>
+                <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </div>
           </div>
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>

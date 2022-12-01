@@ -124,7 +124,7 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index === 0 && (
+                            {index >= 0 && (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
@@ -256,7 +256,7 @@ function Index({
                               {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
                               </option> */}
-                              {country.map((val, index) => {
+                              {country?.map((val, index) => {
                                 return <option value={val.Country}>{val.Country}</option>;
                               })}
                               {/* <option value="India">India</option>
@@ -289,10 +289,11 @@ function Index({
                                 {val.portOfLoading}
                               </option> */}
                               {port
-                                .filter((val) => val.Country.toLowerCase() !== 'india')
-                                .map((val, index) => {
+                                ?.filter((val) => val.Country.toLowerCase() !== 'india')
+                                ?.map((val, index) => {
                                   return (
-                                    <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                                    
+                        <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );
@@ -322,10 +323,10 @@ function Index({
                                 {val.portOfDischarge}
                               </option> */}
                               {port
-                                .filter((val) => val.Country.toLowerCase() === 'india' && val.Approved=="YES")
-                                .map((val, index) => {
+                                ?.filter((val) => val.Country.toLowerCase() === 'india' && val.Approved=="YES")
+                                ?.map((val, index) => {
                                   return (
-                                    <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                                    <option key={index} value={`${val.Port_Name}`}>
                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );

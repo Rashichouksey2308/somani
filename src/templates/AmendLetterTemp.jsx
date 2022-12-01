@@ -189,8 +189,6 @@ export default function AmendLetterTemp(lcModuleData) {
                               width: '66px',
                               color: '#111111',
                               fontWeight: '500',
-                              color: '#111111',
-                              fontWeight: '500',
                             }}
                           >
                             40A

@@ -13,9 +13,18 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 import { handleErrorToast } from '@/utils/helpers/global';
+import { getPorts } from 'redux/masters/action';
 
 function Index() {
+
   const dispatch = useDispatch();
+
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+
+  useEffect(() => {
+    dispatch(getPorts());
+  
+  }, []);
 
   const [editInput, setEditInput] = useState(false);
   const [editCurrent, setEditCurrent] = useState();
@@ -51,7 +60,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-  console.log(lcData, clauseObj, 'clauseObj');
+
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -174,8 +183,9 @@ function Index() {
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
-      e.target.value == 'creditAvailablewith' ||
-      e.target.value == 'applicant'
+      e.target.value == 'applicant' || 
+      e.target.value == 'portOfDischarge' || 
+      e.target.value == 'portOfLoading'
     ) {
       setFieldType('drop');
     } else {
@@ -202,7 +212,11 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...clauseData };
+    if(drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == "Usuance"){
+      newInput1['numberOfDays'] = value
+    }else{
     newInput1[drop] = value;
+    }
     setClauseData(newInput1);
   };
 
@@ -575,6 +589,7 @@ function Index() {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
+                          onWheel={(event) => event.currentTarget.blur()}
                               type="number"
                               value={clauseObj?.newValue}
                               disabled={isDisabled}
@@ -643,7 +658,37 @@ function Index() {
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
-                                ) : (
+                                ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
+                                  <>
+                                    {getPortsMasterData.filter((val, index) => {
+                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                          {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
+                                  <>
+                                    {getPortsMasterData.filter((val, index) => {
+                                        if (val.Country.toLowerCase() !== 'india') {
+                                          return val;
+                                        }
+                                      })
+                                      .map((val, index) => {
+                                        return (
+                                          <option value={`${val.Port_Name}`}>
+                                          {val.Port_Name}, {val.Country}
+                                          </option>
+                                        );
+                                      })}
+                                  </>
+                                ) :  (
                                   <>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>

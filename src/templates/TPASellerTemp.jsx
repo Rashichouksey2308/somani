@@ -9,7 +9,7 @@ export default function TPASeller(data) {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>TRIPARTITE AGREEMENT</u>
+            TRIPARTITE AGREEMENT
           </strong>
         </p>
         <p className="text_sales">
@@ -19,7 +19,7 @@ export default function TPASeller(data) {
         <p className="text_sales">
           <strong>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at {""}{' '}
                     {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
-                    {data.sellerAddress?.pinCode}{""}through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
+                    {data.sellerAddress?.pinCode}{""} through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
         </p>
         <p className=" text-left text_sales">And</p>
         <p className="text_sales">

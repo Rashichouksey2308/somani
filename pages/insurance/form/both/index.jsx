@@ -35,6 +35,7 @@ const Index = () => {
     dispatch(setDynamicName(_get(insuranceResponse, 'data[0].company.companyName', 'Company Name')));
     dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')));
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
+    setIsInsurerSameData(_get(insuranceResponse, 'data[0].isInsurerSame', false))
   }, [insuranceResponse]);
 
   useEffect(() => {
@@ -88,12 +89,12 @@ const Index = () => {
         ? getDifferenceInDaysMarine()
         : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee:
+      lossPayee:insuranceData?.marineInsurance?.lossPayee ||
         _get(
           insuranceData,
-          'order.termsheet.transactionDetails.lcOpeningBank',
-          insuranceData?.quotationRequest?.lossPayee,
-        ) || '',
+          'order.lc.lcApplication.lcIssuingBank',
+           "",
+        ) ,
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     });
     setStorageData({
@@ -112,7 +113,12 @@ const Index = () => {
         ? getDifferenceInDaysStorage()
         : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
+    lossPayee:insuranceData?.storageInsurance?.lossPayee ||
+        _get(
+          insuranceData,
+          'order.lc.lcApplication.lcIssuingBank',
+           "",
+        ) ,
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     });
     setInsuranceDocument({
@@ -496,6 +502,7 @@ const Index = () => {
           return false;
         }
       }
+    
    if(storageValidation()==false){
       return false
 
@@ -589,6 +596,7 @@ const Index = () => {
     fd.append('marineInsurance', JSON.stringify(marineObj));
     fd.append('storageInsurance', JSON.stringify(storageObj));
     fd.append('insuranceId', insuranceData?._id);
+    fd.append('isInsurerSame', JSON.stringify(isInsurerSameData));
     fd.append('insuranceType', JSON.stringify(insuranceData?.quotationRequest?.insuranceType));
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
@@ -685,7 +693,7 @@ const Index = () => {
                 >
                   <h2 className="mb-0">Marine Insurance Policy Details</h2>
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
+                    <h5 className={`${styles.radio_label} mr-3 mt-1`}>Insurance From:</h5>
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
                         <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1100,7 +1108,7 @@ const Index = () => {
                 >
                   <h2 className="mb-0">Storage Insurance Details</h2>
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
+                    <h5 className={`${styles.radio_label} mr-3`}>Insurance From:</h5>
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
                         <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1335,11 +1343,9 @@ const Index = () => {
                             <div className="d-flex">
                               <input
                                 name="lossPayee"
-                                value={_get(
-                                  insuranceData,
-                                  'order.termsheet.transactionDetails.lcOpeningBank',
-                                  insuranceData?.quotationRequest?.lossPayee,
-                                )}
+                                value={
+                                   storageData?.lossPayee
+                                  }
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
@@ -1500,7 +1506,7 @@ const Index = () => {
                 >
                   <h2 className="mb-0">Marine Insurance Policy Details</h2>
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className={`${styles.radio_label} mt-1 mr-3`}>Insurance From:</h5>
+                    <h5 className={`${styles.radio_label} mr-3 mt-1`}>Insurance From:</h5>
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
                         <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1786,7 +1792,7 @@ const Index = () => {
                     </span>
                   </div>
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className={`${styles.radio_label}  mr-5`}>Is the Insurer same as Marine Insurance?</div>
+                    <div className={`${styles.radio_label}`}>Is the Insurer same as Marine Insurance?</div>
                     <div className={`${styles.theme} d-flex align-items-center`}>
                       <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
                       <label className={styles.switch}>

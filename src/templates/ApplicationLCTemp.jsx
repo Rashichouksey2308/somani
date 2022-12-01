@@ -12,6 +12,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
       return index + 1;
     }
   };
+  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),)
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -166,8 +167,6 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               style={{
                                 display: 'inline-block',
                                 width: '66px',
-                                color: '#111111',
-                                fontWeight: '500',
                                 color: '#111111',
                                 fontWeight: '500',
                               }}
@@ -1026,13 +1025,15 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {' '}
-                            {lcModuleData.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
+                            {lcModuleData?.lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' :lcModuleData?.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()== "NO" ?' Not Allowed' :"Conditional" }
+                            
                           </p>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
+                   
                     {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments ? (
                       <tr>
                         <td
@@ -1084,7 +1085,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
+                             {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}
+                            
                           </p>
                         </td>
                       </tr>
@@ -1487,7 +1489,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     </tr>
 
                     <tr></tr>
-                    {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
+                    {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
                       <>
                         <tr>
                           <td
@@ -1545,26 +1547,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                   lineHeight: '24px',
                                 }}
                               >
-                                {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
-                                  _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
-                                    .length > 0 &&
-                                  Object.keys(
-                                    _get(
-                                      lcModuleData.lcModule,
-                                      'data[0].order.generic.productSpecifications.specificationTable',
-                                      [],
-                                    ),
-                                  ).map((val, index) => (
-                                    <th
-                                      key={index}
-                                      style={{
-                                        borderBottom: '1px solid #CAD6E6',
-                                        borderLeft: '1px solid #CAD6E6',
-                                      }}
-                                    >
-                                      {val}
-                                    </th>
-                                  ))}
+                              
                               </tr>
                               {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
                                 _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])

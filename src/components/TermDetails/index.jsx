@@ -50,9 +50,9 @@ const Index = ({
     if (value === 'DaysfromBLDate') {
       setIsBlSelected('DaysfromBLDate');
       changePayment('DaysfromBLDate');
-    } else if (value === 'DaysfromVesselDischargeDate') {
-      setIsBlSelected('DaysfromVesselDischargeDate');
-      changePayment('DaysfromVesselDischargeDate');
+    } else if (value === 'DaysfromVesselDate') {
+      setIsBlSelected('DaysfromVesselDate');
+      changePayment('DaysfromVesselDate');
     } else {
       setIsBlSelected(value);
       changePayment('val');
@@ -145,17 +145,8 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option
-                    value={
-                      termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                        ? 'MT'
-                        : termsheetDetails?.commodityDetails?.unitOfQuantity
-                    }
-                  >
-                    {termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                      ? 'MT'
-                      : termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
-                  </option>
+                
+                   <option value={"MT"}>MT</option>
                   <option value={"L"}>L</option>
                   <option value={"KG"}>KG</option>
                   <option value={"M"}>M</option>
@@ -424,7 +415,8 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                        
+                        <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
                          {val.Port_Name}, {val.Country}
                         </option>
                       );
@@ -696,7 +688,7 @@ const Index = ({
                     Select an option
                   </option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date</option>
+                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -726,15 +718,15 @@ const Index = ({
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
-                id="daysFromVesselDischargeDate"
+                id="daysFromVesselDate"
                 className={`${styles.value} input form-control`}
                 type="number"
                 onWheel={(event) => event.currentTarget.blur()}
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                value={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate}
+                value={termsheetDetails?.paymentDueDate?.daysFromVesselDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
-                  IsBlSelected == 'DaysfromVesselDischargeDate'
+                  IsBlSelected == 'DaysfromVesselDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
                     ? false
@@ -743,7 +735,7 @@ const Index = ({
                 required
               />
               <label className={`${styles.label} label_heading`}>
-                Days From Vessel Discharge Date
+                Days From Vessel Date
                 <strong className="text-danger">*</strong>
               </label>
             </div>

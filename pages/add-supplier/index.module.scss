@@ -511,10 +511,12 @@ img {
 }
 
 .sort_img {
-  margin-left: 5px;
-  @include respond(lg-desktop) {
-    width: 12px;
-    height: 12px;
+  margin-left: 2px;
+  display: inline-block;
+  img {
+    @include respond(lg-desktop) {
+      height: 12px !important;
+    }
   }
 }
 

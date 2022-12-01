@@ -151,7 +151,7 @@ function Index() {
                             DATE :{' '}
                             {moment(
                               _get(transitDetails, 'data[0].LOI.loiIssueDate', '').slice(0, 10).replace(/-/g, '/'),
-                            ).format('DD-MM-YYYY')}
+                            ).format('DD MMMM YYYY')}
                           </td>
                         </tr>
                         <tr>
@@ -677,7 +677,7 @@ function Index() {
             <div className={`d-flex`}>
               <span>To:</span>
               {'  '}
-              <div className={`ml-3 ${styles.noadd} text-left`}>
+              <div className={`ml-3 ${styles.noadd} text-left text-uppercase`}>
                 {' '}
                 {_get(transitDetails, 'data[0].order.generic.seller.name')}
                 {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')},{" "}
@@ -686,10 +686,10 @@ function Index() {
                 {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].country')}
               </div>
             </div>
-            <div className="w-25 text-right">
-              <span>DATE:</span>
+            <div className="w-25 text-right font-weight-normal">
+              <span>DATE: </span>
               {moment(_get(transitDetails, 'data[0].LOI.loiIssueDate', '').slice(0, 10).replace(/-/g, '/')).format(
-                'DD-MM-YYYY',
+                'DD MMMM YYYY',
               )}
             </div>
           </div>

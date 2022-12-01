@@ -20,10 +20,13 @@ import { getInternalCompanies } from '../../../src/redux/masters/action';
 import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
+  
   let transId = _get(TransitDetails, `data[0]`, '');
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const dispatch = useDispatch();
   const router = useRouter();
+  // const shipmentDetail = TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail;
+  // const {consigneeAddress,branchOffice} = shipmentDetail;
 
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false;
@@ -63,7 +66,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     document: null,
   });
 
-  console.log(igmList, 'igmListmain');
+
   const getDoc = (payload) => {
     dispatch(
       previewDocument({
@@ -81,7 +84,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
-        balance = balance - item2.blQuantity;
+        balance = Number(balance) - Number(item2.blQuantity==undefined?0:item2.blQuantity);
+          
       });
     });
     if (balance < 0) {
@@ -191,7 +195,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       setConsigneeName('');
     }
   };
-  console.log(consigneeInfo, 'consigneeInfo');
+
   const filterBranch = (company) => {
       console.log(company,"company")
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -214,17 +218,18 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
           return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
         });
+        console.log(filterData,"filterData")
         let tempArray = { ...igmList };
         tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
         tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
         tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
         tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
-        tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0].containerDetails?.blDoc;
+        tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0]?.blDoc;
         setIgmList({ ...tempArray });
       }
     }
 
-    if (_get(TransitDetails, `data[0].IGM`, {})) {
+    if (_get(TransitDetails, `data[0].IGM`, false)) {
       setConsigneeInfo({
         name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '',
         branch: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, '') || '',
@@ -299,7 +304,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   useEffect(() => {
 
   },[TransitDetails])
-  console.log(consigneeName,branchOptions,'sdasds1')
+  
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
@@ -437,7 +442,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         }
         return false;
       }
-
       return true;
     }
   };
@@ -460,6 +464,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     if (validation() == false) {
       return;
     }
+
     const igmDetails = { ...igmList };
     igmDetails.shipmentType = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '');
     igmDetails.shipmentDetails = {
@@ -467,7 +472,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
     };
-
+ 
     let fd = new FormData();
     fd.append('igm', JSON.stringify(igmDetails));
     fd.append('transitId', transId._id);
@@ -605,6 +610,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     Country Of Origin <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
+                  
                     {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
                   </span>
                 </div>
@@ -624,12 +630,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                   </span>
                 </div>
+                
                 <div className={`${styles.form_group} col-lg-4 col-md-6 `}>
                   <div className="d-flex">
                     <select
                       onChange={(e) => onChangeConsignee(e)}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       value={consigneeName}
+
                     >
                       <option value="">Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -712,15 +720,21 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>Balance Quantity:</div>
                     <div className={`${styles.value} ml-2 mr-4`}>
+                      
                       {checkNan(checkRemainingBalance())} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
-                    <button
+                    {checkRemainingBalance()!==0?
+                    <>
+                      <button
                       onClick={() => onigmAdd(index)}
                       className={styles.add_btn}
                       style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
+                    </>  :null
+                  }
+                  
                     {index > 0 ? (
                       <button
                         onClick={() => onDeleteClick(index)}
@@ -814,7 +828,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="row">
                     {item?.blNumber?.length > 0 &&
                       item.blNumber.map((blEntry, index2) => {
-{
+                      {
                           console.log(blEntry, 'blEntry');
                         }
                         return (
@@ -880,6 +894,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       className={`${styles.previewImg} ml-n4`}
                                       alt="Preview"
                                       onClick={(e) => {
+                                      
                                         getDoc(blEntry?.blDoc?.path);
                                       }}
                                     />
