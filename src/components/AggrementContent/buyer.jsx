@@ -702,7 +702,7 @@ function Index(props) {
                     getAddress(e.target.value, buyerData.branchName);
                   }}
                 >
-                  <option disabled>Select an option</option>
+                  <option  value="">Select an option</option>
                   <option
                     value={`Indo German International Private Limited`}
                   >{`Indo German International Private Limited`}</option>
@@ -736,7 +736,7 @@ function Index(props) {
                     getAddress(buyerData.name, e.target.value);
                   }}
                 >
-                  <option disabled value="" defaultChecked>
+                  <option  value="" >
                     Select an option
                   </option>
 
