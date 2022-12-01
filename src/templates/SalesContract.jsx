@@ -841,7 +841,7 @@ export default function SalesContract(changeHandler, data, preview) {
               Discharge Port
             </Col>
             <Col md={7} className={styles.right}>
-              {data.dischargePort}
+              {data.dischargePort}, India
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

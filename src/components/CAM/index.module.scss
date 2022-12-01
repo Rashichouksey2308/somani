@@ -1158,7 +1158,7 @@
         }
 
         th {
-          text-align: center;
+          text-align: right;
           vertical-align: middle;
           font-size: 15px;
           line-height: 19px;
@@ -1181,7 +1181,7 @@
 
         td {
           vertical-align: baseline;
-          text-align: center;
+          text-align: right;
           border: none !important;
           @include respond(lg-desktop) {
             font-size: 14px;
