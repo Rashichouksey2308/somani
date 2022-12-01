@@ -13,6 +13,7 @@ import Table from '../../src/components/Table';
 import QueueStats from '../../src/components/QueueStats';
 import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import moment from 'moment';
+import slugify from 'slugify';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -36,13 +37,17 @@ function Index() {
   useEffect(() => {
     let companyIDnewOrder = sessionStorage.getItem('companyID');
 
-    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`));
+    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${10}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
     dispatch(setPageName('leads'));
     dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', ' ')));
   }, [dispatch, singleOrder]);
+
+  useEffect(() => {
+    dispatch(GetOrders(`?page=${currentPage}&limit=${pageLimit}`));
+  }, [dispatch, currentPage, pageLimit]);
 
   let compId = _get(singleOrder, 'data[0].company._id', '');
 
@@ -70,18 +75,34 @@ function Index() {
     }
   };
 
-  const [sorting, setSorting] = useState(1);
+  // const handleSort = (column) => {
+  //   let columnName = slugify(column.Header, { lower: true });
+  //   let sortOrder = '';
+  //   if (column.id === sortByState.column) {
+  //     setSortByState((state) => {
+  //       let updatedOrder = !state.order;
+  //       sortOrder = updatedOrder ? 'asc' : 'desc';
+  //       return { ...state, order: updatedOrder };
+  //     });
+  //   } else {
+  //     let data = { column: column.id, order: column.isSortedDesc };
+  //     sortOrder = data.order ? 'asc' : 'desc';
+  //     setSortByState(data);
+  //   }
+   // dispatch(GetOrders(`?page=${currentPage}&column=${columnName}&order=${sortOrder}`));
+ // };
 
-  const handleSort = () => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID');
-    if (sorting == -1) {
-      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting == 1) {
-      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
-      setSorting(-1);
-    }
-  };
+  //const [sorting, setSorting] = useState(1);
+  // const handleSort = () => {
+  //   let companyIDnewOrder = sessionStorage.getItem('companyID');
+  //   if (sorting == -1) {
+  //     dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
+  //     setSorting(1);
+  //   } else if (sorting == 1) {
+  //     dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
+  //     setSorting(-1);
+  //   }
+  // };
 
   const tableColumns = useMemo(() => [
     {
@@ -198,8 +219,8 @@ console.log("SingleOrder", singleOrder)
               data={singleOrder?.data}
               pageLimit={pageLimit}
               setPageLimit={setPageLimit}
-              handleSort={handleSort}
-              sortByState={sortByState}
+             // handleSort={handleSort}
+             // sortByState={sortByState}
               serverSortEnabled={true}
             />
             )} 
