@@ -173,7 +173,7 @@ function Index(props) {
           associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
           associateBuyerGst: data?.associateBuyer?.gstin,
           associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
-          associateBuyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
+          associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
           stevedore: data?.stevedore?.name,
           stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
           stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
