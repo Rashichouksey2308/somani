@@ -21,6 +21,8 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/us
 import MarginMoney from '../../src/templates/MarginMoney';
 import { checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
+import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -111,7 +113,7 @@ function Index() {
       marginMoney: marginData?.order?.termsheet?.transactionDetails?.marginMoney,
     });
     let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+    let orderValueCurrency =  marginData?.order?.orderCurrency;
     let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
@@ -934,14 +936,14 @@ function Index() {
         accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
-    if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
-        setInvoiceData({
-                ...invoiceData,
-                consigneeName:  marginData?.company?.companyName,
-                consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN,
-                consigneeAddress:  marginData?.invoiceDetail?.buyerAddress,
-              });
-      }
+    // if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
+    //     setInvoiceData({
+    //             ...invoiceData,
+    //             consigneeName:  marginData?.company?.companyName,
+    //             consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN,
+    //             consigneeAddress:  marginData?.invoiceDetail?.buyerAddress,
+    //           });
+    //   }
     }
   }, [marginData, getInternalCompaniesMasterData]);
 
@@ -984,6 +986,17 @@ function Index() {
   useEffect(() => {
     getDataRevised();
   }, [forCalculationRevised]);
+
+  
+  const exportPDFRevised = () => {
+    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
+      callback: function (doc) {
+        doc.save('RevisedMarginMoney.pdf');
+      },
+      autoPaging: 'text',
+    });
+  };
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2104,7 +2117,7 @@ function Index() {
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                         saveforCalculationRevised={saveforCalculationRevised}
-                        exportPDF={() => {}}
+                        exportPDF={() => {exportPDFRevised() }}
                         getBanksMasterData={getBanksMasterData}
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}

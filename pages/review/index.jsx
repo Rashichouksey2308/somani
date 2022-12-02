@@ -170,7 +170,7 @@ function Index() {
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
   const [litigationStatus, setlitigationStatus] = useState(null);
-
+  const [unit,setUnit]=useState("Crores")
   const { fetchingKarzaGst } = useSelector((state) => state.review);
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
   const { allBuyerList } = useSelector((state) => state.buyer);
@@ -8142,7 +8142,16 @@ function Index() {
                     <select
                       className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
                       aria-label="Default select example"
-                      onChange={(e) => setCamCoversionUnit(e.target.value)}
+                     
+                      onChange={(e) => {
+
+                        setCamCoversionUnit(e.target.value)
+                        if(e.target.value==10000000){
+                           setUnit("Crores")
+                        }else{
+                            setUnit("Lakhs")
+                        }
+                      }}
                     >
                       <option selected value={10000000}>
                         Crores
@@ -8877,6 +8886,7 @@ function Index() {
                     litigationStatus={litigationStatus}
                     debtProfileColor={debtProfileColor}
                     allBuyerList={allBuyerList}
+                    unit={unit}
                   />
                 </div>
               </div>

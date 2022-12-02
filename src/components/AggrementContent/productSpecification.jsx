@@ -63,6 +63,7 @@ function Index(props) {
       }
     }
   }, [props]);
+
   const handleEditAddressInput = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -236,27 +237,28 @@ function Index(props) {
                         handleInput(e.target.value, index);
                       }}
                       className="input"
-                      readOnly={val.action}
+                      readOnly={!val.action}
                     />
                     <div className={`d-flex justify-content-evenly align-items-center`}>
                       {val.action ? (
-                        <img
-                          className={`${styles.image} ml-4 mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit button"
-                          onClick={() => {
-                            handleEditAddressInput(index);
-                          }}
-                        ></img>
+                       <img
+                       src="/static/save-3.svg"
+                       className={`${styles.image} ml-4 mr-3`}
+                       alt="save"
+                       onClick={(e) => {
+                         handleEditAddressInput(index);
+                       }}
+                     />
                       ) : (
                         <img
-                          src="/static/save-3.svg"
-                          className={`${styles.image} ml-4 mr-3`}
-                          alt="save"
-                          onClick={(e) => {
-                            handleEditAddressInput(index);
-                          }}
-                        />
+                        className={`${styles.image} ml-4 mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit button"
+                        onClick={() => {
+                          handleEditAddressInput(index);
+                        }}
+                     />
+                       
                       )}
                       <img
                         src="/static/delete 2.svg"

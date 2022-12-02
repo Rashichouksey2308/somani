@@ -364,18 +364,7 @@ const Index = ({
                 type="text"
                 id="textInput"
                 onChange={(e) => {
-                  if (emailValidation(e.target.value)) {
                     saveCompanyData(e.target.name, e.target.value);
-                    //green tick
-                  } else {
-                    //red mark
-                    let toastMessage = 'Email Invalid';
-                    if (!toast.isActive(toastMessage.toUpperCase())) {
-                      toast.error(toastMessage.toUpperCase(), {
-                        toastId: toastMessage,
-                      });
-                    }
-                  }
                 }}
                 name="email"
                 className={`${styles.input_field} input form-control`}

@@ -70,7 +70,7 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<StorageInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('RequestLetter.pdf');
       },
       // margin:margins,
       autoPaging: 'text',

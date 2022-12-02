@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DownloadBar from '../DownloadBar';
-import { addPrefixOrSuffix, convertValue } from 'utils/helper';
+import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -172,7 +172,7 @@ const Index = ({
                     value={
                       isFieldInFocus.quantity
                         ? forCalculationRevised?.quantity
-                        : Number(forCalculationRevised?.quantity).toLocaleString('en-In') +
+                        : checkNan(Number(forCalculationRevised?.quantity)).toLocaleString('en-In') +
                           ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`
                     }
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}

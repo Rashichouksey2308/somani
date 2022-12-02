@@ -98,7 +98,6 @@ function Index(props) {
         if (i == index) {
           return { ...obj, [name]: value };
         }
-
         return obj;
       });
 
@@ -148,7 +147,7 @@ function Index(props) {
                               <tr key={index}>
                                 <td>
                                   <select
-                                    value={val.name}
+                                    value={val.name || ''}
                                     className={`${styles.customSelect} input`}
                                     name="name"
                                     onChange={(e) => {
