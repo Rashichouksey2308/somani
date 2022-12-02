@@ -276,7 +276,6 @@ const Index = ({
                   }}
                   name="GST"
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                 >
                   {' '}
                   <option>Select an option</option>
@@ -305,7 +304,6 @@ const Index = ({
                   }}
                   name="typeOfBusiness"
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
-                  required
                 >
                   <option>Select an option</option>
                   <option value="Manufacturer">Manufacturer</option>

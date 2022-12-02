@@ -264,7 +264,7 @@ useEffect(() => {
                       {lcModuleData && lcModuleData?.lcApplication?.creditAvailableBy ? (
                         <tr className="table_row">
                           <td width="40%">
-                            <span className={`${styles.serial_no} term_para`}>41B </span>
+                            <span className={`${styles.serial_no} term_para`}>41A </span>
                             <span>CREDIT AVAILABLE BY</span>
                           </td>
                           <td className="term_para">{lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}</td>
@@ -430,6 +430,7 @@ useEffect(() => {
                           <tr className="table_row">
                             <td width="40%">1</td>
                             <td className="border-top-0">
+                              <div className={styles.table_heading}>PRODUCT SPECIFICATION</div>
                               <div className={`${styles.datatable} datatable `}>
                                 <div className={styles.table_scroll_outer}>
                                   <div className={styles.table_scroll_inner}>

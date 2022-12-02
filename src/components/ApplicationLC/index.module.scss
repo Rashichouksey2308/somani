@@ -101,6 +101,11 @@
     }
   }
   .content {
+    .table_heading {
+      letter-spacing: 0.19px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
     .datatable {
       box-shadow: none !important;
       border: none !important;

@@ -551,7 +551,7 @@ const Index = ({
               {strengthsComment &&
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
-                    {index+1}
+                    <div className={styles.sr_number}>{index+1}</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
@@ -609,8 +609,9 @@ const Index = ({
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
-                    {index+1}
+                    <div className={styles.sr_number}>{index+1}</div>
                     <Form.Control
+                  
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={weakness}
                       as="textarea"
@@ -813,7 +814,7 @@ const Index = ({
               {sanctionComment &&
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
-                    {index+1}
+                     <div className={styles.sr_number}>{index+1}</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={sanction}
