@@ -506,11 +506,12 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
             /> */}
            {insuranceType ? <div className={`${styles.main} border_color card`}>
                 <div
-                  className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
+                  className={`${styles.head_container} m-0 border_color head_container d-flex align-items-center justify-content-between`}
                   data-toggle="collapse"
                   data-target="#upload"
                   aria-expanded="true"
                   aria-controls="upload"
+                 
                 >
                   <h3 className={styles.heading}>Upload Documents</h3>
                   <span>+</span>
@@ -607,7 +608,7 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                 </div>
               </div> : <div className={`${styles.main} border_color card`}>
                 <div
-                  className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
+                  className={`${styles.head_container} m-0 border_color head_container d-flex align-items-center justify-content-between`}
                   data-toggle="collapse"
                   data-target="#upload"
                   aria-expanded="true"
