@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './index.module.scss';
 import InspectionType from './InspectionType';
 import InspectionDetails from './InspectionDetails';
+import Documents from './Documents';
 
 function Index({ thirdPartyInspection, order }) {
     return (
-        <div className={`${styles.main} mt-4 card border_color mx-4`}>
+        <div className={`${styles.main} mt-4 card border_color`}>
             <div
                 className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -24,6 +25,7 @@ function Index({ thirdPartyInspection, order }) {
                             loadPortInspectionDetails={thirdPartyInspection?.loadPortInspectionDetails}
                             dischargePortInspectionDetails={thirdPartyInspection?.dischargePortInspectionDetails}
                         />
+                        <Documents />
                     </div>
                 </div>
             </div>

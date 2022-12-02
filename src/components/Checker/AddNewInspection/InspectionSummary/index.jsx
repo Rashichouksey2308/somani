@@ -1010,9 +1010,9 @@ function Index() {
     return (
         <div className={`${styles.backgroundMain}`}>
             <div className={`${styles.vessel_card} border_color`}>
-                <Appointment thirdPartyAppointment={inspectionSummary?.thirdPartyAppointment} />
-                <ThirdPartyInspection thirdPartyInspection={inspectionSummary?.thirdPartyInspection} order={inspectionSummary?.order} />
-                <PlotInspection />
+                {inspectionSummary?.thirdPartyAppointment && <Appointment thirdPartyAppointment={inspectionSummary?.thirdPartyAppointment} />}
+                {inspectionSummary?.thirdPartyInspection && <ThirdPartyInspection thirdPartyInspection={inspectionSummary?.thirdPartyInspection} order={inspectionSummary?.order} />}
+                {inspectionSummary?.plotInspection && <PlotInspection plotInspection={inspectionSummary?.plotInspection} />}
                 <Remarks />
             </div>
         </div>

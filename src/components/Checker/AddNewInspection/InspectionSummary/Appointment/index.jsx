@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 
 function Index({ thirdPartyAppointment }) {
     return (
-        <div className={`${styles.main} mt-4 card border_color mx-4`}>
+        <div className={`${styles.main} mt-4 card border_color`}>
             <div
                 className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
                 data-toggle="collapse"
