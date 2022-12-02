@@ -24,9 +24,8 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
-
   const [insuranceType, setInsuranceType] = useState(null);
-const [isFieldInFocus,setIsFieldInFocus]= useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   const [marineData, setMarineData] = useState({
     policyNumber: '',
     insuranceFrom: '',
@@ -58,6 +57,9 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
     lossPayee: '',
     premiumAmount: null,
   });
+
+  console.log(marineData, 'insuranceData');
+
   function getDifferenceInDaysStorage() {
     let dateS1 = new Date(storageData?.insuranceFrom);
     let dateS2 = new Date(storageData?.insuranceTo);
@@ -66,6 +68,13 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
     return date4.diff(date3, 'days');
   }
 
+  useEffect(() => {
+    if (insuranceData) {
+      let lossPayee = insuranceData?.order?.lc?.lcApplication?.lcIssuingBank ?? '';
+      setStorageData({ ...storageData, lossPayee: lossPayee });
+      setMarineData({ ...marineData, lossPayee: lossPayee });
+    }
+  }, [insuranceType, insuranceData]);
   useEffect(() => {
     if (storageData.insuranceFrom && storageData.insuranceTo) {
       setStorageData({ ...storageData, periodOfInsurance: getDifferenceInDaysStorage() });
@@ -284,8 +293,13 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                               }}
                               value={
                                 isFieldInFocus
-                                  ?  marineData.premiumAmount ? marineData.premiumAmount : 0
-                                  : 'INR ' + Number( marineData.premiumAmount ? marineData.premiumAmount : 0).toLocaleString('en-In') 
+                                  ? marineData.premiumAmount
+                                    ? marineData.premiumAmount
+                                    : 0
+                                  : 'INR ' +
+                                    Number(marineData.premiumAmount ? marineData.premiumAmount : 0).toLocaleString(
+                                      'en-In',
+                                    )
                               }
                               // value={addPrefixOrSuffix(
                               //   marineData.premiumAmount ? marineData.premiumAmount : 0,
@@ -335,6 +349,7 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                             <div className="d-flex">
                               <input
                                 name="lossPayee"
+                                value={marineData?.lossPayee}
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               ></input>
@@ -411,8 +426,13 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                               }}
                               value={
                                 isFieldInFocus
-                                  ?  storageData.premiumAmount ? storageData.premiumAmount : 0
-                                  : 'INR ' + Number( storageData.premiumAmount ? storageData.premiumAmount : 0).toLocaleString('en-In') 
+                                  ? storageData.premiumAmount
+                                    ? storageData.premiumAmount
+                                    : 0
+                                  : 'INR ' +
+                                    Number(storageData.premiumAmount ? storageData.premiumAmount : 0).toLocaleString(
+                                      'en-In',
+                                    )
                               }
                               // value={addPrefixOrSuffix(
                               //   storageData.premiumAmount ? storageData.premiumAmount : 0,
@@ -482,6 +502,7 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                               <input
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 name="lossPayee"
+                                value={storageData?.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               ></input>
                               <label className={`${styles.label_heading} label_heading`}>
@@ -504,13 +525,15 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
               docName={`Policy Document ${insuranceType == false ? `- Marine` : `- Storage`} `}
               uploadDocument1={uploadDocument2}
             /> */}
-           {insuranceType ? <div className={`${styles.main} border_color card`}>
+            {insuranceType ? (
+              <div className={`${styles.main} border_color card`}>
                 <div
-                  className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
+                  className={`${styles.head_container} m-0 border_color head_container d-flex align-items-center justify-content-between`}
                   data-toggle="collapse"
                   data-target="#upload"
                   aria-expanded="true"
                   aria-controls="upload"
+                 
                 >
                   <h3 className={styles.heading}>Upload Documents</h3>
                   <span>+</span>
@@ -567,7 +590,9 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                                 <td className={styles.doc_row}>
                                   {insuranceDocument?.storagePolicyDocument
                                     ? insuranceDocument?.storagePolicyDocument?.date
-                                      ? moment(insuranceDocument?.storagePolicyDocument?.date).format('DD-MM-YYYY,h:mm A')
+                                      ? moment(insuranceDocument?.storagePolicyDocument?.date).format(
+                                          'DD-MM-YYYY,h:mm A',
+                                        )
                                       : moment(new Date()).format('DD-MM-YYYY,h:mm A')
                                     : ''}
                                 </td>
@@ -605,9 +630,11 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                     </div>
                   </div>
                 </div>
-              </div> : <div className={`${styles.main} border_color card`}>
+              </div>
+            ) : (
+              <div className={`${styles.main} border_color card`}>
                 <div
-                  className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
+                  className={`${styles.head_container} m-0 border_color head_container d-flex align-items-center justify-content-between`}
                   data-toggle="collapse"
                   data-target="#upload"
                   aria-expanded="true"
@@ -717,7 +744,8 @@ const [isFieldInFocus,setIsFieldInFocus]= useState(false)
                     </div>
                   </div>
                 </div>
-              </div>}
+              </div>
+            )}
           </div>
         </div>
 

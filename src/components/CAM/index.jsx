@@ -823,7 +823,7 @@ const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
                     {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}
+                    {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
