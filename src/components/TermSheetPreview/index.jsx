@@ -18,7 +18,7 @@ function Index() {
   const dispatch = useDispatch();
 
   const { termsheet } = useSelector((state) => state.order);
-
+ console.log(termsheet?.data?.order,"termsheet?.data?.order?.unitOfQuantity")
   let Id = sessionStorage.getItem('termID');
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
@@ -327,7 +327,7 @@ function Index() {
                     {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    MT
+                  { _get(termsheet, 'data[0].order.unitOfQuantity', '')}
                   </li>
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
@@ -1136,7 +1136,7 @@ function Index() {
 
 export default Index;
 
-const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions) => {
+const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions,termsheet) => {
   const filteredValue = (commentType) => {
     let filteredComments = additionalComments?.filter((comment) => comment.additionalCommentType === commentType);
 
@@ -1360,7 +1360,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           >
                             2.
                           </span>
-                          Quantity Name
+                          Quantity 
                         </p>
                       </td>
                       <td align="left">
@@ -1375,7 +1375,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT
+                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} {" "}  { _get(data, 'data[0].order.unitOfQuantity', '')}
                         </p>
                       </td>
                     </tr>

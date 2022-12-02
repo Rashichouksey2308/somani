@@ -98,7 +98,6 @@ function Index(props) {
         if (i == index) {
           return { ...obj, [name]: value };
         }
-
         return obj;
       });
 
@@ -106,7 +105,7 @@ function Index(props) {
     });
   };
 
-
+  const placeExicutionOptions = []
 
   return (
     <>
@@ -123,8 +122,10 @@ function Index(props) {
                     <th className="border-0 generic_th">Actions</th>
                   </tr>
                   <tbody>
+                    
                     {list?.length > 0 &&
-                      list?.map((val, index) => {
+                      list?.map((val, index) => {    
+                        placeExicutionOptions.push(val.name)             
                         return (
                           <>
                             {val.actions !== 'true' ? (
@@ -156,12 +157,12 @@ function Index(props) {
                                     }}
                                   >
                                     <option value="">Select an option</option>
-                                    <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
-                                    <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
-                                    <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
-                                    <option value={'Assignment Letter'}>{'Assignment Letter'}</option>
-                                    <option value={'QPA'}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'}>{'TPA (CMA)'}</option>
+                                    <option value={'Sales Agreement'} disabled={placeExicutionOptions.includes('Sales Agreement') ?true :false}>{'Sales Agreement'}</option>
+                                    <option value={'Associateship Agreement'} disabled={placeExicutionOptions.includes('Associateship Agreement') ? true :false}>{'Associateship Agreement'}</option>
+                                    <option value={'TPA (Seller)'} disabled={placeExicutionOptions.includes('TPA (Seller)') ? true :false}>{'TPA (Seller)'}</option>
+                                    <option value={'Assignment Letter'} disabled={placeExicutionOptions.includes('Assignment Letter') ? true :false}>{'Assignment Letter'}</option>
+                                    <option value={'QPA'} disabled={placeExicutionOptions.includes('QPA') ? true :false}>{'QPA'}</option>
+                                    <option value={'TPA (CMA)'} disabled={placeExicutionOptions.includes('TPA (CMA)') ? true :false}>{'TPA (CMA)'}</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}

@@ -166,6 +166,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
 
           {data?.cheque?.length > 0 &&
             data.cheque.map((val, index) => {
+              
               return (
                 <Row className={`${styles.row} border_black`}>
                   <Col md={1} className={`${styles.left} border_black`}>
@@ -182,6 +183,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                   </Col>
                   <Col md={3} className={styles.right}>
                   INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                  
                   </Col>
                 </Row>
               );
