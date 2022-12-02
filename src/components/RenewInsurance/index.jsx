@@ -252,7 +252,7 @@ const Index = () => {
                                 <option value={insuranceData?.marineInsurance?.policyNumber}>
                                   {insuranceData?.marineInsurance?.policyNumber}
                                 </option>
-                                <option value="IRDAN1277P09098">IRDAN1277P09098</option>
+                                {/* <option value="IRDAN1277P09098">IRDAN1277P09098</option> */}
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Select Policy Number
@@ -385,7 +385,7 @@ const Index = () => {
                                 <option value={insuranceData?.marineInsurance?.policyNumber}>
                                   {insuranceData?.marineInsurance?.policyNumber}
                                 </option>
-                                <option value="IRDAN1277P09098">IRDAN1277P09098</option>
+                                {/* <option value="IRDAN1277P09098">IRDAN1277P09098</option> */}
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Select Policy Number
