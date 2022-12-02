@@ -18,8 +18,8 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
             
               {data.buyer},
               <br />
-              {data.buyerAddress?.fullAddress},{" "}
-              {data.buyerAddress?.city}{" "}<br/>
+              {data.buyerAddress?.fullAddress},{" "}<br/>
+              {data.buyerAddress?.city},{" "}
               {data.buyerAddress?.country},{" "}
               {data.buyerAddress?.pinCode}            
           </span>

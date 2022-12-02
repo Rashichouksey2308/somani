@@ -371,7 +371,7 @@ const Index = () => {
                               {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                               })}{' '}
-                              MT
+                              {insuranceData?.order?.unitOfQuantity}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
