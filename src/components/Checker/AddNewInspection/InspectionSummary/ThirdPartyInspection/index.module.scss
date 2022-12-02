@@ -1,0 +1,54 @@
+@import '../../../../styles/Core/config';
+
+.main {
+    margin-bottom: 26px;
+    border-radius: 6px !important;
+
+    .head_container {
+        border-bottom: 2px solid #cad6e6;
+        padding: 25px 35px !important;
+        height: 80px;
+        cursor: pointer;
+
+        .heading {
+            color: #3687e8;
+            font-weight: bold;
+            font-size: 22px;
+            text-transform: capitalize;
+            line-height: 27px;
+        }
+
+        .status_heading {
+            letter-spacing: 0.53px;
+            color: #00000080;
+            font-size: 16px;
+            line-height: 17px;
+            font-weight: 500;
+
+            .active {
+                color: #43c34d;
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: bold;
+                margin-left: 12px;
+            }
+        }
+
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+
+            @include respond(lg-desktop) {
+                font-size: 35px;
+            }
+        }
+    }
+    .phone_number {
+        text-decoration: underline;
+        letter-spacing: 0.19px;
+        color: #3687e8;
+        font-weight: 500;
+    }
+}
