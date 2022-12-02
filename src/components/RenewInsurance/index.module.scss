@@ -426,14 +426,12 @@
   }
 
   .head_container {
-    cursor: pointer;
     min-height: 80px;
-    padding: 0 35px !important;
-    border-bottom: none !important;
+    cursor: pointer;
+    padding: 0 35px;
     @include respond(lg-desktop) {
       min-height: 60px;
     }
-
     .heading {
       font-size: 22px;
       color: #3687e8;
