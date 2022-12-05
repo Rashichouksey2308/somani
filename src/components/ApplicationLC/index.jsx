@@ -338,7 +338,7 @@ useEffect(() => {
                         <tr className="table_row">
                           <td width="40%">
                             <span className={`${styles.serial_no} term_para`}>44A </span>
-                            <span>SHIPMENT FROM</span>
+                            <span>Place of taking in Charge</span>
                           </td>
                           <td className="term_para">{lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}</td>
                         </tr>
