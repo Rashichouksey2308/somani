@@ -840,8 +840,34 @@ function Index() {
       });
     }
   };
-
+ 
+  const reviseValidate = () => {
+    if (forCalculationRevised.additionalPDC === null 
+      || forCalculationRevised.additionalPDC === undefined 
+      || forCalculationRevised.additionalPDC === ''
+      || forCalculationRevised.additionalPDC === NaN
+      || forCalculationRevised.additionalPDC === "NaN") {
+      let toastMessage = 'Please add additional Amount Per PDC';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (forCalculationRevised.conversionRate === null 
+      || forCalculationRevised.conversionRate === undefined 
+      || forCalculationRevised.conversionRate === ''
+      || forCalculationRevised.conversionRate === NaN
+      || forCalculationRevised.conversionRate === "NaN") {
+      let toastMessage = 'Please add conversion Rate';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    return true
+  }
   const handleUpdateRevisedMarginMoney = () => {
+    if(reviseValidate()){
     let obj = {
       marginMoneyId: marginData?._id,
       additionalPDC: forCalculationRevised.additionalPDC,
@@ -875,6 +901,7 @@ function Index() {
     };
 
     dispatch(RevisedMarginMoney(obj));
+    }
   };
 
   const saveOrderData = (name, value) => {

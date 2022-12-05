@@ -5,6 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList }) => {
+  console.log(orderDetail?.hsnCode,"orderDetail?.hsnCode")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -418,7 +419,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                  value={orderDetail?.hsnCode}
+                  value={orderDetail?.hsnCode==undefined?"":orderDetail?.hsnCode}
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value)}}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
