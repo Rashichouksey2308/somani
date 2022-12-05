@@ -269,6 +269,7 @@ function Index({
     tooltip: {
       titleFontSize: 50,
       bodyFontSize: 50,
+      
     },
 
     responsive: true,

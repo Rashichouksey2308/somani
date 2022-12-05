@@ -1368,20 +1368,39 @@ const index = ({
                                     </>
                                   ) : (
                                     <>
-                                      <select
-                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                        name="name"
-                                        onChange={(e) => handlePersonChange(e, index)}
-                                        disabled={!person.isEdit}
-                                        defaultValue={person.contact.number}
-                                      >
-                                        <option selected>Select an Option</option>
-                                      </select>
-                                      <img
-                                        className={`${styles.arrow2} img-fluid`}
-                                        src="/static/inputDropDown.svg"
-                                        alt="arrow"
-                                      />
+                                       <div className={`${styles.phone_card}`}>
+                                    <select
+                                      name="callingCode"
+                                      id="Code"
+                                      className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                      //value={val?.callingCode}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                    >
+                                      {' '}
+                                      <option value="+91">+91</option>
+                                      <option value="+1">+1</option>
+                                      <option value="+92">+92</option>
+                                      <option value="+95">+95</option>
+                                      <option value="+24">+24</option>
+                                    </select>
+                                    <input
+                                      name="contact"
+                                      //value={val?.contact}
+                                      type="number"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                                      }
+                                      //readOnly={!val.action}
+                                    />
+                                  </div>
+                                  
                                     </>
                                   )}
                                 </div>
