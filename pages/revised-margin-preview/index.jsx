@@ -10,7 +10,7 @@ import { GetMarginMoney } from 'redux/marginMoney/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
 import MarginBar from '../../src/components/MarginBar';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
-import { addPrefixOrSuffix } from '../../src/utils/helper';
+import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper';
 import styles from './index.module.scss';
 import { returnReadableNumber } from '@/utils/helpers/global';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp'
@@ -100,32 +100,12 @@ function Index() {
                       <span className={`ml-2`}>Quantity</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      {addPrefixOrSuffix(
-                        marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
-                          ? Number(marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity)?.toLocaleString(
-                              'en-In',
-                              {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              },
-                            )
-                          : 0,
-                        'MT',
-                        '',
-                      )}
+                      
+                      {addPrefixOrSuffix(marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity : 0, marginData?.order?.unitOfQuantity ? marginData?.order?.unitOfQuantity : 'MT', '')}
                     </td>
                     <td>
                       {' '}
-                      {addPrefixOrSuffix(
-                        marginData?.order?.quantity
-                          ? Number(marginData?.order?.quantity)?.toLocaleString('en-In', {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })
-                          : 0,
-                        'MT',
-                        '',
-                      )}
+                      {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, marginData?.order?.unitOfQuantity ? marginData?.order?.unitOfQuantity : 'MT', '')}
                     </td>
                   </tr>
                   <tr>
