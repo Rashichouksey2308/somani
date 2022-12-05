@@ -203,7 +203,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.quantity ? marginData.marginData?.order?.quantity : 0, 'MT', '')}
+                        {addPrefixOrSuffix(marginData.marginData?.order?.quantity ? marginData.marginData?.order?.quantity : 0, marginData.marginData?.order?.unitOfQuantity, '')}
                       </p>
                     </td>
                   </tr>
