@@ -903,7 +903,7 @@ export default function TPASellerPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        Authorised Signatory
+                        <strong>Authorised Signatory</strong>
                       </p>
                     </td>
                   </tr>
@@ -944,7 +944,7 @@ export default function TPASellerPreview(data) {
                           color: '#000000',
                         }}
                       >
-                        Authorised Signatory
+                        <strong>Authorised Signatory</strong>
                       </p>
                     </td>
                   </tr>
@@ -987,7 +987,7 @@ export default function TPASellerPreview(data) {
                           marginBottom: '0'
                         }}
                       >
-                        Authorised Signatory
+                        <strong>Authorised Signatory</strong>
                       </p>
                     </td>
                   </tr>
