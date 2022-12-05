@@ -1210,12 +1210,13 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               data?.associateBuyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales mt-5"></p>
-                    <strong>
-                      Name: {val.name}
-                      <br />
-                      Designation:{val.designation}
-                    </strong>
+                    <p className="text_sales text-left mt-5">
+                      <strong>
+                        Name: {val.name}
+                        <br />
+                        Designation: {val.designation}
+                      </strong>
+                    </p>
                   </>
                 );
               })}
@@ -1229,12 +1230,13 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               data?.buyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales mt-5"></p>
-                    <strong>
-                      Name: {val.name}
-                      <br />
-                      Designation:{val.designation}
-                    </strong>
+                    <p className="text_sales text-left mt-5">
+                      <strong>
+                        Name: {val.name}
+                        <br />
+                        Designation: {val.designation}
+                      </strong>
+                    </p>
                   </>
                 );
               })}
