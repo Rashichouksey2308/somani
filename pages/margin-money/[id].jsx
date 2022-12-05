@@ -939,7 +939,35 @@ function Index() {
   useEffect(() => {
     if (marginData) {
       console.log(marginData?.invoiceDetail?.isConsigneeSameAsBuyer,"marginData?.invoiceDetail?.isConsigneeSameAsBuyer")
-      setInvoiceData({
+     
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+    if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
+       setInvoiceData({
+        buyerName: marginData?.company?.companyName || '',
+        buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
+        consigneeName:marginData?.company?.companyName || '',
+        consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        consigneeAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        importerName:
+          marginData?.invoiceDetail?.importerName ||
+          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '',
+        branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+        companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+        importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+        bankName: marginData?.invoiceDetail?.bankName || '',
+        branch: marginData?.invoiceDetail?.branch || '',
+        branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+        IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
+      });
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+      }else{
+ setInvoiceData({
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
@@ -962,18 +990,10 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
-      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
-    // if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
-    //     setInvoiceData({
-    //             ...invoiceData,
-    //             consigneeName:  marginData?.company?.companyName,
-    //             consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN,
-    //             consigneeAddress:  marginData?.invoiceDetail?.buyerAddress,
-    //           });
-    //   }
+      }
     }
   }, [marginData, getInternalCompaniesMasterData]);
-
+ console.log(invoiceData,"  ...invoiceData,")
   useEffect(() => {
     getRevisedData();
 

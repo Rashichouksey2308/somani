@@ -8,6 +8,7 @@ import {addressLists} from './addressList'
 import {signatoryList} from './signatoryList'
 import {addNewAddress} from './addNewAddress'
 import { number } from 'prop-types';
+import {  useSelector } from 'react-redux';
 let cma = {
   name: 'Dr. Amin Controllers Private Limited',
   shortName: '',
@@ -17,6 +18,7 @@ let cma = {
 
 function Index(props) {
   console.log(  props.vendor.address,"props.data?.addresses")
+   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
@@ -44,7 +46,8 @@ function Index(props) {
   const [options, setOptions] = useState([]);
   
   const [docList, setDocList] = useState([]);
- 
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   useEffect(() => {
@@ -515,7 +518,41 @@ const cancelEditAddress = () => {
       });
     }
   };
-
+  useEffect(() => {
+    
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      
+    } else {
+     
+      setToShow([]);
+      // setToView(false);
+    }
+  }, [getPincodesMasterData]);
+ const viewSet=()=>{
+    
+     setToView(true)
+ }
+   const handleData = (name, value) => {
+   
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    
+    setNewAddress(newInput);
+    setToView(false);
+  };
+   const handleDataEdit = (name, value) => {
+    const newInput = { ...EditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setEditAddress(newInput);
+    setToView(false);
+  };
   console.log(options.length,"sdasdasdasd",list.length)
   return (
     <>
@@ -619,13 +656,13 @@ const cancelEditAddress = () => {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
-            null,
-            null,
-          props.vendor.gstin
+            props.gettingPins,
+            handleDataEdit,
+            props.vendor.gstin
             
           )}
         {isEdit == false && (
-           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,null,false,false,false,null,null,"gst",
+           addNewAddress(setAddressType,setAddress,addressType,handleAddressInput,cancelAddress,newAddress,props.gettingPins,handleData,toShow,toView,true,undefined,viewSet,"gst",
            props.vendor.gstin
            )
         )}
