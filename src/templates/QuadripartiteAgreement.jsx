@@ -460,33 +460,33 @@ export default function QuadripartiteAgreement(data) {
         </Row>
       </div>
 
-      <p className=" text_sales">
+      <p className=" text_sales text-left">
         {' '}
         <strong>SIGNATURE PAGE</strong>
       </p>
       <div className={`row`}>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={8}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={4}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
       </div>
       <div className={`row`}>
-        <Col md={6}>
-          <p className="w-50 text-capitalize"><strong>({data.associateBuyer})</strong></p>
+        <Col md={8}>
+          <p className="w-50 text-capitalize text-left"><strong>({data.associateBuyer})</strong></p>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
         
               {data?.associateBuyerAuthorized?.length > 0 &&
               data?.associateBuyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales mt-5">
+                    <p className="text_sales text-capitalize text-left">
                     <strong>
                       Name: {val.name}
                       <br />
-                      Designation:{val.designation}
+                      Designation: {val.designation}
                     </strong>
                     </p>
                   </>
@@ -496,84 +496,87 @@ export default function QuadripartiteAgreement(data) {
         </Col>
       </div>
        <div className={`row`}>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={8}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={4}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
       </div>
       <div className={`row`}>
-        <Col md={6}>
-          <p className="w-50 text-capitalize"><strong>({data.cha})</strong></p>
+        <Col md={8}>
+          <p className="w-50 text-capitalize text-left"><strong>({data.cha})</strong></p>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
            {data?.chaAuthorized?.length > 0 &&
               data?.chaAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales mt-5"></p>
-                    <strong>
-                      Name: {val.name}
-                      <br />
-                      Designation:{val.designation}
-                    </strong>
+                    <p className="text_sales text-capitalize text-left">
+                      <strong>
+                        Name: {val.name}
+                        <br />
+                        Designation: {val.designation}
+                      </strong>
+                    </p>
                   </>
                 );
               })}
         </Col>
       </div>
       <div className={`row`}>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={8}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={4}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
       </div>
       <div className={`row`}>
-        <Col md={6}>
-          <p className="w-50 text-capitalize"><strong>({data.cma})</strong></p>
+        <Col md={8}>
+          <p className="w-50 text-capitalize text-left"><strong>({data.cma})</strong></p>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
            {data?.cmaAuthorized?.length > 0 &&
               data?.cmaAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales mt-5"></p>
-                    <strong>
-                      Name: {val.name}
-                      <br />
-                      Designation:{val.designation}
-                    </strong>
+                    <p className="text_sales text-left">
+                      <strong>
+                        Name: {val.name}
+                        <br />
+                        Designation: {val.designation}
+                      </strong>
+                    </p>
                   </>
                 );
               })}
         </Col>
       </div>
        <div className={`row`}>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={8}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-        <Col md={6}>
-          <p className="text_sales w-50">FOR & ON BEHALF OF</p>
+        <Col md={4}>
+          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
       </div>
       <div className={`row`}>
-        <Col md={6}>
-          <p className="w-50 text-capitalize"><strong>({data.buyer})</strong></p>
+        <Col md={8}>
+          <p className="w-50 text-capitalize text-left"><strong>({data.buyer})</strong></p>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
            {data?.buyerAuthorized?.length > 0 &&
               data?.buyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales mt-5"></p>
-                    <strong>
-                      Name: {val.name}
-                      <br />
-                      Designation:{val.designation}
-                    </strong>
+                    <p className="text_sales text-capitalize text-left">
+                      <strong>
+                        Name: {val.name}
+                        <br />
+                        Designation: {val.designation}
+                      </strong>
+                    </p>
                   </>
                 );
               })}
