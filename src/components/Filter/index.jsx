@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 
 export default function index(props) {
-  const { filterItem, handleFilterChange } = props;
+  const { filterItem, handleFilterChange, handleApplyFilter } = props;
   return (
     <div className={`${styles.dropdown} filter dropdown`}>
       <a

@@ -8,7 +8,7 @@ const Index = ({label,onClose}) => {
         <div className={`${styles.filterd_card} d-flex align-center`}>
            <h5 className={`${styles.label}`}>{label}</h5>
             <div onClick={onClose} className={`${styles.close_img} ml-2`} >
-                <img src="/static/close-b.svg" class="img-fluid" alt="Close"/>
+                <img src="/static/close-b.svg" className="img-fluid" alt="Close"/>
             </div>
         </div>
     )

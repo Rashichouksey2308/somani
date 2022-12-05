@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useMemo } from 'react';
+import { useDebounce } from 'use-debounce';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
@@ -18,29 +19,32 @@ import slugify from 'slugify';
 // import { getPincodes } from '../../src/redux/masters/action';
 
 function Index() {
+  const { allBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
+  const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
   const [searchterm, setSearchTerm] = useState('');
+  const [value] = useDebounce(searchterm, 50000);
+  const [filter, setFilter] = useState(filteredLeads);
   const [filterItem, setFilterItem] = useState({});
-  const [showBadges, setShowBadges] = useState(false);
+  const [showBadges, setShowBadges] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
     column: '',
     order: null,
   });
-
   const dispatch = useDispatch();
 
-  const { allBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
-  const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
-
   const [open, setOpen] = useState(true);
-  const handleClose = () => {
+  const handleClose = (index) => {
+    showBadges.splice(index, 1);
+    setShowBadges([...showBadges]);
     setOpen(false);
   };
 
   const [openList, setOpenList] = useState(true);
   const handleListClose = () => {
     setOpenList(false);
+    setShowBadges(searchView().badgesItems);
   };
 
   useEffect(() => {
@@ -74,49 +78,53 @@ function Index() {
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
+    setOpenList(true);
     setSearchTerm(query);
-    if (query.length >= 3) {
-      let queryParams = '';
-      if (Object.keys(filterItem).length !==0 && filterItem.status===true) {
-        Object.keys(filterItem).forEach((item) => {
-          const isTrue = filterItem[item];
-          if (isTrue) {
-            queryParams += `${item}=${query}&`;
-          }
-        });
-        dispatch(FilterLeads(`${queryParams}`));
-      }
-      else {
-        dispatch(SearchLeads(query));
-      }
-      
+
+    let queryParams = '';
+    if (Object.keys(filterItem).length !== 0) {
+      Object.keys(filterItem).forEach((item) => {
+        const isTrue = filterItem[item];
+        if (isTrue) {
+          queryParams += `${item}=${query}&`;
+        }
+      });
+      dispatch(FilterLeads(`${queryParams}`));
     }
   };
 
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetAllBuyer(`?company=${id}`));
+  const handleApplyFilter = () => {
+    setSearch(false);
   };
-
-  const handleBadge = (value) => {
-    setSearchTerm('');
-    setShowBadges(value);
-    handleListClose();
-  };
-
+  
   const handleBoolean = (value) => {
     if (value.toLowerCase() === 'true') return true;
     if (value.toLowerCase() === 'false') return false;
     return value;
   };
 
+  useEffect(() => {
+    if (!isFilterApply()) {
+      setSearchTerm('');
+      setShowBadges([]);
+      dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
+      dispatch(FilterLeads('status=" "'));
+    }
+  }, [JSON.stringify(filterItem)]);
   const handleFilterChange = (e) => {
     const { name, checked } = e.target;
+
     setFilterItem((prevState) => ({
       ...prevState,
       [name]: handleBoolean(checked.toString()),
     }));
+    setSearch(false);
+  };
+
+  const isFilterApply = () => {
+    return Object.values(filterItem).some((val) => {
+      return val;
+    });
   };
 
   const handleSort = (column) => {
@@ -190,11 +198,11 @@ function Index() {
   const filterTableColumns = useMemo(() => [
     {
       Header: 'Customer Id',
-      accessor: 'customerId',
+      accessor: 'company.customerId',
     },
     {
       Header: 'Buyer Name',
-      accessor: 'companyName',
+      accessor: 'company.companyName',
       Cell: ({ cell: { value }, row: { original } }) => (
         <span
           onClick={() => {
@@ -224,11 +232,33 @@ function Index() {
     },
     {
       Header: 'Status',
-      accessor: 'status',
+      accessor: 'cam.status',
       disableSortBy: true,
       Cell: ({ value }) => <QueueStatusSymbol status={value} />,
     },
   ]);
+
+  useEffect(() => {
+    if (filteredLeads) setFilter(filteredLeads);
+  }, [filteredLeads]);
+  const searchView = () => {
+    const badgesItems = [];
+    const filterItemData = Object.keys(filterItem);
+
+    const listView = filterItemData.map((val) => {
+      if (filterItem[val]) {
+        if (val === 'status') {
+          badgesItems.push({ key: val, displayVal: filter.data[0].cam[val] });
+
+          return <span>{filter.data[0].cam[val]}</span>;
+        }
+        badgesItems.push({ key: val, displayVal: filter.data[0][val] });
+
+        return <span>{filter.data[0][val]}</span>;
+      }
+    });
+    return { listView, badgesItems: badgesItems.filter((val) => val.displayVal) };
+  };
   return (
     <>
       {' '}
@@ -247,44 +277,21 @@ function Index() {
                   type="text"
                   className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
+                  disabled={!isFilterApply()}
                 />
               </div>
-              {filteredLeads && openList && (
+              {filter && openList && (
                 <div className={styles.searchResults} onClick={handleListClose}>
-                 <ul>
-                    {filterItem.orderId === true && (
-                      <li onClick={() => handleBadge(filteredLeads.data[0].orderId)}>
-                        <span>{filteredLeads.data[0].orderId}</span>
-                      </li>
-                    )}
-                    {filterItem.commodity === true && (
-                      <li onClick={() => handleBadge(filteredLeads.data[0].commodity)}>
-                        <span>{filteredLeads.data[0].commodity}</span>
-                      </li>
-                    )}
-                    {filterItem.status === true && (
-                      <li onClick={() => handleBadge(filteredLeads.data[0].status)}>
-                        <span>{filteredLeads.data[0].status}</span>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              )}
-               {searchedLeads && searchterm && (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li onClick={handleFilteredData} id={results._id} key={index}>
-                        {results.companyName} <span>{results.customerId}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div>{searchView().listView}</div>
                 </div>
               )}
             </div>
-            <Filter {...{ filterItem, handleFilterChange }} />
+            <Filter {...{ filterItem, handleFilterChange, handleApplyFilter }} />
 
-            {showBadges && open && <FilterBadge label={showBadges} onClose={handleClose} />}
+            {showBadges.length > 0 &&
+              showBadges.map((val, index) => {
+                return <FilterBadge label={val.displayVal} onClose={() => handleClose(index)} />;
+              })}
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />

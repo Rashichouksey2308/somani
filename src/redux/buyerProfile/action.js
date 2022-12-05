@@ -238,10 +238,6 @@ export const FilterLeads = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(filterLeadsFailed(response.data));
-        const toastMessage = 'Filter Leads request Failed';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
         dispatch(setNotLoading());
       }
     });
