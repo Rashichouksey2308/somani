@@ -55,7 +55,7 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
-  console.log(lcData, 'LC')
+  console.log(lcData, 'LC');
 
   useEffect(() => {
     setLcData({
@@ -165,7 +165,7 @@ function Index() {
     newInput['existingValue'] = lcData[e.target.value] || '';
     if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
     newInput['dropDownValue'] = val1 || '';
- 
+
     setClauseObj(newInput);
     if (e.target.value == 'draftAt') {
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
@@ -182,10 +182,10 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...lcData };
-    if(drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == "Usuance"){
-      newInput1['numberOfDays'] = value
-    }else{
-    newInput1[drop] = value;
+    if (drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
+      newInput1['numberOfDays'] = value;
+    } else {
+      newInput1[drop] = value;
     }
 
     setLcData(newInput1);
@@ -227,7 +227,6 @@ function Index() {
   const [lcDoc, setLcDoc] = useState({
     lcDraftDoc: null,
   });
-
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
@@ -465,11 +464,11 @@ function Index() {
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
                             <option value="">Select an option</option>
-                            <option value="shipmentForm">(44A) Shipment From</option>
-                            <option value="applicableRules">(40E) Application Rules</option>
-                            <option value="placeOfExpiry">(32D) Place Of Expiry</option>
-                            <option value="dateOfExpiry">(32D) Date Of Expiry</option>
                             <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
+                            <option value="applicableRules">(40E) Application Rules</option>
+                            <option value="dateOfExpiry">(31D) Date Of Expiry</option>
+                            <option value="placeOfExpiry">(31D) Place Of Expiry</option> 
+                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option> 
                             <option value="applicant">(50) Applicant</option>
                             <option value="beneficiary">(59) Beneficiary</option>
                             <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
@@ -481,6 +480,7 @@ function Index() {
                             <option value="deferredPayment">(42P) Deferred Payment</option>
                             <option value="partialShipment">(43P) Partial Shipment</option>
                             <option value="transhipments">(43T) Transhipments</option>
+                            <option value="shipmentForm">(44A) Place of taking in Charge</option>
                             <option value="portOfLoading">(44E) Port of Loading</option>
                             <option value="portOfDischarge"> (44F) Port of Discharge</option>
                             <option value="latestDateOfShipment">(44C) Latest Date Of Shipment</option>
@@ -488,6 +488,7 @@ function Index() {
                             <option value="lcDocuments">46A DOCUMENT REQUIRED</option>
                             <option value="lcComments"> 47A ADDITIONAL CONDITIONS</option>
                             <option value="presentaionPeriod"> (48) Presentation Period</option>
+                            <option value="confirmationInstructions"> (49) Confirmation Instructions</option>
                             <option value="reimbursingBank"> (53A) Reimbursing Bank</option>
                             <option value="adviceThroughBank"> (57) Advise Through Bank</option>
                             <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
@@ -620,11 +621,16 @@ function Index() {
                                   </>
                                 ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
                                   <>
-                                    {getPortsMasterData?.filter((val, index) => {
-                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
+                                    {getPortsMasterData
+                                      ?.filter((val, index) => {
+                                        if (
+                                          val.Country.toLowerCase() == 'india' &&
+                                          val.Approved.toLowerCase() == 'yes'
+                                        ) {
                                           return val;
                                         }
-                                      })?.map((val, index) => {
+                                      })
+                                      ?.map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
                                             {val.Port_Name}, {val.Country}

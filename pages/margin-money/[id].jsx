@@ -840,8 +840,34 @@ function Index() {
       });
     }
   };
-
+ 
+  const reviseValidate = () => {
+    if (forCalculationRevised.additionalPDC === null 
+      || forCalculationRevised.additionalPDC === undefined 
+      || forCalculationRevised.additionalPDC === ''
+      || forCalculationRevised.additionalPDC === NaN
+      || forCalculationRevised.additionalPDC === "NaN") {
+      let toastMessage = 'Please add additional Amount Per PDC';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (forCalculationRevised.conversionRate === null 
+      || forCalculationRevised.conversionRate === undefined 
+      || forCalculationRevised.conversionRate === ''
+      || forCalculationRevised.conversionRate === NaN
+      || forCalculationRevised.conversionRate === "NaN") {
+      let toastMessage = 'Please add conversion Rate';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    return true
+  }
   const handleUpdateRevisedMarginMoney = () => {
+    if(reviseValidate()){
     let obj = {
       marginMoneyId: marginData?._id,
       additionalPDC: forCalculationRevised.additionalPDC,
@@ -875,6 +901,7 @@ function Index() {
     };
 
     dispatch(RevisedMarginMoney(obj));
+    }
   };
 
   const saveOrderData = (name, value) => {
@@ -912,7 +939,35 @@ function Index() {
   useEffect(() => {
     if (marginData) {
       console.log(marginData?.invoiceDetail?.isConsigneeSameAsBuyer,"marginData?.invoiceDetail?.isConsigneeSameAsBuyer")
-      setInvoiceData({
+     
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+    if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
+       setInvoiceData({
+        buyerName: marginData?.company?.companyName || '',
+        buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
+        consigneeName:marginData?.company?.companyName || '',
+        consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        consigneeAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        importerName:
+          marginData?.invoiceDetail?.importerName ||
+          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '',
+        branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+        companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+        importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+        bankName: marginData?.invoiceDetail?.bankName || '',
+        branch: marginData?.invoiceDetail?.branch || '',
+        branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+        IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
+      });
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+      }else{
+ setInvoiceData({
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
@@ -935,18 +990,10 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
-      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
-    // if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
-    //     setInvoiceData({
-    //             ...invoiceData,
-    //             consigneeName:  marginData?.company?.companyName,
-    //             consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN,
-    //             consigneeAddress:  marginData?.invoiceDetail?.buyerAddress,
-    //           });
-    //   }
+      }
     }
   }, [marginData, getInternalCompaniesMasterData]);
-
+ console.log(invoiceData,"  ...invoiceData,")
   useEffect(() => {
     getRevisedData();
 
