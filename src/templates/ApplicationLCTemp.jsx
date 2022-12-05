@@ -1264,7 +1264,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
+                            {lcModuleData.lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}, INDIA
                           </p>
                         </td>
                       </tr>

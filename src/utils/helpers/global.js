@@ -1,16 +1,16 @@
-import Cookies from 'js-cookie'
-import { toast } from 'react-toastify'
-import has from 'lodash/has'
-import dropdownJSONS from '@/utils/jsons/dropdownOptions.json'
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import has from 'lodash/has';
+import dropdownJSONS from '@/utils/jsons/dropdownOptions.json';
 
-const _ = { has }
+const _ = { has };
 
 export const returnAuthToken = () => {
-  const cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  const [jwtAccessToken] = decodedString.split('#')
-  return jwtAccessToken
-}
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [jwtAccessToken] = decodedString.split('#');
+  return jwtAccessToken;
+};
 
 /**
  * It returns an image based on the file extension of the file name passed to it
@@ -19,15 +19,15 @@ export const returnAuthToken = () => {
  */
 export const returnDocFormat = (name = '') => {
   if (name.toLowerCase().endsWith('.xls') || name.toLowerCase().endsWith('.xlsx')) {
-    return <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+    return <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />;
   }
 
   if (name.toLowerCase().endsWith('.doc') || name.toLowerCase().endsWith('.docx')) {
-    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
+    return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />;
   }
 
-  return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-}
+  return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />;
+};
 
 /**
  * It takes a number, and returns a string with the number formatted with commas
@@ -40,18 +40,19 @@ export const returnDocFormat = (name = '') => {
  */
 export const returnReadableNumber = (number, locales = undefined, maximum = 0, minimum = 0) => {
   let convertedNumber = Number(number);
-  if (number === 0) return number.toLocaleString(locales, {
-    maximumFractionDigits: maximum,
-    minimumFractionDigits: minimum
-  });
+  if (number === 0)
+    return number.toLocaleString(locales, {
+      maximumFractionDigits: maximum,
+      minimumFractionDigits: minimum,
+    });
   if (convertedNumber) {
     return convertedNumber.toLocaleString(locales, {
       maximumFractionDigits: maximum,
-      minimumFractionDigits: minimum
-    })
+      minimumFractionDigits: minimum,
+    });
   }
-  return ''
-}
+  return '';
+};
 
 /**
  * If the toast message is not active, then display the toast message
@@ -60,9 +61,9 @@ export const returnReadableNumber = (number, locales = undefined, maximum = 0, m
  */
 export const handleErrorToast = (toastMessage) => {
   if (!toast.isActive(toastMessage.toUpperCase())) {
-    return toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    return toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
   }
-}
+};
 
 /**
  * If the toast message is not active, then return a success toast with the message and a toastId
@@ -71,9 +72,9 @@ export const handleErrorToast = (toastMessage) => {
  */
 export const handleSuccessToast = (toastMessage) => {
   if (!toast.isActive(toastMessage.toUpperCase())) {
-    return toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+    return toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
   }
-}
+};
 
 /**
  * It takes an object and an array of objects with keys and error messages. It then checks if the object has the keys in
@@ -82,30 +83,30 @@ export const handleSuccessToast = (toastMessage) => {
  * @param [validation] - [{key: 'name', error: 'Name is required'}, {key: 'email', error: 'Email is required'}]
  */
 export const objectValidator = async ({ obj = {}, validation = [] }) => {
-  let isValid = true
-  await validation.every(element => {
-    const { key, error } = element
+  let isValid = true;
+  await validation.every((element) => {
+    const { key, error } = element;
     if (!_.has(obj, key)) {
-      handleErrorToast(error)
-      isValid = false
-      return isValid
+      handleErrorToast(error);
+      isValid = false;
+      return isValid;
     }
-    return isValid
-  })
-  return isValid
-}
+    return isValid;
+  });
+  return isValid;
+};
 
 export const dropDownOptionHandler = (module) => {
   switch (module) {
     case 'LeadOnboarding&OrderApproval':
-      return dropdownJSONS.dropDownOptionLeadOnboarding
+      return dropdownJSONS.dropDownOptionLeadOnboarding;
     case 'Loading-Transit-Unloading':
-      return dropdownJSONS.dropDownOptionLoading
+      return dropdownJSONS.dropDownOptionLoading;
     case 'Agreements&Insurance&LC&Opening':
-      return dropdownJSONS.dropDownOptionAgreements
+      return dropdownJSONS.dropDownOptionAgreements;
     case 'customClearanceAndWarehousing':
-      return dropdownJSONS.dropDownOptionCustomClearance
+      return dropdownJSONS.dropDownOptionCustomClearance;
     default:
-      return dropdownJSONS.dropDownOptionPayments
+      return dropdownJSONS.dropDownOptionPayments;
   }
-}
+};

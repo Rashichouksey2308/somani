@@ -1710,7 +1710,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                           {data.associateBuyerAuthorized.length > 0 && 
                             data.associateBuyerAuthorized.map((val,index)=>{
-                                return  <strong>Name: {val.name}<br />Designation:{val.designation}</strong>
+                                return  <strong>Name: {val.name}<br />Designation: {val.designation}</strong>
                             })
                           }
                           <strong>Name:<br/>
@@ -1721,7 +1721,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                           {data.buyerAuthorized.length > 0 && 
                           data.buyerAuthorized.map((val,index)=>{
-                              return  <strong>Name: {val.name}<br />Designation:{val.designation}</strong>
+                              return  <strong>Name: {val.name}<br />Designation: {val.designation}</strong>
                           })
              }
                         </p>
