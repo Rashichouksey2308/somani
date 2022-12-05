@@ -362,7 +362,7 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>44F </span>
                             <span>PORT OF DISCHARGE</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}</td>
+                          <td className="term_para">{lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}, INDIA</td>
                         </tr>
                       ) : (
                         ''

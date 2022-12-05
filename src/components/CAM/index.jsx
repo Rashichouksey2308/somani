@@ -734,7 +734,8 @@ function Index({
         approvedCredit,
         isFieldInFocus,
         setIsFieldInFocus,
-        unit
+        unit,
+        camConversionunit
       )}
       {Documents(documentsFetched)}
     </>
@@ -2972,7 +2973,8 @@ const sectionTerms = (
   approvedCredit,
   isFieldInFocus,
   setIsFieldInFocus,
-  unit
+  unit,
+  camConversionunit 
 ) => {
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
@@ -3047,7 +3049,7 @@ const sectionTerms = (
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(convertValue(val?.suggested?.value))?.toLocaleString('en-In')}
-                              {` ${unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}`}
+                              {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                             </td>
                           ))}{' '}
                       </>
@@ -3120,8 +3122,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? (approvedCredit?.approvedCreditValue)
-                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')} Cr`
+                            ? (convertValue(approvedCredit?.approvedCreditValue))
+                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3137,7 +3139,7 @@ const sectionTerms = (
                     <td>-</td>
                     <td>
                       {checkNan(convertValue(camData?.suggestedOrderValue))?.toLocaleString('en-In')}
-                      {` ${unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}`}
+                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
 
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
@@ -3173,8 +3175,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? `${Number(approvedCredit?.approvedOrderValue)?? 0}`
-                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} Cr`
+                            ? `${Number(convertValue(Number(approvedCredit?.approvedOrderValue)))?? 0}`
+                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
