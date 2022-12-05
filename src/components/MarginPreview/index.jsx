@@ -98,7 +98,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Quantity</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                      {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, marginData?.order?.unitOfQuantity ,'')}
                     </td>
                   </tr>
                   <tr>

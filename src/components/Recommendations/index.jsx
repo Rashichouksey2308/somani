@@ -203,6 +203,7 @@ const Index = ({
             {companyComment &&
               companyComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
+                  <div className={styles.sr_number}>{index+1}</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
@@ -264,6 +265,7 @@ const Index = ({
             {financialsComment &&
               financialsComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
+                  <div className={styles.sr_number}>{index+1}</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
