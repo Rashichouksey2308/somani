@@ -23,6 +23,7 @@ function Index() {
   const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
   const [searchterm, setSearchTerm] = useState('');
   const [value] = useDebounce(searchterm, 50000);
+  const [search, setSearch] = useState(searchedLeads);
   const [filter, setFilter] = useState(filteredLeads);
   const [filterItem, setFilterItem] = useState({});
   const [showBadges, setShowBadges] = useState([]);
@@ -96,7 +97,7 @@ function Index() {
   const handleApplyFilter = () => {
     setSearch(false);
   };
-  
+
   const handleBoolean = (value) => {
     if (value.toLowerCase() === 'true') return true;
     if (value.toLowerCase() === 'false') return false;
