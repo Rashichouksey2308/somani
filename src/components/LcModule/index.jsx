@@ -37,9 +37,10 @@ function Index() {
 
   const handleRoute = (lc) => {
     if (lc.firstTimeUpdate) {
-      sessionStorage.getItem('lcPreviewId', lc.order.lc);
+      sessionStorage.setItem('lcPreviewId', lc.order.lc);
       Router.push('/letter-table/letter-amend/id');
     } else {
+   
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
       Router.push('/letter-credit/lc-create');
