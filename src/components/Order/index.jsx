@@ -184,7 +184,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                         }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   onChange={(e) => {
-                    console.log(e,'quantityty')
+                   
                     saveOrderData(e.target.name, e.target.value);
                   }}
                 />
