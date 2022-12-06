@@ -6,13 +6,13 @@ import Image from 'next/image';
 import { ViewDocument } from 'redux/ViewDoc/action';
 import { useDispatch } from 'react-redux';
 
-function Index({ plotInspectionReport, orderId }) {
+function Index({ orderId }) {
     const dispatch = useDispatch();
     const tableColumns = useMemo(() => [
         {
             Header: "Document Name",
-            accessor: "originalName",
-            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
+            accessor: "doc_name",
+            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-uppercase">{value}</span>
         },
         {
             Header: "Format",
@@ -21,14 +21,15 @@ function Index({ plotInspectionReport, orderId }) {
         },
         {
             Header: "Document Date",
-            accessor: "date",
-            Cell: ({ value }) => value.slice(0, 10)
+            accessor: "document_date",
+            // Cell: ({ value }) => value ? value : 'RM'
         },
         {
             Header: "Uploaded By",
-            accessor: "uploadedBy"
-        },
+            accessor: "uploaded_by"
+        }
     ]);
+
     const tableHooks = (hooks) => {
         hooks.visibleColumns.push((columns) => [
             ...columns,
@@ -60,22 +61,42 @@ function Index({ plotInspectionReport, orderId }) {
         ])
     };
 
+    const dummyData = [
+        {
+            'doc_name': 'Pdf',
+            'format': 'pdf',
+            'document_date': '28-02-2022',
+            'uploaded_by': 'John Doe',
+        },
+        {
+            'doc_name': 'Gst Certificate',
+            'format': 'pdf',
+            'document_date': '28-02-2022',
+            'uploaded_by': 'John Doe',
+        },
+        {
+            'doc_name': 'Board Resolution',
+            'format': 'pdf',
+            'document_date': '28-02-2022',
+            'uploaded_by': 'John Doe',
+        }
+    ];
     return (
         <div className={`${styles.main} m-4 border_color card`}>
             <div
                 className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
                 data-toggle="collapse"
-                data-target="#plotInspectionDocument"
+                data-target="#upload"
                 aria-expanded="true"
-                aria-controls="plotInspectionDocument"
+                aria-controls="upload"
             >
-                <h3 className={styles.heading}>Documents</h3>
+                <h3 className={styles.heading}>Other Documents</h3>
                 <span>+</span>
             </div>
-            <div id="plotInspectionDocument" className="collapse mb-n4" aria-labelledby="plotInspectionDocument" data-parent="#plotInspectionDocument">
+            <div id="upload" className="collapse mb-n4" aria-labelledby="upload" data-parent="#upload">
                 <Table
                     columns={tableColumns}
-                    data={plotInspectionReport}
+                    data={dummyData}
                     tableHooks={tableHooks}
                 />
             </div>

@@ -33,6 +33,20 @@ function updateCommodityRemarkFailed(payload = {}) {
     }
 }
 
+function updateInspectionRemarkSuccess(payload) {
+    return {
+        type: types.UPDATE_INSPECTION_SUCCESSFULL,
+        payload,
+    }
+}
+
+function updateInspectionRemarkFailed(payload = {}) {
+    return {
+        type: types.UPDATE_INSPECTION_FAILED,
+        payload
+    }
+}
+
 function getUserSuccess(payload) {
     return {
         type: types.GET_USER_SUCCESSFULL,
@@ -201,5 +215,43 @@ export const GetInspectionDetails = (payload) => async (dispatch, getState, api)
     } catch (error) {
         dispatch(getInspectionFailed());
         dispatch(setNotLoading());
+    }
+};
+
+export const UpdateInspectionRemark = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        const response = await Axios.post(`${API.corebaseUrl}${API.updateInspectionRemark}`, payload, {
+            headers: headers,
+        });
+
+        if (response.data.code === 200) {
+            dispatch(updateInspectionRemarkSuccess(response.data));
+
+            dispatch(setNotLoading());
+            return 200;
+        } else {
+            dispatch(updateInspectionRemarkFailed(response.data));
+            const toastMessage = 'Cannot add remark, something went wrong';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            dispatch(setNotLoading());
+            return 500;
+        }
+    } catch (error) {
+        dispatch(updateInspectionRemarkFailed());
+
+        dispatch(setNotLoading());
+        return 500;
     }
 };
