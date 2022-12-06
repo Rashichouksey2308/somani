@@ -29,9 +29,9 @@ function Index() {
   const statData = {
     'all': singleOrder?.totalCount,
     'approved': singleOrder?.approved,
-    'review': singleOrder?.reviewed,
+    'pending': singleOrder?.pending,
     'rejected': singleOrder?.rejected,
-    'pending': singleOrder?.pending
+    'closed': 10
   }
 
   useEffect(() => {

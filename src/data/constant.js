@@ -4,5 +4,6 @@ export const STATISTICS_TYPES = {
     REVIEW: 'review',
     REJECTED: 'rejected',
     SAVED: 'saved',
-    PENDING: 'pending'
+    PENDING: 'pending',
+    CLOSED:'closed'
 }

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState, useMemo } from 'react';
-import { useDebounce } from 'use-debounce';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
@@ -22,7 +22,6 @@ function Index() {
   const { allBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
   const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
   const [searchterm, setSearchTerm] = useState('');
-  const [value] = useDebounce(searchterm, 50000);
   const [search, setSearch] = useState(searchedLeads);
   const [filter, setFilter] = useState(filteredLeads);
   const [filterItem, setFilterItem] = useState({});
@@ -77,6 +76,11 @@ function Index() {
     }, 500);
   };
 
+  const delayedQuery = useCallback(
+    _.debounce((q) => dispatch(FilterLeads(`${q}`)), 1000),
+    [],
+  );
+
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setOpenList(true);
@@ -90,7 +94,7 @@ function Index() {
           queryParams += `${item}=${query}&`;
         }
       });
-      dispatch(FilterLeads(`${queryParams}`));
+      delayedQuery(queryParams);
     }
   };
 

@@ -16,6 +16,9 @@ function Index({ data }) {
         } else if (key == STATISTICS_TYPES.PENDING) {
             statData.push({ 'type': key, 'img-url': '/static/pending_actions.svg', 'value': data[key] });
         }
+        else if (key == STATISTICS_TYPES.CLOSED) {
+            statData.push({ 'type': key, 'value': data[key] });
+        }
     }
     return (
         <div className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}>
