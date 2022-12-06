@@ -19,7 +19,7 @@ function Index({ directorData }) {
       setOtherAssociates(temp)
     }
   }, [directorData])
-  console.log(otherAssociates, 'otherAssociates')
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -32,7 +32,7 @@ function Index({ directorData }) {
       setDarkMode(false)
     }
   }, [])
-  console.log(directorData, 'len')
+
 
   const dscStatus = (from) => {
     var dateFrom = moment(from, 'DD-MM-YYYY')
@@ -45,7 +45,6 @@ function Index({ directorData }) {
     }
   }
 
-  console.log(_get(directorData, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`, []), "otherAssociatedEntitiesCurrent", otherAssociates, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
 
   return (
     <>
@@ -309,14 +308,7 @@ function Index({ directorData }) {
                                 </tr>
                               </thead>
                               <tbody>
-                                {console.log(
-                                  'daat',
-                                  _get(
-                                    directorData,
-                                    `otherAssociatedEntities${otherAssociates}`,
-                                    [],
-                                  ),
-                                )}
+                              
                                 {directorData?.profile?.directorDetail[0]
                                   ?.otherAssociatedEntitiesCurrent?.length >
                                   0 &&
@@ -366,7 +358,7 @@ function Index({ directorData }) {
             </div>
           </div>
         ) : null}
-        {console.log('data22', directorData)}
+       
         {directorData?.profile?.directorDetail?.length > 0 &&
           _get(directorData, 'profile.directorDetail', []).map(
             (director, index) => {
@@ -593,10 +585,7 @@ function Index({ directorData }) {
                                         let temp = [...otherAssociates]
                                         temp[index] = e.target.value
                                         setOtherAssociates([...temp])
-                                        console.log(
-                                          otherAssociates == 'Current',
-                                          '11111',
-                                        )
+                                       
                                       }}
                                       value="Current"
                                       className="form-check-input"
@@ -620,7 +609,7 @@ function Index({ directorData }) {
                                       onChange={(e) => {
                                         let temp = [...otherAssociates]
                                         temp[index] = e.target.value
-                                        console.log(temp, 'temppp', temp[index])
+                                       
                                         setOtherAssociates([...temp])
                                       }}
                                       value="Former"
@@ -755,11 +744,7 @@ function Index({ directorData }) {
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          {console.log(_get(
-                                            director,
-                                            `otherAssociatedEntities${otherAssociates[index]}`,
-                                            [],
-                                          ), "1212222")}
+                                         
                                           {
                                             _get(
                                               director,
@@ -768,7 +753,7 @@ function Index({ directorData }) {
                                             ).map((associates, index2) => {
                                               const fromDate = associates?.fromDate
                                               const toDate = associates?.toDate
-                                              console.log(associates, "1212")
+                                              
                                               return (
                                                 <tr key={index2}>
                                                   <td className="text-color">

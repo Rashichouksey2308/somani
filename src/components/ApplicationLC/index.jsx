@@ -27,7 +27,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress",""),'lcModuleData')
+ const [fileType,setFileType]=useState(null)
 useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -74,7 +74,7 @@ useEffect(() => {
   };
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 2250]);
-    doc.html(ReactDOMServer.renderToString(<ApplicatiobnLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
+    doc.html(ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
       callback: function (doc) {
         doc.save('ApplicationLC.pdf');
       },
@@ -88,6 +88,37 @@ useEffect(() => {
       return index + 1;
     }
   };
+  const downloadFile= async ()=>{
+    if(fileType=="pdf"){
+      exportPDF()
+    }else{
+     let html = ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />)
+      let  blob = new Blob(['\ufeff', html], {
+        type: 'application/msword'
+    });
+        let  url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+        let filename = 'LC.doc'
+            let  downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob ){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = url;
+        
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+    
+    document.body.removeChild(downloadLink);
+  
+    }
+  }
   return (
     <>
       <div className="container-fluid p-0 border-0">
@@ -893,21 +924,37 @@ useEffect(() => {
                         <label for="lc_document">
                           LC Document.pdf<span>128kb</span>
                         </label>
-                        <input type="checkbox" className="ml-auto" id="lc_document" value="LC Document" />
+                        <input type="checkbox" className="ml-auto" id="lc_document" value="LC Document"
+                        checked={fileType=="pdf"?true:false}
+                         onChange={()=>{
+                          setFileType("pdf")
+                         }}
+                        />
                       </div>
                       <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
                         <img src="/static/doc-icon.png" width={`55px`} alt="DOC" className="img-fluid" />
                         <label for="word_document">
                           word document.doc<span>128kb</span>
                         </label>
-                        <input type="checkbox" className="ml-auto" id="word_document" value="word document" />
+                        <input type="checkbox" className="ml-auto" id="word_document" value="word document"
+                         checked={fileType=="word"?true:false}
+                         onChange={()=>{
+                          setFileType("word")
+                         }}
+                        />
                       </div>
                     </div>
                     <div className="d-flex justify-content-between">
                       <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}
+                      onClick={(e)=>{
+                        downloadFile()
+                        handleClose()
+                      }}
+                      >
+                        
                         Download
                       </button>
                     </div>
