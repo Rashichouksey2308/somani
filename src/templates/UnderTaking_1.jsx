@@ -207,8 +207,10 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                 data?.associateBuyerAuthorized?.length > 0 &&
                 data?.associateBuyerAuthorized?.map((val, index) => {
                   return (                   
-                    <p className='mb-0 text-left'>
-                      Name: {val.name}
+                    <p className='text-left'>                      
+                      <strong>Name: {val.name}</strong>
+                      <br/>
+                      <strong>Designation: {val.designation}</strong>
                     </p>
                   );
                 })

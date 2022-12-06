@@ -592,7 +592,7 @@ export default function AssignmentLetterPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          Quantity of Goods in MT
+                          Quantity of Goods 
                         </p>
                       </td>
                       <td
@@ -611,7 +611,7 @@ export default function AssignmentLetterPreview(data) {
                         >
                           {data.quan?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
-                          })}{' '}
+                          })}{' '} {data?.unitOfQuantity?.toUpperCase()}
                         </p>
                       </td>
                     </tr>

@@ -168,10 +168,10 @@ export default function AssignmentLetter(data) {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Quantity of Goods in MT
+              Quantity of Goods 
             </Col>
             <Col md={7} className={styles.right}>
-              {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
+              {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}  {data?.unitOfQuantity?.toUpperCase()}
             </Col>
           </Row>
 
