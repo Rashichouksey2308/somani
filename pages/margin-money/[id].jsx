@@ -2172,6 +2172,7 @@ function Index() {
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}
                         savedataRevised={savedataRevised}
+                        orderList={orderList}
                       />
                     </div>
                   </div>

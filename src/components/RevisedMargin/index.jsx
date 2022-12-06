@@ -23,6 +23,7 @@ const Index = ({
   getBranchesMasterData,
   getBanksMasterData,
   savedataRevised,
+  orderList
 }) => {
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -814,7 +815,12 @@ const Index = ({
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
                       <option selected>Select an option</option>
-                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                      {orderList?.company?.gstList?.map((gstin, index) => (
+                                    <option key={index} value={gstin}>
+                                      {gstin}
+                                    </option>
+                                  ))}
+                      {/* <option value="GTSDT789652JKH">GTSDT789652JKH</option> */}
                     </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Buyer GSTIN
