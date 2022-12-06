@@ -27,7 +27,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(lcModuleData,'lcModuleData')
+  console.log(_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress",""),'lcModuleData')
 useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -74,7 +74,7 @@ useEffect(() => {
   };
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 2250]);
-    doc.html(ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
+    doc.html(ReactDOMServer.renderToString(<ApplicatiobnLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
       callback: function (doc) {
         doc.save('ApplicationLC.pdf');
       },
@@ -189,7 +189,13 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>50 </span>
                             <span>APPLICANT</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.applicant?.toUpperCase()}</td>
+                          <td className="term_para">{lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                           <br></br>
+                          {_get(lcModuleData,"order.generic.seller.addresses[0].fullAddress","")},
+                         {_get(lcModuleData,"order.generic.seller.addresses[0].city","")},
+                         {_get(lcModuleData,"order.generic.seller.addresses[0].country","")},
+                          {_get(lcModuleData,"order.generic.seller.addresses[0].pinCode","")}
+                          </td>
                         </tr>
                       ) : (
                         ''
@@ -197,10 +203,18 @@ useEffect(() => {
                       {lcModuleData && lcModuleData?.lcApplication?.beneficiary ? (
                         <tr className="table_row">
                           <td width="40%">
-                            <span className={`${styles.serial_no} term_para`}>59 </span>
+                            <span className={`${styles.serial_no} term_para`}> 59 </span>
                             <span>BENEFICIARY</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}</td>
+                          <td className="term_para">{lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                          <br></br>
+                          {_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress","")},
+                         {_get(lcModuleData,"order.generic.supplier.addresses[0].city","")},
+                         {_get(lcModuleData,"order.generic.supplier.addresses[0].country","")},
+                           {_get(lcModuleData,"order.generic.supplier.addresses[0].pinCode","")}
+                         
+                         
+                          </td>
                         </tr>
                       ) : (
                         ''

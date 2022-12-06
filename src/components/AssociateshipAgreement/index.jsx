@@ -395,7 +395,7 @@ const assignmentSupplier = (props) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Quantity of Goods in MT
+              Quantity of Goods 
             </Col>
             <Col md={7} className={styles.right}>
               <input className={`${styles.para} input`}></input>
