@@ -26,7 +26,6 @@ function index() {
     },
   ]);
   const dummyData = [{}];
-
   return (
     <div className={`${styles.main} vessel_card mt-4 card border_color`}>
       <div>
