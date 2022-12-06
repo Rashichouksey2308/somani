@@ -2977,6 +2977,7 @@ const sectionTerms = (
   unit,
   camConversionunit 
 ) => {
+  console.log(approvedCredit,'approvedCredit')
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
 
@@ -3123,8 +3124,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? (convertValue(approvedCredit?.approvedCreditValue))
-                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
+                            ? (approvedCredit?.approvedCreditValue)
+                            : `${checkNan(convertValue(Number(approvedCredit?.approvedCreditValue),camConversionunit))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3176,8 +3177,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? `${Number(convertValue(Number(approvedCredit?.approvedOrderValue)))?? 0}`
-                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
+                            ? `${Number((Number(approvedCredit?.approvedOrderValue)))?? 0}`
+                            : `${checkNan(convertValue(Number(approvedCredit?.approvedOrderValue),camConversionunit))} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
