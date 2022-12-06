@@ -519,23 +519,24 @@ function Index() {
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option selected>Select an option</option>
-                            <option value="shipmentForm">(44A) Shipment From</option>
-                            <option value="applicableRules">(40E) Application Rules</option>
-                            <option value="placeOfExpiry">(32D) Place Of Expiry</option>
-                            <option value="dateOfExpiry">(32D) Date Of Expiry</option>
+                             <option value="">Select an option</option>
                             <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
+                            <option value="applicableRules">(40E) Application Rules</option>
+                            <option value="dateOfExpiry">(31D) Date Of Expiry</option>
+                            <option value="placeOfExpiry">(31D) Place Of Expiry</option> 
+                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option> 
                             <option value="applicant">(50) Applicant</option>
                             <option value="beneficiary">(59) Beneficiary</option>
                             <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
                             <option value="tolerancePercentage">(39A) Tolerance (+/-) Percentage</option>
                             <option value="creditAvailablewith"> (41A) Credit Available With</option>
                             <option value="creditAvailableBy">(41A) Credit Available By</option>
-                            <option value="draftAt">(42C) DRAFT AT</option>
+                            <option value="draftAt">(42C) Draft At</option>
                             <option value="drawee">(42A) Drawee</option>
                             <option value="deferredPayment">(42P) Deferred Payment</option>
                             <option value="partialShipment">(43P) Partial Shipment</option>
                             <option value="transhipments">(43T) Transhipments</option>
+                            <option value="shipmentForm">(44A) Place of taking in Charge</option>
                             <option value="portOfLoading">(44E) Port of Loading</option>
                             <option value="portOfDischarge"> (44F) Port of Discharge</option>
                             <option value="latestDateOfShipment">(44C) Latest Date Of Shipment</option>
@@ -543,11 +544,12 @@ function Index() {
                             <option value="lcDocuments">46A DOCUMENT REQUIRED</option>
                             <option value="lcComments"> 47A ADDITIONAL CONDITIONS</option>
                             <option value="presentaionPeriod"> (48) Presentation Period</option>
-                            <option value="reimbursingBank">  (53A) Reimbursing Bank</option>
-                            <option value="adviceThroughBank">  (57) Advise Through Bank</option>
+                            <option value="confirmationInstructions"> (49) Confirmation Instructions</option>
+                            <option value="reimbursingBank"> (53A) Reimbursing Bank</option>
+                            <option value="adviceThroughBank"> (57) Advise Through Bank</option>
                             <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
                             <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
-                            <option value="charges">   (71B) Charges</option>
+                            <option value="charges"> (71B) Charges</option>
                             <option value="instructionToBank">  (78) Instructions To Paying / Accepting / Negotiating Bank</option>
                             <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
                           </select>
