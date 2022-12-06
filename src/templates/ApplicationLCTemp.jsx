@@ -94,7 +94,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     textTransform: 'uppercase',
                   }}
                 >
-                  APPLICATION FOR LETTER OF CREDIT
+                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
+                  "APPLICATION FOR LETTER OF DRAFT"
+                  }
+                
                 </h2>
               </td>
               <td valign="bottom" align="right" width="33%">
