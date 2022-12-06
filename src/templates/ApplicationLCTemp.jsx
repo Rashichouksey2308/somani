@@ -94,7 +94,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     textTransform: 'uppercase',
                   }}
                 >
-                  APPLICATION FOR LETTER OF CREDIT
+                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
+                  "APPLICATION FOR LETTER OF DRAFT"
+                  }
+                
                 </h2>
               </td>
               <td valign="bottom" align="right" width="33%">
@@ -485,6 +488,11 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                            <br></br>
+                             {_get(lcModuleData,"order.generic.seller.addresses[0].fullAddress","")},
+                              {_get(lcModuleData,"order.generic.seller.addresses[0].city","")},
+                              {_get(lcModuleData,"order.generic.seller.addresses[0].country","")},
+                              {_get(lcModuleData,"order.generic.seller.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>
@@ -544,6 +552,11 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                               <br></br>
+                             {_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress","")},
+                            {_get(lcModuleData,"order.generic.supplier.addresses[0].city","")},
+                            {_get(lcModuleData,"order.generic.supplier.addresses[0].country","")},
+                            {_get(lcModuleData,"order.generic.supplier.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>

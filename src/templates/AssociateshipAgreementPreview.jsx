@@ -1364,7 +1364,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          Quantity in MT
+                          Quantity 
                         </p>
                       </td>
                       <td
@@ -1374,7 +1374,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
+                          {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}  {data?.unitOfQuantity?.toUpperCase()}
                         </p>
                       </td>
                     </tr>

@@ -63,10 +63,9 @@ function Index({
   litigationStatus,
   debtProfileColor,
   allBuyerList,
-  unit
+  unit,
 }) {
   const dispatch = useDispatch();
-  console.log(camData?.unitOfValue,"camData?.unitOfValue")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -269,7 +268,6 @@ function Index({
     tooltip: {
       titleFontSize: 50,
       bodyFontSize: 50,
-      
     },
 
     responsive: true,
@@ -503,7 +501,7 @@ function Index({
     if (data?.length > 0) {
       data.forEach((val, index) => {
         if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
-          console.log(val,"val")
+        
           temp.push({
             name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
@@ -515,7 +513,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
-      console.log(sortedval,"sortedval")
+   
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -667,7 +665,7 @@ function Index({
 
   return (
     <>
-      {basicInfo(camData, orderDetails, camConversionunit,unit)}
+      {basicInfo(camData, orderDetails, camConversionunit, unit)}
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating, darkMode)}
       {groupExposure(camData, camConversionunit)}
@@ -683,7 +681,7 @@ function Index({
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor, backgroundColor1)}
-      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit,unit)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit, unit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
@@ -736,7 +734,7 @@ function Index({
         isFieldInFocus,
         setIsFieldInFocus,
         unit,
-        camConversionunit
+        camConversionunit,
       )}
       {Documents(documentsFetched)}
     </>
@@ -746,7 +744,7 @@ function Index({
 export default Index;
 
 const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
-  // console
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1153,11 +1151,11 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                 <th>SUPPLIER NAME</th>
                 <th>ORDER NO</th>
                 <th>ORDER DATE</th>
-                <th className='text-right'>ORDER VALUE</th>
+                <th className="text-right">ORDER VALUE</th>
                 <th>COMMODITY</th>
                 <th>STATUS</th>
 
-                <th className='text-right'>DAYS DUE</th>
+                <th className="text-right">DAYS DUE</th>
               </tr>
               {/* <tr>
                 <td>JUL 2022 - JUN 2023</td>
@@ -1293,7 +1291,7 @@ const directorDetails = (camData) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th className="40%">NAME</th>
-                <th className='text-left'>PAN</th>
+                <th className="text-left">PAN</th>
                 <th>DIN NUMBER</th>
                 <th>DATE OF APPOINTMENT</th>
                 <th>% SHAREHOLDING</th>
@@ -1315,7 +1313,7 @@ const directorDetails = (camData) => {
 
                       <span className={` ${styles.name} ml-3  `}>{director?.name}</span>
                     </td>
-                    <td className='text-left'>{director?.pan[0]}</td>
+                    <td className="text-left">{director?.pan[0]}</td>
                     <td>{director.din}</td>
                     <td>{director.tenureStartDate}</td>
                     <td>{director.percentageShareHolding}%</td>
@@ -1488,14 +1486,22 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, bac
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit,unit) => {
+const chargeDetails = (
+  top3Open,
+  options,
+  tempArr,
+  camData,
+  backgroundColor,
+  backgroundColor1,
+  camConversionunit,
+  unit,
+) => {
   const returnFilteredCharges = () => {
     let data = _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
       return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
     });
     return data;
   };
-  console.log(top3Open,"top3Open")
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1596,9 +1602,8 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, bac
                             {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}
-                            {" "}
-                          {unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}
+                            })}{' '}
+                            {unit == 'Crores' ? 'Cr' : unit == 'Lakhs' ? 'LAKH' : camData?.unitOfValue}
                             {/* {Number(
                                   charge?.finalAmountSecured,
                                 )?.toLocaleString('en-In')} */}
@@ -1773,7 +1778,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     <th>BANK NAME</th>
                     <th>LIMIT TYPE</th>
                     <th>LIMITS</th>
-                    <th className='text-right'>CONDUCT</th>
+                    <th className="text-right">CONDUCT</th>
                   </tr>
 
                   {camData &&
@@ -2001,7 +2006,7 @@ const revenuDetails = (gstData, camConversionunit) => {
 
               <tr>
                 <td>Gross Revenue</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.grossTurnover?.previous?.value || RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
@@ -2048,7 +2053,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Related Party Sales</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
                   RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
@@ -2096,7 +2101,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
                   RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
@@ -2160,7 +2165,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>B2B Sales</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.B2BSales?.previous?.value || RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
@@ -2207,7 +2212,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>B2C Sales</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.B2CSales?.previous?.value || RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
@@ -2254,7 +2259,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Export Sales</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.exportSales?.previous?.value || RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
@@ -2310,7 +2315,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Total Customers</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.ttlCustomer?.previous?.value || RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
@@ -2346,7 +2351,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Total Invoices</td>
-                <td className='text-center'>
+                <td className="text-center">
                   {RevenueDetails?.ttlInv?.previous?.value || RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
@@ -2384,7 +2389,7 @@ const revenuDetails = (gstData, camConversionunit) => {
               </tr>
               <tr>
                 <td>Gross Margin</td>
-                <td className='text-center'>
+                <td className="text-center">
                   <img src="/static/arrow-down-red.svg" alt="Arrow Red" className="img-fluid" />
                 </td>
                 <td>11,900.00</td>
@@ -2804,9 +2809,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
-                  <span className={`${styles.value} value`}>
-                    {companyData?.compliance.other?.nclt ? 'YES' : 'NO'}
-                  </span>
+                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -2818,9 +2821,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>BIFR</span>
-                  <span className={`${styles.value} value`}>
-                    {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}
-                  </span>
+                  <span className={`${styles.value} value`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -2846,9 +2847,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
-                  <span className={`${styles.value} value`}>
-                    {companyData?.profile?.directorDetail?.length ?? 0}
-                  </span>
+                  <span className={`${styles.value} value`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
                 </Col>
               </Row>
             </div>
@@ -2975,8 +2974,9 @@ const sectionTerms = (
   isFieldInFocus,
   setIsFieldInFocus,
   unit,
-  camConversionunit 
+  camConversionunit,
 ) => {
+
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
 
@@ -2997,7 +2997,7 @@ const sectionTerms = (
                 '',
               )} */}
               {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
-              {` ${unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}`}
+              {` ${unit == 'Crores' ? 'Cr' : unit == 'Lakhs' ? 'LAKH' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>
@@ -3104,8 +3104,7 @@ const sectionTerms = (
                         type="text"
                         disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name="approvedCreditValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
@@ -3123,8 +3122,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? (convertValue(approvedCredit?.approvedCreditValue))
-                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
+                            ? (approvedCredit?.approvedCreditValue)
+                            : `${checkNan(convertValue(Number(approvedCredit?.approvedCreditValue),camConversionunit))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3157,8 +3156,7 @@ const sectionTerms = (
                         type="text"
                         disabled={!orderValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name="approvedOrderValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
@@ -3176,8 +3174,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? `${Number(convertValue(Number(approvedCredit?.approvedOrderValue)))?? 0}`
-                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
+                            ? `${Number((Number(approvedCredit?.approvedOrderValue)))?? 0}`
+                            : `${checkNan(convertValue(Number(approvedCredit?.approvedOrderValue),camConversionunit))} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3386,7 +3384,7 @@ const trends = (
               <select
                 value={chartType}
                 onChange={(e) => {
-                  console.log(e.target.value, 'chartType');
+                 
                   setChartType(e.target.value);
                 }}
                 className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
@@ -3834,7 +3832,53 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       className={`${styles.arrow}`}
                       style={{ transform: `${rating}` }}
                     ></img>
-                    <div className={`${styles.score}`}>
+                    <div
+                      className={`${styles.score}`}
+                      style={{
+                        color: `${
+                          checkNan(
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            false,
+                            1,
+                          ) <= 3
+                            ? '#FF4230'
+                            : checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 4 &&
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) <= 6
+                            ? '#ffb700'
+                            : checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 7 &&
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 8
+                            ? '#8ac41c'
+                            : checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 9 &&
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 10
+                            ? '#008015'
+                            : 'black'
+                        }`,
+                      }}
+                    >
                       {checkNan(Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}
                     </div>
                   </div>

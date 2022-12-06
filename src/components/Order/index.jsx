@@ -5,19 +5,20 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList }) => {
-  console.log(orderDetail?.hsnCode,"orderDetail?.hsnCode")
+
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
     tolerance: false,
     hsnCode: false,
   });
-  console.log(commodity,"commodity")
+  
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     saveOrderData(name, text);
   };
+
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const filterCommodity = (value) => {
@@ -183,7 +184,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                         }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   onChange={(e) => {
-                    console.log(e,'quantityty')
+                   
                     saveOrderData(e.target.name, e.target.value);
                   }}
                 />
@@ -349,7 +350,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                   >
                     <option>Select an option</option>
                     {port?.filter((val, index) => {
-                        if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase()=="yes") {
                           return val;
                         }
                       })

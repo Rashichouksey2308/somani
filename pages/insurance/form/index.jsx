@@ -34,8 +34,8 @@ const Index = () => {
 
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort ?? '',
-    expectedTimeOfDispatch: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort ?? '',
+    expectedTimeOfArrival: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '') ?? '',
+    expectedTimeOfDispatch: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '') ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -78,7 +78,7 @@ const Index = () => {
       storageDetails: {
         placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
           ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
-          : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge,
+          : _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
@@ -781,7 +781,7 @@ const Index = () => {
                               required
                               type="text"
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                              value={quotationData.storageDetails.placeOfStorage}
+                              value={quotationData.storageDetails.placeOfStorage ?  `${quotationData.storageDetails.placeOfStorage}, India` : quotationData.storageDetails.placeOfStorage}
                               name="storageDetails.placeOfStorage"
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
