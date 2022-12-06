@@ -146,8 +146,10 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.shareholdingPattern?.length ??
-                    companyDetail?.profile?.companyDetail?.numberOfShareholders}
+                  {Array.isArray(companyDetail?.profile?.shareholdingPattern) &&
+                  companyDetail?.profile?.shareholdingPattern.length > 0
+                    ? companyDetail?.profile?.shareholdingPattern.length
+                    :  companyDetail?.profile?.companyDetail?.numberOfShareholders}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -175,10 +177,7 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Employee Count</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {Array.isArray(companyDetail?.profile?.shareholdingPattern) &&
-                  companyDetail?.profile?.shareholdingPattern.length > 0
-                    ? companyDetail?.profile?.shareholdingPattern.length
-                    : companyDetail?.financial?.other?.employeeCount
+                  { companyDetail?.financial?.other?.employeeCount
                     ? companyDetail?.financial?.other?.employeeCount
                     : companyDetail?.profile.companyDetail.employeeCount}
                 </div>
