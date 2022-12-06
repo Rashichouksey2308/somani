@@ -1095,7 +1095,7 @@ const Index = ({
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={invoiceDataRevised?.accountNo}
+                      value={invoiceDataRevised?.accountNo ? invoiceDataRevised?.accountNo : invoiceDataRevised?.Bank_Name}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
 
@@ -1134,7 +1134,7 @@ const Index = ({
                           }
                         })
                         .map((val, index) => {
-                          return <option value={`${val.keyBanks[0].Account_No}`}>{val.keyBanks[0].Bank_Name}</option>;
+                          return <option key={index} value={`${val.keyBanks[0].Account_No}`}>{val.keyBanks[0].Bank_Name}</option>;
                         })}
                     </select>
 

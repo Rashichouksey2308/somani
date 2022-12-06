@@ -2002,7 +2002,7 @@ function Index() {
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  value={invoiceData?.accountNo}
+                                  value={invoiceData?.accountNo ? invoiceData?.accountNo : invoiceData?.Bank_Name}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
 
