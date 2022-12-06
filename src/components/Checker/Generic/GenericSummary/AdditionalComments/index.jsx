@@ -49,5 +49,4 @@ function index() {
     </div>
   );
 }
-
 export default index;
