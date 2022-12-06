@@ -3,8 +3,7 @@ import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Header from '../../../src/components/Checker/AddNewInternalCompany/Header';
 import InternalCompanies from '../../../src/components/Checker/AddNewInternalCompany/InternalCompanies';
-import Approval from '../../../src/components/Checker/AddNewInternalCompany/Approval';
-import Remark from '../../../src/components/Checker/AddNewUser/Remarks';
+import Remark from '../../../src/components/Checker/Common/Remarks';
 
 function Index() {
   return (
