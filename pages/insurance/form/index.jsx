@@ -781,7 +781,7 @@ const Index = () => {
                               required
                               type="text"
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                              value={quotationData.storageDetails.placeOfStorage}
+                              value={quotationData.storageDetails.placeOfStorage ?  `${quotationData.storageDetails.placeOfStorage}, India` : quotationData.storageDetails.placeOfStorage}
                               name="storageDetails.placeOfStorage"
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
