@@ -10,9 +10,12 @@ import QPA from '../../src/components/QPA';
 import TPAIGI from '../../src/components/TPAIGI';
 import TPASeller from '../../src/components/TPASeller';
 import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 function Index() {
   const [preview, setPreview] = useState('');
+   const dispatch = useDispatch();
 const [agreementDoc, setagreementDoc] = useState({
       lcDraftDoc: null,
   });
@@ -22,7 +25,14 @@ const [agreementDoc, setagreementDoc] = useState({
   };
   const [name, setName] = useState('');
    const [orderId, setOrderID] = useState('');
-  const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+   useEffect(() => {
+  if(window){
+      let term =  JSON.parse(sessionStorage.getItem('genericSelected'));
+       dispatch(setPageName('agreement'));
+        dispatch(setDynamicName(term.company.companyName));
+        dispatch(setDynamicOrder(term.order.orderId));
+        }
+  },[]);
 
   useEffect(() => {
     if (window) {
