@@ -517,7 +517,7 @@ function Index({
                             required
                             type="text"
                             name="portOfDischarge"
-                            value={lcData?.portOfDischarge}
+                            value={lcData?.portOfDischarge ? `${lcData?.portOfDischarge}, India` : lcData?.portOfDischarge}
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value);
                             }}
