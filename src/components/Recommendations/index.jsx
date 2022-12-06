@@ -203,7 +203,9 @@ const Index = ({
             {companyComment &&
               companyComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
-                  <div className={styles.sr_number}>{index+1}</div>
+                  <div className='d-flex'>
+                  <div className={`${styles.sr_number} `}  style={{marginTop:'7px'}}
+                  >{index+1}</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
@@ -211,6 +213,7 @@ const Index = ({
                     rows={3}
                     readOnly={!editProfile[index]?.editable}
                   />
+                  </div>
 
                   <div className="mr-3">
                     <img
@@ -265,7 +268,9 @@ const Index = ({
             {financialsComment &&
               financialsComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
-                  <div className={styles.sr_number}>{index+1}</div>
+                   <div className='d-flex'>
+                  <div className={`${styles.sr_number}`}
+                  style={{marginTop:'7px'}}>{index+1}</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
@@ -273,6 +278,7 @@ const Index = ({
                     rows={3}
                     readOnly={!editFinance[index]?.editable}
                   />
+                  </div>
                   <div className="mr-3">
                     <img
                       src={`/static/${editFinance[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
@@ -553,6 +559,7 @@ const Index = ({
               {strengthsComment &&
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
+                     <div className='d-flex'>
                     <div className={styles.sr_number}>{index+1}</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
@@ -561,6 +568,7 @@ const Index = ({
                       rows={3}
                       readOnly={!editStren[index]?.editable}
                     />
+                    </div>
                     <div className="mt-3">
                       <img
                         src={`/static/${editStren[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
@@ -611,6 +619,7 @@ const Index = ({
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
+                     <div className='d-flex'>
                     <div className={styles.sr_number}>{index+1}</div>
                     <Form.Control
                   
@@ -620,6 +629,7 @@ const Index = ({
                       rows={3}
                       readOnly={!editWeak[index]?.editable}
                     />
+                    </div>
                     <div className="mt-3">
                       <img
                         src={`/static/${editWeak[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
@@ -816,6 +826,7 @@ const Index = ({
               {sanctionComment &&
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
+                      <div className='d-flex'>
                      <div className={styles.sr_number}>{index+1}</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
@@ -827,6 +838,7 @@ const Index = ({
                         handleInput(e.target.value, index);
                       }}
                     />
+                    </div>
                     <div className="mt-3">
                       {sanctionCommentsIndex.includes(index) ? (
                         <img
