@@ -551,9 +551,9 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                                <br></br>
                              {_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress","")},
-                         {_get(lcModuleData,"order.generic.supplier.addresses[0].city","")},
-                         {_get(lcModuleData,"order.generic.supplier.addresses[0].country","")},
-                          {_get(lcModuleData,"order.generic.supplier.addresses[0].pinCode","")}
+                            {_get(lcModuleData,"order.generic.supplier.addresses[0].city","")},
+                            {_get(lcModuleData,"order.generic.supplier.addresses[0].country","")},
+                            {_get(lcModuleData,"order.generic.supplier.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>
