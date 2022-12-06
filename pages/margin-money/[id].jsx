@@ -929,7 +929,7 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('MarginMoney.pdf');
       },
 
       autoPaging: 'text',
