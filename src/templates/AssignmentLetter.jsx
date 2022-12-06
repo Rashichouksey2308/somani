@@ -177,7 +177,7 @@ export default function AssignmentLetter(data) {
 
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Price of Goods / MT
+             Per Unit price of Goods
             </Col>
             <Col md={7} className={styles.right}>
               {data.curr}{" "}

@@ -631,7 +631,7 @@ export default function AssignmentLetterPreview(data) {
                             marginBottom: '0',
                           }}
                         >
-                          Price of Goods / MT
+                         Per Unit price of Goods
                         </p>
                       </td>
                       <td

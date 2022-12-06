@@ -1563,6 +1563,7 @@ let masterList = [
           isSubmitted: true,
         },
       };
+      console.log(dataToSend,"dataToSend")
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
