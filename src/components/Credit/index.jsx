@@ -472,7 +472,23 @@ const index = ({
 
   const [searchTerm, setSearchTerm] = useState('');
   const [removeInput, setRemoveInput] = useState(false);
-
+  const [supplierShow, setSupplierShow] = useState(false);
+    const [supplierTerm, setSupplierTerm] = useState('');
+ const handleSupplierSearch = (e) => {
+    setSupplierShow(false);
+    const query = e;
+    // const query = `${e.target.value}`;
+    setSupplierTerm(query);
+    if (query.length >= 3) {
+      dispatch(SearchSupplier(query));
+    }
+  };
+  useEffect(() => {
+    if(searchedSupplier?.data?.length > 0){
+      setSupplierShow(true)
+    }
+  },[searchedSupplier])
+  console.log(supplierShow,"supplierShow")
   const handleSearch = (e) => {
     setRemoveInput(false);
     const query = e;
@@ -955,13 +971,36 @@ const index = ({
                     type="text"
                     value={supplierCred?.supplierName}
                     onChange={(e) => {
+                      handleSupplierSearch(e.target.value)
                       saveSupplierData(e.target.name, e.target.value);
                     }}
                   ></input>
-
+                {searchedSupplier && searchedSupplier?.data?.length > 0 && supplierShow && supplierTerm && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {searchedSupplier
+                              ? searchedSupplier?.data?.map((results, index) => (
+                                  <li
+                                    onClick={() => {
+                                      saveSupplierData("supplierName",results?.supplierProfile?.supplierName)
+                                      setSupplierShow(false)
+                                      
+                                    }}
+                                    id={results._id}
+                                    key={index}
+                                    value={results}
+                                  >
+                                    {results?.supplierProfile?.supplierName}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                   <label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
