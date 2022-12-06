@@ -1420,10 +1420,6 @@ const index = ({
                                     >
                                       {' '}
                                       <option value="+91">+91</option>
-                                      <option value="+1">+1</option>
-                                      <option value="+92">+92</option>
-                                      <option value="+95">+95</option>
-                                      <option value="+24">+24</option>
                                     </select>
                                     <input
                                        name="contact.number"

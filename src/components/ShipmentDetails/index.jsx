@@ -6,7 +6,7 @@ import DateCalender from '../DateCalender';
 import moment from 'moment';
 
 const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
-  console.log(shipment,'shipment')
+
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
