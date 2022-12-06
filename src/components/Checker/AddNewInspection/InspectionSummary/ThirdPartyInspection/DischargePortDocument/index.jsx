@@ -3,13 +3,16 @@ import styles from './index.module.scss';
 import Table from '../../../../../Table';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ViewDocument } from 'redux/ViewDoc/action';
+import { useDispatch } from 'react-redux';
 
-function Index() {
+function Index({ dischargePortDocuments, orderId }) {
+    const dispatch = useDispatch();
     const tableColumns = useMemo(() => [
         {
             Header: "Document Name",
-            accessor: "doc_name",
-            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-uppercase">{value}</span>
+            accessor: "name",
+            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
         },
         {
             Header: "Format",
@@ -18,12 +21,12 @@ function Index() {
         },
         {
             Header: "Document Date",
-            accessor: "document_date",
-            // Cell: ({ value }) => value ? value : 'RM'
+            accessor: "date",
+            Cell: ({ value }) => value.slice(0, 10)
         },
         {
             Header: "Uploaded By",
-            accessor: "uploaded_by"
+            accessor: "uploadedBy"
         }
     ]);
 
@@ -35,56 +38,46 @@ function Index() {
                 Header: "Action",
                 Cell: ({ row }) => {
                     return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-                        <Link href={`/masters/order-history/`}>
+                        <a className="cursor-pointer"
+                            onClick={() =>
+                                dispatch(
+                                    ViewDocument({
+                                        path: row?.original?.path,
+                                        order: orderId,
+                                    }),
+                                )
+                            }
+                        >
                             <Image
                                 height="30px"
                                 width="30px"
                                 src="/static/blue-eye.svg"
                                 alt="Edit"
                             />
-                        </Link>
+                        </a>
                     </div>
                 }
             }
         ])
     };
 
-    const dummyData = [
-        {
-            'doc_name': 'Pdf',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-        },
-        {
-            'doc_name': 'Gst Certificate',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-        },
-        {
-            'doc_name': 'Board Resolution',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-        }
-    ];
+
     return (
         <div className={`${styles.main} m-4 border_color card`}>
             <div
                 className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
                 data-toggle="collapse"
-                data-target="#upload"
+                data-target="#dischargePortDocuments"
                 aria-expanded="true"
-                aria-controls="upload"
+                aria-controls="dischargePortDocuments"
             >
-                <h3 className={styles.heading}>Documents</h3>
+                <h3 className={styles.heading}>Discharge Port Documents</h3>
                 <span>+</span>
             </div>
-            <div id="upload" className="collapse mb-n4" aria-labelledby="upload" data-parent="#upload">
+            <div id="dischargePortDocuments" className="collapse mb-n4" aria-labelledby="dischargePortDocuments" data-parent="#dischargePortDocuments">
                 <Table
                     columns={tableColumns}
-                    data={dummyData}
+                    data={dischargePortDocuments}
                     tableHooks={tableHooks}
                 />
             </div>

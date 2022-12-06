@@ -155,5 +155,7 @@ export default {
   getCommodityDetails: '/commodity/commodity/',
   updateCommodityRemark: '/commodity/checker-commodity/',
   getUserDetails: '/user-master/user',
-  getInspectionDetails: '/inspection'
+  getInspectionDetails: '/inspection',
+  updateInspectionRemark: '/inspection/checker-inspections-status-update',
 };
+  

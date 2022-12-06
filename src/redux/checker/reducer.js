@@ -9,7 +9,8 @@ const initialState = {
     userDetails: {},
     gettingInspectionDetails: false,
     inspectionDetails: {},
-
+    updatingInspectionRemarks: false,
+    updateInspectionDetails: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -69,6 +70,21 @@ function CheckerReducer(state = initialState, action) {
                 gettingInspectionDetails: false,
                 inspectionDetails: {},
             };
+
+        case types.UPDATE_INSPECTION_SUCCESSFULL:
+            return {
+                ...state,
+                updatingInspectionRemarks: false,
+                updateInspectionDetails: action.payload,
+            };
+
+        case types.UPDATE_INSPECTION_FAILED:
+            return {
+                ...state,
+                updatingInspectionRemarks: false,
+                updateInspectionDetails: {},
+            };
+            
         default:
             return state;
     }

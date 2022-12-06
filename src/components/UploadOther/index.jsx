@@ -20,6 +20,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
 
   const { documentsFetched } = useSelector((state) => state.review);
 
+  console.log("DOC FETCHED_---", documentsFetched);
+
   const [editInput, setEditInput] = useState(true);
 
   const [manualDocModule, setManualDocModule] = useState(true);
