@@ -1444,7 +1444,10 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.orderCurrency} {checkNan(Number(finalCal.orderValue), true)}
+                                  {marginData?.order?.orderCurrency} {convertValue(finalCal.orderValue, coversionUnit).toLocaleString('en-In', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  })}
                                   {/* {convertValue(finalCal?.orderValue, marginData?.order?.orderCurrency !== 'USD' ? 1000000 : 10000000)
                                   ?.toLocaleString(marginData?.order?.orderCurrency === 'INR' ? 'en-IN' : undefined,
                                    { maximumFractionDigits: 2 })} */}
@@ -1999,7 +2002,7 @@ function Index() {
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  value={invoiceData?.accountNo}
+                                  value={invoiceData?.accountNo ? invoiceData?.accountNo : invoiceData?.Bank_Name}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
 
