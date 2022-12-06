@@ -63,6 +63,10 @@ export const orderValidation = (orderDetails, shipment, approvedCredit) => {
     handleErrorToast('HSN CODE IS MANDATORY & SPECIAL CHARACTERS ARE NOT ALLOWED');
     return false;
   }
+  if (orderDetails?.hsnCode?.trim()?.length !== 8 ) {
+    handleErrorToast('provide a valid HSn Code');
+    return false;
+  }
   if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
     handleErrorToast('add shipment Type');
     return false;

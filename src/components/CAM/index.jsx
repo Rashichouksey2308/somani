@@ -63,9 +63,10 @@ function Index({
   litigationStatus,
   debtProfileColor,
   allBuyerList,
+  unit
 }) {
   const dispatch = useDispatch();
-
+  console.log(camData?.unitOfValue,"camData?.unitOfValue")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -268,6 +269,7 @@ function Index({
     tooltip: {
       titleFontSize: 50,
       bodyFontSize: 50,
+      
     },
 
     responsive: true,
@@ -665,7 +667,7 @@ function Index({
 
   return (
     <>
-      {basicInfo(camData, orderDetails, camConversionunit)}
+      {basicInfo(camData, orderDetails, camConversionunit,unit)}
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating, darkMode)}
       {groupExposure(camData, camConversionunit)}
@@ -681,7 +683,7 @@ function Index({
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor, backgroundColor1)}
-      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit,unit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
@@ -733,6 +735,8 @@ function Index({
         approvedCredit,
         isFieldInFocus,
         setIsFieldInFocus,
+        unit,
+        camConversionunit
       )}
       {Documents(documentsFetched)}
     </>
@@ -741,7 +745,7 @@ function Index({
 
 export default Index;
 
-const basicInfo = (camData, orderDetails, camConversionunit) => {
+const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
   // console
   return (
     <>
@@ -821,7 +825,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                     {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
+                    {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
@@ -1484,7 +1488,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, bac
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit) => {
+const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit,unit) => {
   const returnFilteredCharges = () => {
     let data = _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
       return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
@@ -1590,8 +1594,11 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, bac
                           </td>
                           <td>
                             {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                              minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}
+                            {" "}
+                          {unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}
                             {/* {Number(
                                   charge?.finalAmountSecured,
                                 )?.toLocaleString('en-In')} */}
@@ -2967,6 +2974,8 @@ const sectionTerms = (
   approvedCredit,
   isFieldInFocus,
   setIsFieldInFocus,
+  unit,
+  camConversionunit 
 ) => {
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
@@ -2988,7 +2997,7 @@ const sectionTerms = (
                 '',
               )} */}
               {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
-              {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+              {` ${unit == 'Crores' ? 'Cr' : unit == "Lakhs" ? "LAKH" : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>
@@ -3041,7 +3050,7 @@ const sectionTerms = (
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(convertValue(val?.suggested?.value))?.toLocaleString('en-In')}
-                              {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                              {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                             </td>
                           ))}{' '}
                       </>
@@ -3114,8 +3123,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? (approvedCredit?.approvedCreditValue)
-                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')} Cr`
+                            ? (convertValue(approvedCredit?.approvedCreditValue))
+                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3131,7 +3140,7 @@ const sectionTerms = (
                     <td>-</td>
                     <td>
                       {checkNan(convertValue(camData?.suggestedOrderValue))?.toLocaleString('en-In')}
-                      {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
 
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
@@ -3167,8 +3176,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? `${Number(approvedCredit?.approvedOrderValue)?? 0}`
-                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} Cr`
+                            ? `${Number(convertValue(Number(approvedCredit?.approvedOrderValue)))?? 0}`
+                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {

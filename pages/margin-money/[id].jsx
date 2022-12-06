@@ -21,6 +21,8 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/us
 import MarginMoney from '../../src/templates/MarginMoney';
 import { checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
+import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -111,7 +113,7 @@ function Index() {
       marginMoney: marginData?.order?.termsheet?.transactionDetails?.marginMoney,
     });
     let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+    let orderValueCurrency =  marginData?.order?.orderCurrency;
     let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
@@ -838,8 +840,34 @@ function Index() {
       });
     }
   };
-
+ 
+  const reviseValidate = () => {
+    if (forCalculationRevised.additionalPDC === null 
+      || forCalculationRevised.additionalPDC === undefined 
+      || forCalculationRevised.additionalPDC === ''
+      || forCalculationRevised.additionalPDC === NaN
+      || forCalculationRevised.additionalPDC === "NaN") {
+      let toastMessage = 'Please add additional Amount Per PDC';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (forCalculationRevised.conversionRate === null 
+      || forCalculationRevised.conversionRate === undefined 
+      || forCalculationRevised.conversionRate === ''
+      || forCalculationRevised.conversionRate === NaN
+      || forCalculationRevised.conversionRate === "NaN") {
+      let toastMessage = 'Please add conversion Rate';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    return true
+  }
   const handleUpdateRevisedMarginMoney = () => {
+    if(reviseValidate()){
     let obj = {
       marginMoneyId: marginData?._id,
       additionalPDC: forCalculationRevised.additionalPDC,
@@ -873,6 +901,7 @@ function Index() {
     };
 
     dispatch(RevisedMarginMoney(obj));
+    }
   };
 
   const saveOrderData = (name, value) => {
@@ -910,7 +939,35 @@ function Index() {
   useEffect(() => {
     if (marginData) {
       console.log(marginData?.invoiceDetail?.isConsigneeSameAsBuyer,"marginData?.invoiceDetail?.isConsigneeSameAsBuyer")
-      setInvoiceData({
+     
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+    if(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true){
+       setInvoiceData({
+        buyerName: marginData?.company?.companyName || '',
+        buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
+        consigneeName:marginData?.company?.companyName || '',
+        consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        consigneeAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        importerName:
+          marginData?.invoiceDetail?.importerName ||
+          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '',
+        branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+        companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+        importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+        bankName: marginData?.invoiceDetail?.bankName || '',
+        branch: marginData?.invoiceDetail?.branch || '',
+        branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+        IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
+      });
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+      }else{
+ setInvoiceData({
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
@@ -933,10 +990,10 @@ function Index() {
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '',
       });
-      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+      }
     }
   }, [marginData, getInternalCompaniesMasterData]);
-
+ console.log(invoiceData,"  ...invoiceData,")
   useEffect(() => {
     getRevisedData();
 
@@ -976,6 +1033,17 @@ function Index() {
   useEffect(() => {
     getDataRevised();
   }, [forCalculationRevised]);
+
+  
+  const exportPDFRevised = () => {
+    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
+      callback: function (doc) {
+        doc.save('RevisedMarginMoney.pdf');
+      },
+      autoPaging: 'text',
+    });
+  };
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2096,7 +2164,7 @@ function Index() {
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                         saveforCalculationRevised={saveforCalculationRevised}
-                        exportPDF={() => {}}
+                        exportPDF={() => {exportPDFRevised() }}
                         getBanksMasterData={getBanksMasterData}
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}

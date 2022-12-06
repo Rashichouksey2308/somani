@@ -40,7 +40,7 @@ function AddressComponent({
 
               <h5 className={`mb-0`}>{Title}</h5>
             </div>
-            <div>
+            <div className='pb-3'>
               <img
                 className={`${styles.edit_image} ml-2 mr-3`}
                 src="/static/mode_edit.svg"

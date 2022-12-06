@@ -531,7 +531,7 @@
                   line-height: 1.3;
                 }
               }
-
+             
               .checkBox {
                 transform: scale(1.5);
                 @include respond(lg-desktop) {
@@ -950,6 +950,43 @@
       &:last-child {
         border-bottom: none;
       }
+    }
+  }
+}
+
+.phone_card {
+  display: flex;
+  flex-wrap: nowrap;
+  .code_phone2 {
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: 0.18px;
+    color: #3687e8 !important;
+    outline: none;
+    min-width: auto !important;
+    height: 36px;
+    padding-right: 0 !important;
+    border-radius: 4px 0 0 4px;
+    padding-left: 5px;
+    -webkit-text-fill-color: #3687e8 !important;
+    @include respond(lg-desktop) {
+      font-size: 15px;
+      line-height: 1.3;
+      height: 32px;
+    }
+  }
+  .input_field2 {
+    height: 36px;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius:  0 !important;
+    box-shadow: none;
+    width: 150px;
+    @include respond(lg-desktop) {
+      font-size: 15px;
+      line-height: 1.3;
+      width: 110px;
+      height: 32px;
+      padding-left: 5px !important;
     }
   }
 }

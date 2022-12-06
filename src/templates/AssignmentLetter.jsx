@@ -245,27 +245,27 @@ export default function AssignmentLetter(data) {
         </p>
 
         <div className={`row`}>
-          <Col md={6}>
-            <p className="text_sales  m-0">
+          <Col md={8}>
+            <p className="text_sales text-left m-0">
               <strong>.................................................</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales text-left">
               <strong>(Seller)</strong>
             </p>
           </Col>
-          <Col md={6}>
-            <p className="text_sales m-0">
+          <Col md={4}>
+            <p className="text_sales text-left m-0">
               <strong>.................................................</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales text-left">
               <strong>(Buyer)</strong>
             </p>
           </Col>
-          <Col md={6}>
-            <p className="text_sales  m-0">
+          <Col md={12}>
+            <p className="text_sales text-left m-0">
               <strong>.................................................</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales text-left">
               <strong>(Shipper)</strong>
             </p>
           </Col>

@@ -18,8 +18,8 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
             
               {data.buyer},
               <br />
-              {data.buyerAddress?.fullAddress},{" "}
-              {data.buyerAddress?.city}{" "}<br/>
+              {data.buyerAddress?.fullAddress},{" "}<br/>
+              {data.buyerAddress?.city},{" "}
               {data.buyerAddress?.country},{" "}
               {data.buyerAddress?.pinCode}            
           </span>
@@ -75,63 +75,52 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           </li>
         </ol>
         <div className={`row`}>
-          <Col md={6} className="offset-md-6">
-            <p className="text_sales">
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left">
               <strong>FOR & ON BEHALF OF</strong>
             </p>
           </Col>
         </div>
         <div className={`row`}>
-          <Col md={6} className="offset-md-6">
-            <p className="text_sales">
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left">
               <strong>(Associate Buyer)</strong>
             </p>
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">
+          <Col md={8}>
+            <p className="text_sales text-left m-0">
               <strong>
                 Place: {data.placeOfExecution}
               </strong>
             </p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales m-0">
               {
               data?.associateBuyerAuthorized?.length > 0 &&
               data?.associateBuyerAuthorized?.map((val, index) => {
-                return (                  
-                  <p className='mb-0'>                      
-                    <strong>Name : {val.name}</strong>
-                  </p>                  
+                return (
+                  <>
+                    <p className='text-left'>                      
+                      <strong>Name: {val.name}</strong>
+                      <br/>
+                      <strong>Designation: {val.designation}</strong>
+                    </p>
+                  </>
                 );
               })
-              }
-             
+              }             
             </p>
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">
+          <Col md={12}>
+            <p className="text_sales text-left m-0">
               <strong>
                 Date: {data.dateOfExecution}
               </strong>
-            </p>
-          </Col>
-          <Col md={6}>
-            <p className="text_sales m-0">
-               {
-              data?.associateBuyerAuthorized?.length > 0 &&
-              data?.associateBuyerAuthorized?.map((val, index) => {
-                return (                  
-                  <p className='mb-0'>
-                    <strong>Designation : {val.designation}</strong>
-                  </p>                  
-                );s
-              })
-              }
             </p>
           </Col>
         </div>

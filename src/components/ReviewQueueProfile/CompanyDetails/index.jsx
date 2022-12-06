@@ -159,7 +159,7 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Paid-Up Capital (Cr)</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {checkNan(CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital))}
+                  {checkNan(CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital),"no")}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">

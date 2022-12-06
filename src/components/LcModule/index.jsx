@@ -18,7 +18,6 @@ function Index() {
 
   const dispatch = useDispatch();
 
-
   const { lcModule } = useSelector((state) => state.lc);
 
   useEffect(() => {
@@ -37,15 +36,18 @@ function Index() {
   }, [lcModule]);
 
   const handleRoute = (lc) => {
+    if (lc.firstTimeUpdate) {
+      sessionStorage.setItem('lcPreviewId', lc.order.lc);
+      Router.push('/letter-table/letter-amend/id');
+    } else {
    
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
       Router.push('/letter-credit/lc-create');
-   
+    }
   };
   const handleLcAmmendRoute = (lc) => {
-  
-    if(lc.ifFormFilled==false){
+    if (lc.ifFormFilled == false) {
       let toastMessage = 'PLS FILL LC FIRST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -133,7 +135,7 @@ function Index() {
               </span>
               <a
                 onClick={() => {
-                  if (currentPage === 0) return 
+                  if (currentPage === 0) return;
                   else {
                     setCurrentPage((prevState) => prevState - 1);
                   }

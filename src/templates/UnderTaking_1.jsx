@@ -19,8 +19,8 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
             
               {data.buyer},
               <br />
-              {data.buyerAddress?.fullAddress},{" "}
-              {data.buyerAddress?.city}{" "}<br/>
+              {data.buyerAddress?.fullAddress},{" "}<br/>
+              {data.buyerAddress?.city},{" "}
               {data.buyerAddress?.country},{" "}
               {data.buyerAddress?.pinCode}            
           </span>
@@ -166,6 +166,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
 
           {data?.cheque?.length > 0 &&
             data.cheque.map((val, index) => {
+              
               return (
                 <Row className={`${styles.row} border_black`}>
                   <Col md={1} className={`${styles.left} border_black`}>
@@ -182,22 +183,22 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                   </Col>
                   <Col md={3} className={styles.right}>
                   INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                  
                   </Col>
                 </Row>
               );
             })}          
         </div>
-
         <div className={`row`}>
-          <Col md={6} className="offset-md-6">
-            <p className="text_sales">FOR AND ON BEHALF OF</p>
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left">FOR AND ON BEHALF OF</p>
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">Place: {data.placeOfExecution}</p>
+          <Col md={8}>
+            <p className="text_sales text-left m-0">Place: {data.placeOfExecution}</p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales m-0">
               <strong>(Associate Buyer)</strong>
               <br />
@@ -205,13 +206,10 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
              {
                 data?.associateBuyerAuthorized?.length > 0 &&
                 data?.associateBuyerAuthorized?.map((val, index) => {
-                  return (
-                   
-                      <p className='mb-0'>
-                        Name - {val.name}
-                      </p>
-                      
-                   
+                  return (                   
+                    <p className='mb-0 text-left'>
+                      Name: {val.name}
+                    </p>
                   );
                 })
               }
@@ -219,11 +217,11 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">Date : {data.dateOfExecution}</p>
+          <Col md={8}>
+            <p className="text_sales text-left m-0">Date: {data.dateOfExecution}</p>
           </Col>
-          <Col md={6}>
-            <p className="text_sales m-0">AUTHORISED SIGNATORY</p>
+          <Col md={4}>
+            <p className="text_sales text-left m-0">AUTHORISED SIGNATORY</p>
           </Col>
         </div>
       </div>

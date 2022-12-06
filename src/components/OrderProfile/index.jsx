@@ -26,7 +26,7 @@ function Index() {
       <div id="orderDetail" className={`collapse ${styles.body} card-body row`} aria-labelledby="orderDetail">
         {fields('Commodity', buyerList?.order?.commodity)}
         {fields(
-          'Quantity (in MT)',
+          'Quantity',
           buyerList?.order?.quantity?.toLocaleString('en-IN', {
             maximumFractionDigits: 2,
           }),
