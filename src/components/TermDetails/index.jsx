@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from './index.module.scss';
 import { addPrefixOrSuffix, addPrefixSymbol } from '../../utils/helper';
 
@@ -58,6 +58,10 @@ const Index = ({
       changePayment('val');
     }
   };
+  useEffect(() => {
+    payementchangeFunc(termsheetDetails?.paymentDueDate?.computationOfDueDate)
+  }, [termsheetDetails])
+  
 
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);

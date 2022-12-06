@@ -461,7 +461,8 @@ export const undertaking1Pdf = (data) => {
                                 data?.associateBuyerAuthorized?.map((val, index) => {
                                   return (
                                      <>
-                                     <br /><br />Name - {val.name}
+                                     <br /><br />Name: {val.name}
+                                       <br /><br />Designation: {val.designation}
                                      </>
                                       
                                       

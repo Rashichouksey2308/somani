@@ -929,7 +929,7 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('MarginMoney.pdf');
       },
 
       autoPaging: 'text',
@@ -2002,7 +2002,7 @@ function Index() {
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  value={invoiceData?.accountNo}
+                                  value={invoiceData?.accountNo ? invoiceData?.accountNo : invoiceData?.Bank_Name}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
 
@@ -2172,6 +2172,7 @@ function Index() {
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}
                         savedataRevised={savedataRevised}
+                        orderList={orderList}
                       />
                     </div>
                   </div>

@@ -1207,6 +1207,7 @@ const index = ({
                         <>
                           {!person.isEdit ? (
                             <>
+                            {console.log(person,"person")}
                               <tr>
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>
@@ -1356,7 +1357,7 @@ const index = ({
                                     <>
                                       <input
                                         className="input"
-                                        defaultValue={person.contact.number}
+                                        value={person.contact.number}
                                         placeholder={'Contact number'}
                                         name="contact.number"
                                         style={{ maxWidth: '170px' }}
@@ -1373,7 +1374,7 @@ const index = ({
                                       name="callingCode"
                                       id="Code"
                                       className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
-                                      //value={val?.callingCode}
+                                      value={person.contact.callingCode}
                                       onChange={(e) => {
                                         onChangeHandler2(e.target.name, e.target.value, index);
                                       }}
@@ -1382,14 +1383,15 @@ const index = ({
                                       <option value="+91">+91</option>
                                     </select>
                                     <input
-                                      name="contact"
+                                       name="contact.number"
                                       //value={val?.contact}
                                       type="number"
                                       onWheel={(event) => event.currentTarget.blur()}
                                       className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
                                       onChange={(e) => {
-                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                        handlePersonChange(e,index);
                                       }}
+                                      value={person.contact.number}
                                       onKeyDown={(evt) =>
                                         ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                                       }
@@ -1496,6 +1498,10 @@ const index = ({
                       orderDetail={orderDetail}
                       path={address?.GSTIN_document?.path}
                       communicationModeYes={address?.communication}
+                      state={address.state}
+                      city={address.city}
+                      pinCode={address.pinCode}
+
                     />
                   </>
                 );

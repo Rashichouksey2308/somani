@@ -66,7 +66,6 @@ function Index({
   unit,
 }) {
   const dispatch = useDispatch();
-  console.log(camData?.unitOfValue, 'camData?.unitOfValue');
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -502,7 +501,7 @@ function Index({
     if (data?.length > 0) {
       data.forEach((val, index) => {
         if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
-          console.log(val, 'val');
+        
           temp.push({
             name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
@@ -514,7 +513,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
-      console.log(sortedval, 'sortedval');
+   
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -744,8 +743,8 @@ function Index({
 
 export default Index;
 
-const basicInfo = (camData, orderDetails, camConversionunit, unit) => {
-  // console
+const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1503,7 +1502,6 @@ const chargeDetails = (
     });
     return data;
   };
-  console.log(top3Open, 'top3Open');
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2978,6 +2976,7 @@ const sectionTerms = (
   unit,
   camConversionunit,
 ) => {
+
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
 
@@ -3123,10 +3122,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.LimitValue
-                            ? convertValue(approvedCredit?.approvedCreditValue)
-                            : `${checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')}  ${
-                                camConversionunit == 10000000 ? 'CR' : 'LAKH'
-                              }`
+                            ? (approvedCredit?.approvedCreditValue)
+                            : `${checkNan(convertValue(Number(approvedCredit?.approvedCreditValue),camConversionunit))?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3177,10 +3174,8 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? `${Number(convertValue(Number(approvedCredit?.approvedOrderValue))) ?? 0}`
-                            : `${checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')} ${
-                                camConversionunit == 10000000 ? 'CR' : 'LAKH'
-                              }`
+                            ? `${Number((Number(approvedCredit?.approvedOrderValue)))?? 0}`
+                            : `${checkNan(convertValue(Number(approvedCredit?.approvedOrderValue),camConversionunit))} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3389,7 +3384,7 @@ const trends = (
               <select
                 value={chartType}
                 onChange={(e) => {
-                  console.log(e.target.value, 'chartType');
+                 
                   setChartType(e.target.value);
                 }}
                 className={`${styles.select} ${styles.customSelect} accordion_body form-select`}

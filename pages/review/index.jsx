@@ -266,7 +266,7 @@ function Index() {
   const [gstData, setGstData] = useState({});
 
   const { orderList } = useSelector((state) => state.buyer);
-  console.log(orderList,"orderList")
+
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'));
@@ -320,7 +320,7 @@ function Index() {
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     };
-   console.log(newObj,"newObj")
+
     setOrderDetails({ ...newObj });
 
     setShipment({
@@ -396,6 +396,8 @@ function Index() {
   };
 
   const [product, setProduct] = useState();
+
+  console.log(product, 'PRODUCT')
 
   const saveProductData = (name, value) => {
     const newInput = { ...product };
