@@ -865,19 +865,11 @@ export default function SalesContract(changeHandler, data, preview) {
             <Col md={5} className={`${styles.left} border_black`}>
               Additional Conditions
             </Col>
-            <Col md={7} className={styles.right}>
-              {
-                <>
-                 
-                    {data?.addComm?.length > 0 &&
-                      data?.addComm?.map((val, index) => {
-                        return <>
-                        {val}
-                        </>
-                      })}
-                 
-                </>
-              }
+            <Col md={7} className={styles.right}>                      
+              {data?.addComm?.length > 0 &&                  
+                  data?.addComm?.map((val, index) => {                       
+                  return <p key={index} >{val}</p>;
+              })}                          
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
