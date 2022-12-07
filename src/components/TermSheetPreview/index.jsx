@@ -402,7 +402,7 @@ function Index() {
                   <li>{termsheetDetails?.transactionDetails?.countryOfOrigin}</li>
                   <li>{termsheetDetails?.transactionDetails?.shipmentType}</li>
                   <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
-                  <li>{termsheetDetails?.transactionDetails?.portOfDischarge}</li>
+                  <li>{termsheetDetails?.transactionDetails?.portOfDischarge}, India</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
                   <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}</li>
                 </ul>
@@ -1830,7 +1830,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {' '}
-                          {termsheetDetails?.transactionDetails?.portOfDischarge}
+                          {termsheetDetails?.transactionDetails?.portOfDischarge}, India
                         </p>
                       </td>
                     </tr>
