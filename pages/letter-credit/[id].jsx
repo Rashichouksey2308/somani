@@ -295,7 +295,7 @@ function Index() {
     if (type == '(43P) Partial Shipment' && value == 'Conditional') {
       return 'Conditional';
     }
-    if (type == '(44C) Latest Date Of Shipment') {
+    if (type == '(44C) Latest Date Of Shipment'||type == '(31D) Date Of Expiry') {
       return moment(value).format('DD-MM-YYYY');
     } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
