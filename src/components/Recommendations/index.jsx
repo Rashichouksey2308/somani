@@ -356,7 +356,7 @@ const Index = ({
 
                           </td>
                           <td>
-                            {profile?.limit}
+                            {profile?.limit.toLocaleString('en-In')}
                           </td>
                           <td>
                            {profile?.outstandingLimit}
@@ -419,7 +419,29 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
-                              value={profile?.limit}
+                               onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                  value={
+                              profile?.actions
+                                ? isFieldInFocus.groupExposureLimit
+                                  ? profile?.limit
+                                  : Number(profile?.limit)?.toLocaleString('en-In')
+                                : Number(profile?.limit)?.toLocaleString('en-In')
+                            }
+                             
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
@@ -442,7 +464,29 @@ const Index = ({
                             <input
                               name="outstandingLimit"
                               type="text"
-                              value={profile?.outstandingLimit}
+                            onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                    value={
+                              profile?.actions
+                                ? isFieldInFocus.limit
+                                  ? profile?.outstandingLimit
+                                  : Number(profile?.outstandingLimit)?.toLocaleString('en-In')
+                                : Number(profile?.outstandingLimit)?.toLocaleString('en-In')
+                            }
+                              // value={profile?.outstandingLimit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;

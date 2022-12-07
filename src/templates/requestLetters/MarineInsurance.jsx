@@ -519,7 +519,7 @@ export default function MarineInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                        {`${_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                       </p>
                     </td>
                   </tr>
