@@ -12,7 +12,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
       return index + 1;
     }
   };
-  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),)
+  console.log(_get(lcModuleData.lcModule,"data[0].generic.supplier.addresses[0].fullAddress",""),"SAdasds")
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -489,10 +489,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.applicant?.toUpperCase()}
                             <br></br>
-                             {_get(lcModuleData,"order.generic.seller.addresses[0].fullAddress","")},
-                              {_get(lcModuleData,"order.generic.seller.addresses[0].city","")},
-                              {_get(lcModuleData,"order.generic.seller.addresses[0].country","")},
-                              {_get(lcModuleData,"order.generic.seller.addresses[0].pinCode","")}
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].fullAddress","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].city","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].country","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>
@@ -553,10 +553,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                                <br></br>
-                             {_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress","")},
-                            {_get(lcModuleData,"order.generic.supplier.addresses[0].city","")},
-                            {_get(lcModuleData,"order.generic.supplier.addresses[0].country","")},
-                            {_get(lcModuleData,"order.generic.supplier.addresses[0].pinCode","")}
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].fullAddress","")},
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].city","")},
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].country","")},
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>
