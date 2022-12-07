@@ -300,7 +300,20 @@ function Index() {
     if (!validation()) return;
 
     let sendLcData = { ...clauseData };
-
+      if (sendLcData?.placeOfExpiry === '' || sendLcData?.placeOfExpiry == undefined) {
+        let toastMessage = 'PLEASE ADD PLACE OF EXPIREY';
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage });
+        }
+        return false;
+      }
+      if (sendLcData?.dateOfExpiry === '' || sendLcData?.dateOfExpiry == undefined) {
+        let toastMessage = 'PLEASE ADD DATE OF EXPIREY';
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage });
+        }
+        return false;
+      }
     sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
     sendLcData.dateOfIssue = lcData.dateOfIssue;
     // setLcData(sendLcData);
