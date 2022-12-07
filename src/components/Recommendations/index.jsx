@@ -744,7 +744,7 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedCreditLimit
-                            ? suggestedCredit?.suggestedCreditLimit
+                            ? convertValue(suggestedCredit?.suggestedCreditLimit)
                             : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
                         }
                         onChange={(e) => {
@@ -788,7 +788,7 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedOrderValue
-                            ? suggestedCredit?.suggestedOrderValue
+                            ? convertValue(suggestedCredit?.suggestedOrderValue)
                             : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
                         }
                         onChange={(e) => {
