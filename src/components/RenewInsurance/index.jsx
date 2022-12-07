@@ -145,7 +145,7 @@ const Index = () => {
     return true;
   };
 
-  const handleInsuranceUpdate = () => {
+  const handleInsuranceUpdate = async () => {
     if (!validation()) return;
 
     let fd = new FormData();
@@ -166,7 +166,10 @@ const Index = () => {
       fd.append('insuranceType', JSON.stringify('Marine Insurance'));
       fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
 
-      dispatch(RenewInsurance(fd));
+      await dispatch(RenewInsurance(fd));
+     
+     
+
     }
   };
 

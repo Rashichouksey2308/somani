@@ -27,8 +27,8 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-  const [fileType, setFileType] = useState(null);
-  useEffect(() => {
+ const [fileType,setFileType]=useState('pdf')
+useEffect(() => {
     dispatch(setPageName('Lc'));
 
     dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')));
