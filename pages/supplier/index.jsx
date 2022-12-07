@@ -93,7 +93,7 @@ function Index() {
     setListCommodity(supplierData?.commoditiesTraded ?? []);
     setInfoArray(supplierData?.additionalInformation ?? []);
     setdocs(supplierData?.extraDocument ?? []);
-    setFilteredDocs(supplierData?.extraDocument ?? [])
+    setFilteredDocs(supplierData?.extraDocument ?? []);
     setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
     SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
@@ -159,7 +159,6 @@ function Index() {
   ]);
 
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
-
 
   const handleFocusChange = (index, value) => {
     let tempArray = [...isPercentageInFocus];
@@ -440,7 +439,11 @@ function Index() {
     }
     let isOk = true;
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (listCommodity[i].hsnCode.trim() === '' || listCommodity[i].hsnCode === null || listCommodity[i].hsnCode.length !== 8) {
+      if (
+        listCommodity[i].hsnCode.trim() === '' ||
+        listCommodity[i].hsnCode === null ||
+        listCommodity[i].hsnCode.length !== 8
+      ) {
         handleErrorToast(`please provide a valid hsnCode Commodities Traded ${i + 1}`);
         isOk = false;
         break;
@@ -473,8 +476,8 @@ function Index() {
     } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
       handleErrorToast(`please provide a national Identification Number`);
       return false;
-    }else if (keyAddData.length < 1) {
-      handleErrorToast('atLEast 1 KEy Address  Is Mandatory')
+    } else if (keyAddData.length < 1) {
+      handleErrorToast('atLEast 1 KEy Address  Is Mandatory');
       return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
@@ -492,10 +495,26 @@ function Index() {
       return true;
     }
   };
+  const saveButtonChangeHelper = (array) => {
+    return array.forEach((item) => (item.action = false));
+  };
 
-  // const SaveIconHandler = () => {
-  //   person.forEach((item) item.action )
-  // }
+  const saveIconHandler = () => {
+    let tempPerson = [...person];
+    let tempShare = [...detail];
+    let tempDirector = [...listDirector];
+    let TempCommodity = [...listCommodity];
+
+    saveButtonChangeHelper(tempPerson);
+    saveButtonChangeHelper(tempShare);
+    saveButtonChangeHelper(tempDirector);
+    saveButtonChangeHelper(TempCommodity);
+
+    setPerson(tempDirector);
+    setPerson(tempPerson);
+    setDetail(tempShare);
+    setPerson(TempCommodity);
+  };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
@@ -528,7 +547,7 @@ function Index() {
       fd.append('incumbencyCertificateDocument', JSON.stringify(incumbencyDoc));
       fd.append('thirdPartyCertificateDocument', JSON.stringify(thirdParty));
       fd.append('extraDocument', JSON.stringify(docs));
-
+      saveIconHandler();
       if (id) {
         dispatch(UpdateSupplier(fd));
       } else {
@@ -775,9 +794,8 @@ function Index() {
   };
 
   const deleteDocumentHandler = (document, index) => {
-    let tempArray = docs;
-    tempArray.splice(index, 1);
-    setdocs(tempArray);
+    setFilteredDocs([...filteredDocs.slice(0, index), ...filteredDocs.slice(index + 1)]);
+    setdocs([...docs.slice(0, index), ...docs.slice(index + 1)]);
     let payload = {
       supplierId: supplierData._id,
       path: document?.path,
@@ -1422,7 +1440,6 @@ function Index() {
                               <strong className="text-danger">*</strong>
                             </label>
 
-
                             <img
                               onClick={() =>
                                 setKeyAddressData((prev) => {
@@ -1434,15 +1451,14 @@ function Index() {
                               alt="Search"
                             />
 
-                           {keyAddressData?.emailId?.length > 1 && 
-                           <img
-                              onClick={() => handleDeleteNewAddress(index)}
-                              src="/static/delete 2.svg"
-                              className={`${styles.delete} img-fluid`}
-                              alt="Delete"
-                              
-                            />}
-                           
+                            {keyAddressData?.emailId?.length > 1 && (
+                              <img
+                                onClick={() => handleDeleteNewAddress(index)}
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete} img-fluid`}
+                                alt="Delete"
+                              />
+                            )}
                           </div>
                         </div>
                       ))}
