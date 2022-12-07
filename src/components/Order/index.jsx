@@ -78,8 +78,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,
                 <option value="Crores">Crores</option>
 
                 {/* <option selected>Crores</option> */}
-                <option value="Million">Million</option>
-                <option value="Lakh">Lakh</option>
+                {/* <option value="Million">Million</option> */}
+                {/* <option value="Lakh">Lakh</option> */}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
