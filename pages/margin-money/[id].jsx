@@ -226,7 +226,17 @@ function Index() {
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
-
+    if(isConsigneeSameAsBuyer){
+      if(name=="buyerName"){
+        newInput.consigneeName=value
+      }
+       if(name=="buyerAddress"){
+        newInput.consigneeAddress=value
+      }
+       if(name=="buyerGSTIN"){
+        newInput.consigneeGSTIN=value
+      }
+    }
     setInvoiceData({ ...newInput });
   };
 
@@ -1044,6 +1054,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
+  console.log(isConsigneeSameAsBuyer,"isConsigneeSameAsBuyer")
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -1733,7 +1744,11 @@ function Index() {
                                 defaultValue={invoiceData.buyerName}
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>{
+
+                                
+                                    saveInvoiceData(e.target.name, e.target.value)
+                                } }
                               />
                               <label className={`${styles.label_heading} label_heading`} id="textInput">
                                 Buyer Name
@@ -1746,7 +1761,11 @@ function Index() {
                                   id="Code"
                                   name="buyerGSTIN"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                  onChange={(e) => {
+                                   
+                                  
+                                    saveInvoiceData(e.target.name, e.target.value)
+                                  }}
                                   value={invoiceData?.buyerGSTIN}
                                 >
                                   <option selected>Select an Option</option>
@@ -1774,7 +1793,10 @@ function Index() {
                                 value={invoiceData?.buyerAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) => {
+                              
+                                    saveInvoiceData(e.target.name, e.target.value)
+                                }}
                               />
                               <label className={`${styles.label_heading} label_heading`} id="textInput">
                                 Buyer Address

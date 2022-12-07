@@ -1414,7 +1414,7 @@ const handleData = (name, value,type) => {
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfOrigin?.name.slice(
+                                      {documents?.certificateOfOrigin?.name?.slice(
                                         documents?.certificateOfOrigin?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
@@ -1530,8 +1530,8 @@ const handleData = (name, value,type) => {
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfQuality?.name.slice(
-                                        documents?.certificateOfQuality?.name.lastIndexOf('_') + 1,
+                                      {documents?.certificateOfQuality?.name?.slice(
+                                        documents?.certificateOfQuality?.name?.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -1648,8 +1648,8 @@ const handleData = (name, value,type) => {
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfWeight?.name.slice(
-                                        documents?.certificateOfWeight?.name.lastIndexOf('_') + 1,
+                                      {documents?.certificateOfWeight?.name?.slice(
+                                        documents?.certificateOfWeight?.name?.lastIndexOf('_') + 1,
                                       )}
                                     </span>
                                     <img
@@ -1837,7 +1837,7 @@ const handleData = (name, value,type) => {
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfOrigin?.name.slice(
+                                      {dischargeDocuments?.dischargeCertificateOfOrigin?.name?.slice(
                                         dischargeDocuments?.dischargeCertificateOfOrigin?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
@@ -1955,7 +1955,7 @@ const handleData = (name, value,type) => {
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfQuality?.name.slice(
+                                      {dischargeDocuments?.dischargeCertificateOfQuality?.name?.slice(
                                         dischargeDocuments?.dischargeCertificateOfQuality?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>
@@ -2073,7 +2073,7 @@ const handleData = (name, value,type) => {
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfWeight?.name.slice(
+                                      {dischargeDocuments?.dischargeCertificateOfWeight?.name?.slice(
                                         dischargeDocuments?.dischargeCertificateOfWeight?.name.lastIndexOf('_') + 1,
                                       )}
                                     </span>

@@ -1251,7 +1251,7 @@ const index = ({
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>
                                 <td>{person.department}</td>
-                                <td>{person.contact.number}</td>
+                                <td>{person.contact.callingCode}{person.contact.number}</td>
                                 <td>{person.email}</td>
                                 <td>
                                   <div className="d-flex">
