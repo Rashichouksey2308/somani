@@ -298,19 +298,43 @@ function Index() {
 
   const handleSubmit = () => {
     if (!validation()) return;
-
+   console.log(clauseArr,"clauseArr")
     let sendLcData = { ...clauseData };
-
+     console.log(sendLcData,"sendLcData")
+     let isOK=[]
+     clauseArr.forEach((val,index)=>{
+      if(val.dropDownValue == "(31D) Date Of Expiry" ){
+         isOK.push("date")
+      }
+       if(val.dropDownValue == "(31D) Place Of Expiry" ){
+          isOK.push("place")
+      }
+     })
+     if(!isOK.includes("date")){
+      let toastMessage = 'PLEASE ADD DATE OF EXPIRY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+      return false;
+     }
+      if(!isOK.includes("place")){
+      let toastMessage = 'PLEASE ADD PLACE OF EXPIRY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+      return false;
+     }
+     
     sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
     sendLcData.dateOfIssue = lcData.dateOfIssue;
-    // setLcData(sendLcData);
+    setLcData(sendLcData);
 
     let fd = new FormData();
     fd.append('lcApplication', JSON.stringify(sendLcData));
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
     fd.append('document1', lcDoc.lcDraftDoc);
 
-    dispatch(UpdateLcAmendment(fd));
+    // dispatch(UpdateLcAmendment(fd));
   };
 
   const [existingValue, setExistingValue] = useState('');

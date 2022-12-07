@@ -1105,8 +1105,8 @@ function Index() {
         },
         debtProfile: tempDebtData,
         groupExposureDetail: [...tempArray],
-        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
-        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) ,
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) ,
       };
 
       dispatch(UpdateCredit({ ...obj }));
