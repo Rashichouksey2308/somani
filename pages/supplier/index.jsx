@@ -1596,7 +1596,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddPersonContact();
                   }}
@@ -1747,7 +1747,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddShare();
                   }}
@@ -1882,7 +1882,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddDirector();
                   }}
@@ -2046,7 +2046,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddCommodity();
                   }}
