@@ -1384,6 +1384,7 @@ console.log(apiData,"apiData")
                               <strong className="text-danger">*</strong>
                             </label>
 
+
                             <img
                               onClick={() =>
                                 setKeyAddressData((prev) => {
@@ -1395,12 +1396,15 @@ console.log(apiData,"apiData")
                               alt="Search"
                             />
 
-                           {keyAddressData?.emailId?.length > 1 && <img
+                           {keyAddressData?.emailId?.length > 1 && 
+                           <img
                               onClick={() => handleDeleteNewAddress(index)}
                               src="/static/delete 2.svg"
-                              className={`${styles.plus_add} img-fluid`}
+                              className={`${styles.delete} img-fluid`}
                               alt="Delete"
+                              
                             />}
+                           
                           </div>
                         </div>
                       ))}
