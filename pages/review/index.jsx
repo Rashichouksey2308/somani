@@ -397,8 +397,6 @@ function Index() {
 
   const [product, setProduct] = useState();
 
-  console.log(product, 'PRODUCT')
-
   const saveProductData = (name, value) => {
     const newInput = { ...product };
     newInput[name] = value;
