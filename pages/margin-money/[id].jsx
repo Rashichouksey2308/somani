@@ -248,7 +248,7 @@ function Index() {
 
       setInvoiceData({ ...newInput });
     }
-    let filter = getInternalCompaniesMasterData.filter((val, index) => {
+    let filter = getInternalCompaniesMasterData?.filter((val, index) => {
       if (val.Company_Name == value) {
         return val;
       }
