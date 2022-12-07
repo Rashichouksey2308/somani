@@ -270,13 +270,13 @@ function Index() {
                       USD{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValue,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       )}
                     </td>
                     <td className="pt-4">
-                      USD {returnReadableNumber(marginData?.calculation?.orderValue, 'en-EN', 2, 2) ?? 0}
+                      USD {returnReadableNumber(marginData?.calculation?.orderValue, 'en-In', 2, 2) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -289,12 +289,12 @@ function Index() {
                       ₹{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-EN', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-In', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -306,12 +306,12 @@ function Index() {
                       ₹{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-EN', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-In', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -323,12 +323,12 @@ function Index() {
                       ₹{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-EN', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-In', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
