@@ -27,7 +27,7 @@ console.log(searchedSupplier,'searchedSupplier')
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= 1) {
       dispatch(SearchSupplier(query));
     }
   };

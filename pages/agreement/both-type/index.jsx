@@ -189,7 +189,7 @@ function Index() {
                     Port of Discharge
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                  {`${_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -197,7 +197,7 @@ function Index() {
                     Place of Storage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
+                    {`${insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
