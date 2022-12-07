@@ -21,11 +21,13 @@ import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
-import { getPincodes } from 'redux/masters/action';
+import { getPincodes, getCountries } from 'redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const specialCharacter = [
@@ -65,6 +67,10 @@ function Index() {
   };
 
   let id = sessionStorage.getItem('supplier');
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
 
   useEffect(() => {
     if (id) dispatch(GetSupplier(`?supplierId=${id}`));
@@ -160,12 +166,11 @@ function Index() {
 
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
 
-  const handleFocusChange = (index, value) => {
-    let tempArray = [...isPercentageInFocus];
-    tempArray[index].value = value;
-    setIsPercentageInFocus(tempArray);
-  };
-
+  const changeFiledFocus = (value, index) => {
+    let tempArray = [...isPercentageInFocus]
+    tempArray[index] = value
+    setIsPercentageInFocus(tempArray)
+  }
   const [detail, setDetail] = useState([
     {
       shareHoldersName: '',
@@ -175,13 +180,14 @@ function Index() {
       action: true,
     },
   ]);
+
   useEffect(() => {
-    let tempArray = [{ value: false }];
-    detail.forEach((item) => {
-      tempArray.push({ value: false });
+    let tempArray = [false];
+    supplierData?.shareHoldersDetails?.forEach((item) => {
+      tempArray.push( false );
     });
     setIsPercentageInFocus(tempArray);
-  }, [detail]);
+  }, [supplierResponse]);
 
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
@@ -201,6 +207,8 @@ function Index() {
 
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
+    setIsPercentageInFocus([...isPercentageInFocus.slice(0, index), ...isPercentageInFocus.slice(index + 1)]);
+
   };
   const handleDeletePersonContact = (index) => {
     setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
@@ -261,6 +269,7 @@ function Index() {
     },
   ]);
   const onAddShare = () => {
+    setIsPercentageInFocus([...isPercentageInFocus,false])
     setDetail([
       ...detail,
       {
@@ -510,10 +519,10 @@ function Index() {
     saveButtonChangeHelper(tempDirector);
     saveButtonChangeHelper(TempCommodity);
 
-    setPerson(tempDirector);
+    setListDirector(tempDirector);
     setPerson(tempPerson);
     setDetail(tempShare);
-    setPerson(TempCommodity);
+    setListCommodity(TempCommodity);
   };
 
   const handleSave = () => {
@@ -585,8 +594,9 @@ function Index() {
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             )
         ) {
-          handleErrorToast(`Please add valid email id for Email Field ${index}`);
+          handleErrorToast(`Please add valid email id for Email Field ${index + 1}`);
           isOk = false;
+          return;
         }
       });
       return isOk;
@@ -645,8 +655,6 @@ function Index() {
     pinCode: null,
   });
 
-  console.log(editData, 'editData');
-
   const [editingAddress, setEditingAddress] = useState(false);
 
   const [keyAddressData, setKeyAddressData] = useState({
@@ -666,7 +674,6 @@ function Index() {
     setEditingAddress(true);
     setIndex(index);
     let tempArr = keyAddData[index];
-    console.log(tempArr, 'emailId1');
     setEditData({
       emailId: tempArr?.emailId?.length > 0 ? tempArr?.emailId : [''],
       country: tempArr?.country,
@@ -1081,7 +1088,7 @@ function Index() {
                               value={editData?.pinCode}
                               onWheel={(e) => e.target.blur()}
                               onChange={(e) => {
-                                gettingPins(e.target.value);
+                                // gettingPins(e.target.value);
                                 handleAddressUpdate(e.target.value, e.target.name);
                               }}
                             />
@@ -1122,24 +1129,41 @@ function Index() {
 
                         <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                           <div className="d-flex">
-                            <input
+                            <select
+                              type="text"
+                              name="country"
+                              className={`${styles.input_field} input form-control`}
+                              // className={`${styles.code_phone} input border-right-0`}
+                              value={editData?.country}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              {' '}
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {getCountriesMasterData?.map((options, index) => {
+                                return (
+                                  <option key={index} value={`${options.Country}`}>
+                                    {options.Country}
+                                  </option>
+                                );
+                              })}{' '}
+                            </select>
+                            {/* <input
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
                               name="country"
                               onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                               value={editData?.country}
-                              onChange={(e) => handleAddressUpdate(e.target.value, e.target.name)}
-                            />
+                              onChange={(e) => {handleAddressUpdate(e.target.value.replace(/[^a-zA-Z]+/g, ''), e.target.name)}}
+                            /> */}
                             <label className={`${styles.label_heading} label_heading`}>
                               Country
                               <strong className="text-danger">*</strong>
                             </label>
-                            <img
-                              className={`${styles.search_image} img-fluid`}
-                              src="/static/search-grey.svg"
-                              alt="Search"
-                            />
                           </div>
                         </div>
 
@@ -1293,7 +1317,7 @@ function Index() {
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
-                              gettingPins(e.target.value);
+                              // gettingPins(e.target.value);
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
@@ -1334,24 +1358,28 @@ function Index() {
 
                       <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                         <div className="d-flex">
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
+                          <select
                             type="text"
                             name="country"
-                            onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                            className={`${styles.input_field} input form-control`}
                             value={keyAddressData?.country}
                             onChange={(e) => handleChange(e.target.value, e.target.name)}
-                          />
+                          >
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {getCountriesMasterData?.map((options, index) => {
+                              return (
+                                <option key={index} value={`${options.Country}`}>
+                                  {options.Country}
+                                </option>
+                              );
+                            })}{' '}
+                          </select>
                           <label className={`${styles.label_heading} label_heading`}>
                             Country
                             <strong className="text-danger">*</strong>
                           </label>
-                          <img
-                            className={`${styles.search_image} img-fluid`}
-                            src="/static/search-grey.svg"
-                            alt="Search"
-                          />
                         </div>
                       </div>
 
@@ -1685,7 +1713,6 @@ function Index() {
                           <th></th>
                         </tr>
                       </thead>
-
                       <tbody>
                         {detail?.length > 0 &&
                           detail?.map((val, index) => {
@@ -1732,15 +1759,13 @@ function Index() {
                                       className="input"
                                       name="ownershipPercentage"
                                       onFocus={(e) => {
-                                        handleFocusChange(index, true);
-                                        e.target.type = 'number';
+                                        changeFiledFocus(true, index), (e.target.type = 'number');
                                       }}
                                       onBlur={(e) => {
-                                        handleFocusChange(index, false);
-                                        e.target.type = 'text';
+                                        changeFiledFocus(false, index), (e.target.type = 'text');
                                       }}
                                       value={
-                                        isPercentageInFocus[index].value
+                                        isPercentageInFocus[index]
                                           ? val?.ownershipPercentage
                                           : Number(val?.ownershipPercentage)?.toLocaleString('en-In', {
                                               maximumFractionDigits: 2,
@@ -1861,7 +1886,8 @@ function Index() {
                                     onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     readOnly={!val.action}
                                     onChange={(e) => {
-                                      onChangeHandler4(e.target.name, e.target.value, index);
+                                      if (!e.target.value.match(/[^a-zA-Z]+/g))
+                                        onChangeHandler4(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 )}
@@ -1878,7 +1904,8 @@ function Index() {
                                     onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     readOnly={!val.action}
                                     onChange={(e) => {
-                                      onChangeHandler4(e.target.name, e.target.value, index);
+                                      if (!e.target.value.match(/[^a-zA-Z]+/g))
+                                        onChangeHandler4(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 )}
