@@ -744,8 +744,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedCreditLimit
-                            ? convertValue(suggestedCredit?.suggestedCreditLimit)
-                            : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedCreditLimit)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedCreditLimit) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -788,8 +788,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedOrderValue
-                            ? convertValue(suggestedCredit?.suggestedOrderValue)
-                            : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedOrderValue)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedOrderValue) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
