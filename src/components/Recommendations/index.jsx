@@ -205,7 +205,7 @@ const Index = ({
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                   <div className='d-flex'>
                   <div className={`${styles.sr_number} `}  style={{marginTop:'7px'}}
-                  >{index+1}</div>
+                  >{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
@@ -270,7 +270,7 @@ const Index = ({
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                    <div className='d-flex'>
                   <div className={`${styles.sr_number}`}
-                  style={{marginTop:'7px'}}>{index+1}</div>
+                  style={{marginTop:'7px'}}>{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
@@ -604,7 +604,7 @@ const Index = ({
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                      <div className='d-flex'>
-                    <div className={styles.sr_number}>{index+1}</div>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
@@ -664,7 +664,7 @@ const Index = ({
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                      <div className='d-flex'>
-                    <div className={styles.sr_number}>{index+1}</div>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                   
                       className={`${styles.paragraph} input pl-0`}
@@ -871,7 +871,7 @@ const Index = ({
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                       <div className='d-flex'>
-                     <div className={styles.sr_number}>{index+1}</div>
+                     <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={sanction}

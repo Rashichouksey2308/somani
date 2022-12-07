@@ -231,7 +231,7 @@ console.log(searchedSupplier,'searchedSupplier')
           </div> */}
         </div>
       </div>
-      <DownloadMasterBar btnName="Download Reports" />
+      <DownloadMasterBar btnName="Download Report"/>
     </>
   );
 };
