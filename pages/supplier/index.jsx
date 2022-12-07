@@ -54,6 +54,10 @@ function Index() {
     '<',
     '>',
     `"`,
+    '(',
+    ')',
+    '=',
+    '*',
   ];
 
   const gettingPins = (value) => {
@@ -78,7 +82,7 @@ function Index() {
         countryOfIncorporation: '',
         nationalIdentificationNumber: '',
         website: '',
-        status: 'Active',
+        status: '',
       },
     );
     setKeyAddData(supplierData?.keyAddress ?? []);
@@ -89,6 +93,7 @@ function Index() {
     setListCommodity(supplierData?.commoditiesTraded ?? []);
     setInfoArray(supplierData?.additionalInformation ?? []);
     setdocs(supplierData?.extraDocument ?? []);
+    setFilteredDocs(supplierData?.extraDocument ?? []);
     setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
     SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
@@ -130,7 +135,7 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status: 'Active',
+    status: '',
   });
 
   const [address, setAddress] = useState({
@@ -154,13 +159,6 @@ function Index() {
   ]);
 
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
-  useEffect(() => {
-    let tempArray = [{ value: false }];
-    person.forEach((item) => {
-      tempArray.push({ value: false });
-    });
-    setIsPercentageInFocus(tempArray);
-  }, [person]);
 
   const handleFocusChange = (index, value) => {
     let tempArray = [...isPercentageInFocus];
@@ -177,6 +175,13 @@ function Index() {
       action: true,
     },
   ]);
+  useEffect(() => {
+    let tempArray = [{ value: false }];
+    detail.forEach((item) => {
+      tempArray.push({ value: false });
+    });
+    setIsPercentageInFocus(tempArray);
+  }, [detail]);
 
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
@@ -192,6 +197,8 @@ function Index() {
   });
 
   const [docs, setdocs] = useState([]);
+  const [filteredDocs, setFilteredDocs] = useState([]);
+
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
@@ -379,44 +386,67 @@ function Index() {
   };
 
   const contactPersonDetailsValidation = () => {
+    if (person.length < 1) {
+      handleErrorToast('atLEast 1 COntact PErson detail Is Mandatory');
+      return false;
+    }
+
     let isOk = true;
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
         isOk = false;
+        break;
       }
       if (person[i].contact === '' || person[i].contact === null || person[i]?.contact?.length !== 10) {
         handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
         isOk = false;
+        break;
       }
       if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
         handleErrorToast(`please provide a valid email Id  in Contact Person Details ${i + 1} `);
         isOk = false;
+        break;
       }
     }
     return isOk;
   };
 
   const directorsAndAuthorisedSignatoryValidation = () => {
+    if (listDirector.length < 1) {
+      handleErrorToast('atLEast 1  directors And Authorised Signatory Is Mandatory');
+      return false;
+    }
     let isOk = true;
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (listDirector[i].name === '' || listDirector[i].name === null) {
         handleErrorToast(`Name cannot be empty in Directors And Authorized Signatory ${i + 1}`);
         isOk = false;
+        break;
       }
       if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
         handleErrorToast(`nationality cannot be empty in Directors And Authorized Signatory ${i + 1}`);
         isOk = false;
+        break;
       }
     }
     return isOk;
   };
   const commoditiesTradedValidation = () => {
+    if (listCommodity?.length < 1) {
+      handleErrorToast('atLEast 1 commodities Traded Is Mandatory');
+      return false;
+    }
     let isOk = true;
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
-        handleErrorToast(`hsn code cannot be empty in Commodities Traded ${i + 1}`);
+      if (
+        listCommodity[i].hsnCode.trim() === '' ||
+        listCommodity[i].hsnCode === null ||
+        listCommodity[i].hsnCode.length !== 8
+      ) {
+        handleErrorToast(`please provide a valid hsnCode Commodities Traded ${i + 1}`);
         isOk = false;
+        break;
       }
       if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
         handleErrorToast(`commodity cannot be empty in Commodities Traded ${i + 1}`);
@@ -428,7 +458,10 @@ function Index() {
   };
 
   const supplierValidtaion = () => {
-    if (!formData.supplierName || formData.supplierName === '') {
+    if (!formData.status || formData.status === '') {
+      handleErrorToast(`please select an status`);
+      return false;
+    } else if (!formData.supplierName || formData.supplierName === '') {
       handleErrorToast(`supplier Name cannot be empty`);
       return false;
     } else if (!formData.constitution || formData.constitution === '') {
@@ -442,6 +475,9 @@ function Index() {
       return false;
     } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
       handleErrorToast(`please provide a national Identification Number`);
+      return false;
+    } else if (keyAddData.length < 1) {
+      handleErrorToast('atLEast 1 KEy Address  Is Mandatory');
       return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
@@ -459,6 +495,26 @@ function Index() {
       return true;
     }
   };
+  const saveButtonChangeHelper = (array) => {
+    return array.forEach((item) => (item.action = false));
+  };
+
+  const saveIconHandler = () => {
+    let tempPerson = [...person];
+    let tempShare = [...detail];
+    let tempDirector = [...listDirector];
+    let TempCommodity = [...listCommodity];
+
+    saveButtonChangeHelper(tempPerson);
+    saveButtonChangeHelper(tempShare);
+    saveButtonChangeHelper(tempDirector);
+    saveButtonChangeHelper(TempCommodity);
+
+    setPerson(tempDirector);
+    setPerson(tempPerson);
+    setDetail(tempShare);
+    setPerson(TempCommodity);
+  };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
@@ -475,7 +531,7 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-console.log(apiData,"apiData")
+      console.log(apiData, 'apiData');
       let fd = new FormData();
       if (id) {
         fd.append('supplierId', supplierData?._id);
@@ -491,6 +547,7 @@ console.log(apiData,"apiData")
       fd.append('incumbencyCertificateDocument', JSON.stringify(incumbencyDoc));
       fd.append('thirdPartyCertificateDocument', JSON.stringify(thirdParty));
       fd.append('extraDocument', JSON.stringify(docs));
+      saveIconHandler();
       if (id) {
         dispatch(UpdateSupplier(fd));
       } else {
@@ -566,15 +623,7 @@ console.log(apiData,"apiData")
       data.contact.phoneNumber === undefined ||
       data.contact.phoneNumber?.length !== 10
     ) {
-      handleErrorToast('Please add a valid phone phoneNumber');
-      return false;
-    } else if (
-      data.contact.alternatePhoneNumber === null ||
-      data.contact.alternatePhoneNumber === '' ||
-      data.contact.alternatePhoneNumber === undefined ||
-      data.contact.alternatePhoneNumber?.length !== 10
-    ) {
-      handleErrorToast('Please add a valid alternate  phoneNumber');
+      handleErrorToast('Please add a valid  phone Number');
       return false;
     } else {
       return true;
@@ -596,6 +645,8 @@ console.log(apiData,"apiData")
     pinCode: null,
   });
 
+  console.log(editData, 'editData');
+
   const [editingAddress, setEditingAddress] = useState(false);
 
   const [keyAddressData, setKeyAddressData] = useState({
@@ -615,8 +666,9 @@ console.log(apiData,"apiData")
     setEditingAddress(true);
     setIndex(index);
     let tempArr = keyAddData[index];
+    console.log(tempArr, 'emailId1');
     setEditData({
-      emailId: tempArr?.emailId?.length > 1 ? tempArr?.emailId : [''],
+      emailId: tempArr?.emailId?.length > 0 ? tempArr?.emailId : [''],
       country: tempArr?.country,
       address: tempArr?.address,
       contact: {
@@ -712,7 +764,7 @@ console.log(apiData,"apiData")
   const uploadDocumentHandler = async (e) => {
     e.preventDefault();
     if (!newDoc?.document) {
-      handleErrorToast('please upload a document first');
+      handleErrorToast('please Select a document first');
     } else if (!newDoc?.name) {
       handleErrorToast('please provide a document first');
     } else {
@@ -722,6 +774,7 @@ console.log(apiData,"apiData")
       data.name = newDoc.name;
       if (data?.originalName) handleSuccessToast('document uploaded successfully');
       setdocs([...docs, data]);
+      setFilteredDocs([...docs, data]);
       setNewDoc({
         document: null,
         name: '',
@@ -741,9 +794,8 @@ console.log(apiData,"apiData")
   };
 
   const deleteDocumentHandler = (document, index) => {
-    let tempArray = docs;
-    tempArray.splice(index, 1);
-    setdocs(tempArray);
+    setFilteredDocs([...filteredDocs.slice(0, index), ...filteredDocs.slice(index + 1)]);
+    setdocs([...docs.slice(0, index), ...docs.slice(index + 1)]);
     let payload = {
       supplierId: supplierData._id,
       path: document?.path,
@@ -754,9 +806,9 @@ console.log(apiData,"apiData")
   const filterDocBySearch = (searchQuery) => {
     if (searchQuery.length > 0) {
       let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
-      setdocs(filteredArray);
+      setFilteredDocs(filteredArray);
     } else {
-      setdocs(supplierData?.extraDocument ?? []);
+      setFilteredDocs([...docs]);
     }
   };
 
@@ -809,7 +861,9 @@ console.log(apiData,"apiData")
                   >
                     <>
                       {' '}
-                      <option>Select an option</option>
+                      <option disabled value="">
+                        Select an option
+                      </option>
                       <option value="Active">Active</option>
                       <option value="InActive">Not active</option>
                     </>
@@ -1184,12 +1238,14 @@ console.log(apiData,"apiData")
                                 src="/static/add-btn.svg"
                                 alt="Search"
                               />
-                            {editData?.emailId?.length > 1 &&  <img
-                                onClick={() => handleDeleteUpdateAddress(index)}
-                                src="/static/delete 2.svg"
-                                className={`${styles.plus_add} img-fluid`}
-                                alt="Delete"
-                              />}
+                              {editData?.emailId?.length > 1 && (
+                                <img
+                                  onClick={() => handleDeleteUpdateAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  className={`${styles.plus_add} img-fluid`}
+                                  alt="Delete"
+                                />
+                              )}
                             </div>
                           </div>
                         ))}
@@ -1384,7 +1440,6 @@ console.log(apiData,"apiData")
                               <strong className="text-danger">*</strong>
                             </label>
 
-
                             <img
                               onClick={() =>
                                 setKeyAddressData((prev) => {
@@ -1396,15 +1451,14 @@ console.log(apiData,"apiData")
                               alt="Search"
                             />
 
-                           {keyAddressData?.emailId?.length > 1 && 
-                           <img
-                              onClick={() => handleDeleteNewAddress(index)}
-                              src="/static/delete 2.svg"
-                              className={`${styles.delete} img-fluid`}
-                              alt="Delete"
-                              
-                            />}
-                           
+                            {keyAddressData?.emailId?.length > 1 && (
+                              <img
+                                onClick={() => handleDeleteNewAddress(index)}
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete} img-fluid`}
+                                alt="Delete"
+                              />
+                            )}
                           </div>
                         </div>
                       ))}
@@ -1596,7 +1650,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddPersonContact();
                   }}
@@ -1747,7 +1801,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddShare();
                   }}
@@ -1882,7 +1936,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddDirector();
                   }}
@@ -1977,6 +2031,7 @@ console.log(apiData,"apiData")
                                   <span>{val?.hsnCode}</span>
                                 ) : (
                                   <input
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     className="input font-weight-bold"
                                     name="hsnCode"
                                     value={val?.hsnCode}
@@ -1993,6 +2048,7 @@ console.log(apiData,"apiData")
                                   <span>{val?.commodity}</span>
                                 ) : (
                                   <input
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     className="input"
                                     name="commodity"
                                     value={val?.commodity}
@@ -2046,7 +2102,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddCommodity();
                   }}
@@ -2299,6 +2355,7 @@ console.log(apiData,"apiData")
                           id="otherDocName"
                           className={`${styles.value} input form-control`}
                           type="text"
+                          value={newDoc?.name}
                         />
                         <Form.Label className={`${styles.label} label_heading`}>
                           Please Specify Document Name
@@ -2369,8 +2426,8 @@ console.log(apiData,"apiData")
                         </tr>
                       </thead>
                       <tbody>
-                        {docs &&
-                          docs?.map((document, index) => {
+                        {filteredDocs &&
+                          filteredDocs?.map((document, index) => {
                             if (document?.deleted) {
                               return null;
                             } else {
