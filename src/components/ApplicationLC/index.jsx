@@ -27,7 +27,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
- const [fileType,setFileType]=useState(null)
+ const [fileType,setFileType]=useState('pdf')
 useEffect(() => {
     dispatch(setPageName('Lc'));
 
