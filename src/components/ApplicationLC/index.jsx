@@ -126,7 +126,12 @@ useEffect(() => {
           <div className={`${styles.term_container} container-fluid download-pdf-bg`}>
             <Row>
               <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-                <h3 className="download-pdf-title">APPLICATION FOR LETTER OF CREDIT</h3>
+                <h3 className="download-pdf-title">
+                  {lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
+                  "APPLICATION FOR LETTER OF DRAFT"
+                  }
+                  
+                </h3>
               </Col>
             </Row>
 
