@@ -3846,7 +3846,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) == 4 &&
+                              ) == 4 ||
                               checkNan(
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
@@ -3857,7 +3857,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) == 7 &&
+                              ) == 7 ||
                               checkNan(
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
@@ -3868,7 +3868,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) == 9 &&
+                              ) == 9 ||
                               checkNan(
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
