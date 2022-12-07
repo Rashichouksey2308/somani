@@ -153,7 +153,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       });
     }
-    console.log(filteredVessel, 'filteredVessel');
+  
     let newArray = [...bolList];
     newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '');
     newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '');
@@ -485,7 +485,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       });
     }
     let bol = { billOfLanding: tempArray };
-    console.log(bol, 'bolbol');
+   
 
     bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(bolList[0].blQuantity);
     let fd = new FormData();
@@ -631,7 +631,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             </div>
           </div>
           {bolList?.map((bol, index) => {
-            console.log(!shipmentTypeBulk ? bolList[0] : false, 'shipmentTypeBulk');
+           
             return (
               <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div
@@ -854,7 +854,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {console.log(bol, 'bol')}
+                           
                             {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input
