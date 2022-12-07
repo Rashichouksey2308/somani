@@ -784,17 +784,17 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: suggestedValue ? suggestedValue / 10000000 : suggestedValue,
+      suggestedCreditLimit: suggestedValue ? suggestedValue : suggestedValue,
       suggestedOrderValue: orderList?.suggestedOrderValue
-        ? orderList?.suggestedOrderValue / 10000000
+        ? orderList?.suggestedOrderValue
         : orderList?.suggestedOrderValue,
     });
 
     setApprovedCredit({
       approvedOrderValue: orderList?.approvedOrderValue
-        ? orderList?.approvedOrderValue / 10000000
+        ? orderList?.approvedOrderValue
         : orderList?.approvedOrderValue,
-      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit / 10000000 : approvedCreditLimit,
+      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit : approvedCreditLimit,
     });
   }, [orderList]);
 
@@ -1182,8 +1182,8 @@ function Index() {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
-          approvedOrderValue: approvedCredit.approvedOrderValue * 10000000,
-          approvedCreditValue: approvedCredit.approvedCreditValue * 10000000,
+          approvedOrderValue: approvedCredit.approvedOrderValue ,
+          approvedCreditValue: approvedCredit.approvedCreditValue ,
           order: orderList._id,
           status: 'Approved',
         };
@@ -8798,9 +8798,11 @@ function Index() {
                       country={getCountriesMasterData}
                       port={getPortsMasterData}
                       orderList={orderList}
+                      shipment={shipment}
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
+                      orderState={orderDetails}
                       saveShipmentData={saveShipmentData}
                       shipment={shipment}
                       port={getPortsMasterData}

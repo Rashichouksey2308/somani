@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 
-const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
+const index = ({ orderDetail,orderState ,saveShipmentData, shipment, port ,setLimit}) => {
 
   const saveDate = (value, name) => {
     const d = new Date(value);
@@ -20,6 +20,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
     laycan: '',
     eta: '',
   });
+
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'loadPort.fromDate') {
@@ -81,7 +82,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
                     defaultDate={orderDetail?.shipmentDetail?.loadPort?.fromDate ?? ''}
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
-                    maxDate={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
+                    maxDate={shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY") : ''}
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -98,8 +99,8 @@ const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
                     name="loadPort.toDate"
                     defaultDate={orderDetail?.shipmentDetail?.loadPort?.toDate ?? ''}
                     saveDate={saveDate}
-                    startFrom={dateStartFrom.laycan}
-                    maxDate={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
+                    startFrom={shipment?.loadPort?.fromDate ? moment(shipment?.loadPort?.fromDate).format("DD-MM-YYYY") : dateStartFrom.laycan}
+                    maxDate={shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY") : ''}
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -115,7 +116,10 @@ const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
                     name="lastDateOfShipment"
                     defaultDate={orderDetail?.shipmentDetail?.lastDateOfShipment ?? ''}
                     saveDate={saveDate}
+                   startFrom={shipment?.loadPort?.toDate ? moment(shipment?.loadPort?.toDate).format("DD-MM-YYYY") : shipment?.loadPort?.fromDate ? moment(shipment?.loadPort?.fromDate).format("DD-MM-YYYY"): moment(orderState?.ExpectedDateOfShipment).format("DD-MM-YYYY")}
                     labelName="Last date of shipment"
+                    maxDate={shipment?.ETAofDischarge?.toDate ? moment(shipment?.ETAofDischarge?.toDate).format("DD-MM-YYYY") : shipment?.ETAofDischarge?.fromDate ? moment(shipment?.ETAofDischarge?.fromDate).format("DD-MM-YYYY"): ''}
+
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -168,7 +172,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port ,setLimit}) => {
                     defaultDate={orderDetail?.shipmentDetail?.ETAofDischarge?.toDate ?? ''}
                     saveDate={saveDate}
                     // startFrom={dateStartFrom.eta}
-                    startFrom={moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY")}
+                    startFrom={shipment?.ETAofDischarge?.fromDate ? moment(shipment?.ETAofDischarge?.fromDate).format("DD-MM-YYYY") :shipment?.lastDateOfShipment? moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY") :moment(new Date()).format("DD-MM-YYYY")}
                     labelName="ETA at Discharge Port to"
                   />
                   <img
