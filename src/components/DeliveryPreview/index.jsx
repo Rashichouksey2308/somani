@@ -395,27 +395,19 @@ function Index() {
                         <>
                         <div className={`d-flex align-items-center form-group`}>
                           <div className={`${styles.each_input} flex-grow-1`}>
-                            <div className="d-flex">
-                              <select
+                              <input
                                 id="email"
                                 name="email"
-                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                className={`${styles.formControl} input form-control`}
                                 selected
-                              >
-                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                              </select>
+                              />
                               <label
                                 className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
                                 htmlFor="email"
                               >
                                 Email
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
+                              
                           </div>
                           <img
                             onClick={()=>{
