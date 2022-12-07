@@ -168,7 +168,7 @@ const Index = ({
                     Crores
                   </option>
                   {/* <option value="Million">Million</option> */}
-                  <option value="Lakh">Lakh</option>
+                  {/* <option value="Lakh">Lakh</option> */}
                 </select>
                 <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
              </div>
