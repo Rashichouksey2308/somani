@@ -132,6 +132,7 @@
     border: 1px solid #d2d7e5;
     border-radius: 6px;
     padding: 25px 35px !important;
+    margin-top: 25px;
     @include respond(lg-desktop) {
       padding: 17px 20px !important;
     }
