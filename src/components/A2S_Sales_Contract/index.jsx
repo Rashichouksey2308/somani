@@ -126,7 +126,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
           advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
-          orderId:data?.order?.orderId.slice(-3)
+          orderId:data?.order?.orderId?.slice(-3) || ""
         });
       }
     }
@@ -135,7 +135,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
-
+ console.log(data?.addComm,"data?.addComm")
   return (
     <>
       <div className={`${styles.root}`}>
