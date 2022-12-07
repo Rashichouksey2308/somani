@@ -128,7 +128,7 @@ useEffect(() => {
               <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
                 <h3 className="download-pdf-title">
                   {lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
-                  "APPLICATION FOR LETTER OF DRAFT"
+                  "LC DRAFT"
                   }
                   
                 </h3>

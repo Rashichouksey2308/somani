@@ -165,7 +165,7 @@ function Index(props) {
       setChaDetails({...tempCha})
       setsteveDoreDetails({...tempsteved})
     }
-  },[getVendorsMasterData])
+  },[getVendorsMasterData,sameAsCHA])
   console.log(cmaDetails,"cmaDetails")
   const changeActiveValue = (val, index) => {
     setActive(val);

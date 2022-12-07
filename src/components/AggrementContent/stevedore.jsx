@@ -241,7 +241,7 @@ function Index(props) {
                 }
         setSeteveState(supplier);
       } else {
-       
+         console.log("herer")
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
@@ -287,6 +287,7 @@ function Index(props) {
         }
         setSeteveState(supplier);
             let tempArr = props.data?.authorisedSignatoryDetails;
+            console.log(props?.vendor?.options?.length,"props?.vendor?.options?.length")
        if(props?.vendor?.options?.length>0){
            let optionArray =  props?.vendor?.options
           tempArr.forEach((val, index) => {
@@ -298,14 +299,15 @@ function Index(props) {
               }
             }
           });
+          console.log(tempArr,optionArray,"optionArray")
         setOptions([...optionArray]);
          }
        
       
       }
     }
-  }, [props.data, props.sameAsCHA]);
-
+  }, [props.data, props.sameAsCHA,props?.vendor]);
+console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'Stevedore') {
       let data = {
@@ -598,6 +600,7 @@ function Index(props) {
     setEditAddress(newInput);
     setToView(false);
   };
+  console.log(seteveState.gstin,"seteveState.gstin")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -644,7 +647,7 @@ function Index(props) {
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
-                  <option value= {""}>Select an option</option>
+                  <option value= {""} selected>Select an option</option>
                   {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
@@ -944,7 +947,7 @@ function Index(props) {
             </div>
           </div>
         )}
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,)}
       </div>
     </>
   );

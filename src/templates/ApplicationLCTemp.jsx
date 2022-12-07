@@ -95,7 +95,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                   }}
                 >
                    {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
-                  "APPLICATION FOR LETTER OF DRAFT"
+                  "LC DRAFT"
                   }
                 
                 </h2>
