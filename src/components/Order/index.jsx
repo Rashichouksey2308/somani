@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
-const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList }) => {
+const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -407,7 +407,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                     defaultDate={orderDetail?.ExpectedDateOfShipment ?? ''}
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
-                    startFrom={moment(orderList?.shipmentDetail?.lastDateOfShipment).format("DD-MM-YYYY")}
+                    // startFrom={moment(shipment?.lastDateOfShipment ?? new Date()).format("DD-MM-YYYY")}
+                    maxDate={shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY") : ''}
                   />
                   <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                 </div>
