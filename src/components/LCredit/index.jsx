@@ -16,14 +16,12 @@ import { handleErrorToast } from '@/utils/helpers/global';
 import { getPorts } from 'redux/masters/action';
 
 function Index() {
-
   const dispatch = useDispatch();
 
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
 
   useEffect(() => {
     dispatch(getPorts());
-  
   }, []);
 
   const [editInput, setEditInput] = useState(false);
@@ -183,8 +181,8 @@ function Index() {
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
-      e.target.value == 'applicant' || 
-      e.target.value == 'portOfDischarge' || 
+      e.target.value == 'applicant' ||
+      e.target.value == 'portOfDischarge' ||
       e.target.value == 'portOfLoading'
     ) {
       setFieldType('drop');
@@ -212,10 +210,10 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...clauseData };
-    if(drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == "Usuance"){
-      newInput1['numberOfDays'] = value
-    }else{
-    newInput1[drop] = value;
+    if (drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
+      newInput1['numberOfDays'] = value;
+    } else {
+      newInput1[drop] = value;
     }
     setClauseData(newInput1);
   };
@@ -298,33 +296,33 @@ function Index() {
 
   const handleSubmit = () => {
     if (!validation()) return;
-   console.log(clauseArr,"clauseArr")
+    console.log(clauseArr, 'clauseArr');
     let sendLcData = { ...clauseData };
-     console.log(sendLcData,"sendLcData")
-     let isOK=[]
-     clauseArr.forEach((val,index)=>{
-      if(val.dropDownValue == "(31D) Date Of Expiry" ){
-         isOK.push("date")
+    console.log(sendLcData, 'sendLcData');
+    let isOK = [];
+    clauseArr.forEach((val, index) => {
+      if (val.dropDownValue == '(31D) Date Of Expiry') {
+        isOK.push('date');
       }
-       if(val.dropDownValue == "(31D) Place Of Expiry" ){
-          isOK.push("place")
+      if (val.dropDownValue == '(31D) Place Of Expiry') {
+        isOK.push('place');
       }
-     })
-     if(!isOK.includes("date")){
+    });
+    if (!isOK.includes('date')) {
       let toastMessage = 'PLEASE ADD DATE OF EXPIRY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
       return false;
-     }
-      if(!isOK.includes("place")){
+    }
+    if (!isOK.includes('place')) {
       let toastMessage = 'PLEASE ADD PLACE OF EXPIRY';
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
       return false;
-     }
-     
+    }
+
     sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
     sendLcData.dateOfIssue = lcData.dateOfIssue;
     setLcData(sendLcData);
@@ -343,14 +341,14 @@ function Index() {
     if (fieldType == 'date') {
       setExistingValue(moment(value).format('DD-MM-YYYY'));
     }
-     if(fieldType == 'number') {
-       setExistingValue(Number(value).toLocaleString('en-In', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }))
-    }
-
-   else if (fieldType == 'drop') {
+    if (fieldType == 'number') {
+      setExistingValue(
+        Number(value).toLocaleString('en-In', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }),
+      );
+    } else if (fieldType == 'drop') {
       if (value == 'Yes') {
         setExistingValue('Allowed');
         return;
@@ -373,11 +371,9 @@ function Index() {
     }
   };
   const getValue = (value, toCheck) => {
-
-    if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+    if (toCheck == '(31D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    }
-    else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
+    } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -390,14 +386,12 @@ function Index() {
       if (value == '') {
         return '';
       }
-
-    }else if(toCheck == '(32B) Currency Code & Amount'){
+    } else if (toCheck == '(32B) Currency Code & Amount') {
       return Number(value).toLocaleString('en-In', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      })
-    } 
-    else {
+      });
+    } else {
       return value;
     }
   };
@@ -543,12 +537,12 @@ function Index() {
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                             <option value="">Select an option</option>
+                            <option value="">Select an option</option>
                             <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
                             <option value="applicableRules">(40E) Application Rules</option>
                             <option value="dateOfExpiry">(31D) Date Of Expiry</option>
-                            <option value="placeOfExpiry">(31D) Place Of Expiry</option> 
-                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option> 
+                            <option value="placeOfExpiry">(31D) Place Of Expiry</option>
+                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option>
                             <option value="applicant">(50) Applicant</option>
                             <option value="beneficiary">(59) Beneficiary</option>
                             <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
@@ -574,7 +568,10 @@ function Index() {
                             <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
                             <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
                             <option value="charges"> (71B) Charges</option>
-                            <option value="instructionToBank">  (78) Instructions To Paying / Accepting / Negotiating Bank</option>
+                            <option value="instructionToBank">
+                              {' '}
+                              (78) Instructions To Paying / Accepting / Negotiating Bank
+                            </option>
                             <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
                           </select>
 
@@ -615,7 +612,7 @@ function Index() {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-                          onWheel={(event) => event.currentTarget.blur()}
+                              onWheel={(event) => event.currentTarget.blur()}
                               type="number"
                               value={clauseObj?.newValue}
                               disabled={isDisabled}
@@ -686,22 +683,27 @@ function Index() {
                                   </>
                                 ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
                                   <>
-                                    {getPortsMasterData.filter((val, index) => {
-                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
+                                    {getPortsMasterData
+                                      .filter((val, index) => {
+                                        if (
+                                          val.Country.toLowerCase() == 'india' &&
+                                          val.Approved.toLowerCase() == 'yes'
+                                        ) {
                                           return val;
                                         }
                                       })
                                       .map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
-                                          {val.Port_Name}, {val.Country}
+                                            {val.Port_Name}, {val.Country}
                                           </option>
                                         );
                                       })}
                                   </>
                                 ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
                                   <>
-                                    {getPortsMasterData.filter((val, index) => {
+                                    {getPortsMasterData
+                                      .filter((val, index) => {
                                         if (val.Country.toLowerCase() !== 'india') {
                                           return val;
                                         }
@@ -709,12 +711,12 @@ function Index() {
                                       .map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
-                                          {val.Port_Name}, {val.Country}
+                                            {val.Port_Name}, {val.Country}
                                           </option>
                                         );
                                       })}
                                   </>
-                                ) :  (
+                                ) : (
                                   <>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
@@ -929,7 +931,7 @@ function Index() {
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"
-              module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
+              module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             />
           </div>
         </div>
