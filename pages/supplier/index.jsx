@@ -1422,6 +1422,7 @@ function Index() {
                               <strong className="text-danger">*</strong>
                             </label>
 
+
                             <img
                               onClick={() =>
                                 setKeyAddressData((prev) => {
@@ -1433,14 +1434,15 @@ function Index() {
                               alt="Search"
                             />
 
-                            {keyAddressData?.emailId?.length > 1 && (
-                              <img
-                                onClick={() => handleDeleteNewAddress(index)}
-                                src="/static/delete 2.svg"
-                                className={`${styles.plus_add} img-fluid`}
-                                alt="Delete"
-                              />
-                            )}
+                           {keyAddressData?.emailId?.length > 1 && 
+                           <img
+                              onClick={() => handleDeleteNewAddress(index)}
+                              src="/static/delete 2.svg"
+                              className={`${styles.delete} img-fluid`}
+                              alt="Delete"
+                              
+                            />}
+                           
                           </div>
                         </div>
                       ))}

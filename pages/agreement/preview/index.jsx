@@ -180,7 +180,8 @@ function index() {
         cheque: data.deliveryTerms?.cheque || [],
         cmaShort: data?.CMA?.shortName,
         loadingCargo2: month ,
-        cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN
+        cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+        orderId:data?.order?.orderId.slice(-3)
       });
     }
   }, []);

@@ -922,14 +922,26 @@ img {
 .plus_add {
   margin-top: 12px;
   z-index: 1;
-  margin-left: -60px;
+  margin-left: -100px;
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
+    margin-top: 8px;
+    margin-left: -80px;
+  }
+}
+.delete {
+  margin-top: 12px;
+  z-index: 1;
   width: 36px;
   height: 36px;
   @include respond(lg-desktop) {
     width: 30px;
     height: 30px;
     margin-top: 8px;
-    margin-left: -40px;
   }
 }
 
