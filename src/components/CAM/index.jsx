@@ -1708,7 +1708,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           </div>
                           <span>
                             {debt.limit?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
+                              miniumFractionDigits: 2,
                             })}
                           </span>
                         </div>
@@ -1788,9 +1788,10 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                         <td> {debt?.limitType} </td>
 
                         <td>
-                          {debt?.limit?.toLocaleString('en-In', {
+                          {Number(debt?.limit)?.toLocaleString('en-In',   {
                             maximumFractionDigits: 2,
-                          })}
+                            minimumFractionDigits: 2,
+                          },)}
                         </td>
                         <td
                           className={`${styles.conduct}  ${
