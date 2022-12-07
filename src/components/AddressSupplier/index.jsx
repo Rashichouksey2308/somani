@@ -63,7 +63,7 @@ function AddressComponent({
             {/* <p className="pt-3">{}</p>
             <p className="pt-3">{pinCode}</p> */}
             <p className="pt-3">
-              <span>Emails: </span>
+              <span>Email: </span>
               {email?.join(', ')}
             </p>
             <p>
