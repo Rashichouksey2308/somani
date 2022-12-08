@@ -1110,7 +1110,7 @@ const groupExposure = (camData, camConversionunit) => {
                             <div className={`${styles.bar}`}>
                               <div className={`${styles.fill}`}
                                style={{width:`${Number(
-                               ( exp.outstandingLimit/exp.limit*100)
+                               ( (exp.outstandingLimit/exp.limit)*100)
                                )}%`}}
                               ></div>
                             </div>
