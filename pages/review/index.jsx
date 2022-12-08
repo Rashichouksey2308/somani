@@ -5568,7 +5568,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  {console.log(gstData?.detail,"log ++++")}
+                 
                   <span style={{ color: '#3687E8', float: 'right' }}>Quarterly</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
