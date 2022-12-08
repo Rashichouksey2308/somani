@@ -3697,7 +3697,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
               <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
                 <div className={`${styles.gauge}`}>
                   <div className={`${styles.container}`}>
-                   <img src = {`/static/radial.svg`}></img>
+                   <img src = {`/static/radial.svg`}
+                    className={styles.donut2}
+                   ></img>
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
