@@ -346,8 +346,9 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => {
+                        console.log(profile.actions,"profile.actions")
                         return(
-                          profile.actions==false?
+                          profile.actions==false ||  profile.actions==undefined?
                           <>
                           <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
