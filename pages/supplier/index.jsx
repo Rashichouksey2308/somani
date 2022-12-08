@@ -22,6 +22,8 @@ import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
 import { getPincodes, getCountries } from 'redux/masters/action';
+import { isPossiblePhoneNumber, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
+import { countryCodes } from '@/utils/jsons/countryCodes.json';
 
 function Index() {
   const dispatch = useDispatch();
@@ -167,10 +169,10 @@ function Index() {
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
 
   const changeFiledFocus = (value, index) => {
-    let tempArray = [...isPercentageInFocus]
-    tempArray[index] = value
-    setIsPercentageInFocus(tempArray)
-  }
+    let tempArray = [...isPercentageInFocus];
+    tempArray[index] = value;
+    setIsPercentageInFocus(tempArray);
+  };
   const [detail, setDetail] = useState([
     {
       shareHoldersName: '',
@@ -184,7 +186,7 @@ function Index() {
   useEffect(() => {
     let tempArray = [false];
     supplierData?.shareHoldersDetails?.forEach((item) => {
-      tempArray.push( false );
+      tempArray.push(false);
     });
     setIsPercentageInFocus(tempArray);
   }, [supplierResponse]);
@@ -208,7 +210,6 @@ function Index() {
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
     setIsPercentageInFocus([...isPercentageInFocus.slice(0, index), ...isPercentageInFocus.slice(index + 1)]);
-
   };
   const handleDeletePersonContact = (index) => {
     setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
@@ -269,7 +270,7 @@ function Index() {
     },
   ]);
   const onAddShare = () => {
-    setIsPercentageInFocus([...isPercentageInFocus,false])
+    setIsPercentageInFocus([...isPercentageInFocus, false]);
     setDetail([
       ...detail,
       {
@@ -407,7 +408,8 @@ function Index() {
         isOk = false;
         break;
       }
-      if (person[i].contact === '' || person[i].contact === null || person[i]?.contact?.length !== 10) {
+      if (person[i].contact === '' || person[i].contact === null || !isValidPhoneNumber(person[i].contact, returnSelectedCountryCode(person[i].callingCode))) {
+       
         handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
         isOk = false;
         break;
@@ -581,6 +583,11 @@ function Index() {
   const deleteComponent = (index) => {
     setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
+
+  const returnSelectedCountryCode = (code) => {
+    const filter = countryCodes.filter((item) => item.code == code);
+    if (filter.length > 0) return filter[0].iso2;
+  };
   const addressValidtion = (data) => {
     let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
 
@@ -631,7 +638,7 @@ function Index() {
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
       data.contact.phoneNumber === undefined ||
-      data.contact.phoneNumber?.length !== 10
+      !isValidPhoneNumber(data.contact.phoneNumber, returnSelectedCountryCode(data.contact.phoneNumberCallingCode))
     ) {
       handleErrorToast('Please add a valid  phone Number');
       return false;
@@ -1179,11 +1186,12 @@ function Index() {
                                 handleAddressUpdate(e.target.value, e.target.name);
                               }}
                             >
-                              <option value="+91">+91</option>
-                              <option value="+1">+1</option>
-                              <option value="+92">+92</option>
-                              <option value="+95">+95</option>
-                              <option value="+24">+24</option>
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
                             </select>
                             <input
                               type="tel"
@@ -1213,11 +1221,12 @@ function Index() {
                               }}
                             >
                               {' '}
-                              <option value="+91">+91</option>
-                              <option value="+1">+1</option>
-                              <option value="+92">+92</option>
-                              <option value="+95">+95</option>
-                              <option value="+24">+24</option>
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
                             </select>
                             <input
                               type="tel"
@@ -1395,11 +1404,12 @@ function Index() {
                               handleChange(e.target.value, e.target.name);
                             }}
                           >
-                            <option value="+91">+91</option>
-                            <option value="+1">+1</option>
-                            <option value="+92">+92</option>
-                            <option value="+95">+95</option>
-                            <option value="+24">+24</option>
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {countryCodes.map((countryCode) => (
+                              <option value={countryCode.code}>{countryCode.code}</option>
+                            ))}
                           </select>
                           <input
                             type="tel"
@@ -1429,11 +1439,12 @@ function Index() {
                             }}
                           >
                             {' '}
-                            <option value="+91">+91</option>
-                            <option value="+1">+1</option>
-                            <option value="+92">+92</option>
-                            <option value="+95">+95</option>
-                            <option value="+24">+24</option>
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {countryCodes.map((countryCode) => (
+                              <option value={countryCode.code}>{countryCode.code}</option>
+                            ))}
                           </select>
                           <input
                             type="tel"
@@ -1584,11 +1595,12 @@ function Index() {
                                       }}
                                     >
                                       {' '}
-                                      <option value="+91">+91</option>
-                                      <option value="+1">+1</option>
-                                      <option value="+92">+92</option>
-                                      <option value="+95">+95</option>
-                                      <option value="+24">+24</option>
+                                      <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
                                     </select>
                                     <input
                                       name="contact"
