@@ -244,8 +244,9 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD{' '}
-                        {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                        {marginData.marginData?.order?.orderCurrency}{' '}
+                        {marginData.marginData?.order?.perUnitPrice?.toLocaleString(marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -619,8 +620,9 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD{' '}
-                        {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                        {marginData.marginData?.order?.orderCurrency}{' '}
+                        {marginData.marginData?.calculation?.orderValue?.toLocaleString(  marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}

@@ -300,9 +300,10 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD{' '}
+                         {marginData.marginData?.order?.orderCurrency}{' '}
                         {marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice?.toLocaleString(
-                          'en-EN',
+                          marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En",
                           {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
@@ -322,8 +323,9 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD{' '}
-                        {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                         {marginData.marginData?.order?.orderCurrency}{' '}
+                        {marginData.marginData?.order?.perUnitPrice?.toLocaleString(marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -882,8 +884,9 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD{' '}
-                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString('en-EN', {
+                        {marginData.marginData?.order?.orderCurrency}{' '}
+                        {marginData.marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString(marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
@@ -901,8 +904,9 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD{' '}
-                        {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-EN', {
+{marginData.marginData?.order?.orderCurrency}{' '}
+                        {marginData.marginData?.calculation?.orderValue?.toLocaleString(marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         }) ?? 0}
