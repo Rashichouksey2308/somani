@@ -7,16 +7,14 @@ import PlotInspection from './PlotInspection';
 import { GetInspectionDetails } from 'redux/checker/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateInspectionRemark } from '../../../../redux/checker/action';
-import Router from 'next/router';
 import { toast } from 'react-toastify';
 
 function Index() {
 
     const dispatch = useDispatch();
 
-    // let inspectionId = sessionStorage.getItem('checkerCommodityId');
+    // let inspectionId = sessionStorage.getItem('checkerInspectionId');
     let inspectionId = '6386fa9313aeb30025fa15e6';
-    // let inspectionId = '6386fa9313aeb30025fa15e6';
 
     const handleRemarkSubmit = async (remark, status) => {
         const payload = { inspectionId: inspectionId, status: status, remarks: remark }
@@ -27,7 +25,7 @@ function Index() {
             if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
             }
-            await Router.push('/checker/inspection')
+            // await Router.push('/checker/inspection')
         }
     }
 

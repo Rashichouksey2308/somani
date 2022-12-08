@@ -25,8 +25,29 @@ function Index({ loadPortDocuments, orderId }) {
             Cell: ({ value }) => value.slice(0, 10)
         },
         {
+            Header: "Status",
+            accessor: "status",
+            Cell: ({ cell: { value } }) => {
+                let statusClass = '';
+                if(value === 'On Hold') {
+                    statusClass = 'text-black-50';
+                }
+                if(value === 'Rejected') {
+                    statusClass = 'text-danger';
+                }
+                if(value === 'Pending') {
+                    statusClass = 'text-primary';
+                }
+                if(value === 'Approved') {
+                    statusClass = 'text-success';
+                }
+                return <span className={`${statusClass} text-capitalize`}>{value}</span>
+            }
+        },
+        {
             Header: "Uploaded By",
-            accessor: "uploadedBy"
+            accessor: "uploadedBy",
+            Cell: ({ cell: { value } }) => <span className='text-capitalize'>{value?.fName + " " + value?.lName}</span>
         }
     ]);
 

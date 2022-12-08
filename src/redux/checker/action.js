@@ -81,7 +81,7 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const [, , jwtAccessToken] = decodedString.split('#');
     const headers = {
         authorization: jwtAccessToken,
         Cache: 'no-cache',
@@ -230,7 +230,7 @@ export const UpdateInspectionRemark = (payload) => async (dispatch, getState, ap
         'Access-Control-Allow-Origin': '*',
     };
     try {
-        const response = await Axios.post(`${API.corebaseUrl}${API.updateInspectionRemark}`, payload, {
+        const response = await Axios.put(`${API.corebaseUrl}${API.updateInspectionRemark}`, payload, {
             headers: headers,
         });
 
