@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import Table from '../../../../../Table';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ViewDocument } from 'redux/ViewDoc/action';
 import { useDispatch } from 'react-redux';
+import { GetDocuments } from 'redux/creditQueueUpdate/action';
 
-function Index({ orderId }) {
+function Index({ otherdocuments, orderId }) {
     const dispatch = useDispatch();
+    const [moduleSelected, setModuleSelected] = useState('Loading-Transit-Unloading');
+    const [filteredDoc, setFilteredDoc] = useState([]);
     const tableColumns = useMemo(() => [
         {
             Header: "Document Name",
-            accessor: "doc_name",
-            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-uppercase">{value}</span>
+            accessor: "name",
+            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
         },
         {
             Header: "Format",
@@ -21,12 +24,13 @@ function Index({ orderId }) {
         },
         {
             Header: "Document Date",
-            accessor: "document_date",
-            // Cell: ({ value }) => value ? value : 'RM'
+            accessor: "date",
+            Cell: ({ value }) => value.slice(0, 10)
         },
         {
             Header: "Uploaded By",
-            accessor: "uploaded_by"
+            accessor: "uploadedBy",
+            Cell: ({ cell: { value } }) => <span className='text-capitalize'>{value}</span>
         }
     ]);
 
@@ -61,26 +65,36 @@ function Index({ orderId }) {
         ])
     };
 
-    const dummyData = [
-        {
-            'doc_name': 'Pdf',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-        },
-        {
-            'doc_name': 'Gst Certificate',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-        },
-        {
-            'doc_name': 'Board Resolution',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-        }
-    ];
+    const filterDocBySearch = (val) => {
+        if (!val.length >= 3) return;
+        const tempArray = filteredDoc?.filter((doc) => {
+            if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
+                return doc;
+            }
+        });
+        setFilteredDoc(tempArray);
+    };
+
+    useEffect(() => {
+        const tempArray = otherdocuments?.filter((doc) => {
+            return doc.module == moduleSelected;
+        });
+        setFilteredDoc(tempArray);
+        dispatch(GetDocuments(`?order=${orderId}`));
+    }, [dispatch, orderId, moduleSelected]);
+
+    useEffect(() => {
+        const tempArray = otherdocuments
+            ?.slice()
+            .filter((doc) => {
+                return doc.module === moduleSelected && !doc.deleted;
+            })
+            .map((obj) => ({ ...obj, moving: false }));
+
+        setFilteredDoc(tempArray);
+    }, [orderId, otherdocuments]);
+
+
     return (
         <div className={`${styles.main} m-4 border_color card`}>
             <div
@@ -94,9 +108,38 @@ function Index({ orderId }) {
                 <span>+</span>
             </div>
             <div id="upload" className="collapse mb-n4" aria-labelledby="upload" data-parent="#upload">
+                <div className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}>
+                    <div className="d-flex align-items-center">
+                        <select
+                            value={moduleSelected}
+                            onChange={(e) => setModuleSelected(e.target.value)}
+                            className={`${styles.dropDown} ${styles.customSelect} input form-control`}
+                        >
+                            <option selected disabled>
+                                Select an option
+                            </option>
+                            <option value="LeadOnboarding&OrderApproval">Lead Onboarding &amp; Order Approval</option>
+                            <option value="Agreements&Insurance&LC&Opening">Agreements, Insurance &amp; LC Opening</option>
+                            <option value="Loading-Transit-Unloading">Loading-Transit-Unloading</option>
+                            <option value="customClearanceAndWarehousing">Custom Clearance And Warehousing</option>
+                            <option value="PaymentsInvoicing&Delivery">Payments Invoicing & Delivery</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
+                        <img className={` ${styles.searchImage} img-fluid`} src="/static/search.svg" alt="Search"></img>
+                        <input
+                            className={`${styles.searchBar} statusBox border_color input form-control`}
+                            placeholder="Search"
+                            onChange={(e) => {
+                                filterDocBySearch(e.target.value);
+                            }}
+                        ></input>
+                    </div>
+                </div>
                 <Table
                     columns={tableColumns}
-                    data={dummyData}
+                    data={filteredDoc?.filter((doc) => !doc.deleted)}
                     tableHooks={tableHooks}
                 />
             </div>

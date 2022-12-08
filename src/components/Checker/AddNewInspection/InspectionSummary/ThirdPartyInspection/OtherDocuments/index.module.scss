@@ -45,4 +45,49 @@
             }
         }
     }
+
+    .search_container {
+        height: 62px;
+        padding-right: 1.5rem !important;
+        background: #f0f0f0;
+
+        .dropDown {
+            border-radius: 4px;
+            color: #3687e8;
+            text-transform: capitalize;
+            font-size: 16px;
+            line-height: 19px;
+            font-weight: bold;
+            width: fit-content;
+            padding: 0 25px 0 20px;
+            height: 40px;
+            box-shadow: none;
+        }
+
+        .searchBarContainer {
+            position: relative;
+
+            .searchBar {
+                width: 337px;
+                height: 40px;
+                padding-left: 3.5rem;
+                border-radius: 1.1rem;
+                box-shadow: none;
+
+                @include respond(lg-desktop) {
+                    padding-left: 2.5rem;
+                }
+            }
+
+            .searchImage {
+                position: absolute;
+                margin-left: 30px;
+
+                @include respond(lg-desktop) {
+                    width: 17px;
+                    margin-left: 20px;
+                }
+            }
+        }
+    }
 }

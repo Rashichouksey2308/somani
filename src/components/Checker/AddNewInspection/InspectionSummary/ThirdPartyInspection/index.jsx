@@ -8,13 +8,24 @@ import DischargePortDocument from './DischargePortDocument';
 
 function Index({ thirdPartyInspection, order, thirdPartyInspectionHistory, orderHistory }) {
 
-    const loadPortDocuments = [thirdPartyInspection?.certificateOfOrigin, thirdPartyInspection?.certificateOfQuality, thirdPartyInspection?.certificateOfWeight].filter(function (element) {
-        return element !== undefined;
-    });
+    const loadPortDocuments =
+        [
+            { ...thirdPartyInspection?.certificateOfOrigin, status: thirdPartyInspection?.certificateOfOriginStatus },
+            { ...thirdPartyInspection?.certificateOfQuality, status: thirdPartyInspection?.certificateOfQualityStatus },
+            { ...thirdPartyInspection?.certificateOfWeight, status: thirdPartyInspection?.certificateOfWeightStatus }
+        ].filter(function (element) {
+            return element !== undefined;
+        });
 
-    const dischargePortDocuments = [thirdPartyInspection?.dischargeCertificateOfOrigin, thirdPartyInspection?.dischargeCertificateOfQuality, thirdPartyInspection?.dischargeCertificateOfWeight].filter(function (element) {
-        return element !== undefined;
-    });
+    const dischargePortDocuments =
+        [
+            { ...thirdPartyInspection?.dischargeCertificateOfOrigin, status: thirdPartyInspection?.dischargeCertificateOfOriginStatus },
+            { ...thirdPartyInspection?.dischargeCertificateOfQuality, status: thirdPartyInspection?.dischargeCertificateOfQualityStatus },
+            { ...thirdPartyInspection?.dischargeCertificateOfWeight, status: thirdPartyInspection?.dischargeCertificateOfWeightStatus }
+        ].filter(function (element) {
+            return element !== undefined;
+        });
+
     return (
         <div className={`${styles.main} mt-4 card border_color`}>
             <div
@@ -44,7 +55,7 @@ function Index({ thirdPartyInspection, order, thirdPartyInspectionHistory, order
                         />
                         {loadPortDocuments.length > 0 && <LoadPortDocument loadPortDocuments={loadPortDocuments} orderId={order._id} />}
                         {dischargePortDocuments.length > 0 && <DischargePortDocument dischargePortDocuments={dischargePortDocuments} orderId={order._id} />}
-                        <OtherDocuments orderId={order._id} />
+                        {order?.otherdocuments?.documents.length > 0 && <OtherDocuments otherdocuments={order?.otherdocuments?.documents} orderId={order._id} />}
                     </div>
                 </div>
             </div>
