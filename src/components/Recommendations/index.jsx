@@ -57,6 +57,7 @@ const Index = ({
     suggestedOrderValue: false,
     suggestedCreditLimit: false,
   });
+  console.log(isFieldInFocus,'isFieldInFocus')
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
@@ -357,10 +358,10 @@ const Index = ({
 
                           </td>
                           <td>
-                            {profile?.limit.toLocaleString('en-In')}
+                            {checkNan(Number(profile?.limit))?.toLocaleString('en-In')}
                           </td>
                           <td>
-                           {profile?.outstandingLimit}
+                           {checkNan(Number(profile?.outstandingLimit))?.toLocaleString('en-In')}
                           </td>
                           <td className="position-relative">
                            {profile?.accountConduct}
@@ -436,11 +437,10 @@ const Index = ({
                             }}
                                onWheel={(event) => event.currentTarget.blur()}
                                   value={
-                              profile?.actions
-                                ? isFieldInFocus.groupExposureLimit
-                                  ? profile?.limit
+                               isFieldInFocus.groupExposureLimit
+                                  ? Number(profile?.limit)
                                   : Number(profile?.limit)?.toLocaleString('en-In')
-                                : Number(profile?.limit)?.toLocaleString('en-In')
+                               
                             }
                              
                               disabled={!profile.actions}
@@ -451,9 +451,7 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
@@ -481,11 +479,9 @@ const Index = ({
                             }}
                                onWheel={(event) => event.currentTarget.blur()}
                                     value={
-                              profile?.actions
-                                ? isFieldInFocus.limit
+                              isFieldInFocus.groupExposureOutLimit
                                   ? profile?.outstandingLimit
                                   : Number(profile?.outstandingLimit)?.toLocaleString('en-In')
-                                : Number(profile?.outstandingLimit)?.toLocaleString('en-In')
                             }
                               // value={profile?.outstandingLimit}
                               disabled={!profile.actions}
@@ -496,9 +492,7 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value.toString(), index);
                               }}

@@ -1085,7 +1085,7 @@ const groupExposure = (camData, camConversionunit) => {
                               <span>
                                 {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
-                                })}
+                                })} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
@@ -1102,7 +1102,7 @@ const groupExposure = (camData, camConversionunit) => {
                               <span>
                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
-                                })}
+                                })} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
