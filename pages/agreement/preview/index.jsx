@@ -181,7 +181,9 @@ function index() {
         cmaShort: data?.CMA?.shortName,
         loadingCargo2: month ,
         cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
-        orderId:data?.order?.orderId.slice(-3)
+        orderId:data?.order?.orderId.slice(-3),
+        orderId2:data?.order?.orderId.slice(-4),
+        associateBuyerShort: _get(data, 'associateBuyer.shortName', ''),
       });
     }
   }, []);

@@ -170,6 +170,7 @@ function Index() {
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
   const [litigationStatus, setlitigationStatus] = useState(null);
+  const [chartType, setChartType] = useState('Monthly');
   const [unit,setUnit]=useState("Crores")
   const { fetchingKarzaGst } = useSelector((state) => state.review);
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
@@ -3037,6 +3038,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   ORDER NO
@@ -3048,6 +3050,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   ORDER DATE
@@ -3060,6 +3063,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   ORDER VALUE
@@ -3071,6 +3075,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   COMMODITY
@@ -3082,6 +3087,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   STATUS
@@ -3093,7 +3099,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
-                    textAlign: 'center',
+                    textAlign: 'right',
                   }}
                 >
                   DAYS DUE
@@ -3197,6 +3203,7 @@ function Index() {
                           lineHeight: '23px',
                           paddingTop: '21px',
                           paddingBottom: '21px',
+                          textAlign: 'right',
                         }}
                       >
                         {item?.orderId ? item?.orderId : item?.applicationId}
@@ -3208,6 +3215,7 @@ function Index() {
                           lineHeight: '23px',
                           paddingTop: '21px',
                           paddingBottom: '21px',
+                          textAlign: 'right',
                         }}
                       >
                         {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
@@ -3219,6 +3227,7 @@ function Index() {
                           lineHeight: '23px',
                           paddingTop: '21px',
                           paddingBottom: '21px',
+                          textAlign: 'right',
                         }}
                       >
                         {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
@@ -3230,6 +3239,7 @@ function Index() {
                           lineHeight: '23px',
                           paddingTop: '21px',
                           paddingBottom: '21px',
+                          textAlign: 'right',
                         }}
                       >
                         {item?.commodity}
@@ -3243,6 +3253,7 @@ function Index() {
                           fontWeight: '500',
                           paddingTop: '21px',
                           paddingBottom: '21px',
+                          textAlign: 'right',
                         }}
                       >
                         <span
@@ -3252,12 +3263,13 @@ function Index() {
                             background: '#FF9D00',
                             borderRadius: '50%',
                             marginRight: '10px',
+                            textAlign: 'right',
                           }}
                         ></span>
                         In Process
                       </td>
                       <td
-                        align="center"
+                        align="right"
                         style={{
                           fontSize: '19px',
                           color: '#EA3F3F',
@@ -3265,6 +3277,7 @@ function Index() {
                           fontWeight: 'bold',
                           paddingTop: '21px',
                           paddingBottom: '21px',
+                          textAlign: 'right',
                         }}
                       >
                         12
@@ -3302,6 +3315,7 @@ function Index() {
                     color: '#3687E8',
                     lineHeight: '27px',
                     fontWeight: 'bold',
+                    
                   }}
                 >
                   Credit Profile
@@ -3512,6 +3526,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign:'right'
                   }}
                 >
                   DIN NUMBER
@@ -3523,6 +3538,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign:'right'
                   }}
                 >
                   DATE OF APPOINTMENT
@@ -3534,6 +3550,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign:'right'
                   }}
                 >
                   % SHAREHOLDING
@@ -3601,6 +3618,7 @@ function Index() {
                         lineHeight: '23px',
                         paddingTop: '21px',
                         paddingBottom: '21px',
+                        textAlign:'right'
                       }}
                     >
                       {director.din}
@@ -3612,6 +3630,7 @@ function Index() {
                         lineHeight: '23px',
                         paddingTop: '21px',
                         paddingBottom: '21px',
+                        textAlign:'right'
                       }}
                     >
                       {director.tenureStartDate}
@@ -3623,6 +3642,7 @@ function Index() {
                         lineHeight: '24px',
                         paddingTop: '21px',
                         paddingBottom: '21px',
+                        textAlign:'right'
                       }}
                     >
                       {director.percentageShareHolding}%
@@ -3736,6 +3756,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right'
                         }}
                       >
                         NO. OF SHARES
@@ -3747,6 +3768,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right'
                         }}
                       >
                         % SHARE
@@ -3758,6 +3780,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right'
                         }}
                       >
                         DIRECTOR
@@ -3832,6 +3855,7 @@ function Index() {
                                 lineHeight: '23px',
                                 paddingTop: '21px',
                                 paddingBottom: '21px',
+                                textAlign:'right'
                               }}
                             >
                               {Number(share?.numberOfShares)?.toLocaleString('en-In')}
@@ -3843,6 +3867,7 @@ function Index() {
                                 lineHeight: '23px',
                                 paddingTop: '21px',
                                 paddingBottom: '21px',
+                                textAlign:'right'
                               }}
                             >
                               {share?.percentageShareHolding
@@ -3859,6 +3884,7 @@ function Index() {
                                 lineHeight: '23px',
                                 paddingTop: '21px',
                                 paddingBottom: '21px',
+                                textAlign:'right'
                               }}
                             >
                               {share?.director ? 'Yes' : 'No'}
@@ -3975,6 +4001,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right'
                         }}
                       >
                         CHARGE AMOUNT
@@ -3986,6 +4013,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right'
                         }}
                       >
                         DATE OF CREATION
@@ -4064,6 +4092,7 @@ function Index() {
                                   lineHeight: '23px',
                                   paddingTop: '21px',
                                   paddingBottom: '21px',
+                                  textAlign:'right'
                                 }}
                               >
                                 {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
@@ -4077,6 +4106,7 @@ function Index() {
                                   lineHeight: '23px',
                                   paddingTop: '21px',
                                   paddingBottom: '21px',
+                                  textAlign:'right'
                                 }}
                               >
                                 {charge?.dateOfCreationOfCharge
@@ -4345,6 +4375,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:"right"
                         }}
                       >
                         LIMIT TYPE
@@ -4356,6 +4387,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:"right"
                         }}
                       >
                         LIMITS
@@ -4367,6 +4399,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:"right"
                         }}
                       >
                         CONDUCT
@@ -4394,6 +4427,7 @@ function Index() {
                               letterSpacing: '0.19px',
                               paddingTop: '25px',
                               paddingBottom: '25px',
+                              textAlign:"right"
                             }}
                           >
                             {debt?.limitType}
@@ -4405,6 +4439,7 @@ function Index() {
                               lineHeight: '23px',
                               paddingTop: '25px',
                               paddingBottom: '25px',
+                              textAlign:"right"
                             }}
                           >
                             {debt?.limit?.toLocaleString('en-In', {
@@ -4418,6 +4453,7 @@ function Index() {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
+                              textAlign:"right",
                               color: `${
                                 debt.conduct == 'Good'
                                   ? '#43C34D'
@@ -4733,6 +4769,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign:"right",
                   }}
                 >
                   LATEST YEAR
@@ -4744,6 +4781,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign:"right",
                   }}
                 >
                   PREVIOUS YEAR
@@ -4755,6 +4793,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign:"right",
                   }}
                 >
                   GROWTH
@@ -4794,6 +4833,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingTop: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -4808,6 +4848,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingTop: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {' '}
@@ -4823,6 +4864,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingTop: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -4865,6 +4907,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {' '}
@@ -4879,6 +4922,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -4892,6 +4936,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -4934,6 +4979,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -4947,6 +4993,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -4960,6 +5007,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {' '}
@@ -4999,6 +5047,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.current?.value)).toFixed(2), true)} Cr
@@ -5008,6 +5057,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.previous?.value)).toFixed(2), true)} Cr
@@ -5017,6 +5067,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -5053,6 +5104,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.current?.value)).toFixed(2), true)} Cr
@@ -5062,6 +5114,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.previous?.value)).toFixed(2), true)} Cr
@@ -5071,6 +5124,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -5110,6 +5164,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.current?.value)).toFixed(2), true)}{' '}
@@ -5120,6 +5175,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.previous?.value)).toFixed(2), true)}{' '}
@@ -5130,6 +5186,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -5169,6 +5226,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {RevenueDetails?.ttlCustomer?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
@@ -5178,6 +5236,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
@@ -5187,6 +5246,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(
@@ -5223,6 +5283,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {RevenueDetails?.ttlInv?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
@@ -5232,6 +5293,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
@@ -5241,6 +5303,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign:"right",
                   }}
                 >
                   {checkNan(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value)) +
@@ -5268,6 +5331,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingBottom: '78px',
+                    textAlign:"right",
                   }}
                 >
                   11,900.00
@@ -5278,6 +5342,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingBottom: '78px',
+                    textAlign:"right",
                   }}
                 >
                   1,900.00
@@ -5288,6 +5353,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingBottom: '78px',
+                    textAlign:"right",
                   }}
                 >
                   40%
@@ -5300,10 +5366,6 @@ function Index() {
           <td valign="top">
             <br /> <br />
             <br /> <br />
-            <br />
-            <br />
-            <br /> <br /> <br /> <br /> <br /> <br /> <br />
-            <br />
             <br />
             <table
               width="100%"
@@ -5344,7 +5406,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}> Quarterly</span>
+                  <span style={{ color: '#3687E8', float: 'right' }}> {chartType}</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -5506,6 +5568,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
+                 
                   <span style={{ color: '#3687E8', float: 'right' }}>Quarterly</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
@@ -5777,6 +5840,7 @@ function Index() {
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
                                 textTransform: 'uppercase',
+                                textAlign:'right'
                               }}
                             >
                               {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')?.toUpperCase()}
@@ -5801,6 +5865,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5817,6 +5882,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5844,6 +5910,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5870,6 +5937,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5908,6 +5976,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5930,6 +5999,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5955,6 +6025,7 @@ function Index() {
                                 lineHeight: '24px',
                                 paddingLeft: '35px',
                                 paddingBottom: '38px',
+
                               }}
                             >
                               Other Current Liabilities
@@ -5966,6 +6037,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '38px',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -5986,6 +6058,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '38px',
+                                textAlign:'right'
                               }}
                             >
                               {convertValue(
@@ -6048,6 +6121,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})?.workingCapitalTurnover?.toFixed(2)}
@@ -6059,6 +6133,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6073,6 +6148,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '24px',
                                 paddingLeft: '35px',
+                                textAlign:'right'
                               }}
                             >
                               Debtors period
@@ -6083,6 +6159,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6095,6 +6172,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6119,6 +6197,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding?.toFixed(
@@ -6131,6 +6210,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(
@@ -6155,6 +6235,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6167,6 +6248,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign:'right'
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6222,6 +6304,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign:'right',
                               }}
                             >
                               {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6233,6 +6316,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign:'right',
                               }}
                             >
                               {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6246,6 +6330,7 @@ function Index() {
                                 lineHeight: '24px',
                                 paddingLeft: '35px',
                                 paddingBottom: '52px',
+                                
                               }}
                             >
                               Current Ratio
@@ -6257,6 +6342,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign:'right',
                               }}
                             >
                               {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6268,6 +6354,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign:'right',
                               }}
                             >
                               {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6292,6 +6379,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign:'right',
                               }}
                             >
                               {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6303,6 +6391,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign:'right',
                               }}
                             >
                               {previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6335,6 +6424,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right',
                         }}
                       >
                         MAR-20
@@ -6346,6 +6436,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign:'right',
                         }}
                       >
                         MAR-19
@@ -6370,6 +6461,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingTop: '33px',
+                          textAlign:'right',
                         }}
                       >
                         {' '}
@@ -6391,6 +6483,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingTop: '33px',
+                          textAlign:'right',
                         }}
                       >
                         {' '}
@@ -6423,6 +6516,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {convertValue(
@@ -6442,6 +6536,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {' '}
@@ -6476,6 +6571,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign:'right',
                         }}
                       >
                         {' '}
@@ -6497,6 +6593,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign:'right',
                         }}
                       >
                         {' '}
@@ -6529,6 +6626,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6541,6 +6639,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6565,6 +6664,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6577,6 +6677,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6601,6 +6702,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6613,6 +6715,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6639,6 +6742,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6652,6 +6756,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6753,6 +6858,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6763,6 +6869,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6785,6 +6892,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6795,6 +6903,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6817,6 +6926,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6827,6 +6937,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign:'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
@@ -8071,6 +8182,8 @@ function Index() {
     const openBankChargeChart = document.getElementById('openBankChargeChart');
     const openBankChargeChartImg = openBankChargeChart?.toDataURL('image/png', 1.0);
 
+
+   
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(
@@ -8890,6 +9003,8 @@ function Index() {
                     debtProfileColor={debtProfileColor}
                     allBuyerList={allBuyerList}
                     unit={unit}
+                    chartType={chartType}
+                    setChartType={setChartType}
                   />
                 </div>
               </div>

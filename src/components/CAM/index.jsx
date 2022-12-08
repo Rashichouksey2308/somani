@@ -64,13 +64,14 @@ function Index({
   debtProfileColor,
   allBuyerList,
   unit,
+  chartType,
+  setChartType
 }) {
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
   });
-  const [chartType, setChartType] = useState('Monthly');
 
   //const [darkMode, setDarkMode] = useState(false)
 
@@ -3697,137 +3698,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
               <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
                 <div className={`${styles.gauge}`}>
                   <div className={`${styles.container}`}>
-                    <svg width="100%" height="100%" viewBox="0 0 39 39" className={`${styles.donut}`}>
-                      <circle
-                        className={`${styles.donutHole}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="#fff"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutRing}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
-                        strokeWidth="3"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#FF4230"
-                        strokeWidth="3"
-                        strokeDasharray="30 70"
-                        strokeDashoffset="15"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#FFB700"
-                        strokeWidth="3"
-                        strokeDasharray="20 70"
-                        strokeDashoffset="75"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#8AC41C"
-                        strokeWidth="3"
-                        strokeDasharray="10 90"
-                        strokeDashoffset="65"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#00B81E"
-                        strokeWidth="3"
-                        strokeDasharray="20 70"
-                        strokeDashoffset="45"
-                      ></circle>
-                    </svg>
-                    <svg width="76%" height="76%" viewBox="0 0 39 39" className={`${styles.donut2}`}>
-                      <circle
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        // fill='#000'
-                        fill={`${!darkMode ? '#fff' : '#293141'}`}
-                      ></circle>
-                      <circle
-                        className={`${styles.donutRing}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        // stroke="white"
-                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
-                        strokeWidth="3"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="29 71"
-                        strokeDashoffset="15"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="19 71"
-                        strokeDashoffset="75"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="9 91"
-                        strokeDashoffset="65"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="19 71"
-                        strokeDashoffset="45"
-                      ></circle>
-                    </svg>
+                   <img src = {`/static/radial.svg`}
+                    className={styles.donut2}
+                   ></img>
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
