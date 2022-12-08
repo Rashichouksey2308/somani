@@ -64,13 +64,14 @@ function Index({
   debtProfileColor,
   allBuyerList,
   unit,
+  chartType,
+  setChartType
 }) {
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
   });
-  const [chartType, setChartType] = useState('Monthly');
 
   //const [darkMode, setDarkMode] = useState(false)
 

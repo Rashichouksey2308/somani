@@ -170,6 +170,7 @@ function Index() {
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
   const [litigationStatus, setlitigationStatus] = useState(null);
+  const [chartType, setChartType] = useState('Monthly');
   const [unit,setUnit]=useState("Crores")
   const { fetchingKarzaGst } = useSelector((state) => state.review);
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
@@ -5344,7 +5345,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}> Quarterly</span>
+                  <span style={{ color: '#3687E8', float: 'right' }}> {chartType}</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -8890,6 +8891,8 @@ function Index() {
                     debtProfileColor={debtProfileColor}
                     allBuyerList={allBuyerList}
                     unit={unit}
+                    chartType={chartType}
+                    setChartType={setChartType}
                   />
                 </div>
               </div>
