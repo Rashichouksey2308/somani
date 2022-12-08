@@ -408,8 +408,11 @@ function Index() {
         isOk = false;
         break;
       }
-      if (person[i].contact === '' || person[i].contact === null || !isValidPhoneNumber(person[i].contact, returnSelectedCountryCode(person[i].callingCode))) {
-       
+      if (
+        person[i].contact === '' ||
+        person[i].contact === null ||
+        !isValidPhoneNumber(person[i].contact, returnSelectedCountryCode(person[i].callingCode))
+      ) {
         handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
         isOk = false;
         break;
@@ -641,6 +644,13 @@ function Index() {
       !isValidPhoneNumber(data.contact.phoneNumber, returnSelectedCountryCode(data.contact.phoneNumberCallingCode))
     ) {
       handleErrorToast('Please add a valid  phone Number');
+      return false;
+    } else if (data.contact.alternatePhoneNumber &&
+      data.contact.alternatePhoneNumber.trim().length > 0   &&
+      !isValidPhoneNumber(data.contact.alternatePhoneNumber, returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode)))
+      {
+        console.log( !isValidPhoneNumber(data.contact.alternatePhoneNumber, returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode)),data.contact,'data.contact')
+      handleErrorToast('Please add a valid Alternate phone Number');
       return false;
     } else {
       return true;
@@ -1596,11 +1606,11 @@ function Index() {
                                     >
                                       {' '}
                                       <option disabled value="">
-                                Select an option
-                              </option>
-                              {countryCodes.map((countryCode) => (
-                                <option value={countryCode.code}>{countryCode.code}</option>
-                              ))}
+                                        Select an option
+                                      </option>
+                                      {countryCodes.map((countryCode) => (
+                                        <option value={countryCode.code}>{countryCode.code}</option>
+                                      ))}
                                     </select>
                                     <input
                                       name="contact"
@@ -2087,7 +2097,7 @@ function Index() {
                                   <span>{val?.commodity}</span>
                                 ) : (
                                   <input
-                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) => [...specialCharacter,'1','2','3','4','5','6','7','8','9','0'].includes(evt.key) && evt.preventDefault()}
                                     className="input"
                                     name="commodity"
                                     value={val?.commodity}

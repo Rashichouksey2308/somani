@@ -13,6 +13,8 @@ import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
 import moment from 'moment/moment';
+import { setDynamicName, setPageName, setDynamicOrder } from 'redux/userData/action';
+
 const Index = () => {
   const dispatch = useDispatch();
 
@@ -22,8 +24,15 @@ const Index = () => {
   }, [dispatch]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
-
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
+
+  useEffect(()=>{
+    dispatch(setPageName('insurance renewal'));
+    dispatch(setDynamicName(insuranceData?.company?.companyName));
+    dispatch(setDynamicOrder(insuranceData?.order?.orderId));
+  },[insuranceResponse])
+
+
   const [insuranceType, setInsuranceType] = useState(null);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   const [marineData, setMarineData] = useState({
@@ -58,7 +67,7 @@ const Index = () => {
     premiumAmount: null,
   });
 
-  console.log(marineData, 'insuranceData');
+  console.log(insuranceData, 'insuranceData');
 
   function getDifferenceInDaysStorage() {
     let dateS1 = new Date(storageData?.insuranceFrom);
@@ -185,7 +194,7 @@ const Index = () => {
               onClick={() => Router.push('/insurance/form')}
             />
 
-            <h1 className={styles.heading}>{insuranceData?.company?.companyName} - Ramal001-000001</h1>
+            <h1 className={styles.heading}>{insuranceData?.company?.companyName} - {insuranceData?.order?.orderId}</h1>
           </div>
         </div>
 
