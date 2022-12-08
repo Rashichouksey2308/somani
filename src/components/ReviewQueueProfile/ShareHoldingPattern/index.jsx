@@ -276,7 +276,7 @@ function Index({ shareHolding }) {
                           <tr>
                             <td className="border-top-0 border_color"></td>
                             <td className="border-top-0 border_color"></td>
-                            <td> {totalEquityShare ? returnReadableNumber(totalEquityShare, undefined, 0, 0) : ''}</td>
+                            <td> {totalEquityShare ? returnReadableNumber(totalEquityShare, 'en-In', 0, 0) : ''}</td>
                             <td>
                               {totalEquitySharePercentage ? returnReadableNumber(totalEquitySharePercentage * 100, undefined, 2, 2) + ' %' : ''}
                             </td>
@@ -350,7 +350,7 @@ function Index({ shareHolding }) {
                           <tr>
                             <td className="border-top-0"></td>
                             <td className="border-top-0"></td>
-                            <td> {totalPrefrenceShare ? returnReadableNumber(totalPrefrenceShare, undefined, 0, 0) : ''}</td>
+                            <td> {totalPrefrenceShare ? returnReadableNumber(totalPrefrenceShare, 'en-In', 0, 0) : ''}</td>
                             <td>
                               {totalPrefrenceSharePercentage
                                 ? Number(totalPrefrenceSharePercentage * 100).toFixed(2) + '%'
