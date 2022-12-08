@@ -332,7 +332,7 @@ function Index() {
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
     fd.append('document1', lcDoc.lcDraftDoc);
 
-    // dispatch(UpdateLcAmendment(fd));
+    dispatch(UpdateLcAmendment(fd));
   };
 
   const [existingValue, setExistingValue] = useState('');
