@@ -26,7 +26,7 @@ export default function SalesContractPreview(data) {
           <p align="center" style={{ float: 'left', color: '#000000', marginBottom: '0' }}>
             This Sales Contract("
             <span style={{ fontWeight: 'bold' }}>
-                Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + `${moment().year()}`+ "/" + data.orderId}
+                Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + `${moment().year()}`+ "/" + data.orderId2}
               </span>
             ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
             Buyer.

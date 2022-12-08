@@ -15,6 +15,26 @@ export default function AssociateshipAgreementPreview(data) {
         cellSpacing="0"
         border="0"
       >
+          <tr>
+        <td
+          style={{
+            fontFamily: 'Times New Roman, Times, serif',
+            padding: '20px',
+            fontSize: '12px',
+            lineHeight: '18px',
+            color: '#000000',
+          }}
+        >
+         
+          <p align="center" style={{ float: 'left', color: '#000000', marginBottom: '0' }}>
+           
+            <span style={{ fontWeight: 'bold' }}>
+                Associateship Agreement No.: {data?.shortbuyer + '/' + data?.associateBuyerShort + '/' + `${moment().year()}-${moment().add(1, 'years').year().toString().slice(-2)}`+ "/" + data?.orderId}
+              </span>
+           
+          </p>
+        </td>
+      </tr>
         <tr>
           <td valign="top" style={{ padding: '20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
