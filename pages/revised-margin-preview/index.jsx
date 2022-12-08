@@ -114,14 +114,17 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD{' '}
+                      {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice,
-                        'en-In',
+marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En",
                         2,
                       ) ?? 0}
                     </td>
-                    <td>USD {returnReadableNumber(marginData?.order?.perUnitPrice, 'en-In', 2) ?? 0}</td>
+                    <td>{marginData?.order?.orderCurrency}{' '} 
+                    {returnReadableNumber(marginData?.order?.perUnitPrice,marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -267,16 +270,19 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td className="pt-4">
-                      USD{' '}
+                    {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValue,
-                        'en-In',
+                        marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En",
                         2,
                         2,
                       )}
                     </td>
                     <td className="pt-4">
-                      USD {returnReadableNumber(marginData?.calculation?.orderValue, 'en-In', 2, 2) ?? 0}
+                       {marginData?.order?.orderCurrency}{' '} {returnReadableNumber(marginData?.calculation?.orderValue, 
+                        marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", 2, 2) ?? 0}
                     </td>
                   </tr>
                   <tr>

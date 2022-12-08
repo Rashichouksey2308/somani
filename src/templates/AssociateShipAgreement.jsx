@@ -3,11 +3,23 @@ import moment from 'moment';
 import Router from 'next/router';
 import { Col, Row } from 'react-bootstrap';
 
-export default function AssociateShipAgreement(data, preview, setPreviewValue) {
-  console.log(data?.associateBuyerAuthorized, 'data');
+export default function AssociateShipAgreement(data, preview, setPreviewValue,active) {
+  console.log(active, 'data');
   return (
     <>
       <div className="card-body" style={{ minHeight: 'auto', flex: 'none' }}>
+          {preview  && active == "none"? (
+          <div className={`${styles.inputsContainer2} border_black`}>
+            <Row className={`${styles.row} ${styles.last}`}>
+              <Col md={7} className={`${styles.left} border_black`}>
+                Associateship Agreement No.: {data?.shortbuyer + '/' + data?.associateBuyerShort + '/' + `${moment().year()}-${moment().add(1, 'years').year().toString().slice(-2)}`+ "/" + data?.orderId}
+              </Col>
+              <Col md={5} className={styles.right}>
+                Date: {moment(new Date()).format('DD-MM-YYYY')}
+              </Col>
+            </Row>
+          </div>
+        ) : null}
         <p className="text-center text_sales">
           {' '}
           <strong>ASSOCIATESHIP AGREEMENT</strong>

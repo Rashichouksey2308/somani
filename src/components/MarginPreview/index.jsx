@@ -107,8 +107,10 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD{' '}
-                      {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                      {marginData?.order?.orderCurrency}{' '}
+                      {marginData?.order?.perUnitPrice?.toLocaleString(
+                        marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       }) ?? 0}
@@ -210,8 +212,9 @@ const shareEmail = () => {}
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      USD{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                      {marginData?.order?.orderCurrency}{' '}
+                      {marginData?.calculation?.orderValue?.toLocaleString(marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       }) ?? 0}
