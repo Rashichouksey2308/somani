@@ -17,7 +17,6 @@ const index = () => {
   const [pageLimit, setPageLimit] = useState(10);
 
   const { supplierResponse, allSupplierResponse,searchedSupplier } = useSelector((state) => state.supplier);
-console.log(searchedSupplier,'searchedSupplier')
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
