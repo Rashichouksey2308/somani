@@ -1342,7 +1342,10 @@ body.dark-mode .react_multi_email [data-tag] {
     font-weight: 700 !important;
   }
 }
-.generic-table {
+
+.cursor-pointer {
+  cursor: pointer;
+}.generic-table {
   .datatable {
     margin-bottom: 0;
     border-top-left-radius: 0px;
