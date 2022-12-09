@@ -76,6 +76,12 @@ useEffect(() => {
     const doc = new jsPDF('p', 'pt', [1500, 2250]);
     doc.html(ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
       callback: function (doc) {
+              const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
         doc.save('ApplicationLC.pdf');
       },
       autoPaging: 'text',

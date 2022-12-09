@@ -39,6 +39,12 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
+          const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
         doc.save('RevisedMarginMoney.pdf');
       },
       autoPaging: 'text',
