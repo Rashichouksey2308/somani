@@ -17,7 +17,8 @@
       justify-content: flex-start;
       align-items: center;
       height: 48px;
-      margin: 0 0 27px 10px;
+      margin: 0 0 27px 0;
+     
       @include respond(lg-desktop) {
         height: 40px;
         margin-bottom: 20px;
@@ -35,6 +36,10 @@
           width: 10px;
           height: auto;
         }
+      }
+      .arrowBack {
+        width: 13px;
+        height: 21px;
       }
       .heading {
         font-size: 34px;
