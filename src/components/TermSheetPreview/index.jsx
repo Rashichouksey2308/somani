@@ -67,6 +67,8 @@ function Index() {
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              typeOfPort:sheet?.transactionDetails?.typeOfPort,
+
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
@@ -189,7 +191,9 @@ function Index() {
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
+        align: 'center',
+        });;
       }
           doc.save('TransactionSummary.pdf');
         },
@@ -409,7 +413,7 @@ function Index() {
                   <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
                   <li>{termsheetDetails?.transactionDetails?.portOfDischarge}, India</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}</li>
+                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES - ${termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
                 </ul>
               </Col>
             </Row>
@@ -1922,7 +1926,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}
+                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES - ${termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
                         </p>
                       </td>
                     </tr>

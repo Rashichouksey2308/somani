@@ -1877,7 +1877,7 @@ function Index() {
                     paddingTop: '36px',
                   }}
                 >
-                  {camData?.portOfDischarge}
+                  {camData?.portOfDischarge}, India
                 </td>
               </tr>
               <tr>
@@ -2095,6 +2095,8 @@ function Index() {
                     : ''}
                 </td>
               </tr>
+
+              
               <tr>
                 <td
                   style={{
@@ -2646,8 +2648,8 @@ function Index() {
                   </table>
                   <table
                     width="100%"
-                    cellPadding="10"
-                    cellSpacing="0"
+                    cellPadding="15"
+                    cellSpacing="10"
                     border="0"
                     style={{ border: '1px solid #D2D7E5' }}
                   >
@@ -2848,7 +2850,7 @@ function Index() {
                                 >
                                   {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
-                                  })}
+                                  })}{camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
                               <tr>
@@ -4541,7 +4543,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                  {camData?.productSummary?.monthlyProductionCapacity ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
                 <td
                   width="30%"
@@ -4570,7 +4572,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                  {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
               </tr>
               <tr>
@@ -4646,7 +4648,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.availableStock ? 'MT' : ''}
+                  {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
                 <td
                   style={{
@@ -4716,7 +4718,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
               </tr>
             </table>
@@ -7367,8 +7369,8 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
-                    {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                    {convertValue((camData?.company?.creditLimit?.totalLimit),camConversionunit)?.toLocaleString('en-In')}
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
                   </span>
                 </td>
                 <td
@@ -7593,7 +7595,9 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {approvedCredit?.approvedCreditValue?.toLocaleString('en-In')}
+                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
+                          
                       </td>
                     </tr>
                     <tr>
@@ -7651,10 +7655,12 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
+                          {convertValue(camData?.suggestedOrderValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
+                        {/* {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
-                        Cr
+                        Cr */}
                       </td>
                       <td
                         align="center"
@@ -7674,7 +7680,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
+                        {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
+                        {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -8164,7 +8172,9 @@ function Index() {
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
+        align: 'center',
+        });;
       }
           doc.save('CAM.pdf');
         },

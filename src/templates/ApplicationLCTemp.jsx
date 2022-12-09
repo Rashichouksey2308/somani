@@ -614,7 +614,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            USD{' '}
+                           {lcModuleData.lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                               ? lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                               : 0}

@@ -75,7 +75,10 @@ console.log(savedData,'savedData')
         }
       } else {
         console.log(props?.data,'savedData1')
-        setDeliveryData(props?.data?.deliveryTerm);
+        setDeliveryData(props?.data?.deliveryTerm
+          ? props?.data?.deliveryTerm : props?.genericData?.order?.termsheet?.transactionDetails?.incoTerms
+
+          );
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
         setPaymentTerms(props?.data?.paymentTerms ? props?.data?.paymentTerms : props?.genericData?.order?.termsheet?.paymentDueDate?.computationOfDueDate);
         setListContact(
@@ -140,7 +143,7 @@ console.log(savedData,'savedData')
     temp[index][name] = value;
     setListContact([...temp]);
   };
-
+console.log(deliveryData,"deliveryData")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0 `}>
@@ -157,15 +160,13 @@ console.log(savedData,'savedData')
                   value={deliveryData}
                 >
                   <option value="">Select an option</option>
-                  <option value="CIF	Cost Insurance Freight Incoterms 2000">
+                  <option value="CIF">
                     CIF Cost Insurance Freight Incoterms 2000
                   </option>
-                  <option value={`CFR	Cost & Freight Incoterms 2000`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
-                  <option value="DDP	Delivery Duties Paid Incoterms 2000">
-                    DDP Delivery Duties Paid Incoterms 2000
-                  </option>
-                  <option value="">EXW Ex Works Incoterms 2000</option>
-                  <option value="FOB	Free on Board Incoterms 2000">FOB Free on Board Incoterms 2000</option>
+                  <option value={`CFR`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
+                  
+                 
+                  <option value="FOB">FOB Free on Board Incoterms 2000</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Delivery Terms <strong className="text-danger">*</strong>
@@ -185,7 +186,7 @@ console.log(savedData,'savedData')
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
+                  <option value="DaysfromVesselDate"> Days From Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>

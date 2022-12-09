@@ -72,7 +72,8 @@ function Index({
     LimitValue: false,
     OrderValue: false,
   });
-
+const [limitValueChecked, setLimitValueChecked] = useState(false);
+const [orderValueChecked, setOrderValueChecked] = useState(false);
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -85,7 +86,7 @@ function Index({
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
   });
-
+ console.log(filteredCreditRating,"filteredCreditRating")
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
@@ -98,7 +99,15 @@ function Index({
     saveApprovedCreditData(name, value);
     // }
   };
-
+  console.log(approvedCredit)
+useEffect(() => {
+    if(approvedCredit.approvedCreditValue){
+    setLimitValueChecked(true)
+    }
+    if(approvedCredit.approvedOrderValue){
+    setOrderValueChecked(true)
+    }
+},[filteredCreditRating])
   const [sanctionComments, setSanctionComments] = useState('');
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
@@ -736,6 +745,10 @@ function Index({
         setIsFieldInFocus,
         unit,
         camConversionunit,
+        limitValueChecked,
+        orderValueChecked,
+        setLimitValueChecked,
+        setOrderValueChecked
       )}
       {Documents(documentsFetched)}
     </>
@@ -866,7 +879,7 @@ const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Port of Discharge</span>
-                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}</span>
+                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}, India</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1879,7 +1892,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                    {camData?.productSummary?.monthlyProductionCapacity ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
@@ -1890,7 +1903,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                    {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
@@ -1931,7 +1944,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.availableStock ? 'MT' : ''}
+                    {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -1967,7 +1980,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
@@ -2983,10 +2996,13 @@ const sectionTerms = (
   setIsFieldInFocus,
   unit,
   camConversionunit,
+  limitValueChecked,
+  orderValueChecked,
+  setLimitValueChecked,
+  setOrderValueChecked
 ) => {
 
-  const [limitValueChecked, setLimitValueChecked] = useState(false);
-  const [orderValueChecked, setOrderValueChecked] = useState(false);
+  
 
   return (
     <>
@@ -3044,7 +3060,7 @@ const sectionTerms = (
                         {filteredCreditRating &&
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'))} </td>
+                            <td key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) }  </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -3057,7 +3073,7 @@ const sectionTerms = (
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value))?.toLocaleString('en-In')}
+                              {checkNan(convertValue(val?.suggested?.value,camConversionunit))?.toLocaleString('en-In')}
                               {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                             </td>
                           ))}{' '}
@@ -3143,10 +3159,10 @@ const sectionTerms = (
                   <tr>
                     <td>Order Value</td>
                     <td>-</td>
-                    <td>{checkNan(CovertvaluefromtoCR(camData?.orderValue))}</td>
+                    <td>{checkNan(convertValue(camData?.orderValue,camConversionunit))} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}</td>
                     <td>-</td>
                     <td>
-                      {checkNan(convertValue(camData?.suggestedOrderValue))?.toLocaleString('en-In')}
+                      {checkNan(convertValue(camData?.suggestedOrderValue,camConversionunit))?.toLocaleString('en-In')}
                       {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
 
                       {/* {camData?.suggestedOrderValue} */}
@@ -3215,11 +3231,14 @@ const sectionTerms = (
                   className="form-control input"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  value={sanctionComments}
                   onChange={(e) => setSanctionComments(e.target.value)}
                 ></textarea>
                 <button
                   className={`${styles.button} mt-3 d-flex  align-items-center justify-content-center `}
-                  onClick={() => sanctionComments.length > 0 && addApproveRemarkArr(sanctionComments)}
+                  onClick={() => {sanctionComments.length > 0 &&
+                     addApproveRemarkArr(sanctionComments)
+                     setSanctionComments('')}}
                 >
                   Add
                 </button>

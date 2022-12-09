@@ -1674,7 +1674,10 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                          {data?.deliveryTerm}
+                        {data?.deliveryTerm=="CIF"?"IF Cost Insurance Freight Incoterms 2000"
+                        :data?.deliveryTerm=="CFR"?"CFR	Cost & Freight Incoterms 2000":
+                        data?.deliveryTerm=="FOB"?"FOB Free on Board Incoterms 2000":""
+                        }
                         </p>
                       </td>
                     </tr>

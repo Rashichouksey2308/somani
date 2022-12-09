@@ -83,7 +83,11 @@ useEffect(() => {
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      // Add the page number footer to the center of the page
+        doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
+        align: 'center',
+        });
+      
       }
         doc.save('ApplicationLC.pdf');
       },
@@ -143,7 +147,7 @@ useEffect(() => {
               style={{ cursor: 'pointer' }}
               onClick={() => Router.push('/letter-credit/lc-create')} 
             />
-            <h1 className={`${styles.heading} heading`}>Application for LC</h1>
+            <h1 className={`${styles.lcHeading}`}>Application for LC</h1>
           </div>
         </div>
           <div className={`${styles.term_container} container-fluid download-pdf-bg`}>           
@@ -289,7 +293,7 @@ useEffect(() => {
                               'USD',
                               '',
                             )} */}
-                            USD{' '}
+                             {lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData?.lcApplication?.currecyCodeAndAmountValue
                               ? returnReadableNumber(
                                   lcModuleData?.lcApplication?.currecyCodeAndAmountValue,

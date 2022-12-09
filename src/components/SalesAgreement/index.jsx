@@ -2465,7 +2465,7 @@ let masterList = [
     setSideStateToLocal(key);
      setSideStateToLocal(key);
       if (key == 'Additional Comments') {
-        Router.push('/agreement')
+        Router.push('/agreement-table')
       }
   };
 
