@@ -68,7 +68,7 @@ const deleteArr=(val,index)=>{
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
         align: 'center',
         });;
       }
