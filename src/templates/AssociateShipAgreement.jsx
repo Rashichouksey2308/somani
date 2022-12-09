@@ -1180,7 +1180,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               {data?.paymentTerm === 'DaysfromBLDate'
                 ? 'Days from BL Date'
                 : data?.paymentTerm === 'DaysfromVesselDate'
-                ? 'Days from Vessel Date'
+                ? 'Days From Vessel Discharge Date'
                 : data?.paymentTerm === 'Whicheverisearlier'
                 ? 'Whichever is earlier'
                 : ''}

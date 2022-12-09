@@ -1879,7 +1879,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                    {camData?.productSummary?.monthlyProductionCapacity ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
@@ -1890,7 +1890,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                    {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
@@ -1931,7 +1931,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.availableStock ? 'MT' : ''}
+                    {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -1967,7 +1967,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
