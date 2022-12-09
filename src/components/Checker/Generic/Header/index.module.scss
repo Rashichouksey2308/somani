@@ -1,5 +1,10 @@
-@import '../../../src/components/styles/Core/config';
+@import '../../../../components//styles/Core/config';
 
+.accordion_Text {
+  color: #283756;
+  font-weight: bold;
+  line-height: 17px;
+}
 //basic info and supplier info
 .info_wrapper {
   padding: 0px;
@@ -10,7 +15,6 @@
       padding: 17px 35px !important;
     }
   }
-
   .content {
     padding: 0px 35px !important;
     padding-top: 1rem;
@@ -23,7 +27,6 @@
 .dashboardTab {
   .tabHeader {
     padding: 28px 28px 0;
-    margin-bottom: 10px;
     @include respond(lg-desktop) {
       padding: 20px 20px 0;
     }
@@ -54,14 +57,21 @@
           height: auto;
         }
       }
+
       .title {
         font-size: 34px;
         font-weight: bold;
         line-height: 41px;
         margin: 0;
         padding-left: 18px;
-        text-transform: capitalize;
+        text-transform: lowercase;
       }
     }
+  }
+  .accordian_text {
+    font-size: 14px;
+    color: #283756;
+    font-weight: bold;
+    line-height: 17px;
   }
 }

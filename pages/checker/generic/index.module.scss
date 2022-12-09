@@ -1,0 +1,16 @@
+@import '../../../src/components/styles/Core/config';
+
+.card {
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  margin-bottom: 68px;
+  @include respond(sm-desktop) {
+    margin: 20px;
+    margin-bottom: 60px;
+  }
+  @include respond(phone) {
+    margin: 15px;
+    margin-bottom: 71px;
+  }
+}
