@@ -840,7 +840,19 @@ function Index() {
   const saveInvoiceDataRevisedRevised = (name, value) => {
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
-
+   newInput[name] = value;
+   console.log(invoiceDataRevised.isConsigneeSameAsBuyer,"invoiceDataRevised.isConsigneeSameAsBuyer")
+    if (invoiceDataRevised.isConsigneeSameAsBuyer) {
+      if (name == 'buyerName') {
+        newInput.consigneeName = value;
+      }
+      if (name == 'buyerAddress') {
+        newInput.consigneeAddress = value;
+      }
+      if (name == 'buyerGSTIN') {
+        newInput.consigneeGSTIN = value;
+      }
+    }
     setInvoiceDataRevised({ ...newInput });
   };
 
@@ -954,6 +966,12 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
+        const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
         doc.save('MarginMoney.pdf');
       },
 
@@ -1029,7 +1047,7 @@ function Index() {
       buyerName: marginData?.company?.companyName || '',
       buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
       buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
-      isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+      isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer || true,
       consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
       consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
       consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
@@ -1066,6 +1084,12 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
+          const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
         doc.save('RevisedMarginMoney.pdf');
       },
       autoPaging: 'text',

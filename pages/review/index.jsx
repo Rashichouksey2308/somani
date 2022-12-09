@@ -7994,36 +7994,20 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
-          : supremeCourt?.filter((val) => {
+        supremeCourt?.filter((val) => {
               return partyFilter(val);
             });
       highCourt =
-        highCourt.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
-          : highCourt?.filter((val) => {
+        highCourt?.filter((val) => {
               return partyFilter(val);
             });
 
       tribunalCourts =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
-          : tribunalCourts?.filter((val) => {
+        tribunalCourts?.filter((val) => {
               return partyFilter(val);
             });
       districtCourt =
-        districtCourt.length <= 0
-          ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
-              return partyFilter(val);
-            })
-          : districtCourt?.filter((val) => {
+       districtCourt?.filter((val) => {
               return partyFilter(val);
             });
     }
@@ -8045,36 +8029,20 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt?.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
-          : supremeCourt?.filter((val) => {
+         supremeCourt?.filter((val) => {
               return civilfilter(val);
             });
       highCourt =
-        highCourt?.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
-          : highCourt?.filter((val) => {
+         highCourt?.filter((val) => {
               return civilfilter(val);
             });
 
       tribunalCourts =
-        tribunalCourts?.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
-          : tribunalCourts?.filter((val) => {
+         tribunalCourts?.filter((val) => {
               return civilfilter(val);
             });
       districtCourt =
-        districtCourt?.length <= 0
-          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-              return civilfilter(val);
-            })
-          : districtCourt?.filter((val) => {
+        districtCourt?.filter((val) => {
               return civilfilter(val);
             });
     }
@@ -8102,36 +8070,20 @@ function Index() {
       };
 
       supremeCourt =
-        supremeCourt.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
-          : supremeCourt?.filter((val) => {
+       supremeCourt?.filter((val) => {
               return riskFilter(val);
             });
       highCourt =
-        highCourt.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
-          : highCourt?.filter((val) => {
+        highCourt?.filter((val) => {
               return riskFilter(val);
             });
 
       tribunalCourts =
-        tribunalCourts?.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
-          : tribunalCourts?.filter((val) => {
+        tribunalCourts?.filter((val) => {
               return riskFilter(val);
             });
       districtCourt =
-        districtCourt?.length <= 0
-          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-              return riskFilter(val);
-            })
-          : districtCourt?.filter((val) => {
+        districtCourt?.filter((val) => {
               return riskFilter(val);
             });
     }
@@ -8203,6 +8155,12 @@ function Index() {
       ),
       {
         callback: function (doc) {
+          const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
           doc.save('CAM.pdf');
         },
         margin: [20, 20, 20, 30],

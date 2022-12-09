@@ -530,7 +530,7 @@ export default function TPAIGITemp(data) {
           </Row>
         </div>
 
-        <p className=" text_sales">
+        <p className="text_sales">
           {' '}
           <strong>SIGNATURE PAGE</strong>
         </p>
