@@ -23,7 +23,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             bgColor="#D8EAFF"
             style={{
               fontFamily: 'Arial, Helvetica, sans-serif',
-              marginBottom: '26px',
+              marginBottom: '10px',
               border: '1px solid #D2D7E5',
               borderRadius: '6px',
               height: '126px',
@@ -32,15 +32,33 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             cellSpacing="0"
             border="0"
           >
+            <tr>              
+              <td valign="top" align="center" width="100%">
+                <h2
+                  style={{
+                    fontSize: '34px',
+                    color: '#3687E8',
+                    lineHeight: '41px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
+                  "LC DRAFT"
+                  }
+                
+                </h2>
+              </td>
+            </tr>
             <tr>
-              <td valign="bottom" align="left" width="33%">
+              <td valign="bottom" align="left" width="70%">
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    padding: '10px 0 0 25px',
+                    padding: '10px 0 10px 25px',
                   }}
                 >
                   Order ID:{' '}
@@ -67,12 +85,9 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     style={{
                       display: 'inline-block',
                       paddingLeft: '25px',
-                      width: '90px',
-                      float: 'left',
-                      height: '50px',
                     }}
                   >
-                    Buyer:{' '}
+                    Buyer: {' '} 
                   </span>
                   <span
                     style={{
@@ -85,33 +100,17 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                   </span>
                 </span>
               </td>
-              <td valign="top" align="center" width="34%">
-                <h2
-                  style={{
-                    fontSize: '34px',
-                    color: '#3687E8',
-                    lineHeight: '41px',
-                    fontWeight: 'bold',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
-                  "LC DRAFT"
-                  }
-                
-                </h2>
-              </td>
-              <td valign="bottom" align="right" width="33%">
+              <td valign="bottom" align="right" width="30%">
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    paddingRight: '25px',
+                    padding: '10px 25px 10px 0',
+                    whiteSpace: 'nowrap'
                   }}
                 >
-                  Date:{' '}
                   <span
                     style={{
                       lineHeight: '24px',
@@ -119,7 +118,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       opacity: '0.7',
                     }}
                   >
-                    {moment(d).format('DD.MM.yyyy')}
+                    Date: {' '}{moment(d).format('DD.MM.yyyy')}
                   </span>
                 </span>
               </td>
@@ -615,7 +614,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            USD{' '}
+                           {lcModuleData.lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                               ? lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                               : 0}
@@ -1544,6 +1543,13 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               padding: '25px 24px',
                             }}
                           >
+                            <span style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              display: 'block',
+                              marginBottom: '16px'
+                            }}>PRODUCT SPECIFICATION</span>
                             <table
                               width="80%"
                               cellPadding="10"

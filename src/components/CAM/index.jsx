@@ -3060,7 +3060,7 @@ const sectionTerms = (
                         {filteredCreditRating &&
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'))} </td>
+                            <td key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) }  </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -3073,7 +3073,7 @@ const sectionTerms = (
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value))?.toLocaleString('en-In')}
+                              {checkNan(convertValue(val?.suggested?.value,camConversionunit))?.toLocaleString('en-In')}
                               {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                             </td>
                           ))}{' '}
@@ -3159,10 +3159,10 @@ const sectionTerms = (
                   <tr>
                     <td>Order Value</td>
                     <td>-</td>
-                    <td>{checkNan(CovertvaluefromtoCR(camData?.orderValue))}</td>
+                    <td>{checkNan(convertValue(camData?.orderValue,camConversionunit))} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}</td>
                     <td>-</td>
                     <td>
-                      {checkNan(convertValue(camData?.suggestedOrderValue))?.toLocaleString('en-In')}
+                      {checkNan(convertValue(camData?.suggestedOrderValue,camConversionunit))?.toLocaleString('en-In')}
                       {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
 
                       {/* {camData?.suggestedOrderValue} */}
