@@ -11,6 +11,8 @@ const initialState = {
     inspectionDetails: {},
     updatingInspectionRemarks: false,
     updateInspectionDetails: {},
+    gettingInspectionPickupRecords: false,
+    inspectionPickupRecords: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -84,7 +86,21 @@ function CheckerReducer(state = initialState, action) {
                 updatingInspectionRemarks: false,
                 updateInspectionDetails: {},
             };
-            
+
+        case types.GET_INSPECTION_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingInspectionPickupRecords: false,
+                inspectionPickupRecords: action.payload,
+            };
+
+        case types.GET_INSPECTION_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingInspectionPickupRecords: false,
+                inspectionPickupRecords: {},
+            };
+
         default:
             return state;
     }

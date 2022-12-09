@@ -15,7 +15,7 @@ function Index({ otherdocuments, orderId }) {
         {
             Header: "Document Name",
             accessor: "name",
-            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
+            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value?.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
         },
         {
             Header: "Format",
@@ -25,7 +25,7 @@ function Index({ otherdocuments, orderId }) {
         {
             Header: "Document Date",
             accessor: "date",
-            Cell: ({ value }) => value.slice(0, 10)
+            Cell: ({ value }) => value?.slice(0, 10)
         },
         {
             Header: "Uploaded By",

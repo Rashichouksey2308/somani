@@ -209,7 +209,7 @@ export default function Index({ isQuery }) {
     if ('margin-money' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`;
-   
+
       } else {
         router.route = '/Leads' + '/Margin Money';
       }
@@ -218,10 +218,10 @@ export default function Index({ isQuery }) {
     if ('termsheet' == pageName) {
       if (order != null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()}` + `/${order}`;
-      
+
       } else if (id !== null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `;
-       
+
       } else {
         router.route = '/Leads' + '/Transaction Summary';
       }
@@ -229,7 +229,7 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`;
-       
+
       } else {
         router.route = '/Leads' + '/Termsheet';
       }
@@ -237,7 +237,7 @@ export default function Index({ isQuery }) {
     if ('generic' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Generic' + `/${id?.toLowerCase()}` + `/${order}`;
-        
+
       } else {
         router.route = '/Agreements & LC' + '/Generic';
       }
@@ -245,7 +245,7 @@ export default function Index({ isQuery }) {
     if ('agreement' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Agreement' + `/${id?.toLowerCase()}` + `/${order}`;
-       
+
       } else {
         router.route = '/Agreements & LC' + '/Agreement';
       }
@@ -253,10 +253,10 @@ export default function Index({ isQuery }) {
     if ('Lc' == pageName) {
       if (order != null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}` + `/${order}`;
-      
+
       } else if (id !== null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}`;
-       
+
       } else {
         router.route = '/Agreements & LC' + '/LC';
       }
@@ -288,12 +288,12 @@ export default function Index({ isQuery }) {
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
-       
+
       } else {
         router.route = '/Loading, Transit & Unloading';
       }
     }
-   
+
     if ('inception2' == pageName) {
       if (order != null) {
         router.route =
@@ -303,8 +303,8 @@ export default function Index({ isQuery }) {
           '/Loading, Transit & Unloading' +
           `Inspection` +
           `/${upperTabs}` +
-          `/${id?.toLowerCase()}` 
-        
+          `/${id?.toLowerCase()}`
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Inspection';
       }
@@ -317,7 +317,7 @@ export default function Index({ isQuery }) {
           `/${id?.toLowerCase()}` +
           `/${upperTabs}` +
           `/${order}`;
-      
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Transit Details';
       }
@@ -325,10 +325,10 @@ export default function Index({ isQuery }) {
     if ('forward' == pageName) {
       if (order != null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()}` + `/${order}`;
-        
+
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()} `;
-       
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging';
       }
@@ -338,10 +338,10 @@ export default function Index({ isQuery }) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
         // `/${id}` +
         // `/${order}`
-      
+
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
-       
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
       }
@@ -349,12 +349,12 @@ export default function Index({ isQuery }) {
     if ('custom' == pageName) {
       if (id !== null) {
         router.route = '/Custom Clearance & Warehouse' + `/${companyName}` + `/${upperTabs}` + `/${OrderId}`;
-        
+
       } else {
         router.route = '/Custom Clearance & Warehouse';
       }
     }
-  
+
     if ('payment' == pageName) {
       if (id !== null) {
         router.route = '/Payment, Invoicing & Delivery' + `/${id?.toLowerCase()}` + `/${upperTabs}` + `/${companyId}`;
@@ -363,10 +363,26 @@ export default function Index({ isQuery }) {
       }
     }
 
-   
+    if ('checker-inspection' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Checker' + `/Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Checker' +
+          `/Inspection` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Checker' + '/Inspection';
+      }
+    }
+
+
 
     router.route.split('/').map((subRoute, index) => {
-     
+
 
       if (subRoute !== '') {
         if (subRoute == '[id]') {
@@ -393,20 +409,19 @@ export default function Index({ isQuery }) {
       <div className="col-md-7">
         <img src="/static/home.svg"></img>
         {pageName == 'generic' ||
-        pageName == 'vessel' ||
-        pageName == 'custom' ||
-        pageName == 'termsheet' ||
-        pageName == 'credit-queue' ||
-        pageName == 'payment' ? (
+          pageName == 'vessel' ||
+          pageName == 'custom' ||
+          pageName == 'termsheet' ||
+          pageName == 'credit-queue' ||
+          pageName == 'payment' ? (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-              
+
               return (
                 <span
                   key={index}
-                  className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == index + 1 ? `${styles.highlight} highlight` : null
-                  }`}
+                  className={`${styles.breadcrumcontainer} ${myUrlLength == index + 1 ? `${styles.highlight} highlight` : null
+                    }`}
                 >
                   <span className="breadcrum_mode">/</span>
                   <span className={`${styles.value} breadcrum_mode`}>{val}</span>
@@ -417,21 +432,20 @@ export default function Index({ isQuery }) {
         ) : (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-              
+
               return (
                 <span
                   key={index}
-                  className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == 4
+                  className={`${styles.breadcrumcontainer} ${myUrlLength == 4
                       ? myUrlLength - 2 == index
                         ? `${styles.highlight} highlight`
                         : myUrlLength - 1 == index
+                          ? `${styles.highlight} highlight`
+                          : null
+                      : myUrlLength - 1 == index
                         ? `${styles.highlight} highlight`
                         : null
-                      : myUrlLength - 1 == index
-                      ? `${styles.highlight} highlight`
-                      : null
-                  }`}
+                    }`}
                 >
                   <span className="breadcrum_mode">/</span>
                   <span className={`${styles.value} breadcrum_mode`}>{val}</span>

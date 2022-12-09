@@ -55,7 +55,7 @@ function Index({ thirdPartyInspection, order, thirdPartyInspectionHistory, order
                         />
                         {loadPortDocuments.length > 0 && <LoadPortDocument loadPortDocuments={loadPortDocuments} orderId={order._id} />}
                         {dischargePortDocuments.length > 0 && <DischargePortDocument dischargePortDocuments={dischargePortDocuments} orderId={order._id} />}
-                        {order?.otherdocuments?.documents.length > 0 && <OtherDocuments otherdocuments={order?.otherdocuments?.documents} orderId={order._id} />}
+                        {order?.otherdocuments?.documents?.length > 0 && <OtherDocuments otherdocuments={order?.otherdocuments?.documents} orderId={order._id} />}
                     </div>
                 </div>
             </div>

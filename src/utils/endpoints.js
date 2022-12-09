@@ -157,5 +157,5 @@ export default {
   getUserDetails: '/user-master/user',
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
+  getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
 };
-  
