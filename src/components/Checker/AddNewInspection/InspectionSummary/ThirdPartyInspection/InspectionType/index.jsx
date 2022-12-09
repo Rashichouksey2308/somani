@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from '../index.module.scss';
+import Tooltip from '../../../../../Tooltip';
 
-const Index = ({ thirdPartyInspection, order }) => {
+const Index = ({ thirdPartyInspection, order, thirdPartyInspectionHistory, orderHistory }) => {
     return (
         <div className={`${styles.main} mt-4 card border_color mx-4`}>
             <div
@@ -13,8 +14,8 @@ const Index = ({ thirdPartyInspection, order }) => {
             >
                 <h3 className={`${styles.heading} mb-0`}>Inspection Type</h3>
                 <div className='d-flex'>
-                    <p className='font-weight-bold label_heading mr-4'>Shipment Type: <p className='d-inline-block text-dark'>{order?.termsheet?.transactionDetails?.shipmentType}</p></p>
-                    <p className='font-weight-bold label_heading mr-4'>Part Shipment Allowed: <p className='d-inline-block text-dark'>{order?.termsheet?.transactionDetails?.partShipmentAllowed}</p></p>
+                    <p className='font-weight-bold label_heading mr-4'>Shipment Type: <p className='d-inline-block text-dark'>{order?.termsheet?.transactionDetails?.shipmentType}{orderHistory?.termsheet?.transactionDetails?.shipmentType && <Tooltip data={orderHistory?.termsheet?.transactionDetails?.shipmentType} />}</p></p>
+                    <p className='font-weight-bold label_heading mr-4'>Part Shipment Allowed: <p className='d-inline-block text-dark'>{order?.termsheet?.transactionDetails?.partShipmentAllowed}{orderHistory?.termsheet?.transactionDetails?.partShipmentAllowed && <Tooltip data={orderHistory?.termsheet?.transactionDetails?.partShipmentAllowed} />}</p></p>
                     <span>+</span>
                 </div>
             </div>
@@ -27,6 +28,7 @@ const Index = ({ thirdPartyInspection, order }) => {
                             </div>
                             <div className='font-weight-light h5'>
                                 {thirdPartyInspection?.loadPortInspection ? 'Yes' : 'No'}
+                                {thirdPartyInspectionHistory?.loadPortInspection && <Tooltip data={thirdPartyInspectionHistory?.loadPortInspection ? 'Yes' : 'No'} />}
                             </div>
                         </div>
                         <div className="col-md-6 col-sm-6 my-4">
@@ -35,6 +37,7 @@ const Index = ({ thirdPartyInspection, order }) => {
                             </div>
                             <div className='font-weight-light h5'>
                                 {thirdPartyInspection?.dischargePortInspection ? 'Yes' : 'No'}
+                                {thirdPartyInspectionHistory?.dischargePortInspection && <Tooltip data={thirdPartyInspectionHistory?.dischargePortInspection ? 'Yes' : 'No'} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -43,6 +46,7 @@ const Index = ({ thirdPartyInspection, order }) => {
                             </div>
                             <div className='font-weight-light h5'>
                                 {order?.commodity}
+                                {orderHistory?.commodity && <Tooltip data={orderHistory?.commodity} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -51,6 +55,7 @@ const Index = ({ thirdPartyInspection, order }) => {
                             </div>
                             <div className='font-weight-light h5'>
                                 {order?.quantity}
+                                {orderHistory?.quantity && <Tooltip data={orderHistory?.quantity} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -59,6 +64,7 @@ const Index = ({ thirdPartyInspection, order }) => {
                             </div>
                             <div className='font-weight-light h5'>
                                 {order?.countryOfOrigin}
+                                {orderHistory?.countryOfOrigin && <Tooltip data={orderHistory?.countryOfOrigin} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -66,7 +72,8 @@ const Index = ({ thirdPartyInspection, order }) => {
                                 Vessel Name
                             </div>
                             <div className='font-weight-light h5'>
-                                Not-Found
+                                {order?.vesselName}
+                                {orderHistory?.vesselName && <Tooltip data={orderHistory?.vesselName} />}
                             </div>
                         </div>
                     </div>

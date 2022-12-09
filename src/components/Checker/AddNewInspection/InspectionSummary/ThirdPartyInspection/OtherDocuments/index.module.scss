@@ -1,0 +1,93 @@
+@import '../../../../../styles/Core/config';
+
+.main {
+    margin-bottom: 26px;
+    border-radius: 6px !important;
+
+    .head_container {
+        border-bottom: 2px solid #cad6e6;
+        padding: 25px 35px !important;
+        height: 80px;
+        cursor: pointer;
+
+        .heading {
+            color: #3687e8;
+            font-weight: bold;
+            font-size: 22px;
+            text-transform: capitalize;
+            line-height: 27px;
+        }
+
+        .status_heading {
+            letter-spacing: 0.53px;
+            color: #00000080;
+            font-size: 16px;
+            line-height: 17px;
+            font-weight: 500;
+
+            .active {
+                color: #43c34d;
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: bold;
+                margin-left: 12px;
+            }
+        }
+
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+
+            @include respond(lg-desktop) {
+                font-size: 35px;
+            }
+        }
+    }
+
+    .search_container {
+        height: 62px;
+        padding-right: 1.5rem !important;
+        background: #f0f0f0;
+
+        .dropDown {
+            border-radius: 4px;
+            color: #3687e8;
+            text-transform: capitalize;
+            font-size: 16px;
+            line-height: 19px;
+            font-weight: bold;
+            width: fit-content;
+            padding: 0 25px 0 20px;
+            height: 40px;
+            box-shadow: none;
+        }
+
+        .searchBarContainer {
+            position: relative;
+
+            .searchBar {
+                width: 337px;
+                height: 40px;
+                padding-left: 3.5rem;
+                border-radius: 1.1rem;
+                box-shadow: none;
+
+                @include respond(lg-desktop) {
+                    padding-left: 2.5rem;
+                }
+            }
+
+            .searchImage {
+                position: absolute;
+                margin-left: 30px;
+
+                @include respond(lg-desktop) {
+                    width: 17px;
+                    margin-left: 20px;
+                }
+            }
+        }
+    }
+}
