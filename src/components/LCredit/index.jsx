@@ -430,7 +430,7 @@ console.log(clauseArr,'clauseArr')
       return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getValue(existing, value)}  %`;
-    } else if (value === '(42C) Draft At') {
+    } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
       return `Usuance - ${getValue(existing, value)} days`;
     } else {
       return getValue(existing, value);

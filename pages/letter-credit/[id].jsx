@@ -129,7 +129,7 @@ function Index() {
   const [clauseObj, setClauseObj] = useState(initialState);
 
   const [clauseArr, setClauseArr] = useState([]);
-
+console.log(clauseArr,'clauseArr')
   const [drop, setDrop] = useState('');
 
   const [fieldType, setFieldType] = useState('');
@@ -163,7 +163,9 @@ function Index() {
     setDrop(val2);
 
     newInput['existingValue'] = lcData[e.target.value] || '';
-    if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
+    if (e.target.value === 'draftAt')
+      newInput['existingValue'] =
+        lcData.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${lcData['numberOfDays']} Days` || '';
     newInput['dropDownValue'] = val1 || '';
 
     setClauseObj(newInput);
@@ -206,13 +208,17 @@ function Index() {
     else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
       handleErrorToast('CLAUSE ALREADY ADDED');
     else {
+      let tempClauseObj = { ...clauseObj };
+      if (clauseObj.dropDownValue == '(42C) Draft At') {
+        tempClauseObj.existingValue = tempClauseObj.existingValue.slice(10, tempClauseObj.existingValue.length - 5);
+      }
       const newArr = [...clauseArr];
       if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
         setFieldType('');
       }
       inputRef1.current.value = '';
       setClauseObj(initialState);
-      newArr.push(clauseObj);
+      newArr.push(tempClauseObj);
       setClauseArr(newArr);
     }
   };
@@ -295,7 +301,7 @@ function Index() {
     if (type == '(43P) Partial Shipment' && value == 'Conditional') {
       return 'Conditional';
     }
-    if (type == '(44C) Latest Date Of Shipment'||type == '(31D) Date Of Expiry') {
+    if (type == '(44C) Latest Date Of Shipment' || type == '(31D) Date Of Expiry') {
       return moment(value).format('DD-MM-YYYY');
     } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
@@ -353,6 +359,8 @@ function Index() {
       return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getData(existing, value)}  %`;
+    } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+      return `Usuance - ${getData(existing, value)} days`;
     } else {
       return getData(existing, value);
     }
@@ -467,8 +475,8 @@ function Index() {
                             <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
                             <option value="applicableRules">(40E) Application Rules</option>
                             <option value="dateOfExpiry">(31D) Date Of Expiry</option>
-                            <option value="placeOfExpiry">(31D) Place Of Expiry</option> 
-                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option> 
+                            <option value="placeOfExpiry">(31D) Place Of Expiry</option>
+                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option>
                             <option value="applicant">(50) Applicant</option>
                             <option value="beneficiary">(59) Beneficiary</option>
                             <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
@@ -714,10 +722,18 @@ function Index() {
                                       <td>{clause.dropDownValue}</td>
                                       <td>{getExistingValue(clause.dropDownValue, clause.existingValue)}</td>
                                       <td>
-                                        {clause.dropDownValue === '(32B) Currency Code & Amount'
+                                        {/* {clause.dropDownValue === '(32B) Currency Code & Amount'
                                           ? `${lcModuleData?.order?.orderCurrency} `
                                           : ''}
                                         {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                          ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
+                                          : getData(clause.newValue, clause.dropDownValue)} */}
+
+                                        {clause.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
+                                          ? `Usuance - ${getData(clause.newValue, clause.dropDownValue)} days `
+                                          : clause.dropDownValue === '(32B) Currency Code & Amount'
+                                          ? `${lcModuleData?.order?.orderCurrency} `
+                                          : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
                                           : getData(clause.newValue, clause.dropDownValue)}
                                       </td>
