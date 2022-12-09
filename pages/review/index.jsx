@@ -7680,7 +7680,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
+                        {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
+                        {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
