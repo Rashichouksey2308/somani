@@ -40,7 +40,6 @@ function Index() {
       sessionStorage.setItem('lcPreviewId', lc.order.lc);
       Router.push('/letter-table/letter-amend/id');
     } else {
-   
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
       Router.push('/letter-credit/lc-create');
@@ -75,6 +74,22 @@ function Index() {
     } else if (sorting == 1) {
       dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
+    }
+  };
+  /// firstimeUpdate False -- update
+  /// firstimeUpdate False && isPostAmmend FAlse -- amend
+  /// firstimeUpdate False && isPostAmmed true -- update
+  /// isAmmend disable -- amend
+
+  const defineAction = (lc) => {
+    if (lc.isAmmended) {
+      return false;
+    } else if (!lc.firstTimeUpdate) {
+      return true;
+    } else if (lc.firstTimeUpdate && !lc.isPostAmmended) {
+      return false;
+    } else if (lc.firstTimeUpdate && lc.isPostAmmended) {
+      return true;
     }
   };
 
@@ -194,12 +209,12 @@ function Index() {
                           {lc?.order?.commodity}
                         </td>
                         <td>RM-Sales</td>
-
+                        {defineAction(lc)}
                         <td>
                           <span className={`${styles.status} ${styles.review}`}></span>
                           Pending
                         </td>
-                        {!lc.firstTimeUpdate ? (
+                        {defineAction(lc) ? (
                           <td colSpan={2}>
                             {' '}
                             <button className={styles.updateBtn} onClick={() => handleLcAmmendRoute(lc)}>
@@ -213,7 +228,7 @@ function Index() {
                               <img
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3 img-fluid`}
-                                onClick={() => handleAmmendRoute(lc)}
+                                onClick={() => !lc.isAmmended && handleAmmendRoute(lc)}
                               />
                             </td>
                           </>

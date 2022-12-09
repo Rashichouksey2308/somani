@@ -337,6 +337,8 @@ console.log(clauseArr,'clauseArr')
     fd.append('lcApplication', JSON.stringify(sendLcData));
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
     fd.append('document1', lcDoc.lcDraftDoc);
+    fd.append('isAmmended', lcModuleData.isPostAmmended ? true : false);
+
 
     dispatch(UpdateLcAmendment(fd));
   };
@@ -518,7 +520,8 @@ console.log(clauseArr,'clauseArr')
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfIssue"
-                            value={lcData?.dateOfIssue}
+                            defaultDate={lcData?.dateOfIssue !== '' ? lcData?.dateOfIssue : null}
+                            // value={lcData?.dateOfIssue ? moment(lcData?.dateOfIssue).format('DD-MM-YYYY') : '' }
                             saveDate={saveDate}
                             labelName="(31C) Date Of Issue"
                           />
@@ -940,7 +943,7 @@ console.log(clauseArr,'clauseArr')
               lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
-              documentName="LC DRAFT"
+              documentName={lcModuleData?.isPostAmmended ? "LC AMENDMENT DRAFT" :  "LC DRAFT"}
               module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             />
           </div>
