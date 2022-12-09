@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
@@ -69,7 +69,7 @@ function Index({
     OrderValue: false,
   });
 
-  //const [darkMode, setDarkMode] = useState(false)
+  // const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
 
@@ -276,7 +276,6 @@ function Index({
       },
     },
   };
-
   function createGradient(ctx, area, color, color2) {
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
@@ -310,6 +309,7 @@ function Index({
     labels: [],
     datasets: [],
   });
+
   const [totalCustomer, setTotalCustomer] = useState(0);
   const [totalSupplier, setTotalSupplier] = useState(0);
   const [top5Suppliers, setTop5Suppliers] = useState({
@@ -625,7 +625,6 @@ function Index({
 export default Index;
 
 export const basicInfo = (camData, orderDetails, camConversionunit) => {
-  // console
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1205,7 +1204,6 @@ export const directorDetails = (camData) => {
   );
 };
 export const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
-  const { datasets = [] } = top3Share;
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1236,17 +1234,14 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {datasets !== [] &&
-                    datasets[0]?.data?.map((val, index) => {
+                  {top3Share.datasets &&
+                    top3Share?.datasets[0]?.data.map((val, index) => {
                       return (
                         <div
                           key={index}
                           className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
                         >
-                          <div
-                            className={styles.round}
-                            style={{ backgroundColor: chargeDetailsbackgroundColor[index] }}
-                          ></div>
+                          <div className={styles.round} style={{ backgroundColor: backgroundColor[index] }}></div>
                           <span className={` heading ml-2`}>
                             {top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}
                           </span>
@@ -1523,7 +1518,15 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
     </>
   );
 };
-export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor) => {
+export const debtProfile = (
+  data,
+  options,
+  tempArr,
+  camData,
+  totalLimitDebt = () => '',
+  camConversionunit,
+  debtProfileColor = () => {},
+) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2939,7 +2942,7 @@ export const sectionTerms = (
                             (e.target.type = 'text');
                         }}
                         value={
-                          isFieldInFocus.LimitValue
+                          isFieldInFocus?.LimitValue
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
@@ -2995,7 +2998,7 @@ export const sectionTerms = (
                             (e.target.type = 'text');
                         }}
                         value={
-                          isFieldInFocus.OrderValue
+                          isFieldInFocus?.OrderValue
                             ? approvedCredit?.approvedOrderValue
                             : checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')
                         }
@@ -3038,12 +3041,12 @@ export const sectionTerms = (
                   Add
                 </button>
                 <ul className="mt-3 mb-3">
-                  {approveComment &&
+                  {/* {approveComment &&
                     approveComment?.map((approve, index) => (
                       // <div key={index} className={`${styles.remarks}`}>
                       <li key={index}>{approve}</li>
                       // </div>
-                    ))}
+                    ))} */}
                 </ul>
               </div>
             </div>
@@ -3377,6 +3380,7 @@ export const skewness = (
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
                       <Doughnut id="skewnessChartRevenue" data={top5Customers} options={options} />
+
                       {/* <div className={styles.total_value}>
                         <span>{top5Customers?.labels[0]}</span>
                         <span className={styles.highlight}> {
@@ -3440,7 +3444,9 @@ export const skewness = (
                 <Row className={`d-flex  d-flex align-items-center justify-content-evenly`}>
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut id="skewnessChartPurchases" data={top5Suppliers} options={options} />
+                      <Doughnut id="skewnessChartRevenue" data={top5Customers} options={options} />
+                      {/* 
+                      
                       {/* <div className={styles.total_value}>
                         <span>{top5Suppliers?.labels[0]}</span>
                         <span className={styles.highlight}> {

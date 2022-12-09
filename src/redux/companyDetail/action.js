@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import * as types from './actionType';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
@@ -10,7 +11,6 @@ function getComanyDetails() {
     type: types.GET_COMPANY_DETAIL,
   };
 }
-
 function getComanyDetailsSuccess(payload) {
   return {
     type: types.GET_COMPANY_DETAIL_SUCCESS,
@@ -100,7 +100,7 @@ function getCaseDetailsFailed() {
   };
 }
 
-export const GetCompanyDetails = (payload) => async (dispatch, getState, api) => {
+export const GetCompanyDetails = (payload, companyId) => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
     dispatch(getComanyDetails());
@@ -109,11 +109,15 @@ export const GetCompanyDetails = (payload) => async (dispatch, getState, api) =>
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-
-    let response = await Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
-      headers: headers,
-    });
-
+    if (companyId) {
+      let response = await Axios.post(`${API.corebaseUrl}${API.getCamDetails}?company=${companyId}`, {
+        headers: headers,
+      });
+    } else {
+      let response = await Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
+        headers: headers,
+      });
+    }
     if (response.data.code === 200) {
       dispatch(getComanyDetailsSuccess(response.data.data));
       dispatch(setNotLoading());
