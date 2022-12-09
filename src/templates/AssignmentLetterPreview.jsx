@@ -193,7 +193,7 @@ export default function AssignmentLetterPreview(data) {
                       fontSize: '15px',
                       fontWeight: 'bold',
                       color: '#000000',
-                      marginBottom: '20px',
+                      marginBottom: '25px',
                     }}
                   >
                     Schedule I
@@ -898,7 +898,7 @@ export default function AssignmentLetterPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="50%">
+                      <td align="left" width="70%">
                         <p
                           style={{
                             fontSize: '12px',
@@ -910,7 +910,7 @@ export default function AssignmentLetterPreview(data) {
                           .................................................
                         </p>
                       </td>
-                      <td align="left" width="50%">
+                      <td align="left" width="30%">
                         <p
                           style={{
                             fontSize: '12px',

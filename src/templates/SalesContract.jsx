@@ -924,7 +924,7 @@ export default function SalesContract(changeHandler, data, preview) {
 
             {preview ? (
               <>
-                <span>{data?.sellerSignature}</span>
+                <p>{data?.sellerSignature}</p>
               </>
             ) : (
               <>
@@ -943,7 +943,7 @@ export default function SalesContract(changeHandler, data, preview) {
             </Col> */}
             {preview ? (
               <>
-                <span> {data?.buyerSignature}</span>
+                <p> {data?.buyerSignature}</p>
               </>
             ) : (
               <>

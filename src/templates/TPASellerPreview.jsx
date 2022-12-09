@@ -17,7 +17,7 @@ export default function TPASellerPreview(data) {
         <td valign="top" style={{ padding: '25px 20px 20px' }}>
           <table width="100%" cellPadding="0" cellSpacing="0" border="0">
             <tr>
-              <td align="center" style={{ padding: '15px 0 25px' }}>
+              <td align="center" style={{ padding: '15px 0 30px' }}>
                 <p
                   style={{
                     fontSize: '12px',
@@ -864,10 +864,10 @@ export default function TPASellerPreview(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '30px' }}>
+              <td valign="top" style={{ paddingTop: '40px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <td align="left" valign="top" width="50%" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" width="70%" style={{paddingTop:'20px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -878,7 +878,7 @@ export default function TPASellerPreview(data) {
                         Buyer
                       </p>
                     </td>
-                    <td align="left" valign="top" width="50%" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" width="30%" style={{paddingTop:'20px'}}>
                        <p
                         style={{
                           fontSize: '12px',
@@ -891,7 +891,12 @@ export default function TPASellerPreview(data) {
                       data?.buyerAuthorized?.map((val, index) => {
                       return (
                       <>
-                      <span>{val.name}, {val.designation}</span>
+                        <p style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000'
+                          }}>Name: {val.name}<br/>
+                          Designation: {val.designation}</p>
                       </>
                       )
                       })}
@@ -932,7 +937,12 @@ export default function TPASellerPreview(data) {
                       data?.supplierAuthorized?.map((val, index) => {
                       return (
                       <>
-                      <span>{val.name}, {val.designation}</span>
+                        <p style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000'
+                          }}>Name: {val.name}<br/>
+                          Designation: {val.designation}</p>
                       </>
                         )
                       })}
@@ -974,7 +984,12 @@ export default function TPASellerPreview(data) {
                       data?.associateBuyerAuthorized?.map((val, index) => {
                       return (
                       <>
-                      <span>{val.name}, {val.designation}</span>
+                        <p style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000'
+                          }}>Name: {val.name}<br/>
+                          Designation: {val.designation}</p>
                       </>
                       )
                       })}
