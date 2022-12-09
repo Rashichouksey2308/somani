@@ -1378,7 +1378,7 @@ function Index() {
     let rotateImageUrl = {
       neddle: neddle10,
       top: '34%',
-      left: '37%',
+      left: '47%',
       width: '26%',
       height: '35%',
     };
@@ -1404,8 +1404,8 @@ function Index() {
       }
       if (r == 2) {
         rotateImageUrl.neddle = neddle2;
-        rotateImageUrl.top = '16%';
-        rotateImageUrl.left = '0%';
+        rotateImageUrl.top = '19%';
+        rotateImageUrl.left = '7%';
         rotateImageUrl.width = '260px';
         rotateImageUrl.height = '260px';
       }
@@ -1969,7 +1969,7 @@ function Index() {
             </table>
           </td>
         </tr>
-        <tr>
+        <tr style={{marginTop:'20px'}}>
           <td valign="top">
             <table
               width="100%"
@@ -2253,12 +2253,12 @@ function Index() {
               </tr>
               <tr>
                 <td width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
-                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                  <table width="100%" cellPadding="20" cellSpacing="30" border="0">
                     <tr>
                       <td
                         width="50%"
                         style={{
-                          padding: '35px 17px 35px 35px',
+                          padding: '35px',
                           position: 'relative',
                         }}
                       >
@@ -2537,7 +2537,9 @@ function Index() {
                               display: 'inline-block',
                               float: 'left',
                             }}
-                          ></span>
+                          >
+                            
+                          </span>
                         </span>
                       </td>
                       <td width="10%" align="right">
@@ -2552,14 +2554,15 @@ function Index() {
                           }}
                         >
                           {filteredCreditRating?.length > 0
-                            ? (
+                            ? `${(
                                 Number(
                                   filteredCreditRating[0].businessProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
                                 ) * 100
-                              ).toFixed(2)
-                            : '0'}{' '}
-                          %
+                              ).toFixed(2)} %`
+                            : '0'
+                            } 
+                            %
                         </span>
                       </td>
                     </tr>
@@ -2629,12 +2632,12 @@ function Index() {
                           }}
                         >
                           {filteredCreditRating?.length > 0
-                            ? (
+                            ? `${(
                                 Number(
                                   filteredCreditRating[0].revenueProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
                                 ) * 100
-                              ).toFixed(2)
+                              ).toFixed(2)} %`
                             : '0'}{' '}
                           %
                         </span>
@@ -2703,12 +2706,12 @@ function Index() {
                           }}
                         >
                           {filteredCreditRating?.length > 0
-                            ? (
+                            ? `${(
                                 Number(
                                   filteredCreditRating[0].financialProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
                                 ) * 100
-                              ).toFixed(2)
+                              ).toFixed(2)} %`
                             : '0'}{' '}
                           %
                         </span>
@@ -2720,6 +2723,7 @@ function Index() {
             </table>
           </td>
         </tr>
+       
         <tr>
           <td valign="top">
             <table
@@ -2735,6 +2739,7 @@ function Index() {
                 marginBottom: '26px',
               }}
             >
+
               <tr>
                 <td
                   colSpan={3}

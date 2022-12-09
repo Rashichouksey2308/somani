@@ -3712,6 +3712,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       className={`${styles.arrow}`}
                       style={{ transform: `${rating}` }}
                     ></img>
+                    <div className={`${styles.hideBackground}`}></div>
                     <div
                       className={`${styles.score}`}
                       style={{

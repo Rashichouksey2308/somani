@@ -1269,6 +1269,7 @@
          
           
         }
+       
       }
 
       .score {
@@ -1303,13 +1304,24 @@
           line-height: 1.3;
         }
       }
+      .hideBackground {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, 0%);
+        left: 50%;
+        background: white;
+        width: 70px;
+        height: 45px;
+      }
 
       .arrow {
-        transform-origin: 30% 29%;
+        transform-origin:  30% 29%;
         position: absolute;
+        // transform-origin: 50% 50%;
         z-index: 1;
-        top: 37%;
-        left: 34%;
+        top: 38%;
+        left: 38%;       
+        transform: translate(-50%,-50%);
         width: 50%;
         height: 50%;
         @include respond(lg-desktop) {
@@ -1318,9 +1330,9 @@
         width: 47%;
         height: 41%;
         }
-      }
+      }     
     }
-
+   
     .score {
       width: 50%;
       height: 100%;
@@ -1442,7 +1454,7 @@
       border: 1px solid #d2d7e5;
       border-radius: 6px;
       height: 106px;
-      padding: 1rem;
+      padding: 1rem 2rem;
       margin-bottom: 1rem;
       @include respond(lg-desktop) {
         height: 80px;
@@ -1524,3 +1536,4 @@ img {
 .customSelect {
   appearance: none;
 }
+
