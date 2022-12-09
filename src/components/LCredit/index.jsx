@@ -58,7 +58,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-
+  console.log(lcData, 'lcData');
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -161,12 +161,12 @@ function Index() {
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
-
+  console.log(clauseObj, 'clauseObj');
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
   const [clauseArr, setClauseArr] = useState([]);
-
+console.log(clauseArr,'clauseArr')
   const [drop, setDrop] = useState('');
 
   const [fieldType, setFieldType] = useState('');
@@ -197,7 +197,9 @@ function Index() {
     setDrop(val2);
 
     newInput['existingValue'] = lcData[e.target.value] || '';
-    if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
+    if (e.target.value === 'draftAt')
+      newInput['existingValue'] =
+        lcData.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${lcData['numberOfDays']} Days` || '';
     newInput['dropDownValue'] = val1 || '';
     newInput['newValue'] = '';
 
@@ -232,13 +234,17 @@ function Index() {
     else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
       handleErrorToast('CLAUSE ALREADY ADDED');
     else {
+      let tempClauseObj = { ...clauseObj };
+      if (clauseObj.dropDownValue == '(42C) Draft At') {
+        tempClauseObj.existingValue=  tempClauseObj.existingValue.slice(10,tempClauseObj.existingValue.length - 5);
+      }
       const newArr = [...clauseArr];
       if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
         setFieldType('');
       }
       inputRef1.current.value = '';
       setClauseObj(initialState);
-      newArr.push(clauseObj);
+      newArr.push(tempClauseObj);
       setClauseArr(newArr);
       // setClauseObj({
       //   existingValue: '',
@@ -403,7 +409,7 @@ function Index() {
   const [isDisabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
+    if (clauseObj?.dropDownValue == '(42C) Draft At') {
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
         setDisabled(true);
       }
@@ -424,6 +430,8 @@ function Index() {
       return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getValue(existing, value)}  %`;
+    } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+      return `Usuance - ${getValue(existing, value)} days`;
     } else {
       return getValue(existing, value);
     }
@@ -887,10 +895,12 @@ function Index() {
                                         <td>{arr.dropDownValue}</td>
                                         <td>{getExistingValue(arr.dropDownValue, arr.existingValue)}</td>
                                         <td>
-                                          {arr.dropDownValue === '(32B) Currency Code & Amount'
+                                          
+                                        {arr.dropDownValue === '(42C) Draft At' &&lcData?.atSight == 'Usuance'
+                                            ? `Usuance - ${getValue(arr.newValue, arr.dropDownValue)} days `
+                                            :arr.dropDownValue === '(32B) Currency Code & Amount'
                                             ? `${lcModuleData?.order?.orderCurrency} `
-                                            : ''}
-                                          {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            : arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                             ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
                                             : getValue(arr.newValue, arr.dropDownValue)}
                                         </td>

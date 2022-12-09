@@ -17,7 +17,7 @@ function Index(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
   const { companyData,  } = useSelector((state) => state.companyDetails);
- console.log(companyData)
+
   useEffect(() => {
     if (window) {
       dispatch(setPageName('generic'));
