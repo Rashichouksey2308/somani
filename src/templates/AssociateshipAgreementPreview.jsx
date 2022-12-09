@@ -36,7 +36,7 @@ export default function AssociateshipAgreementPreview(data) {
         </td>
       </tr>
         <tr>
-          <td valign="top" style={{ padding: '20px' }}>
+          <td valign="top" style={{ padding: '0 20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
                 <td align="center" style={{ padding: '20px 0 35px' }}>
@@ -215,7 +215,7 @@ export default function AssociateshipAgreementPreview(data) {
                             services shall also be borne by the Associate Buyer and will be included in the sale price
                             of Goods/Services.
                           </p>
-                          <br/><br/><br/><br/><br/><br/><br/><br/>
+                          <br/><br/><br/><br/>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The exchange rate prevailing at the time of making payment of the margin money by the
                             Associate Buyer shall be the provisional price for preparation of provisional invoice.
@@ -330,7 +330,7 @@ export default function AssociateshipAgreementPreview(data) {
                         Seller at actuals within 5 days of demand from Seller.
                       </p>
                     </li>
-                    <br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Quality, Quantity, Pre-Shipment Inspection</strong>
@@ -356,8 +356,8 @@ export default function AssociateshipAgreementPreview(data) {
                             Proforma Invoice at pre-shipment stage and also at port of discharge.
                           </p>
                         </li>
-                        <li style={{ color: '#FF0000' }}>
-                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#FF0000' }}>
+                        <li style={{ color: '#000000' }}>
+                          <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             Quantity as per Bill of Lading (“<strong>BL</strong>”) shall be final and binding on the
                             Associate Buyer.
                           </p>
@@ -476,7 +476,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                       </ol>
                     </li>
-                    <br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Transport/Storage</strong>
@@ -1052,10 +1052,10 @@ export default function AssociateshipAgreementPreview(data) {
                             bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
                             (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the
                             entry of an order for relief in an involuntary proceeding under any such law (including but
-                            not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or
+                            not limited to the Insolvency and Bankruptcy Code, <br/><br/><br/><br/><br/><br/><br/>2016), or consents to the appointment or
                             taking possession by a resolution professional, receiver, liquidator, assignee (or similar
                             official) for any or a substantial part of its property; or the Associate Buyer has
-                            involuntarily become the subject of proceedings (including filing of an application/ <br/><br/><br/><br/><br/><br/><br/><br/>
+                            involuntarily become the subject of proceedings (including filing of an application/ 
                             petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code,
                             2016 or an order has been made by the appropriate authority for winding up of the Associate
                             Buyer.
@@ -1190,7 +1190,7 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                       </ol>
                     </li>
-                    <br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Force Majeur</strong>
@@ -1717,12 +1717,12 @@ export default function AssociateshipAgreementPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left">
+                      <td align="left" width="50%">
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '30px'}}>
                           <strong>(Associate Buyer)</strong>
                         </p>
                       </td>
-                      <td align="left">
+                      <td align="left" width="50%">
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '30px' }}>
                           <strong>({data.buyer})</strong>
                         </p>
@@ -1733,10 +1733,10 @@ export default function AssociateshipAgreementPreview(data) {
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                           {data.associateBuyerAuthorized.length > 0 && 
                             data.associateBuyerAuthorized.map((val,index)=>{
-                                return  <strong>Name: {val.name}<br />Designation: {val.designation}</strong>
+                                return  <strong style={{display:'block', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                             })
                           }
-                          <strong>Name:<br/>
+                          <strong style={{display:'block', marginBottom:'10px'}}>Name:<br/>
                           Designation:</strong>
                         </p>
                       </td>
@@ -1744,7 +1744,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
                           {data.buyerAuthorized.length > 0 && 
                           data.buyerAuthorized.map((val,index)=>{
-                              return  <strong>Name: {val.name}<br />Designation: {val.designation}</strong>
+                              return  <strong style={{display:'block', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                           })
              }
                         </p>

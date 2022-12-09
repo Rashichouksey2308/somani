@@ -7680,7 +7680,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
+                        {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
+                        {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -8170,7 +8172,9 @@ function Index() {
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
       }
           doc.save('CAM.pdf');
         },
