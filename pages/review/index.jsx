@@ -2095,6 +2095,8 @@ function Index() {
                     : ''}
                 </td>
               </tr>
+
+              
               <tr>
                 <td
                   style={{
@@ -2646,8 +2648,8 @@ function Index() {
                   </table>
                   <table
                     width="100%"
-                    cellPadding="10"
-                    cellSpacing="0"
+                    cellPadding="15"
+                    cellSpacing="10"
                     border="0"
                     style={{ border: '1px solid #D2D7E5' }}
                   >
@@ -2848,7 +2850,7 @@ function Index() {
                                 >
                                   {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
-                                  })}
+                                  })}{camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
                               <tr>
@@ -7367,8 +7369,8 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
-                    {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                    {convertValue((camData?.company?.creditLimit?.totalLimit),camConversionunit)?.toLocaleString('en-In')}
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
                   </span>
                 </td>
                 <td
@@ -7593,7 +7595,9 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {approvedCredit?.approvedCreditValue?.toLocaleString('en-In')}
+                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
+                          
                       </td>
                     </tr>
                     <tr>
@@ -7651,10 +7655,12 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
+                          {convertValue(camData?.suggestedOrderValue, camConversionunit)?.toLocaleString('en-In') }
+                        {camConversionunit == 10000000 ? " CR" : " LAKH"}
+                        {/* {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
-                        Cr
+                        Cr */}
                       </td>
                       <td
                         align="center"
