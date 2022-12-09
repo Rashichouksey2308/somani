@@ -3231,11 +3231,14 @@ const sectionTerms = (
                   className="form-control input"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  value={sanctionComments}
                   onChange={(e) => setSanctionComments(e.target.value)}
                 ></textarea>
                 <button
                   className={`${styles.button} mt-3 d-flex  align-items-center justify-content-center `}
-                  onClick={() => sanctionComments.length > 0 && addApproveRemarkArr(sanctionComments)}
+                  onClick={() => {sanctionComments.length > 0 &&
+                     addApproveRemarkArr(sanctionComments)
+                     setSanctionComments('')}}
                 >
                   Add
                 </button>
