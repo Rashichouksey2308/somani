@@ -225,21 +225,25 @@ function index() {
       toPrint = AssignmentLetterPreview(data);
       name = 'AssignmentLetter.pdf';
     }
-  
+   
     doc.html(ReactDOMServer.renderToString(toPrint), {
       callback: function (doc) {
       const totalPages = doc.internal.getNumberOfPages();
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+     
+      doc.text(
+        `Page ${i} of ${totalPages}`, 
+        doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 5, {
         align: 'center',
         });;
       }
         doc.save(name);
       },
+      margin:[40,0,40,0],
       autoPaging: 'text',
+      
     });
   };
   return (
