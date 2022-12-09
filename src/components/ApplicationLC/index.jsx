@@ -143,7 +143,7 @@ useEffect(() => {
               style={{ cursor: 'pointer' }}
               onClick={() => Router.push('/letter-credit/lc-create')} 
             />
-            <h1 className={`${styles.heading} heading`}>Application for LC</h1>
+            <h1 className={`${styles.lcHeading}`}>Application for LC</h1>
           </div>
         </div>
           <div className={`${styles.term_container} container-fluid download-pdf-bg`}>           
