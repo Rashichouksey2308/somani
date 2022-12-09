@@ -243,7 +243,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData.marginData?.order?.orderCurrency} {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                          {marginData?.marginData?.order?.orderCurrency} {marginData?.marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
                       </p>
                     </td>
                   </tr>
