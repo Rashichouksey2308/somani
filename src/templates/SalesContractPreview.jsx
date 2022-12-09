@@ -25,7 +25,9 @@ export default function SalesContractPreview(data) {
           </p>
           <p align="center" style={{ float: 'left', color: '#000000', marginBottom: '0' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            <span style={{ fontWeight: 'bold' }}>
+                Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + `${moment().year()}`+ "/" + data.orderId2}
+              </span>
             ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
             Buyer.
           </p>
@@ -1609,12 +1611,12 @@ export default function SalesContractPreview(data) {
                 {
                   <>
                     <>
-                      <ol type="1">
+                      
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return {val};
                           })}
-                      </ol>
+                     
                     </>
                   </>
                 }

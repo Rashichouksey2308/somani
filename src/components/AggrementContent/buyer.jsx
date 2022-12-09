@@ -59,7 +59,7 @@ function Index(props) {
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   useEffect(() => {
-    console.log(props.internal, 'SAdasda');
+  
     if (window) {
       if (sessionStorage.getItem('Buyer')) {
         let savedData = JSON.parse(sessionStorage.getItem('Buyer'));
@@ -67,10 +67,11 @@ function Index(props) {
           name: savedData.name || 'Indo German International Private Limited',
           branchName: savedData.branchName,
         };
-        setGstin(savedData.gstin || '');
-        setPan(savedData.pan || '');
+          setGstin(savedData.gstin || '');
+          setPan(savedData.pan || '');
         if (savedData.addresses.length > 0) {
-          setAddressList(savedData.addresses);
+           setAddressList(savedData.addresses);
+           setShotName(savedData.shortName)
         } else {
           getAddress(savedData.name, savedData.branchName);
         }
@@ -103,6 +104,8 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
+        console.log(savedData.shortName,"savedData.shortName")
+       
       } else {
         let buyer = {
           name: props?.data?.name || 'Indo German International Private Limited',
@@ -110,9 +113,10 @@ function Index(props) {
         };
         setGstin(props?.data.gstin || '');
         setPan(props?.data.pan || '');
-
+        console.log(props.shortName,"props.shortName")
         if (props?.data.addresses.length > 0) {
           setAddressList(props?.data.addresses);
+          setShotName(props.data.shortName)
         } else {
           getAddress(props?.data.name, props?.data.branchName);
         }
@@ -146,6 +150,7 @@ function Index(props) {
         });
         setOptions([...optionArray]);
       }
+     
     }
   }, [props.data, props.internal]);
   console.log(branchOptions, 'setbranchOptions');
@@ -445,6 +450,7 @@ function Index(props) {
   };
   const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
+    console.log(buyerData.name,"buyerData.name")
     if (buyerData.name || buyerData.branchName) {
       let filter;
       console.log(props.internal, 'props.internal');
@@ -459,7 +465,8 @@ function Index(props) {
           let tempOptions = [];
           let tempDetail = [];
           let gst = [];
-          setShotName(filter[0].Short_Name);
+        
+
           filter.forEach((val, index) => {
             if (val.authorisedSignatoryDetails[0].name !== '') {
               tempDetail.push(val.authorisedSignatoryDetails[0]);
@@ -475,7 +482,7 @@ function Index(props) {
         }
       }
       if (buyerData.name == 'Emergent Industrial Solution Limited') {
-        setShotName('EISL');
+     
 
         filter = props?.internal?.filter((val) => {
           console.log(val.Company_Name, 'val.Company_Name');
@@ -488,7 +495,8 @@ function Index(props) {
           let tempOptions = [];
           let tempDetail = [];
           let gst = [];
-          setShotName(filter[0].Short_Name);
+          console.log(filter[0].Short_Name,"filter[0].Short_Name)")
+          // setShotName(filter[0].Short_Name);
           filter.forEach((val, index) => {
             if (val.authorisedSignatoryDetails[0].name !== '') {
               tempDetail.push(val.authorisedSignatoryDetails[0]);
@@ -510,7 +518,7 @@ function Index(props) {
         setBranchOptions([...filter]);
       }
     }
-  }, [props.internal]);
+  }, [props.internal,props.data]);
   const getAddress = (name, branch) => {
     console.log(name, branch, props.internal, 'name , branch');
     if (props?.internal?.length > 0) {
@@ -663,6 +671,7 @@ function Index(props) {
       }
     }
   };
+  console.log(shortName,"asass")
   const handleData = (name, value) => {
     console.log('thsss');
     const newInput = { ...newAddress };
@@ -683,6 +692,7 @@ function Index(props) {
     setEditAddress(newInput);
     setToView(false);
   };
+  console.log(shortName,"shortName")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -817,7 +827,7 @@ function Index(props) {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch</option>
+                      <option value="Branch">Branch Office</option>
                     </select>
                     <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
@@ -1274,8 +1284,8 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>

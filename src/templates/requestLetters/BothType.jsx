@@ -515,7 +515,7 @@ export default function BothType(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                        {`${_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                       </p>
                     </td>
                   </tr>
@@ -556,7 +556,7 @@ export default function BothType(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData.insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
+                        {`${insuranceData.insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}, India`}
                       </p>
                     </td>
                   </tr>

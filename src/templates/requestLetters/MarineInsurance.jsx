@@ -436,7 +436,7 @@ export default function MarineInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        BL Weight {insuranceData.insuranceData?.order?.quantity?.toLocaleString('en-IN')} MTs. (+/
+                        BL Weight {insuranceData.insuranceData?.order?.quantity?.toLocaleString('en-IN')} {insuranceData.insuranceData?.order?.unitOfQuantity}s. (+/
                         {insuranceData.insuranceData?.order?.tolerance ?? 0}%)
                       </p>
                     </td>
@@ -519,7 +519,7 @@ export default function MarineInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                        {`${_get(insuranceData.insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                       </p>
                     </td>
                   </tr>

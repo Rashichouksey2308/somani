@@ -605,7 +605,9 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-In') ?? 0}
+                         {marginData.marginData?.order?.orderCurrency} {' '} {marginData.marginData?.calculation?.orderValue?.toLocaleString(
+                          marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En") ?? 0}
                       </p>
                     </td>
                   </tr>

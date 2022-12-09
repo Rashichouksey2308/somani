@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 
 export default function SalesContract(changeHandler, data, preview) {
+  console.log(data?.addComm,"data?.addComm")
   return (
     <>
       <div className={`${styles.card_body}`}>
@@ -10,7 +11,7 @@ export default function SalesContract(changeHandler, data, preview) {
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
               <Col md={7} className={`${styles.left} border_black`}>
-                Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+                Sales Contract No.: {data?.shortseller + '/' + data?.shortbuyer + '/' + `${moment().year()}`+ "/" + data?.orderId}
               </Col>
               <Col md={5} className={styles.right}>
                 Date: {moment(new Date()).format('DD-MM-YYYY')}
@@ -864,17 +865,11 @@ export default function SalesContract(changeHandler, data, preview) {
             <Col md={5} className={`${styles.left} border_black`}>
               Additional Conditions
             </Col>
-            <Col md={7} className={styles.right}>
-              {
-                <>
-                  <ol type="1">
-                    {data?.addComm?.length > 0 &&
-                      data?.addComm?.map((val, index) => {
-                        return <li key={index}>{val}</li>;
-                      })}
-                  </ol>
-                </>
-              }
+            <Col md={7} className={styles.right}>                      
+              {data?.addComm?.length > 0 &&                  
+                  data?.addComm?.map((val, index) => {                       
+                  return <p key={index} >{val}</p>;
+              })}                          
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

@@ -17,7 +17,6 @@ const index = () => {
   const [pageLimit, setPageLimit] = useState(10);
 
   const { supplierResponse, allSupplierResponse,searchedSupplier } = useSelector((state) => state.supplier);
-console.log(searchedSupplier,'searchedSupplier')
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
@@ -27,7 +26,7 @@ console.log(searchedSupplier,'searchedSupplier')
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= 1) {
       dispatch(SearchSupplier(query));
     }
   };
@@ -231,7 +230,7 @@ console.log(searchedSupplier,'searchedSupplier')
           </div> */}
         </div>
       </div>
-      <DownloadMasterBar btnName="Download Reports" />
+      <DownloadMasterBar btnName="Download Report"/>
     </>
   );
 };

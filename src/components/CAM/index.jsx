@@ -64,14 +64,16 @@ function Index({
   debtProfileColor,
   allBuyerList,
   unit,
+  chartType,
+  setChartType
 }) {
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
   });
-  const [chartType, setChartType] = useState('Monthly');
-
+const [limitValueChecked, setLimitValueChecked] = useState(false);
+const [orderValueChecked, setOrderValueChecked] = useState(false);
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -84,7 +86,7 @@ function Index({
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
   });
-
+ console.log(filteredCreditRating,"filteredCreditRating")
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
@@ -97,7 +99,15 @@ function Index({
     saveApprovedCreditData(name, value);
     // }
   };
-
+  console.log(approvedCredit)
+useEffect(() => {
+    if(approvedCredit.approvedCreditValue){
+    setLimitValueChecked(true)
+    }
+    if(approvedCredit.approvedOrderValue){
+    setOrderValueChecked(true)
+    }
+},[filteredCreditRating])
   const [sanctionComments, setSanctionComments] = useState('');
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
@@ -735,6 +745,10 @@ function Index({
         setIsFieldInFocus,
         unit,
         camConversionunit,
+        limitValueChecked,
+        orderValueChecked,
+        setLimitValueChecked,
+        setOrderValueChecked
       )}
       {Documents(documentsFetched)}
     </>
@@ -1084,11 +1098,13 @@ const groupExposure = (camData, camConversionunit) => {
                               <span>
                                 {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
-                                })}
+                                })} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
-                              <div className={`${styles.fill}`}></div>
+                              <div className={`${styles.fill}`}
+                              style={{width:`100%`}}
+                              ></div>
                             </div>
                           </Col>
                           <Col sm={12} className={`${styles.limit}   mb-5`}>
@@ -1101,11 +1117,15 @@ const groupExposure = (camData, camConversionunit) => {
                               <span>
                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
-                                })}
+                                })} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
-                              <div className={`${styles.fill}`}></div>
+                              <div className={`${styles.fill}`}
+                               style={{width:`${Number(
+                               ( (exp.outstandingLimit/exp.limit)*100)
+                               )}%`}}
+                              ></div>
                             </div>
                           </Col>
                           <Col sm={12} className={`${styles.limit}   mb-5`}>
@@ -1708,7 +1728,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           </div>
                           <span>
                             {debt.limit?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
+                              miniumFractionDigits: 2,
                             })}
                           </span>
                         </div>
@@ -1788,9 +1808,10 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                         <td> {debt?.limitType} </td>
 
                         <td>
-                          {debt?.limit?.toLocaleString('en-In', {
+                          {Number(debt?.limit)?.toLocaleString('en-In',   {
                             maximumFractionDigits: 2,
-                          })}
+                            minimumFractionDigits: 2,
+                          },)}
                         </td>
                         <td
                           className={`${styles.conduct}  ${
@@ -1871,7 +1892,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                    {camData?.productSummary?.monthlyProductionCapacity ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
@@ -1882,7 +1903,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                    {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
@@ -1923,7 +1944,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.availableStock ? 'MT' : ''}
+                    {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -1959,7 +1980,7 @@ const operationalDetails = (camData) => {
                           maximumFractionDigits: 2,
                         })
                       : ''}{' '}
-                    {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
@@ -2975,10 +2996,13 @@ const sectionTerms = (
   setIsFieldInFocus,
   unit,
   camConversionunit,
+  limitValueChecked,
+  orderValueChecked,
+  setLimitValueChecked,
+  setOrderValueChecked
 ) => {
 
-  const [limitValueChecked, setLimitValueChecked] = useState(false);
-  const [orderValueChecked, setOrderValueChecked] = useState(false);
+  
 
   return (
     <>
@@ -3696,142 +3720,15 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
               <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
                 <div className={`${styles.gauge}`}>
                   <div className={`${styles.container}`}>
-                    <svg width="100%" height="100%" viewBox="0 0 39 39" className={`${styles.donut}`}>
-                      <circle
-                        className={`${styles.donutHole}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="#fff"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutRing}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
-                        strokeWidth="3"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#FF4230"
-                        strokeWidth="3"
-                        strokeDasharray="30 70"
-                        strokeDashoffset="15"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#FFB700"
-                        strokeWidth="3"
-                        strokeDasharray="20 70"
-                        strokeDashoffset="75"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#8AC41C"
-                        strokeWidth="3"
-                        strokeDasharray="10 90"
-                        strokeDashoffset="65"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#00B81E"
-                        strokeWidth="3"
-                        strokeDasharray="20 70"
-                        strokeDashoffset="45"
-                      ></circle>
-                    </svg>
-                    <svg width="76%" height="76%" viewBox="0 0 39 39" className={`${styles.donut2}`}>
-                      <circle
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        // fill='#000'
-                        fill={`${!darkMode ? '#fff' : '#293141'}`}
-                      ></circle>
-                      <circle
-                        className={`${styles.donutRing}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        // stroke="white"
-                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
-                        strokeWidth="3"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="29 71"
-                        strokeDashoffset="15"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="19 71"
-                        strokeDashoffset="75"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="9 91"
-                        strokeDashoffset="65"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="19 71"
-                        strokeDashoffset="45"
-                      ></circle>
-                    </svg>
+                   <img src = {`/static/radial.svg`}
+                    className={styles.donut2}
+                   ></img>
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
                       style={{ transform: `${rating}` }}
                     ></img>
+                    <div className={`${styles.hideBackground}`}></div>
                     <div
                       className={`${styles.score}`}
                       style={{
@@ -3846,7 +3743,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) == 4 &&
+                              ) == 4 ||
                               checkNan(
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
@@ -3857,7 +3754,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) == 7 &&
+                              ) == 7 ||
                               checkNan(
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
@@ -3868,7 +3765,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) == 9 &&
+                              ) == 9 ||
                               checkNan(
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,

@@ -64,6 +64,12 @@ const deleteArr=(val,index)=>{
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData} />), {
       callback: function (doc) {
+      const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
         doc.save('AmendLetter.pdf');
       },
       // margin:margins,
@@ -260,27 +266,19 @@ const deleteArr=(val,index)=>{
                     {emailAdd.map((val, index) => (
                       <div className={`d-flex align-items-center form-group`}>
                         <div key={index} className={`${styles.each_input} flex-grow-1`}>
-                          <div className="d-flex">
-                            <select
+                            <input
                               id="email"
                               name="email"
-                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                              selected
-                            >
-                              <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                            </select>
+                              className={`${styles.formControl} input form-control`}
+                              
+                            />
                             <label
                               className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
                               htmlFor="email"
                             >
                               Email
                             </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
+                           
                         </div>
                         <img
                             src="/static/delete 2.svg"

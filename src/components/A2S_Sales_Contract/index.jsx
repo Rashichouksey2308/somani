@@ -71,6 +71,7 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.curr,
           specComment: data?.specComment,
+          orderId:data.orderId
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -125,6 +126,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           totalPrice: data?.order?.marginMoney?.calculation?.totalOrderValue,
           advanceMoney: data?.order?.marginMoney?.calculation?.marginMoney,
+          orderId:data?.order?.orderId?.slice(-4) || ""
         });
       }
     }
@@ -133,7 +135,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
-
+ console.log(data?.addComm,"data?.addComm")
   return (
     <>
       <div className={`${styles.root}`}>

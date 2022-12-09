@@ -337,7 +337,7 @@ function Index() {
                                     paddingBottom: '10px',
                                   }}
                                 >
-                                  7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)
+                                  7A., 'SAGAR', 6 Tilak Marg, New Delhi-11OOO1 (INDIA)
                                 </td>
                               </tr>
                               <tr>
@@ -578,7 +578,7 @@ function Index() {
                                     paddingBottom: '10px',
                                   }}
                                 >
-                                  7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)
+                                  7A., 'SAGAR', 6 Tilak Marg, New Delhi-11OOO1 (INDIA)
                                 </td>
                               </tr>
                               <tr>
@@ -646,6 +646,12 @@ function Index() {
       ),
       {
         callback: function (doc) {
+              const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, 10, doc.internal.pageSize.height - 10);
+      }
           doc.save('LetterOfIndemnity.pdf');
         },
         // margin:margins,
@@ -852,7 +858,7 @@ function Index() {
             </div>
           </div>
           <div className={`${styles.footer} mt-5`}>
-            <p className="border_color">7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</p>
+            <p className="border_color">7A., 'SAGAR', 6 Tilak Marg, New Delhi-11OOO1 (INDIA)</p>
             <div className={`${styles.inner} d-flex justify-content-between`}>
               <div>
                 <strong>Joint Venture of</strong>

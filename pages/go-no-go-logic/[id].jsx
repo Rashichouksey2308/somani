@@ -32,7 +32,7 @@ function Index() {
     remarks: '',
   });
 
-  console.log(gngData, 'DATA')
+
 
   const { goNoGoResponse } = useSelector((state) => state.Gng);
   const gngResponseData = JSON.parse(JSON.stringify(_get(goNoGoResponse, 'data[0]', {})));
@@ -87,7 +87,6 @@ function Index() {
       daysAllowedInExpectedDateOfShipment: gngData?.daysAllowedInExpectedDateOfShipment,
       gngMasterId: gngResponseData?._id
     }
-    console.log(data, 'data2')
     dispatch(UpdateGoNoGo(data))
   }
 

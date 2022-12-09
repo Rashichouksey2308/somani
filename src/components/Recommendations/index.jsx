@@ -57,6 +57,7 @@ const Index = ({
     suggestedOrderValue: false,
     suggestedCreditLimit: false,
   });
+  console.log(isFieldInFocus,'isFieldInFocus')
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
@@ -205,7 +206,7 @@ const Index = ({
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                   <div className='d-flex'>
                   <div className={`${styles.sr_number} `}  style={{marginTop:'7px'}}
-                  >{index+1}</div>
+                  >{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
@@ -270,7 +271,7 @@ const Index = ({
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                    <div className='d-flex'>
                   <div className={`${styles.sr_number}`}
-                  style={{marginTop:'7px'}}>{index+1}</div>
+                  style={{marginTop:'7px'}}>{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
@@ -346,8 +347,9 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => {
+                        console.log(profile.actions,"profile.actions")
                         return(
-                          profile.actions==false?
+                          profile.actions==false ||  profile.actions==undefined?
                           <>
                           <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
@@ -356,10 +358,10 @@ const Index = ({
 
                           </td>
                           <td>
-                            {profile?.limit}
+                            {checkNan(Number(profile?.limit))?.toLocaleString('en-In')}
                           </td>
                           <td>
-                           {profile?.outstandingLimit}
+                           {checkNan(Number(profile?.outstandingLimit))?.toLocaleString('en-In')}
                           </td>
                           <td className="position-relative">
                            {profile?.accountConduct}
@@ -419,7 +421,28 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
-                              value={profile?.limit}
+                               onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                  value={
+                               isFieldInFocus.groupExposureLimit
+                                  ? Number(profile?.limit)
+                                  : Number(profile?.limit)?.toLocaleString('en-In')
+                               
+                            }
+                             
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
@@ -428,9 +451,7 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
@@ -442,7 +463,27 @@ const Index = ({
                             <input
                               name="outstandingLimit"
                               type="text"
-                              value={profile?.outstandingLimit}
+                            onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                    value={
+                              isFieldInFocus.groupExposureOutLimit
+                                  ? profile?.outstandingLimit
+                                  : Number(profile?.outstandingLimit)?.toLocaleString('en-In')
+                            }
+                              // value={profile?.outstandingLimit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
@@ -451,9 +492,7 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value.toString(), index);
                               }}
@@ -560,7 +599,7 @@ const Index = ({
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                      <div className='d-flex'>
-                    <div className={styles.sr_number}>{index+1}</div>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
@@ -620,7 +659,7 @@ const Index = ({
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                      <div className='d-flex'>
-                    <div className={styles.sr_number}>{index+1}</div>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                   
                       className={`${styles.paragraph} input pl-0`}
@@ -744,8 +783,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedCreditLimit
-                            ? suggestedCredit?.suggestedCreditLimit
-                            : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedCreditLimit)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedCreditLimit) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -788,8 +827,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedOrderValue
-                            ? suggestedCredit?.suggestedOrderValue
-                            : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedOrderValue)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedOrderValue) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -827,7 +866,7 @@ const Index = ({
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                       <div className='d-flex'>
-                     <div className={styles.sr_number}>{index+1}</div>
+                     <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={sanction}
