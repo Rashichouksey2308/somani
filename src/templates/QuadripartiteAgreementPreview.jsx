@@ -1537,7 +1537,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="50%">
+                      <td align="left" width="70%">
                         <p
                           style={{
                             fontSize: '12px',
@@ -1548,7 +1548,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           FOR & ON BEHALF OF
                         </p>
                       </td>
-                      <td align="left" width="50%">
+                      <td align="left" width="30%">
                         <p
                           style={{
                             fontSize: '12px',
@@ -1561,7 +1561,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left">
+                      <td align="left" valign="top">
                         <p
                           style={{
                             fontSize: '12px',
@@ -1573,7 +1573,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           <strong>{data.associateBuyer}</strong>
                         </p>
                       </td>
-                      <td align="left">
+                      <td align="left" valign="top">
                           {data?.associateBuyerAuthorized?.length > 0 &&
                             data?.associateBuyerAuthorized.map((val, index) => {
                               return (
@@ -1586,16 +1586,22 @@ export default function QuadripartiteAgreementPreview(data) {
                                     textTransform: 'capitalize'
                                   }}
                                 >
-                                  <strong>
-                                    Name: {val.name}
-                                    <br />
-                                    Designation:{val.designation}
-                                  </strong>
+                                    <strong style={{
+                                      fontSize: '12px',
+                                      lineHeight: '18px',
+                                      color: '#000000',
+                                      display:'block',
+                                      marginBottom:'10px'
+                                    }}>
+                                      Name: {val.name}
+                                      <br />
+                                      Designation: {val.designation}
+                                    </strong>
                                   </p>
                                 </>
                               );
                             })}
-                        <p
+                        {/* <p
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
@@ -1604,11 +1610,11 @@ export default function QuadripartiteAgreementPreview(data) {
                           }}
                         >
                           <strong>{data.buyer}</strong>
-                        </p>
+                        </p> */}
                       </td>
                     </tr>
                     <tr>
-                      <td align="left">
+                      <td align="left" valign="top">
                         <p
                           style={{
                             fontSize: '12px',
@@ -1620,7 +1626,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           <strong>{data.cha}</strong>
                         </p>
                       </td>
-                      <td align="left">
+                      <td align="left" valign="top">
                           {data?.chaAuthorized?.length > 0 &&
                             data?.chaAuthorized.map((val, index) => {
                               return (
@@ -1633,16 +1639,22 @@ export default function QuadripartiteAgreementPreview(data) {
                                     textTransform: 'capitalize'
                                   }}
                                 >
-                                  <strong>
-                                    Name: {val.name}
-                                    <br />
-                                    Designation:{val.designation}
-                                  </strong>
+                                    <strong style={{
+                                      fontSize: '12px',
+                                      lineHeight: '18px',
+                                      color: '#000000',
+                                      display:'block',
+                                      marginBottom:'10px'
+                                    }}>
+                                      Name: {val.name}
+                                      <br />
+                                      Designation: {val.designation}
+                                    </strong>
                                   </p>
                                 </>
                               );
                             })}
-                        <p
+                        {/* <p
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
@@ -1651,11 +1663,11 @@ export default function QuadripartiteAgreementPreview(data) {
                           }}
                         >
                           <strong>{data.buyer}</strong>
-                        </p>
+                        </p> */}
                       </td>
                     </tr>
                      <tr>
-                      <td align="left">
+                      <td align="left" valign="top">
                         <p
                           style={{
                             fontSize: '12px',
@@ -1667,7 +1679,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           <strong>{data.cma}</strong>
                         </p>
                       </td>
-                      <td align="left">
+                      <td align="left" valign="top">
                           {data?.cmaAuthorized?.length > 0 &&
                             data?.cmaAuthorized.map((val, index) => {
                               return (
@@ -1680,16 +1692,22 @@ export default function QuadripartiteAgreementPreview(data) {
                                     textTransform: 'capitalize'
                                   }}
                                 >
-                                  <strong>
-                                    Name: {val.name}
-                                    <br />
-                                    Designation:{val.designation}
-                                  </strong>
+                                    <strong style={{
+                                      fontSize: '12px',
+                                      lineHeight: '18px',
+                                      color: '#000000',
+                                      display:'block',
+                                      marginBottom:'10px'
+                                    }}>
+                                      Name: {val.name}
+                                      <br />
+                                      Designation: {val.designation}
+                                    </strong>
                                   </p>
                                 </>
                               );
                             })}
-                        <p
+                        {/* <p
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
@@ -1698,11 +1716,11 @@ export default function QuadripartiteAgreementPreview(data) {
                           }}
                         >
                           <strong>{data.buyer}</strong>
-                        </p>
+                        </p> */}
                       </td>
                     </tr>
                      <tr>
-                      <td align="left">
+                      <td align="left" valign="top">
                         <p
                           style={{
                             fontSize: '12px',
@@ -1714,7 +1732,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           <strong>{data.buyer}</strong>
                         </p>
                       </td>
-                      <td align="left">
+                      <td align="left" valign="top">
                           {data?.buyerAuthorized?.length > 0 &&
                             data?.buyerAuthorized.map((val, index) => {
                               return (
@@ -1727,16 +1745,22 @@ export default function QuadripartiteAgreementPreview(data) {
                                     textTransform: 'capitalize'
                                   }}
                                 >
-                                  <strong>
-                                    Name: {val.name}
-                                    <br />
-                                    Designation:{val.designation}
-                                  </strong>
+                                    <strong style={{
+                                      fontSize: '12px',
+                                      lineHeight: '18px',
+                                      color: '#000000',
+                                      display:'block',
+                                      marginBottom:'10px'
+                                    }}>
+                                      Name: {val.name}
+                                      <br />
+                                      Designation: {val.designation}
+                                    </strong>
                                   </p>
                                 </>
                               );
                             })}
-                        <p
+                        {/* <p
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
@@ -1745,7 +1769,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           }}
                         >
                           <strong>{data.buyer}</strong>
-                        </p>
+                        </p> */}
                       </td>
                     </tr>
                   </table>

@@ -1217,7 +1217,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
        
         <div className={`row`}>
           <Col md={6}>
-            <p className="text_sales">
+            <p className="text_sales mb-5">
               <strong>(Associate Buyer)</strong>
             </p>
 
@@ -1225,7 +1225,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               data?.associateBuyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-left mt-5">
+                    <p className="text_sales text-left">
                       <strong>
                         Name: {val.name}
                         <br />
@@ -1237,7 +1237,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               })}
           </Col>
           <Col md={6}>
-            <p className="text_sales">
+            <p className="text_sales mb-5">
               <strong>({data.buyer})</strong>
             </p>
 
@@ -1245,7 +1245,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               data?.buyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-left mt-5">
+                    <p className="text_sales text-left">
                       <strong>
                         Name: {val.name}
                         <br />

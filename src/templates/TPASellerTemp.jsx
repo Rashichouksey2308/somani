@@ -194,7 +194,7 @@ export default function TPASeller(data) {
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>

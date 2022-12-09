@@ -1073,7 +1073,7 @@ export default function TPAPreview(data) {
                   losses, liabilities, claims, obligations, costs, expenses arising during the duration of this
                   Agreement, which result from, arise in connection with or are related in any way to claims by third
                   parties or regulatory authorities, and which directly arise due to any reasons whatsoever and
-                  including the following:<br/><br/><br/><br/><br/><br/>
+                  including the following:
                 </p>
               </td>
             </tr>
@@ -1110,7 +1110,7 @@ export default function TPAPreview(data) {
                       negligence, fault or misconduct by {data.shortbuyer} or its officers, employees, agents,
                       subcontractors and/or representatives and/or other persons authorized to act on its behalf;
                     </p>
-                  </li>
+                  </li><br/><br/><br/><br/>
                 </ol>
               </td>
             </tr>
