@@ -15,6 +15,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
   console.log(_get(lcModuleData.lcModule,"data[0].generic.supplier.addresses[0].fullAddress",""),"SAdasds")
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+      
       <tr>
         <td valign="top" style={{ paddingBottom: '20px' }}>
           <table

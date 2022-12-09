@@ -460,13 +460,13 @@ export const undertaking1Pdf = (data) => {
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align='left'></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}>FOR AND ON BEHALF OF</p></td>
+                      <td align='right'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}>FOR AND ON BEHALF OF</p></td>
                     </tr>
                     <tr>
                       <td valign='top' align='left' width='50%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place:  {data.placeOfExecution} </p>
                       </td>
-                      <td valign='top' align='left' width='50%'>
+                      <td valign='top' align='right' width='50%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>(Associate Buyer)</strong>
                                         {
                                 data?.associateBuyerAuthorized?.length > 0 &&
@@ -476,9 +476,6 @@ export const undertaking1Pdf = (data) => {
                                      <br /><br />Name: {val.name}
                                        <br /><br />Designation: {val.designation}
                                      </>
-                                      
-                                      
-                                  
                                   );
                                 })
                               }
@@ -488,7 +485,7 @@ export const undertaking1Pdf = (data) => {
                     </tr>
                     <tr>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>Date : {data.dateOfExecution}</p></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>AUTHORISED SIGNATORY</p></td>
+                      <td align='right'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000' }}>AUTHORISED SIGNATORY</p></td>
                     </tr>
                   </table>
                 </td>
@@ -565,18 +562,18 @@ export const undertaking2Pdf = (data) => {
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align='left'></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}><strong>FOR AND ON BEHALF OF</strong></p></td>
+                      <td align='right'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}><strong>FOR AND ON BEHALF OF</strong></p></td>
                     </tr>
                     <tr>
                       <td align='left'></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}><strong>(Associate Buyer)</strong></p></td>
+                      <td align='right'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}><strong>(Associate Buyer)</strong></p></td>
                     </tr>
                     <tr>
                       <td valign='top' align='left' width='50%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>Place: {data.placeOfExecution} </strong></p>
                       </td>
-                      <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>
+                      <td valign='top' align='right' width='50%'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0' }}>
                           
                             {
                             data?.associateBuyerAuthorized?.length > 0 &&
@@ -593,7 +590,7 @@ export const undertaking2Pdf = (data) => {
                     </tr>
                     <tr>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Date : {data.dateOfExecution}</strong></p></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
+                      <td align='right'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
                         
                            {
                       data?.associateBuyerAuthorized?.length > 0 &&

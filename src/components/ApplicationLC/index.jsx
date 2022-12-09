@@ -3,6 +3,7 @@ import ApplicationLCTemp from '@/templates/ApplicationLCTemp';
 import jsPDF from 'jspdf';
 import _get from 'lodash/get';
 import moment from 'moment';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
@@ -14,6 +15,8 @@ import LCAmendBar from '../LCAmendBar';
 import styles from './index.module.scss';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 import { returnReadableNumber } from '@/utils/helpers/global';
+
+
 function Index() {
   const dispatch = useDispatch();
 
@@ -126,9 +129,24 @@ useEffect(() => {
   };
   return (
     <>
-      <div className="container-fluid p-0 border-0">
+      <div className="container-fluid p-0 border-0">     
         <div className={`${styles.root_container} card shadow-none border-0 bg-transparent`}>
-          <div className={`${styles.term_container} container-fluid download-pdf-bg`}>
+        <div className={styles.head_container}>
+          <div className={styles.head_header}
+                                 
+
+          >
+            <img
+              className={`${styles.arrowBack} image_arrow ml-1 img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="Arrow"
+              style={{ cursor: 'pointer' }}
+              onClick={() => Router.push('/letter-credit/lc-create')} 
+            />
+            <h1 className={`${styles.heading} heading`}>Application for LC</h1>
+          </div>
+        </div>
+          <div className={`${styles.term_container} container-fluid download-pdf-bg`}>           
             <Row>
               <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
                 <h3 className="download-pdf-title">
