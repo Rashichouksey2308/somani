@@ -67,6 +67,8 @@ function Index() {
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              typeOfPort:sheet?.transactionDetails?.typeOfPort,
+
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
@@ -409,7 +411,7 @@ function Index() {
                   <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
                   <li>{termsheetDetails?.transactionDetails?.portOfDischarge}, India</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}</li>
+                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES - ${termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
                 </ul>
               </Col>
             </Row>
@@ -1922,7 +1924,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}
+                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES - ${termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
                         </p>
                       </td>
                     </tr>
