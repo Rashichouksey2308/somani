@@ -31,6 +31,7 @@ import ShareDocumentReducer from 'redux/shareDoc/reducer';
 import MastersReducer from 'redux/masters/reducer';
 import McaReportReducer from 'redux/mcaReport/reducer';
 import SupplierReducer from 'redux/supplier/reducer';
+import CheckerReducer from 'redux/checker/reducer';
 
 export const createStore = (preloadedState) => {
   const middlewares = [];
@@ -74,6 +75,7 @@ export const createStore = (preloadedState) => {
       MastersData: MastersReducer,
       mcaReport: McaReportReducer,
       supplier: SupplierReducer,
+      checker: CheckerReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

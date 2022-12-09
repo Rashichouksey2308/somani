@@ -152,6 +152,7 @@ function Index() {
         { name: 'Commodity', image: '/static/review-queue.svg', route: '' },
         { name: 'Internal Companies', image: '/static/review-queue.svg', route: '' },
         { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },
+        { name: 'Inspection', image: '/static/inspection.svg', route: '/checker/inspection' },
       ],
       image: '/static/Masters.svg',
       route: '',
@@ -269,36 +270,34 @@ function Index() {
                   <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                          const className12 =
-                            index12 == index || subCategory == other.main
-                              ? `${styles.openlist} sidebar-selected`
-                              : null;
-                          return (
-                            <>
-                              <div
-                                index={index2}
-                                className={`${styles.sub_header} ${
-                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                        const className12 =
+                          index12 == index || subCategory == other.main
+                            ? `${styles.openlist} sidebar-selected`
+                            : null;
+                        return (
+                          <>
+                            <div
+                              index={index2}
+                              className={`${styles.sub_header} ${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
-                                onClick={() => {
-                                  handleOpen(other.name, index2, '');
-                                  Router.push(other.route);
-                                }}
-                              >
-                                <div>
-                                  <img src={`${other.image}`}></img>
-                                  <span
-                                    className={`${
-                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                              onClick={() => {
+                                handleOpen(other.name, index2, '');
+                                Router.push(other.route);
+                              }}
+                            >
+                              <div>
+                                <img src={`${other.image}`}></img>
+                                <span
+                                  className={`${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
-                                  >
-                                    {other.name}
-                                  </span>
-                                </div>
+                                >
+                                  {other.name}
+                                </span>
                               </div>
-                            </>
-                          );
-                        })
+                            </div>
+                          </>
+                        );
+                      })
                       : null}
                   </div>
                 </div>
@@ -352,34 +351,32 @@ function Index() {
                   <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                          const className12 = index12 == index ? `${styles.openlist} sidebar-selected` : null;
+                        const className12 = index12 == index ? `${styles.openlist} sidebar-selected` : null;
 
-                          return (
-                            <>
-                              <div
-                                index={index2}
-                                className={`${styles.sub_header} ${
-                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                        return (
+                          <>
+                            <div
+                              index={index2}
+                              className={`${styles.sub_header} ${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
-                                onClick={() => {
-                                  handleOpen(other.name, index2, '');
-                                  Router.push(other.route);
-                                }}
-                              >
-                                <div>
-                                  <img src={`${other.image}`}></img>
-                                  <span
-                                    className={`${
-                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                              onClick={() => {
+                                handleOpen(other.name, index2, '');
+                                Router.push(other.route);
+                              }}
+                            >
+                              <div>
+                                <img src={`${other.image}`}></img>
+                                <span
+                                  className={`${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
-                                  >
-                                    {other.name}
-                                  </span>
-                                </div>
+                                >
+                                  {other.name}
+                                </span>
                               </div>
-                            </>
-                          );
-                        })
+                            </div>
+                          </>
+                        );
+                      })
                       : null}
                   </div>
                 </div>

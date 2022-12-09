@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from '../index.module.scss';
+import Tooltip from '../../../../../Tooltip';
 
-const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) => {
+const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails, loadPortInspectionDetailsHistory, dischargePortInspectionDetailsHistory }) => {
     return (
         <div className={`${styles.main} mt-4 card border_color mx-4`}>
             <div
@@ -24,6 +25,7 @@ const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) =>
                             </div>
                             <div className='font-weight-light h5'>
                                 {loadPortInspectionDetails?.numberOfContainer}
+                                {loadPortInspectionDetailsHistory?.numberOfContainer && <Tooltip data={loadPortInspectionDetailsHistory?.numberOfContainer} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -32,6 +34,7 @@ const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) =>
                             </div>
                             <div className='font-weight-light h5'>
                                 {loadPortInspectionDetails?.inspectionPort}
+                                {loadPortInspectionDetailsHistory?.inspectionPort && <Tooltip data={loadPortInspectionDetailsHistory?.inspectionPort} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -40,6 +43,7 @@ const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) =>
                             </div>
                             <div className='font-weight-light h5'>
                                 {loadPortInspectionDetails?.inspectedBy}
+                                {loadPortInspectionDetailsHistory?.inspectedBy && <Tooltip data={loadPortInspectionDetailsHistory?.inspectedBy} />}
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6 my-4">
@@ -48,6 +52,7 @@ const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) =>
                             </div>
                             <div className='font-weight-light h5'>
                                 {loadPortInspectionDetails?.startDate.slice(0, 10)}
+                                {loadPortInspectionDetailsHistory?.startDate && <Tooltip data={loadPortInspectionDetailsHistory?.startDate.slice(0, 10)} />}
                             </div>
                         </div>
                         <div className="col-12 my-4">
@@ -55,7 +60,8 @@ const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) =>
                                 Special Mention
                             </div>
                             <div className='font-weight-light h5'>
-                                Not Found
+                                {loadPortInspectionDetails?.specialMention}
+                                {loadPortInspectionDetailsHistory?.specialMention && <Tooltip data={loadPortInspectionDetailsHistory?.specialMention} />}
                             </div>
                         </div>
                     </div>
@@ -100,7 +106,8 @@ const Index = ({ loadPortInspectionDetails, dischargePortInspectionDetails }) =>
                                 Special Mention
                             </div>
                             <div className='font-weight-light h5'>
-                                Not Found
+                                {dischargePortInspectionDetails?.specialMention}
+                                {dischargePortInspectionDetailsHistory?.specialMention && <Tooltip data={dischargePortInspectionDetailsHistory?.specialMention} />}
                             </div>
                         </div>
                     </div>

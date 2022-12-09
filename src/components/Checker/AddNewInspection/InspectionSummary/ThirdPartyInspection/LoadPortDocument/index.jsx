@@ -6,12 +6,12 @@ import Image from 'next/image';
 import { ViewDocument } from 'redux/ViewDoc/action';
 import { useDispatch } from 'react-redux';
 
-function Index({ plotInspectionReport, orderId }) {
+function Index({ loadPortDocuments, orderId }) {
     const dispatch = useDispatch();
     const tableColumns = useMemo(() => [
         {
             Header: "Document Name",
-            accessor: "originalName",
+            accessor: "name",
             Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
         },
         {
@@ -25,10 +25,32 @@ function Index({ plotInspectionReport, orderId }) {
             Cell: ({ value }) => value.slice(0, 10)
         },
         {
-            Header: "Uploaded By",
-            accessor: "uploadedBy"
+            Header: "Status",
+            accessor: "status",
+            Cell: ({ cell: { value } }) => {
+                let statusClass = '';
+                if(value === 'On Hold') {
+                    statusClass = 'text-black-50';
+                }
+                if(value === 'Rejected') {
+                    statusClass = 'text-danger';
+                }
+                if(value === 'Pending') {
+                    statusClass = 'text-primary';
+                }
+                if(value === 'Approved') {
+                    statusClass = 'text-success';
+                }
+                return <span className={`${statusClass} text-capitalize`}>{value}</span>
+            }
         },
+        {
+            Header: "Uploaded By",
+            accessor: "uploadedBy",
+            Cell: ({ cell: { value } }) => <span className='text-capitalize'>{value?.fName + " " + value?.lName}</span>
+        }
     ]);
+
     const tableHooks = (hooks) => {
         hooks.visibleColumns.push((columns) => [
             ...columns,
@@ -60,22 +82,24 @@ function Index({ plotInspectionReport, orderId }) {
         ])
     };
 
+
+
     return (
         <div className={`${styles.main} m-4 border_color card`}>
             <div
                 className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
                 data-toggle="collapse"
-                data-target="#plotInspectionDocument"
+                data-target="#loadPortDocuments"
                 aria-expanded="true"
-                aria-controls="plotInspectionDocument"
+                aria-controls="loadPortDocuments"
             >
-                <h3 className={styles.heading}>Documents</h3>
+                <h3 className={styles.heading}>Load Port Documents</h3>
                 <span>+</span>
             </div>
-            <div id="plotInspectionDocument" className="collapse mb-n4" aria-labelledby="plotInspectionDocument" data-parent="#plotInspectionDocument">
+            <div id="loadPortDocuments" className="collapse mb-n4" aria-labelledby="loadPortDocuments" data-parent="#loadPortDocuments">
                 <Table
                     columns={tableColumns}
-                    data={plotInspectionReport}
+                    data={loadPortDocuments}
                     tableHooks={tableHooks}
                 />
             </div>
