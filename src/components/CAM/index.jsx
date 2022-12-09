@@ -72,7 +72,8 @@ function Index({
     LimitValue: false,
     OrderValue: false,
   });
-
+const [limitValueChecked, setLimitValueChecked] = useState(false);
+const [orderValueChecked, setOrderValueChecked] = useState(false);
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
@@ -85,7 +86,7 @@ function Index({
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
   });
-
+ console.log(filteredCreditRating,"filteredCreditRating")
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
@@ -98,7 +99,15 @@ function Index({
     saveApprovedCreditData(name, value);
     // }
   };
-
+  console.log(approvedCredit)
+useEffect(() => {
+    if(approvedCredit.approvedCreditValue){
+    setLimitValueChecked(true)
+    }
+    if(approvedCredit.approvedOrderValue){
+    setOrderValueChecked(true)
+    }
+},[filteredCreditRating])
   const [sanctionComments, setSanctionComments] = useState('');
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
@@ -736,6 +745,10 @@ function Index({
         setIsFieldInFocus,
         unit,
         camConversionunit,
+        limitValueChecked,
+        orderValueChecked,
+        setLimitValueChecked,
+        setOrderValueChecked
       )}
       {Documents(documentsFetched)}
     </>
@@ -2983,10 +2996,13 @@ const sectionTerms = (
   setIsFieldInFocus,
   unit,
   camConversionunit,
+  limitValueChecked,
+  orderValueChecked,
+  setLimitValueChecked,
+  setOrderValueChecked
 ) => {
 
-  const [limitValueChecked, setLimitValueChecked] = useState(false);
-  const [orderValueChecked, setOrderValueChecked] = useState(false);
+  
 
   return (
     <>
