@@ -84,7 +84,7 @@ useEffect(() => {
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
       // Add the page number footer to the center of the page
-        doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
+        doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
         align: 'center',
         });
       
