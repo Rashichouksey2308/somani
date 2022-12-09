@@ -1781,8 +1781,8 @@ function Index() {
                                     saveInvoiceData(e.target.name, e.target.value);
                                   }}
                                   value={invoiceData?.buyerGSTIN}
-                                >
-                                  <option selected>Select an Option</option>
+                                > 
+                                  <option selected value =''>Select an Option</option>
                                   {orderList?.company?.gstList?.map((gstin, index) => (
                                     <option key={index} value={gstin}>
                                       {gstin}
@@ -2078,7 +2078,7 @@ function Index() {
                                     );
                                   }}
                                 >
-                                  <option>Select an option</option>
+                                  <option value= ''>Select an option</option>
                                   {branchOptions
                                     .filter((val, index) => {
                                       if (val.keyBanks[0].Bank_Name) {
