@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
@@ -85,10 +85,14 @@ function Index({
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
+    // if (gettingPercentageCredit()) {
     saveApprovedCreditData(name, value);
+    // }
   };
   const onApproveOrder = (name, value) => {
+    // if (gettingPercentageOrder()) {
     saveApprovedCreditData(name, value);
+    // }
   };
 
   const [sanctionComments, setSanctionComments] = useState('');
