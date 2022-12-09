@@ -1,4 +1,3 @@
-/* eslint-disable  */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
@@ -307,7 +306,6 @@ function Index({
     datasets: [],
   });
 
-  useEffect(() => {}, [top5Customers]);
   const [totalCustomer, setTotalCustomer] = useState(0);
   const [totalSupplier, setTotalSupplier] = useState(0);
   const [top5Suppliers, setTop5Suppliers] = useState({
