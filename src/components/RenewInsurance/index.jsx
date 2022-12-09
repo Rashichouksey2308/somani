@@ -70,13 +70,18 @@ const Index = () => {
   marine:false,
   storage:false
   })
+  
   useEffect(()=>{
     console.log(insuranceData.insuranceType,"insuranceData.insuranceType")
     if(insuranceData.insuranceType == `"Marine Insurance"`){
       setActiveInsurance({...activeInsurance,marine:true})
+       setInsuranceType(false)
+      
     
     }else if(insuranceData.insuranceType ==`"Storage Insurance"`){
      setActiveInsurance({...activeInsurance,storage:true})
+    
+        setInsuranceType(true)
     }else{
       console.log(moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment()),"moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment())")
       if(moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment()) && moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment()) ){
@@ -198,11 +203,12 @@ const Index = () => {
         lossPayee: storageData.lossPayee,
         premiumAmount: storageData.premiumAmount,
       }));
+      fd.append('insuranceId', insuranceData?._id);
       fd.append('insuranceType', JSON.stringify('Storage Insurance'));
       fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
-      fd.append('renewalDate', storageData?.renewalDate);
-      fd.append('policyNumber', storageData?.policyNumber);
-      fd.append('updatePolicyNumber', storageData?.updatePolicyNumber);
+      fd.append('storageRenewalDate', storageData?.renewalDate);
+      fd.append('storagePolicyNumber', storageData?.policyNumber);
+      fd.append('updateStoragePolicyNumber', storageData?.updatePolicyNumber);
       dispatch(RenewInsurance(fd));
     } else if (insuranceType === false) {
       let marineObj = { ...marineData };
@@ -219,9 +225,9 @@ const Index = () => {
       fd.append('insuranceId', insuranceData?._id);
       fd.append('insuranceType', JSON.stringify('Marine Insurance'));
       fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
-      fd.append('renewalDate', marineData?.renewalDate);
-      fd.append('policyNumber', marineData?.policyNumber);
-      fd.append('updatePolicyNumber', marineData?.updatePolicyNumber);
+      fd.append('marineRenewalDate', marineData?.renewalDate);
+      fd.append('marinePolicyNumber', marineData?.policyNumber);
+      fd.append('updateMarinePolicyNumber', marineData?.updatePolicyNumber);
       await dispatch(RenewInsurance(fd));
      
      
