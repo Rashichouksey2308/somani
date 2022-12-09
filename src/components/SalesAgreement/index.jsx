@@ -1387,6 +1387,7 @@ let masterList = [
         gstin: data.gstin,
         pan: data.pan,
         addresses: data.addresses,
+        shortName: data?.shortName,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
@@ -2550,6 +2551,7 @@ let masterList = [
           gstin: data.gstin,
           pan: data.pan,
           addresses: data.addresses,
+          shortName: data?.shortName,
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
@@ -2560,6 +2562,7 @@ let masterList = [
         gstin: data.gstin,
         pan: data.pan,
         addresses: data.addresses,
+        shortName: data?.shortName,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));

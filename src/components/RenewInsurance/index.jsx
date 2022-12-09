@@ -66,6 +66,32 @@ const Index = () => {
     lossPayee: '',
     premiumAmount: null,
   });
+  const [activeInsurance,setActiveInsurance] =useState({
+  marine:false,
+  storage:false
+  })
+  useEffect(()=>{
+    console.log(insuranceData.insuranceType,"insuranceData.insuranceType")
+    if(insuranceData.insuranceType == `"Marine Insurance"`){
+      setActiveInsurance({...activeInsurance,marine:true})
+    
+    }else if(insuranceData.insuranceType ==`"Storage Insurance"`){
+     setActiveInsurance({...activeInsurance,storage:true})
+    }else{
+      console.log(moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment()),"moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment())")
+      if(moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment()) && moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment()) ){
+         setActiveInsurance({...activeInsurance,marine:true,storage:true}) 
+      }else{
+         if(moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment())){
+         setActiveInsurance({...activeInsurance,storage:true,marine:false}) 
+         }
+         if(moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment())){
+         setActiveInsurance({...activeInsurance,marine:true,storage:false}) 
+         }
+      }
+     
+    }
+  },[insuranceResponse])
 
   console.log(insuranceData, 'insuranceData');
 
@@ -162,26 +188,47 @@ const Index = () => {
     if (insuranceType) {
       let storageObj = { ...storageData };
       storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount);
-      fd.append('storageInsurance', JSON.stringify(storageObj));
+      fd.append('storageInsurance', JSON.stringify({
+       
+        insuranceFrom: storageData.insuranceFrom,
+      
+        insuranceTo: storageData.insuranceTo,
+        
+        periodOfInsurance: storageData.periodOfInsurance,
+        lossPayee: storageData.lossPayee,
+        premiumAmount: storageData.premiumAmount,
+      }));
       fd.append('insuranceType', JSON.stringify('Storage Insurance'));
       fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
-      fd.append('insuranceId', insuranceData?._id);
+      fd.append('renewalDate', storageData?.renewalDate);
+      fd.append('policyNumber', storageData?.policyNumber);
+      fd.append('updatePolicyNumber', storageData?.updatePolicyNumber);
       dispatch(RenewInsurance(fd));
     } else if (insuranceType === false) {
       let marineObj = { ...marineData };
       marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount);
-      fd.append('marineInsurance', JSON.stringify(marineObj));
+      fd.append('marineInsurance', JSON.stringify({
+         insuranceFrom: marineData.insuranceFrom,
+      
+        insuranceTo: marineData.insuranceTo,
+        
+        periodOfInsurance: marineData.periodOfInsurance,
+        lossPayee: marineData.lossPayee,
+        premiumAmount: marineData.premiumAmount
+      }));
       fd.append('insuranceId', insuranceData?._id);
       fd.append('insuranceType', JSON.stringify('Marine Insurance'));
       fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
-
+      fd.append('renewalDate', marineData?.renewalDate);
+      fd.append('policyNumber', marineData?.policyNumber);
+      fd.append('updatePolicyNumber', marineData?.updatePolicyNumber);
       await dispatch(RenewInsurance(fd));
      
      
 
     }
   };
-
+ console.log(activeInsurance,"activeInsurance")
   return (
     <div className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}>
       <div className={`${styles.accordion_body} bg-transparent`}>
@@ -218,6 +265,7 @@ const Index = () => {
                         type={type}
                         checked={insuranceType == false ? 'checked' : ''}
                         id={`inline-${type}-1`}
+                        disabled={!activeInsurance.marine}
                       />
                       <Form.Check
                         className={styles.radio}
@@ -228,6 +276,7 @@ const Index = () => {
                         type={type}
                         checked={insuranceType == true ? 'checked' : ''}
                         id={`inline-${type}-2`}
+                        disabled={!activeInsurance.storage}
                       />
                     </div>
                   ))}
@@ -258,7 +307,7 @@ const Index = () => {
                                 onChange={(e) => saveMarineData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option disabled selected>
+                                <option value ='' selected >
                                   Select an option
                                 </option>
                                 <option value={insuranceData?.marineInsurance?.policyNumber}>

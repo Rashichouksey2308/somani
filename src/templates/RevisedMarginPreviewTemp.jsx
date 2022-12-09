@@ -2,7 +2,7 @@ import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
 
 export default function RevisedMarginPreviewTemp(marginData) {
- 
+ console.log( marginData.marginData?.order?.quantity," marginData.marginData?.order?.quantity")
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -231,7 +231,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                                 },
                               )
                             : 0,
-                          'MT',
+                          marginData.marginData?.order?.unitOfQuantity,
                           '',
                         )}
                       </p>
@@ -248,16 +248,10 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
-                          marginData.marginData?.order?.quantity
-                            ? marginData.marginData?.order?.quantity?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              })
-                            : 0,
-                          'MT',
-                          '',
-                        )}
+                        { marginData.marginData?.order?.quantity.toLocaleString('en-In', {
+                               
+                              })}{" "}{marginData.marginData?.order?.unitOfQuantity}
+                       
                       </p>
                     </td>
                   </tr>
