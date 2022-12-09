@@ -74,7 +74,7 @@ function Index() {
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    const doc = new jsPDF('p', 'pt', [1500, 2000]);
     doc.html(ReactDOMServer.renderToString(<MarineInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
