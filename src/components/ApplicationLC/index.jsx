@@ -297,7 +297,7 @@ useEffect(() => {
                             {lcModuleData?.lcApplication?.currecyCodeAndAmountValue
                               ? returnReadableNumber(
                                   lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-                                  undefined,
+                                  lcModuleData.order.orderCurrency=="INR"?"en-In":"en-En",
                                   2,
                                 )
                               : 0}

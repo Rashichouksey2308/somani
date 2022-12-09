@@ -1,6 +1,7 @@
 import _get from 'lodash/get';
 import moment from 'moment';
 import { addPrefixOrSuffix } from '@/utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 export default function ApplicationLCTemp(lcModuleData, lcModule) {
   console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),"lcModuleData.lcModuleData",lcModule)
@@ -617,7 +618,13 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           >
                            {lcModuleData.lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                              ? lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                              ? 
+                              returnReadableNumber(
+                                  lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+                                  lcModuleData.lcModuleData.order.orderCurrency=="INR"?"en-In":"en-En",
+                                  2,
+                                )
+                              
                               : 0}
                           </p>
                         </td>
