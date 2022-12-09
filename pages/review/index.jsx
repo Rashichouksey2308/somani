@@ -4541,7 +4541,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                  {camData?.productSummary?.monthlyProductionCapacity ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
                 <td
                   width="30%"
@@ -4570,7 +4570,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                  {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
               </tr>
               <tr>
@@ -4646,7 +4646,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.availableStock ? 'MT' : ''}
+                  {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
                 <td
                   style={{
@@ -4716,7 +4716,7 @@ function Index() {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
               </tr>
             </table>
