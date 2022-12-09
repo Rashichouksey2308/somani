@@ -491,7 +491,7 @@ function Index({
                  )}
                </td>
              </tr>
-             {reviewedProfile?.firstOrder ? (
+             {!reviewedProfile?.firstOrder ? (
                <tr className={`${styles.table_row} table_row`}>
                  <td>
                    Delinquency in Past Orders <span onClick={()=> setShow(true)} className={styles.view_btn}>View</span>
