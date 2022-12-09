@@ -879,7 +879,7 @@ const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Port of Discharge</span>
-                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}</span>
+                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}, India</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -3231,11 +3231,14 @@ const sectionTerms = (
                   className="form-control input"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  value={sanctionComments}
                   onChange={(e) => setSanctionComments(e.target.value)}
                 ></textarea>
                 <button
                   className={`${styles.button} mt-3 d-flex  align-items-center justify-content-center `}
-                  onClick={() => sanctionComments.length > 0 && addApproveRemarkArr(sanctionComments)}
+                  onClick={() => {sanctionComments.length > 0 &&
+                     addApproveRemarkArr(sanctionComments)
+                     setSanctionComments('')}}
                 >
                   Add
                 </button>

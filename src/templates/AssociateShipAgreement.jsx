@@ -1199,7 +1199,10 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               Delivery Terms
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.deliveryTerm}
+              {data?.deliveryTerm=="CIF"?"IF Cost Insurance Freight Incoterms 2000"
+              :data?.deliveryTerm=="CFR"?"CFR	Cost & Freight Incoterms 2000":
+              data?.deliveryTerm=="FOB"?"FOB Free on Board Incoterms 2000":""
+              }
             </Col>
           </Row>
           {/* <Row className={`${styles.row} ${styles.last}`}>
