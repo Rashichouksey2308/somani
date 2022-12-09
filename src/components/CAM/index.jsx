@@ -634,42 +634,68 @@ useEffect(() => {
     }
   }, [filteredCreditRating]);
 
+  let rotateImage = {
+    top: '39%',
+    left: '36%',
+  };
+
   const getRotate = (rat = 1) => {
     let r = Math.floor(rat);
     // let r = 10;
     if (r == 0) {
       setRating(`rotate(90deg)`);
+      rotateImage.top = '39%';
+      rotateImage.left = '36%';
     }
     if (r == 1) {
       setRating(`rotate(90deg)`);
+      rotateImage.top = '39%';
+      rotateImage.left = '36%';
     }
     if (r == 2) {
       setRating(`rotate(130deg)`);
+      rotateImage.top = '39%';
+      rotateImage.left = '36%';
     }
     if (r == 3) {
       setRating(`rotate(180deg)`);
+      rotateImage.top = '38%';
+      rotateImage.left = '36%';
     }
     if (r == 4) {
       setRating(`rotate(200deg)`);
+      rotateImage.top = '38%';
+      rotateImage.left = '36%';
     }
     if (r == 5) {
       setRating(`rotate(225deg)`);
+      rotateImage.top = '38%';
+      rotateImage.left = '36%';
     }
     if (r == 6) {
       setRating(`rotate(250deg)`);
+      rotateImage.top = '38%';
+      rotateImage.left = '37%';
     }
     if (r == 7) {
       setRating(`rotate(270deg)`);
+      rotateImage.top = '38%';
+      rotateImage.left = '37%';
     }
-
     if (r == 8) {
       setRating(`rotate(310deg)`);
+      rotateImage.top = '38%';
+      rotateImage.left = '37%';
     }
     if (r == 9) {
       setRating(`rotate(330deg)`);
+      rotateImage.top = '39%';
+      rotateImage.left = '37%';
     }
     if (r == 10) {
       setRating(`rotate(2deg)`);
+      rotateImage.top = '39%';
+      rotateImage.left = '37%';
     }
   };
 
@@ -677,7 +703,7 @@ useEffect(() => {
     <>
       {basicInfo(camData, orderDetails, camConversionunit, unit)}
       {supplierInfo(camData)}
-      {customerRating(camData, filteredCreditRating, rating, darkMode)}
+      {customerRating(camData, filteredCreditRating, rating, darkMode, rotateImage)}
       {groupExposure(camData, camConversionunit)}
       {orderSummary(camData, camConversionunit, allBuyerList)}
       {creditProfile(
@@ -3701,7 +3727,7 @@ const skewness = (
     </>
   );
 };
-const customerRating = (data, filteredCreditRating, rating, darkMode) => {
+const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImage) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3729,7 +3755,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
-                      style={{ transform: `${rating}` }}
+                      style={{ transform:`${rating}`, top: `${rotateImage.top}`, left: `${rotateImage.left}`, }}
                     ></img>
                     <div className={`${styles.hideBackground}`}></div>
                     <div
