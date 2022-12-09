@@ -879,7 +879,7 @@ const basicInfo = (camData, orderDetails, camConversionunit,unit) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Port of Discharge</span>
-                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}</span>
+                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}, India</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>

@@ -1877,7 +1877,7 @@ function Index() {
                     paddingTop: '36px',
                   }}
                 >
-                  {camData?.portOfDischarge}
+                  {camData?.portOfDischarge}, India
                 </td>
               </tr>
               <tr>
