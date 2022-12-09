@@ -261,8 +261,10 @@ console.log(clauseArr,'clauseArr')
       let sendLcData = { ...lcData };
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
       let fd = new FormData();
+      
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
+      fd.append('isPostAmmended', true);
       fd.append('document1', lcDoc.lcDraftDoc);
 
       dispatch(UpdateAmendment(fd));

@@ -49,7 +49,38 @@ const Index = ({
   const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([]);
   const [weaknessComments, setWeaknessComments] = useState('');
   const [show, setShow] = useState(false);
-
+  const specialCharacter = [
+    '+',
+    '-',
+    '@',
+    '$',
+    '#',
+    '%',
+    '^',
+    '',
+    '!',
+    ';',
+    '/',
+    '|',
+    `'`,
+    `[`,
+    ']',
+    ',',
+    '{',
+    '}',
+    '?',
+    `'`,
+    ':',
+    '<',
+    '>',
+    `"`,
+    '(',
+    ')',
+    '=',
+    '*',
+    'e',
+    'E'
+  ];
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
@@ -358,10 +389,10 @@ const Index = ({
 
                           </td>
                           <td>
-                            {checkNan(Number(profile?.limit))?.toLocaleString('en-In')}
+                            {returnReadableNumber((profile?.limit),'en-In',2,2)}
                           </td>
                           <td>
-                           {checkNan(Number(profile?.outstandingLimit))?.toLocaleString('en-In')}
+                           {returnReadableNumber((profile?.outstandingLimit),'en-In',2,2)}
                           </td>
                           <td className="position-relative">
                            {profile?.accountConduct}
@@ -421,6 +452,7 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                onFocus={(e) => {
                               setIsFieldInFocus({
                                 ...isFieldInFocus,
@@ -439,19 +471,19 @@ const Index = ({
                                   value={
                                isFieldInFocus.groupExposureLimit
                                   ? Number(profile?.limit)
-                                  : Number(profile?.limit)?.toLocaleString('en-In')
+                                  : returnReadableNumber(profile?.limit,'en-In',2)
                                
                             }
                              
                               disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
+                              // onKeyDown={(evt) => {
+                              //   const re = /^[0-9\b]+$/;
 
-                                if (re.test(evt.target.value) == false) {
-                                }
-                              }}
+                              //   if (re.test(evt.target.value) == false) {
+                              //   }
+                              // }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
@@ -463,6 +495,7 @@ const Index = ({
                             <input
                               name="outstandingLimit"
                               type="text"
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                             onFocus={(e) => {
                               setIsFieldInFocus({
                                 ...isFieldInFocus,
@@ -481,18 +514,18 @@ const Index = ({
                                     value={
                               isFieldInFocus.groupExposureOutLimit
                                   ? profile?.outstandingLimit
-                                  : Number(profile?.outstandingLimit)?.toLocaleString('en-In')
+                                  : returnReadableNumber(profile?.outstandingLimit,'en-In',2)
                             }
                               // value={profile?.outstandingLimit}
                               disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
+                              // onKeyDown={(evt) => {
+                              //   const re = /^[0-9\b]+$/;
 
-                                if (re.test(evt.target.value) == false) {
-                                }
-                              }}
+                              //   if (re.test(evt.target.value) == false) {
+                              //   }
+                              // }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value.toString(), index);
                               }}
