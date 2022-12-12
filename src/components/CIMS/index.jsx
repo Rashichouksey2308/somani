@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import { returnDocFormat } from '@/utils/helpers/global';
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction,getUnqueBl }) {
   let transId = _get(TransitDetails, `data[0]`, '');
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk';
   const [editInput, setEditInput] = useState(true);
@@ -74,7 +74,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   );
 
     let newArray = cimsDetails.slice();
-    newArray[index].vesselName = _get(filteredVessel, '[0].vesselName', '');
+    newArray[index].vesselName = _get(filteredBL, '[0].vesselName', '');
     newArray[index].quantity = filteredBL.length > 1 ?  data : _get(filteredBL, '[0].blQuantity', '')
 
     setCimsDetails(newArray.slice());
@@ -265,6 +265,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     dispatch(UpdateTransitDetails({ fd, task }));
   };
 
+
+
   return (
     <>
       <div className={`${styles.backgroundMain} vessel_card container-fluid p-0`}>
@@ -300,9 +302,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected>Select an option</option>
-                          {_get(TransitDetails, `data[0].BL.billOfLanding`, []).map((bl, index) => (
-                            <option value={bl.vesselName} key={index}>
-                              {bl.vesselName}
+                          {getUnqueBl().map((bl, index) => (
+                            <option value={bl} key={index}>
+                              {bl}
                             </option>
                           ))}
                         </select>

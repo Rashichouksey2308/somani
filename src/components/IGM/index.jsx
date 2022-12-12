@@ -19,7 +19,7 @@ import { settingSidebar } from 'redux/breadcrumb/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
 import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction ,getUnqueBl}) {
   let transId = _get(TransitDetails, `data[0]`, '');
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     ],
     document: null,
   });
-
+console.log(igmList,'igmList')
   const getDoc = (payload) => {
     dispatch(
       previewDocument({
@@ -143,6 +143,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
     let newData = { ...igmList };
     newData.igmDetails[index][name] = text;
+    if (name === 'vesselName') {
+      newData.igmDetails[index].blNumber = [{
+        blNumber: number,
+        blDate: null,
+        blQuantity: '',
+        noOfContainers: '',
+        blDoc: '',
+      },]
+    }
     setIgmList(newData);
   };
   const saveDate = (value, name, index) => {
@@ -790,9 +799,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   </option>
                                 ),
                               )} */}
-                          {_get(TransitDetails, `data[0].BL.billOfLanding`, []).map((bl, index) => (
-                            <option value={bl.vesselName} key={index}>
-                              {bl.vesselName}
+                              <option disabled value=''>Select An Option</option>
+                          {getUnqueBl().map((bl, index) => (
+                            <option value={bl} key={index}>
+                              {bl}
                             </option>
                           ))}
                         </select>
@@ -866,7 +876,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                 >
                                   <option value="select an option">Select an option</option>
                                   {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => {
-                                  // if(bl.vesselName === item.vesselName){
+                                  if(bl.vesselName === item.vesselName){
                                     return (
                                     <option
                                       key={index3}
@@ -875,9 +885,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     >
                                       {bl.blNumber}
                                     </option>
-                                  )
-                                  // }
-                                  })}
+                                  )}})}
                                 </select>
 
                                 <label className={`${styles.label_heading} label_heading`}>
