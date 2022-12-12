@@ -24,16 +24,29 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
 
   useEffect(() => {
     let add = [];
-    let pincode = [];
+   
     let newAddress = [];
-    let name = ''
-    let address = ''
+    let name = '';
+    let address = '';
+    let city = '';
+    let state = '';
+    let country = '';
+    let gstin = '';
+    let addressType = '';
+    let pinCode=''
+    
     console.log(vendor,'vendors')
     if (vendor) {
     vendor?.forEach((item)=> {
       if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
         name = item.vendorDetails?.companyName
-        address = item?.keyAddresses[0]?.address
+        address = item?.keyAddresses[0]?.address,
+        pinCode = item?.keyAddresses[0]?.pinCode,
+        city= item?.keyAddresses[0]?.city,
+        state= item?.keyAddresses[0]?.state,
+        country= item?.keyAddresses[0]?.country,
+        gstin= item?.keyAddresses[0]?.gstin
+        addressType= item?.keyAddresses[0]?.addressType
 
       }
     })
@@ -44,19 +57,25 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
-        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType ||addressType ,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country|| country || "India",
+        state: inspectionData?.thirdPartyAppointment?.address?.state || state,
+        gstin: inspectionData?.thirdPartyAppointment?.address?.gstin || gstin,
+        city: inspectionData?.thirdPartyAppointment?.address?.city || city,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name || address,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
-        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType || addressType ,
+         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country || country || "India",
+        state: inspectionData?.thirdPartyAppointment?.address?.state || state,
+        gstin: inspectionData?.thirdPartyAppointment?.address?.gstin || gstin,
+        city: inspectionData?.thirdPartyAppointment?.address?.city || city,
       },
     });
   }, [inspectionData, vendor]);
@@ -66,7 +85,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     dateOfAppointment: '',
     address: { fullAddress: '', addressType: '', pinCode: '', country: '' },
   });
-
+ console.log(appointmentData,"appointmentData",addressData)
   const saveAppointmentData = (name, value) => {
     let newInput = { ...appointmentData };
     newInput[name] = value;
@@ -268,8 +287,12 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
                     <div className="m-3">
                       <div className={`${styles.address_type}`}>{appointmentData?.address?.addressType}</div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address?.fullAddress} {appointmentData?.address?.pinCode}{' '}
-                        {appointmentData?.address?.country}
+                        {appointmentData?.address?.fullAddress} 
+                        {appointmentData?.address?.city} ,
+                        {appointmentData?.address?.state},    
+                        {appointmentData?.address?.pinCode},{' '}
+                        {appointmentData?.address?.country},
+                        GSTIN NO- {appointmentData?.address?.gstin}
                       </div>
                     </div>
                     <div>
@@ -322,9 +345,9 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
               }}
             >
               <option>Select an option</option>
-              <option value="Registered Office">Registered Office</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier Address">Supplier Address</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
