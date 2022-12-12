@@ -1576,6 +1576,34 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               >
                               
                               </tr>
+                                 <tr className="table_row">
+                                {_get(
+                                  lcModuleData.lcModule,
+                                  'data[0]order.generic.productSpecifications.specificationTable',
+                                  [],
+                                ) &&
+                                  _get(
+                                    lcModuleData.lcModule,
+                                    'data[0]order.generic.productSpecifications.specificationTable',
+                                    [],
+                                  ).length > 0 &&
+                                  Object.keys(
+                                    _get(
+                                      lcModuleData.lcModule,
+                                      'data[0]order.generic.productSpecifications.specificationTable',
+                                      [],
+                                    )[0],
+                                  ).map((val, index) => (
+                                    <th 
+                                     style={{
+                                      fontSize: '20px',
+                                      color: '#8492a6',
+                                      lineHeight: '24px',
+                                    }} key={index}>
+                                      {val}
+                                    </th>
+                                  ))}
+                              </tr>
                               {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
                                 _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
                                   .length > 0 &&
