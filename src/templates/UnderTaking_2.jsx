@@ -116,7 +116,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={12} style={{marginTop:'-72px'}}>
+          <Col md={12}>
             <p className="text_sales text-left m-0">
               <strong>
                 Date: {data.dateOfExecution}

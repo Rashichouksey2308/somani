@@ -196,7 +196,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
         </div>
         <div className={`row my-4`}>
           <Col md={8}
-           style={{marginTop:'64px'}}
+          
            >
             <p className="text_sales text-left m-0">Place: {data.placeOfExecution}</p>
           </Col>
@@ -221,7 +221,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={8} style={{marginTop:'-65px'}}>
+          <Col md={8} >
             <p className="text_sales text-left m-0">Date: {data.dateOfExecution}</p>
           </Col>
           <Col md={4}>
