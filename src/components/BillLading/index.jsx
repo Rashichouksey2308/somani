@@ -11,7 +11,7 @@ import UploadOther from '../UploadOther';
 import { convertValue, removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import { returnDocFormat } from '@/utils/helpers/global';
+import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
 import { number } from 'prop-types';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
@@ -266,6 +266,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const validation = () => {
     let isOk = true;
     let toastMessage = '';
+    if (!partShipmentAllowed) {
+      if (checkRemainingBalance() !== 0) {
+        handleErrorToast('Bl Quantity must be equal to Order Quantity');
+        isOk = false;
+        return isOk
+      }
+    }
 
     if (_get(TransitDetails, 'data[0].order.vessel.vessels[0].shipmentType', '') === 'Liner') {
       if (checkRemainingBalance() < 0) {
@@ -631,14 +638,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             </div>
           </div>
           {bolList?.map((bol, index) => {
-           
             return (
               <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading} flex-grow-1`}>Bill of Lading {index + 1}</h3>
-                  {!partShipmentAllowed && (
+                  {partShipmentAllowed && (
                     <button
                       onClick={() => {
                         onBolAdd();
@@ -755,7 +761,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
-                            disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
+                            // disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                             onFocus={(e) => {
                               setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
@@ -800,7 +806,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortFrom) => {
-                                setetaAtDischargePortFrom(startetaAtDischargePortFrom);
+                                setetaAtDischargePortTo(startetaAtDischargePortTo);
                                 saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index);
                               }}
                               minDate={lastDate}
@@ -828,10 +834,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
-                                setetaAtDischargePortTo(startetaAtDischargePortTo);
+                                setetaAtDischargePortFrom(startetaAtDischargePortFrom);
                                 saveDate(startetaAtDischargePortTo, 'etaAtDischargePortTo', index);
                               }}
-                              minDate={lastDate}
+                              minDate={
+                                bol?.etaAtDischargePortFrom ? moment(bol?.etaAtDischargePortFrom).toDate() : new Date()
+                              }
                             />
                             {/* <DateCalender name='etaAtDischargePortTo'  defaultDate={bol?.etaAtDischargePortTo?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
                             <img
@@ -854,7 +862,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                           
                             {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input

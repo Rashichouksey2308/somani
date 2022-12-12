@@ -1230,7 +1230,7 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
                       <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
                       <td>
-                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)}   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                       </td>
                       <td>{item?.commodity}</td>
                       <td>In Process</td>
@@ -2077,7 +2077,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {convertValue(RevenueDetails?.grossTurnover?.previous?.value, camConversionunit)?.toLocaleString(
@@ -2087,7 +2087,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2125,7 +2125,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {convertValue(RevenueDetails?.relatedPartySales?.previous?.value, camConversionunit)?.toLocaleString(
@@ -2135,7 +2135,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2181,7 +2181,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2199,7 +2199,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2236,7 +2236,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2249,7 +2249,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2283,7 +2283,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2296,7 +2296,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2336,7 +2336,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2352,7 +2352,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -3046,7 +3046,8 @@ const sectionTerms = (
                 'Cr',
                 '',
               )} */}
-              {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
+              {convertValue(camData?.company?.creditLimit?.totalLimit,camConversionunit)?.toLocaleString('en-In')}
+              {" "}
               {` ${unit == 'Crores' ? 'Cr' : unit == 'Lakhs' ? 'LAKH' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
@@ -3482,7 +3483,7 @@ const trends = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                     {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                     {/* {checkNan(
                       Number(
                         gstData?.detail?.salesDetailAnnual?.saleSummary
@@ -3522,7 +3523,7 @@ const trends = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                     {/* {checkNan(
                       Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
@@ -3615,7 +3616,7 @@ const skewness = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </div>
                 <Row className={`d-flex  d-flex align-items-center justify-content-evenly`}>
@@ -3676,7 +3677,7 @@ const skewness = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </div>
                 {/* <div className={`${styles.chart}`}>
@@ -3846,8 +3847,50 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                     </span>
                   </div>
                   <div className={`${styles.creditScore} border_color`}>
-                    <div className={`${styles.tickContainer}`}>
-                      <img src="static/darktick.svg"></img>
+                    <div className={`${styles.tickContainer}`}
+                     style={{
+                      background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
+                    }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22.141" height="17.047" viewBox="0 0 22.141 17.047">
+                    <path id="check-2" d="M10.222,18.482,5.14,13.4,3.41,15.119l6.812,6.812L24.844,7.308,23.126,5.59Z"
+                        transform="translate(-3.056 -5.237)" fill={
+                           `${
+                          filteredCreditRating?.length > 0
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              ? '#ff4230'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ffb700'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#8ac41c'
+                              : '00b81f30'
+                            : null
+                        }`
+                        } stroke={
+                           `${
+                          filteredCreditRating?.length > 0
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              ? '#ff4230'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ffb700'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#8ac41c'
+                              : '00b81f30'
+                            : null
+                        }`
+                        } stroke-width="0.5"/>
+                    </svg>
+                     
                     </div>
                     <div className={`${styles.content}`}>
                       <span className={`${styles.content_heading}`}>CREDIT SCORE</span>
@@ -3864,8 +3907,38 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                     </div>
                   </div>
                   <div className={`${styles.creditScore} border_color`}>
-                    <div className={`${styles.tickContainer}`}>
-                      <img src="static/star.svg"></img>
+                    <div className={`${styles.tickContainer}`}
+                     style={{
+                      background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
+                    }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28.055" height="26.652" viewBox="0 0 28.055 26.652">
+                      <path id="star_purple500"
+                      d="M16.027,23.42,24.7,28.652l-2.3-9.861,7.659-6.635L19.969,11.3,16.027,2l-3.942,9.3L2,12.156l7.659,6.635-2.3,9.861Z"
+                      transform="translate(-2 -2)" fill={
+                            `${
+                          filteredCreditRating?.length > 0
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              ? '#ff4230'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ffb700'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#8ac41c'
+                              : '00b81f30'
+                            : null
+                        }`
+                      }/>
+                      </svg>
                     </div>
                     <div className={`${styles.content}`}>
                       <span className={`${styles.content_heading}`}>RATING</span>

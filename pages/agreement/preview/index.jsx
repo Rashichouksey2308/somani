@@ -589,7 +589,8 @@ export const undertaking2Pdf = (data) => {
                             })
                             }
                            
-                          <strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block'}}>Name: </strong></p>
+                        
+                          </p>
                       </td>
                     </tr>
                     <tr>

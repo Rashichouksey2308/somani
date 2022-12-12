@@ -1093,7 +1093,7 @@ const handleData = (name, value,type) => {
                       {Number(inspectionDetails.quantity)?.toLocaleString('en-IN', {
                         maximumFractionDigits: 2,
                       })}{' '}
-                      MT
+                    { _get(inspectionData, 'order.unitOfQuantity', '')}
                     </span>
                   </div>
                 )}

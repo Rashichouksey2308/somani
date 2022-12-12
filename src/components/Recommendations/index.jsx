@@ -243,6 +243,8 @@ const Index = ({
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
+                    cols={120}
+
                     readOnly={!editProfile[index]?.editable}
                   />
                   </div>
@@ -300,7 +302,8 @@ const Index = ({
             {financialsComment &&
               financialsComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
-                   <div className='d-flex'>
+                   <div className='d-flex'
+                   >
                   <div className={`${styles.sr_number}`}
                   style={{marginTop:'7px'}}>{index+1}.</div>
                   <Form.Control
@@ -308,6 +311,7 @@ const Index = ({
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
+                    cols={120}
                     readOnly={!editFinance[index]?.editable}
                   />
                   </div>
@@ -543,10 +547,10 @@ const Index = ({
                               }}
                             >
                               <option selected>Select an Option</option>
-                              <option value="Poor">Good</option>
-                              <option value="Good">Satisfactory</option>
-                              <option value="Satisfactory">Average</option>
-                              <option value="Satisfactory">Poor</option>
+                              <option value="Good">Good</option>
+                              <option value="Satisfactory">Satisfactory</option>
+                              <option value="Average">Average</option>
+                              <option value="Poor">Poor</option>
                             </select>
                             <img className={`${styles.arrow} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                           </td>
