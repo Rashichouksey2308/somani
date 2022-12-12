@@ -1704,7 +1704,7 @@ function Index() {
                     background: '#F7F9FF',
                   }}
                 >
-                  {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                  {convertValue(camData?.orderValue,camConversionunit)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
                    {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
