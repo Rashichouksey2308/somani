@@ -153,51 +153,58 @@ export default function TPASellerPreview(data) {
             </tr>
             <tr>
               <td align="justify">
-                <ol
-                  type="A"
+                <ul
+                  type="none"
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
-                    paddingLeft: '20px'
+                    paddingLeft: '20px',
+                    marginBottom:'0'
                   }}
                 >
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      Supplier has entered into a Sales Contract with Buyer for Sale &amp; Purchase of Goods as
+                      <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp;</span>Supplier has entered into a Sales Contract with Buyer for Sale &amp; Purchase of Goods as
                       details in Schedule -1
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and
+                      <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp;</span>Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and
                       to facilitate the End Buyer.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      In view of the aforesaid, parties have entered into this binding Agreement.
-                    </p>
+                      <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp;</span>In view of the aforesaid, parties have entered into this binding Agreement.
+                    </span>
                   </li>
-                </ol>
+                </ul>
               </td>
             </tr>
             <tr>
@@ -215,8 +222,8 @@ export default function TPASellerPreview(data) {
             </tr>
             <tr>
               <td align="justify">
-                <ol
-                  type="1"
+                <ul
+                  type="none"
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
@@ -225,123 +232,141 @@ export default function TPASellerPreview(data) {
                   }}
                 >
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>1. &nbsp;</span>That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into
                       the Sales Contract solely at the request and to facilitate the End Buyer.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      All terms of the Sales Contract have already been discussed and agreed between the Supplier and
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>2. &nbsp;</span>All terms of the Sales Contract have already been discussed and agreed between the Supplier and
                       End Buyer.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>3. &nbsp;</span>The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier
                       subject to the End Buyer fulfilling its contractual obligations towards the Buyer.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      The End Buyer and Supplier therefore, are fully liable and responsible at all times for
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>4. &nbsp;</span>The End Buyer and Supplier therefore, are fully liable and responsible at all times for
                       performance of the Sales Contract including but not limited to making financial arrangements,
                       timely nomination/acceptance of vessel, settlement of any and all quality/quantity claims,
                       delayed/no shipment issues, demurrage / dispatch amounts, and/or any other claims or liability
                       arising due to execution of the sales contract. All such claims, liabilities etc., shall be
                       addressed, discussed and settled directly between the Supplier and End Buyer with no reference
                       and liability on the part of Buyer whatsoever.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>5. &nbsp;</span>Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any
                       reason whatsoever once LC is issued by the Buyer.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      In case of any conflict between the Sales Contract and this Agreement, the terms of this
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>6. &nbsp;</span>In case of any conflict between the Sales Contract and this Agreement, the terms of this
                       Agreement will prevail.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      Further, End Buyer shall be fully responsible for payment of the price in the event that
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>7. &nbsp;</span>Further, End Buyer shall be fully responsible for payment of the price in the event that
                       Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and
                       Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      In any case, End Buyer shall remain responsible for the performance of the Sales Contract,
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>8. &nbsp;</span>In any case, End Buyer shall remain responsible for the performance of the Sales Contract,
                       including any failure or delay in the issuance of the LC in accordance with the terms of the
                       Sales Contract.
-                    </p>
+                    </span>
                   </li>
                   <li>
-                    <p
+                    <span
                       style={{
                         fontSize: '12px',
                         lineHeight: '18px',
                         color: '#000000',
+                        display:'inline-block',
+                        paddingBottom:'16px'
                       }}
                     >
-                      This Agreement is subject to English laws, and any disputes arising out of this Agreement shall
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>9. &nbsp;</span>This Agreement is subject to English laws, and any disputes arising out of this Agreement shall
                       be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by
                       a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of
                       Arbitration Proceedings shall be in English.
-                    </p>
+                    </span>
                   </li>
-                </ol>
+                </ul>
               </td>
             </tr>
             <tr>

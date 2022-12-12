@@ -574,8 +574,8 @@ export const undertaking2Pdf = (data) => {
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}><strong>(Associate Buyer)</strong></p></td>
                     </tr>
                     <tr>
-                      <td valign='top' align='left' width='70%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>Place: {data.placeOfExecution} </strong></p>
+                      <td valign='bottom' align='left' width='70%'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Place: {data.placeOfExecution} </strong><br/><strong>Date : {data.dateOfExecution}</strong></p>
                       </td>
                       <td valign='top' align='left' width='30%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0' }}>
@@ -594,7 +594,6 @@ export const undertaking2Pdf = (data) => {
                       </td>
                     </tr>
                     <tr>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Date : {data.dateOfExecution}</strong></p></td>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
                         
                            {

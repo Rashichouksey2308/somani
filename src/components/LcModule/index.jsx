@@ -81,15 +81,11 @@ function Index() {
   /// firstimeUpdate False && isPostAmmed true -- update
   /// isAmmend disable -- amend
 
-  const defineAction = (lc) => {
-    if (lc.isAmmended) {
-      return false;
-    } else if (!lc.firstTimeUpdate) {
+  const defineAction = (lc, index) => {
+    if (!lc.firstTimeUpdate || !lc.route || lc.route === 'postUpdated' ) {
       return true;
-    } else if (lc.firstTimeUpdate && !lc.isPostAmmended) {
+    } else if (lc.route === 'amend') {
       return false;
-    } else if (lc.firstTimeUpdate && lc.isPostAmmended) {
-      return true;
     }
   };
 
@@ -209,29 +205,32 @@ function Index() {
                           {lc?.order?.commodity}
                         </td>
                         <td>RM-Sales</td>
-                        {defineAction(lc)}
+
                         <td>
                           <span className={`${styles.status} ${styles.review}`}></span>
                           Pending
                         </td>
-                        {defineAction(lc) ? (
+                        {console.log(defineAction(lc, index), 'fiRstTimeUpdate6')}
+                        {lc.route === 'amend' || lc.route === 'postUpdated'  ? (
+                          <>
+                            <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>
+                            <td>
+                              {lc.route !== 'postUpdated' && (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={() => handleAmmendRoute(lc)}
+                                />
+                              )}
+                            </td>
+                          </>
+                        ) : (
                           <td colSpan={2}>
                             {' '}
                             <button className={styles.updateBtn} onClick={() => handleLcAmmendRoute(lc)}>
                               Update
                             </button>
                           </td>
-                        ) : (
-                          <>
-                            <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>
-                            <td>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                onClick={() => !lc.isAmmended && handleAmmendRoute(lc)}
-                              />
-                            </td>
-                          </>
                         )}
                       </tr>
                     ))}
