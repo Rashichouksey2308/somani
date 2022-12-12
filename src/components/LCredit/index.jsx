@@ -399,7 +399,11 @@ function Index() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-    } else {
+    } 
+     else if (toCheck == '(44F) Port of Discharge') {
+      return `${value}, India`;
+    } 
+    else {
       return value;
     }
   };
@@ -434,7 +438,10 @@ function Index() {
       return `(+/-) ${getValue(existing, value)}  %`;
     } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
       return `Usuance - ${getValue(existing, value)} days`;
-    } else {
+    }else if (value === '(44F) Port of Discharge') {
+      return `${getValue(existing, value)}`;
+    } 
+     else {
       return getValue(existing, value);
     }
   };
@@ -904,8 +911,11 @@ function Index() {
                                             :arr.dropDownValue === '(32B) Currency Code & Amount'
                                             ? `${lcModuleData?.order?.orderCurrency} ${getValue(arr.newValue, arr.dropDownValue)} `
                                             : arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
-                                            : getValue(arr.newValue, arr.dropDownValue)}
+                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : 
+                                            arr.dropDownValue === '(44F) Port of Discharge'
+                                          ? `${getValue(arr.newValue, arr.dropDownValue)}`
+                                          :
+                                             getValue(arr.newValue, arr.dropDownValue)}
                                         </td>
                                         <td>
                                           {/* <img
