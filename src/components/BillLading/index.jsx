@@ -800,7 +800,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortFrom) => {
-                                setetaAtDischargePortFrom(startetaAtDischargePortFrom);
+                                setetaAtDischargePortTo(startetaAtDischargePortTo);
                                 saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index);
                               }}
                               minDate={lastDate}
@@ -828,10 +828,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
-                                setetaAtDischargePortTo(startetaAtDischargePortTo);
+                                setetaAtDischargePortFrom(startetaAtDischargePortFrom);
                                 saveDate(startetaAtDischargePortTo, 'etaAtDischargePortTo', index);
                               }}
-                              minDate={lastDate}
+                              
+                              minDate={bol?.etaAtDischargePortFrom ? moment(bol?.etaAtDischargePortFrom).toDate() : new Date()}
                             />
                             {/* <DateCalender name='etaAtDischargePortTo'  defaultDate={bol?.etaAtDischargePortTo?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
                             <img
