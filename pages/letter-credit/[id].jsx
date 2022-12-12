@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './letter.module.scss';
 import { Col, Row } from 'react-bootstrap';
 import InspectionDocument from '../../src/components/InspectionDocument';
+import UploadOther from '../../src/components/UploadOther';
 import DateCalender from '../../src/components/DateCalender';
 import SaveBar from '../../src/components/SaveBar';
 
@@ -129,7 +130,7 @@ function Index() {
   const [clauseObj, setClauseObj] = useState(initialState);
 
   const [clauseArr, setClauseArr] = useState([]);
-console.log(clauseArr,'clauseArr')
+  console.log(clauseArr, 'clauseArr');
   const [drop, setDrop] = useState('');
 
   const [fieldType, setFieldType] = useState('');
@@ -261,10 +262,11 @@ console.log(clauseArr,'clauseArr')
       let sendLcData = { ...lcData };
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
       let fd = new FormData();
-      
+
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('isPostAmmended', true);
+      fd.append('route', 'update');
       fd.append('document1', lcDoc.lcDraftDoc);
 
       dispatch(UpdateAmendment(fd));
@@ -734,7 +736,10 @@ console.log(clauseArr,'clauseArr')
                                         {clause.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
                                           ? `Usuance - ${getData(clause.newValue, clause.dropDownValue)} days `
                                           : clause.dropDownValue === '(32B) Currency Code & Amount'
-                                          ? `${lcModuleData?.order?.orderCurrency} ${getData(clause.newValue, clause.dropDownValue)} `
+                                          ? `${lcModuleData?.order?.orderCurrency} ${getData(
+                                              clause.newValue,
+                                              clause.dropDownValue,
+                                            )} `
                                           : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
                                           : getData(clause.newValue, clause.dropDownValue)}
@@ -762,14 +767,15 @@ console.log(clauseArr,'clauseArr')
           </div>
 
           {/* Document*/}
-          <InspectionDocument
+          {/* <InspectionDocument
             lcDoc={lcDoc}
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC AMENDMENT DRAFT"
             module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             setLcDoc={setLcDoc}
-          />
+          /> */}
+           <UploadOther  module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']} orderid={lcModuleData?.order?._id} />
         </div>
       </div>
       <SaveBar

@@ -291,7 +291,7 @@ function Index() {
       }
       return false;
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC DRAFT';
+      let toastMessage = `PLEASE UPLOAD ${lcModuleData?.isPostAmmended ? "LC AMENDMENT DRAFT" :  "LC DRAFT"}`;
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
@@ -337,6 +337,7 @@ function Index() {
     fd.append('lcApplication', JSON.stringify(sendLcData));
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
     fd.append('document1', lcDoc.lcDraftDoc);
+    fd.append('route',  lcModuleData.isPostAmmended ? 'postUpdated' : 'amend');
     fd.append('isAmmended', lcModuleData.isPostAmmended ? true : false);
 
 
