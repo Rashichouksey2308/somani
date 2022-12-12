@@ -75,7 +75,7 @@ const Index = () => {
     console.log(insuranceResponse.data,"insuranceResponse")
     if(insuranceResponse?.data){
           if(insuranceResponse?.data[0].quotationRequest.insuranceType == `"Marine Insurance"`){
-      setActiveInsurance({...activeInsurance,marine:true})
+       setActiveInsurance({...activeInsurance,marine:true})
        setInsuranceType(false)
       
     

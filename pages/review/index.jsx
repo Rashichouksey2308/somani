@@ -1707,7 +1707,7 @@ function Index() {
                   {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
-                  {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
+                   {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                 </td>
                 <td
                   style={{
@@ -3237,7 +3237,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                       </td>
                       <td
                         style={{
@@ -4843,11 +4843,16 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.current?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {
+                  convertValue(RevenueDetails?.grossTurnover?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )
+                  }{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4859,11 +4864,16 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.previous?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {
+                   convertValue(RevenueDetails?.grossTurnover?.previous?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )
+                  }{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4918,11 +4928,16 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.current?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {
+                   convertValue(RevenueDetails?.relatedPartySales?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )
+                  }{' '}
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4932,11 +4947,16 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.previous?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {
+                   convertValue(RevenueDetails?.relatedPartySales?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )
+                  }{' '}
+                 {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4989,11 +5009,16 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.current?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {
+                   convertValue(
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    camConversionunit,
+                  )?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })
+                  }{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5003,11 +5028,16 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.previous?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {
+                  convertValue(
+                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                    camConversionunit,
+                  )?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })
+                  }{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5057,7 +5087,12 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.current?.value)).toFixed(2), true)} Cr
+                  {
+                    convertValue(RevenueDetails?.B2BSales?.current?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })
+                  } {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5067,7 +5102,12 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.previous?.value)).toFixed(2), true)} Cr
+                  {
+                    convertValue(RevenueDetails?.B2BSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })
+                  }  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5114,7 +5154,11 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.current?.value)).toFixed(2), true)} Cr
+                  {
+                    convertValue(RevenueDetails?.B2CSales?.current?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })} {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5124,7 +5168,12 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.previous?.value)).toFixed(2), true)} Cr
+                  {
+                    convertValue(RevenueDetails?.B2CSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })
+                    }  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5174,8 +5223,15 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.current?.value)).toFixed(2), true)}{' '}
-                  Cr
+                  {
+                   convertValue(RevenueDetails?.exportSales?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5185,8 +5241,15 @@ function Index() {
                     textAlign:"right",
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.previous?.value)).toFixed(2), true)}{' '}
-                  Cr
+                  {
+                   convertValue(RevenueDetails?.exportSales?.previous?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5435,13 +5498,16 @@ function Index() {
                   <span style={{ float: 'left' }}>Gross Revenue </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {
+                     convertValue(
+                      gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })
+                    }{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
                 <td
@@ -5459,13 +5525,16 @@ function Index() {
                   <span style={{ float: 'left' }}>Gross Purchases </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {
+                     convertValue(
+                      gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })
+                    }{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
               </tr>
@@ -5598,13 +5667,16 @@ function Index() {
                   <span style={{ float: 'left' }}>Gross Revenue </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {
+                    convertValue(
+                      gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })
+                    }{' '}
+                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
                 <td
@@ -5622,13 +5694,16 @@ function Index() {
                   <span style={{ float: 'left' }}>Gross Purchases </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {
+                     convertValue(
+                      gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })
+                    }{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
               </tr>
@@ -7631,9 +7706,10 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                        {convertValue(camData?.orderValue,camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}
+                        {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                       </td>
                       <td
                         align="center"

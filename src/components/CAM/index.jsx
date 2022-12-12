@@ -1230,7 +1230,7 @@ const orderSummary = (camData, camConversionunit, allBuyerList) => {
                       <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
                       <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
                       <td>
-                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)}   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                       </td>
                       <td>{item?.commodity}</td>
                       <td>In Process</td>
@@ -2077,7 +2077,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {convertValue(RevenueDetails?.grossTurnover?.previous?.value, camConversionunit)?.toLocaleString(
@@ -2087,7 +2087,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2125,7 +2125,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {convertValue(RevenueDetails?.relatedPartySales?.previous?.value, camConversionunit)?.toLocaleString(
@@ -2135,7 +2135,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2181,7 +2181,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2199,7 +2199,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2236,7 +2236,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2249,7 +2249,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2283,7 +2283,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2296,7 +2296,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -2336,7 +2336,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2352,7 +2352,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {checkNan(
@@ -3046,7 +3046,8 @@ const sectionTerms = (
                 'Cr',
                 '',
               )} */}
-              {(Number(camData?.company?.creditLimit?.totalLimit) / 10000000)?.toLocaleString('en-In')}{' '}
+              {convertValue(camData?.company?.creditLimit?.totalLimit,camConversionunit)?.toLocaleString('en-In')}
+              {" "}
               {` ${unit == 'Crores' ? 'Cr' : unit == 'Lakhs' ? 'LAKH' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
@@ -3482,7 +3483,7 @@ const trends = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                     {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                     {/* {checkNan(
                       Number(
                         gstData?.detail?.salesDetailAnnual?.saleSummary
@@ -3522,7 +3523,7 @@ const trends = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                     {/* {checkNan(
                       Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
@@ -3615,7 +3616,7 @@ const skewness = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </div>
                 <Row className={`d-flex  d-flex align-items-center justify-content-evenly`}>
@@ -3676,7 +3677,7 @@ const skewness = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </div>
                 {/* <div className={`${styles.chart}`}>
