@@ -1404,8 +1404,8 @@ function Index() {
       }
       if (r == 2) {
         rotateImageUrl.neddle = neddle2;
-        rotateImageUrl.top = '19%';
-        rotateImageUrl.left = '7%';
+        rotateImageUrl.top = '17%';
+        rotateImageUrl.left = '0%';
         rotateImageUrl.width = '260px';
         rotateImageUrl.height = '260px';
       }
@@ -2564,7 +2564,7 @@ function Index() {
                               ).toFixed(2)} %`
                             : '0'
                             } 
-                            %
+                            
                         </span>
                       </td>
                     </tr>
@@ -2641,7 +2641,7 @@ function Index() {
                                 ) * 100
                               ).toFixed(2)} %`
                             : '0'}{' '}
-                          %
+                         
                         </span>
                       </td>
                     </tr>
@@ -2715,7 +2715,7 @@ function Index() {
                                 ) * 100
                               ).toFixed(2)} %`
                             : '0'}{' '}
-                          %
+                         
                         </span>
                       </td>
                     </tr>
