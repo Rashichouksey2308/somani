@@ -100,7 +100,7 @@ function index() {
                       data-toggle="collapse"
                       data-target="#cmaTbl"
                       aria-expanded="true"
-                      aria-controls=" cmaTbl"
+                      aria-controls="cmaTbl"
                     >
                       <h3 className={styles.heading}>Authorised Signatory Details</h3>
                       <span>{on ? '+' : '-'}</span>
