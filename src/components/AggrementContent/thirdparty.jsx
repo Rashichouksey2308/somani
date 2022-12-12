@@ -17,7 +17,7 @@ function Index(props) {
       bankName: '',
       chequeNo: '',
       chequeDate: null,
-      amount: '',
+      amount: 0,
     },
   ]);
 
@@ -30,7 +30,7 @@ function Index(props) {
         bankName: '',
         chequeNo: '',
         chequeDate: null,
-        amount: '',
+        amount: 0,
       },
     ]);
     setIsFieldInFocus([...isFieldInFocus, { amount: false }]);
@@ -62,7 +62,7 @@ console.log(savedData,'savedData')
                   bankName: '',
                   chequeNo: '',
                   chequeDate: null,
-                  amount: '',
+                  amount: 0,
                 },
               ],
         );
@@ -90,7 +90,7 @@ console.log(savedData,'savedData')
                   bankName: '',
                   chequeNo: '',
                   chequeDate: null,
-                  amount: '',
+                  amount: 0,
                 },
               ],
         );
@@ -327,7 +327,7 @@ console.log(deliveryData,"deliveryData")
                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus[index]?.amount
-                                  ? val.amount
+                                  ? val.amount==0?"": val.amount
                                   : `INR ` + Number(
                                     val.amount
                                   )?.toLocaleString('en-In', {

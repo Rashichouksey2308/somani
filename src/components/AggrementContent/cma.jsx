@@ -93,7 +93,7 @@ function Index(props) {
    
    
   }
-  console.log(addressList,"addressList")
+  console.log(cmaState,"addressList")
   useEffect(() => {
     if (window) {
      
@@ -571,7 +571,7 @@ const cancelEditAddress = () => {
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Dr. Amin Controllers Private Limited">Dr. Amin Controllers Private Limited</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
@@ -605,7 +605,7 @@ const cancelEditAddress = () => {
                   }}
                   name="gstin"
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.filter((val,index)=>{
                     if(val!== undefined){
                       return val
@@ -707,7 +707,7 @@ const editData = (
                 editNewAddress(e.target.name, e.target.value);
               }}
             >
-              <option>Select an option</option>
+              <option value="">Select an option</option>
               <option value="Registered">Registered Office</option>
               <option value="Branch">Branch Office</option>
               <option value="Corporate">Corporate Office</option>

@@ -72,33 +72,38 @@ const Index = () => {
   })
   
   useEffect(()=>{
-    console.log(insuranceData.insuranceType,"insuranceData.insuranceType")
-    if(insuranceData.insuranceType == `"Marine Insurance"`){
-      setActiveInsurance({...activeInsurance,marine:true})
+    console.log(insuranceResponse.data,"insuranceResponse")
+    if(insuranceResponse?.data){
+          if(insuranceResponse?.data[0].quotationRequest.insuranceType == `"Marine Insurance"`){
+       setActiveInsurance({...activeInsurance,marine:true})
        setInsuranceType(false)
       
     
-    }else if(insuranceData.insuranceType ==`"Storage Insurance"`){
+    }else if(insuranceResponse?.data[0].quotationRequest.insuranceType ==`"Storage Insurance"`){
      setActiveInsurance({...activeInsurance,storage:true})
     
         setInsuranceType(true)
     }else{
-      console.log(moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment()),"moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment())")
-      if(moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment()) && moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment()) ){
+     
+      if(moment(insuranceResponse?.data[0]?.marineInsurance?.insuranceTo).isBefore(moment()) && moment(insuranceResponse?.data[0]?.storageInsurance?.insuranceTo).isBefore(moment()) ){
          setActiveInsurance({...activeInsurance,marine:true,storage:true}) 
       }else{
-         if(moment(insuranceData?.storageInsurance?.insuranceTo).isBefore(moment())){
+         console.log(moment(insuranceResponse?.data[0]?.storageInsurance?.insuranceTo).isBefore(moment()),"sadasd)",
+         moment(insuranceResponse?.data[0]?.marineInsurance?.insuranceTo).isBefore(moment()),moment(),insuranceResponse?.data[0],insuranceResponse?.data[0]?.marineInsurance
+         )
+         if(moment(insuranceResponse?.data[0]?.storageInsurance?.insuranceTo).isBefore(moment())){
          setActiveInsurance({...activeInsurance,storage:true,marine:false}) 
          }
-         if(moment(insuranceData?.marineInsurance?.insuranceTo).isBefore(moment())){
+         if(moment(insuranceResponse?.data[0]?.marineInsurance?.insuranceTo).isBefore(moment())){
          setActiveInsurance({...activeInsurance,marine:true,storage:false}) 
          }
       }
      
     }
+    }
   },[insuranceResponse])
 
-  console.log(insuranceData, 'insuranceData');
+ 
 
   function getDifferenceInDaysStorage() {
     let dateS1 = new Date(storageData?.insuranceFrom);
