@@ -239,7 +239,7 @@ const Index = () => {
 
     }
   };
- console.log(activeInsurance,"activeInsurance")
+ console.log(insuranceType,"activeInsurance")
   return (
     <div className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}>
       <div className={`${styles.accordion_body} bg-transparent`}>
@@ -321,6 +321,7 @@ const Index = () => {
                                 <option value ='' selected >
                                   Select an option
                                 </option>
+                                
                                 <option value={insuranceData?.marineInsurance?.policyNumber}>
                                   {insuranceData?.marineInsurance?.policyNumber}
                                 </option>
@@ -454,8 +455,8 @@ const Index = () => {
                                 <option disabled selected>
                                   Select an option
                                 </option>
-                                <option value={insuranceData?.marineInsurance?.policyNumber}>
-                                  {insuranceData?.marineInsurance?.policyNumber}
+                                <option value={insuranceData?.storageInsurance?.policyNumber}>
+                                  {insuranceData?.storageInsurance?.policyNumber}
                                 </option>
                                 {/* <option value="IRDAN1277P09098">IRDAN1277P09098</option> */}
                               </select>
