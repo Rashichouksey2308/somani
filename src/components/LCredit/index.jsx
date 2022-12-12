@@ -58,7 +58,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-  console.log(lcData, 'lcData');
+  
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -161,12 +161,12 @@ function Index() {
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
-  console.log(clauseObj, 'clauseObj');
+ 
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
   const [clauseArr, setClauseArr] = useState([]);
-console.log(clauseArr,'clauseArr')
+
   const [drop, setDrop] = useState('');
 
   const [fieldType, setFieldType] = useState('');
@@ -902,7 +902,7 @@ console.log(clauseArr,'clauseArr')
                                         {arr.dropDownValue === '(42C) Draft At' &&lcData?.atSight == 'Usuance'
                                             ? `Usuance - ${getValue(arr.newValue, arr.dropDownValue)} days `
                                             :arr.dropDownValue === '(32B) Currency Code & Amount'
-                                            ? `${lcModuleData?.order?.orderCurrency} `
+                                            ? `${lcModuleData?.order?.orderCurrency} ${getValue(arr.newValue, arr.dropDownValue)} `
                                             : arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                             ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
                                             : getValue(arr.newValue, arr.dropDownValue)}

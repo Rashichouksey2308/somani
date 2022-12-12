@@ -14,7 +14,7 @@ export default function SalesContractPreview(data) {
         <td
           style={{
             fontFamily: 'Times New Roman, Times, serif',
-            padding: '20px',
+            padding: '10px 20px 20px',
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
@@ -41,7 +41,7 @@ export default function SalesContractPreview(data) {
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
-            padding: '5px 20px 40px',
+            padding: '5px 20px 20px',
           }}
         >
           <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
@@ -451,7 +451,7 @@ export default function SalesContractPreview(data) {
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
-            padding: '130px 20px 40px',
+            padding: '20px',
           }}
         >
           <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
@@ -699,13 +699,6 @@ export default function SalesContractPreview(data) {
                     the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
                     Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
                     shall in no way be responsible or liable for the same.
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                   </li>
                   <li
                     style={{
@@ -904,7 +897,7 @@ export default function SalesContractPreview(data) {
                   at the time this Contract is being entered into. Both Parties agree that they will use their
                   commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
                   due to any unforeseen circumstances in the spirit of mutual understanding and collaboration.
-                </p>
+                </p><br/><br/><br/><br/>
               </td>
             </tr>
           </table>
@@ -918,7 +911,7 @@ export default function SalesContractPreview(data) {
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
-            padding: '120px 20px 40px',
+            padding: '20px',
           }}
         >
           <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
@@ -1098,11 +1091,6 @@ export default function SalesContractPreview(data) {
                     Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
                     which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
                     shall be bound to accept the same and bear the liability, costs, expenses arising there from.
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
                     In the event, any judicial/ legal proceedings are initiated against the Seller by
@@ -1738,7 +1726,7 @@ export default function SalesContractPreview(data) {
               </td>
             </tr>
             <tr>
-              <td colSpan={2} height={80}></td>
+              <td colSpan={2} height={50}></td>
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>

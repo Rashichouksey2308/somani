@@ -111,7 +111,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let a = index + 1;
     let tempArray = { ...igmList };
     tempArray.igmDetails.push({
-      vesselName: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.vesselName ?? '',
+      vesselName: _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','') ?? '',
 
       igmNumber: '',
       igmFiling: null,
@@ -218,7 +218,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
           return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
         });
-        console.log(filterData,"filterData")
+      
         let tempArray = { ...igmList };
         tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
         tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
@@ -710,7 +710,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
               </div>
             </div>
           </div>
-          {igmList.igmDetails.map((item, index) => {
+          {igmList?.igmDetails?.map((item, index) => {
             return (
               <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div
@@ -747,6 +747,25 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
+                   {shipmentTypeBulk && _get(
+                              TransitDetails,
+                              `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
+                              '',
+                            ) === 'No' ?   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                      <input
+                        value={ index == 0 ? _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','') : item.vesselName}
+                        id="vesselName"
+                        // onChange={(e) => onChangeIgm(e.target.id, e.target.value, index)}
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Vessel Name
+                        <strong className="text-danger">*</strong>
+                      </label>
+                    </div>  : 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
                         <select
@@ -788,7 +807,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           alt="Search"
                         />
                       </div>
-                    </div>
+                    </div>}
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input

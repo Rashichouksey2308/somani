@@ -9,7 +9,6 @@ export default function AssociateshipAgreementPreview(data) {
         style={{
           fontFamily: 'Times New Roman, Times, serif',
           border: '1px solid #d9dde8',
-          marginBottom: '20px',
           color: '#000000',
         }}
         cellSpacing="0"
@@ -19,7 +18,7 @@ export default function AssociateshipAgreementPreview(data) {
         <td
           style={{
             fontFamily: 'Times New Roman, Times, serif',
-            padding: '20px',
+            padding: '0 20px 15px',
             fontSize: '12px',
             lineHeight: '18px',
             color: '#000000',
@@ -39,9 +38,9 @@ export default function AssociateshipAgreementPreview(data) {
           <td valign="top" style={{ padding: '0 20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
-                <td align="center" style={{ padding: '20px 0 35px' }}>
-                  <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0' }}>
-                    <strong>ASSOCIATESHIP AGREEMENT</strong>
+                <td align="center" style={{ padding: '20px 0 30px' }}>
+                  <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginBottom: '0', fontWeight:'bold' }}>
+                    ASSOCIATESHIP AGREEMENT
                   </p>
                 </td>
               </tr>
@@ -156,7 +155,7 @@ export default function AssociateshipAgreementPreview(data) {
               </tr>
               <tr>
                 <td valign="top">
-                  <ol type="1" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
+                  <ol type="1" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'25px' }}>
                     <li style={{ fontWeight: 'bold' }}>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Item &amp; Price</strong>
@@ -215,7 +214,6 @@ export default function AssociateshipAgreementPreview(data) {
                             services shall also be borne by the Associate Buyer and will be included in the sale price
                             of Goods/Services.
                           </p>
-                          <br/><br/><br/><br/>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                             The exchange rate prevailing at the time of making payment of the margin money by the
                             Associate Buyer shall be the provisional price for preparation of provisional invoice.
@@ -330,7 +328,6 @@ export default function AssociateshipAgreementPreview(data) {
                         Seller at actuals within 5 days of demand from Seller.
                       </p>
                     </li>
-                    <br/><br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Quality, Quantity, Pre-Shipment Inspection</strong>
@@ -476,7 +473,6 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                       </ol>
                     </li>
-                    <br/><br/><br/><br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Transport/Storage</strong>
@@ -642,7 +638,6 @@ export default function AssociateshipAgreementPreview(data) {
                             and/or quantity of goods shall be borne by Associate Buyer and Seller shall in no way be
                             liable for the same.
                           </p>
-                          <br/><br/><br/><br/><br/>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft: '-16px' }}>
                             <strong>
                               11 (A). OCEAN TRANSPORTATION:
@@ -778,7 +773,6 @@ export default function AssociateshipAgreementPreview(data) {
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>GST/Other Tax</strong>
                       </p>
-                      <br/><br/><br/><br/><br/><br/><br/><br/>
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
@@ -913,7 +907,6 @@ export default function AssociateshipAgreementPreview(data) {
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Indemnification</strong>
                       </p>
-                      <br/><br/><br/><br/><br/><br/><br/>
                       <ol type="A" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft: '0' }}>
                         <li>
                           <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
@@ -1052,7 +1045,7 @@ export default function AssociateshipAgreementPreview(data) {
                             bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
                             (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the
                             entry of an order for relief in an involuntary proceeding under any such law (including but
-                            not limited to the Insolvency and Bankruptcy Code, <br/><br/><br/><br/><br/><br/><br/>2016), or consents to the appointment or
+                            not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or
                             taking possession by a resolution professional, receiver, liquidator, assignee (or similar
                             official) for any or a substantial part of its property; or the Associate Buyer has
                             involuntarily become the subject of proceedings (including filing of an application/ 
@@ -1190,7 +1183,6 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                       </ol>
                     </li>
-                    <br/><br/><br/><br/>
                     <li>
                       <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000' }}>
                         <strong>Force Majeur</strong>
@@ -1224,10 +1216,10 @@ export default function AssociateshipAgreementPreview(data) {
                 </td>
               </tr>
               <tr>
-                <td style={{ paddingTop: '20px' }}>
+                <td style={{ paddingTop: '15px' }}>
                   <h3
                     align="center"
-                    style={{ fontSize: '15px', fontWeight: 'bold', color: '#000000', marginBottom: '20px' }}
+                    style={{ fontSize: '15px', fontWeight: 'bold', color: '#000000', marginBottom: '15px' }}
                   >
                     Schedule I
                   </h3>
@@ -1711,7 +1703,7 @@ export default function AssociateshipAgreementPreview(data) {
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="left" colSpan={2}>
-                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingTop: '30px' }}>
+                        <p style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingTop: '20px' }}>
                           <strong>SIGNATURE PAGE</strong>
                         </p>
                       </td>

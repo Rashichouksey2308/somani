@@ -353,7 +353,7 @@ export const undertaking1Pdf = (data) => {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>In any event of our failure to perform the Associateship Agreement in accordance with its terms including default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds whatsoever.</p>
                     </li>
                   </ol>
-                  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </td>
               </tr>              
               <tr>
@@ -469,8 +469,8 @@ export const undertaking1Pdf = (data) => {
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}>FOR AND ON BEHALF OF</p></td>
                     </tr>
                     <tr>
-                      <td valign='top' align='left' width='70%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place:  {data.placeOfExecution} </p>
+                      <td valign='bottom' align='left' width='70%'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
                       </td>
                       <td valign='top' align='left' width='30%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>(Associate Buyer)</strong>
@@ -489,7 +489,7 @@ export const undertaking1Pdf = (data) => {
                       </td>
                     </tr>
                     <tr>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>Date : {data.dateOfExecution}</p></td>
+                      <td align='left'>&nbsp;</td>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000' }}>AUTHORISED SIGNATORY</p></td>
                     </tr>
                   </table>
