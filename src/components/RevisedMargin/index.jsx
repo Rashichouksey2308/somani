@@ -436,7 +436,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {marginData?.order?.orderCurrency + ' '}
                       {/* {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0} */}
-                      {convertValue(finalCalRevised.orderValue, conversionRateUnit).toLocaleString('en-In', {
+                      {Number(finalCalRevised.orderValue).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}

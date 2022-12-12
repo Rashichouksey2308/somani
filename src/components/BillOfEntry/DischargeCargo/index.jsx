@@ -410,7 +410,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                     >
                       Port of Discharge
                     </div>
-                    <span className={styles.value}>{dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}</span>
+                    <span className={styles.value}>{dischargeOfCargo?.dischargeOfCargo?.portOfDischarge !== '' ? `${dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}, India` : ''}</span>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
