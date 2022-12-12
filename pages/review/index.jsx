@@ -3297,7 +3297,6 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -5371,9 +5370,6 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br /> <br />
-            <br /> <br />
-            <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -8178,7 +8174,7 @@ function Index() {
       }
           doc.save('CAM.pdf');
         },
-        margin: [20, 20, 20, 30],
+        margin:[40, 0, 40, 15],
         html2canvas: {
           scale: 0.33, //this was my solution, you have to adjust to your size
           width: 1000, //for some reason width does nothing

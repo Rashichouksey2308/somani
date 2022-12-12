@@ -345,12 +345,7 @@ export default function TPASellerPreview(data) {
               </td>
             </tr>
             <tr>
-              <td style={{ paddingTop: '20px' }}>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+              <td style={{ paddingTop: '10px' }}>
                 <br />
                 <br />
                 <br />
@@ -553,7 +548,7 @@ export default function TPASellerPreview(data) {
                           marginBottom: '0',
                         }}
                       >
-                        <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
+                        <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', marginBottom:'0'}}>
                           {data?.supplierAuthorized?.length > 0 &&
                             data?.supplierAuthorized?.map((val, index) => {
                               return (
@@ -864,10 +859,10 @@ export default function TPASellerPreview(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '40px' }}>
+              <td valign="top" style={{ paddingTop: '20px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <td align="left" valign="top" width="70%" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" width="70%" style={{paddingTop:'5px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -878,7 +873,7 @@ export default function TPASellerPreview(data) {
                         Buyer
                       </p>
                     </td>
-                    <td align="left" valign="top" width="30%" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" width="30%" style={{paddingTop:'5px'}}>
                        <p
                         style={{
                           fontSize: '12px',
@@ -913,7 +908,7 @@ export default function TPASellerPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -924,7 +919,7 @@ export default function TPASellerPreview(data) {
                         Supplier
                       </p>
                     </td>
-                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -959,7 +954,7 @@ export default function TPASellerPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -971,7 +966,7 @@ export default function TPASellerPreview(data) {
                         End Buyer
                       </p>
                     </td>
-                    <td align="left" valign="top" style={{paddingTop:'20px'}}>
+                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
                          <p
                         style={{
                           fontSize: '12px',
