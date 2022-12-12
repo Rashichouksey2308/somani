@@ -14,7 +14,7 @@ export default function QuadripartiteAgreementPreview(data) {
         border="0"
       >
         <tr>
-          <td valign="top" style={{ padding: '20px' }}>
+          <td valign="top" style={{ padding: '20px 20px 0' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
                 <td align="center" style={{ padding: '15px 0 ' }}>
@@ -433,14 +433,6 @@ export default function QuadripartiteAgreementPreview(data) {
                         {data.shortbuyer} shall in no way be responsible or liable for any loss or damage to the
                         Goods for any reason whatsoever including shortage, theft or mix up.
                       </p>
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
                     </li>
                     <li>
                       <p
@@ -653,10 +645,6 @@ export default function QuadripartiteAgreementPreview(data) {
               </tr>
               <tr>
                 <td style={{ paddingTop: '20px' }}>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
                   <br />
                   <br />
                   <br />
@@ -1529,7 +1517,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            paddingTop: '30px',
+                            paddingTop: '20px',
                           }}
                         >
                           <strong>SIGNATURE PAGE</strong>
@@ -1543,6 +1531,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            marginBottom:'10px'
                           }}
                         >
                           FOR & ON BEHALF OF
@@ -1554,6 +1543,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            marginBottom:'10px'
                           }}
                         >
                           FOR & ON BEHALF OF

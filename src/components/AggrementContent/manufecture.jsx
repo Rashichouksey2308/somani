@@ -360,7 +360,7 @@ console.log(addressList,"aasdads")
     });
   };
   const handleAddressInput = () => {
-    if (props.addressValidation(addressType, newAddress, false)) {
+    if (props.addressValidation2(addressType, newAddress, false)) {
       setAddressList((current) => [...current, newAddress]);
 
       setNewAddress({
@@ -504,7 +504,7 @@ console.log(addressList,"aasdads")
     setMultiAddressType('Registered');
   };
   const saveNewAddress = () => {
-    if (props.addressValidation(EditAddress.addressType, EditAddress)) {
+    if (props.addressValidation2(EditAddress.addressType, EditAddress,false)) {
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {

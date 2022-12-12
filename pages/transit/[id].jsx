@@ -97,6 +97,11 @@ function Index() {
       }
     }
   }, [Router]);
+  const getUnqueBl = () => {
+    const data = JSON.parse(JSON.stringify(_get(TransitDetails, 'data[0].BL.billOfLanding', []))) 
+     const set = new Set(data.map(obj => obj.vesselName));
+     return [...set]
+   }
   return (
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
@@ -200,6 +205,7 @@ function Index() {
                         docUploadFunction={uploadDoc}
                         TransitDetails={TransitDetails}
                         isShipmentTypeBULK={isShipmentTypeBULK}
+                        getUnqueBl={getUnqueBl}
                       />
                     )}
                   </div>
@@ -212,6 +218,7 @@ function Index() {
                       TransitDetails={TransitDetails}
                       isShipmentTypeBULK={isShipmentTypeBULK}
                       orderId={objID}
+                      getUnqueBl={getUnqueBl}
                     />
                   )}
                 </div>

@@ -734,7 +734,7 @@ console.log(clauseArr,'clauseArr')
                                         {clause.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
                                           ? `Usuance - ${getData(clause.newValue, clause.dropDownValue)} days `
                                           : clause.dropDownValue === '(32B) Currency Code & Amount'
-                                          ? `${lcModuleData?.order?.orderCurrency} `
+                                          ? `${lcModuleData?.order?.orderCurrency} ${getData(clause.newValue, clause.dropDownValue)} `
                                           : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
                                           : getData(clause.newValue, clause.dropDownValue)}
