@@ -73,7 +73,7 @@ function Index() {
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDate,
             },
             commercials: {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
@@ -244,6 +244,7 @@ function Index() {
     // await dispatch(sharingTermsheetEmail(formData));
     // setOpen(false);
   };
+  console.log(termsheetDetails,"termsheetDetails")
   return (
     <>
       <div className={`${styles.root_container}  `} ref={toPrint}>

@@ -310,6 +310,9 @@ function Index() {
     } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
     } else if (type == '(32B) Currency Code & Amount') {
+    } else if (type == '(44F) Port of Discharge') {
+      return `${value}, India`;
+    } else if (type == '(32B) Currency Code & Amount') {
       return Number(value).toLocaleString('en-In', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -365,7 +368,10 @@ function Index() {
       return `(+/-) ${getData(existing, value)}  %`;
     } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
       return `Usuance - ${getData(existing, value)} days`;
-    } else {
+    } else if (value === '(44F) Port of Discharge') {
+      return `${getData(existing, value)}`;
+    } 
+    else {
       return getData(existing, value);
     }
   };
@@ -742,6 +748,8 @@ function Index() {
                                             )} `
                                           : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
+                                          : clause.dropDownValue === '(44F) Port of Discharge'
+                                          ? `${getData(clause.newValue, clause.dropDownValue)}`
                                           : getData(clause.newValue, clause.dropDownValue)}
                                       </td>
                                       <td>
