@@ -54,7 +54,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   //     setbl([...temp])
   //   }
   // },[customData])
-  console.log(bl, 'Sasdasd');
+
   useEffect(() => {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
@@ -81,8 +81,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           return val;
         }
       });
-      console.log(check, 'check', _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank'));
-      console.log(filter, 'filter');
+      
       setBankName(filter);
     }
   }, [getInternalCompaniesMasterData, customData]);
@@ -137,7 +136,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
-   console.log(name,"name")
+  
     let newInput = [...billOfEntryData];
     newInput[index][name] = docs;
     setBillOfEntryData([...newInput]);
@@ -523,13 +522,13 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           blDoc: val.blDoc,
         });
       });
-      console.log(temp, 'temp');
+    
       setbl([[...temp]]);
     } else {
       setbl([...bltable]);
     }
   }, [customData]);
-  console.log(bl, 'asdasd');
+
   const getIndex = (index) => {
     return index + 1;
   };
@@ -820,7 +819,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>Port Of Discharge</div>
                           <span className={styles.value}>
-                            {_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                            {_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '') !== '' ? `${_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India` : '' }
                           </span>
                         </div>
 
@@ -1347,7 +1346,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                       checked={blData.check}
                                       onChange={(e) => {
                                         let temp = [...bl];
-                                        console.log(temp[index][indexbl], 'ASdasd');
+                                       
                                         temp[index][indexbl].check = !temp[index][indexbl].check;
                                         setbl([...temp]);
                                       }}
