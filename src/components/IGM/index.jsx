@@ -20,7 +20,6 @@ import { getInternalCompanies } from '../../../src/redux/masters/action';
 import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
-  
   let transId = _get(TransitDetails, `data[0]`, '');
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const dispatch = useDispatch();
@@ -66,7 +65,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     document: null,
   });
 
-
   const getDoc = (payload) => {
     dispatch(
       previewDocument({
@@ -84,8 +82,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
-        balance = Number(balance) - Number(item2.blQuantity==undefined?0:item2.blQuantity);
-          
+        balance = Number(balance) - Number(item2.blQuantity == undefined ? 0 : item2.blQuantity);
       });
     });
     if (balance < 0) {
@@ -197,8 +194,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
 
   const filterBranch = (company) => {
-      console.log(company,"company")
-    let filter = getInternalCompaniesMasterData.filter((val, index) => {
+    console.log(company, 'company');
+    let filter = getInternalCompaniesMasterData?.filter((val, index) => {
       if (val.Company_Name == company) {
         return val;
       }
@@ -212,13 +209,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       tempData.igmDetails = igmData;
 
       setIgmList(tempData);
-
     } else {
       if (_get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '') !== '') {
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
           return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
         });
-        console.log(filterData,"filterData")
+        console.log(filterData, 'filterData');
         let tempArray = { ...igmList };
         tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
         tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
@@ -235,7 +231,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         branch: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, '') || '',
         address: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeAddress`, '') || '',
       });
-      setConsigneeName( _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '')
+      setConsigneeName(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '');
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
@@ -244,9 +240,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
-          setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
+        setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
       }
-       if (
+      if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
         _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
@@ -301,10 +297,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
     // setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
-  useEffect(() => {
-
-  },[TransitDetails])
-  
+  useEffect(() => {}, [TransitDetails]);
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
@@ -472,7 +465,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
     };
- 
+
     let fd = new FormData();
     fd.append('igm', JSON.stringify(igmDetails));
     fd.append('transitId', transId._id);
@@ -495,6 +488,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     });
     if (filterData.length > 0) return true;
     return false;
+  };
+
+  const getStartingIGmFillingDate = () => {
+    var d = new Date();
+    return moment(d.setDate(d.getDate() - 15)).format('DD-MM-YYYY');
   };
 
   return (
@@ -610,7 +608,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     Country Of Origin <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                  
                     {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
                   </span>
                 </div>
@@ -630,14 +627,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                   </span>
                 </div>
-                
+
                 <div className={`${styles.form_group} col-lg-4 col-md-6 `}>
                   <div className="d-flex">
                     <select
                       onChange={(e) => onChangeConsignee(e)}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       value={consigneeName}
-
                     >
                       <option value="">Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -662,13 +658,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     <select
                       onChange={(e) => {
                         let filter = getInternalCompaniesMasterData?.filter((val, index) => {
-                        
                           if (val?.keyAddresses[0]?.Branch == e.target.value && val.Company_Name == consigneeName) {
-                           
                             return val;
                           }
                         });
-                         
+
                         setConsigneeInfo({
                           name: consigneeName,
                           branch: e.target.value,
@@ -679,16 +673,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       value={consigneeInfo.branch}
                     >
                       <option value="">Select an option</option>
-                  
-                            {branchOptions?.length > 0 && [...new Set(branchOptions.map(item => item.keyAddresses[0].Branch))].filter((val,index)=>{
-                                  if(val !== undefined){
-                                    return val
-                                  }
-                            }).map((val, index) => {
-                              
-                              return <option value={`${val}`}>{val}</option>;
-                            })}
-                     
+
+                      {branchOptions?.length > 0 &&
+                        [...new Set(branchOptions.map((item) => item.keyAddresses[0].Branch))]
+                          .filter((val, index) => {
+                            if (val !== undefined) {
+                              return val;
+                            }
+                          })
+                          .map((val, index) => {
+                            return <option value={`${val}`}>{val}</option>;
+                          })}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Consignee Branch<strong className="text-danger">*</strong>
@@ -720,21 +715,20 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>Balance Quantity:</div>
                     <div className={`${styles.value} ml-2 mr-4`}>
-                      
                       {checkNan(checkRemainingBalance())} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
-                    {checkRemainingBalance()!==0?
-                    <>
-                      <button
-                      onClick={() => onigmAdd(index)}
-                      className={styles.add_btn}
-                      style={{ paddingBottom: '10px' }}
-                    >
-                      <span className={styles.add_sign}>+</span>Add
-                    </button>
-                    </>  :null
-                  }
-                  
+                    {checkRemainingBalance() !== 0 ? (
+                      <>
+                        <button
+                          onClick={() => onigmAdd(index)}
+                          className={styles.add_btn}
+                          style={{ paddingBottom: '10px' }}
+                        >
+                          <span className={styles.add_sign}>+</span>Add
+                        </button>
+                      </>
+                    ) : null}
+
                     {index > 0 ? (
                       <button
                         onClick={() => onDeleteClick(index)}
@@ -764,7 +758,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                             ) === 'No'
                           }
                         >
-                          {shipmentTypeBulk
+                          {/* {shipmentTypeBulk
                             ? _get(TransitDetails, 'data[0].order.vessel.vessels', []).map((vessel, index) => (
                                 <option value={vessel?.vesselInformation[0]?.name} key={index}>
                                   {vessel?.vesselInformation[0]?.name}
@@ -776,7 +770,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     {vessel?.name}
                                   </option>
                                 ),
-                              )}
+                              )} */}
+                          {_get(TransitDetails, `data[0].BL.billOfLanding`, []).map((bl, index) => (
+                            <option value={bl.vesselName} key={index}>
+                              {bl.vesselName}
+                            </option>
+                          ))}
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
                           Vessel Name
@@ -815,6 +814,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           name="igmFiling"
                           saveDate={saveDate}
                           labelName="IGM Filing Date"
+                          startFrom={getStartingIGmFillingDate()}
                         />
                         <img
                           className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -828,7 +828,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   <div className="row">
                     {item?.blNumber?.length > 0 &&
                       item.blNumber.map((blEntry, index2) => {
-                      {
+                        {
                           console.log(blEntry, 'blEntry');
                         }
                         return (
@@ -846,7 +846,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                   value={`${blEntry.blNumber}-${index}-${index2}`}
                                 >
                                   <option value="select an option">Select an option</option>
-                                  {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => (
+                                  {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => {
+                                  // if(bl.vesselName === item.vesselName){
+                                    return (
                                     <option
                                       key={index3}
                                       disabled={isBlSelected(index, bl.blNumber)}
@@ -854,7 +856,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     >
                                       {bl.blNumber}
                                     </option>
-                                  ))}
+                                  )
+                                  // }
+                                  })}
                                 </select>
 
                                 <label className={`${styles.label_heading} label_heading`}>
@@ -894,7 +898,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                       className={`${styles.previewImg} ml-n4`}
                                       alt="Preview"
                                       onClick={(e) => {
-                                      
                                         getDoc(blEntry?.blDoc?.path);
                                       }}
                                     />

@@ -58,17 +58,24 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let VesselName = e.target.value;
     let filteredVessel = {};
 
-    _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-      .slice()
-      .forEach((bl, index) => {
-        if (bl.vesselName === VesselName) {
-          filteredVessel = bl;
-        }
-      });
+    // _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+    //   .slice()
+    //   .forEach((bl, index) => {
+    //     if (bl.vesselName === VesselName) {
+    //       filteredVessel = bl;
+    //     }
+    //   });
+    
+  let filteredBL =  _get(TransitDetails, `data[0].BL.billOfLanding`, []).filter((item)=> item.vesselName === VesselName)
+
+  let data = filteredBL?.reduce(
+    (previousValue, currentValue) => previousValue + Number(currentValue?.blQuantity),
+    0,
+  );
 
     let newArray = cimsDetails.slice();
-    newArray[index].vesselName = _get(filteredVessel, 'vesselName', '');
-    newArray[index].quantity = _get(filteredVessel, 'blQuantity', '');
+    newArray[index].vesselName = _get(filteredVessel, '[0].vesselName', '');
+    newArray[index].quantity = filteredBL.length > 1 ?  data : _get(filteredBL, '[0].blQuantity', '')
 
     setCimsDetails(newArray.slice());
   };
@@ -408,11 +415,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         <option value="" disabled defaultChecked>
                           Select an option
                         </option>
-                        <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
-                          INDO GERMAN INTERNATIONAL PRIVATE LIMITED
-                        </option>
-                        <option value={'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'}>
-                          EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+                        <option value={ _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', '')}>
+                          { _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', '')}
                         </option>
 
                         <option value="Buyer">Buyer</option>
