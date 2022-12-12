@@ -47,6 +47,7 @@ function Index() {
   };
 
   const handleEditRoute = (insured) => {
+    console.log(insured,"insured")
     sessionStorage.setItem('quotationId', insured._id);
     console.log(moment(insured?.marineInsurance?.insuranceTo).isBefore(moment()),"insuranceRoute",
      moment(insured?.storageInsurance?.insuranceTo).isBefore(moment())
