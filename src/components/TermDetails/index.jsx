@@ -303,7 +303,7 @@ const Index = ({
                 value={addPrefixOrSuffix(
                   newLcVal ? newLcVal : 0,
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
-                  'front',
+                  'front',termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()=="INR"?"en-IN":"en-En"
                 )}
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
