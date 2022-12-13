@@ -1479,12 +1479,11 @@ function Index() {
     return (
       <table
         width="1500px"
-        style={{ fontFamily: 'Arial, Helvetica, sans-serif', marginLeft:'100px' }}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         cellPadding="0"
         cellSpacing="0"
         border="0"
         bgColor="#f3f4f7"
-        
       >
         <tr>
           <td valign="top">
@@ -2365,7 +2364,17 @@ function Index() {
                             <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
-                                  background: '#CEEFD1',
+                                  background: `${
+                                    filteredCreditRating?.length > 0
+                                    ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ff423045'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#ad7e0742'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#00b81e52'
+                                    : 'rgba(0, 184, 31, 0.1882352941)'
+                                    : null
+                                    }`,
                                   width: '64px',
                                   lineHeight: '64px',
                                   height: '64px',
@@ -2374,10 +2383,31 @@ function Index() {
                                   display: 'inline-block',
                                 }}
                               >
-                                <img
+
+                                {
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? <img
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAYAAADZsVyDAAAAAXNSR0IArs4c6QAAAPZJREFUOE+t0z1OwzAYxvG/k0xFKBzFqENXEjFzBsTKBoqgaodMvUeZGFhYEVvnXIGBpSdgCtKLQghtFOfDTnyAnx+/fl7FhEcivQFCJH9QU7kSnz+CrAFBeJoEPkJPyqDyNhqWSC9RrIAKfSYP7kbBregu2zvDXWgxDCe4D/2H5XIeFjVR79lnX0uGoL+wXOgzPLbAKZ5/3YUPRUs41q/A1V/SFzz/3oTboBWcAgkwa8Nt0cOMI52gKC5o4C5orRViwoUPFLeN8u+yfd8n1+pmwL9cUGOPDXix++WaDkhavcS4IHXcHu3cPIl1isiC7+DGJmmV+AfghJw+bPFpWgAAAABJRU5ErkJggg=="
+                                  alt="Check red"
+                                />
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? <img
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAYAAADZsVyDAAAAAXNSR0IArs4c6QAAAOtJREFUOE+t078OwVAUx/HvpYMQqbfxBBKTZxCrjQgNQyfvwWSQiKFpwrsYLJ7AyJGq/06rrd755pPfPfd3DDke8ZlyxubI0OTlis8ImGAQTsxzgR8oVG5BN3/D4uFQYMwTXWDo/QVHok0OmeE4NBhHJvgX+oBliw3YpsH+V0uSoFdYVtQoMQOqWLTj8KRoCPusgdYt6RKLvoaLjwPK7zc5aK8MYBdhgKEchadFnzP2rrCr4VnQt1aIhgs7DN2v8kc8/3Ukb3VT8GMWVO2xggf3wjVNkPSeWl2QDzw1Grt54uFSpA500iS9J74AX6dsT7uSjusAAAAASUVORK5CYII="
+                                  alt="Check yellow"
+                                />
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? <img
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAYAAADZsVyDAAAAAXNSR0IArs4c6QAAARtJREFUOE+t0z9uwjAUBvDvBVWqQFXYEyTUSzC1R+gZECsbCBUUhkwVpqeAiYGlKwwMhB4DiS6cAFUCwkMYBfHHDkmINy8/2+/7TEhxCc/6Mhjmarv+pLTc7q/dxA5tBrNB6KcCByiA3PGiNHoYFp7VIpAToEQ0WPtG7SFYhzrvi2ViOAyVw0gS3j30BHfGryae/83m2/Lv3kFRUAm7k2I+++T3mPmF4ZfD8KiohLuzwg+YPw4bZgwZfl2Fx0ElLKa2C0KDgKwO//asFjM5oGNPg0od0teNToYnPLsBwFXhSdCLVqhwAuYAqnFuGrzgom4KfEUxnn8+lpseX+NRZ3o9a+UHOcejBKUKUPvzxMx2iVHa7DKVsPR1rdgD0WO6FU1wZ5kAAAAASUVORK5CYII="
+                                  alt="Check light Green"
+                                />
+                            :  <img
                                   src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAXCAYAAAD3CERpAAAABHNCSVQICAgIfAhkiAAAAX5JREFUSEu11bFKw0AYB/D/kVYXMYNz091Ni+AoWKEoFEf3voSTL+Hk0KWT5AG0nWo7OfgMAWNwsIKiKG0tPb8jjU3aSxpzl0AhvVz48b/77gtD3pcNA6bVBJ9eo+a1BcdyNQW4afXB2B44N4DpiYDzQ/2EfXBUKNj6LBwn+DgftIsCRgQCuyFwSPdvMAr7+tF40CPwEEeOqxdNAeotpJSgPrR7QHvoyPbwb0nDp0R9ea8qRZQHPUnRSEH1pA8Evv4PjKK3pTs6xPeoueepGkZGcI62yzcAr9LAD/0uV8ICHLyITrOzcA5jlzS6px3LpoFT6hzF2YPvRFgR9JN2SmfgrEX3ASrG5bC9vQbzs0fzMyUM0vrVmwbWBEYLKQn+2LiA+UUJuVLCaNLgXzz8TlO2shSN7CQsNwc5HH5XfC08jKl51x031fFamCTvSPHwkErvCaNJFfXnTGByR1qGtYCr2+Ac5pTwUTWhvJBkG+TDDYwnDZUljXakLJWg+M4vlf/IL1ywetEAAAAASUVORK5CYII="
                                   alt="Check Green"
                                 />
+                          : null
+                      }
+                               
                               </span>
                             </td>
                             <td
@@ -2440,7 +2470,17 @@ function Index() {
                             <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
-                                  background: '#CEEFD1',
+                                  background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
                                   width: '64px',
                                   lineHeight: '64px',
                                   height: '64px',
@@ -2449,10 +2489,31 @@ function Index() {
                                   display: 'inline-block',
                                 }}
                               >
-                                <img
+                                
+                                             {
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? <img
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAAXNSR0IArs4c6QAAAedJREFUSEu1VtFVwkAQnM3zX6xArcCjAkPwXztQK5AOhAqEDrQC8V9D6GCtQKhAKMCs7y4HLwl3cEG8H8jL3U5mb2d2CXssiZXCEVr0zlnT49T0gN4vHfWsf2nCd03PNwaUWLUQ4dsA5TinjGdNQJsDJqoH4MmCDCjl/n8DakanFmRGKZ//G6B01Q0ErzWAe0rZ3GnIapRSSZSuystKYEFGE+6EgJlCC90osTpDhC/n/hxtyphDYoUDaikQbp1BBS+hEqkAGkETHZugkSgIWua/IAZBAfbZhSrIQCiMgLBATgVjkWWZPUmihgAeQtJxgD0jw1Cq2jpAXGcIo9l1SiVR2qY02yKlh11r6WzeYWTu4VCgS+SIK3dYJ2LLfwzg4o8k58hxU5eLUxbWoDXTfUE/LbNF/aO36tC0IZ/2fPQJb/jBHWW8AbbTaSRRuhM8NkztiFLWHcW5tjN0eecudALTB7f3BZRd8V3vKWUvEe8LuVIxckz2AUSEjm/e8QNud5+p8UvBteeDvJOAH7Crxo6AcxB69MFap7ANWbvTagJY4U8p5diZbl/KJFG6rMuOM0COYb3crWZ1VZareUEpnwQD1prtFLnR1dbpzJ7Ro0YxEXiasttpCiPvl9MXWjylNA8pZZ3uyvoFIUO2HH3XZxEAAAAASUVORK5CYII="
+                                  alt="Star red"
+                                />
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? <img
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAAXNSR0IArs4c6QAAAdZJREFUSEu1lsFVAjEQhr/h5E2sQKlArEC8GTyIFYgVSAdqBWIHWoF6kD2qHWAFagXCjRPjSzYiu26WDUguPB7JfMyfmX8iLLH0iSY16mJ4iT0usQfsfk24tZ9i6MaejwbqPXU2+PKghhg+YqDxwAE9hGsPuRLD5XqBicto20M+xNBYG1AHdBDuc4AzMemdVllRkmriqnI/F/hFDAdVYK7Qqm7UhB3gvXD/lD05YlglVgzQynYaCHpXtUUyQNfQwqYLWqOJUveAFpL5XsS1cqdGIIyY+oyV8Xz2ogP6COdV5Fh5j3LjMtRsb60cNxDA9exMUk2cTfXBS/q/2Fnr/L3DmruH9B5XX2OmtDJ3mI/py/8B2F2R98mUTr5dCtvCG7TNdFnoGxNacsIo/6dL+9CPoVDvhQR4ZEK3CLbQaTRxk+AiSlpb+m16oTOLMizyznK+MJRD9pYFalR2frOYsEcHM9SEFvC8DBA4CL13wsBy93kFV4HHZa5S9FtZhrYX8wE/UXrSxv5mLdEOZOtOPy+AH8arGKfQn1UGtBnMO84VE/r5cvc9a6vyt5qFkRyyVRmYG7ZWvu6i15k/Y2dm+iIIDOVip0mN/HJevqrFM5NZ6UvbyZ1Z32eJkWApTz/oAAAAAElFTkSuQmCC"
+                                  alt="Star yellow"
+                                />
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? <img
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAAXNSR0IArs4c6QAAAitJREFUSEu1lkFy2kAQRX+DyDZ4bVHBJwheppAdOEF8g+ATmCyQK6uQVcpiYfkGzgninMAiiMrWOUFwIdbB2yCpUyOwI8kaMQJ7NirVzPSb7unf04QNhjXebVBI1d6B5xTdTkU3iPUDt3Ypvj1j2im6vzDw/LpeXVT8PwIUlLW9j28mkyLQwsCBu9tl0LmAMOPz6YHXf1ag5erCo1dLCE9MY7b3bMCzH7UjKvG3BIDo2GxOoztVGYVCao11B4y3KcOOaXhtFZhYowz88rNeLwf+70zDxPtmc3ajAlUGCikw+H2WUQJ9VZVIAigEjYBeRkYJDSqhusrGFoAGsPyXDIcIUSHgEHMwlh6X+S7uPVlj3QbjRCUcW68hXEQexrW1tVGJgXvNPoTUGtc6CNkGYRnSpxwx6Ty+w5CcJ4My7lDiVuIO046I9NcC/4qB11s6eQvio7RcMmUhCrRf8Z1NoQT80hZa60N7Mk8fOleHedrL8f57ZaF1smBrK83ZSO8T4VOh0BIuzKbXle3J9VBSO9fxb0zD298M6Oq8znrWvGl4UkekE4OR3mLC9SZAYrRl/Y4cGHvZH0EJQzBEBr7LOlBeJyAFWq5+lWHwlkPqnh5OxRxWD7L9vwNY4QlDs+mJgp9xVknMrJE+j1ccceoXvman011o9q/md1PZPDcNb0cZmHhsCcOgpHXWdWfRntC/fOgIJI9yZkijQs7cj4dPNXnuw0xgu2fMRLgT4x9kzeQWV7XFpAAAAABJRU5ErkJggg=="
+                                  alt="Star light Green"
+                                />
+                            :  <img
                                   src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAbCAMAAABY1h8eAAABAlBMVEUAAAAA/wAAgAAAqgAAzDMAqisAvyAAsxoAuRcAvCEAtSAAuh0AsxwAthsAuyIAuR8Ath0AuBwAuCEAuiAAtiAAuh4AthwAtyAAtx4AuBwAuB8AuR4Atx8Atx8AuR0AuB8AuB0AuR4Atx4Atx0AuB8AuB4AuB8AuR8AuB4Atx4Atx8Atx4AuB8AuB8AuB4AuB0AuB8AuR4AuB4AuB4AuB8AuB4Atx4AuB4AuB4AuB8AuB4AuB4Atx4AuB8AuB4AuB4AuB8AuB4Atx4AuB0AuB4AuR4AuB4AuB4AuB4AuB4AuB4AuB4AuB4AuB4AuR4AuB4AuB4AuB4AuB4AuB4AuB7///+yMbGIAAAAVHRSTlMAAQIDBQYICgsXGBobHB4hIyQvMDg7P0BDSEtNUVJXWmFmZ2prb3N0d3l8gISFiIyNkaGipqmrrLO3ycrL0dTX2drd4eLk6+3v8PHy8/X29/n6+/7kE6FDAAAAAWJLR0RVkwS4MwAAAN1JREFUGBl1wQk7AlEYBtA3NEaYGUmWUEkoO1kaW6QhS5H3//8Wd+bpqe9y7znQBAHsTo5hNf3y6sJmiyzD5o68T8FsmUoeZldULmE0+01lMA+TQyYOoHP9XKFUi5iIaqVCzncR2wnbnzTotcNdpM9oceEAqP7Q5DSF2Gaf/wzKGFqK+Mf7KkYWHqnpZCHM3FC4zUBTp1CHrkmhCc1El8LbJKQsNYuQKky0WkxsQ2pQ6e07U9UPKg1IzySvfShz5yQ7EDzyaQ1DKw+kh7Hi15GDkfRev4ix9QCaYAOxX8MFXpRfmDQcAAAAAElFTkSuQmCC"
                                   alt="Star Green"
                                 />
+                          : null
+                      }
+                               
                               </span>
                             </td>
                             <td
@@ -3672,7 +3733,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '70px',
               }}
             >
               <tr>
