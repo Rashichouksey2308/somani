@@ -255,32 +255,28 @@ console.log(igmList,'igmList')
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
-        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Emergent Industrial Solutions Limited (EISL)' ||
-        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+        _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Emergent Industrial Solutions Limited (EISL)' 
       ) {
         setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
-        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Indo German International Private Limited (IGPL)' ||
-        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+        _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Indo German International Private Limited (IGPL)' 
       ) {
         setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
       }
     } else {
+      console.log("hehehe", _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`))
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
-        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Emergent Industrial Solutions Limited (EISL)' ||
-        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+        _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Emergent Industrial Solutions Limited (EISL)' 
       ) {
+         console.log("hehehe1")
         setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
 
         setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
@@ -289,7 +285,7 @@ console.log(igmList,'igmList')
           branch:
             TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch ||
             TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice,
-          address:
+            address:
             TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress ||
             TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail?.companyAddress,
         });
@@ -297,10 +293,8 @@ console.log(igmList,'igmList')
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
-        _get(TransitDetails, `data.data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Indo German International Private Limited (IGPL)' ||
-        _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+        _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
+          'Indo German International Private Limited (IGPL)' 
       ) {
         setConsigneeName('INDO GERMAN INTERNATIONAL PRIVATE LIMITED');
         setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
@@ -644,7 +638,7 @@ console.log(igmList,'igmList')
                     Port of Discharge <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India
                   </span>
                 </div>
 
