@@ -3889,7 +3889,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                             : null
                         }`
                         } stroke-width="0.5"/>
-                    </svg>
+                      </svg>
                      
                     </div>
                     <div className={`${styles.content}`}>
