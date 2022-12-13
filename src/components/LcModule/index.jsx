@@ -211,15 +211,15 @@ function Index() {
                           Pending
                         </td>
                         {console.log(defineAction(lc, index), 'fiRstTimeUpdate6')}
-                        {lc.route === 'amend' || lc.route === 'postUpdated'  ? (
+                        {lc.route === 'amend' || lc.route === 'PostUpdated'  ? (
                           <>
                             <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>
                             <td>
-                              {lc.route !== 'postUpdated' && (
+                              {lc.route !== 'PostUpdated' && (
                                 <img
                                   src="/static/mode_edit.svg"
                                   className={`${styles.edit_image} mr-3 img-fluid`}
-                                  onClick={() => handleAmmendRoute(lc)}
+                                  onClick={() =>  handleAmmendRoute(lc)  }
                                 />
                               )}
                             </td>
@@ -227,7 +227,7 @@ function Index() {
                         ) : (
                           <td colSpan={2}>
                             {' '}
-                            <button className={styles.updateBtn} onClick={() => handleLcAmmendRoute(lc)}>
+                            <button className={styles.updateBtn} onClick={() => lc.route == 'update' ?   handleAmmendRoute(lc) :  handleLcAmmendRoute(lc) }>
                               Update
                             </button>
                           </td>
