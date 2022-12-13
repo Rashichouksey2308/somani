@@ -1386,8 +1386,8 @@ function Index() {
       return camData?._id === rating.order;
     });
     const getRotate = (rat = 1) => {
-      // let r = Math.floor(rat);
-      let r = 5
+      let r = Math.floor(rat);
+    
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
         rotateImageUrl.top = '37%';
