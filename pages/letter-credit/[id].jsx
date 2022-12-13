@@ -261,15 +261,16 @@ function Index() {
     } else {
       let sendLcData = { ...lcData };
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
+      const task = lcModuleData.isPostAmmended 
       let fd = new FormData();
 
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('isPostAmmended', true);
-      fd.append('route', 'update');
+      fd.append('route',lcModuleData.isPostAmmended ? 'PostUpdated' : 'update');
       fd.append('document1', lcDoc.lcDraftDoc);
 
-      dispatch(UpdateAmendment(fd));
+      dispatch(UpdateAmendment({fd,task}));
     }
   };
 
@@ -775,21 +776,21 @@ function Index() {
           </div>
 
           {/* Document*/}
-          {/* <InspectionDocument
+        {lcModuleData.isPostAmmended ? ( <InspectionDocument
             lcDoc={lcDoc}
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC AMENDMENT DRAFT"
             module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             setLcDoc={setLcDoc}
-          /> */}
-           <UploadOther  module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']} orderid={lcModuleData?.order?._id} />
+          />)
+           :(<UploadOther  module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']} orderid={lcModuleData?.order?._id} />)}
         </div>
       </div>
       <SaveBar
         // handleSave={handleSubmit}
         rightBtnClick={handleRightButton}
-        rightBtn="Share"
+        rightBtn={lcModuleData.isPostAmmended ?"Submit" :"Share"}
         buttonText="null"
       />
     </>

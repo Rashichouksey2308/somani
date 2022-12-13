@@ -678,7 +678,7 @@ useEffect(() => {
       rotateImage.left = '37%';
     }
     if (r == 7) {
-      setRating(`rotate(270deg)`);
+      setRating(`rotate(276deg)`);
       rotateImage.top = '38%';
       rotateImage.left = '37%';
     }
