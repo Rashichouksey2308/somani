@@ -34,7 +34,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             border="0"
           >
             <tr>              
-              <td valign="top" align="center" width="100%">
+              <td valign="top" colSpan={2} align="center">
                 <h2
                   style={{
                     fontSize: '34px',

@@ -291,7 +291,9 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className={`${styles.form_heading} mt-2`}>Release Order Details</div>
-                <div className={styles.table_scroll_outer}>
+                <div className={styles.table_scroll_outer}
+                
+                >
                   <div>
                     {releaseDetail.map((item, index) => (
                       <div key={index} className="row mb-3 ">
