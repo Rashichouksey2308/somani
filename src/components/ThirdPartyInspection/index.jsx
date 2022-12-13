@@ -968,10 +968,11 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
     
   };
 const handleData = (name, value,type) => {
+  console.log(value, 'LOAD')
   if(type == "load"){
-  saveInspectionDetails(name,value)
+  saveInspectionDetails(name,`${value?.Port_Name}, ${value?.Country}`)
   }else{
-    saveDischargeInspectionDetails(name,value)
+    saveDischargeInspectionDetails(name,`${value?.Port_Name}, ${value?.Country}`)
   }
    
     setToLoadView(false);
@@ -1170,14 +1171,18 @@ const handleData = (name, value,type) => {
                     <div className={styles.searchResults}>
                       <ul>
                         {toLoadShow
-                          ? toLoadShow?.map((results, index) => (
+                          ? toLoadShow?.filter((val, index) => {
+                            if (val.Country.toLowerCase() !== 'india') {
+                              return val;
+                            }
+                          }).map((results, index) => (
                             <li
-                              onClick={() => handleData('loadPortInspectionDetails.inspectionPort', results.Port_Name,"load")}
+                              onClick={() => handleData('loadPortInspectionDetails.inspectionPort', results,"load")}
                               id={results._id}
                               key={index}
                               value={results?.Port_Name}
                             >
-                              {results?.Port_Name}{' '}
+                              {results?.Port_Name}, {results?.Country}
                             </li>
                           ))
                           : ''}
@@ -2219,14 +2224,18 @@ const Discharge = (
                     <div className={styles.searchResults}>
                       <ul>
                         {toDischargeShow
-                          ? toDischargeShow?.map((results, index) => (
+                          ? toDischargeShow?.filter((val, index) => {
+                            if (val.Country.toLowerCase() == 'india') {
+                              return val;
+                            }
+                          }).map((results, index) => (
                             <li
-                              onClick={() => handleData('dischargePortInspectionDetails.inspectionPort', results.Port_Name,"discharge")}
+                              onClick={() => handleData('dischargePortInspectionDetails.inspectionPort', results,"discharge")}
                               id={results._id}
                               key={index}
                               value={results?.Port_Name}
                             >
-                              {results?.Port_Name}{' '}
+                              {results?.Port_Name}, {results?.Country}
                             </li>
                           ))
                           : ''}

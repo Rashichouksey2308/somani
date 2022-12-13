@@ -11,8 +11,11 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 
 export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
+
   const dispatch = useDispatch();
+
   const [sumOfDischargeQuantities, setSum] = useState('');
+  
   useEffect(() => {
     if (customData) {
       let data = customData?.billOfEntry?.billOfEntry?.reduce(
@@ -20,7 +23,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         0,
       );
 
-      if (isNaN(data) || data == 'NaN' || data == undefined) {
+      if (Number.isNaN(data) || data == 'NaN' || data == undefined) {
         setSum('');
       } else {
         setSum(data);
@@ -29,11 +32,14 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   }, [customData]);
 
   const [show, setShow] = useState(false);
+
   const [totalBl, setTotalBl] = useState(0);
+
   const [dateStartFrom, setDateStartFrom] = useState({
     dischargeStartDate: '',
     vesselDate: '',
   });
+
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'dischargeStartDate') {
@@ -96,7 +102,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         dischargeOfCargo: {
           vesselName: data?.dischargeOfCargo?.vesselName,
           portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
-          dischargeQuantity: sumOfDischargeQuantities,
+          dischargeQuantity: sumOfDischargeQuantities ? sumOfDischargeQuantities : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
 
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
@@ -121,6 +127,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       setArrivalDate(value);
     }
   };
+
   const onChangeDischargeOfCargo = (name, text) => {
     let newData = { ...dischargeOfCargo };
     newData.dischargeOfCargo[name] = text;
@@ -235,11 +242,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
       }
       return;
     }
+    let data = { ...dischargeOfCargo };
+    data.dischargeQuantity = sumOfDischargeQuantities;
     let fd = new FormData();
-    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
+    fd.append('dischargeOfCargo', JSON.stringify(data));
     fd.append('customClearanceId', customData._id);
-    fd.append('document1', dischargeOfCargo.document1);
-    fd.append('document2', dischargeOfCargo.document2);
+    fd.append('document1', data.document1);
+    fd.append('document2', data.document2);
 
     let task = 'submit';
     dispatch(UpdateCustomClearance({ fd, task }));
@@ -249,11 +258,13 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
   };
 
   const handleSave = () => {
+    let data = { ...dischargeOfCargo };
+      data.dischargeQuantity = sumOfDischargeQuantities;
     let fd = new FormData();
-    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo));
+    fd.append('dischargeOfCargo', JSON.stringify(data));
     fd.append('customClearanceId', customData._id);
-    fd.append('document1', dischargeOfCargo.document1);
-    fd.append('document2', dischargeOfCargo.document2);
+    fd.append('document1', data.document1);
+    fd.append('document2', data.document2);
 
     let task = 'save';
     dispatch(UpdateCustomClearance({ fd, task }));
@@ -434,7 +445,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                             sumOfDischargeQuantities == undefined ||
                             sumOfDischargeQuantities == ''
                           ? ''
-                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
+                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` ${_get(customData, 'order.unitOfQuantity', "")}`
                       }
                       name="dischargeQuantity"
                       onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}

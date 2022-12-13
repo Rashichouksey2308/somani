@@ -6,7 +6,8 @@ const initialState = {
   addingDocument: false,
   deletingDocumet: false,
   updatingCam: false,
-  fetchingKarzaGst: false
+  fetchingKarzaGst: false,
+  fetchedGstData : null
 }
 
 function CreditReducer (state = initialState, action) {
@@ -15,6 +16,12 @@ function CreditReducer (state = initialState, action) {
       return {
         ...state,
         fetchingKarzaGst: true
+      }
+      case types.GET_CONSOLIDATED_GST_KARZA_SUCCESS:
+      return {
+        ...state,
+        fetchedGstData : action.payload,
+        fetchingKarzaGst: false
       }
 
     case types.GET_GST_KARZA_SUCCESS:

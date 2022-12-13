@@ -1003,7 +1003,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.shipmentNumber}</span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Port of Destination</span>
+                  <span className={`${styles.key} label1`}>Port of Destination</span>
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.portOfDestination}</span>
                 </Col>
               </Row>
@@ -1013,7 +1013,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.consigneesNumber}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Latest Shipment date</span>
+                  <span className={`${styles.key} label1`}>Latest Shipment date</span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.supplierCredential?.latestShipmentDate
                       ? moment(
@@ -1034,7 +1034,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.HSCodesNumber}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Oldest shipment date</span>
+                  <span className={`${styles.key} label1`}>Oldest shipment date</span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(
@@ -1055,7 +1055,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.countryOfOrigin}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Commodity to total trade (24 months)</span>
+                  <span className={`${styles.key} label1`}>Commodity to total trade (24 months)</span>
                   <span className={`${styles.value} ${styles.danger_highlight} value`}>
                     {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
@@ -1276,7 +1276,7 @@ const creditProfile = (
                   <span className={`${styles.value} value`}>{primaryBankName()}</span>
                 </Col>
                 <Col className={`  d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>External Credit rating</span>
+                  <span className={`${styles.key} label1`}>External Credit rating</span>
                   <span className={`${styles.value} value`}>{CreditAgency()?.rating_}</span>
                 </Col>
               </Row>
@@ -1286,7 +1286,7 @@ const creditProfile = (
                   <span className={`${styles.value} value`}>{openChargesLength()}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Credit Rating Agency</span>
+                  <span className={`${styles.key} label1`}>Credit Rating Agency</span>
                   <span className={`${styles.value} value`}>{CreditAgency()?.ratingAgency}</span>
                 </Col>
               </Row>
@@ -1296,7 +1296,7 @@ const creditProfile = (
                   <span className={`${styles.value} value`}>{latestAuditorData?.nameOfAuditor}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Change in Auditor</span>
+                  <span className={`${styles.key} label1`}>Change in Auditor</span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor
                       ? latestAuditorData?.nameOfAuditor === previousAuditorData?.nameOfAuditor
@@ -1922,7 +1922,7 @@ const operationalDetails = (camData) => {
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Stock in Transit - Commodity</span>
+                  <span className={`${styles.key} label1`}>Stock in Transit - Commodity</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
@@ -1944,7 +1944,7 @@ const operationalDetails = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Stock Coverage of Commodity</span>
+                  <span className={`${styles.key} label1`}>Stock Coverage of Commodity</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
@@ -1974,7 +1974,7 @@ const operationalDetails = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Avg Monthly Electricity Bill</span>
+                  <span className={`${styles.key} label1`}>Avg Monthly Electricity Bill</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.AvgMonthlyElectricityBill ? '₹' : ''}{' '}
                     {/* {checkNan(
@@ -2855,7 +2855,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>NCLT</span>
+                  <span className={`${styles.key} label1`}>NCLT</span>
                   <span className={`${styles.value} value`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
@@ -2867,7 +2867,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>BIFR</span>
+                  <span className={`${styles.key} label1`}>BIFR</span>
                   <span className={`${styles.value} value`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
@@ -2879,7 +2879,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Defaulter Company</span>
+                  <span className={`${styles.key} label1`}>Defaulter Company</span>
                   <span className={`${styles.value} value`}>
                     {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
                   </span>
@@ -2893,7 +2893,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
+                  <span className={`${styles.key} label1`}>Active Directors</span>
                   <span className={`${styles.value} value`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
                 </Col>
               </Row>
@@ -3873,7 +3873,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : 'rgb(138 196 28)'
                             : null
                         }`
                         } stroke={
@@ -3885,7 +3885,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : 'rgb(138 196 28)'
                             : null
                         }`
                         } stroke-width="0.5"/>
@@ -3928,13 +3928,13 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                       transform="translate(-2 -2)" fill={
                             `${
                           filteredCreditRating?.length > 0
-                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase()  == 'POOR'
                               ? '#ff4230'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : 'rgb(138 196 28)'
                             : null
                         }`
                       }/>

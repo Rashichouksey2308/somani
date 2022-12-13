@@ -645,11 +645,22 @@ function Index() {
     ) {
       handleErrorToast('Please add a valid  phone Number');
       return false;
-    } else if (data.contact.alternatePhoneNumber &&
-      data.contact.alternatePhoneNumber.trim().length > 0   &&
-      !isValidPhoneNumber(data.contact.alternatePhoneNumber, returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode)))
-      {
-        console.log( !isValidPhoneNumber(data.contact.alternatePhoneNumber, returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode)),data.contact,'data.contact')
+    } else if (
+      data.contact.alternatePhoneNumber &&
+      data.contact.alternatePhoneNumber.trim().length > 0 &&
+      !isValidPhoneNumber(
+        data.contact.alternatePhoneNumber,
+        returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
+      )
+    ) {
+      console.log(
+        !isValidPhoneNumber(
+          data.contact.alternatePhoneNumber,
+          returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
+        ),
+        data.contact,
+        'data.contact',
+      );
       handleErrorToast('Please add a valid Alternate phone Number');
       return false;
     } else {
@@ -1147,9 +1158,8 @@ function Index() {
                         <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                           <div className="d-flex">
                             <select
-                              type="text"
                               name="country"
-                              className={`${styles.input_field} input form-control`}
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               // className={`${styles.code_phone} input border-right-0`}
                               value={editData?.country}
                               onChange={(e) => {
@@ -1177,13 +1187,19 @@ function Index() {
                               value={editData?.country}
                               onChange={(e) => {handleAddressUpdate(e.target.value.replace(/[^a-zA-Z]+/g, ''), e.target.name)}}
                             /> */}
-                            <label className={`${styles.label_heading} label_heading`}>
-                              Country
-                              <strong className="text-danger">*</strong>
-                            </label>
-                          </div>
+                           
+                         
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Country
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                         </div>
-
+                        </div>
                         <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                           <div className={`${styles.phone_card}`}>
                             <select
@@ -1380,7 +1396,7 @@ function Index() {
                           <select
                             type="text"
                             name="country"
-                            className={`${styles.input_field} input form-control`}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                             value={keyAddressData?.country}
                             onChange={(e) => handleChange(e.target.value, e.target.name)}
                           >
@@ -1399,6 +1415,11 @@ function Index() {
                             Country
                             <strong className="text-danger">*</strong>
                           </label>
+                          <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                         </div>
                       </div>
 
@@ -2097,7 +2118,11 @@ function Index() {
                                   <span>{val?.commodity}</span>
                                 ) : (
                                   <input
-                                    onKeyDown={(evt) => [...specialCharacter,'1','2','3','4','5','6','7','8','9','0'].includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) =>
+                                      [...specialCharacter, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
+                                        evt.key,
+                                      ) && evt.preventDefault()
+                                    }
                                     className="input"
                                     name="commodity"
                                     value={val?.commodity}
