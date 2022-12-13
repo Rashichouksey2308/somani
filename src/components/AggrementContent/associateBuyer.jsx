@@ -817,7 +817,7 @@ const cancelEditAddress = () => {
                   <>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">
-                        <select
+                        <input
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="gstin"
                           value={newAddress.gstin}
@@ -825,29 +825,12 @@ const cancelEditAddress = () => {
                             setAddress(e.target.name, e.target.value);
                           }}
                         >
-                          <option>Select an option</option>
-                          {props.gstList?.length > 0 && props.gstList !== undefined > 0 ? (
-                            props.gstList
-                              .filter((val) => {
-                                if (val !== undefined) {
-                                  return val;
-                                }
-                              })
-                              .map((val, index) => {
-                                return <option value={`${val}`}>{val}</option>;
-                              })
-                          ) : (
-                            <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                          )}
-                        </select>
+                          
+                        </input>
                         <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                           GSTIN<strong className="text-danger">*</strong>
                         </Form.Label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
+                       
                       </div>
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
@@ -1395,7 +1378,7 @@ const editData = (
           <>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
-                <select
+                <input
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="gstin"
                   value={EditAddress.gstin}
@@ -1403,25 +1386,13 @@ const editData = (
                     editNewAddress(e.target.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
-                  {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
-                    gstArray
-                      .filter((val) => {
-                        if (val !== undefined) {
-                          return val;
-                        }
-                      })
-                      .map((val, index) => {
-                        return <option value={`${val}`}>{val}</option>;
-                      })
-                  ) : (
-                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                  )}
-                </select>
+                 
+                  
+                </input>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
                 </Form.Label>
-                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
+               
               </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
