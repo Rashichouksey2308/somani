@@ -1396,7 +1396,7 @@ function Index() {
                           <select
                             type="text"
                             name="country"
-                            className={`${styles.input_field} input form-control`}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                             value={keyAddressData?.country}
                             onChange={(e) => handleChange(e.target.value, e.target.name)}
                           >
@@ -1415,6 +1415,11 @@ function Index() {
                             Country
                             <strong className="text-danger">*</strong>
                           </label>
+                          <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                         </div>
                       </div>
 
