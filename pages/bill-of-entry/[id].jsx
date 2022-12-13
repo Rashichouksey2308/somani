@@ -77,28 +77,28 @@ function Index() {
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
     dispatch(setPageName('custom'));
     dispatch(setDynamicName(customData?.company?.companyName));
     dispatch(
-        getBreadcrumbValues({
-          upperTabs: 'Bill of Entry',
-        }),
-      );
+      getBreadcrumbValues({
+        upperTabs: 'Bill of Entry',
+      }),
+    );
   }, [allCustomClearance]);
 
-//   useEffect(() => {
-//     if(allCustomClearance){
-//  dispatch(
-//       getBreadcrumbValues({
-//         companyName: allCustomClearance.data[0].customData?.company?.companyName,
-//         companyId: allCustomClearance.data[0].customData?.order?.orderId,
-//         orderTabs: 'Bill of Entry',
-//       }),
-//     );
-//     }
-   
-//   }, [allCustomClearance]);
+  //   useEffect(() => {
+  //     if(allCustomClearance){
+  //  dispatch(
+  //       getBreadcrumbValues({
+  //         companyName: allCustomClearance.data[0].customData?.company?.companyName,
+  //         companyId: allCustomClearance.data[0].customData?.order?.orderId,
+  //         orderTabs: 'Bill of Entry',
+  //       }),
+  //     );
+  //     }
+
+  //   }, [allCustomClearance]);
 
   return (
     <>

@@ -240,10 +240,10 @@ function Index() {
                 </p>
                 <div className={`${styles.material}`}>
                   <div className={`d-flex justify-content-start align-items-start`}>
-                    <span className={styles.head}>l) Material :</span>{' '}
+                    <span className={styles.head}>1) Material :</span>{' '}
                     <span className={`${styles.bold} `}>
-                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')} (
-                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
+                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')}  (
+                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')}){ ' '}
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress',
@@ -253,8 +253,8 @@ function Index() {
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                         '',
-                      ) !== ''
-                        ? `,${_get(
+                      )!== ''
+                        ? `, ${_get(
                             ReleaseOrderData,
                             'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                             ' ',
@@ -321,7 +321,7 @@ function Index() {
                 / *\([^)]*\) */g,
                 '',
               )}
-              , VIZAG : Delivery order file
+              , VIZAG
             </p>
             <p className={`${styles.bold} ${styles.extra_margin}`}>: Delivery order file</p>
           </div>
