@@ -35,6 +35,18 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
+    let quan= _get(TransitDetails, 'data[0].order.quantity', '');
+    let unit =  _get(TransitDetails, 'data[0].order.unitOfQuantity', '');
+    let perOrderPrice=1
+    if(unit=="KG"){
+      quan = Number(quan)*0.001
+       quan= quan*perOrderPrice
+    }else{
+      quan= Number(quan)*perOrderPrice
+    }
+    if(Number(quan)>100000){
+      quan=100000
+    }
     if (data.length > 0) {
       setCimsDetails(data);
     } else {
@@ -44,7 +56,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           circNumber: '',
           circDate: '',
-          cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
+          cimsCharges:quan,
           paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
@@ -82,11 +94,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
   const onChangeCims = (e, index) => {
     const name = e.target.id;
-    const value = e.target.value;
+    let value = e.target.value;
+    console.log(value,"cimsCharges")
+    if(Number(value)>100000){
+              value=100000
+    }
+
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           if(name=="quantity"){
+            
        return {
             ...obj,
             [name]: value,

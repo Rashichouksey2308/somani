@@ -3873,7 +3873,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : 'rgb(138 196 28)'
                             : null
                         }`
                         } stroke={
@@ -3885,7 +3885,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : 'rgb(138 196 28)'
                             : null
                         }`
                         } stroke-width="0.5"/>
@@ -3928,13 +3928,13 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                       transform="translate(-2 -2)" fill={
                             `${
                           filteredCreditRating?.length > 0
-                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase()  == 'POOR'
                               ? '#ff4230'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : 'rgb(138 196 28)'
                             : null
                         }`
                       }/>
