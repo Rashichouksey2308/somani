@@ -1479,11 +1479,12 @@ function Index() {
     return (
       <table
         width="1500px"
-        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif', marginLeft:'100px' }}
         cellPadding="0"
         cellSpacing="0"
         border="0"
         bgColor="#f3f4f7"
+        
       >
         <tr>
           <td valign="top">
@@ -3733,7 +3734,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '70px',
+                marginBottom: '26px',
               }}
             >
               <tr>
