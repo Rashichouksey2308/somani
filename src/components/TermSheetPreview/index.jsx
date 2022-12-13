@@ -18,7 +18,7 @@ function Index() {
   const dispatch = useDispatch();
 
   const { termsheet } = useSelector((state) => state.order);
- console.log(termsheet?.data?.order,"termsheet?.data?.order?.unitOfQuantity")
+ console.log(termsheet?.data,"termsheet?.data?.order?.unitOfQuantity")
   let Id = sessionStorage.getItem('termID');
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
@@ -395,7 +395,8 @@ function Index() {
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {termsheetDetails?.transactionDetails?.lcValue
-                      ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-IN', {
+                      ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString(
+                         _get(termsheet, 'data[0].order.orderCurrency', '')=="INR"?"en-IN":"en-EN", {
                           maximumFractionDigits: 2,
                         })
                       : ''}
@@ -415,7 +416,7 @@ function Index() {
                   <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
                   <li>{termsheetDetails?.transactionDetails?.portOfDischarge}, India</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES - ${termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
+                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
                 </ul>
               </Col>
             </Row>
@@ -1493,7 +1494,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         >
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                           {termsheetDetails?.transactionDetails?.lcValue
-                            ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-In')
+                            ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString(
+                              _get(termsheet, 'data[0].order.orderCurrency', '')=="INR"?"en-IN":"en-EN")
                             : ''}
                         </p>
                       </td>
@@ -1928,7 +1930,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES - ${termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
+                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
                         </p>
                       </td>
                     </tr>
