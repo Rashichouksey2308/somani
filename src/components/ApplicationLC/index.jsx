@@ -91,6 +91,7 @@ useEffect(() => {
       }
         doc.save('ApplicationLC.pdf');
       },
+      margin:[40,0,40,0],
       autoPaging: 'text',
     });
   };
