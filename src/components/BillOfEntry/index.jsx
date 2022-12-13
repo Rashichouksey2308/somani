@@ -956,7 +956,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.invoiceQuantity
                                 : val?.boeDetails?.invoiceQuantity == 0
                                 ? ''
-                                : Number(val?.boeDetails?.invoiceQuantity)?.toLocaleString('en-IN') + ' ' + 'MT'
+                                : Number(val?.boeDetails?.invoiceQuantity)?.toLocaleString('en-IN') + ' ' + customData?.order?.unitOfQuantity.toUpperCase()
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             name="boeDetails.invoiceQuantity"
