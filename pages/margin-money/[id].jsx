@@ -1501,7 +1501,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {marginData?.order?.orderCurrency}{' '}
-                                  {Number(finalCal.orderValue).toLocaleString('en-In', {
+                                  {Number(finalCal.orderValue).toLocaleString(
+                                    marginData?.order?.orderCurrency === 'INR' ? 'en-IN' :"en-EN"
+                                    , {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}
