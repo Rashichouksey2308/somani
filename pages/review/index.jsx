@@ -172,7 +172,7 @@ function Index() {
   const [litigationStatus, setlitigationStatus] = useState(null);
   const [chartType, setChartType] = useState('Monthly');
   const [unit,setUnit]=useState("Crores")
-  const { fetchingKarzaGst } = useSelector((state) => state.review);
+  const { fetchingKarzaGst, fetchedGstData } = useSelector((state) => state.review);
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
   const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
@@ -8578,6 +8578,7 @@ function Index() {
                       GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
+                      fetchedGstData={fetchedGstData}
                     />
                   </div>
                 </div>
