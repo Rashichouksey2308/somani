@@ -619,8 +619,8 @@ const cancelEditAddress = () => {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch</option>
-                      <option value="Supplier">Supplier Address</option>
+                      <option value="Branch">Branch Office</option>
+                      <option value="Corporate">Corporate Office</option>
                     </select>
                     <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
@@ -632,7 +632,7 @@ const cancelEditAddress = () => {
                     />
                   </div>
                 </Form.Group>
-                {addressType == 'Supplier' ? (
+                {addressType == 'Corporate' ? (
                   <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -869,7 +869,7 @@ const cancelEditAddress = () => {
             </div>
           </div>
         )}
-       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+       {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,)}
       </div>
     </>
   );
@@ -909,9 +909,9 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier">Supplier</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -919,7 +919,7 @@ const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Supplier' ? (
+        {addressEditType == 'Corporate' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control

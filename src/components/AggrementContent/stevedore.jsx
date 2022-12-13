@@ -241,7 +241,7 @@ function Index(props) {
                 }
         setSeteveState(supplier);
       } else {
-       
+         console.log("herer")
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
@@ -287,6 +287,7 @@ function Index(props) {
         }
         setSeteveState(supplier);
             let tempArr = props.data?.authorisedSignatoryDetails;
+            console.log(props?.vendor?.options?.length,"props?.vendor?.options?.length")
        if(props?.vendor?.options?.length>0){
            let optionArray =  props?.vendor?.options
           tempArr.forEach((val, index) => {
@@ -298,14 +299,15 @@ function Index(props) {
               }
             }
           });
+          console.log(tempArr,optionArray,"optionArray")
         setOptions([...optionArray]);
          }
        
       
       }
     }
-  }, [props.data, props.sameAsCHA]);
-
+  }, [props.data, props.sameAsCHA,props?.vendor]);
+console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'Stevedore') {
       let data = {
@@ -598,6 +600,7 @@ function Index(props) {
     setEditAddress(newInput);
     setToView(false);
   };
+  console.log(seteveState.gstin,"seteveState.gstin")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -644,7 +647,7 @@ function Index(props) {
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
-                  <option value= {""}>Select an option</option>
+                  <option value= {""} selected>Select an option</option>
                   {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
@@ -704,8 +707,8 @@ function Index(props) {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch</option>
-                      <option value="Supplier">Supplier Address</option>
+                      <option value="Branch">Branch Offcie</option>
+                      <option value="Supplier">Corporate Offcie</option>
                     </select>
                     <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
@@ -717,7 +720,7 @@ function Index(props) {
                     />
                   </div>
                 </Form.Group>
-                {addressType == 'Supplier' ? (
+                {addressType == 'Corporate' ? (
                   <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -944,7 +947,7 @@ function Index(props) {
             </div>
           </div>
         )}
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,)}
       </div>
     </>
   );
@@ -984,9 +987,9 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier">Supplier</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -994,7 +997,7 @@ const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Supplier' ? (
+        {addressEditType == 'Corporate' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control

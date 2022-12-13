@@ -166,7 +166,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                   saveOrderData(e.target.name, e.target.value);
                 }}
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                required
               >
                 <option value="">Select an option</option>
                 {country?.length>0
@@ -195,7 +194,6 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                   saveOrderData(e.target.name, e.target.value);
                 }}
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                required
               >
                 <option value="">Select an option</option>
                 {port

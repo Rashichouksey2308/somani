@@ -1,3 +1,4 @@
+import { returnReadableNumber } from '@/utils/helpers/global';
 import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
 
@@ -202,7 +203,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.quantity ? marginData.marginData?.order?.quantity : 0, 'MT', '')}
+                        {marginData.marginData?.order?.quantity ? returnReadableNumber(marginData.marginData?.order?.quantity,'en-In',2) + ' '+  marginData?.marginData?.order?.unitOfQuantity : ''}
                       </p>
                     </td>
                   </tr>
@@ -243,7 +244,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                          {marginData?.marginData?.order?.orderCurrency} {marginData?.marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
                       </p>
                     </td>
                   </tr>
@@ -284,7 +285,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData.marginData?.conversionRate}
+                        {returnReadableNumber(marginData.marginData?.conversionRate,'en-In',2)}
                       </p>
                     </td>
                   </tr>
@@ -605,7 +606,9 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-In') ?? 0}
+                         {marginData.marginData?.order?.orderCurrency} {' '} {marginData.marginData?.calculation?.orderValue?.toLocaleString(
+                          marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En") ?? 0}
                       </p>
                     </td>
                   </tr>

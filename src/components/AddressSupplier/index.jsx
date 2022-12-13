@@ -58,12 +58,12 @@ function AddressComponent({
           </div>
           <div className={`${styles.address_values}`}>
             <p className="">
-              {address} {', '} {country} {', '} {pinCode}
+              {address}{', '}{country}{', '} {pinCode}
             </p>
             {/* <p className="pt-3">{}</p>
             <p className="pt-3">{pinCode}</p> */}
             <p className="pt-3">
-              <span>Emails: </span>
+              <span>Email: </span>
               {email?.join(', ')}
             </p>
             <p>

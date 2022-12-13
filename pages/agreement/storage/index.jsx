@@ -67,9 +67,17 @@ function Index() {
     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
   };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    const doc = new jsPDF('p', 'pt', [1500, 2000]);
     doc.html(ReactDOMServer.renderToString(<StorageInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
+          const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
         doc.save('RequestLetter.pdf');
       },
       // margin:margins,
@@ -193,7 +201,7 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                  {`${_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -201,7 +209,7 @@ function Index() {
                     Place of Storage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
+                    {`${insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

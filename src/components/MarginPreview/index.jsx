@@ -37,9 +37,17 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoneyPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
+              const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
         doc.save('MarginMoney.pdf');
       },
-      // margin:margins,
+      margin:[40,0,40,0],
       autoPaging: 'text',
     });
   };
@@ -107,8 +115,10 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD{' '}
-                      {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                      {marginData?.order?.orderCurrency}{' '}
+                      {marginData?.order?.perUnitPrice?.toLocaleString(
+                        marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       }) ?? 0}
@@ -210,8 +220,9 @@ const shareEmail = () => {}
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      USD{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                      {marginData?.order?.orderCurrency}{' '}
+                      {marginData?.calculation?.orderValue?.toLocaleString(marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       }) ?? 0}

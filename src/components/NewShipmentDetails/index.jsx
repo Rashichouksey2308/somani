@@ -61,7 +61,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name='shipmentType'
-                    required
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}

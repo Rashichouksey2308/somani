@@ -199,7 +199,7 @@ function Index() {
                         CC:{' '}
                         <span className={`${styles.bold} ${styles.width2} `}>
                           {val.name}, M/S {_get(ReleaseOrderData, 'data[0].company.companyName')},
-                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}
+                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}{' '}
                         </span>
                       </>
                     );
@@ -240,10 +240,10 @@ function Index() {
                 </p>
                 <div className={`${styles.material}`}>
                   <div className={`d-flex justify-content-start align-items-start`}>
-                    <span className={styles.head}>l) Material :</span>{' '}
+                    <span className={styles.head}>1) Material :</span>{' '}
                     <span className={`${styles.bold} `}>
-                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')} (
-                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
+                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')}  (
+                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')}){ ' '}
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress',
@@ -253,8 +253,8 @@ function Index() {
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                         '',
-                      ) !== ''
-                        ? `,${_get(
+                      )!== ''
+                        ? `, ${_get(
                             ReleaseOrderData,
                             'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                             ' ',
@@ -274,7 +274,7 @@ function Index() {
                     <span className={`${styles.bold} `}>
                       After delivery of material against this DO the balance Qty. will be as under :
                       <p>
-                        a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {balanceQuantity}{' '}
+                        a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {balanceQuantity==0?"Nil":balanceQuantity}{' '}
                         {_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '').toUpperCase()}s
                       </p>
                     </span>
@@ -321,7 +321,7 @@ function Index() {
                 / *\([^)]*\) */g,
                 '',
               )}
-              , VIZAG : Delivery order file
+              , VIZAG
             </p>
             <p className={`${styles.bold} ${styles.extra_margin}`}>: Delivery order file</p>
           </div>
@@ -395,27 +395,19 @@ function Index() {
                         <>
                         <div className={`d-flex align-items-center form-group`}>
                           <div className={`${styles.each_input} flex-grow-1`}>
-                            <div className="d-flex">
-                              <select
+                              <input
                                 id="email"
                                 name="email"
-                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                className={`${styles.formControl} input form-control`}
                                 selected
-                              >
-                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                              </select>
+                              />
                               <label
                                 className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
                                 htmlFor="email"
                               >
                                 Email
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
+                              
                           </div>
                           <img
                             onClick={()=>{

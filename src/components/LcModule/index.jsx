@@ -40,7 +40,6 @@ function Index() {
       sessionStorage.setItem('lcPreviewId', lc.order.lc);
       Router.push('/letter-table/letter-amend/id');
     } else {
-   
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
       Router.push('/letter-credit/lc-create');
@@ -77,6 +76,18 @@ function Index() {
       setSorting(-1);
     }
   };
+  /// firstimeUpdate False -- update
+  /// firstimeUpdate False && isPostAmmend FAlse -- amend
+  /// firstimeUpdate False && isPostAmmed true -- update
+  /// isAmmend disable -- amend
+
+  const defineAction = (lc, index) => {
+    if (!lc.firstTimeUpdate || !lc.route || lc.route === 'postUpdated' ) {
+      return true;
+    } else if (lc.route === 'amend') {
+      return false;
+    }
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -110,7 +121,7 @@ function Index() {
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
           </a>  */}
 
-          <button
+          {/* <button
             className={styles.createBtn}
             onClick={() => {
               Router.push('/lc-module/lc-application');
@@ -118,7 +129,7 @@ function Index() {
             style={{ position: 'absolute', right: 25 }}
           >
             Create
-          </button>
+          </button> */}
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
@@ -199,24 +210,27 @@ function Index() {
                           <span className={`${styles.status} ${styles.review}`}></span>
                           Pending
                         </td>
-                        {!lc.firstTimeUpdate ? (
+                        {console.log(defineAction(lc, index), 'fiRstTimeUpdate6')}
+                        {lc.route === 'amend' || lc.route === 'postUpdated'  ? (
+                          <>
+                            <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>
+                            <td>
+                              {lc.route !== 'postUpdated' && (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={() => handleAmmendRoute(lc)}
+                                />
+                              )}
+                            </td>
+                          </>
+                        ) : (
                           <td colSpan={2}>
                             {' '}
                             <button className={styles.updateBtn} onClick={() => handleLcAmmendRoute(lc)}>
                               Update
                             </button>
                           </td>
-                        ) : (
-                          <>
-                            <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>
-                            <td>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                onClick={() => handleAmmendRoute(lc)}
-                              />
-                            </td>
-                          </>
                         )}
                       </tr>
                     ))}

@@ -3,11 +3,23 @@ import moment from 'moment';
 import Router from 'next/router';
 import { Col, Row } from 'react-bootstrap';
 
-export default function AssociateShipAgreement(data, preview, setPreviewValue) {
-  console.log(data?.associateBuyerAuthorized, 'data');
+export default function AssociateShipAgreement(data, preview, setPreviewValue,active) {
+  console.log(active, 'data');
   return (
     <>
       <div className="card-body" style={{ minHeight: 'auto', flex: 'none' }}>
+          {preview  && active == "none"? (
+          <div className={`${styles.inputsContainer2} border_black`}>
+            <Row className={`${styles.row} ${styles.last}`}>
+              <Col md={7} className={`${styles.left} border_black`}>
+                Associateship Agreement No.: {data?.shortbuyer + '/' + data?.associateBuyerShort + '/' + `${moment().year()}-${moment().add(1, 'years').year().toString().slice(-2)}`+ "/" + data?.orderId}
+              </Col>
+              <Col md={5} className={styles.right}>
+                Date: {moment(new Date()).format('DD-MM-YYYY')}
+              </Col>
+            </Row>
+          </div>
+        ) : null}
         <p className="text-center text_sales">
           {' '}
           <strong>ASSOCIATESHIP AGREEMENT</strong>
@@ -1168,7 +1180,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               {data?.paymentTerm === 'DaysfromBLDate'
                 ? 'Days from BL Date'
                 : data?.paymentTerm === 'DaysfromVesselDate'
-                ? 'Days from Vessel Date'
+                ? 'Days From Vessel Discharge Date'
                 : data?.paymentTerm === 'Whicheverisearlier'
                 ? 'Whichever is earlier'
                 : ''}
@@ -1187,7 +1199,10 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               Delivery Terms
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.deliveryTerm}
+              {data?.deliveryTerm=="CIF"?"IF Cost Insurance Freight Incoterms 2000"
+              :data?.deliveryTerm=="CFR"?"CFR	Cost & Freight Incoterms 2000":
+              data?.deliveryTerm=="FOB"?"FOB Free on Board Incoterms 2000":""
+              }
             </Col>
           </Row>
           {/* <Row className={`${styles.row} ${styles.last}`}>
@@ -1202,7 +1217,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
        
         <div className={`row`}>
           <Col md={6}>
-            <p className="text_sales">
+            <p className="text_sales mb-5">
               <strong>(Associate Buyer)</strong>
             </p>
 
@@ -1210,7 +1225,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               data?.associateBuyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-left mt-5">
+                    <p className="text_sales text-left">
                       <strong>
                         Name: {val.name}
                         <br />
@@ -1222,7 +1237,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               })}
           </Col>
           <Col md={6}>
-            <p className="text_sales">
+            <p className="text_sales mb-5">
               <strong>({data.buyer})</strong>
             </p>
 
@@ -1230,7 +1245,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue) {
               data?.buyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-left mt-5">
+                    <p className="text_sales text-left">
                       <strong>
                         Name: {val.name}
                         <br />

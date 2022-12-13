@@ -56,7 +56,7 @@ export default function Home() {
   const [vesselData, setVesselData] = useState();
   const [orderID, setOrderId] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }]);
-
+  console.log(list,"list")
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''));
     setCurrency(_get(Vessel, 'data[0].order.orderCurrency', 'USD'));

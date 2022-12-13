@@ -364,7 +364,6 @@ export default function TPAPreview(data) {
                   provided free of cost to Collateral Manager and the running cost of these facilities will also be
                   borne by {data.shortbuyer}. Collateral Manager and their representatives shall have unfettered
                   access to the warehouse/stockyard;
-                  <br/><br/><br/><br/><br/><br/><br/><br/>
                 </p>
               </td>
             </tr>
@@ -736,7 +735,6 @@ export default function TPAPreview(data) {
                 >
                   During the period of this Agreement, {data.shortbuyer} shall be responsible for payment of all
                   charges with regard to water and electricity.
-                  <br/><br/><br/><br/><br/><br/><br/>
                 </p>
               </td>
             </tr>
@@ -1073,7 +1071,7 @@ export default function TPAPreview(data) {
                   losses, liabilities, claims, obligations, costs, expenses arising during the duration of this
                   Agreement, which result from, arise in connection with or are related in any way to claims by third
                   parties or regulatory authorities, and which directly arise due to any reasons whatsoever and
-                  including the following:<br/><br/><br/><br/><br/><br/>
+                  including the following:
                 </p>
               </td>
             </tr>
@@ -1121,9 +1119,9 @@ export default function TPAPreview(data) {
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
-                  }}
+                  }}Signed b
                 >
-                  <strong>Article 16-SURVIVAL OF INDEMNITY </strong>
+                  <strong>Article 16- SURVIVAL OF INDEMNITY </strong>
                 </p>
               </td>
             </tr>
@@ -1686,7 +1684,7 @@ export default function TPAPreview(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '20px' }}>
+              <td valign="top" style={{ paddingTop: '30px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <td align="left">
@@ -1730,7 +1728,7 @@ export default function TPAPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'20px'}}>
+                    <td align="left" style={{paddingTop:'30px'}}>
                       <p
                         style={{
                           fontSize: '12px',
@@ -1758,7 +1756,7 @@ export default function TPAPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'20px'}}>
+                    <td align="left" style={{paddingTop:'30px'}}>
                       <p
                         style={{
                           fontSize: '12px',

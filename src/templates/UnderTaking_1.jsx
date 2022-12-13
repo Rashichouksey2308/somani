@@ -195,8 +195,8 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={8}>
-            <p className="text_sales text-left m-0">Place: {data.placeOfExecution}</p>
+          <Col md={8} className='align-self-end'>
+            <p className="text_sales text-left"><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
           </Col>
           <Col md={4}>
             <p className="text_sales m-0">
@@ -219,10 +219,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={8}>
-            <p className="text_sales text-left m-0">Date: {data.dateOfExecution}</p>
-          </Col>
-          <Col md={4}>
+          <Col md={4} className="offset-md-8">
             <p className="text_sales text-left m-0">AUTHORISED SIGNATORY</p>
           </Col>
         </div>

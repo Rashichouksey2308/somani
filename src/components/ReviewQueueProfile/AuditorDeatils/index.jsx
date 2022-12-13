@@ -10,6 +10,7 @@ function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
 
   const [otherAssociates, setOtherAssociates] = useState([])
+
   useEffect(() => {
     if (directorData?.profile?.directorDetail?.length > 0) {
       let temp = []
@@ -578,24 +579,21 @@ function Index({ directorData }) {
                                 <p>Other Associated Entities</p>
                                 <div
                                   className={`${styles.row}  d-flex justify-content-between align-items-center`}
-                                >
+                                >                              
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
                                         let temp = [...otherAssociates]
                                         temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
-                                       
-                                      }}
-                                      value="Current"
+                                        setOtherAssociates([...temp])                                    
+                                      }}                                  
+                                      value='Current'
                                       className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault1"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Current'
-                                      }
-                                    />
+                                      type="radio"                                   
+                                      // name="flexRadioDefault"
+                                      id={`flexRadioDefault1${index}`}                                  
+                                      checked={otherAssociates[index] == 'Current'}                                                                                                                                                                                                      
+                                    />                                
                                     <label
                                       className="form-check-label"
                                       htmlFor={`flexRadioDefault1${index}`}
@@ -608,14 +606,13 @@ function Index({ directorData }) {
                                     <input
                                       onChange={(e) => {
                                         let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                       
+                                        temp[index] = e.target.value                                      
                                         setOtherAssociates([...temp])
                                       }}
                                       value="Former"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault2"
+                                      // name="flexRadioDefault2"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Former'
@@ -639,7 +636,7 @@ function Index({ directorData }) {
                                       value="Independent"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault3"
+                                      // name="flexRadioDefault3"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Independent'
@@ -663,7 +660,7 @@ function Index({ directorData }) {
                                       value="Additional"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault4"
+                                      // name="flexRadioDefault4"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Additional'
@@ -686,7 +683,7 @@ function Index({ directorData }) {
                                       value="Nominated"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault5"
+                                      // name="flexRadioDefault5"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Nominated'

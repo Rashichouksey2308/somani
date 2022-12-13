@@ -284,6 +284,10 @@ export default function Index({ isQuery }) {
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
 
+    if ('insurance renewal' == pageName) {
+      router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Renewal' + `/${order}`;
+    }
+
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
@@ -329,7 +333,7 @@ export default function Index({ isQuery }) {
         // `/${id}` +
         // `/${order}`
       } else if (id !== null) {
-        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
+        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCaidse()} `;
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
       }

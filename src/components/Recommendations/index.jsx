@@ -49,7 +49,38 @@ const Index = ({
   const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([]);
   const [weaknessComments, setWeaknessComments] = useState('');
   const [show, setShow] = useState(false);
-
+  const specialCharacter = [
+    '+',
+    '-',
+    '@',
+    '$',
+    '#',
+    '%',
+    '^',
+    '',
+    '!',
+    ';',
+    '/',
+    '|',
+    `'`,
+    `[`,
+    ']',
+    ',',
+    '{',
+    '}',
+    '?',
+    `'`,
+    ':',
+    '<',
+    '>',
+    `"`,
+    '(',
+    ')',
+    '=',
+    '*',
+    'e',
+    'E'
+  ];
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
@@ -57,6 +88,7 @@ const Index = ({
     suggestedOrderValue: false,
     suggestedCreditLimit: false,
   });
+  console.log(isFieldInFocus,'isFieldInFocus')
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
@@ -205,12 +237,14 @@ const Index = ({
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
                   <div className='d-flex'>
                   <div className={`${styles.sr_number} `}  style={{marginTop:'7px'}}
-                  >{index+1}</div>
+                  >{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
+                    cols={120}
+
                     readOnly={!editProfile[index]?.editable}
                   />
                   </div>
@@ -268,14 +302,16 @@ const Index = ({
             {financialsComment &&
               financialsComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
-                   <div className='d-flex'>
+                   <div className='d-flex'
+                   >
                   <div className={`${styles.sr_number}`}
-                  style={{marginTop:'7px'}}>{index+1}</div>
+                  style={{marginTop:'7px'}}>{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
+                    cols={120}
                     readOnly={!editFinance[index]?.editable}
                   />
                   </div>
@@ -346,8 +382,9 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => {
+                        console.log(profile.actions,"profile.actions")
                         return(
-                          profile.actions==false?
+                          profile.actions==false ||  profile.actions==undefined?
                           <>
                           <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
@@ -356,10 +393,10 @@ const Index = ({
 
                           </td>
                           <td>
-                            {profile?.limit}
+                            {returnReadableNumber((profile?.limit),'en-In',2,2)}
                           </td>
                           <td>
-                           {profile?.outstandingLimit}
+                           {returnReadableNumber((profile?.outstandingLimit),'en-In',2,2)}
                           </td>
                           <td className="position-relative">
                            {profile?.accountConduct}
@@ -419,18 +456,38 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
-                              value={profile?.limit}
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                               onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                  value={
+                               isFieldInFocus.groupExposureLimit
+                                  ? Number(profile?.limit)
+                                  : returnReadableNumber(profile?.limit,'en-In',2)
+                               
+                            }
+                             
                               disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
+                              // onKeyDown={(evt) => {
+                              //   const re = /^[0-9\b]+$/;
 
-                                if (re.test(evt.target.value) == false) {
-                                }
-                              }}
+                              //   if (re.test(evt.target.value) == false) {
+                              //   }
+                              // }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
@@ -442,18 +499,37 @@ const Index = ({
                             <input
                               name="outstandingLimit"
                               type="text"
-                              value={profile?.outstandingLimit}
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                            onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                    value={
+                              isFieldInFocus.groupExposureOutLimit
+                                  ? profile?.outstandingLimit
+                                  : returnReadableNumber(profile?.outstandingLimit,'en-In',2)
+                            }
+                              // value={profile?.outstandingLimit}
                               disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
+                              // onKeyDown={(evt) => {
+                              //   const re = /^[0-9\b]+$/;
 
-                                if (re.test(evt.target.value) == false) {
-                                }
-                              }}
+                              //   if (re.test(evt.target.value) == false) {
+                              //   }
+                              // }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value.toString(), index);
                               }}
@@ -471,10 +547,10 @@ const Index = ({
                               }}
                             >
                               <option selected>Select an Option</option>
-                              <option value="Poor">Good</option>
-                              <option value="Good">Satisfactory</option>
-                              <option value="Satisfactory">Average</option>
-                              <option value="Satisfactory">Poor</option>
+                              <option value="Good">Good</option>
+                              <option value="Satisfactory">Satisfactory</option>
+                              <option value="Average">Average</option>
+                              <option value="Poor">Poor</option>
                             </select>
                             <img className={`${styles.arrow} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                           </td>
@@ -560,7 +636,7 @@ const Index = ({
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                      <div className='d-flex'>
-                    <div className={styles.sr_number}>{index+1}</div>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
@@ -620,7 +696,7 @@ const Index = ({
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                      <div className='d-flex'>
-                    <div className={styles.sr_number}>{index+1}</div>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                   
                       className={`${styles.paragraph} input pl-0`}
@@ -744,8 +820,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedCreditLimit
-                            ? suggestedCredit?.suggestedCreditLimit
-                            : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedCreditLimit)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedCreditLimit) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -788,8 +864,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedOrderValue
-                            ? suggestedCredit?.suggestedOrderValue
-                            : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedOrderValue)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedOrderValue) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -827,7 +903,7 @@ const Index = ({
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
                       <div className='d-flex'>
-                     <div className={styles.sr_number}>{index+1}</div>
+                     <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={sanction}

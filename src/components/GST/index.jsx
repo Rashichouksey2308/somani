@@ -18,6 +18,8 @@ import {
 } from 'chart.js';
 import { toast } from 'react-toastify';
 import { MultiSelect } from 'react-multi-select-component';
+import _ from 'lodash'
+
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -45,7 +47,7 @@ import _get from 'lodash/get';
 // Chart.register(linear);
 
 
-function Index({ companyData, orderList, GstDataHandler, alertObj }) {
+function Index({ companyData, orderList, GstDataHandler, alertObj,fetchedGstData }) {
   const [gstOption, setGstOption] = useState([]);
 
   const options = gstOption;
@@ -54,7 +56,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 console.log(selected,'selected')
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  const consolidatedDataGstData = companyData?.gstConsolidated ?? []
+  const consolidatedDataGstData = JSON?.parse(JSON?.stringify(companyData?.gstConsolidated  ?? []))
   console.log(consolidatedDataGstData, 'companyData');
 
 
@@ -73,6 +75,7 @@ console.log(selected,'selected')
     datasets: [],
   });
   const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList);
+  console.log(gstFilteredData,'gstFilteredData')
 
   const [revenueProfile, setRevenueProfile] = useState(10000000);
   const [saleDetails, setSalesDetails] = useState(10000000);
@@ -236,40 +239,59 @@ console.log(selected,'selected')
       selected.forEach((item) => {
         selectedGstin.push(item.value)
       })
-      let consolidatedIndex = null
-      selectedGstin.forEach((gstin) => {
-        consolidatedDataGstData?.forEach((gstin2,index) => {
-          console.log(gstin2.gstin, selectedGstin, 'handleChangeGstin 3')
+      selectedGstin.sort()
+const filteredData = consolidatedDataGstData.filter((item) =>{
+  console.log(_.isEqual(item.gstin.sort(),selectedGstin),item.gstin.sort(),selectedGstin,'filteredData1')
+  if(_.isEqual(item.gstin.sort(),selectedGstin))  return item })
+
+console.log(filteredData,'filteredData1')
+
+
+// let a =['37AAACI3028D2Z0', '07AAACI3028D1Z4']
+// let b = ['07AAACI3028D1Z4','37AAACI3028D2Z0']
+
+// a.sort()
+// b.sort()
+// console.log(_.isEqual(a,b),'gstin verify')
+
+//       let consolidatedIndex = null
+//       selectedGstin.forEach((gstin) => {
+//         consolidatedDataGstData?.forEach((gstin2,index) => {
+//           console.log(gstin2.gstin, selectedGstin, 'handleChangeGstin 3')
 
           
-          const areEqual = () => {
-            if (selectedGstin.length === gstin2.gstin.length) {
-              console.log('handleChangeGstin 3.1')
-              return selectedGstin.every((element) => {
-                if (gstin2.gstin.includes(element)) {
-                  console.log('handleChangeGstin 3.2')
+//           const areEqual = () => {
+//             if (selectedGstin.length === gstin2.gstin.length) {
+//               console.log('handleChangeGstin 3.1')
+//               return selectedGstin.every((element) => {
+//                 if (gstin2.gstin.includes(element)) {
+//                   console.log('handleChangeGstin 3.2')
 
-                  consolidatedIndex = index
-                  return true;
-                }
-                return false;
-              });
-            }
-            return false;
+//                   consolidatedIndex = index
+//                   return true;
+//                 }
+//                 return false;
+//               });
+//             }
+//             return false;
 
-          }
-          console.log(areEqual(),consolidatedIndex, 'handleChangeGstin 4')
+//           }
+//           console.log(areEqual(),consolidatedIndex, 'handleChangeGstin 4')
          
 
-        })
-      })
-      if (consolidatedIndex===0) {
-        SetGstFilteredData(consolidatedDataGstData[consolidatedIndex]);
-          GstDataHandler(consolidatedDataGstData[consolidatedIndex]);
-        console.log(consolidatedDataGstData[consolidatedIndex],'handleChangeGstin 4.1')
+//         })
+//       })
+      if (filteredData) {
+        SetGstFilteredData(filteredData[filteredData.length-1]);
+          GstDataHandler(filteredData[filteredData.length-1]);
+        console.log(filteredData[filteredData.length-1],'handleChangeGstin 4.1')
+      }
+      console.log(fetchedGstData,'fetchedGstData')
+      if(fetchedGstData && _.isEqual(fetchedGstData?.gstin?.sort(),selectedGstin)){
+        SetGstFilteredData(fetchedGstData);
+        GstDataHandler(fetchedGstData);
       }
     }
-
   }, [selected])
 
   const handleChangeGstin = (e) => {

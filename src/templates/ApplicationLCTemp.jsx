@@ -1,6 +1,7 @@
 import _get from 'lodash/get';
 import moment from 'moment';
 import { addPrefixOrSuffix } from '@/utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 export default function ApplicationLCTemp(lcModuleData, lcModule) {
   console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),"lcModuleData.lcModuleData",lcModule)
@@ -12,9 +13,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
       return index + 1;
     }
   };
-  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),)
+  console.log(_get(lcModuleData.lcModule,"data[0].generic.supplier.addresses[0].fullAddress",""),"SAdasds")
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+      
       <tr>
         <td valign="top" style={{ paddingBottom: '20px' }}>
           <table
@@ -22,7 +24,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             bgColor="#D8EAFF"
             style={{
               fontFamily: 'Arial, Helvetica, sans-serif',
-              marginBottom: '26px',
+              marginBottom: '10px',
               border: '1px solid #D2D7E5',
               borderRadius: '6px',
               height: '126px',
@@ -31,15 +33,33 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             cellSpacing="0"
             border="0"
           >
+            <tr>              
+              <td valign="top" colSpan={2} align="center">
+                <h2
+                  style={{
+                    fontSize: '34px',
+                    color: '#3687E8',
+                    lineHeight: '41px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
+                  "LC DRAFT"
+                  }
+                
+                </h2>
+              </td>
+            </tr>
             <tr>
-              <td valign="bottom" align="left" width="33%">
+              <td valign="bottom" align="left" width="70%">
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    padding: '10px 0 0 25px',
+                    padding: '10px 0 10px 25px',
                   }}
                 >
                   Order ID:{' '}
@@ -66,12 +86,9 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     style={{
                       display: 'inline-block',
                       paddingLeft: '25px',
-                      width: '90px',
-                      float: 'left',
-                      height: '50px',
                     }}
                   >
-                    Buyer:{' '}
+                    Buyer: {' '} 
                   </span>
                   <span
                     style={{
@@ -84,33 +101,17 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                   </span>
                 </span>
               </td>
-              <td valign="top" align="center" width="34%">
-                <h2
-                  style={{
-                    fontSize: '34px',
-                    color: '#3687E8',
-                    lineHeight: '41px',
-                    fontWeight: 'bold',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
-                  "APPLICATION FOR LETTER OF DRAFT"
-                  }
-                
-                </h2>
-              </td>
-              <td valign="bottom" align="right" width="33%">
+              <td valign="bottom" align="right" width="30%">
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    paddingRight: '25px',
+                    padding: '10px 25px 10px 0',
+                    whiteSpace: 'nowrap'
                   }}
                 >
-                  Date:{' '}
                   <span
                     style={{
                       lineHeight: '24px',
@@ -118,7 +119,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       opacity: '0.7',
                     }}
                   >
-                    {moment(d).format('DD.MM.yyyy')}
+                    Date: {' '}{moment(d).format('DD.MM.yyyy')}
                   </span>
                 </span>
               </td>
@@ -489,10 +490,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.applicant?.toUpperCase()}
                             <br></br>
-                             {_get(lcModuleData,"order.generic.seller.addresses[0].fullAddress","")},
-                              {_get(lcModuleData,"order.generic.seller.addresses[0].city","")},
-                              {_get(lcModuleData,"order.generic.seller.addresses[0].country","")},
-                              {_get(lcModuleData,"order.generic.seller.addresses[0].pinCode","")}
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].fullAddress","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].city","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].country","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>
@@ -553,10 +554,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                                <br></br>
-                             {_get(lcModuleData,"order.generic.supplier.addresses[0].fullAddress","")},
-                            {_get(lcModuleData,"order.generic.supplier.addresses[0].city","")},
-                            {_get(lcModuleData,"order.generic.supplier.addresses[0].country","")},
-                            {_get(lcModuleData,"order.generic.supplier.addresses[0].pinCode","")}
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].fullAddress","")},
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].city","")},
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].country","")},
+                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].pinCode","")}
                           </p>
                         </td>
                       </tr>
@@ -614,9 +615,15 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               textTransform: 'uppercase',
                             }}
                           >
-                            USD{' '}
+                           {lcModuleData.lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                              ? lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                              ? 
+                              returnReadableNumber(
+                                  lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+                                  lcModuleData.lcModuleData.order.orderCurrency=="INR"?"en-In":"en-En",
+                                  2,
+                                )
+                              
                               : 0}
                           </p>
                         </td>
@@ -1543,6 +1550,13 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               padding: '25px 24px',
                             }}
                           >
+                            <span style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              display: 'block',
+                              marginBottom: '16px'
+                            }}>PRODUCT SPECIFICATION</span>
                             <table
                               width="80%"
                               cellPadding="10"
@@ -1561,6 +1575,34 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                 }}
                               >
                               
+                              </tr>
+                                 <tr className="table_row">
+                                {_get(
+                                  lcModuleData.lcModule,
+                                  'data[0]order.generic.productSpecifications.specificationTable',
+                                  [],
+                                ) &&
+                                  _get(
+                                    lcModuleData.lcModule,
+                                    'data[0]order.generic.productSpecifications.specificationTable',
+                                    [],
+                                  ).length > 0 &&
+                                  Object.keys(
+                                    _get(
+                                      lcModuleData.lcModule,
+                                      'data[0]order.generic.productSpecifications.specificationTable',
+                                      [],
+                                    )[0],
+                                  ).map((val, index) => (
+                                    <th 
+                                     style={{
+                                      fontSize: '20px',
+                                      color: '#8492a6',
+                                      lineHeight: '24px',
+                                    }} key={index}>
+                                      {val}
+                                    </th>
+                                  ))}
                               </tr>
                               {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
                                 _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])

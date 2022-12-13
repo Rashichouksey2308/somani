@@ -21,11 +21,15 @@ import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
-import { getPincodes } from 'redux/masters/action';
+import { getPincodes, getCountries } from 'redux/masters/action';
+import { isPossiblePhoneNumber, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
+import { countryCodes } from '@/utils/jsons/countryCodes.json';
 
 function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const specialCharacter = [
@@ -54,6 +58,10 @@ function Index() {
     '<',
     '>',
     `"`,
+    '(',
+    ')',
+    '=',
+    '*',
   ];
 
   const gettingPins = (value) => {
@@ -61,6 +69,10 @@ function Index() {
   };
 
   let id = sessionStorage.getItem('supplier');
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
 
   useEffect(() => {
     if (id) dispatch(GetSupplier(`?supplierId=${id}`));
@@ -78,7 +90,7 @@ function Index() {
         countryOfIncorporation: '',
         nationalIdentificationNumber: '',
         website: '',
-        status: 'Active',
+        status: '',
       },
     );
     setKeyAddData(supplierData?.keyAddress ?? []);
@@ -89,6 +101,7 @@ function Index() {
     setListCommodity(supplierData?.commoditiesTraded ?? []);
     setInfoArray(supplierData?.additionalInformation ?? []);
     setdocs(supplierData?.extraDocument ?? []);
+    setFilteredDocs(supplierData?.extraDocument ?? []);
     setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
     SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
@@ -130,7 +143,7 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status: 'Active',
+    status: '',
   });
 
   const [address, setAddress] = useState({
@@ -154,20 +167,12 @@ function Index() {
   ]);
 
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
-  useEffect(() => {
-    let tempArray = [{ value: false }];
-    person.forEach((item) => {
-      tempArray.push({ value: false });
-    });
-    setIsPercentageInFocus(tempArray);
-  }, [person]);
 
-  const handleFocusChange = (index, value) => {
+  const changeFiledFocus = (value, index) => {
     let tempArray = [...isPercentageInFocus];
-    tempArray[index].value = value;
+    tempArray[index] = value;
     setIsPercentageInFocus(tempArray);
   };
-
   const [detail, setDetail] = useState([
     {
       shareHoldersName: '',
@@ -177,6 +182,14 @@ function Index() {
       action: true,
     },
   ]);
+
+  useEffect(() => {
+    let tempArray = [false];
+    supplierData?.shareHoldersDetails?.forEach((item) => {
+      tempArray.push(false);
+    });
+    setIsPercentageInFocus(tempArray);
+  }, [supplierResponse]);
 
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
@@ -192,8 +205,11 @@ function Index() {
   });
 
   const [docs, setdocs] = useState([]);
+  const [filteredDocs, setFilteredDocs] = useState([]);
+
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
+    setIsPercentageInFocus([...isPercentageInFocus.slice(0, index), ...isPercentageInFocus.slice(index + 1)]);
   };
   const handleDeletePersonContact = (index) => {
     setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
@@ -254,6 +270,7 @@ function Index() {
     },
   ]);
   const onAddShare = () => {
+    setIsPercentageInFocus([...isPercentageInFocus, false]);
     setDetail([
       ...detail,
       {
@@ -379,44 +396,71 @@ function Index() {
   };
 
   const contactPersonDetailsValidation = () => {
+    if (person.length < 1) {
+      handleErrorToast('atLEast 1 COntact PErson detail Is Mandatory');
+      return false;
+    }
+
     let isOk = true;
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
         isOk = false;
+        break;
       }
-      if (person[i].contact === '' || person[i].contact === null || person[i]?.contact?.length !== 10) {
+      if (
+        person[i].contact === '' ||
+        person[i].contact === null ||
+        !isValidPhoneNumber(person[i].contact, returnSelectedCountryCode(person[i].callingCode))
+      ) {
         handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
         isOk = false;
+        break;
       }
       if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
         handleErrorToast(`please provide a valid email Id  in Contact Person Details ${i + 1} `);
         isOk = false;
+        break;
       }
     }
     return isOk;
   };
 
   const directorsAndAuthorisedSignatoryValidation = () => {
+    if (listDirector.length < 1) {
+      handleErrorToast('atLEast 1  directors And Authorised Signatory Is Mandatory');
+      return false;
+    }
     let isOk = true;
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (listDirector[i].name === '' || listDirector[i].name === null) {
         handleErrorToast(`Name cannot be empty in Directors And Authorized Signatory ${i + 1}`);
         isOk = false;
+        break;
       }
       if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
         handleErrorToast(`nationality cannot be empty in Directors And Authorized Signatory ${i + 1}`);
         isOk = false;
+        break;
       }
     }
     return isOk;
   };
   const commoditiesTradedValidation = () => {
+    if (listCommodity?.length < 1) {
+      handleErrorToast('atLEast 1 commodities Traded Is Mandatory');
+      return false;
+    }
     let isOk = true;
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
-        handleErrorToast(`hsn code cannot be empty in Commodities Traded ${i + 1}`);
+      if (
+        listCommodity[i].hsnCode.trim() === '' ||
+        listCommodity[i].hsnCode === null ||
+        listCommodity[i].hsnCode.length !== 8
+      ) {
+        handleErrorToast(`please provide a valid hsnCode Commodities Traded ${i + 1}`);
         isOk = false;
+        break;
       }
       if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
         handleErrorToast(`commodity cannot be empty in Commodities Traded ${i + 1}`);
@@ -428,7 +472,10 @@ function Index() {
   };
 
   const supplierValidtaion = () => {
-    if (!formData.supplierName || formData.supplierName === '') {
+    if (!formData.status || formData.status === '') {
+      handleErrorToast(`please select an status`);
+      return false;
+    } else if (!formData.supplierName || formData.supplierName === '') {
       handleErrorToast(`supplier Name cannot be empty`);
       return false;
     } else if (!formData.constitution || formData.constitution === '') {
@@ -442,6 +489,9 @@ function Index() {
       return false;
     } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
       handleErrorToast(`please provide a national Identification Number`);
+      return false;
+    } else if (keyAddData.length < 1) {
+      handleErrorToast('atLEast 1 KEy Address  Is Mandatory');
       return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
@@ -459,6 +509,26 @@ function Index() {
       return true;
     }
   };
+  const saveButtonChangeHelper = (array) => {
+    return array.forEach((item) => (item.action = false));
+  };
+
+  const saveIconHandler = () => {
+    let tempPerson = [...person];
+    let tempShare = [...detail];
+    let tempDirector = [...listDirector];
+    let TempCommodity = [...listCommodity];
+
+    saveButtonChangeHelper(tempPerson);
+    saveButtonChangeHelper(tempShare);
+    saveButtonChangeHelper(tempDirector);
+    saveButtonChangeHelper(TempCommodity);
+
+    setListDirector(tempDirector);
+    setPerson(tempPerson);
+    setDetail(tempShare);
+    setListCommodity(TempCommodity);
+  };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
@@ -475,7 +545,7 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-console.log(apiData,"apiData")
+      console.log(apiData, 'apiData');
       let fd = new FormData();
       if (id) {
         fd.append('supplierId', supplierData?._id);
@@ -491,6 +561,7 @@ console.log(apiData,"apiData")
       fd.append('incumbencyCertificateDocument', JSON.stringify(incumbencyDoc));
       fd.append('thirdPartyCertificateDocument', JSON.stringify(thirdParty));
       fd.append('extraDocument', JSON.stringify(docs));
+      saveIconHandler();
       if (id) {
         dispatch(UpdateSupplier(fd));
       } else {
@@ -515,6 +586,11 @@ console.log(apiData,"apiData")
   const deleteComponent = (index) => {
     setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
+
+  const returnSelectedCountryCode = (code) => {
+    const filter = countryCodes.filter((item) => item.code == code);
+    if (filter.length > 0) return filter[0].iso2;
+  };
   const addressValidtion = (data) => {
     let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
 
@@ -528,8 +604,9 @@ console.log(apiData,"apiData")
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             )
         ) {
-          handleErrorToast(`Please add valid email id for Email Field ${index}`);
+          handleErrorToast(`Please add valid email id for Email Field ${index + 1}`);
           isOk = false;
+          return;
         }
       });
       return isOk;
@@ -564,17 +641,27 @@ console.log(apiData,"apiData")
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
       data.contact.phoneNumber === undefined ||
-      data.contact.phoneNumber?.length !== 10
+      !isValidPhoneNumber(data.contact.phoneNumber, returnSelectedCountryCode(data.contact.phoneNumberCallingCode))
     ) {
-      handleErrorToast('Please add a valid phone phoneNumber');
+      handleErrorToast('Please add a valid  phone Number');
       return false;
     } else if (
-      data.contact.alternatePhoneNumber === null ||
-      data.contact.alternatePhoneNumber === '' ||
-      data.contact.alternatePhoneNumber === undefined ||
-      data.contact.alternatePhoneNumber?.length !== 10
+      data.contact.alternatePhoneNumber &&
+      data.contact.alternatePhoneNumber.trim().length > 0 &&
+      !isValidPhoneNumber(
+        data.contact.alternatePhoneNumber,
+        returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
+      )
     ) {
-      handleErrorToast('Please add a valid alternate  phoneNumber');
+      console.log(
+        !isValidPhoneNumber(
+          data.contact.alternatePhoneNumber,
+          returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
+        ),
+        data.contact,
+        'data.contact',
+      );
+      handleErrorToast('Please add a valid Alternate phone Number');
       return false;
     } else {
       return true;
@@ -616,7 +703,7 @@ console.log(apiData,"apiData")
     setIndex(index);
     let tempArr = keyAddData[index];
     setEditData({
-      emailId: tempArr?.emailId?.length > 1 ? tempArr?.emailId : [''],
+      emailId: tempArr?.emailId?.length > 0 ? tempArr?.emailId : [''],
       country: tempArr?.country,
       address: tempArr?.address,
       contact: {
@@ -712,7 +799,7 @@ console.log(apiData,"apiData")
   const uploadDocumentHandler = async (e) => {
     e.preventDefault();
     if (!newDoc?.document) {
-      handleErrorToast('please upload a document first');
+      handleErrorToast('please Select a document first');
     } else if (!newDoc?.name) {
       handleErrorToast('please provide a document first');
     } else {
@@ -722,6 +809,7 @@ console.log(apiData,"apiData")
       data.name = newDoc.name;
       if (data?.originalName) handleSuccessToast('document uploaded successfully');
       setdocs([...docs, data]);
+      setFilteredDocs([...docs, data]);
       setNewDoc({
         document: null,
         name: '',
@@ -741,9 +829,8 @@ console.log(apiData,"apiData")
   };
 
   const deleteDocumentHandler = (document, index) => {
-    let tempArray = docs;
-    tempArray.splice(index, 1);
-    setdocs(tempArray);
+    setFilteredDocs([...filteredDocs.slice(0, index), ...filteredDocs.slice(index + 1)]);
+    setdocs([...docs.slice(0, index), ...docs.slice(index + 1)]);
     let payload = {
       supplierId: supplierData._id,
       path: document?.path,
@@ -754,9 +841,9 @@ console.log(apiData,"apiData")
   const filterDocBySearch = (searchQuery) => {
     if (searchQuery.length > 0) {
       let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
-      setdocs(filteredArray);
+      setFilteredDocs(filteredArray);
     } else {
-      setdocs(supplierData?.extraDocument ?? []);
+      setFilteredDocs([...docs]);
     }
   };
 
@@ -809,7 +896,9 @@ console.log(apiData,"apiData")
                   >
                     <>
                       {' '}
-                      <option>Select an option</option>
+                      <option disabled value="">
+                        Select an option
+                      </option>
                       <option value="Active">Active</option>
                       <option value="InActive">Not active</option>
                     </>
@@ -1027,7 +1116,7 @@ console.log(apiData,"apiData")
                               value={editData?.pinCode}
                               onWheel={(e) => e.target.blur()}
                               onChange={(e) => {
-                                gettingPins(e.target.value);
+                                // gettingPins(e.target.value);
                                 handleAddressUpdate(e.target.value, e.target.name);
                               }}
                             />
@@ -1068,27 +1157,49 @@ console.log(apiData,"apiData")
 
                         <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                           <div className="d-flex">
-                            <input
+                            <select
+                              name="country"
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              // className={`${styles.code_phone} input border-right-0`}
+                              value={editData?.country}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              {' '}
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {getCountriesMasterData?.map((options, index) => {
+                                return (
+                                  <option key={index} value={`${options.Country}`}>
+                                    {options.Country}
+                                  </option>
+                                );
+                              })}{' '}
+                            </select>
+                            {/* <input
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
                               name="country"
                               onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                               value={editData?.country}
-                              onChange={(e) => handleAddressUpdate(e.target.value, e.target.name)}
-                            />
-                            <label className={`${styles.label_heading} label_heading`}>
-                              Country
-                              <strong className="text-danger">*</strong>
-                            </label>
-                            <img
-                              className={`${styles.search_image} img-fluid`}
-                              src="/static/search-grey.svg"
+                              onChange={(e) => {handleAddressUpdate(e.target.value.replace(/[^a-zA-Z]+/g, ''), e.target.name)}}
+                            /> */}
+                           
+                         
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Country
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
                               alt="Search"
                             />
-                          </div>
                         </div>
-
+                        </div>
                         <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                           <div className={`${styles.phone_card}`}>
                             <select
@@ -1101,11 +1212,12 @@ console.log(apiData,"apiData")
                                 handleAddressUpdate(e.target.value, e.target.name);
                               }}
                             >
-                              <option value="+91">+91</option>
-                              <option value="+1">+1</option>
-                              <option value="+92">+92</option>
-                              <option value="+95">+95</option>
-                              <option value="+24">+24</option>
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
                             </select>
                             <input
                               type="tel"
@@ -1135,11 +1247,12 @@ console.log(apiData,"apiData")
                               }}
                             >
                               {' '}
-                              <option value="+91">+91</option>
-                              <option value="+1">+1</option>
-                              <option value="+92">+92</option>
-                              <option value="+95">+95</option>
-                              <option value="+24">+24</option>
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
                             </select>
                             <input
                               type="tel"
@@ -1184,12 +1297,14 @@ console.log(apiData,"apiData")
                                 src="/static/add-btn.svg"
                                 alt="Search"
                               />
-                            {editData?.emailId?.length > 1 &&  <img
-                                onClick={() => handleDeleteUpdateAddress(index)}
-                                src="/static/delete 2.svg"
-                                className={`${styles.plus_add} img-fluid`}
-                                alt="Delete"
-                              />}
+                              {editData?.emailId?.length > 1 && (
+                                <img
+                                  onClick={() => handleDeleteUpdateAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  className={`${styles.plus_add} img-fluid`}
+                                  alt="Delete"
+                                />
+                              )}
                             </div>
                           </div>
                         ))}
@@ -1237,7 +1352,7 @@ console.log(apiData,"apiData")
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
-                              gettingPins(e.target.value);
+                              // gettingPins(e.target.value);
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
@@ -1278,24 +1393,33 @@ console.log(apiData,"apiData")
 
                       <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                         <div className="d-flex">
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
+                          <select
                             type="text"
                             name="country"
-                            onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                             value={keyAddressData?.country}
                             onChange={(e) => handleChange(e.target.value, e.target.name)}
-                          />
+                          >
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {getCountriesMasterData?.map((options, index) => {
+                              return (
+                                <option key={index} value={`${options.Country}`}>
+                                  {options.Country}
+                                </option>
+                              );
+                            })}{' '}
+                          </select>
                           <label className={`${styles.label_heading} label_heading`}>
                             Country
                             <strong className="text-danger">*</strong>
                           </label>
                           <img
-                            className={`${styles.search_image} img-fluid`}
-                            src="/static/search-grey.svg"
-                            alt="Search"
-                          />
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                         </div>
                       </div>
 
@@ -1311,11 +1435,12 @@ console.log(apiData,"apiData")
                               handleChange(e.target.value, e.target.name);
                             }}
                           >
-                            <option value="+91">+91</option>
-                            <option value="+1">+1</option>
-                            <option value="+92">+92</option>
-                            <option value="+95">+95</option>
-                            <option value="+24">+24</option>
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {countryCodes.map((countryCode) => (
+                              <option value={countryCode.code}>{countryCode.code}</option>
+                            ))}
                           </select>
                           <input
                             type="tel"
@@ -1345,11 +1470,12 @@ console.log(apiData,"apiData")
                             }}
                           >
                             {' '}
-                            <option value="+91">+91</option>
-                            <option value="+1">+1</option>
-                            <option value="+92">+92</option>
-                            <option value="+95">+95</option>
-                            <option value="+24">+24</option>
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {countryCodes.map((countryCode) => (
+                              <option value={countryCode.code}>{countryCode.code}</option>
+                            ))}
                           </select>
                           <input
                             type="tel"
@@ -1395,12 +1521,14 @@ console.log(apiData,"apiData")
                               alt="Search"
                             />
 
-                           {keyAddressData?.emailId?.length > 1 && <img
-                              onClick={() => handleDeleteNewAddress(index)}
-                              src="/static/delete 2.svg"
-                              className={`${styles.plus_add} img-fluid`}
-                              alt="Delete"
-                            />}
+                            {keyAddressData?.emailId?.length > 1 && (
+                              <img
+                                onClick={() => handleDeleteNewAddress(index)}
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete} img-fluid`}
+                                alt="Delete"
+                              />
+                            )}
                           </div>
                         </div>
                       ))}
@@ -1498,11 +1626,12 @@ console.log(apiData,"apiData")
                                       }}
                                     >
                                       {' '}
-                                      <option value="+91">+91</option>
-                                      <option value="+1">+1</option>
-                                      <option value="+92">+92</option>
-                                      <option value="+95">+95</option>
-                                      <option value="+24">+24</option>
+                                      <option disabled value="">
+                                        Select an option
+                                      </option>
+                                      {countryCodes.map((countryCode) => (
+                                        <option value={countryCode.code}>{countryCode.code}</option>
+                                      ))}
                                     </select>
                                     <input
                                       name="contact"
@@ -1592,7 +1721,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddPersonContact();
                   }}
@@ -1627,7 +1756,6 @@ console.log(apiData,"apiData")
                           <th></th>
                         </tr>
                       </thead>
-
                       <tbody>
                         {detail?.length > 0 &&
                           detail?.map((val, index) => {
@@ -1674,15 +1802,13 @@ console.log(apiData,"apiData")
                                       className="input"
                                       name="ownershipPercentage"
                                       onFocus={(e) => {
-                                        handleFocusChange(index, true);
-                                        e.target.type = 'number';
+                                        changeFiledFocus(true, index), (e.target.type = 'number');
                                       }}
                                       onBlur={(e) => {
-                                        handleFocusChange(index, false);
-                                        e.target.type = 'text';
+                                        changeFiledFocus(false, index), (e.target.type = 'text');
                                       }}
                                       value={
-                                        isPercentageInFocus[index].value
+                                        isPercentageInFocus[index]
                                           ? val?.ownershipPercentage
                                           : Number(val?.ownershipPercentage)?.toLocaleString('en-In', {
                                               maximumFractionDigits: 2,
@@ -1743,7 +1869,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddShare();
                   }}
@@ -1803,7 +1929,8 @@ console.log(apiData,"apiData")
                                     onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     readOnly={!val.action}
                                     onChange={(e) => {
-                                      onChangeHandler4(e.target.name, e.target.value, index);
+                                      if (!e.target.value.match(/[^a-zA-Z]+/g))
+                                        onChangeHandler4(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 )}
@@ -1820,7 +1947,8 @@ console.log(apiData,"apiData")
                                     onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     readOnly={!val.action}
                                     onChange={(e) => {
-                                      onChangeHandler4(e.target.name, e.target.value, index);
+                                      if (!e.target.value.match(/[^a-zA-Z]+/g))
+                                        onChangeHandler4(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 )}
@@ -1878,7 +2006,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddDirector();
                   }}
@@ -1973,6 +2101,7 @@ console.log(apiData,"apiData")
                                   <span>{val?.hsnCode}</span>
                                 ) : (
                                   <input
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                                     className="input font-weight-bold"
                                     name="hsnCode"
                                     value={val?.hsnCode}
@@ -1989,6 +2118,11 @@ console.log(apiData,"apiData")
                                   <span>{val?.commodity}</span>
                                 ) : (
                                   <input
+                                    onKeyDown={(evt) =>
+                                      [...specialCharacter, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
+                                        evt.key,
+                                      ) && evt.preventDefault()
+                                    }
                                     className="input"
                                     name="commodity"
                                     value={val?.commodity}
@@ -2042,7 +2176,7 @@ console.log(apiData,"apiData")
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddCommodity();
                   }}
@@ -2295,6 +2429,7 @@ console.log(apiData,"apiData")
                           id="otherDocName"
                           className={`${styles.value} input form-control`}
                           type="text"
+                          value={newDoc?.name}
                         />
                         <Form.Label className={`${styles.label} label_heading`}>
                           Please Specify Document Name
@@ -2365,8 +2500,8 @@ console.log(apiData,"apiData")
                         </tr>
                       </thead>
                       <tbody>
-                        {docs &&
-                          docs?.map((document, index) => {
+                        {filteredDocs &&
+                          filteredDocs?.map((document, index) => {
                             if (document?.deleted) {
                               return null;
                             } else {

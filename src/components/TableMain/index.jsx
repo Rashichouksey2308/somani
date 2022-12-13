@@ -118,6 +118,8 @@ function Index({
             <tbody>
               {insuranceResponse &&
                 insuranceResponse?.data?.map((insured, index) => (
+
+                  
                   <tr key={index} className="table_row">
                     <td>{insured?.order?.orderId}</td>
                     <td
@@ -126,6 +128,7 @@ function Index({
                         handleRoute(insured);
                       }}
                     >
+                      {console.log(insured?.quotationRequest?.insuranceType,"typepe",insured.order.orderId)}
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>

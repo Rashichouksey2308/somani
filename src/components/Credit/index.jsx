@@ -170,7 +170,7 @@ const index = ({
 
   const [keyPersonData, setKeyPersonData] = useState({
     contact: {
-      callingCode: '',
+      callingCode: '+91',
       number: '',
     },
     department: '',
@@ -182,7 +182,7 @@ const index = ({
   useEffect(() => {
     setKeyPersonData(personData);
   }, [personData]);
-
+console.log(keyPersonData,"keyPersonData")
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
 
@@ -214,6 +214,7 @@ const index = ({
     dispatch(getPincodes(value));
   };
   const onKeyPersonSave = () => {
+   
     addPersonArr(keyPersonData);
   };
 
@@ -1251,7 +1252,7 @@ const index = ({
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>
                                 <td>{person.department}</td>
-                                <td>{person.contact.number}</td>
+                                <td>{person.contact.callingCode} {" "} {person.contact.number}</td>
                                 <td>{person.email}</td>
                                 <td>
                                   <div className="d-flex">

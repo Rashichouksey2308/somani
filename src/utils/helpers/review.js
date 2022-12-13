@@ -129,10 +129,9 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
     if (last > previous && previous < latest) {
       return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />;
     }
-
-    if (last === previous && previous > latest) {
-      return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
-    }
+    // if (last === previous && previous > latest) {
+    //   return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
+    // }
     if (last > previous && previous < latest) {
       return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />;
     }
@@ -144,9 +143,9 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
       return <img src="/static/trend-orange-333.svg" alt="Profit" className="img-fluid" />;
     }
 
-    if (last === previous && previous === latest && last !== undefined) {
-      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
-    }
+    // if (last === previous && previous === latest && last !== undefined) {
+    //   return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
+    // }
 
     if (last > previous && previous > latest) {
       return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />;

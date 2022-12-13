@@ -303,7 +303,7 @@ const Index = ({
                 value={addPrefixOrSuffix(
                   newLcVal ? newLcVal : 0,
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
-                  'front',
+                  'front',termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()=="INR"?"en-IN":"en-En"
                 )}
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
@@ -692,7 +692,7 @@ const Index = ({
                     Select an option
                   </option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
+                  <option value="DaysfromVesselDate">Days from Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -739,7 +739,7 @@ const Index = ({
                 required
               />
               <label className={`${styles.label} label_heading`}>
-                Days From Vessel Date
+                Days From Vessel Discharge Date
                 <strong className="text-danger">*</strong>
               </label>
             </div>

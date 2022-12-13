@@ -108,7 +108,9 @@ function Index(props) {
           orderValueCurrency: data?.orderValueCurrency,
           paymentTerm: data.paymentTerm,
           cheque:data.cheque || [],
-          cin:data.cin
+          cin:data.cin,
+          orderId:data.orderId,
+          associateBuyerShort:data.associateBuyerShort
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -136,7 +138,7 @@ function Index(props) {
           sellerAddress: _get(data, 'seller.addresses[0]', {}),
           buyerAddress: _get(data, 'buyer.addresses[0]', {}),
           shortseller: data?.seller?.shortName,
-         shortbuyer: `${data?.buyer.shortName}`,
+          shortbuyer: `${data?.buyer.shortName}`,
 
           sellerSignature: data?.seller?.name,
           buyerSignature: data?.buyer?.name,
@@ -170,6 +172,7 @@ function Index(props) {
           financialBank: data?.financingBank?.name,
           financialAddress: '',
           associateBuyer: _get(data, 'company.companyName', ''),
+          associateBuyerShort: data?.associateBuyer?.shortName,
           associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
           associateBuyerGst: data?.associateBuyer?.gstin,
           associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
@@ -195,7 +198,8 @@ function Index(props) {
           orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
           paymentTerm: data.deliveryTerms.paymentTerms,
           cheque: data.deliveryTerms?.cheque || [],
-          cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN
+          cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+          orderId:data?.order?.orderId?.slice(-3) || ""
         });
       }
     }
@@ -242,12 +246,12 @@ function Index(props) {
           ) : null}
           {props.preview == ''
             ? active == 'none'
-              ? AssociateShipAgreement(data, props.preview, props.setPreviewValue)
+              ? AssociateShipAgreement(data, props.preview, props.setPreviewValue,active)
               : active == 'one'
               ? UnderTaking_1(data, props.preview, props.setPreviewValue)
               : UnderTaking_2(data, props.preview, props.setPreviewValue)
             : props.type == 'ASSO'
-            ? AssociateShipAgreement(data, props.preview, props.setPreviewValue)
+            ? AssociateShipAgreement(data, props.preview, props.setPreviewValue,active)
             : props.type == 'UNDERTAKING1'
             ? UnderTaking_1(data, props.preview, props.setPreviewValue)
             : UnderTaking_2(data, props.preview, props.setPreviewValue)}

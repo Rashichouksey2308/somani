@@ -93,7 +93,7 @@ function Index(props) {
    
    
   }
-  console.log(addressList,"addressList")
+  console.log(cmaState,"addressList")
   useEffect(() => {
     if (window) {
      
@@ -571,7 +571,7 @@ const cancelEditAddress = () => {
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Dr. Amin Controllers Private Limited">Dr. Amin Controllers Private Limited</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
@@ -605,7 +605,7 @@ const cancelEditAddress = () => {
                   }}
                   name="gstin"
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.filter((val,index)=>{
                     if(val!== undefined){
                       return val
@@ -670,7 +670,7 @@ const cancelEditAddress = () => {
            props.vendor.gstin
            )
         )}
-         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+         {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,)}
       </div>
     </>
   );
@@ -707,10 +707,10 @@ const editData = (
                 editNewAddress(e.target.name, e.target.value);
               }}
             >
-              <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier">Supplier</option>
+              <option value="">Select an option</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -718,7 +718,7 @@ const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Supplier' || addressEditType == 'Registered' ? (
+        {addressEditType == 'Corporate' || addressEditType == 'Registered' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control

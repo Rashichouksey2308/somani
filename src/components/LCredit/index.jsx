@@ -16,14 +16,12 @@ import { handleErrorToast } from '@/utils/helpers/global';
 import { getPorts } from 'redux/masters/action';
 
 function Index() {
-
   const dispatch = useDispatch();
 
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
 
   useEffect(() => {
     dispatch(getPorts());
-  
   }, []);
 
   const [editInput, setEditInput] = useState(false);
@@ -60,7 +58,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-
+  
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -163,7 +161,7 @@ function Index() {
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
-
+ 
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
@@ -183,8 +181,8 @@ function Index() {
       e.target.value == 'transhipments' ||
       e.target.value == 'formOfDocumentaryCredit' ||
       e.target.value == 'creditAvailableBy' ||
-      e.target.value == 'applicant' || 
-      e.target.value == 'portOfDischarge' || 
+      e.target.value == 'applicant' ||
+      e.target.value == 'portOfDischarge' ||
       e.target.value == 'portOfLoading'
     ) {
       setFieldType('drop');
@@ -199,7 +197,9 @@ function Index() {
     setDrop(val2);
 
     newInput['existingValue'] = lcData[e.target.value] || '';
-    if (e.target.value === 'draftAt') newInput['existingValue'] = lcData['numberOfDays'] || '';
+    if (e.target.value === 'draftAt')
+      newInput['existingValue'] =
+        lcData.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${lcData['numberOfDays']} Days` || '';
     newInput['dropDownValue'] = val1 || '';
     newInput['newValue'] = '';
 
@@ -212,10 +212,10 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...clauseData };
-    if(drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == "Usuance"){
-      newInput1['numberOfDays'] = value
-    }else{
-    newInput1[drop] = value;
+    if (drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
+      newInput1['numberOfDays'] = value;
+    } else {
+      newInput1[drop] = value;
     }
     setClauseData(newInput1);
   };
@@ -234,13 +234,17 @@ function Index() {
     else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
       handleErrorToast('CLAUSE ALREADY ADDED');
     else {
+      let tempClauseObj = { ...clauseObj };
+      if (clauseObj.dropDownValue == '(42C) Draft At') {
+        tempClauseObj.existingValue=  tempClauseObj.existingValue.slice(10,tempClauseObj.existingValue.length - 5);
+      }
       const newArr = [...clauseArr];
       if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
         setFieldType('');
       }
       inputRef1.current.value = '';
       setClauseObj(initialState);
-      newArr.push(clauseObj);
+      newArr.push(tempClauseObj);
       setClauseArr(newArr);
       // setClauseObj({
       //   existingValue: '',
@@ -287,7 +291,7 @@ function Index() {
       }
       return false;
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC DRAFT';
+      let toastMessage = `PLEASE UPLOAD ${lcModuleData?.isPostAmmended ? "LC AMENDMENT DRAFT" :  "LC DRAFT"}`;
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
@@ -298,17 +302,44 @@ function Index() {
 
   const handleSubmit = () => {
     if (!validation()) return;
-
+    console.log(clauseArr, 'clauseArr');
     let sendLcData = { ...clauseData };
+    console.log(sendLcData, 'sendLcData');
+    let isOK = [];
+    clauseArr.forEach((val, index) => {
+      if (val.dropDownValue == '(31D) Date Of Expiry') {
+        isOK.push('date');
+      }
+      if (val.dropDownValue == '(31D) Place Of Expiry') {
+        isOK.push('place');
+      }
+    });
+    if (!isOK.includes('date')) {
+      let toastMessage = 'PLEASE ADD DATE OF EXPIRY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (!isOK.includes('place')) {
+      let toastMessage = 'PLEASE ADD PLACE OF EXPIRY';
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage });
+      }
+      return false;
+    }
 
     sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
     sendLcData.dateOfIssue = lcData.dateOfIssue;
-    // setLcData(sendLcData);
+    setLcData(sendLcData);
 
     let fd = new FormData();
     fd.append('lcApplication', JSON.stringify(sendLcData));
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
     fd.append('document1', lcDoc.lcDraftDoc);
+    fd.append('route',  lcModuleData.isPostAmmended ? 'postUpdated' : 'amend');
+    fd.append('isAmmended', lcModuleData.isPostAmmended ? true : false);
+
 
     dispatch(UpdateLcAmendment(fd));
   };
@@ -319,14 +350,14 @@ function Index() {
     if (fieldType == 'date') {
       setExistingValue(moment(value).format('DD-MM-YYYY'));
     }
-     if(fieldType == 'number') {
-       setExistingValue(Number(value).toLocaleString('en-In', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }))
-    }
-
-   else if (fieldType == 'drop') {
+    if (fieldType == 'number') {
+      setExistingValue(
+        Number(value).toLocaleString('en-In', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }),
+      );
+    } else if (fieldType == 'drop') {
       if (value == 'Yes') {
         setExistingValue('Allowed');
         return;
@@ -349,11 +380,9 @@ function Index() {
     }
   };
   const getValue = (value, toCheck) => {
-
-    if (toCheck == '(32D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+    if (toCheck == '(31D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
-    }
-    else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
+    } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
       if (value == 'Yes') {
         return 'Allowed';
       }
@@ -366,12 +395,14 @@ function Index() {
       if (value == '') {
         return '';
       }
-
-    }else if(toCheck == '(32B) Currency Code & Amount'){
+    } else if (toCheck == '(32B) Currency Code & Amount') {
       return Number(value).toLocaleString('en-In', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      })
+      });
+    } 
+     else if (toCheck == '(44F) Port of Discharge') {
+      return `${value}, India`;
     } 
     else {
       return value;
@@ -385,7 +416,7 @@ function Index() {
   const [isDisabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    if (clauseObj?.dropDownValue == '(42C) DRAFT AT') {
+    if (clauseObj?.dropDownValue == '(42C) Draft At') {
       if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
         setDisabled(true);
       }
@@ -406,7 +437,12 @@ function Index() {
       return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getValue(existing, value)}  %`;
-    } else {
+    } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+      return `Usuance - ${getValue(existing, value)} days`;
+    }else if (value === '(44F) Port of Discharge') {
+      return `${getValue(existing, value)}`;
+    } 
+     else {
       return getValue(existing, value);
     }
   };
@@ -492,7 +528,8 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfIssue"
-                            value={lcData?.dateOfIssue}
+                            defaultDate={lcData?.dateOfIssue !== '' ? lcData?.dateOfIssue : null}
+                            // value={lcData?.dateOfIssue ? moment(lcData?.dateOfIssue).format('DD-MM-YYYY') : '' }
                             saveDate={saveDate}
                             labelName="(31C) Date Of Issue"
                           />
@@ -519,12 +556,12 @@ function Index() {
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                             <option value="">Select an option</option>
+                            <option value="">Select an option</option>
                             <option value="formOfDocumentaryCredit">(40A) Form of Documentary Credit</option>
                             <option value="applicableRules">(40E) Application Rules</option>
                             <option value="dateOfExpiry">(31D) Date Of Expiry</option>
-                            <option value="placeOfExpiry">(31D) Place Of Expiry</option> 
-                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option> 
+                            <option value="placeOfExpiry">(31D) Place Of Expiry</option>
+                            <option value="lcIssuingBank">(51D) LC Issuing Bank</option>
                             <option value="applicant">(50) Applicant</option>
                             <option value="beneficiary">(59) Beneficiary</option>
                             <option value="currecyCodeAndAmountValue">(32B) Currency Code &amp; Amount</option>
@@ -550,7 +587,10 @@ function Index() {
                             <option value="secondAdvisingBank"> (57A) Second Advising Bank, if Applicable</option>
                             <option value="requestedConfirmationParty">(58A) Requested Confirmation Party</option>
                             <option value="charges"> (71B) Charges</option>
-                            <option value="instructionToBank">  (78) Instructions To Paying / Accepting / Negotiating Bank</option>
+                            <option value="instructionToBank">
+                              {' '}
+                              (78) Instructions To Paying / Accepting / Negotiating Bank
+                            </option>
                             <option value="senderToReceiverInformation"> (72) Sender To Receiver Information</option>
                           </select>
 
@@ -591,7 +631,7 @@ function Index() {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-                          onWheel={(event) => event.currentTarget.blur()}
+                              onWheel={(event) => event.currentTarget.blur()}
                               type="number"
                               value={clauseObj?.newValue}
                               disabled={isDisabled}
@@ -662,22 +702,27 @@ function Index() {
                                   </>
                                 ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
                                   <>
-                                    {getPortsMasterData.filter((val, index) => {
-                                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase() == 'yes') {
+                                    {getPortsMasterData
+                                      .filter((val, index) => {
+                                        if (
+                                          val.Country.toLowerCase() == 'india' &&
+                                          val.Approved.toLowerCase() == 'yes'
+                                        ) {
                                           return val;
                                         }
                                       })
                                       .map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
-                                          {val.Port_Name}, {val.Country}
+                                            {val.Port_Name}, {val.Country}
                                           </option>
                                         );
                                       })}
                                   </>
                                 ) : clauseObj.dropDownValue === '(44E) Port of Loading' ? (
                                   <>
-                                    {getPortsMasterData.filter((val, index) => {
+                                    {getPortsMasterData
+                                      .filter((val, index) => {
                                         if (val.Country.toLowerCase() !== 'india') {
                                           return val;
                                         }
@@ -685,12 +730,12 @@ function Index() {
                                       .map((val, index) => {
                                         return (
                                           <option value={`${val.Port_Name}`}>
-                                          {val.Port_Name}, {val.Country}
+                                            {val.Port_Name}, {val.Country}
                                           </option>
                                         );
                                       })}
                                   </>
-                                ) :  (
+                                ) : (
                                   <>
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
@@ -861,12 +906,17 @@ function Index() {
                                         <td>{arr.dropDownValue}</td>
                                         <td>{getExistingValue(arr.dropDownValue, arr.existingValue)}</td>
                                         <td>
-                                          {arr.dropDownValue === '(32B) Currency Code & Amount'
-                                            ? `${lcModuleData?.order?.orderCurrency} `
-                                            : ''}
-                                          {arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
-                                            : getValue(arr.newValue, arr.dropDownValue)}
+                                          
+                                        {arr.dropDownValue === '(42C) Draft At' &&lcData?.atSight == 'Usuance'
+                                            ? `Usuance - ${getValue(arr.newValue, arr.dropDownValue)} days `
+                                            :arr.dropDownValue === '(32B) Currency Code & Amount'
+                                            ? `${lcModuleData?.order?.orderCurrency} ${getValue(arr.newValue, arr.dropDownValue)} `
+                                            : arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
+                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : 
+                                            arr.dropDownValue === '(44F) Port of Discharge'
+                                          ? `${getValue(arr.newValue, arr.dropDownValue)}`
+                                          :
+                                             getValue(arr.newValue, arr.dropDownValue)}
                                         </td>
                                         <td>
                                           {/* <img
@@ -904,8 +954,8 @@ function Index() {
               lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
-              documentName="LC DRAFT"
-              module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  }
+              documentName={lcModuleData?.isPostAmmended ? "LC AMENDMENT DRAFT" :  "LC DRAFT"}
+              module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             />
           </div>
         </div>
