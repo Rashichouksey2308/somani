@@ -2367,12 +2367,12 @@ function Index() {
                                   background: `${
                                     filteredCreditRating?.length > 0
                                     ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                                    ? '#ff423045'
+                                    ? '#ffccc7'
                                     : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                                    ? '#ad7e0742'
+                                    ? '#f7e1ac'
                                     : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                                    ? '#00b81e52'
-                                    : 'rgba(0, 184, 31, 0.1882352941)'
+                                    ? '#b2d9b8'
+                                    : '#dcedba'
                                     : null
                                     }`,
                                   width: '64px',
@@ -2473,12 +2473,12 @@ function Index() {
                                   background: `${
                         filteredCreditRating?.length > 0
                           ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#ff423045'
+                            ? '#ffccc7'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                            ? '#ad7e0742'
+                            ? '#f7e1ac'
                             : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                            ? '#00b81e52'
-                            : 'rgba(0, 184, 31, 0.1882352941)'
+                            ? '#b2d9b8'
+                            : '#dcedba'
                           : null
                       }`,
                                   width: '64px',
