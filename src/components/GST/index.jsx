@@ -47,7 +47,7 @@ import _get from 'lodash/get';
 // Chart.register(linear);
 
 
-function Index({ companyData, orderList, GstDataHandler, alertObj }) {
+function Index({ companyData, orderList, GstDataHandler, alertObj,fetchedGstData }) {
   const [gstOption, setGstOption] = useState([]);
 
   const options = gstOption;
@@ -286,8 +286,12 @@ console.log(filteredData,'filteredData1')
           GstDataHandler(filteredData[filteredData.length-1]);
         console.log(filteredData[filteredData.length-1],'handleChangeGstin 4.1')
       }
+      console.log(fetchedGstData,'fetchedGstData')
+      if(fetchedGstData && _.isEqual(fetchedGstData?.gstin?.sort(),selectedGstin)){
+        SetGstFilteredData(fetchedGstData);
+        GstDataHandler(fetchedGstData);
+      }
     }
-
   }, [selected])
 
   const handleChangeGstin = (e) => {
