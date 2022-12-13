@@ -47,7 +47,7 @@ function Index() {
       }
         doc.save('MarginMoney.pdf');
       },
-      // margin:margins,
+      margin:[40,0,40,0],
       autoPaging: 'text',
     });
   };

@@ -18,113 +18,127 @@ export default function AssignmentLetterPreview(data) {
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
                 <td align="center" style={{ padding: '15px 0 20px' }}>
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      marginBottom: '0',
+                      display:'block'
                     }}
                   >
                     <strong>
                       Assignment Letter between Seller, Buyer and Supplier
                     </strong>
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     This Assignment Letter is made at the place and on the day as set out in <strong>Schedule I</strong>{' '}
                     hereto by and between:
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     <strong>Seller</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred
                     to as the “<strong>Seller</strong>”, which expression shall, unless excluded by or repugnant to the
                     context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="center">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     And
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     <strong>Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred
                     to as the “<strong>Buyer</strong>”, which expression shall, unless excluded by or repugnant to the
                     context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="center">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     And
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter
                     referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or
                     repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of
                     the Third Part.
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     WHEREAS it is hereby agreed that the Supplier accepts that the payment of the goods shall be made by
@@ -134,30 +148,34 @@ export default function AssignmentLetterPreview(data) {
                     (“Contract”) by and between Supplier and Buyer, with the quality and price of goods as agreed
                     between them with tolerance level as mentioned in Schedule I and contained in the Sales Contract
                     dated mentioned in Schedule I.
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     WHEREAS it has been agreed between the parties that the goods are to be loaded by the Supplier in
                     the month mentioned in Schedule I, at a price mentioned in Schedule I.{' '}
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     WHEREAS the Buyer hereby confirms to remain responsible for the performance of the said sales
@@ -166,23 +184,25 @@ export default function AssignmentLetterPreview(data) {
                     payment of the price in the event where Supplier is unable to obtain payment under the LC and hereby
                     agree to indemnify Supplier for any loss, damage or expense including, without limitation, any
                     liability, Supplier may incur to the Seller by reason of the Invoice being addressed to Seller.
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td align="justify">
-                  <p
+                  <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
+                      display:'block',
+                      paddingBottom:'16px'
                     }}
                   >
                     The title in Goods shall pass on to Seller upon receipt of payment by Supplier from the Seller and
                     the risks associated therewith shall pass on to Buyer as per Incoterms 2020. Buyer shall be solely
                     responsible for performance of the obligations enumerated in the sales contract mentioned herein
                     above. The supplier shall have no claim whatsoever.
-                  </p>
+                  </span>
                 </td>
               </tr>
               <tr>
@@ -193,7 +213,8 @@ export default function AssignmentLetterPreview(data) {
                       fontSize: '15px',
                       fontWeight: 'bold',
                       color: '#000000',
-                      marginBottom: '25px',
+                      display:'block',
+                      paddingBottom:'25px'
                     }}
                   >
                     Schedule I
@@ -213,16 +234,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Place of execution of Assignment Letter
-                        </p>
+                        </span>
                       </td>
                       <td
                         width="70%"
@@ -231,16 +252,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.placeOfExecution}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -250,16 +271,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Date of execution of Assignment Letter
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -267,17 +288,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data.dateOfExecution}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -287,16 +308,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Name of Seller
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -304,17 +325,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data.seller}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -324,16 +345,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Address of Seller
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -341,17 +362,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.sellerAddress?.fullAddress},{data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
                           {data.sellerAddress?.pinCode}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -361,16 +382,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Name of Buyer
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -378,17 +399,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data.associateBuyer}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -398,16 +419,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Address of Buyer
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -415,16 +436,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.associateBuyerAddress}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -434,16 +455,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Name of Supplier
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -451,17 +472,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data.supplier}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -471,16 +492,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Address of Supplier
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -488,17 +509,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.supplierAddress?.fullAddress},{data.supplierAddress?.city}{' '}
                           {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -508,16 +529,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Description of Goods
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -525,12 +546,12 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           <>
@@ -562,7 +583,7 @@ export default function AssignmentLetterPreview(data) {
                                   </tr>
                                 ))}
                             </table>
-                            {data?.specComment?.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000'}}>Comments</strong> : null}
+                            {data?.specComment?.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', padding:'10px 0', display:'block'}}>Comments</strong> : null}
                             <ol style={{paddingLeft:'20px'}}>
                               {data.specComment.length > 0 &&
                                 data.specComment.map((val, index) => {
@@ -574,7 +595,7 @@ export default function AssignmentLetterPreview(data) {
                                 })}
                             </ol>
                           </>
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -584,16 +605,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Quantity of Goods 
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -601,18 +622,18 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.quan?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
                           })}{' '} {data?.unitOfQuantity?.toUpperCase()}
-                        </p>
+                        </span>
                       </td>
                     </tr>
 
@@ -623,16 +644,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                          Per Unit price of Goods
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -640,19 +661,19 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                            {data.curr}{" "}
                             {data.priceOfGoods?.toLocaleString(`${data.orderValueCurrency=="INR"?"en-In":"en-En"}`, {
                               maximumFractionDigits: 2,
                             })}{' '}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -662,16 +683,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Tolerance levels
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -679,19 +700,19 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                          +/- {data.toleranceLevel?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
                           })}{' '}
                           %
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -701,16 +722,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Load Port
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -718,16 +739,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.lordPort}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -737,16 +758,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Discharge Port
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -754,16 +775,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {data.dischargePort}, India
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -773,16 +794,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Inco-Terms
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -790,17 +811,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data.incoTerms}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -810,16 +831,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Month of loading of Cargo
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -827,17 +848,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data?.loadingCargo2}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -847,16 +868,16 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           Date of Sales Contract between Supplier and Buyer
-                        </p>
+                        </span>
                       </td>
                       <td
                         style={{
@@ -864,17 +885,17 @@ export default function AssignmentLetterPreview(data) {
                           borderRight: '1px solid #000000',
                         }}
                       >
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           {' '}
                           {data?.dateOfContract}
-                        </p>
+                        </span>
                       </td>
                     </tr>
                   </table>
@@ -885,93 +906,100 @@ export default function AssignmentLetterPreview(data) {
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="left" colSpan={2}>
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            paddingTop: '30px',
+                            display:'block',
+                            padding:'25px 0'
                           }}
                         >
                           <strong>SIGNATURE PAGE</strong>
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
                       <td align="left" width="70%">
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           .................................................
-                        </p>
+                        </span>
                       </td>
                       <td align="left" width="30%">
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           .................................................
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
                       <td align="left">
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            display:'block',
+                            paddingBottom:'16px'
                           }}
                         >
                           <strong>(Seller)</strong>
-                        </p>
+                        </span>
                       </td>
                       <td align="left">
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            display:'block',
+                            paddingBottom:'16px'
                           }}
                         >
                           <strong>(Buyer)</strong>
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
                       <td align="left" colSpan={2}>
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            marginBottom: '0',
+                            display:'block'
                           }}
                         >
                           .................................................
-                        </p>
+                        </span>
                       </td>
                     </tr>
                     <tr>
                       <td align="left" colSpan={2}>
-                        <p
+                        <span
                           style={{
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
+                            display:'block',
+                            paddingBottom:'16px'
                           }}
                         >
                           <strong>(Shipper)</strong>
-                        </p>
+                        </span>
                       </td>
                     </tr>
                   </table>

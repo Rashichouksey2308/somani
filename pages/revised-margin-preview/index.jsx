@@ -49,7 +49,9 @@ function Index() {
       }
         doc.save('RevisedMarginMoney.pdf');
       },
+      margin:[40,0,40,0],
       autoPaging: 'text',
+      
     });
   };
   const shareEmail = () => {}
@@ -79,7 +81,7 @@ function Index() {
                 <span className={`${styles.termValue} text-color`}>{marginData?.company?.companyName}</span>
               </div>
             </Col>
-            <Col md={4} className="text-center">
+            <Col md={4} className="text-center p-0">
               <span className="download-pdf-title">REVISED MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right} align-self-center`}>
