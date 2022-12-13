@@ -198,6 +198,7 @@ function Index() {
           doc.save('TransactionSummary.pdf');
         },
 
+        margin:[40,0,40,0],
         autoPaging: 'text',
       },
     );
@@ -2481,11 +2482,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
         </tr>
         <tr>
           <td valign="top" align="left">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <br />
             <br />
             <br />

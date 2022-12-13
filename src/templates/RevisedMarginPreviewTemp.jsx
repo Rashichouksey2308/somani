@@ -6,7 +6,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
-        <td valign="top" style={{ paddingTop: '30px' }}>
+        <td valign="top" style={{ paddingTop: '10px' }}>
           <table
             width="100%"
             bgColor="#D8EAFF"
