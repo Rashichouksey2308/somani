@@ -199,7 +199,7 @@ function Index() {
                         CC:{' '}
                         <span className={`${styles.bold} ${styles.width2} `}>
                           {val.name}, M/S {_get(ReleaseOrderData, 'data[0].company.companyName')},
-                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}
+                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}{' '}
                         </span>
                       </>
                     );
@@ -274,7 +274,7 @@ function Index() {
                     <span className={`${styles.bold} `}>
                       After delivery of material against this DO the balance Qty. will be as under :
                       <p>
-                        a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {balanceQuantity}{' '}
+                        a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {balanceQuantity==0?"Nil":balanceQuantity}{' '}
                         {_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '').toUpperCase()}s
                       </p>
                     </span>

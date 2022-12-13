@@ -1483,8 +1483,7 @@ function Index() {
         cellPadding="0"
         cellSpacing="0"
         border="0"
-        bgColor="#f3f4f7"
-
+        // bgColor="#f3f4f7"
       >
         <tr>
           <td valign="top">
@@ -1498,7 +1497,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
                 borderCollapse: 'separate',
                 borderSpacing: '0px',
               }}
@@ -1982,7 +1981,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -2235,7 +2234,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -2787,10 +2786,10 @@ function Index() {
               </tr>
             </table>
           </td>
-        </tr>
-       
+        </tr>       
         <tr>
           <td valign="top">
+            <br/><br/><br/><br/><br/><br/>
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2801,7 +2800,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
 
@@ -3054,7 +3053,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3370,7 +3369,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3542,7 +3541,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3734,7 +3733,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3979,7 +3978,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -4266,7 +4265,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -4410,7 +4409,7 @@ function Index() {
                                 color: `${debtProfileColor(debt.conduct)}`,
                                 lineHeight: '21px',
                                 fontWeight: 'bold',
-                                padding: '5px 35px 0',
+                                padding: '10px 35px 0',
                                 marginTop: '10px',
                               }}
                             >
@@ -4557,7 +4556,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -4798,7 +4797,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -5506,7 +5505,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -5674,7 +5673,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -5924,7 +5923,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -7109,7 +7108,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -7331,7 +7330,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -7464,7 +7463,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr style={{ borderBottom: '2px solid #CAD6E6' }}>
@@ -8313,10 +8312,10 @@ function Index() {
       }
           doc.save('CAM.pdf');
         },
-        margin:[40, 0, 40, 15],
+        margin:[40, 0, 40, 12],
         html2canvas: {
-          scale: 0.33, //this was my solution, you have to adjust to your size
-          width: 1000, //for some reason width does nothing
+          scale: 0.38, //this was my solution, you have to adjust to your size
+          width: 1500, //for some reason width does nothing
         },
 
         autoPaging: 'text',
