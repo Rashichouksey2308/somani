@@ -1386,8 +1386,8 @@ function Index() {
       return camData?._id === rating.order;
     });
     const getRotate = (rat = 1) => {
-      let r = Math.floor(rat);
-      // let r = 4
+      // let r = Math.floor(rat);
+      let r = 5
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
         rotateImageUrl.top = '37%';
@@ -1479,7 +1479,7 @@ function Index() {
     return (
       <table
         width="1500px"
-        style={{ fontFamily: 'Arial, Helvetica, sans-serif' , marginLeft:'100px'}}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif'}}
         cellPadding="0"
         cellSpacing="0"
         border="0"
