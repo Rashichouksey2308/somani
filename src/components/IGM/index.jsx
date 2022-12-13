@@ -234,6 +234,17 @@ console.log(igmList,'igmList')
       }
     }
 
+    if(shipmentTypeBulk && _get(
+      TransitDetails,
+      `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
+      '',
+    ) === 'No') {
+      let tempObj = {...igmList}
+      tempObj.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','')
+      setIgmList(tempObj
+)
+    }
+
     if (_get(TransitDetails, `data[0].IGM`, false)) {
       setConsigneeInfo({
         name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '',
@@ -553,7 +564,7 @@ console.log(igmList,'igmList')
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{' '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{'  '}
                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase('en-IN')}{' '}
                   </span>
                 </div>
@@ -908,7 +919,7 @@ console.log(igmList,'igmList')
                                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                                   </div>
                                   <span className={styles.value}>
-                                    <span>{blEntry.blQuantity} </span>
+                                    <span>{blEntry.blQuantity} </span> {' '}
                                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                   </span>
                                 </div>
@@ -968,7 +979,7 @@ console.log(igmList,'igmList')
                                         BL Quantity <strong className="text-danger ml-n1">*</strong>
                                       </div>
                                       <span className={styles.value}>
-                                        <span>{blEntry?.blQuantity}</span>
+                                        <span>{blEntry?.blQuantity}</span>{' '}
                                         {blEntry?.blQuantity &&
                                           _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                       </span>

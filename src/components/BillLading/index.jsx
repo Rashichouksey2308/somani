@@ -565,8 +565,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
               <div className="d-flex align-items-center">
                 <div className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</div>
                 <div className={`${styles.dropDown} input`}>
-                  {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')}
-                  {/* {partShipmentAllowed ? 'Yes' : 'No'} */}
+                  {/* {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')} */}
+                  {partShipmentAllowed ? 'Yes' : 'No'}
                 </div>
               </div>
             </div>
@@ -761,7 +761,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
-                            // disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
+                            disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                             onFocus={(e) => {
                               setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
@@ -916,10 +916,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                           ) {
                                             onChangeContainerDetailsDocHandler(e, index);
                                           } else {
-                                            let toastMessage = 'only XLS files are allowed';
-                                            if (!toast.isActive(toastMessage.toUpperCase())) {
-                                              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-                                            }
+                                            handleErrorToast('only XLS files are allowed')
                                           }
                                         }}
                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
@@ -1051,7 +1048,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                             type="file"
                                             name={`containerNumberListDoc`}
                                             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                            onChange={(e) => uploadDoc(e, index)}
+                                            // onChange={(e) => uploadDoc(e, index)}
+                                            onChange={(e) => {
+                                              if (
+                                                e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') ||
+                                                e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')
+                                              ) {
+                                                uploadDoc(e, index);
+                                              } else {
+                                                handleErrorToast('only XLS files are allowed')
+                                              }
+                                            }}
                                           />
                                           <button className={`${styles.upload_btn} btn`}>Upload</button>
                                         </div>
