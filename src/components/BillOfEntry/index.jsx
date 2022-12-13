@@ -119,9 +119,10 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       document1: null,
       document2: null,
       document3: null,
+      document4: null,
     },
   ]);
-
+ console.log(billOfEntryData,"billOfEntryData")
   const totalCustomDuty = (index) => {
     let number = 0;
     dutyData[index]?.forEach((val) => {
@@ -359,9 +360,18 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         isOk = false;
         break;
       }
-
-      if (billOfEntryData[i].pdBond) {
+ if (billOfEntryData[i].boeAssessment=="Final") {
         if (billOfEntryData[i].document3 === null) {
+          let toastMessage = 'please upload BOE Final';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          break;
+        }
+      }
+      if (billOfEntryData[i].pdBond) {
+        if (billOfEntryData[i].document4 === null) {
           let toastMessage = 'please upload PD Bond ';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -486,6 +496,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           document1: val?.document1 ?? null,
           document2: val?.document2 ?? null,
           document3: val?.document3 ?? null,
+          document4: val?.document4 ?? null,
         });
 
         duty11.push(JSON.parse(JSON.stringify(val.duty)));
@@ -567,6 +578,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         document1: null,
         document2: null,
         document3: null,
+        document4: null,
       },
     ]);
 
@@ -1574,12 +1586,12 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   <strong className="text-danger ml-0">*</strong>
                                 </td>
                                 <td>
-                                  {val?.document3 ? (
-                                    val.document3?.originalName?.toLowerCase().endsWith('.xls') ||
-                                    val.document3?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                  {val?.document4 ? (
+                                    val.document4?.originalName?.toLowerCase().endsWith('.xls') ||
+                                    val.document4?.originalName?.toLowerCase().endsWith('.xlsx') ? (
                                       <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : val.document3?.originalName?.toLowerCase().endsWith('.doc') ||
-                                      val.document3?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    ) : val.document4?.originalName?.toLowerCase().endsWith('.doc') ||
+                                      val.document4?.originalName?.toLowerCase().endsWith('.docx') ? (
                                       <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                     ) : (
                                       <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
@@ -1587,17 +1599,17 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   ) : null}
                                 </td>
                                 <td className={styles.doc_row}>
-                                  {val.document3 === null
+                                  {val.document4 === null
                                     ? ''
-                                    : moment(val.document3.date).format('DD-MM-YYYY, h:mm a')}
+                                    : moment(val.document4.date).format('DD-MM-YYYY, h:mm a')}
                                 </td>
                                 <td>
-                                  {val.document3 === null ? (
+                                  {val.document4 === null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
                                           type="file"
-                                          name="document3"
+                                          name="document4"
                                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                           onChange={(e) => uploadDoc1(e, index)}
                                         />
@@ -1606,9 +1618,9 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                     </>
                                   ) : (
                                     <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                                      <span>{val?.document3?.originalName}</span>
+                                      <span>{val?.document4?.originalName}</span>
                                       <img
-                                        onClick={() => removeDoc('document3', index)}
+                                        onClick={() => removeDoc('document4', index)}
                                         className={`${styles.close_image} image_arrow`}
                                         src="/static/close.svg"
                                         alt="Close"
