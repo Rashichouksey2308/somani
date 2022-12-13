@@ -102,7 +102,7 @@ console.log(igmList,'igmList')
     setOrderData(NewArr);
   }, [TransitDetails]);
 
-  const partShipmentAllowed = _get(TransitDetails, 'data[0].order.vessel.partShipmentAllowed', false);
+  const partShipmentAllowed = _get(TransitDetails, 'data[0].order.vessel.partShipmentAllowed', 'No');
 
   const onigmAdd = (index) => {
     let a = index + 1;
