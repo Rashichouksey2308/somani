@@ -678,7 +678,7 @@ useEffect(() => {
       rotateImage.left = '37%';
     }
     if (r == 7) {
-      setRating(`rotate(270deg)`);
+      setRating(`rotate(276deg)`);
       rotateImage.top = '38%';
       rotateImage.left = '37%';
     }
@@ -3881,7 +3881,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'GOOD'? 
+                              
+                              'rgb(138 196 28)':null
                             : null
                         }`,
                       }}
