@@ -3901,6 +3901,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       }`,
                     }}
                   >
+                    
                     <span
                       style={{
                         color: `${
@@ -3911,7 +3912,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                               ? '#ffb700'
                               : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
                               ? '#8ac41c'
-                              : '00b81f30'
+                              :  filteredCreditRating[0]?.creditResult?.toUpperCase() == 'GOOD'? 
+                              
+                               'rgb(138, 196, 28)':null
                             : null
                         }`,
                       }}
