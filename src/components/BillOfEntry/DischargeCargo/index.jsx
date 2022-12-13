@@ -500,6 +500,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         setStartDateFrom={setStartDate}
                         startFrom={dateStartFrom.vesselDate}
                         labelName="Discharge Start Date"
+                        maxDate={moment(dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate).toDate()}
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                     </div>
@@ -510,8 +511,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                         name="dischargeEndDate"
                         saveDate={saveDate}
-                        maxDate={dateStartFrom.dischargeStartDate}
-                        startFrom={dateStartFrom.vesselDate}
+                        // maxDate={dateStartFrom.dischargeStartDate}
+                        startFrom={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate ? moment(dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate).toDate() : ''}
                         labelName="Discharge End Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />

@@ -316,7 +316,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined) {
+        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined || !bolList[i]?.etaAtDischargePortFrom) {
           toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -324,7 +324,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined) {
+        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined || !bolList[i]?.etaAtDischargePortTo) {
           toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -443,7 +443,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined) {
+        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined || !bolList[i]?.etaAtDischargePortFrom ) {
           toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -451,7 +451,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined) {
+        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined || !bolList[i]?.etaAtDischargePortTo) {
           toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

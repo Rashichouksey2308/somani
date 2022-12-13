@@ -59,7 +59,7 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     }
   }, [inspectionData]);
  
-  console.log(documents,"ASdafsdf")
+  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -187,7 +187,7 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
        sethaveDoc(false);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
-console.log(haveDischargeDoc,"haveDoc",haveDoc)
+
   useEffect(() => {
     if (
       dischargeDocuments.dischargeCertificateOfQuality !== null ||
@@ -243,11 +243,11 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
     setDischargeDocuments(newUploadDoc1);
   
   };
-  console.log(dischargeDocuments,"dischargeDocuments")
+ 
   let k
   const uploadDischargeDocument3 = (e) => {
     const newUploadDoc1 = { ...dischargeDocuments };
-    console.log(e.target.files)
+
     k=e.target.files
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
@@ -458,12 +458,12 @@ console.log(haveDischargeDoc,"haveDoc",haveDoc)
       }
     }
   };
-console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePortInspection,"inspectionDetails.dischargePortInspection")
+
   const handleSubmit = () => {
     if (!validation()) return;
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
-        console.log("herher1")
+       
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
@@ -570,7 +570,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       }
 
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
-        console.log("herher")
+      
         var noError2 = false;
         if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT ARE MANDATORY IN LOAD PORT';
@@ -636,7 +636,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
       }
 
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
-        console.log("herher2")
+       
         var noError3 = false;
         if (
           inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '' ||
@@ -921,7 +921,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
 
   const [toDischargeShow, setToDischargeShow] = useState([]);
   const [toDischargeView, setToDischargeView] = useState(false);
- console.log(toDischargeShow,"toDischargeShow")
+
   const [toLoadShow, setToLoadShow] = useState([]);
   const [toLoadView, setToLoadView] = useState(false);
  
@@ -953,7 +953,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
            return o.Port_Name.toLowerCase().includes(value.toLowerCase());
         }
     });
-    console.log(filterData,"filterData")
+    
     }
     
    if(type=="load"){
@@ -968,7 +968,7 @@ console.log(inspectionDetails.loadPortInspection,inspectionDetails.dischargePort
     
   };
 const handleData = (name, value,type) => {
-  console.log(value, 'LOAD')
+  
   if(type == "load"){
   saveInspectionDetails(name,`${value?.Port_Name}, ${value?.Country}`)
   }else{
@@ -1155,7 +1155,7 @@ const handleData = (name, value,type) => {
                     )}
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
-                        {console.log(inspectionDetails?.loadPortInspectionDetails?.inspectionPort,"======")}
+                        
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
@@ -1445,7 +1445,7 @@ const handleData = (name, value,type) => {
                                        reader.readAsArrayBuffer(documents.certificateOfQuality);
                                        
                                       reader.onload = function() {
-                                        console.log(reader.result,"reader");
+                                       
                                         var file = new Blob([reader.result], {type: 'application/pdf'});
                                         var fileURL = URL.createObjectURL(file);
                                         window.open(fileURL);
@@ -1744,13 +1744,13 @@ const handleData = (name, value,type) => {
                                   <span
                                     onClick={() =>
                                      {
-                                      console.log(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin,"dischargeDocuments.dischargeCertificateOfOrigin")
+                                      
                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.path==undefined){
                                       let reader = new FileReader();
                                        reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfOrigin);
                                        
                                       reader.onload = function() {
-                                        console.log(reader.result,"reader");
+                                        
                                         var file = new Blob([reader.result], {type: 'application/pdf'});
                                         var fileURL = URL.createObjectURL(file);
                                         window.open(fileURL);
@@ -1870,7 +1870,7 @@ const handleData = (name, value,type) => {
                                        reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfQuality);
                                        
                                       reader.onload = function() {
-                                        console.log(reader.result,"reader");
+                                        
                                         var file = new Blob([reader.result], {type: 'application/pdf'});
                                         var fileURL = URL.createObjectURL(file);
                                         window.open(fileURL);
@@ -1987,7 +1987,7 @@ const handleData = (name, value,type) => {
                                        reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfWeight);
                                        
                                       reader.onload = function() {
-                                        console.log(reader.result,"reader");
+                                       
                                         var file = new Blob([reader.result], {type: 'application/pdf'});
                                         var fileURL = URL.createObjectURL(file);
                                         window.open(fileURL);
