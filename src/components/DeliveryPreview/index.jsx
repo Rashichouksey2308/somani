@@ -199,7 +199,7 @@ function Index() {
                         CC:{' '}
                         <span className={`${styles.bold} ${styles.width2} `}>
                           {val.name}, M/S {_get(ReleaseOrderData, 'data[0].company.companyName')},
-                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}
+                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}{' '}
                         </span>
                       </>
                     );

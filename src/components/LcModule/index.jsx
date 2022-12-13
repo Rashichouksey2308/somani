@@ -121,7 +121,7 @@ function Index() {
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
           </a>  */}
 
-          <button
+          {/* <button
             className={styles.createBtn}
             onClick={() => {
               Router.push('/lc-module/lc-application');
@@ -129,7 +129,7 @@ function Index() {
             style={{ position: 'absolute', right: 25 }}
           >
             Create
-          </button>
+          </button> */}
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
