@@ -565,8 +565,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
               <div className="d-flex align-items-center">
                 <div className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</div>
                 <div className={`${styles.dropDown} input`}>
-                  {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')}
-                  {/* {partShipmentAllowed ? 'Yes' : 'No'} */}
+                  {/* {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')} */}
+                  {partShipmentAllowed ? 'Yes' : 'No'}
                 </div>
               </div>
             </div>
