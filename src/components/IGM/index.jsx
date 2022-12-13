@@ -627,7 +627,7 @@ console.log(igmList,'igmList')
                     Port of Discharge <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India
                   </span>
                 </div>
 
