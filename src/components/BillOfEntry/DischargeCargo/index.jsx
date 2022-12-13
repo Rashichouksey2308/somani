@@ -434,7 +434,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                             sumOfDischargeQuantities == undefined ||
                             sumOfDischargeQuantities == ''
                           ? ''
-                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
+                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` ${_get(customData, 'order.unitOfQuantity', "")}`
                       }
                       name="dischargeQuantity"
                       onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
