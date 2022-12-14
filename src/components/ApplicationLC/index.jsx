@@ -273,10 +273,22 @@ useEffect(() => {
                           <td className="term_para">
                             {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                             <br></br>
-                            {_get(lcModuleData, 'order.generic.supplier.addresses[0].fullAddress', '')},
-                            {_get(lcModuleData, 'order.generic.supplier.addresses[0].city', '')},
-                            {_get(lcModuleData, 'order.generic.supplier.addresses[0].country', '')},
-                            {_get(lcModuleData, 'order.generic.supplier.addresses[0].pinCode', '')}
+                            {
+                              _get(lcModuleData, 'order.generic.supplier.addresses[0].addressType', '')=="Registered"?
+                              <>
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].fullAddress', '')},
+                                  
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].pinCode', '')}
+                              </>:
+                              <>
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].fullAddress', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].city', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].pinCode', '')}
+                              </>
+                            }
+                         
                           </td>
                         </tr>
                       ) : (
