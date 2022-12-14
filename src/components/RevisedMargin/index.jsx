@@ -437,9 +437,9 @@ const Index = ({
                       {marginData?.order?.orderCurrency + ' '}
                       {/* {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0} */}
                       {Number(finalCalRevised.orderValue).toLocaleString('en-In', {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  })}
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                 </div>
