@@ -884,7 +884,7 @@ export default function TPASellerPreview(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '20px' }}>
+              <td valign="top" style={{ paddingTop: '280px' }}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <td align="left" valign="top" width="70%" style={{paddingTop:'5px'}}>

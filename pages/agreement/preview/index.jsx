@@ -594,7 +594,7 @@ export const undertaking2Pdf = (data) => {
                             data?.associateBuyerAuthorized?.length > 0 &&
                             data?.associateBuyerAuthorized?.map((val, index) => {
                               return ( 
-                                <strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block' }}>Name: {val.name} </strong>                                             
+                                <strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block' }}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                               );
                             })
                             }
@@ -602,24 +602,6 @@ export const undertaking2Pdf = (data) => {
                         
                           </p>
                       </td>
-                    </tr>
-                    <tr>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
-                        
-                           {
-                      data?.associateBuyerAuthorized?.length > 0 &&
-                      data?.associateBuyerAuthorized?.map((val, index) => {
-                        return (    
-                           <strong>Designation: {val.designation}</strong>              
-                                          
-                        );
-                      })
-                      }
-                       
-                        
-                        </p>
-                        
-                        </td>
                     </tr>
                   </table>
                 </td>
