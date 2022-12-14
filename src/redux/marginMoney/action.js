@@ -181,6 +181,8 @@ export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) =>
             toastId: toastMessage,
           });
         }
+        let id = sessionStorage.getItem('marginId');
+        dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
         dispatch(settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'));
         // router.push('/generic/generic-list')
