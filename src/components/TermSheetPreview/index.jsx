@@ -416,7 +416,7 @@ function Index() {
                   <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
                   <li>{termsheetDetails?.transactionDetails?.portOfDischarge}, India</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
+                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort === 'Both' ? 'Both Load Port and Discharge Port': termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
                 </ul>
               </Col>
             </Row>
@@ -1930,7 +1930,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
+                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort === 'Both' ? 'Both Load Port and Discharge Port': termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
                         </p>
                       </td>
                     </tr>

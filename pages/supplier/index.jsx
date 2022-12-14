@@ -545,7 +545,7 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-      console.log(apiData, 'apiData');
+      
       let fd = new FormData();
       if (id) {
         fd.append('supplierId', supplierData?._id);
@@ -653,14 +653,7 @@ function Index() {
         returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
       )
     ) {
-      console.log(
-        !isValidPhoneNumber(
-          data.contact.alternatePhoneNumber,
-          returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
-        ),
-        data.contact,
-        'data.contact',
-      );
+     
       handleErrorToast('Please add a valid Alternate phone Number');
       return false;
     } else {

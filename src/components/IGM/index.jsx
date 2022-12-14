@@ -19,10 +19,13 @@ import { settingSidebar } from 'redux/breadcrumb/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
 import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction ,getUnqueBl}) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction, getUnqueBl }) {
   let transId = _get(TransitDetails, `data[0]`, '');
+
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+
   const dispatch = useDispatch();
+
   const router = useRouter();
   // const shipmentDetail = TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail;
   // const {consigneeAddress,branchOffice} = shipmentDetail;
@@ -64,7 +67,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     ],
     document: null,
   });
-console.log(igmList,'igmList')
+
   const getDoc = (payload) => {
     dispatch(
       previewDocument({
@@ -75,9 +78,11 @@ console.log(igmList,'igmList')
     );
   };
   const [orderData, setOrderData] = useState();
+
   useEffect(() => {
     dispatch(getInternalCompanies());
   }, []);
+
   const checkRemainingBalance = () => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     igmList.igmDetails.forEach((item) => {
@@ -91,6 +96,20 @@ console.log(igmList,'igmList')
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
+    return balance;
+  };
+
+  let blQty;
+
+  const remainingQuantity = (index, item) => {
+    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
+
+    if (index == 0) {
+      balance = Number(balance) - Number(item.blNumber[0].blQuantity == undefined ? 0 : item.blNumber[0].blQuantity);
+    } else {
+      balance = Number(blQty) - Number(item.blNumber[0].blQuantity == undefined ? 0 : item.blNumber[0].blQuantity);
+    }
+    blQty = balance;
     return balance;
   };
 
@@ -108,7 +127,7 @@ console.log(igmList,'igmList')
     let a = index + 1;
     let tempArray = { ...igmList };
     tempArray.igmDetails.push({
-      vesselName: _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','') ?? '',
+      vesselName: _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName', '') ?? '',
 
       igmNumber: '',
       igmFiling: null,
@@ -125,12 +144,14 @@ console.log(igmList,'igmList')
     });
     setIgmList(tempArray);
   };
+
   const onDeleteClick = (index) => {
     setIgmList({
       ...igmList,
       igmDetails: [...igmList.igmDetails.slice(0, index), ...igmList.igmDetails.slice(index + 1)],
     });
   };
+
   const onChangeIgm = (name, text, index) => {
     if (name === 'blQuantity') {
       if (checkRemainingBalance() < value) {
@@ -144,16 +165,19 @@ console.log(igmList,'igmList')
     let newData = { ...igmList };
     newData.igmDetails[index][name] = text;
     if (name === 'vesselName') {
-      newData.igmDetails[index].blNumber = [{
-        blNumber: number,
-        blDate: null,
-        blQuantity: '',
-        noOfContainers: '',
-        blDoc: '',
-      },]
+      newData.igmDetails[index].blNumber = [
+        {
+          blNumber: number,
+          blDate: null,
+          blQuantity: '',
+          noOfContainers: '',
+          blDoc: '',
+        },
+      ];
     }
     setIgmList(newData);
   };
+
   const saveDate = (value, name, index) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -203,18 +227,20 @@ console.log(igmList,'igmList')
   };
 
   const filterBranch = (company) => {
-    console.log(company, 'company');
     let filter = getInternalCompaniesMasterData?.filter((val, index) => {
       if (val.Company_Name == company) {
         return val;
       }
     });
+
     return filter;
   };
+
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM.igmDetails`, []).length > 0) {
       let igmData = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [])));
       let tempData = { ...igmList };
+
       tempData.igmDetails = igmData;
 
       setIgmList(tempData);
@@ -223,26 +249,24 @@ console.log(igmList,'igmList')
         const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
           return item.blNumber === _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, '');
         });
-      
+
         let tempArray = { ...igmList };
         tempArray.igmDetails[0].blNumber[0].blDate = filterData[0].blDate;
         tempArray.igmDetails[0].blNumber[0].blNumber = filterData[0].blNumber;
         tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
         tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
         tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0]?.blDoc;
+
+        if (
+          shipmentTypeBulk &&
+          _get(TransitDetails, `data[0].order.termsheet.transactionDetails.partShipmentAllowed`, '') === 'No'
+        ) {
+          // let tempObj = {...igmList}
+          tempArray.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName', '');
+          // setIgmList(tempArray)
+        }
         setIgmList({ ...tempArray });
       }
-    }
-
-    if(shipmentTypeBulk && _get(
-      TransitDetails,
-      `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
-      '',
-    ) === 'No') {
-      let tempObj = {...igmList}
-      tempObj.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','')
-      setIgmList(tempObj
-)
     }
 
     if (_get(TransitDetails, `data[0].IGM`, false)) {
@@ -256,7 +280,7 @@ console.log(igmList,'igmList')
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
         _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Emergent Industrial Solutions Limited (EISL)' 
+          'Emergent Industrial Solutions Limited (EISL)'
       ) {
         setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
       }
@@ -264,19 +288,17 @@ console.log(igmList,'igmList')
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
         _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Indo German International Private Limited (IGPL)' 
+          'Indo German International Private Limited (IGPL)'
       ) {
         setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
       }
     } else {
-      console.log("hehehe", _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`))
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
         _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Emergent Industrial Solutions Limited (EISL)' 
+          'Emergent Industrial Solutions Limited (EISL)'
       ) {
-         console.log("hehehe1")
         setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
 
         setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
@@ -285,7 +307,7 @@ console.log(igmList,'igmList')
           branch:
             TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeBranch ||
             TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice,
-            address:
+          address:
             TransitDetails?.data[0]?.IGM?.shipmentDetails?.consigneeAddress ||
             TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail?.companyAddress,
         });
@@ -294,7 +316,7 @@ console.log(igmList,'igmList')
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
         _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
-          'Indo German International Private Limited (IGPL)' 
+          'Indo German International Private Limited (IGPL)'
       ) {
         setConsigneeName('INDO GERMAN INTERNATIONAL PRIVATE LIMITED');
         setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
@@ -309,9 +331,14 @@ console.log(igmList,'igmList')
         });
       }
     }
-    // setBranchOptions(filterBranch(consigneeName));
+    setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
+
   useEffect(() => {}, [TransitDetails]);
+
+  useEffect(() => {
+    setBranchOptions(filterBranch(consigneeName));
+  }, [consigneeName, TransitDetails, getInternalCompaniesMasterData]);
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
@@ -322,7 +349,7 @@ console.log(igmList,'igmList')
       });
 
       let tempArray = { ...igmList };
-
+      tempArray.igmDetails[index].blNumber[index2].blDoc = filterData[0].blDoc;
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity;
@@ -361,15 +388,14 @@ console.log(igmList,'igmList')
     let task = 'save';
     dispatch(UpdateTransitDetails({ fd, task }));
   };
+
   const validation = () => {
-    console.log(igmList, 'igmList');
     if (checkRemainingBalance() < 0) {
       handleErrorToast('igm cannot be greater than order quantity');
       return false;
     }
     let toastMessage = '';
     for (let i = 0; i < igmList.igmDetails.length; i++) {
-      console.log(igmList.igmDetails[i].igmFiling, '');
       if (
         igmList.igmDetails[i].igmNumber == '' ||
         igmList.igmDetails[i].igmNumber == undefined ||
@@ -452,8 +478,8 @@ console.log(igmList,'igmList')
       return true;
     }
   };
+
   const handleSubmit = async () => {
-    console.log('Asdasdasdasd', consigneeInfo);
     if (consigneeInfo.name == '' || consigneeInfo.name == undefined || consigneeInfo.name == null) {
       let toastMessage = 'PLS ADD CONSIGNEE NAME';
       if (!toast.isActive(toastMessage)) {
@@ -492,6 +518,7 @@ console.log(igmList,'igmList')
       router.push(`/forward-hedging`);
     }
   };
+
   const getIndex = (index) => {
     return (index = index + 1);
   };
@@ -564,7 +591,8 @@ console.log(igmList,'igmList')
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{'  '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}
+                    {'  '}
                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase('en-IN')}{' '}
                   </span>
                 </div>
@@ -729,7 +757,8 @@ console.log(igmList,'igmList')
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>Balance Quantity:</div>
                     <div className={`${styles.value} ml-2 mr-4`}>
-                      {checkNan(checkRemainingBalance())} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
+                      {checkNan(remainingQuantity(index, item))}{' '}
+                      {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
                     {checkRemainingBalance() !== 0 ? (
                       <>
@@ -755,43 +784,47 @@ console.log(igmList,'igmList')
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
-                   {shipmentTypeBulk && _get(
-                              TransitDetails,
-                              `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
-                              '',
-                            ) === 'No' ?   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                      <input
-                        value={ index == 0 ? _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','') : item.vesselName}
-                        id="vesselName"
-                        // onChange={(e) => onChangeIgm(e.target.id, e.target.value, index)}
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        onWheel={(event) => event.currentTarget.blur()}
-                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                      />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        Vessel Name
-                        <strong className="text-danger">*</strong>
-                      </label>
-                    </div>  : 
-                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
-                      <div className="d-flex">
-                        <select
-                          id="vesselName"
-                          onChange={(e) => onChangeIgm(e.target.id, e.target.value, index)}
-                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                          value={item.vesselName}
-                          disabled={
-                            _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
-                              'Bulk' &&
-                            _get(
-                              TransitDetails,
-                              `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
-                              '',
-                            ) === 'No'
+                    {shipmentTypeBulk &&
+                    _get(TransitDetails, `data[0].order.termsheet.transactionDetails.partShipmentAllowed`, '') ===
+                      'No' ? (
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                        <input
+                          value={
+                            index == 0
+                              ? _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName', '')
+                              : item.vesselName
                           }
-                        >
-                          {/* {shipmentTypeBulk
+                          id="vesselName"
+                          // onChange={(e) => onChangeIgm(e.target.id, e.target.value, index)}
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          onWheel={(event) => event.currentTarget.blur()}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        />
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Vessel Name
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                    ) : (
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
+                        <div className="d-flex">
+                          <select
+                            id="vesselName"
+                            onChange={(e) => onChangeIgm(e.target.id, e.target.value, index)}
+                            className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                            value={item.vesselName}
+                            disabled={
+                              _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
+                                'Bulk' &&
+                              _get(
+                                TransitDetails,
+                                `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
+                                '',
+                              ) === 'No'
+                            }
+                          >
+                            {/* {shipmentTypeBulk
                             ? _get(TransitDetails, 'data[0].order.vessel.vessels', []).map((vessel, index) => (
                                 <option value={vessel?.vesselInformation[0]?.name} key={index}>
                                   {vessel?.vesselInformation[0]?.name}
@@ -804,24 +837,27 @@ console.log(igmList,'igmList')
                                   </option>
                                 ),
                               )} */}
-                              <option disabled value=''>Select An Option</option>
-                          {getUnqueBl().map((bl, index) => (
-                            <option value={bl} key={index}>
-                              {bl}
+                            <option disabled value="">
+                              Select An Option
                             </option>
-                          ))}
-                        </select>
-                        <label className={`${styles.label_heading} label_heading`}>
-                          Vessel Name
-                          {shipmentTypeBulk ? <strong className="text-danger">*</strong> : ''}
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
+                            {getUnqueBl().map((bl, index) => (
+                              <option value={bl} key={index}>
+                                {bl}
+                              </option>
+                            ))}
+                          </select>
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Vessel Name
+                            {shipmentTypeBulk ? <strong className="text-danger">*</strong> : ''}
+                          </label>
+                          <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
                       </div>
-                    </div>}
+                    )}
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
@@ -862,9 +898,6 @@ console.log(igmList,'igmList')
                   <div className="row">
                     {item?.blNumber?.length > 0 &&
                       item.blNumber.map((blEntry, index2) => {
-                        {
-                          console.log(blEntry, 'blEntry');
-                        }
                         return (
                           <>
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
@@ -881,16 +914,18 @@ console.log(igmList,'igmList')
                                 >
                                   <option value="select an option">Select an option</option>
                                   {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => {
-                                  if(bl.vesselName === item.vesselName){
-                                    return (
-                                    <option
-                                      key={index3}
-                                      disabled={isBlSelected(index, bl.blNumber)}
-                                      value={`${bl.blNumber}-${index}-${index2}`}
-                                    >
-                                      {bl.blNumber}
-                                    </option>
-                                  )}})}
+                                    if (bl.vesselName === item.vesselName) {
+                                      return (
+                                        <option
+                                          key={index3}
+                                          disabled={isBlSelected(index, bl.blNumber)}
+                                          value={`${bl.blNumber}-${index}-${index2}`}
+                                        >
+                                          {bl.blNumber}
+                                        </option>
+                                      );
+                                    }
+                                  })}
                                 </select>
 
                                 <label className={`${styles.label_heading} label_heading`}>
@@ -919,7 +954,7 @@ console.log(igmList,'igmList')
                                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                                   </div>
                                   <span className={styles.value}>
-                                    <span>{blEntry.blQuantity} </span> {' '}
+                                    <span>{blEntry.blQuantity} </span>{' '}
                                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                   </span>
                                 </div>

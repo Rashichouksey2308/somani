@@ -1518,7 +1518,7 @@ function Index() {
                   Basic Info
                 </td>
               </tr>
-              <tr height="92">
+              <tr height="70">
                 <td
                   style={{
                     fontSize: '20px',
@@ -1546,7 +1546,7 @@ function Index() {
               </tr>
               <tr>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1558,7 +1558,7 @@ function Index() {
                   Sourcing Channel
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1570,7 +1570,7 @@ function Index() {
                   {camData?.company?.sourceChanel}
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1581,7 +1581,7 @@ function Index() {
                   City
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1819,7 +1819,7 @@ function Index() {
                     background: '#F7F9FF',
                   }}
                 >
-                  Transaction Period
+                  Transaction Period (Days)
                 </td>
                 <td
                   style={{
@@ -2002,6 +2002,7 @@ function Index() {
               </tr>
               <tr>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2013,6 +2014,7 @@ function Index() {
                   No. of Shipments
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2027,6 +2029,7 @@ function Index() {
                   })}
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2037,6 +2040,7 @@ function Index() {
                   Port of Destination
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2197,7 +2201,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingLeft: '35px',
-                    paddingTop: '25px',
+                    paddingTop: '20px',
                   }}
                 >
                   Remarks
@@ -2205,6 +2209,8 @@ function Index() {
               </tr>
               <tr>
                 <td
+                  height="70"
+                  valign="top"
                   colSpan={4}
                   style={{
                     fontSize: '20px',
@@ -2212,10 +2218,8 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingLeft: '35px',
-                    paddingBottom: '53px',
                   }}
                 >
-                  {' '}
                   {camData?.supplierCredential?.remarks}
                 </td>
               </tr>
@@ -2260,8 +2264,8 @@ function Index() {
                       <td
                         width="50%"
                         style={{
-                          padding: '35px',
                           position: 'relative',
+                          padding: '25px 35px 35px',
                         }}
                       >
                         <img
@@ -2309,7 +2313,7 @@ function Index() {
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
+                      <td width="50%" style={{ padding: '25px 35px 35px 17px' }}>
                         <div align="center">
                           <span
                             style={{
@@ -2788,8 +2792,7 @@ function Index() {
           </td>
         </tr>       
         <tr>
-          <td valign="top">
-            <br/><br/><br/><br/><br/><br/>
+          <td valign="top" style={{paddingTop:'230px'}}>
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2821,13 +2824,13 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td valign="top" style={{ padding: '27px' }}>
+                <td valign="top" style={{padding:'37px 27px'}}>
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company?.groupExposureDetail?.map((exp, index) => {
                         let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td key={index} valign="top" width="33.33%">
+                          <td key={index} valign="top" style={{width:'33.33%', float:'left'}}>
                             <table
                               width="100%"
                               cellPadding="0"
@@ -2840,10 +2843,10 @@ function Index() {
                             >
                               <tr>
                                 <td
-                                  width="10%"
+                                  colSpan={2}
                                   height="60"
                                   style={{
-                                    padding: '32px 22px 19px',
+                                    padding: '25px 22px 19px'
                                   }}
                                 >
                                   <span
@@ -2868,19 +2871,18 @@ function Index() {
                                         }
                                       })}
                                   </span>
-                                </td>
-                                <td
-                                  width="90%"
-                                  style={{
-                                    fontSize: '22px',
-                                    color: '#111111',
-                                    lineHeight: '27px',
-                                    fontWeight: 'bold',
-                                    padding: '32px 22px 19px',
-                                  }}
-                                >
-                                  {' '}
-                                  {exp.name}
+                                  <span
+                                    style={{
+                                      fontSize: '22px',
+                                      color: '#111111',
+                                      lineHeight: '27px',
+                                      fontWeight: 'bold',
+                                      textAlign: 'left',
+                                      display: 'inline-block',
+                                      padding: '25px 22px 19px',
+                                    }}
+                                  >{exp.name}
+                                  </span>
                                 </td>
                               </tr>
                               <tr>
@@ -3216,22 +3218,22 @@ function Index() {
                     <tr>
                       <td
                         width="5%"
-                        height="30"
+                        height="40"
                         style={{
                           padding: '14px 11px 14px 32px',
                         }}
                       >
                         <span
                           style={{
-                            fontSize: '24px',
+                            fontSize: '28px',
                             color: '#FF9D00',
-                            lineHeight: '30px',
+                            lineHeight: '34px',
                             fontWeight: 'bold',
                             background: '#FFECCF',
                             borderRadius: '8px',
-                            padding: '9px 0',
-                            width: '50px',
-                            height: '50px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
                             textAlign: 'center',
                             display: 'inline-block',
                             // marginBottom: '15px'
@@ -3248,8 +3250,8 @@ function Index() {
                           color: '#111111',
                           lineHeight: '27px',
                           fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                         }}
                       >
                         {item?.supplierName}
@@ -3270,8 +3272,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                           textAlign: 'right',
                         }}
                       >
@@ -3282,8 +3284,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                           textAlign: 'right',
                         }}
                       >
@@ -3294,8 +3296,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                           textAlign: 'right',
                         }}
                       >
@@ -3306,8 +3308,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                           textAlign: 'right',
                         }}
                       >
@@ -3320,8 +3322,8 @@ function Index() {
                           color: '#111111',
                           lineHeight: '23px',
                           fontWeight: '500',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                           textAlign: 'right',
                         }}
                       >
@@ -3344,8 +3346,8 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '24px',
                           fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
                           textAlign: 'right',
                         }}
                       >
@@ -3391,6 +3393,7 @@ function Index() {
               </tr>
               <tr>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3402,6 +3405,7 @@ function Index() {
                   Main Banker
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3413,6 +3417,7 @@ function Index() {
                   {primaryBankName()}
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3423,6 +3428,7 @@ function Index() {
                   External Credit Rating
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3497,7 +3503,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor}
+                  {camData.company.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor}
                 </td>
                 <td
                   style={{
@@ -3518,7 +3524,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor
+                  {camData.company.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor
                     ? camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor ==
                       camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
                       ? 'No'
@@ -3631,7 +3637,7 @@ function Index() {
                   <tr>
                     <td
                       width="5%"
-                      height="60"
+                      height="40"
                       style={{
                         padding: '21px 12px 21px 35px',
                       }}
@@ -3662,8 +3668,8 @@ function Index() {
                         color: '#111111',
                         lineHeight: '27px',
                         fontWeight: 'bold',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                       }}
                     >
                       {director?.name}
@@ -3673,8 +3679,8 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                       }}
                     >
                       {director?.pan[0]}
@@ -3684,8 +3690,8 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                         textAlign:'right'
                       }}
                     >
@@ -3696,8 +3702,8 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                         textAlign:'right'
                       }}
                     >
@@ -3708,8 +3714,8 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '24px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                         textAlign:'right'
                       }}
                     >
@@ -3909,8 +3915,8 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
                               }}
                             >
                               {' '}
@@ -3921,8 +3927,8 @@ function Index() {
                                 fontSize: '19px',
                                 color: '#111111',
                                 lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
                                 textAlign:'right'
                               }}
                             >
@@ -3933,8 +3939,8 @@ function Index() {
                                 fontSize: '19px',
                                 color: '#111111',
                                 lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
                                 textAlign:'right'
                               }}
                             >
@@ -3950,8 +3956,8 @@ function Index() {
                                 fontSize: '19px',
                                 color: '#111111',
                                 lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
                                 textAlign:'right'
                               }}
                             >
@@ -4146,8 +4152,8 @@ function Index() {
                                   color: '#111111',
                                   lineHeight: '27px',
                                   fontWeight: 'bold',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  paddingTop: '18px',
+                                  paddingBottom: '18px',
                                 }}
                               >
                                 {' '}
@@ -4158,8 +4164,8 @@ function Index() {
                                   fontSize: '19px',
                                   color: '#111111',
                                   lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  paddingTop: '18px',
+                                  paddingBottom: '18px',
                                   textAlign:'right'
                                 }}
                               >
@@ -4172,8 +4178,8 @@ function Index() {
                                   fontSize: '19px',
                                   color: '#111111',
                                   lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  paddingTop: '18px',
+                                  paddingBottom: '18px',
                                   textAlign:'right'
                                 }}
                               >
@@ -4577,7 +4583,7 @@ function Index() {
               </tr>
               <tr>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4589,7 +4595,7 @@ function Index() {
                   Plant Production Capacity
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4607,7 +4613,7 @@ function Index() {
                   {camData?.productSummary?.monthlyProductionCapacity ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4618,7 +4624,7 @@ function Index() {
                   Stock in Transit - Commodity
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4728,23 +4734,14 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {' '}
-                  {camData?.productSummary?.AvgMonthlyElectricityBill ? (
-                    <img
-                      src="data:image/png;base64,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"
-                      alt="Rupee"
-                      height="14"
-                    />
-                  ) : (
-                    ''
-                  )}{' '}
                   {/* {checkNan(
                       Number(
                         camData?.productSummary?.AvgMonthlyElectricityBill,
                       ),
                       true,
                     )} */}
-                  {camData?.productSummary?.AvgMonthlyElectricityBill
+                    INR{" "}
+                    {camData?.productSummary?.AvgMonthlyElectricityBill
                     ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })
@@ -5969,6 +5966,7 @@ function Index() {
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
                                 textTransform: 'uppercase',
+                                textAlign:'right',
                               }}
                             >
                               {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')?.toUpperCase()}
@@ -6287,8 +6285,7 @@ function Index() {
                                 fontSize: '20px',
                                 color: '#111111',
                                 lineHeight: '24px',
-                                paddingLeft: '35px',
-                                textAlign:'right'
+                                paddingLeft: '35px'
                               }}
                             >
                               Debtors period
@@ -7129,7 +7126,7 @@ function Index() {
               </tr>
               <tr>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -7141,7 +7138,7 @@ function Index() {
                   GST Return Filing
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#EA3F3F',
@@ -7159,7 +7156,7 @@ function Index() {
                     : ''}
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -7170,7 +7167,7 @@ function Index() {
                   NCLT
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',

@@ -14,7 +14,7 @@ import { getInternalCompanies } from '../../redux/masters/action';
 function Index({ TransitDetails }) {
   const dispatch = useDispatch();
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-  console.log(getInternalCompaniesMasterData,'getInternalCompaniesMasterData')
+  
   let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
     { 

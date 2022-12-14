@@ -245,7 +245,7 @@ const Index = () => {
   }, [isInsurerSameData]);
  
   const marineValidation=()=>{
-    console.log( marineData.nameOfInsurer,"marineData")
+  
      let toastMessage = '';
            if (
          marineData.policyNumber == '' ||  marineData.policyNumber == undefined || 
@@ -262,7 +262,7 @@ const Index = () => {
          marineData.nameOfInsurer == '' ||  marineData.nameOfInsurer == undefined || 
          marineData.nameOfInsurer == null
       ) {
-         console.log("asdasdasdasd")
+        
         toastMessage = 'PLEASE ADD  marine name Of Insurer';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -322,7 +322,7 @@ const Index = () => {
       }
   }
   const storageValidation=()=>{
-      console.log(storageData,"storage")
+      
      let toastMessage = '';
            if (
          storageData.policyNumber == '' ||  storageData.policyNumber == undefined || 
@@ -612,7 +612,7 @@ const Index = () => {
   const handleRoute = () => {
     Router.push('/insurance');
   };
- console.log(option,"assasas")
+ 
   return (
     <div className={`container-fluid p-0`}>
       <div className={`${styles.card} accordion_body`}>
