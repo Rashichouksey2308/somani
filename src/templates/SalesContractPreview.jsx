@@ -24,7 +24,7 @@ export default function SalesContractPreview(data) {
           <p align="center" style={{color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
-          <p align="center" style={{ float: 'left', color: '#000000', marginBottom: '0' }}>
+          <p align="justify" style={{ color: '#000000', marginBottom: '0' }}>
             This Sales Contract("
             <span style={{ fontWeight: 'bold' }}>
                 Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + `${moment().year()}`+ "/" + data.orderId2}
@@ -1335,10 +1335,6 @@ export default function SalesContractPreview(data) {
             padding: '20px',
           }}
         >
-          <br />
-          <br />
-          <br />
-          <br />
           <br />
           <br />
           <br />

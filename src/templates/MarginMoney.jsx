@@ -3,6 +3,7 @@ import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
 
 export default function MarginMoney(marginData) {
+ 
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -606,9 +607,13 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                         {marginData.marginData?.order?.orderCurrency} {' '} {marginData.marginData?.calculation?.orderValue?.toLocaleString(
-                          marginData.marginData?.order?.orderCurrency=="INR"?
-                          'en-In':"en-En") ?? 0}
+                        {marginData.marginData?.order?.orderCurrency}{' '}
+                      {marginData.marginData?.calculation?.orderValue?.toLocaleString(marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }) ?? 0}
+                     
                       </p>
                     </td>
                   </tr>
@@ -657,7 +662,10 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR {marginData.marginData?.calculation?.orderValueInINR?.toLocaleString('en-In') ?? 0}
+                        INR {marginData.marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }) ?? 0}
                       </p>
                     </td>
                   </tr>
