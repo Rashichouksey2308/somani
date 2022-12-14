@@ -31,8 +31,6 @@ function Index() {
     conversion: false,
     noOfPdcs: false,
   });
-// let orderObj = ['63047b30396b17513876129d']
-// let allLeads =  {order: {_id : '63047b30396b17513876129d'}}
 
   useEffect(() => {
     dispatch(getInternalCompanies());
@@ -42,8 +40,7 @@ function Index() {
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const { margin,updatingMarginMoneyResponse } = useSelector((state) => state.marginMoney);
   const { orderList } = useSelector((state) => state.buyer);
-  console.log(updatingMarginMoneyResponse,'updatingMarginMoneyResponse')
-  // console.log(_.get(orderObj[0], `_id`, null) == _.get(allLeads, `order._id`, null),_.get(allLeads, `order._id`, null),orderObj[0],'updatingMarginMoneyResponse')
+
   const marginData = _get(margin, 'data.data[0]', '');
 
   let id = sessionStorage.getItem('marginId');
