@@ -22,6 +22,7 @@ import MarginMoney from '../../src/templates/MarginMoney';
 import { checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
+import _ from 'lodash'
 
 function Index() {
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ function Index() {
     conversion: false,
     noOfPdcs: false,
   });
+// let orderObj = ['63047b30396b17513876129d']
+// let allLeads =  {order: {_id : '63047b30396b17513876129d'}}
 
   useEffect(() => {
     dispatch(getInternalCompanies());
@@ -37,9 +40,10 @@ function Index() {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-  const { margin } = useSelector((state) => state.marginMoney);
+  const { margin,updatingMarginMoneyResponse } = useSelector((state) => state.marginMoney);
   const { orderList } = useSelector((state) => state.buyer);
-  
+  console.log(updatingMarginMoneyResponse,'updatingMarginMoneyResponse')
+  // console.log(_.get(orderObj[0], `_id`, null) == _.get(allLeads, `order._id`, null),_.get(allLeads, `order._id`, null),orderObj[0],'updatingMarginMoneyResponse')
   const marginData = _get(margin, 'data.data[0]', '');
 
   let id = sessionStorage.getItem('marginId');
@@ -58,7 +62,7 @@ function Index() {
     dispatch(setPageName('margin-money'));
     dispatch(setDynamicName(marginData?.company?.companyName));
     dispatch(setDynamicOrder(marginData?.order?.orderId));
-  }, [dispatch, marginData?.company?.companyName]);
+  }, [dispatch, marginData?.company?.companyName,updatingMarginMoneyResponse]);
 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
@@ -227,7 +231,7 @@ function Index() {
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData };
     if (name == 'buyerGSTIN') {
-      const filteredGSt = orderList?.company?.detailedCompanyInfo?.GST?.filter((item) => item?.gstin === value);
+      const filteredGSt = orderList?.company?.detailedCompanyInfo?.GST?.filter((item) => item?.gstin === value) ?? [];
       if (filteredGSt.length > 0 && filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address) {
         newInput.buyerAddress = filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address ?? ''
         if(isConsigneeSameAsBuyer) {
@@ -963,6 +967,7 @@ function Index() {
   };
 
   const exportPDF = () => {
+
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
