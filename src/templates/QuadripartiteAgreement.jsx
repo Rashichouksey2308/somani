@@ -445,7 +445,7 @@ export default function QuadripartiteAgreement(data) {
             Port of Discharge
           </Col>
           <Col md={7} className={styles.right}>
-            {data.dischargePort}
+            {data.dischargePort}, India
           </Col>
         </Row>
         <Row className={`${styles.row} ${styles.last} border_black`}>

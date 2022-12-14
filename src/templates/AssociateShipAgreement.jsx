@@ -1084,7 +1084,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               Port of Discharge
             </Col>
             <Col md={7} className={styles.right}>
-              {data.dischargePort}
+              {data.dischargePort}, India
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
