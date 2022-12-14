@@ -233,7 +233,7 @@ function Index(props) {
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
       let state={...cmaState}
-      myArray=state.designatedStorageArea.split(",")
+    let  myArray=state.designatedStorageArea.split(",")
       state.designatedStorageArea=myArray[0]
       let data = {
         cmaData: state,
@@ -244,7 +244,7 @@ function Index(props) {
     }
     if (props.submitData == true && props.active == 'CMA') {
       let state={...cmaState}
-      myArray=state.designatedStorageArea.split(",")
+    let  myArray=state.designatedStorageArea.split(",")
       state.designatedStorageArea=myArray[0]
       let data = {
         cmaData: state,
