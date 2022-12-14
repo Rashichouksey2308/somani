@@ -176,7 +176,7 @@ function Index(props) {
       }
     }
   }, [props.data]);
-
+console.log(list,"lsiuii")
   useEffect(() => {
     if (props?.address) {
       let a = {
@@ -991,7 +991,7 @@ const cancelEditAddress = () => {
                       list.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions == 'true' || val.actions == undefined ? (
                               <tr key={index} className="table_row">
                                 <td>{val.name}</td>
                                 <td>{val.designation}</td>

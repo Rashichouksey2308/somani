@@ -49,7 +49,7 @@ export const signatoryList = (
                   list.map((val, index) => {
                     return (
                       <>
-                        {val.actions == 'true' ? (
+                        {val.actions == 'true' || val.actions == undefined ? (
                           <tr key={index} className="table_row">
                             <td>{val.name}</td>
                             <td>{val.designation}</td>
