@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import moment from 'moment';
-
+import TermSheetPopUp from '../TermsheetPopUp';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { emailValidation } from '@/utils/helper';
+import { ShareDocument } from 'redux/shareDoc/action';
 let associate = {
   branchName: '',
   shortName: '',
@@ -14,7 +15,8 @@ let associate = {
 };
 
 function Index(props) {
-
+   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const [associateData, setAssociateData] = useState(associate);
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
@@ -27,6 +29,16 @@ function Index(props) {
   const [toView, setToView] = useState(false);
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [gstArray, setgstArr] = useState([]);
+   const [sharedDoc, setSharedDoc] = useState({
+    company: '',
+    order: '',
+    path: '',
+    data: {
+      subject: 'this is subject',
+      text: 'this is text',
+      receiver: '',
+    },
+  });
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -236,6 +248,29 @@ console.log(list,"lsiuii")
     setNewAddress(newInput);
     setToView(false);
   };
+    const handleShareDoc = async () => {
+    if (emailValidation(sharedDoc.data.receiver)) {
+      let tempArr = { ...sharedDoc };
+      tempArr.company = props.orderData.company;
+      tempArr.order =  props.orderData._id;
+      if(list.length>0){
+        list?.forEach((val,index)=>{
+          console.log(val?.document?.path,"val?.document?.path")
+        if(val?.document?.path != undefined){
+            tempArr.path = val?.document?.path
+        }
+        })
+      }
+      
+      let data = await dispatch(ShareDocument(tempArr));
+      if (data?.code == 200) {
+        setOpen(false);
+      }
+    } else {
+      handleErrorToast('please provide a valid email');
+    }
+  };
+
     const handleDataEdit = (name, value) => {
     const newInput = { ...EditAddress };
     newInput[name] = value.Pincode;
@@ -1238,7 +1273,15 @@ const cancelEditAddress = () => {
                             </td>
                             <td>
                               {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
-                              <img src="/static/upload.svg" alt="upload" />
+                              <img src="/static/upload.svg" alt="upload"
+                               onClick={() => {
+                                  setOpen(true);
+                                  setSharedDoc({
+                                    ...sharedDoc,
+                                    path: document.path,
+                                  });
+                                }}
+                              />
                             </td>
                           </tr>
                         </>
@@ -1250,6 +1293,20 @@ const cancelEditAddress = () => {
           </div>
         </div>
       </div>
+         {open ? (
+        <TermSheetPopUp
+          close={() => setOpen(false)}
+          open={open}
+          istermsheet
+          shareEmail={handleShareDoc}
+          setEmail={(e) =>
+            setSharedDoc({
+              ...sharedDoc,
+              data: { ...sharedDoc.data, receiver: e },
+            })
+          }
+        />
+      ) : null}
     </>
   );
 }
