@@ -34,7 +34,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             border="0"
           >
             <tr>              
-              <td valign="top" align="center" width="100%">
+              <td valign="top" colSpan={2} align="center">
                 <h2
                   style={{
                     fontSize: '34px',
@@ -554,10 +554,22 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                                <br></br>
-                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].fullAddress","")},
-                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].city","")},
-                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].country","")},
-                            {_get(lcModuleData.lcModule,"data[0].order.generic.supplier.addresses[0].pinCode","")}
+                                {
+                              _get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].addressType', '')=="Registered"?
+                              <>
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].fullAddress', '')},
+                                  
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].pinCode', '')}
+                              </>:
+                              <>
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].fullAddress', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].city', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].pinCode', '')}
+                              </>
+                            }
+                              
                           </p>
                         </td>
                       </tr>

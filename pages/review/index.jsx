@@ -1387,7 +1387,7 @@ function Index() {
     });
     const getRotate = (rat = 1) => {
       let r = Math.floor(rat);
-      // let r = 4
+    
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
         rotateImageUrl.top = '37%';
@@ -1479,7 +1479,7 @@ function Index() {
     return (
       <table
         width="1500px"
-        style={{ fontFamily: 'Arial, Helvetica, sans-serif' , marginLeft:'100px'}}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif'}}
         cellPadding="0"
         cellSpacing="0"
         border="0"
@@ -1819,7 +1819,7 @@ function Index() {
                     background: '#F7F9FF',
                   }}
                 >
-                  Transaction Period
+                  Transaction Period (Days)
                 </td>
                 <td
                   style={{
@@ -2212,10 +2212,9 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingLeft: '35px',
-                    paddingBottom: '53px',
+                    paddingBottom: '40px',
                   }}
                 >
-                  {' '}
                   {camData?.supplierCredential?.remarks}
                 </td>
               </tr>
@@ -2260,8 +2259,8 @@ function Index() {
                       <td
                         width="50%"
                         style={{
-                          padding: '35px',
                           position: 'relative',
+                          padding: '25px 35px 35px',
                         }}
                       >
                         <img
@@ -2309,7 +2308,7 @@ function Index() {
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
+                      <td width="50%" style={{ padding: '25px 35px 35px 17px' }}>
                         <div align="center">
                           <span
                             style={{
@@ -2821,13 +2820,13 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td valign="top" style={{ padding: '27px' }}>
+                <td valign="top" style={{padding:'37px 27px'}}>
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company?.groupExposureDetail?.map((exp, index) => {
                         let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td key={index} valign="top" width="33.33%">
+                          <td key={index} valign="top" style={{width:'33.33%', float:'left'}}>
                             <table
                               width="100%"
                               cellPadding="0"
@@ -2840,10 +2839,10 @@ function Index() {
                             >
                               <tr>
                                 <td
-                                  width="10%"
+                                  colSpan={2}
                                   height="60"
                                   style={{
-                                    padding: '32px 22px 19px',
+                                    padding: '25px 22px 19px'
                                   }}
                                 >
                                   <span
@@ -2868,19 +2867,18 @@ function Index() {
                                         }
                                       })}
                                   </span>
-                                </td>
-                                <td
-                                  width="90%"
-                                  style={{
-                                    fontSize: '22px',
-                                    color: '#111111',
-                                    lineHeight: '27px',
-                                    fontWeight: 'bold',
-                                    padding: '32px 22px 19px',
-                                  }}
-                                >
-                                  {' '}
-                                  {exp.name}
+                                  <span
+                                    style={{
+                                      fontSize: '22px',
+                                      color: '#111111',
+                                      lineHeight: '27px',
+                                      fontWeight: 'bold',
+                                      textAlign: 'left',
+                                      display: 'inline-block',
+                                      padding: '25px 22px 19px',
+                                    }}
+                                  >{exp.name}
+                                  </span>
                                 </td>
                               </tr>
                               <tr>
@@ -3497,7 +3495,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor}
+                  {camData.company.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor}
                 </td>
                 <td
                   style={{
@@ -3518,7 +3516,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor
+                  {camData.company.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor
                     ? camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor ==
                       camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
                       ? 'No'

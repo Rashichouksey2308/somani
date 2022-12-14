@@ -46,7 +46,17 @@ const Index = ({
                             }
                           })
                           ?.map((val, index) => {
-                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                            if (
+                              val.Document_Name === 'Business Registration Certificate' ||
+                              val.Document_Name === 'KYC form Buyer' ||
+                              val.Document_Name === 'KYC form Vendor' ||
+                              val.Document_Name === 'Bank Reference Letter' ||
+                              val.Document_Name === 'Undertaking from Associate Buyer'
+                            ) {
+                              return null;
+                            } else {
+                              return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                            }
                           })}
                       </select>
                       <img
