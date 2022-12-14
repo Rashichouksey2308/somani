@@ -1,3 +1,5 @@
+import { capitalize } from "lodash";
+
 export default function QuadripartiteAgreementPreview(data) {
   return (
     <table
@@ -57,7 +59,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       paddingBottom:'20px'
                     }}
                   >
-                    <strong>{data.buyer}</strong>, (CIN : {data.cin}) a company incorporated under the Companies Act, 1956, having its registered office at <strong>{data.buyerAddress?.fullAddress}, {data.buyerAddress?.city}, {data.buyerAddress?.country}, {data.buyerAddress?.pinCode}</strong> through its Authorised Signatory (hereinafter called <strong>{data.shortbuyer}</strong>, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the First Part,
+                    <strong style={{textTransform:'capitalize'}}>{data.buyer}</strong>, (CIN : {data.cin}) a company incorporated under the Companies Act, 1956, having its registered office at <strong>{data.buyerAddress?.fullAddress}, {data.buyerAddress?.city}, {data.buyerAddress?.country}, {data.buyerAddress?.pinCode}</strong> through its Authorised Signatory (hereinafter called <strong>{data.shortbuyer}</strong>, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the First Part,
                   </span>
                 </td>
               </tr>

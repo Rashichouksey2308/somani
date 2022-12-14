@@ -15,7 +15,7 @@ export default function QuadripartiteAgreement(data) {
       </p>
       <p className="text_sales">
         {' '}
-        <b>{data.buyer}</b>, (CIN : {data.cin}) a company incorporated under the Companies Act,
+        <b className='text-capitalize'>{data.buyer}</b>, (CIN : {data.cin}) a company incorporated under the Companies Act,
         1956, having its registered office at <b> 
               {data.buyerAddress?.fullAddress},{" "}
               {data.buyerAddress?.city},{" "}

@@ -95,44 +95,44 @@ export default function TPAIGITemp(data) {
           {data.shortbuyer} shall:
         </p>
 
-        <p className=" text_sales">
-          <span className="mr-6">2.1</span> prior to granting access to the Designated Storage Area, be responsible for
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.1</span>prior to granting access to the Designated Storage Area, be responsible for
           clearly demarcating the Designated Storage Area with chalk and rope from all sides for clear demarcation and
           identification for the exclusive and sole access of Collateral Manager for storing the Goods or any other
           materials as agreed in writing.
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.2</span> be responsible for prominently displaying on the board at the entrance of the
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.2</span> be responsible for prominently displaying on the board at the entrance of the
           Designated Storage Area clearly stating that the Goods are under the custody of Collateral Manager and held on
           behalf of {data?.shortseller};
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.3</span> be responsible for putting a Placard on each lot of Goods stored at the
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.3</span> be responsible for putting a Placard on each lot of Goods stored at the
           Designated Storage Area clearly specifying the name of {data?.shortseller} as the owner of the Goods and
           Collateral Manager as the Collateral Manager as custodian of the Goods;{' '}
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.4</span> be responsible for providing an office equipped with required infrastructure
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.4</span> be responsible for providing an office equipped with required infrastructure
           such as electricity, toilet, telephone, access to fax, email etc. will have to be provided free of cost to
           Collateral Manager and the running cost of these facilities will also be borne by {data.shortbuyer}.
           Collateral Manager and their representatives shall have unfettered access to the warehouse/stockyard;{' '}
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.5</span> be responsible for granting unrestricted and unfettered control and access to
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.5</span> be responsible for granting unrestricted and unfettered control and access to
           Collateral Manager over the Designated Storage Area;
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.6</span> Obtain permission from Customs to open the Customs Notified Area where the
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.6</span> Obtain permission from Customs to open the Customs Notified Area where the
           Designated Storage area is located for conducting audit/stock verification/stock assessment as and when required
           by Collateral Manager or its authorised representatives by providing full cooperation and without creating any
           hindrance or obstacle;
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.7</span> ensure that the Designated Storage Area where pledged Goods being stored is
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.7</span> ensure that the Designated Storage Area where pledged Goods being stored is
           suitable for the storage of the goods being stored therein; and
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">2.8</span> be responsible for payment of all taxes, duties and/or service charges
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">2.8</span> be responsible for payment of all taxes, duties and/or service charges
           presently assessed on the Designated Storage Area, as at the date of signature thereof.
         </p>
 
@@ -140,28 +140,28 @@ export default function TPAIGITemp(data) {
           <strong>Article-3 RESPONSIBILITY OF COLLATERAL MANAGER </strong>
         </p>
         <p className=" text_sales">Collateral Manager shall:</p>
-        <p className=" text_sales">
-          <span className="mr-6">3.1</span> ensure that the Designated Storage Area is manned with adequate surveyors
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">3.1</span> ensure that the Designated Storage Area is manned with adequate surveyors
           round the clock at the Designated Storage Area. The fees for the surveyors shall be borne by Collateral Manager;{' '}
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">3.2</span> ensure that all safety regulations or industrial regulations will be adhered
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">3.2</span> ensure that all safety regulations or industrial regulations will be adhered
           to at all point of time;{' '}
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">3.3</span> ensure that at least 3 staff and/or representatives of Collateral Manager will
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">3.3</span> ensure that at least 3 staff and/or representatives of Collateral Manager will
           attend the storage yard at all times during the Term of this Agreement;
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">3.4</span> ensure that it fulfills all its obligations as laid down in the Collateral
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">3.4</span> ensure that it fulfills all its obligations as laid down in the Collateral
           Management Agreement;{' '}
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">3.5</span> shall maintain proper records and registers for incoming and outgoing of
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">3.5</span> shall maintain proper records and registers for incoming and outgoing of
           material; and
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">3.6</span> not assign his/its rights under this Agreement.
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">3.6</span> not assign his/its rights under this Agreement.
         </p>
 
         <p className=" text_sales">
@@ -181,12 +181,12 @@ export default function TPAIGITemp(data) {
           <strong>Article 5 - UTILISATION OF THE DESIGNATED STORAGE AREA </strong>
         </p>
 
-        <p className=" text_sales">
-          <span className="mr-6">5.1</span> Collateral Manager will provide CMA Services at the Designated Storage Area in
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">5.1</span> Collateral Manager will provide CMA Services at the Designated Storage Area in
           accordance with the Collateral Management Agreement.
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">5.2</span> {data.shortbuyer} undertakes that the pledged Goods shall be separately
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">5.2</span> {data.shortbuyer} undertakes that the pledged Goods shall be separately
           stocked at the Designated Storage Area under the custody and control of Collateral Manager{' '}
         </p>
 
@@ -203,8 +203,8 @@ export default function TPAIGITemp(data) {
           <strong>Article 7 - INSURANCE</strong>
         </p>
 
-        <p className=" text_sales">
-          <span className="mr-6">7.1</span> {data.shortbuyer} shall take out and maintain an all risks cargo
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">7.1</span> {data.shortbuyer} shall take out and maintain an all risks cargo
           insurance policy in respect of the Goods which terms are acceptable to the respective Financing Bank at its full
           discretion. The policy shall cover loss, strikes, riots, civil commotion, theft, misappropriation and damage of
           the Goods during storage in the Designated Storage Area and while under transport to and from the Designated
@@ -212,8 +212,8 @@ export default function TPAIGITemp(data) {
           Area have been released by Collateral Manager to {data.shortbuyer}. The insurance policy shall name the
           Financing Bank as a beneficiary of insurances and loss payee.
         </p>
-        <p className=" text_sales">
-          <span className="mr-6">7.2</span> Upon request {data.shortbuyer} will deliver to Collateral Manager and {" "}
+        <p className="text_sales d-table">
+          <span className="pr-2 d-table-cell">7.2</span> Upon request {data.shortbuyer} will deliver to Collateral Manager and {" "}
           {data?.shortseller} a copy of the relevant insurance agreements, policies and related documents together with evidence that the
           premiums have been paid.
         </p>
