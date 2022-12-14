@@ -38,6 +38,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     address: '',
   });
 
+  console.log(consigneeName,branchOptions,'consigneeName')
+
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
@@ -179,6 +181,8 @@ console.log(igmList,'igmList')
     setIgmList(tempArray);
   };
 
+
+
   const onChangeConsignee = (e) => {
     if (e.target.value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
       setConsigneeInfo({
@@ -203,12 +207,12 @@ console.log(igmList,'igmList')
   };
 
   const filterBranch = (company) => {
-    console.log(company, 'company');
     let filter = getInternalCompaniesMasterData?.filter((val, index) => {
       if (val.Company_Name == company) {
         return val;
       }
     });
+    console.log(company,filter ,'consigneeName');
     return filter;
   };
   useEffect(() => {
@@ -311,7 +315,12 @@ console.log(igmList,'igmList')
     }
     // setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
-  useEffect(() => {}, [TransitDetails]);
+  // useEffect(() => {}, [TransitDetails]);
+
+  useEffect(() => {
+    setBranchOptions(filterBranch(consigneeName));
+  }, [consigneeName,TransitDetails,getInternalCompaniesMasterData])
+  
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
