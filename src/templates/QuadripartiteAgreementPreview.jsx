@@ -1437,7 +1437,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           }}
                         >
                           
-                          {data.dischargePort}, India
+                          {data.dischargePort}
                         </span>
                       </td>
                     </tr>

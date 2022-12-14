@@ -74,7 +74,8 @@ const fields = (head, value, isButton, value2, value3, buyerList) => {
         <span className={`${styles.top} label`}>{head}</span>
         <div className="d-flex align-items-center">
           <span className={`${styles.value} value `}>
-            {value} {value2 ? value2 : ''}
+            {head=="Port Of Discharge"?`${value}, India`:`${value}`}
+            {value2 ? value2 : ''}
           </span>
           {isButton ? (
             <a
