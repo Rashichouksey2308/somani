@@ -144,7 +144,7 @@ function Index() {
   };
   const handleChange = (name, value, index, index2) => {
     let tempArr = [...lifting];
-    console.log(tempArr,"tempArr")
+    
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {

@@ -135,7 +135,7 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
- console.log(data?.addComm,"data?.addComm")
+
   return (
     <>
       <div className={`${styles.root}`}>

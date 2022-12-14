@@ -312,7 +312,7 @@ function Index() {
         return false;
       }
     }
-    console.log(lcData.atSight,"SPECIFY")
+   
     if (lcData.atSight == 'Usuance') {
       if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
         toastMessage = 'Please add number of Days';

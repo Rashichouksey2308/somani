@@ -64,7 +64,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     ],
     document: null,
   });
-console.log(igmList,'igmList')
+
   const getDoc = (payload) => {
     dispatch(
       previewDocument({
@@ -179,6 +179,8 @@ console.log(igmList,'igmList')
     setIgmList(tempArray);
   };
 
+
+
   const onChangeConsignee = (e) => {
     if (e.target.value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
       setConsigneeInfo({
@@ -203,18 +205,20 @@ console.log(igmList,'igmList')
   };
 
   const filterBranch = (company) => {
-    console.log(company, 'company');
     let filter = getInternalCompaniesMasterData?.filter((val, index) => {
       if (val.Company_Name == company) {
         return val;
       }
     });
+    
     return filter;
   };
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM.igmDetails`, []).length > 0) {
       let igmData = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [])));
       let tempData = { ...igmList };
+  console.log(tempData ,'igmConDition')
+
       tempData.igmDetails = igmData;
 
       setIgmList(tempData);
@@ -230,20 +234,21 @@ console.log(igmList,'igmList')
         tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
         tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
         tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0]?.blDoc;
+
+        if(shipmentTypeBulk && _get(
+          TransitDetails,
+          `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
+          '',
+        ) === 'No') {
+          // let tempObj = {...igmList}
+          tempArray.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','')
+          // setIgmList(tempArray)
+        }
         setIgmList({ ...tempArray });
       }
     }
 
-    if(shipmentTypeBulk && _get(
-      TransitDetails,
-      `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
-      '',
-    ) === 'No') {
-      let tempObj = {...igmList}
-      tempObj.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','')
-      setIgmList(tempObj
-)
-    }
+    
 
     if (_get(TransitDetails, `data[0].IGM`, false)) {
       setConsigneeInfo({
@@ -269,14 +274,14 @@ console.log(igmList,'igmList')
         setBranchOptions(filterBranch('INDO GERMAN INTERNATIONAL PRIVATE LIMITED'));
       }
     } else {
-      console.log("hehehe", _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`))
+      
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
           'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
         _get(TransitDetails, `data[0].order.termsheet.otherTermsAndConditions.buyer.bank`) ==
           'Emergent Industrial Solutions Limited (EISL)' 
       ) {
-         console.log("hehehe1")
+         
         setConsigneeName('EMERGENT INDUSTRIAL SOLUTIONS LIMITED');
 
         setBranchOptions(filterBranch('EMERGENT INDUSTRIAL SOLUTIONS LIMITED'));
@@ -309,9 +314,14 @@ console.log(igmList,'igmList')
         });
       }
     }
-    // setBranchOptions(filterBranch(consigneeName));
+    setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
   useEffect(() => {}, [TransitDetails]);
+
+  useEffect(() => {
+    setBranchOptions(filterBranch(consigneeName));
+  }, [consigneeName,TransitDetails,getInternalCompaniesMasterData])
+  
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
@@ -320,9 +330,9 @@ console.log(igmList,'igmList')
       const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
         return item.blNumber === value;
       });
-
+console.log(filterData,'filterData')
       let tempArray = { ...igmList };
-
+      tempArray.igmDetails[index].blNumber[index2].blDoc = filterData[0].blDoc;
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity;
@@ -362,14 +372,14 @@ console.log(igmList,'igmList')
     dispatch(UpdateTransitDetails({ fd, task }));
   };
   const validation = () => {
-    console.log(igmList, 'igmList');
+   
     if (checkRemainingBalance() < 0) {
       handleErrorToast('igm cannot be greater than order quantity');
       return false;
     }
     let toastMessage = '';
     for (let i = 0; i < igmList.igmDetails.length; i++) {
-      console.log(igmList.igmDetails[i].igmFiling, '');
+     
       if (
         igmList.igmDetails[i].igmNumber == '' ||
         igmList.igmDetails[i].igmNumber == undefined ||
@@ -453,7 +463,7 @@ console.log(igmList,'igmList')
     }
   };
   const handleSubmit = async () => {
-    console.log('Asdasdasdasd', consigneeInfo);
+    
     if (consigneeInfo.name == '' || consigneeInfo.name == undefined || consigneeInfo.name == null) {
       let toastMessage = 'PLS ADD CONSIGNEE NAME';
       if (!toast.isActive(toastMessage)) {
@@ -862,9 +872,7 @@ console.log(igmList,'igmList')
                   <div className="row">
                     {item?.blNumber?.length > 0 &&
                       item.blNumber.map((blEntry, index2) => {
-                        {
-                          console.log(blEntry, 'blEntry');
-                        }
+                       
                         return (
                           <>
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
