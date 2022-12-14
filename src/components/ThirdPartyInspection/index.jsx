@@ -14,7 +14,7 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther/index';
 import styles from './index.module.scss';
 
-export default function Index({ addButton , setComponentId,componentId,ports }) {
+export default function Index({ addButton, setComponentId, componentId, ports }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,14 +52,12 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     setInspectionData(newInput);
   };
 
-
   useEffect(() => {
     if (inspectionData) {
       setExcelFile(_get(inspectionData, 'order.generic.productSpecifications.specificationTable', []));
     }
   }, [inspectionData]);
- 
-  
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -117,10 +115,8 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
           ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort
-        ?
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort:
-        _get(inspectionData, 'order.lc.lcApplication.portOfLoading', '')
-        ,
+          ? inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort
+          : _get(inspectionData, 'order.lc.lcApplication.portOfLoading', ''),
         inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
@@ -129,9 +125,9 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
         numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
-        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort?
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort:
-        _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', ''),
+        inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort
+          ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort
+          : _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', ''),
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
@@ -147,44 +143,41 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
   }, [inspectionData, allInspection]);
 
   const [documents, setDocuments] = useState({
-    certificateOfQuality:  null,
-    certificateOfWeight:  null,
+    certificateOfQuality: null,
+    certificateOfWeight: null,
     certificateOfOrigin: null,
   });
 
-
   const [dischargeDocuments, setDischargeDocuments] = useState({
-    dischargeCertificateOfQuality:  null,
-    dischargeCertificateOfWeight:  null,
+    dischargeCertificateOfQuality: null,
+    dischargeCertificateOfWeight: null,
     dischargeCertificateOfOrigin: null,
   });
 
-    useEffect(() => {
-    if(inspectionData){
+  useEffect(() => {
+    if (inspectionData) {
       setDocuments({
-    certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
-    certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
-    certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
-
- 
-  });
-    setDischargeDocuments({
-    dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
-    dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
-    dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
-  })
+        certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
+        certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
+        certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
+      });
+      setDischargeDocuments({
+        dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
+        dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
+        dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
+      });
     }
-  },[inspectionData])
+  }, [inspectionData]);
 
   useEffect(() => {
     if (
-      documents.certificateOfQuality  !== null ||
-      documents.certificateOfWeight  !== null ||
-      documents.certificateOfOrigin  !== null
+      documents.certificateOfQuality !== null ||
+      documents.certificateOfWeight !== null ||
+      documents.certificateOfOrigin !== null
     ) {
       sethaveDoc(true);
-    }else{
-       sethaveDoc(false);
+    } else {
+      sethaveDoc(false);
     }
   }, [documents.certificateOfQuality, documents.certificateOfWeight, documents.certificateOfOrigin]);
 
@@ -195,8 +188,8 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
       dischargeDocuments.dischargeCertificateOfOrigin !== null
     ) {
       setHaveDischargeDoc(true);
-    }else{
-       setHaveDischargeDoc(false);
+    } else {
+      setHaveDischargeDoc(false);
     }
   }, [
     dischargeDocuments.dischargeCertificateOfQuality,
@@ -209,7 +202,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     newUploadDoc.certificateOfQuality = e.target.files[0];
 
     setDocuments(newUploadDoc);
-    
   };
 
   const uploadDocument2 = (e) => {
@@ -217,7 +209,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     newUploadDoc1.certificateOfWeight = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-  
   };
 
   const uploadDocument3 = (e) => {
@@ -225,7 +216,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     newUploadDoc1.certificateOfOrigin = e.target.files[0];
 
     setDocuments(newUploadDoc1);
-    
   };
 
   const uploadDischargeDocument1 = (e) => {
@@ -233,7 +223,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     newUploadDoc.dischargeCertificateOfQuality = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc);
-    
   };
 
   const uploadDischargeDocument2 = (e) => {
@@ -241,18 +230,16 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     newUploadDoc1.dischargeCertificateOfWeight = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-  
   };
- 
-  let k
+
+  let k;
   const uploadDischargeDocument3 = (e) => {
     const newUploadDoc1 = { ...dischargeDocuments };
 
-    k=e.target.files
+    k = e.target.files;
     newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
 
     setDischargeDocuments(newUploadDoc1);
-
   };
 
   const handleCloseW = () => {
@@ -463,7 +450,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
     if (!validation()) return;
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
-       
         var noError = false;
         if (haveDischargeDoc == false || haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
@@ -570,7 +556,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
       }
 
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
-      
         var noError2 = false;
         if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT ARE MANDATORY IN LOAD PORT';
@@ -625,7 +610,7 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
           fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin',documents.certificateOfOrigin);
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
           fd.append('certificateOfQuality', documents.certificateOfQuality);
           fd.append('certificateOfWeight', documents.certificateOfWeight);
 
@@ -636,7 +621,6 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
       }
 
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == false) {
-       
         var noError3 = false;
         if (
           inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer === '' ||
@@ -924,59 +908,51 @@ export default function Index({ addButton , setComponentId,componentId,ports }) 
 
   const [toLoadShow, setToLoadShow] = useState([]);
   const [toLoadView, setToLoadView] = useState(false);
- 
-  const filterPort = (value,type) => {
+
+  const filterPort = (value, type) => {
     if (value == '') {
-      if(type=="load"){
+      if (type == 'load') {
         setToLoadShow([]);
         setToLoadView(false);
         return;
-      }else{
+      } else {
         setToDischargeShow([]);
-        setToDischargeView(false)
+        setToDischargeView(false);
         return;
       }
-     
     }
-    let filterData=[]
-    if(type=="load"){
-    filterData = ports.filter((o) => {
-        if(o.Approved.toLowerCase()=="yes" && o.Country.toLowerCase()!=="india"){
-           return o.Port_Name.toLowerCase().includes(value.toLowerCase());
+    let filterData = [];
+    if (type == 'load') {
+      filterData = ports.filter((o) => {
+        if (o.Approved.toLowerCase() == 'yes' && o.Country.toLowerCase() !== 'india') {
+          return o.Port_Name.toLowerCase().includes(value.toLowerCase());
         }
-    });
-    }else{
-     
-       filterData = ports.filter((o) => {
-        if(o.Approved?.toLowerCase()=="yes" && o.Country.toLowerCase()=="india"){
-         
-           return o.Port_Name.toLowerCase().includes(value.toLowerCase());
+      });
+    } else {
+      filterData = ports.filter((o) => {
+        if (o.Approved?.toLowerCase() == 'yes' && o.Country.toLowerCase() == 'india') {
+          return o.Port_Name.toLowerCase().includes(value.toLowerCase());
         }
-    });
-    
+      });
     }
-    
-   if(type=="load"){
-        setToLoadShow(filterData);
-        setToLoadView(true);
-        
-      }else{
-        setToDischargeShow(filterData);
-        setToDischargeView(true)
-        
-      }
-    
+
+    if (type == 'load') {
+      setToLoadShow(filterData);
+      setToLoadView(true);
+    } else {
+      setToDischargeShow(filterData);
+      setToDischargeView(true);
+    }
   };
-const handleData = (name, value,type) => {
-  
-  if(type == "load"){
-  saveInspectionDetails(name,`${value?.Port_Name}, ${value?.Country}`)
-  }else{
-    saveDischargeInspectionDetails(name,`${value?.Port_Name}, ${value?.Country}`)
-  }
-   
+  const handleData = (name, value, type) => {
+    if (type == 'load') {
+      saveInspectionDetails(name, `${value?.Port_Name}, ${value?.Country}`);
+    } else {
+      saveDischargeInspectionDetails(name, `${value?.Port_Name}, ${value?.Country}`);
+    }
+
     setToLoadView(false);
-    setToDischargeView(false)
+    setToDischargeView(false);
   };
   return (
     <>
@@ -1094,7 +1070,7 @@ const handleData = (name, value,type) => {
                       {Number(inspectionDetails.quantity)?.toLocaleString('en-IN', {
                         maximumFractionDigits: 2,
                       })}{' '}
-                    { _get(inspectionData, 'order.unitOfQuantity', '')}
+                      {_get(inspectionData, 'order.unitOfQuantity', '')}
                     </span>
                   </div>
                 )}
@@ -1123,7 +1099,11 @@ const handleData = (name, value,type) => {
                   className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Inspection Details</h3>
-                  <button onClick={handleShow} className={`${styles.product_btn} d-flex align-items-center`} type="button">
+                  <button
+                    onClick={handleShow}
+                    className={`${styles.product_btn} d-flex align-items-center`}
+                    type="button"
+                  >
                     {' '}
                     Product Specification
                     <img className="img-fluid ml-2" src="/static/blue-eye.svg" alt="blue-eye" />
@@ -1155,7 +1135,6 @@ const handleData = (name, value,type) => {
                     )}
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
-                        
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
@@ -1163,37 +1142,45 @@ const handleData = (name, value,type) => {
                           name="loadPortInspectionDetails.inspectionPort"
                           value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
                           onChange={(e) => {
-                            filterPort(e.target.value,"load");
-                            saveInspectionDetails(e.target.name, e.target.value)
+                            filterPort(e.target.value, 'load');
+                            saveInspectionDetails(e.target.name, e.target.value);
                           }}
                         />
-                         {toLoadShow.length > 0 && toLoadView && (
-                    <div className={styles.searchResults}>
-                      <ul>
-                        {toLoadShow
-                          ? toLoadShow?.filter((val, index) => {
-                            if (val.Country.toLowerCase() !== 'india') {
-                              return val;
-                            }
-                          }).map((results, index) => (
-                            <li
-                              onClick={() => handleData('loadPortInspectionDetails.inspectionPort', results,"load")}
-                              id={results._id}
-                              key={index}
-                              value={results?.Port_Name}
-                            >
-                              {results?.Port_Name}, {results?.Country}
-                            </li>
-                          ))
-                          : ''}
-                      </ul>
-                    </div>
-                         )}
+                        {toLoadShow.length > 0 && toLoadView && (
+                          <div className={styles.searchResults}>
+                            <ul>
+                              {toLoadShow
+                                ? toLoadShow
+                                    ?.filter((val, index) => {
+                                      if (val.Country.toLowerCase() !== 'india') {
+                                        return val;
+                                      }
+                                    })
+                                    .map((results, index) => (
+                                      <li
+                                        onClick={() =>
+                                          handleData('loadPortInspectionDetails.inspectionPort', results, 'load')
+                                        }
+                                        id={results._id}
+                                        key={index}
+                                        value={results}
+                                      >
+                                        {results?.Port_Name}, {results?.Country}
+                                      </li>
+                                    ))
+                                : ''}
+                            </ul>
+                          </div>
+                        )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                        <img
+                          className={`${styles.search_image} img-fluid`}
+                          src="/static/search-grey.svg"
+                          alt="Search"
+                        />
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
@@ -1264,7 +1251,7 @@ const handleData = (name, value,type) => {
                 toDischargeShow,
                 toDischargeView,
                 handleData,
-                filterPort
+                filterPort,
               )
             : ''}
           {inspectionDetails.loadPortInspection && (
@@ -1320,33 +1307,30 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ||documents.certificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfOrigin ||
+                                documents.certificateOfOrigin ? (
                                   <span
-                                    onClick={() =>
-                                     {
-                                      if(inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path == undefined){
-                                      let reader = new FileReader();
-                                       reader.readAsArrayBuffer(documents.certificateOfOrigin);
-                                       
-                                      reader.onload = function() {
-                                        
-                                        var file = new Blob([reader.result], {type: 'application/pdf'});
-                                        var fileURL = URL.createObjectURL(file);
-                                        window.open(fileURL);
+                                    onClick={() => {
+                                      if (
+                                        inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path == undefined
+                                      ) {
+                                        let reader = new FileReader();
+                                        reader.readAsArrayBuffer(documents.certificateOfOrigin);
 
-
-                                      };
+                                        reader.onload = function () {
+                                          var file = new Blob([reader.result], { type: 'application/pdf' });
+                                          var fileURL = URL.createObjectURL(file);
+                                          window.open(fileURL);
+                                        };
+                                      } else {
+                                        dispatch(
+                                          ViewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
+                                            order: inspectionData?.order?._id,
+                                          }),
+                                        );
                                       }
-                                      else{
-                                         dispatch(
-                                        ViewDocument({
-                                          path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                      }
-                                     }
-                                    }
+                                    }}
                                   >
                                     View
                                   </span>
@@ -1437,32 +1421,30 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfQuality || documents?.certificateOfQuality  ? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfQuality ||
+                                documents?.certificateOfQuality ? (
                                   <span
-                                    onClick={() =>
-                                   {  if(inspectionData?.thirdPartyInspection?.certificateOfQuality?.path== undefined){
-                                      let reader = new FileReader();
-                                       reader.readAsArrayBuffer(documents.certificateOfQuality);
-                                       
-                                      reader.onload = function() {
-                                       
-                                        var file = new Blob([reader.result], {type: 'application/pdf'});
-                                        var fileURL = URL.createObjectURL(file);
-                                        window.open(fileURL);
+                                    onClick={() => {
+                                      if (
+                                        inspectionData?.thirdPartyInspection?.certificateOfQuality?.path == undefined
+                                      ) {
+                                        let reader = new FileReader();
+                                        reader.readAsArrayBuffer(documents.certificateOfQuality);
 
-
-                                      };
-                                     }
-                                     else{
-                                       dispatch(
-                                        ViewDocument({
-                                          path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                     }
-                                    }
-                                  }
+                                        reader.onload = function () {
+                                          var file = new Blob([reader.result], { type: 'application/pdf' });
+                                          var fileURL = URL.createObjectURL(file);
+                                          window.open(fileURL);
+                                        };
+                                      } else {
+                                        dispatch(
+                                          ViewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
+                                            order: inspectionData?.order?._id,
+                                          }),
+                                        );
+                                      }
+                                    }}
                                   >
                                     View
                                   </span>
@@ -1553,33 +1535,30 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.certificateOfWeight || documents.certificateOfWeight? (
+                                {inspectionData?.thirdPartyInspection?.certificateOfWeight ||
+                                documents.certificateOfWeight ? (
                                   <span
-                                    onClick={() =>
-                                     {
-                                      if(inspectionData?.thirdPartyInspection?.certificateOfWeight?.path == undefined ){
-                                      let reader = new FileReader();
-                                       reader.readAsArrayBuffer(documents.certificateOfWeight);
-                                       
-                                        reader.onload = function() {
-                                       
-                                        var file = new Blob([reader.result], {type: 'application/pdf'});
-                                        var fileURL = URL.createObjectURL(file);
-                                        window.open(fileURL);
+                                    onClick={() => {
+                                      if (
+                                        inspectionData?.thirdPartyInspection?.certificateOfWeight?.path == undefined
+                                      ) {
+                                        let reader = new FileReader();
+                                        reader.readAsArrayBuffer(documents.certificateOfWeight);
 
-
-                                      };
+                                        reader.onload = function () {
+                                          var file = new Blob([reader.result], { type: 'application/pdf' });
+                                          var fileURL = URL.createObjectURL(file);
+                                          window.open(fileURL);
+                                        };
+                                      } else {
+                                        dispatch(
+                                          ViewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
+                                            order: inspectionData?.order?._id,
+                                          }),
+                                        );
                                       }
-                                      else{
-                                         dispatch(
-                                        ViewDocument({
-                                          path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                      }
-                                     }
-                                    }
+                                    }}
                                   >
                                     View
                                   </span>
@@ -1740,36 +1719,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Origin
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || dischargeDocuments.dischargeCertificateOfOrigin ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin ||
+                                dischargeDocuments.dischargeCertificateOfOrigin ? (
                                   <span
-                                    onClick={() =>
-                                     {
-                                      
-                                     if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.path==undefined){
-                                      let reader = new FileReader();
-                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfOrigin);
-                                       
-                                      reader.onload = function() {
-                                        
-                                        var file = new Blob([reader.result], {type: 'application/pdf'});
-                                        var fileURL = URL.createObjectURL(file);
-                                        window.open(fileURL);
+                                    onClick={() => {
+                                      if (
+                                        inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.path ==
+                                        undefined
+                                      ) {
+                                        let reader = new FileReader();
+                                        reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfOrigin);
 
-
-                                      };
-                                     
-                                      }else{
-                                          dispatch(
-                                        ViewDocument({
-                                          path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
-                                            ?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                      } 
-                                    }
-                                    
-                                    }
+                                        reader.onload = function () {
+                                          var file = new Blob([reader.result], { type: 'application/pdf' });
+                                          var fileURL = URL.createObjectURL(file);
+                                          window.open(fileURL);
+                                        };
+                                      } else {
+                                        dispatch(
+                                          ViewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
+                                              ?.path,
+                                            order: inspectionData?.order?._id,
+                                          }),
+                                        );
+                                      }
+                                    }}
                                   >
                                     View
                                   </span>
@@ -1860,34 +1835,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Quality
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || dischargeDocuments.dischargeCertificateOfQuality ? (
-                                  
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality ||
+                                dischargeDocuments.dischargeCertificateOfQuality ? (
                                   <span
-                                    onClick={() =>
-                                     {
-                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.path == undefined){
-                                      let reader = new FileReader();
-                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfQuality);
-                                       
-                                      reader.onload = function() {
-                                        
-                                        var file = new Blob([reader.result], {type: 'application/pdf'});
-                                        var fileURL = URL.createObjectURL(file);
-                                        window.open(fileURL);
+                                    onClick={() => {
+                                      if (
+                                        inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.path ==
+                                        undefined
+                                      ) {
+                                        let reader = new FileReader();
+                                        reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfQuality);
 
-
-                                      };
-                                      }else{
-                                         dispatch(
-                                        ViewDocument({
-                                          path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
-                                            ?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
+                                        reader.onload = function () {
+                                          var file = new Blob([reader.result], { type: 'application/pdf' });
+                                          var fileURL = URL.createObjectURL(file);
+                                          window.open(fileURL);
+                                        };
+                                      } else {
+                                        dispatch(
+                                          ViewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
+                                              ?.path,
+                                            order: inspectionData?.order?._id,
+                                          }),
+                                        );
                                       }
-                                     }
-                                    }
+                                    }}
                                   >
                                     View
                                   </span>
@@ -1978,33 +1951,32 @@ const handleData = (name, value,type) => {
                               <td className={styles.doc_name}>
                                 Certificate of Weight
                                 <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || dischargeDocuments.dischargeCertificateOfWeight ? (
+                                {inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight ||
+                                dischargeDocuments.dischargeCertificateOfWeight ? (
                                   <span
-                                    onClick={() =>
-                                     {
-                                      if(inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.path ==undefined){
-                                      let reader = new FileReader();
-                                       reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfWeight);
-                                       
-                                      reader.onload = function() {
-                                       
-                                        var file = new Blob([reader.result], {type: 'application/pdf'});
-                                        var fileURL = URL.createObjectURL(file);
-                                        window.open(fileURL);
+                                    onClick={() => {
+                                      if (
+                                        inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.path ==
+                                        undefined
+                                      ) {
+                                        let reader = new FileReader();
+                                        reader.readAsArrayBuffer(dischargeDocuments.dischargeCertificateOfWeight);
 
-
-                                      };
-                                      }else{
-                                         dispatch(
-                                        ViewDocument({
-                                          path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
-                                            ?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
+                                        reader.onload = function () {
+                                          var file = new Blob([reader.result], { type: 'application/pdf' });
+                                          var fileURL = URL.createObjectURL(file);
+                                          window.open(fileURL);
+                                        };
+                                      } else {
+                                        dispatch(
+                                          ViewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
+                                              ?.path,
+                                            order: inspectionData?.order?._id,
+                                          }),
+                                        );
                                       }
-                                     }
-                                    }
+                                    }}
                                   >
                                     View
                                   </span>
@@ -2108,7 +2080,20 @@ const handleData = (name, value,type) => {
           )}
 
           <div className="0">
-            <UploadOther orderid={orderid} module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
+            <UploadOther
+              orderid={orderid}
+              module={[
+                '3rd Party Inspection',
+                'Plot Inspection',
+                'Bill of Lading',
+                'Letter of Indemnity',
+                'BL Surrender',
+                'Forward Hedging',
+                'CIMS',
+                'IGM',
+                'Intercompany Invoicing',
+              ]}
+            />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
@@ -2168,7 +2153,7 @@ const Discharge = (
   toDischargeShow,
   toDischargeView,
   handleData,
-  filterPort
+  filterPort,
 ) => {
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
@@ -2214,39 +2199,42 @@ const Discharge = (
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
                 value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
-                onChange={(e) =>{
-                  
-                   filterPort(e.target.value,"dischatge");
-                   saveInspectionDetails(e.target.name, e.target.value)
+                onChange={(e) => {
+                  filterPort(e.target.value, 'dischatge');
+                  saveInspectionDetails(e.target.name, e.target.value);
                 }}
               />
-               {toDischargeShow.length > 0 && toDischargeView && (
-                    <div className={styles.searchResults}>
-                      <ul>
-                        {toDischargeShow
-                          ? toDischargeShow?.filter((val, index) => {
+              {toDischargeShow.length > 0 && toDischargeView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toDischargeShow
+                      ? toDischargeShow
+                          ?.filter((val, index) => {
                             if (val.Country.toLowerCase() == 'india') {
                               return val;
                             }
-                          }).map((results, index) => (
+                          })
+                          .map((results, index) => (
                             <li
-                              onClick={() => handleData('dischargePortInspectionDetails.inspectionPort', results,"discharge")}
+                              onClick={() =>
+                                handleData('dischargePortInspectionDetails.inspectionPort', results, 'discharge')
+                              }
                               id={results._id}
                               key={index}
-                              value={results?.Port_Name}
+                              value={results}
                             >
                               {results?.Port_Name}, {results?.Country}
                             </li>
                           ))
-                          : ''}
-                      </ul>
-                    </div>
-                  )}
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <label className={`${styles.label_heading} label_heading`}>
                 Inspection Port
                 <strong className="text-danger">*</strong>
               </label>
-                <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
             </div>
           </div>
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>

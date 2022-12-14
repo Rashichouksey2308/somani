@@ -305,6 +305,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Total Order Value (INR)</span>
                       <span className={`${styles.formula} text1 ml-2`}>(N+O)</span>
                     </td>
+
                     <td>
                       ₹{' '}
                       {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
