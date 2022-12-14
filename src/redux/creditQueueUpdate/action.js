@@ -141,15 +141,11 @@ function VerifyingConsolidatedGstFailed() {
   };
 }
 
-
-
-
-export const UpdateCam =
-  (payload, message) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    console.log(payload.status, 'payload');
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+export const UpdateCam = (payload, message) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  console.log(payload.status, 'payload');
+  let cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
@@ -265,8 +261,6 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-
-
 export const getGstData = (payload) => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
@@ -282,7 +276,7 @@ export const getGstData = (payload) => async (dispatch, getState, api) => {
     };
     dispatch(VerifyingGst());
 
-    Axios.post(`${API.corebaseUrl}${API.getGst}`, payload, {
+    Axios.post(`${API.userbaseUrl}${API.sendGst}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
