@@ -147,14 +147,14 @@ export default function QuadripartiteAgreement(data) {
         </li>
         <li>
           <p className=" text_sales">
-            CHA/Stevedore will apply for EDRM permission and place indent online. The Associate Buyer will pay the
+            CHA/Stevedore will apply for EDRM permission and place an indent online. The Associate Buyer will pay the
             railway freight and related charges directly.
           </p>
         </li>
         <li>
           <p className=" text_sales">
             Scanned copy of RR shall be furnished by Stevedore to {data.shortbuyer} as well as to Associate Buyer
-            as soon as it is issued after loading. The or{data?.shortbuyer}nal RR shall be sent by Stevedore to the Associate Buyer for
+            as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for
             taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
           </p>
         </li>
@@ -166,8 +166,7 @@ export default function QuadripartiteAgreement(data) {
             the details of the goods for which {data.shortbuyer}/{data?.shortbuyer}'s nominated Bank shall be the beneficiary
             for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of
             CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till
-            realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and
-            {data?.shortbuyer} against all risks.
+            realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and {data?.shortbuyer} against all risks.
           </p>
         </li>
         <li>
@@ -225,8 +224,7 @@ export default function QuadripartiteAgreement(data) {
           <p className=" text_sales">
             In the event the Associate Buyer does not lift the goods/material within the scheduled period{' '}
             {data.shortbuyer} has the right to sell/dispose of the Goods at the sole risk, cost of the Associate
-            Buyer. The Associate Buyer shall liable to pay to {data.shortbuyer} the loss (if any) incurred by{' '}
-            {data.shortbuyer}.
+            Buyer. The Associate Buyer shall be liable to pay to {data.shortbuyer} the loss (if any) incurred by {data.shortbuyer}.
           </p>
         </li>
         <li>

@@ -1725,8 +1725,6 @@ export default function AssociateshipAgreementPreview(data) {
                                 return  <strong style={{display:'block', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                             })
                           }
-                          <strong style={{display:'block', marginBottom:'10px'}}>Name:<br/>
-                          Designation:</strong>
                         </span>
                       </td>
                       <td align="left">
