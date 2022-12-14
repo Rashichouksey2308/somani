@@ -104,7 +104,7 @@ function Index(props) {
           name: savedData.name || props?.vendor?.name,
           shortName: savedData.shortName,
           gstin: savedData.gstin ||'',
-          designatedStorageArea: savedData.designatedStorageArea,
+          designatedStorageArea: `${savedData.designatedStorageArea}, India`,
 
           addresses: savedData.addresses,
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails,
@@ -166,7 +166,8 @@ function Index(props) {
           shortName: props.data?.shortName,
           gstin: props.data?.gstin ||'',
           designatedStorageArea:
-          props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
+          `${ props?.data?.designatedStorageArea}, India`||
+          `${props.termsheet.transactionDetails.portOfDischarge}, India`,
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props?.data?.authorisedSignatoryDetails,
         };

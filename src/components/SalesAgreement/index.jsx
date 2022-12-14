@@ -655,6 +655,7 @@ let masterList = [
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
           directors={props.directors}
           gettingPins={gettingPins}
+          orderData={props.genericData.order}
           
         
         />
