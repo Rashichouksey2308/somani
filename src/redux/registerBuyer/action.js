@@ -448,7 +448,7 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(`${API.corebaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
+    Axios.post(`${API.userbaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getGstSuccess(response.data));
 
