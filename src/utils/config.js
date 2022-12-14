@@ -22,10 +22,10 @@
 // Https
 
 export default {
-  baseUrl: 'https://api-dev.simport.global',
-  authServerUrl: 'https://api-dev.simport.global/auth',
-  userServerUrl: 'https://api-dev.simport.global/user',
-  coreServerUrl: 'https://api-dev.simport.global/core',
+  baseUrl: 'https://api-uat.simport.global',
+  authServerUrl: 'https://api-uat.simport.global/auth',
+  userServerUrl: 'https://api-uat.simport.global/user',
+  coreServerUrl: 'https://api-uat.simport.global/core',
 };
 
 // local
