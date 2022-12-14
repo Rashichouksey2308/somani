@@ -60,7 +60,7 @@ export default function AssociateshipAgreementPreview(data) {
                     {/* {data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
                     {data.buyerAddress?.pinCode},  */}
                     through its Authorised Signatory (hereinafter called{' '}
-                    <strong>IGIPL</strong> or <strong>“Seller”</strong>, which expression shall, unless it
+                    <strong>{data.shortbuyer}</strong> or <strong>“Seller”</strong>, which expression shall, unless it
                     be repugnant to the context or meaning thereof, be deemed to mean and include its successors and
                     permitted assigns, attorneys) of One Part.
                   </span>
@@ -84,7 +84,7 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
-                    <strong>IGIPL</strong> and the Associate Buyer, wherever required, are collectively
+                    <strong>Seller</strong> and the Associate Buyer, wherever required, are collectively
                     referred to as the “Parties” and individually as the “Party”.
                   </span>
                 </td>
@@ -99,7 +99,7 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
-                    WHEREAS Associate Buyer has requested IGIPL to arrange import purchase of Goods (Details of the Goods
+                    WHEREAS Associate Buyer has requested Seller to arrange import purchase of Goods (Details of the Goods
                     including quantity, quality, Inco terms is annexed in Schedule I) from the Supplier and sale of the
                     same to the Associate Buyer on stock &amp; sale basis.{' '}
                   </span>
@@ -109,7 +109,7 @@ export default function AssociateshipAgreementPreview(data) {
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
                     Relying upon the representations and information provided by the Associate Buyer in the Request and
-                    in the Agreement, <strong>IGIPL</strong> has agreed to arrange import/ purchase of Goods
+                    in the Agreement, <strong>Seller</strong> has agreed to arrange import/ purchase of Goods
                     from the Supplier (Details of Supplier in Schedule-I) and to sell the same to the Associate Buyer on
                     stock &amp; sale basis.
                   </span>
@@ -119,8 +119,8 @@ export default function AssociateshipAgreementPreview(data) {
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
                     Whereas, Supplier shall sell the Goods to <strong>{data.seller}</strong>, Zug (hereinafter referred
-                    to as <strong>Indo</strong>) for onward sale to <strong>IGIPL</strong> and{' '}
-                    <strong>IGIPL</strong> shall, in terms of this Agreement, sell the same to the Associate
+                    to as <strong>{data.shortseller}</strong>) for onward sale to <strong>Seller</strong> and{' '}
+                    <strong>Seller</strong> shall, in terms of this Agreement, sell the same to the Associate
                     Buyer.
                   </span>
                 </td>
@@ -128,7 +128,7 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
-                    Whereas <strong>IGIPL</strong> shall import Goods for and on behalf of the Associate
+                    Whereas <strong>Seller</strong> shall import Goods for and on behalf of the Associate
                     Buyer, at the sole risk and responsibility of the Associate Buyer and shall store the same under the
                     custody of the Customs House Agent/ Collateral Manager appointed on mutually agreed terms.
                   </span>
@@ -139,7 +139,7 @@ export default function AssociateshipAgreementPreview(data) {
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
                     WHEREAS the Associate Buyer has also submitted undertakings for (a) Price Justification along with
                     Quality and Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding
-                    amount to <strong>IGIPL</strong> at the time of making the above request for import of
+                    amount to <strong>Seller</strong> at the time of making the above request for import of
                     the Goods and these undertaking(s) form an integral part of this Agreement.
                   </span>
                 </td>
@@ -176,10 +176,10 @@ export default function AssociateshipAgreementPreview(data) {
                       >
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{marginLeft:'-16px', display:'inline-block'}}>A.&nbsp; </span>The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and all other terms &amp; conditions of sale between Indo and the Supplier have
+                            <span style={{marginLeft:'-16px', display:'inline-block'}}>A.&nbsp; </span>The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and all other terms &amp; conditions of sale between {data.shortseller} and the Supplier have
                             been negotiated and firmed up between Associate Buyer and Supplier. The Associate Buyer
                             further undertakes that it has ensured that the Sales Contract to be entered into between
-                            Indo and the Supplier (“Sale Contract”) is in accordance with the negotiations undertaken by
+                             {data.shortseller} and the Supplier (“Sale Contract”) is in accordance with the negotiations undertaken by
                             the Associate Buyer and the Supplier.
                           </span>
                         </li>
@@ -226,7 +226,7 @@ export default function AssociateshipAgreementPreview(data) {
                             a) &nbsp; the price at which the forward is booked or
                           </span><br/>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', marginLeft:'-18px', paddingBottom:'16px', display:'inline-block'}}>
-                            b) &nbsp; the average of the exchanges rate at which the payment of Import is made by IGIPL to Indo
+                            b) &nbsp; the average of the exchanges rate at which the payment of Import is made by Seller to {data.shortseller}
                             for this transaction.
                           </span><br/>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
@@ -237,7 +237,7 @@ export default function AssociateshipAgreementPreview(data) {
                             adjustments in regards to exchange rate variation / expenses &amp; charges.
                           </span><br/>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            The amount payable as per the final invoice issued by IGIPL shall be final and binding on the
+                            The amount payable as per the final invoice issued by Seller shall be final and binding on the
                             Associate Buyer.
                           </span>
                         </li>
@@ -249,10 +249,10 @@ export default function AssociateshipAgreementPreview(data) {
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}>
                         The Associate Buyer shall make payment of margin money of the total Contract Value as advance
-                        prior to opening of LC by Indo on the Supplier as mentioned in Schedule I.
+                        prior to opening of LC by {data.shortseller} on the Supplier as mentioned in Schedule I.
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}>
-                        Indo will open the LC in favour of Supplier within 5 working days of receipt of the Advance as
+                        {data.shortseller} will open the LC in favour of Supplier within 5 working days of receipt of the Advance as
                         stated herein.
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}>
@@ -310,11 +310,11 @@ export default function AssociateshipAgreementPreview(data) {
                     </li> */}
                     <li style={{ fontWeight:'bold'}}>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block', marginLeft:'-16px'}}>
-                        <strong>4.&nbsp; IGIPL 's trading Margin</strong>
+                        <strong>4.&nbsp; Seller 's trading Margin</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block', fontWeight: 'normal'}}>
-                        The Trading margin of IGIPL shall be paid by the Associate Buyer as per details mentioned in 
-                        Schedule I, and the same shall be collected in the Sale Invoice raised by IGIPL on the Associate
+                        The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in 
+                        Schedule I, and the same shall be collected in the Sale Invoice raised by Seller on the Associate
                         Buyer.
                       </span>
                     </li>
@@ -323,7 +323,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>5.&nbsp; Other Charges</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}>
-                        Any and all incidental charges that may be incurred by Indo and/or Seller in relation to the
+                        Any and all incidental charges that may be incurred by {data.shortseller} and/or Seller in relation to the
                         import/storage/maintenance/delivery/security, Railway Freight, Penalty, Charges etc. of the
                         Goods shall be to the account of the Associate Buyer and will be payable by Associate Buyer to
                         Seller at actuals within 5 days of demand from Seller.
@@ -375,7 +375,7 @@ export default function AssociateshipAgreementPreview(data) {
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>Associate Buyer shall be solely liable and responsible for all consequences arising out of
                             any variation of the item/quality/quantity contracted for &amp; actually shipped. Associate
                             Buyer undertakes to indemnify Seller in this regard. It has been agreed by the Associate
-                            Buyer that any claim/liability arising from the Supplier against Indo/Seller shall be passed
+                            Buyer that any claim/liability arising from the Supplier against {data.shortseller}/Seller shall be passed
                             on to the Associate Buyer. If the Supplier agrees upon any compensation on account of any
                             quality deviation, then Seller shall refund the same to the Associate Buyer on receipt of
                             the same.
@@ -390,9 +390,9 @@ export default function AssociateshipAgreementPreview(data) {
                       <ul type="none" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight:'normal', paddingLeft: '0' }}>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>The Marine Insurance will be arranged by the Associate Buyer in favour of IGIPL or IGIPL's
-                            nominated Bank (as per IGIPL's discretion), for 110% of Import Cargo Value, the cost of it
-                            shall be borne by the Associate Buyer. In case IGIPL decides to take the insurance directly in
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>The Marine Insurance will be arranged by the Associate Buyer in favour of Seller or Seller's
+                            nominated Bank (as per Seller's discretion), for 110% of Import Cargo Value, the cost of it
+                            shall be borne by the Associate Buyer. In case Seller decides to take the insurance directly in
                             its name, the cost of it shall be borne by the Associate Buyer.
                           </span>
                         </li>
@@ -400,7 +400,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>The cargo while in the port, during transit from port to godown/plot/warehouse and while in
                             the godown/plot/warehouse and while in Ocean shall be insured by way of insurance by
-                            Associate Buyer in favour of IGIPL or IGIPL's nominated Bank (as per IGIPL's discretion), for 110%
+                            Associate Buyer in favour of Seller or Seller's nominated Bank (as per Seller's discretion), for 110%
                             of landed cost (inclusive of custom duty, all other taxes applicable under GST Act 2017 as
                             amended till date). Associate Buyer will ensure that the material shall at all times remain
                             insured.
@@ -410,8 +410,8 @@ export default function AssociateshipAgreementPreview(data) {
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>The Insurance policy in original or digitally signed by Insurance Company whichever is
                             required to file and process the claim before Insurance Company, shall be submitted by
-                            Associate Buyer to IGIPL immediately on demand. In case the Associate Buyer fails to take the
-                            Insurance as desired by IGIPL, IGIPL shall among other rights reserved under this Agreement,
+                            Associate Buyer to Seller immediately on demand. In case the Associate Buyer fails to take the
+                            Insurance as desired by Seller, Seller shall among other rights reserved under this Agreement,
                             including right to terminate the Agreement, be at liberty to take such insurance at cost of
                             the Associate Buyer.
                           </span>
@@ -421,8 +421,8 @@ export default function AssociateshipAgreementPreview(data) {
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>D. &nbsp; </span>In the event of any loss, or any other event, leading to invocation of insurance policy, the
                             process of filing of claim, settlement of amount, etc. shall be the sole responsibility of
                             the Associate Buyer. It has been agreed by the Associate Buyer that settlement, if any,
-                            arrived with the Insurance Company, shall be paid directly by the Insurance Company to IGIPL
-                            or IGIPL's nominated bank as the case may be and the same shall not absolve the Associate
+                            arrived with the Insurance Company, shall be paid directly by the Insurance Company to Seller
+                            or Seller's nominated bank as the case may be and the same shall not absolve the Associate
                             Buyer of their liability under the Associateship Agreement towards Seller.
                           </span>
                         </li>
@@ -435,8 +435,8 @@ export default function AssociateshipAgreementPreview(data) {
                       <ul type="none" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight:'normal', paddingLeft: '0' }}>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>The Goods shall be sold by IGIPL to Associate Buyer on Stock &amp; Sale basis as per delivery
-                            terms mentioned in Schedule I. IGIPL shall file the Bill of Entry in its name and the
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>The Goods shall be sold by Seller to Associate Buyer on Stock &amp; Sale basis as per delivery
+                            terms mentioned in Schedule I. Seller shall file the Bill of Entry in its name and the
                             Associate Buyer shall arrange to clear the cargo at the port.
                             <br />
                             In case the shipment is under Form A-1 the same shall be arranged by the Associate Buyer on
@@ -445,12 +445,12 @@ export default function AssociateshipAgreementPreview(data) {
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>IGIPL shall generate e-way bill from the GST portal under its registration for movement of the
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>Seller shall generate e-way bill from the GST portal under its registration for movement of the
                             goods by Rail or Road.</span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>All Duties and taxes shall be paid by the Associate Buyer to CHA/IGIPL in advance at the time
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>All Duties and taxes shall be paid by the Associate Buyer to CHA/Seller in advance at the time
                             of Custom Clearance. The Associate Buyer shall bear all Handling Charges, Port Charges, Plot
                             Rentals, t etc. to CHA who will take care of the payments to Port and raise bills on
                             “Associate Buyer” for this. The Associate Buyer shall separately take care of the
@@ -468,7 +468,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>E. &nbsp; </span>BL quantity shall be considered the final quantity. Any shortage from the BL quantity shall
-                            be to the account of Associate Buyer and IGIPL shall in no way be responsible for the same.
+                            be to the account of Associate Buyer and Seller shall in no way be responsible for the same.
                           </span>
                         </li>
                       </ul>
@@ -506,7 +506,7 @@ export default function AssociateshipAgreementPreview(data) {
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>D. &nbsp; </span><strong>Safekeeping and Security of the Goods: </strong>
                             <br />
-                            Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. IGIPL shall in no way be responsible or liable for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
+                            Proper safekeeping and security of Goods and management of the storage yard shall be the responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security guards at the Storage yard where Goods shall be stored. Seller shall in no way be responsible or liable for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
                           </span>
                         </li>
                       </ul>
@@ -518,34 +518,34 @@ export default function AssociateshipAgreementPreview(data) {
                       <ul type="none" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight:'normal', paddingLeft: '0' }}>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>On Associate Buyer's request, IGIPL has agreed to appoint Associate Buyer's nominated
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>On Associate Buyer's request, Seller has agreed to appoint Associate Buyer's nominated
                             Stevedoring agent for providing the stevedoring services as specified in the agreement to be
                             entered with Stevedoring Agent.
                           </span><br/>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            The Associate Buyer confirms and agrees that IGIPL shall not be liable or responsible for any
+                            The Associate Buyer confirms and agrees that Seller shall not be liable or responsible for any
                             non-performance or breach of the terms of the Agreement by the stevedores in any manner
                             whatsoever, including but not limited to shortage, theft, mix-up of the Goods with other
                             goods or materials, delay in performance of terms of Stevedoring agreement by Stevedores.
                             For any claims arising out of the breach of the terms of the stevedoring agreement by the
                             Stevedores, the Associate Buyer shall be solely responsible without any liability or
-                            responsibility of IGIPL whatsoever.
+                            responsibility of Seller whatsoever.
                           </span><br/>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            The Associate Buyer indemnifies and holds harmless IGIPL from any losses, damages, claims,
-                            costs incurred or suffered by IGIPL due to breach of the obligations, misrepresentation or
+                            The Associate Buyer indemnifies and holds harmless Seller from any losses, damages, claims,
+                            costs incurred or suffered by Seller due to breach of the obligations, misrepresentation or
                             breach of trust by the Stevedoring agent.
                           </span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', display:'inline-block'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>IGIPL will instruct the stevedoring agent consign the material directly to the IGIPL's nominated
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>Seller will instruct the stevedoring agent consign the material directly to the Seller's nominated
                             warehouse/plot/etc, where the goods will be stored. The Goods shall remain under the control
-                            and custody of the Stevedoring Agent who will work under the sole instructions of IGIPL. The
+                            and custody of the Stevedoring Agent who will work under the sole instructions of Seller. The
                             Stevedoring Agent, shall furnish an undertaking that goods will not be released to Associate
-                            Buyer or to their nominees without a written Release order from IGIPL. IGIPL shall enter into an
+                            Buyer or to their nominees without a written Release order from Seller. Seller shall enter into an
                             agreement with Stevedoring Agent &amp; the Associate Buyer. Stevedoring Agent will raise
-                            invoice on IGIPL.
+                            invoice on Seller.
                           </span>
                         </li>
                         <li>
@@ -554,7 +554,7 @@ export default function AssociateshipAgreementPreview(data) {
                             Stevedoring Agent will place indent online. The Associate Buyer will coordinate with
                             “Stevedoring Agent for making necessary arrangements to place for Railway Rakes. The
                             Associate Buyer will pay the railway freight and related charges directly. Scanned copy of
-                            RR shall be furnished by Stevedoring Agent to IGIPL as well as the Associate Buyer as soon as
+                            RR shall be furnished by Stevedoring Agent to Seller as well as the Associate Buyer as soon as
                             it is issued after loading. The original RR/LR shall be sent by Stevedoring Agent to the
                             Associate Buyer for taking delivery of the rake.
                           </span>
@@ -650,13 +650,13 @@ export default function AssociateshipAgreementPreview(data) {
                             <li>
                               <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                                 <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>Ocean transportation will be arranged by the Associate Buyer. The freight payment will
-                                be made by IGIPL as directed by the Associate buyers upon receipt of the freight invoice.
+                                be made by Seller as directed by the Associate buyers upon receipt of the freight invoice.
                               </span>
                             </li>
                             <li>
                               <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                                 <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>Associate Buyer will be solely responsible for the settlement and confirmation of
-                                demurrage / dispatch / laytime calculation with shippers/ stevedores/ receivers and IGIPL
+                                demurrage / dispatch / laytime calculation with shippers/ stevedores/ receivers and Seller
                                 will only be responsible for make the freight / demurrage payment as and when remitted
                                 by Associate Buyer.
                               </span>
@@ -676,11 +676,11 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>12.&nbsp; Independent Surveyor/Security</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', fontWeight:'normal', paddingBottom:'16px'}}>
-                        IGIPL will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost
+                        Seller will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost
                         who will be present at the time of release of each consignment and will provide a daily report
                         of the stock at godown/warehouse/plot. The Stevedoring agent and the Associate Buyer shall
                         provide unrestricted and unfettered access to the said collateral manager. Stevedoring agent,
-                        Associate Buyer, IGIPL and the Collateral Manager shall enter into an agreement detailing the
+                        Associate Buyer, Seller and the Collateral Manager shall enter into an agreement detailing the
                         rights and responsibility of each party.
                       </span>
                     </li>
@@ -689,7 +689,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>13.&nbsp; Payment before Completion of Due Date</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', fontWeight:'normal', paddingBottom:'16px'}}>
-                        IGIPL will sell the goods to Associate Buyer against 100% payment including IGIPL 's Trading Margin
+                        Seller will sell the goods to Associate Buyer against 100% payment including Seller 's Trading Margin
                         and other expenses to be made by Associate Buyer as per Payment Terms.
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', fontWeight:'normal', paddingBottom:'16px'}}>
@@ -699,9 +699,9 @@ export default function AssociateshipAgreementPreview(data) {
                         advance.
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', fontWeight:'normal', paddingBottom:'16px'}}>
-                        In case IGIPL and/or Indo remains out of pocket beyond the agreed due date and/or Indo's/IGIPL's
+                        In case Seller and/or {data.shortseller} remains out of pocket beyond the agreed due date and/or {data.shortseller}'s/Seller's
                         funds are blocked in this transaction, the Associate Buyer will pay interest at the rate of
-                        1.25% per month to IGIPL.
+                        1.25% per month to Seller.
                       </span>
                     </li>
                     <li style={{ fontWeight:'bold'}}>
@@ -738,25 +738,25 @@ export default function AssociateshipAgreementPreview(data) {
                             not limited to any delay/failure/refusal on the part of the Associate Buyer to pay for the
                             entire cost of the import consignment within the due date as aforesaid, or refusal to take
                             delivery of the consignment for any reason whatsoever, apart from the rights and remedies
-                            available to IGIPL, the margin money paid by the Associate buyer shall be forfeited and IGIPL
+                            available to Seller, the margin money paid by the Associate buyer shall be forfeited and Seller
                             shall be at liberty to sell the Goods to any other party at the costs, risks and
                             responsibility of the Associate Buyer. It is confirmed and undertaken by the Associate
-                            Buyer, that Associate Buyer shall not raise any objection to the method adopted by IGIPL to
-                            sell the said goods, in case IGIPL wishes to exercise its discretion under this clause. The
+                            Buyer, that Associate Buyer shall not raise any objection to the method adopted by Seller to
+                            sell the said goods, in case Seller wishes to exercise its discretion under this clause. The
                             amount received by selling the Goods shall be adjusted towards the expenses, costs, losses
-                            incurred by IGIPL in disposal of goods and against the outstanding amount in the account of
-                            the Associate Buyer maintained by IGIPL. Any amount still due and payable by the Associate
+                            incurred by Seller in disposal of goods and against the outstanding amount in the account of
+                            the Associate Buyer maintained by Seller. Any amount still due and payable by the Associate
                             Buyer after such adjustment shall be payable by the Associate Buyer forthwith upon receipt
-                            of demand from IGIPL, failing which IGIPL shall have the right to recover the same by exercising
-                            any and/or all legal remedies available to IGIPL.
+                            of demand from Seller, failing which Seller shall have the right to recover the same by exercising
+                            any and/or all legal remedies available to Seller.
                           </span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>Any shortfall on account of such disposal of Goods and any loss incurred by IGIPL, including
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>Any shortfall on account of such disposal of Goods and any loss incurred by Seller, including
                             and not limited to, interest/ detention/ demurrage/ storage/ carrying charges, direct or
-                            consequential losses or damages after adjustment of amounts received by IGIPL shall be payable
-                            by the Associate Buyer forthwith within 3 days upon receipt of demand for the same from IGIPL
+                            consequential losses or damages after adjustment of amounts received by Seller shall be payable
+                            by the Associate Buyer forthwith within 3 days upon receipt of demand for the same from Seller
                             failing which the Associate Buyer will be liable to pay interest at the rate of 18% per
                             annum on monthly rest basis.
                           </span>
@@ -764,7 +764,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>It is made clear that any profit made upon disposal of the goods to any third party under
-                            this clause, shall solely belong to IGIPL.
+                            this clause, shall solely belong to Seller.
                           </span>
                         </li>
                       </ul>
@@ -778,20 +778,20 @@ export default function AssociateshipAgreementPreview(data) {
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>The GST Liability and issuance of certificates under the GST Act 2017 as applicable will be
                             the responsibility of Associate Buyer. However, if any other tax liability is levied on this
-                            transaction on IGIPL, the same shall be reimbursed to IGIPL by Associate Buyer within 7 days of
-                            IGIPL notifying the Associate Buyer of the levy.
+                            transaction on Seller, the same shall be reimbursed to Seller by Associate Buyer within 7 days of
+                            Seller notifying the Associate Buyer of the levy.
                           </span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>Withholding tax, if any, will be to the account of Associate Buyer. Any excess/refund will
-                            be settled within a week's time after getting such advice from IGIPL.
+                            be settled within a week's time after getting such advice from Seller.
                           </span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>Associate Buyer to submit Form 27C (in original) to IGIPL on monthly basis, in advance. In
-                            absence of form 27C IGIPL will collect the TCS as applicable.
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>Associate Buyer to submit Form 27C (in original) to Seller on monthly basis, in advance. In
+                            absence of form 27C Seller will collect the TCS as applicable.
                           </span>
                         </li>
                       </ul>
@@ -822,10 +822,10 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>In relation to any dispute arising out of in connection with this Agreement and for the
-                            exclusive benefit of IGIPL, the Associate Buyer hereby irrevocably and unconditionally submits
+                            exclusive benefit of Seller, the Associate Buyer hereby irrevocably and unconditionally submits
                             to the jurisdiction of the Courts in Delhi and waives any objection to proceedings with
                             respect to this Agreement in those Courts on the grounds of venue, inconvenient forum of
-                            otherwise. However, IGIPL shall at its sole discretion have the right to file proceedings in
+                            otherwise. However, Seller shall at its sole discretion have the right to file proceedings in
                             other Courts with jurisdiction.
                           </span>
                         </li>
@@ -851,17 +851,17 @@ export default function AssociateshipAgreementPreview(data) {
                     </li>
                     <li style={{ fontWeight:'bold'}}>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px', marginLeft:'-20px'}}>
-                        <strong>21.&nbsp; Dispute resolution with Indo/Supplier</strong>
+                        <strong>21.&nbsp; Dispute resolution with {data.shortseller}/Supplier</strong>
                       </span><br/>
                       <ul type="none" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight:'normal', paddingLeft: '0' }}>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>If, due to the failure of the Associate Buyer to fulfil its obligations as laid down
-                            hereunder in this Agreement, any dispute or difference arises between Indo/Associate Buyer
+                            hereunder in this Agreement, any dispute or difference arises between {data.shortseller}/Associate Buyer
                             and Supplier, and due to which any Award/Judgment/decree/Order is passed or otherwise a
                             settlement is reached, the Associate Buyer shall be bound to accept the same and bear the
                             liability, costs, expenses arising there from. In the event, any judicial/ legal proceedings
-                            are initiated against the Indo/ IGIPL by the Supplier, the Associate Buyer shall be required
+                            are initiated against the {data.shortseller}/ Seller by the Supplier, the Associate Buyer shall be required
                             to be present and associated at all stages of the proceedings and shall bear the entire
                             expenses of arbitration/litigation and/or of the negotiated settlement. The Associate Buyer
                             shall have no authority or excuse to challenge the same on any ground including that the
@@ -873,11 +873,11 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>In case there is any dispute, arising out of and/or pursuant to this Agreement, either
-                            between Associate Buyer and the Supplier and/ or the Supplier and Indo/IGIPL, the same shall
+                            between Associate Buyer and the Supplier and/ or the Supplier and {data.shortseller}/Seller, the same shall
                             be settled amicably directly by Associate Buyer with the Supplier. In case, such dispute is
                             not settled amicably, any arbitration proceedings and/or other proceedings, which may be
                             initiated by any of the Parties, shall be solely at the cost and risk of Associate Buyer and
-                            IGIPL shall in no manner be liable and responsible for the same.
+                            Seller shall in no manner be liable and responsible for the same.
                           </span>
                         </li>
                       </ul>
@@ -889,14 +889,14 @@ export default function AssociateshipAgreementPreview(data) {
                       <ul type="none" style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', fontWeight:'normal', paddingLeft: '0' }}>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>After conclusion of the deal i.e. receipt of the amounts due to IGIPL from Associate Buyer/remittance against the import & receipt of RR copies and all other supporting documents related to domestic sale, account maintained by IGIPL for the Associate Buyer will be settled as per the procedure followed by IGIPL.
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>After conclusion of the deal i.e. receipt of the amounts due to Seller from Associate Buyer/remittance against the import & receipt of RR copies and all other supporting documents related to domestic sale, account maintained by Seller for the Associate Buyer will be settled as per the procedure followed by Seller.
                           </span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>In case after opening of Letter of credit by Indo, the supply contract with Supplier is
-                            cancelled for any reason whatsoever, IGIPL shall be entitled to receive from Associate Buyer
-                            all costs incurred by Indo and IGIPL along with its margin/ service charges + applicable GST
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp; </span>In case after opening of Letter of credit by {data.shortseller}, the supply contract with Supplier is
+                            cancelled for any reason whatsoever, Seller shall be entitled to receive from Associate Buyer
+                            all costs incurred by {data.shortseller} and Seller along with its margin/ service charges + applicable GST
                             rate + other costs etc.
                           </span>
                         </li>
@@ -910,13 +910,13 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp; </span>Associate Buyer agrees to defend, indemnify, keep indemnified and hold harmless at all
-                            times, IGIPL including, IGIPL's directors, officers and employees from and/or against all and
+                            times, Seller including, Seller's directors, officers and employees from and/or against all and
                             any claims, losses. damages, demands or costs including but not limited to taxes/duties
                             damages, expenses, demurrage, penalties, liabilities, legal cost, no shipment, delayed
                             shipment, short shipment, claims on account of quality/ quantity/ making/ weight/specifications
                             etc., of whatever nature, arising from but not limited to any action, omission, willful
                             conduct, negligence and/or breach of any term or condition of this Agreement, on part of the
-                            Associate Buyer or Supplier or Stevedore. No claim shall be passed on to IGIPL or Indo either
+                            Associate Buyer or Supplier or Stevedore. No claim shall be passed on to Seller or {data.shortseller} either
                             by Supplier or Associate Buyer.
                           </span>
                         </li>
@@ -929,14 +929,14 @@ export default function AssociateshipAgreementPreview(data) {
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{display:'inline-block', marginLeft:'-18px'}}>C. &nbsp; </span>Associate Buyer shall always abide by the laws of the State and Central Government as
-                            applicable/in force from time to time. IGIPL shall not be responsible for any repercussion on
+                            applicable/in force from time to time. Seller shall not be responsible for any repercussion on
                             this Agreement on account of any change in Government Acts, Rules and Regulations, or for
                             any failure on the part of the Supplier/Associate Buyer to comply with the same.
                           </span>
                         </li>
                         <li>
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
-                            <span style={{display:'inline-block', marginLeft:'-18px'}}>D. &nbsp; </span>That it is made clear that IGIPL shall not be liable for any loss or damage emanating from the
+                            <span style={{display:'inline-block', marginLeft:'-18px'}}>D. &nbsp; </span>That it is made clear that Seller shall not be liable for any loss or damage emanating from the
                             present Agreement and executing the transaction contemplated hereto under any circumstances
                             whatsoever.
                           </span>
@@ -1095,7 +1095,7 @@ export default function AssociateshipAgreementPreview(data) {
                             the quality, quantity, shortage or any other claims with respect to the Goods supplied by
                             the Supplier and/or any other claim associated or related to this transaction. All such
                             claims shall be lodged, pursued and settled directly between the Associate buyer and
-                            Supplier with no liability whatsoever upon Indo and/or the Seller.
+                            Supplier with no liability whatsoever upon {data.shortseller} and/or the Seller.
                           </span>
                         </li>
                         <li>
@@ -1117,9 +1117,9 @@ export default function AssociateshipAgreementPreview(data) {
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{ marginLeft: '-19px' }}>iv)</span>&nbsp; Notwithstanding anything contained herein to
                             the contrary, all risks, consequences arising out of the actual transaction(s) taking place
-                            between Supplier &amp; Indo, Indo &amp; IGIPL and Associate Buyer and IGIPL and/or agreement
+                            between Supplier &amp; {data.shortseller}, {data.shortseller} &amp; Seller and Associate Buyer and Seller and/or agreement
                             with Stevedore under this contract and/or any modified/amended agreement will be to the
-                            account of the Associate Buyer only. Indo/Seller shall in no way be responsible or liable
+                            account of the Associate Buyer only. {data.shortseller}/Seller shall in no way be responsible or liable
                             for the same.
                           </span>
                         </li>
@@ -1127,9 +1127,9 @@ export default function AssociateshipAgreementPreview(data) {
                           <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', paddingBottom:'16px'}}>
                             <span style={{ marginLeft: '-16px' }}>v)</span>&nbsp; In the event of any breach or default by
                             Associate Buyer or the stevedore of the terms of this Agreement or the Quadripartite
-                            agreement, IGIPL at its sole discretion shall have the right to adjust/set off any amounts
+                            agreement, Seller at its sole discretion shall have the right to adjust/set off any amounts
                             paid to it by the Associate Buyer. If the Associate Buyer owes several, independent debts to
-                            IGIPL based on the same or different legal nature, IGIPL is entitled to declare which debt shall
+                            Seller based on the same or different legal nature, Seller is entitled to declare which debt shall
                             be settled in full or in part with any payment made by the Associate Buyer.
                           </span>
                         </li>
@@ -1187,9 +1187,9 @@ export default function AssociateshipAgreementPreview(data) {
                         <strong>30.&nbsp; Force Majeur</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', fontWeight:'normal', paddingBottom:'16px'}}>
-                        That IGIPL shall not be liable for any damages or losses on account of Force Majeure, as defined
+                        That Seller shall not be liable for any damages or losses on account of Force Majeure, as defined
                         herein below. However, the Associate Buyer shall at all times remain liable for payment of the
-                        Goods to IGIPL, irrespective of occurrence of any force majeure condition.
+                        Goods to Seller, irrespective of occurrence of any force majeure condition.
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block', fontWeight:'normal', paddingBottom:'16px'}}>
                         “Force Majeure Events” means any event, act or performance which is beyond the control of a
@@ -1450,7 +1450,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
-                          {data.dischargePort}, India
+                          {data.dischargePort}
                         </span>
                       </td>
                     </tr>
