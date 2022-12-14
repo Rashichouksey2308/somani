@@ -635,13 +635,14 @@ const Index = ({
               {strengthsComment &&
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
-                     <div className='d-flex'>
+                     <div className='d-flex flex-grow-1 mr-4'>
                     <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
                       as="textarea"
                       rows={3}
+                      
                       readOnly={!editStren[index]?.editable}
                     />
                     </div>
@@ -695,7 +696,7 @@ const Index = ({
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
-                     <div className='d-flex'>
+                     <div className='d-flex flex-grow-1 mr-4'>
                     <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                   
@@ -902,7 +903,7 @@ const Index = ({
               {sanctionComment &&
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
-                      <div className='d-flex'>
+                      <div className='d-flex flex-grow-1 mr-4'>
                      <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
