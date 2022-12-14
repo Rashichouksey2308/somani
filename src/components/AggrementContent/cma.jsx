@@ -17,7 +17,7 @@ let cma = {
 };
 
 function Index(props) {
-  console.log(  props.vendor.address,"props.data?.addresses")
+  console.log(  props.data,"props.data?.addresses")
    const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
@@ -166,7 +166,8 @@ function Index(props) {
           shortName: props.data?.shortName,
           gstin: props.data?.gstin ||'',
           designatedStorageArea:
-          `${ props?.data?.designatedStorageArea}, India`||
+          props?.data?.designatedStorageArea?`${ props?.data?.designatedStorageArea}, India`
+          :
           `${props.termsheet.transactionDetails.portOfDischarge}, India`,
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props?.data?.authorisedSignatoryDetails,
@@ -231,16 +232,22 @@ function Index(props) {
  console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
+      let state={...cmaState}
+      myArray=state.designatedStorageArea.split(",")
+      state.designatedStorageArea=myArray[0]
       let data = {
-        cmaData: cmaState,
+        cmaData: state,
         list: list,
         addressList: addressList,
       };
       props.sendData('CMA', data);
     }
     if (props.submitData == true && props.active == 'CMA') {
+      let state={...cmaState}
+      myArray=state.designatedStorageArea.split(",")
+      state.designatedStorageArea=myArray[0]
       let data = {
-        cmaData: cmaState,
+        cmaData: state,
         list: list,
         addressList: addressList,
       };
