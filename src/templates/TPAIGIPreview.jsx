@@ -166,7 +166,7 @@ export default function TPAPreview(data) {
                     color: '#000000',
                   }}
                 >
-                  {data.shortseller} is engaged in the business of trading of industrial commodities, which are
+                  {data.shortbuyer}  is engaged in the business of trading of industrial commodities, which are
                   stored at the Designated Storage Area as detailed in Schedule-I.
                 </p>
               </td>

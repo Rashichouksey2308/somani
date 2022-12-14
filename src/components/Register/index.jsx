@@ -153,6 +153,7 @@ function Index() {
   };
 
   const validation = () => {
+    console.log(companyDetails.GST ,"companyDetails.GST ")
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -172,7 +173,14 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false
-    } else if ( phoneValidation(companyDetails.mobile.primary.number) && companyDetails.mobile.primary.number.trim().length !== 10) {
+    }else if (companyDetails.GST == '' || companyDetails.GST == undefined) {
+      let toastMessage = 'Please select GST';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    }
+     else if ( phoneValidation(companyDetails.mobile.primary.number) && companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -245,7 +253,7 @@ function Index() {
   }
 
   const submitData = () => {
-   if(!validation) return
+   if(!validation()) return
      else {
       let docTypeArr = [];
       documents.forEach((val, index) => {

@@ -104,7 +104,7 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
-        console.log(savedData.shortName,"savedData.shortName")
+        
        
       } else {
         let buyer = {
@@ -113,7 +113,7 @@ function Index(props) {
         };
         setGstin(props?.data.gstin || '');
         setPan(props?.data.pan || '');
-        console.log(props.shortName,"props.shortName")
+        
         if (props?.data.addresses.length > 0) {
           setAddressList(props?.data.addresses);
           setShotName(props.data.shortName)
@@ -153,7 +153,7 @@ function Index(props) {
      
     }
   }, [props.data, props.internal]);
-  console.log(branchOptions, 'setbranchOptions');
+  
   useEffect(() => {
     if (props.saveData == true && props.active == 'Buyer') {
       let data = {
@@ -450,10 +450,10 @@ function Index(props) {
   };
   const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
-    console.log(buyerData.name,"buyerData.name")
+    
     if (buyerData.name || buyerData.branchName) {
       let filter;
-      console.log(props.internal, 'props.internal');
+      
       if (buyerData.name == 'Indo German International Private Limited') {
         filter = props?.internal?.filter((val) => {
           if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
@@ -485,7 +485,7 @@ function Index(props) {
      
 
         filter = props?.internal?.filter((val) => {
-          console.log(val.Company_Name, 'val.Company_Name');
+          
           if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
             return val;
           }
@@ -495,7 +495,7 @@ function Index(props) {
           let tempOptions = [];
           let tempDetail = [];
           let gst = [];
-          console.log(filter[0].Short_Name,"filter[0].Short_Name)")
+          
           // setShotName(filter[0].Short_Name);
           filter.forEach((val, index) => {
             if (val.authorisedSignatoryDetails[0].name !== '') {
@@ -520,11 +520,11 @@ function Index(props) {
     }
   }, [props.internal,props.data]);
   const getAddress = (name, branch) => {
-    console.log(name, branch, props.internal, 'name , branch');
+    
     if (props?.internal?.length > 0) {
       if (name || branch) {
         let filter;
-        console.log(props.internal, 'props.internal');
+        
         if (name == 'Indo German International Private Limited') {
           filter = props?.internal?.filter((val) => {
             if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
@@ -561,7 +561,7 @@ function Index(props) {
               }
             }
           });
-          console.log(otherData, 'otherData');
+          
           if (otherData.length > 0) {
             setGstin(otherData[0].keyAddresses[0].gstin);
             setPan(otherData[0]?.PAN);
@@ -598,7 +598,7 @@ function Index(props) {
         }
         if (name == 'Emergent Industrial Solution Limited') {
           filter = props?.internal?.filter((val) => {
-            console.log(val.Company_Name, 'val.Company_Name');
+            
             if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
               return val;
             }
@@ -629,7 +629,7 @@ function Index(props) {
               }
             }
           });
-          console.log(otherData, 'otherData', name);
+          
 
           if (otherData.length > 0) {
             setGstin(otherData[0].keyAddresses[0].gstin);
@@ -664,16 +664,16 @@ function Index(props) {
             setPan('');
           }
         }
-        console.log(filter, 'fltoba');
+        
         if (filter) {
           setBranchOptions([...filter]);
         }
       }
     }
   };
-  console.log(shortName,"asass")
+  
   const handleData = (name, value) => {
-    console.log('thsss');
+    
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';
@@ -692,7 +692,7 @@ function Index(props) {
     setEditAddress(newInput);
     setToView(false);
   };
-  console.log(shortName,"shortName")
+  
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -757,9 +757,6 @@ function Index(props) {
                       }
                     })
                     .map((val, index) => {
-                      {
-                        console.log(val, 'sdasd');
-                      }
                       return <option value={`${val}`}>{val}</option>;
                     })}
                 </select>
@@ -1111,7 +1108,7 @@ function Index(props) {
                       list.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions == 'true'  || val.actions == undefined ? (
                               <tr key={index} className="table_row">
                                 <td>{val.name}</td>
                                 <td>{val.designation}</td>

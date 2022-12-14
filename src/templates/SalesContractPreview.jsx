@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 export default function SalesContractPreview(data) {
+  console.log(data,"sadsda")
   return (
     <table
       width="800px"
@@ -1602,7 +1603,7 @@ export default function SalesContractPreview(data) {
                       
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return {val};
+                            return `${val}`;
                           })}
                      
                     </>
@@ -1680,7 +1681,7 @@ export default function SalesContractPreview(data) {
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val?val:""}</li>;
                       })}
                   </ol>
                 </>

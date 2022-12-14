@@ -18,7 +18,10 @@ import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteA
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
 import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 import { returnReadableNumber } from '@/utils/helpers/global';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 function index() {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -49,7 +52,14 @@ function index() {
     specComment: '',
   });
   const [preview, setPreview] = useState('');
-
+   useEffect(() => {
+  if(window){
+      let term =  JSON.parse(sessionStorage.getItem('genericSelected'));
+       dispatch(setPageName('agreement'));
+        dispatch(setDynamicName(term.company.companyName));
+        dispatch(setDynamicOrder(term.order.orderId));
+        }
+  },[]);
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));

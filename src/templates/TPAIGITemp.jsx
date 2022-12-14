@@ -53,7 +53,7 @@ export default function TPAIGITemp(data) {
           <strong>WHEREAS</strong>
         </p>
         <p className="text_sales">
-          {data.shortseller} is engaged in the business of trading of industrial commodities, which are stored at
+          {data.shortbuyer} is engaged in the business of trading of industrial commodities, which are stored at
           the Designated Storage Area as detailed in Schedule-I.
         </p>
         <p className="text_sales">
@@ -213,7 +213,7 @@ export default function TPAIGITemp(data) {
           Financing Bank as a beneficiary of insurances and loss payee.
         </p>
         <p className=" text_sales">
-          <span className="mr-6">7.2</span> Upon request {data.shortbuyer} will deliver to Collateral Manager and
+          <span className="mr-6">7.2</span> Upon request {data.shortbuyer} will deliver to Collateral Manager and {" "}
           {data?.shortseller} a copy of the relevant insurance agreements, policies and related documents together with evidence that the
           premiums have been paid.
         </p>

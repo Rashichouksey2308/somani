@@ -88,10 +88,8 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
-  getGst: '/karza/send-gst-link',
+  sendGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
-
-
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -132,8 +130,8 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
-  //mcaReport 
-  getMcaReport : '/karza/request-mca-document',
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
   // preview
   preview: '/document/access/preview',
 
@@ -175,7 +173,5 @@ export default {
   pincodesMaster: 'locations/pincodes/',
 
   //VENDOR API ROoutes
-  getVendor : '/vendor'
-}
-
-
+  getVendor: '/vendor',
+};

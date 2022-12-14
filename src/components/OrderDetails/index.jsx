@@ -167,7 +167,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                 }}
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
               >
-                <option>Select an option</option>
+                <option value="">Select an option</option>
                 {country?.length>0
                 ?
                 <>
@@ -195,7 +195,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                 }}
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
               >
-                <option>Select an option</option>
+                <option value="">Select an option</option>
                 {port
                   .filter((val, index) => {
                     if (val.Country.toLowerCase() == 'india') {

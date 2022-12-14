@@ -33,7 +33,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
         {/* {data.buyerAddress?.city} 
         {data.buyerAddress?.country},{' '} */}
           {/* {data.buyerAddress?.pinCode} */}, through its Authorised Signatory (hereinafter called{' '}
-          <strong>IGIPL</strong> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the
+          <strong>{data.shortbuyer}</strong> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the
           context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of
           One Part.
         </p>
@@ -44,35 +44,35 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
           thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.
         </p>
         <p className="text_sales">
-          <b>IGIPL</b> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and
+          <b>Seller </b> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and
           individually as the “Party”.
         </p>
         <p className="  text_sales">
           <strong>Recitals</strong>
         </p>
         <p className="text_sales">
-          WHEREAS Associate Buyer has requested IGIPL to arrange import purchase of Goods (Details of the Goods
+          WHEREAS Associate Buyer has requested Seller to arrange import purchase of Goods (Details of the Goods
           including quantity, quality, Inco terms is annexed in Schedule I) from the Supplier and sale of the same to
           the Associate Buyer on stock &amp; sale basis.{' '}
         </p>
         <p className="text_sales">
           Relying upon the representations and information provided by the Associate Buyer in the Request and in the
-          Agreement, <b>IGIPL</b> has agreed to arrange import/ purchase of Goods from the Supplier (Details of Supplier
+          Agreement, <b>Seller </b> has agreed to arrange import/ purchase of Goods from the Supplier (Details of Supplier
           in Schedule-I) and to sell the same to the Associate Buyer on stock &amp; sale basis.
         </p>
         <p className="text_sales">
-          Whereas, Supplier shall sell the Goods to <b>{data.seller}</b>, Zug (hereinafter referred to as <b>Indo</b>)
-          for onward sale to <b>IGIPL</b> and <b>IGIPL</b> shall, in terms of this Agreement, sell the same to the
+          Whereas, Supplier shall sell the Goods to <b>{data.seller}</b>, Zug (hereinafter referred to as <b>{data.shortseller}</b>)
+          for onward sale to <b>Seller </b> and <b>Seller </b> shall, in terms of this Agreement, sell the same to the
           Associate Buyer.
         </p>
         <p className="text_sales">
-          Whereas <b>IGIPL</b> shall import Goods for and on behalf of the Associate Buyer, at the sole risk and
+          Whereas <b>Seller </b> shall import Goods for and on behalf of the Associate Buyer, at the sole risk and
           responsibility of the Associate Buyer and shall store the same under the custody of the Customs House Agent/
           Collateral Manager appointed on mutually agreed terms.
         </p>
         <p className="text_sales">
           WHEREAS the Associate Buyer has also submitted undertakings for (a) Price Justification along with Quality and
-          Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding amount to <b>IGIPL</b> at
+          Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding amount to <b>Seller </b> at
           the time of making the above request for import of the Goods and these undertaking(s) form an integral part of
           this Agreement.
         </p>
@@ -92,9 +92,9 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and all
-                  other terms &amp; conditions of sale between Indo and the Supplier have been negotiated and firmed up
+                  other terms &amp; conditions of sale between {data.shortseller} and the Supplier have been negotiated and firmed up
                   between Associate Buyer and Supplier. The Associate Buyer further undertakes that it has ensured that
-                  the Sales Contract to be entered into between Indo and the Supplier (“Sale Contract”) is in accordance
+                  the Sales Contract to be entered into between {data.shortseller} and the Supplier (“Sale Contract”) is in accordance
                   with the negotiations undertaken by the Associate Buyer and the Supplier.
                 </p>
               </li>
@@ -135,7 +135,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                 </p>
                 <p className={`text_sales ml-n4`}>a)&nbsp; the price at which the forward is booked or</p>
                 <p className={`text_sales ml-n4`}>
-                  b)&nbsp; the average of the exchanges rate at which the payment of Import is made by IGIPL to Indo for
+                  b)&nbsp; the average of the exchanges rate at which the payment of Import is made by Seller to {data.shortseller} for
                   this transaction.
                 </p>
                 <p className={`text_sales`}>
@@ -146,7 +146,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   regards to exchange rate variation / expenses &amp; charges.
                 </p>
                 <p className="text_sales">
-                  The amount payable as per the final invoice issued by IGIPL shall be final and binding on the
+                  The amount payable as per the final invoice issued by Seller shall be final and binding on the
                   Associate Buyer.
                 </p>
               </li>
@@ -156,10 +156,10 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             <p className={`${styles.oderListParent_Head}`}>Advance Margin Money</p>
             <p className="text_sales font-weight-normal">
               The Associate Buyer shall make payment of margin money of the total Contract Value as advance prior to
-              opening of LC by Indo on the Supplier as mentioned in Schedule I.
+              opening of LC by {data.shortseller} on the Supplier as mentioned in Schedule I.
             </p>
             <p className="text_sales font-weight-normal">
-              Indo will open the LC in favour of Supplier within 5 working days of receipt of the Advance as stated
+              {data.shortseller} will open the LC in favour of Supplier within 5 working days of receipt of the Advance as stated
               herein.
             </p>
             <p className="text_sales font-weight-normal">
@@ -207,16 +207,16 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
     <p className="text_sales">The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule 6, and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.</p>
   </li> */}
           <li className="font-weight-bold">
-            <p className={`${styles.oderListParent_Head}`}>IGIPL 's trading Margin</p>
+            <p className={`${styles.oderListParent_Head}`}>Seller 's trading Margin</p>
             <p className="text_sales font-weight-normal">
-              The Trading margin of IGIPL shall be paid by the Associate Buyer as per details mentioned in Schedule I,
-              and the same shall be collected in the Sale Invoice raised by IGIPL on the Associate Buyer.
+              The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule I,
+              and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.
             </p>
           </li>
           <li className="font-weight-bold">
             <p className={`${styles.oderListParent_Head}`}>Other Charges</p>
             <p className="text_sales font-weight-normal">
-              Any and all incidental charges that may be incurred by Indo and/or Seller in relation to the
+              Any and all incidental charges that may be incurred by {data.shortseller} and/or Seller in relation to the
               import/storage/maintenance/delivery/security, Railway Freight, Penalty, Charges etc. of the Goods shall be
               to the account of the Associate Buyer and will be payable by Associate Buyer to Seller at actuals within 5
               days of demand from Seller.{' '}
@@ -264,7 +264,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   Associate Buyer shall be solely liable and responsible for all consequences arising out of any
                   variation of the item/quality/quantity contracted for &amp; actually shipped. Associate Buyer
                   undertakes to indemnify Seller in this regard. It has been agreed by the Associate Buyer that any
-                  claim/liability arising from the Supplier against Indo/Seller shall be passed on to the Associate
+                  claim/liability arising from the Supplier against {data.shortseller}/Seller shall be passed on to the Associate
                   Buyer. If the Supplier agrees upon any compensation on account of any quality deviation, then Seller
                   shall refund the same to the Associate Buyer on receipt of the same.
                 </p>
@@ -276,9 +276,9 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  The Marine Insurance will be arranged by the Associate Buyer in favour of IGIPL or IGIPL's nominated
-                  Bank (as per IGIPL's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the
-                  Associate Buyer. In case IGIPL decides to take the insurance directly in its name, the cost of it
+                  The Marine Insurance will be arranged by the Associate Buyer in favour of Seller or Seller 's nominated
+                  Bank (as per Seller 's discretion), for 110% of Import Cargo Value, the cost of it shall be borne by the
+                  Associate Buyer. In case Seller decides to take the insurance directly in its name, the cost of it
                   shall be borne by the Associate Buyer.
                 </p>
               </li>
@@ -286,7 +286,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                 <p className="text_sales">
                   The cargo while in the port, during transit from port to godown/plot/warehouse and while in the
                   godown/plot/warehouse and while in Ocean shall be insured by way of insurance by Associate Buyer in
-                  favour of IGIPL or IGIPL's nominated Bank (as per IGIPL's discretion), for 110% of landed cost
+                  favour of Seller or Seller 's nominated Bank (as per Seller 's discretion), for 110% of landed cost
                   (inclusive of custom duty, all other taxes applicable under GST Act 2017 as amended till date).
                   Associate Buyer will ensure that the material shall at all times remain insured.
                 </p>
@@ -294,9 +294,9 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   The Insurance policy in original or digitally signed by Insurance Company whichever is required to
-                  file and process the claim before Insurance Company, shall be submitted by Associate Buyer to IGIPL
-                  immediately on demand. In case the Associate Buyer fails to take the Insurance as desired by IGIPL,
-                  IGIPL shall among other rights reserved under this Agreement, including right to terminate the
+                  file and process the claim before Insurance Company, shall be submitted by Associate Buyer to Seller 
+                  immediately on demand. In case the Associate Buyer fails to take the Insurance as desired by Seller ,
+                  Seller shall among other rights reserved under this Agreement, including right to terminate the
                   Agreement, be at liberty to take such insurance at cost of the Associate Buyer.
                 </p>
               </li>
@@ -305,7 +305,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   In the event of any loss, or any other event, leading to invocation of insurance policy, the process
                   of filing of claim, settlement of amount, etc. shall be the sole responsibility of the Associate
                   Buyer. It has been agreed by the Associate Buyer that settlement, if any, arrived with the Insurance
-                  Company, shall be paid directly by the Insurance Company to IGIPL or IGIPL's nominated bank as the
+                  Company, shall be paid directly by the Insurance Company to Seller or Seller 's nominated bank as the
                   case may be and the same shall not absolve the Associate Buyer of their liability under the
                   Associateship Agreement towards Seller.
                 </p>
@@ -317,8 +317,8 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  The Goods shall be sold by IGIPL to Associate Buyer on Stock &amp; Sale basis as per delivery terms
-                  mentioned in Schedule I. IGIPL shall file the Bill of Entry in its name and the Associate Buyer shall
+                  The Goods shall be sold by Seller to Associate Buyer on Stock &amp; Sale basis as per delivery terms
+                  mentioned in Schedule I. Seller shall file the Bill of Entry in its name and the Associate Buyer shall
                   arrange to clear the cargo at the port.
                   <br />
                   In case the shipment is under Form A-1 the same shall be arranged by the Associate Buyer on or before
@@ -327,13 +327,13 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               </li>
               <li>
                 <p className="text_sales">
-                  IGIPL shall generate e-way bill from the GST portal under its registration for movement of the goods
+                  Seller shall generate e-way bill from the GST portal under its registration for movement of the goods
                   by Rail or Road.{' '}
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  All Duties and taxes shall be paid by the Associate Buyer to CHA/IGIPL in advance at the time of
+                  All Duties and taxes shall be paid by the Associate Buyer to CHA/Seller in advance at the time of
                   Custom Clearance. The Associate Buyer shall bear all Handling Charges, Port Charges, Plot Rentals, t
                   etc. to CHA who will take care of the payments to Port and raise bills on “Associate Buyer” for this.
                   The Associate Buyer shall separately take care of the above-mentioned charges and levies and shall
@@ -349,7 +349,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   BL quantity shall be considered the final quantity. Any shortage from the BL quantity shall be to the
-                  account of Associate Buyer and IGIPL shall in no way be responsible for the same.
+                  account of Associate Buyer and Seller shall in no way be responsible for the same.
                 </p>
               </li>
             </ol>
@@ -385,7 +385,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   <br />
                   Proper safekeeping and security of Goods and management of the storage yard shall be the
                   responsibility of the Associate Buyer. The Associate Buyer shall provide round the clock security
-                  guards at the Storage yard where Goods shall be stored. IGIPL shall in no way be responsible or liable
+                  guards at the Storage yard where Goods shall be stored. Seller shall in no way be responsible or liable
                   for any loss, damage or mix up of the Goods for any reason whatsoever including shortage or theft.
                 </p>
               </li>
@@ -396,32 +396,32 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  On Associate Buyer's request, IGIPL has agreed to appoint Associate Buyer's nominated Stevedoring
+                  On Associate Buyer's request, Seller has agreed to appoint Associate Buyer's nominated Stevedoring
                   agent for providing the stevedoring services as specified in the agreement to be entered with
                   Stevedoring Agent.
                 </p>
                 <p className="text_sales">
-                  The Associate Buyer confirms and agrees that IGIPL shall not be liable or responsible for any
+                  The Associate Buyer confirms and agrees that Seller shall not be liable or responsible for any
                   non-performance or breach of the terms of the Agreement by the stevedores in any manner whatsoever,
                   including but not limited to shortage, theft, mix-up of the Goods with other goods or materials, delay
                   in performance of terms of Stevedoring agreement by Stevedores. For any claims arising out of the
                   breach of the terms of the stevedoring agreement by the Stevedores, the Associate Buyer shall be
-                  solely responsible without any liability or responsibility of IGIPL whatsoever.
+                  solely responsible without any liability or responsibility of Seller whatsoever.
                 </p>
                 <p className="text_sales">
-                  The Associate Buyer indemnifies and holds harmless IGIPL from any losses, damages, claims, costs
-                  incurred or suffered by IGIPL due to breach of the obligations, misrepresentation or breach of trust
+                  The Associate Buyer indemnifies and holds harmless Seller from any losses, damages, claims, costs
+                  incurred or suffered by Seller due to breach of the obligations, misrepresentation or breach of trust
                   by the Stevedoring agent.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  IGIPL will instruct the stevedoring agent consign the material directly to the IGIPL's nominated
+                  Seller will instruct the stevedoring agent consign the material directly to the Seller 's nominated
                   warehouse/plot/etc, where the goods will be stored. The Goods shall remain under the control and
-                  custody of the Stevedoring Agent who will work under the sole instructions of IGIPL. The Stevedoring
+                  custody of the Stevedoring Agent who will work under the sole instructions of Seller . The Stevedoring
                   Agent, shall furnish an undertaking that goods will not be released to Associate Buyer or to their
-                  nominees without a written Release order from IGIPL. IGIPL shall enter into an agreement with
-                  Stevedoring Agent &amp; the Associate Buyer. Stevedoring Agent will raise invoice on IGIPL.
+                  nominees without a written Release order from Seller . Seller shall enter into an agreement with
+                  Stevedoring Agent &amp; the Associate Buyer. Stevedoring Agent will raise invoice on Seller .
                 </p>
               </li>
               <li>
@@ -429,7 +429,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   Stevedoring Agent will apply online for EDRM permission for Railway Rakes/Transporter Stevedoring
                   Agent will place indent online. The Associate Buyer will coordinate with “Stevedoring Agent for making
                   necessary arrangements to place for Railway Rakes. The Associate Buyer will pay the railway freight
-                  and related charges directly. Scanned copy of RR shall be furnished by Stevedoring Agent to IGIPL as
+                  and related charges directly. Scanned copy of RR shall be furnished by Stevedoring Agent to Seller as
                   well as the Associate Buyer as soon as it is issued after loading. The original RR/LR shall be sent by
                   Stevedoring Agent to the Associate Buyer for taking delivery of the rake.
                 </p>
@@ -500,13 +500,13 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   <li>
                     <p className="text_sales">
                       Ocean transportation will be arranged by the Associate Buyer. The freight payment will be made by
-                      IGIPL as directed by the Associate buyers upon receipt of the freight invoice.
+                      Seller as directed by the Associate buyers upon receipt of the freight invoice.
                     </p>
                   </li>
                   <li>
                     <p className="text_sales">
                       Associate Buyer will be solely responsible for the settlement and confirmation of demurrage /
-                      dispatch / laytime calculation with shippers/ stevedores/ receivers and IGIPL will only be
+                      dispatch / laytime calculation with shippers/ stevedores/ receivers and Seller will only be
                       responsible for make the freight / demurrage payment as and when remitted by Associate Buyer.
                     </p>
                   </li>
@@ -523,17 +523,17 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
           <li className="font-weight-bold">
             <p className={`${styles.oderListParent_Head}`}>Independent Surveyor/Security </p>
             <p className="text_sales font-weight-normal">
-              IGIPL will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost who will
+              Seller will appoint an independent surveyor and/ or collateral manager at Associate Buyer's cost who will
               be present at the time of release of each consignment and will provide a daily report of the stock at
               godown/warehouse/plot. The Stevedoring agent and the Associate Buyer shall provide unrestricted and
-              unfettered access to the said collateral manager. Stevedoring agent, Associate Buyer, IGIPL and the
+              unfettered access to the said collateral manager. Stevedoring agent, Associate Buyer, Seller and the
               Collateral Manager shall enter into an agreement detailing the rights and responsibility of each party.{' '}
             </p>
           </li>
           <li className="font-weight-bold">
             <p className={`${styles.oderListParent_Head}`}>Payment before Completion of Due Date </p>
             <p className="text_sales font-weight-normal">
-              IGIPL will sell the goods to Associate Buyer against 100% payment including IGIPL 's Trading Margin and
+              Seller will sell the goods to Associate Buyer against 100% payment including Seller 's Trading Margin and
               other expenses to be made by Associate Buyer as per Payment Terms.
             </p>
             <p className="text_sales font-weight-normal">
@@ -542,9 +542,9 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               the exchange rate prevailing at the time of adjustment of the advance.
             </p>
             <p className="text_sales font-weight-normal">
-              In case IGIPL and/or Indo remains out of pocket beyond the agreed due date and/or Indo's/IGIPL's funds are
+              In case Seller and/or {data.shortseller} remains out of pocket beyond the agreed due date and/or {data.shortseller}'s/Seller 's funds are
               blocked in this transaction, the Associate Buyer will pay interest at the rate of 1.25% per month to
-              IGIPL.
+              Seller .
             </p>
           </li>
           <li className="font-weight-bold">
@@ -573,32 +573,32 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   In the event of breach of the quadripartite agreement and /or this Agreement including but not limited
                   to any delay/failure/refusal on the part of the Associate Buyer to pay for the entire cost of the
                   import consignment within the due date as aforesaid, or refusal to take delivery of the consignment
-                  for any reason whatsoever, apart from the rights and remedies available to IGIPL, the margin money
-                  paid by the Associate buyer shall be forfeited and IGIPL shall be at liberty to sell the Goods to any
+                  for any reason whatsoever, apart from the rights and remedies available to Seller , the margin money
+                  paid by the Associate buyer shall be forfeited and Seller shall be at liberty to sell the Goods to any
                   other party at the costs, risks and responsibility of the Associate Buyer. It is confirmed and
                   undertaken by the Associate Buyer, that Associate Buyer shall not raise any objection to the method
-                  adopted by IGIPL to sell the said goods, in case IGIPL wishes to exercise its discretion under this
+                  adopted by Seller to sell the said goods, in case Seller wishes to exercise its discretion under this
                   clause. The amount received by selling the Goods shall be adjusted towards the expenses, costs, losses
-                  incurred by IGIPL in disposal of goods and against the outstanding amount in the account of the
-                  Associate Buyer maintained by IGIPL. Any amount still due and payable by the Associate Buyer after
-                  such adjustment shall be payable by the Associate Buyer forthwith upon receipt of demand from IGIPL,
-                  failing which IGIPL shall have the right to recover the same by exercising any and/or all legal
-                  remedies available to IGIPL.
+                  incurred by Seller in disposal of goods and against the outstanding amount in the account of the
+                  Associate Buyer maintained by Seller . Any amount still due and payable by the Associate Buyer after
+                  such adjustment shall be payable by the Associate Buyer forthwith upon receipt of demand from Seller ,
+                  failing which Seller shall have the right to recover the same by exercising any and/or all legal
+                  remedies available to Seller .
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  Any shortfall on account of such disposal of Goods and any loss incurred by IGIPL, including and not
+                  Any shortfall on account of such disposal of Goods and any loss incurred by Seller , including and not
                   limited to, interest/ detention/ demurrage/ storage/ carrying charges, direct or consequential losses
-                  or damages after adjustment of amounts received by IGIPL shall be payable by the Associate Buyer
-                  forthwith within 3 days upon receipt of demand for the same from IGIPL failing which the Associate
+                  or damages after adjustment of amounts received by Seller shall be payable by the Associate Buyer
+                  forthwith within 3 days upon receipt of demand for the same from Seller failing which the Associate
                   Buyer will be liable to pay interest at the rate of 18% per annum on monthly rest basis.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
                   It is made clear that any profit made upon disposal of the goods to any third party under this clause,
-                  shall solely belong to IGIPL.
+                  shall solely belong to Seller .
                 </p>
               </li>
             </ol>
@@ -610,20 +610,20 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                 <p className="text_sales">
                   The GST Liability and issuance of certificates under the GST Act 2017 as applicable will be the
                   responsibility of Associate Buyer. However, if any other tax liability is levied on this transaction
-                  on IGIPL, the same shall be reimbursed to IGIPL by Associate Buyer within 7 days of IGIPL notifying
+                  on Seller , the same shall be reimbursed to Seller by Associate Buyer within 7 days of Seller notifying
                   the Associate Buyer of the levy.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
                   Withholding tax, if any, will be to the account of Associate Buyer. Any excess/refund will be settled
-                  within a week's time after getting such advice from IGIPL.
+                  within a week's time after getting such advice from Seller .
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  Associate Buyer to submit Form 27C (in original) to IGIPL on monthly basis, in advance. In absence of
-                  form 27C IGIPL will collect the TCS as applicable.
+                  Associate Buyer to submit Form 27C (in original) to Seller on monthly basis, in advance. In absence of
+                  form 27C Seller will collect the TCS as applicable.
                 </p>
               </li>
             </ol>
@@ -649,9 +649,9 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   In relation to any dispute arising out of in connection with this Agreement and for the exclusive
-                  benefit of IGIPL, the Associate Buyer hereby irrevocably and unconditionally submits to the
+                  benefit of Seller , the Associate Buyer hereby irrevocably and unconditionally submits to the
                   jurisdiction of the Courts in Delhi and waives any objection to proceedings with respect to this
-                  Agreement in those Courts on the grounds of venue, inconvenient forum of otherwise. However, IGIPL
+                  Agreement in those Courts on the grounds of venue, inconvenient forum of otherwise. However, Seller 
                   shall at its sole discretion have the right to file proceedings in other Courts with jurisdiction.
                 </p>
               </li>
@@ -674,16 +674,16 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             </ol>
           </li>
           <li className="font-weight-bold">
-            <p className={`${styles.oderListParent_Head}`}>Dispute resolution with Indo/Supplier</p>
+            <p className={`${styles.oderListParent_Head}`}>Dispute resolution with {data.shortseller}/Supplier</p>
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
                   {' '}
                   If, due to the failure of the Associate Buyer to fulfil its obligations as laid down hereunder in this
-                  Agreement, any dispute or difference arises between Indo/Associate Buyer and Supplier, and due to
+                  Agreement, any dispute or difference arises between {data.shortseller}/Associate Buyer and Supplier, and due to
                   which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Associate
                   Buyer shall be bound to accept the same and bear the liability, costs, expenses arising there from. In
-                  the event, any judicial/ legal proceedings are initiated against the Indo/ IGIPL by the Supplier, the
+                  the event, any judicial/ legal proceedings are initiated against the {data.shortseller}/ Seller by the Supplier, the
                   Associate Buyer shall be required to be present and associated at all stages of the proceedings and
                   shall bear the entire expenses of arbitration/litigation and/or of the negotiated settlement. The
                   Associate Buyer shall have no authority or excuse to challenge the same on any ground including that
@@ -695,10 +695,10 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   In case there is any dispute, arising out of and/or pursuant to this Agreement, either between
-                  Associate Buyer and the Supplier and/ or the Supplier and Indo/IGIPL, the same shall be settled
+                  Associate Buyer and the Supplier and/ or the Supplier and {data.shortseller}/Seller , the same shall be settled
                   amicably directly by Associate Buyer with the Supplier. In case, such dispute is not settled amicably,
                   any arbitration proceedings and/or other proceedings, which may be initiated by any of the Parties,
-                  shall be solely at the cost and risk of Associate Buyer and IGIPL shall in no manner be liable and
+                  shall be solely at the cost and risk of Associate Buyer and Seller shall in no manner be liable and
                   responsible for the same.
                 </p>
               </li>
@@ -709,17 +709,17 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  After conclusion of the deal i.e. receipt of the amounts due to IGIPL from Associate Buyer/remittance
+                  After conclusion of the deal i.e. receipt of the amounts due to Seller from Associate Buyer/remittance
                   against the import & receipt of RR copies and all other supporting documents related to domestic sale,
-                  account maintained by IGIPL for the Associate Buyer will be settled as per the procedure followed by
-                  IGIPL.
+                  account maintained by Seller for the Associate Buyer will be settled as per the procedure followed by
+                  Seller .
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  In case after opening of Letter of credit by Indo, the supply contract with Supplier is cancelled for
-                  any reason whatsoever, IGIPL shall be entitled to receive from Associate Buyer all costs incurred by
-                  Indo and IGIPL along with its margin/ service charges + applicable GST rate + other costs etc.
+                  In case after opening of Letter of credit by {data.shortseller}, the supply contract with Supplier is cancelled for
+                  any reason whatsoever, Seller shall be entitled to receive from Associate Buyer all costs incurred by
+                  {data.shortseller} and Seller along with its margin/ service charges + applicable GST rate + other costs etc.
                 </p>
               </li>
             </ol>
@@ -729,14 +729,14 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  Associate Buyer agrees to defend, indemnify, keep indemnified and hold harmless at all times, IGIPL
-                  including, IGIPL's directors, officers and employees from and/or against all and any claims, losses.
+                  Associate Buyer agrees to defend, indemnify, keep indemnified and hold harmless at all times, Seller 
+                  including, Seller 's directors, officers and employees from and/or against all and any claims, losses.
                   damages, demands or costs including but not limited to taxes/duties damages, expenses, demurrage,
                   penalties, liabilities, legal cost, no shipment, delayed shipment, short shipment, claims on account
                   of quality/quantity/making/weight/specifications etc., of whatever nature, arising from but not
                   limited to any action, omission, willful conduct, negligence and/or breach of any term or condition of
                   this Agreement, on part of the Associate Buyer or Supplier or Stevedore. No claim shall be passed on
-                  to IGIPL or Indo either by Supplier or Associate Buyer.
+                  to Seller or {data.shortseller} either by Supplier or Associate Buyer.
                 </p>
               </li>
               <li>
@@ -748,14 +748,14 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   Associate Buyer shall always abide by the laws of the State and Central Government as applicable/in
-                  force from time to time. IGIPL shall not be responsible for any repercussion on this Agreement on
+                  force from time to time. Seller shall not be responsible for any repercussion on this Agreement on
                   account of any change in Government Acts, Rules and Regulations, or for any failure on the part of the
                   Supplier/Associate Buyer to comply with the same.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  That it is made clear that IGIPL shall not be liable for any loss or damage emanating from the present
+                  That it is made clear that Seller shall not be liable for any loss or damage emanating from the present
                   Agreement and executing the transaction contemplated hereto under any circumstances whatsoever.
                 </p>
               </li>
@@ -885,7 +885,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   claims. The Seller shall in no way be responsible or liable for the quality, quantity, shortage or any
                   other claims with respect to the Goods supplied by the Supplier and/or any other claim associated or
                   related to this transaction. All such claims shall be lodged, pursued and settled directly between the
-                  Associate buyer and Supplier with no liability whatsoever upon Indo and/or the Seller.
+                  Associate buyer and Supplier with no liability whatsoever upon {data.shortseller} and/or the Seller.
                 </p>
               </li>
               <li>
@@ -905,18 +905,18 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               <li>
                 <p className="text_sales">
                   <span className="ml-n4">iv) </span>Notwithstanding anything contained herein to the contrary, all
-                  risks, consequences arising out of the actual transaction(s) taking place between Supplier &amp; Indo,
-                  Indo &amp; IGIPL and Associate Buyer and IGIPL and/or agreement with Stevedore under this contract
-                  and/or any modified/amended agreement will be to the account of the Associate Buyer only. Indo/Seller
+                  risks, consequences arising out of the actual transaction(s) taking place between Supplier &amp; {data.shortseller},
+                  {data.shortseller} &amp; Seller and Associate Buyer and Seller and/or agreement with Stevedore under this contract
+                  and/or any modified/amended agreement will be to the account of the Associate Buyer only. {data.shortseller}/Seller
                   shall in no way be responsible or liable for the same.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
                   <span className="ml-n3">v) </span>In the event of any breach or default by Associate Buyer or the
-                  stevedore of the terms of this Agreement or the Quadripartite agreement, IGIPL at its sole discretion
+                  stevedore of the terms of this Agreement or the Quadripartite agreement, Seller at its sole discretion
                   shall have the right to adjust/set off any amounts paid to it by the Associate Buyer. If the Associate
-                  Buyer owes several, independent debts to IGIPL based on the same or different legal nature, IGIPL is
+                  Buyer owes several, independent debts to Seller based on the same or different legal nature, Seller is
                   entitled to declare which debt shall be settled in full or in part with any payment made by the
                   Associate Buyer.
                 </p>
@@ -969,8 +969,8 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
           <li className="font-weight-bold">
             <p className={`${styles.oderListParent_Head}`}>Force Majeur</p>
             <p className="text_sales font-weight-normal">
-              That IGIPL shall not be liable for any damages or losses on account of Force Majeure, as defined herein
-              below. However, the Associate Buyer shall at all times remain liable for payment of the Goods to IGIPL,
+              That Seller shall not be liable for any damages or losses on account of Force Majeure, as defined herein
+              below. However, the Associate Buyer shall at all times remain liable for payment of the Goods to Seller ,
               irrespective of occurrence of any force majeure condition.
             </p>
             <p className="text_sales font-weight-normal">
