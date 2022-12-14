@@ -1613,7 +1613,13 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
-                          {data?.paymentTerm}
+                          {data?.paymentTerm === 'DaysfromBLDate'
+                          ? 'Days from BL Date'
+                          : data?.paymentTerm === 'DaysfromVesselDate'
+                          ? 'Days From Vessel Discharge Date'
+                          : data?.paymentTerm === 'Whicheverisearlier'
+                          ? 'Whichever is earlier'
+                          : ''}
                         </span>
                       </td>
                     </tr>
