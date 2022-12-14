@@ -276,7 +276,7 @@ export const getGstData = (payload) => async (dispatch, getState, api) => {
     };
     dispatch(VerifyingGst());
 
-    Axios.post(`${API.userbaseUrl}${API.sendGst}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.sendGst}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
