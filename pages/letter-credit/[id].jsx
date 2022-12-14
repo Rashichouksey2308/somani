@@ -56,8 +56,6 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
-  console.log(lcData, 'LC');
-
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -130,7 +128,7 @@ function Index() {
   const [clauseObj, setClauseObj] = useState(initialState);
 
   const [clauseArr, setClauseArr] = useState([]);
-  console.log(clauseArr, 'clauseArr');
+
   const [drop, setDrop] = useState('');
 
   const [fieldType, setFieldType] = useState('');

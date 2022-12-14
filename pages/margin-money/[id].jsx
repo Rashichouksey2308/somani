@@ -39,7 +39,7 @@ function Index() {
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   const { margin } = useSelector((state) => state.marginMoney);
   const { orderList } = useSelector((state) => state.buyer);
-  console.log(orderList, 'orderList');
+  
   const marginData = _get(margin, 'data.data[0]', '');
 
   let id = sessionStorage.getItem('marginId');
@@ -223,7 +223,7 @@ function Index() {
     setInvoiceDataRevised({ ...newInput });
   };
 
-  console.log(invoiceData,'filteredGSt1')
+  
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData };
     if (name == 'buyerGSTIN') {
@@ -841,7 +841,7 @@ function Index() {
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
    newInput[name] = value;
-   console.log(invoiceDataRevised.isConsigneeSameAsBuyer,"invoiceDataRevised.isConsigneeSameAsBuyer")
+   
     if (invoiceDataRevised.isConsigneeSameAsBuyer) {
       if (name == 'buyerName') {
         newInput.consigneeName = value;
@@ -983,10 +983,6 @@ function Index() {
 
   useEffect(() => {
     if (marginData) {
-      console.log(
-        marginData?.invoiceDetail?.isConsigneeSameAsBuyer,
-        'marginData?.invoiceDetail?.isConsigneeSameAsBuyer',
-      );
 
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
       if (marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true) {
@@ -1041,7 +1037,7 @@ function Index() {
       }
     }
   }, [marginData, getInternalCompaniesMasterData]);
-  console.log(invoiceData, '  ...invoiceData,');
+
   useEffect(() => {
     getRevisedData();
 
@@ -1099,7 +1095,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
-  console.log(isConsigneeSameAsBuyer, 'isConsigneeSameAsBuyer');
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>

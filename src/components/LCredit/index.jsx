@@ -302,9 +302,9 @@ function Index() {
 
   const handleSubmit = () => {
     if (!validation()) return;
-    console.log(clauseArr, 'clauseArr');
+    
     let sendLcData = { ...clauseData };
-    console.log(sendLcData, 'sendLcData');
+    
     let isOK = [];
     clauseArr.forEach((val, index) => {
       if (val.dropDownValue == '(31D) Date Of Expiry') {
