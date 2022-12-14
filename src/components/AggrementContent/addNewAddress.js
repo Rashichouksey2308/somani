@@ -18,7 +18,7 @@ export const addNewAddress = (
   gstArr,
   showGst = true,
 ) => {
-  console.log(toShow, toView, 'toView');
+ 
   let addressTypeArr = ['Registered', 'Branch', 'Corporate'];
 
   return (
