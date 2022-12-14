@@ -219,6 +219,8 @@ console.log(igmList,'igmList')
     if (_get(TransitDetails, `data[0].IGM.igmDetails`, []).length > 0) {
       let igmData = JSON.parse(JSON.stringify(_get(TransitDetails, `data[0].IGM.igmDetails`, [])));
       let tempData = { ...igmList };
+  console.log(tempData ,'igmConDition')
+
       tempData.igmDetails = igmData;
 
       setIgmList(tempData);
@@ -234,20 +236,21 @@ console.log(igmList,'igmList')
         tempArray.igmDetails[0].blNumber[0].blQuantity = filterData[0].blQuantity;
         tempArray.igmDetails[0].blNumber[0].noOfContainers = filterData[0].containerDetails?.numberOfContainers;
         tempArray.igmDetails[0].blNumber[0].blDoc = filterData[0]?.blDoc;
+
+        if(shipmentTypeBulk && _get(
+          TransitDetails,
+          `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
+          '',
+        ) === 'No') {
+          // let tempObj = {...igmList}
+          tempArray.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','')
+          // setIgmList(tempArray)
+        }
         setIgmList({ ...tempArray });
       }
     }
 
-    if(shipmentTypeBulk && _get(
-      TransitDetails,
-      `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
-      '',
-    ) === 'No') {
-      let tempObj = {...igmList}
-      tempObj.igmDetails[0].vesselName = _get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName','')
-      setIgmList(tempObj
-)
-    }
+    
 
     if (_get(TransitDetails, `data[0].IGM`, false)) {
       setConsigneeInfo({
@@ -313,9 +316,9 @@ console.log(igmList,'igmList')
         });
       }
     }
-    // setBranchOptions(filterBranch(consigneeName));
+    setBranchOptions(filterBranch(consigneeName));
   }, [TransitDetails]);
-  // useEffect(() => {}, [TransitDetails]);
+  useEffect(() => {}, [TransitDetails]);
 
   useEffect(() => {
     setBranchOptions(filterBranch(consigneeName));
@@ -329,9 +332,9 @@ console.log(igmList,'igmList')
       const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
         return item.blNumber === value;
       });
-
+console.log(filterData,'filterData')
       let tempArray = { ...igmList };
-
+      tempArray.igmDetails[index].blNumber[index2].blDoc = filterData[0].blDoc;
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity;
