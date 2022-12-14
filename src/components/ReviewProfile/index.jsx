@@ -378,7 +378,7 @@ function Index({
              </tr>
              <tr className={`${styles.table_row} table_row`}>
                <td>Port Of Discharge</td>
-               <td>{reviewedProfile?.portOfDischarge?.originalValue}</td>
+               <td>{reviewedProfile?.portOfDischarge?.originalValue}, India</td>
                <td>
                  <div className={styles.tick}>
                    <img
