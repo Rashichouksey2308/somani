@@ -7,15 +7,17 @@ import moment from 'moment'
 
 const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
 
-  console.log(shipment,'shipment')
   const [expShipment, setExpectedShipment] = useState(null)
+
   const [maxdate, setmaxDate] = useState(null)
+
   useEffect(() => {
     if (expectedShipment) {
       const date = moment(expectedShipment).add(1, 'days').toDate()
       setExpectedShipment(moment(date).format('DD-MM-YYYY'))
     }
   }, [expectedShipment])
+
   useEffect(() => {
     if (expectedShipment) {
       setmaxDate(moment(expectedShipment).format('DD-MM-YYYY'))
@@ -27,10 +29,12 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
     const text = d.toISOString()
     saveShipmentData(name, text)
   }
+
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: ''
   })
+  
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY')
     if (name == 'loadPort.fromDate') {
@@ -261,8 +265,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     }}
                   >
                     <option value=''>Select an option</option>
-                    {port
-                      .filter((val, index) => {
+                    {port?.filter((val, index) => {
                         if (val.Country.toLowerCase() !== 'india') {
                           return val
                         }

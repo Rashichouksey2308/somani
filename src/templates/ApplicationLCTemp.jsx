@@ -4,7 +4,7 @@ import { addPrefixOrSuffix } from '@/utils/helper';
 import { returnReadableNumber } from '@/utils/helpers/global';
 
 export default function ApplicationLCTemp(lcModuleData, lcModule) {
-  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),"lcModuleData.lcModuleData",lcModule)
+  
   let d = new Date();
    const getIndex = (index) => {
     if (_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0) {
@@ -13,7 +13,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
       return index + 1;
     }
   };
-  console.log(_get(lcModuleData.lcModule,"data[0].generic.supplier.addresses[0].fullAddress",""),"SAdasds")
+  
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       
@@ -881,7 +881,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
-                            {lcModuleData.lcModuleData?.lcApplication?.numberOfDays}
+                            {lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : 'Days'}`}
                           </p>
                         </td>
                       </tr>

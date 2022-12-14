@@ -434,7 +434,7 @@ function Index() {
         maximumFractionDigits: 2,
       })}`;
     } else if (value === '(43T) Transhipments') {
-      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
+      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments == 'Yes' ? 'Allowed' : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getValue(existing, value)}  %`;
     } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
@@ -907,9 +907,9 @@ function Index() {
                                         <td>{getExistingValue(arr.dropDownValue, arr.existingValue)}</td>
                                         <td>
                                           
-                                        {arr.dropDownValue === '(42C) Draft At' &&lcData?.atSight == 'Usuance'
+                                        {arr.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
                                             ? `Usuance - ${getValue(arr.newValue, arr.dropDownValue)} days `
-                                            :arr.dropDownValue === '(32B) Currency Code & Amount'
+                                            : arr.dropDownValue === '(32B) Currency Code & Amount'
                                             ? `${lcModuleData?.order?.orderCurrency} ${getValue(arr.newValue, arr.dropDownValue)} `
                                             : arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                             ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : 
