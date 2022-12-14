@@ -22,7 +22,7 @@ import MarginMoney from '../../src/templates/MarginMoney';
 import { checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
-import _ from 'lodash'
+// import _ from 'lodash'
 
 function Index() {
   const dispatch = useDispatch();
