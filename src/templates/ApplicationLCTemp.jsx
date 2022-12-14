@@ -1446,6 +1446,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             align="left"
                             style={{
                               borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
                             <p
@@ -1472,7 +1473,11 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               </span>
                             </p>
                           </td>
-                          <td align="left">
+                          <td align="left"
+                            style={{
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                            >
                             <p
                               style={{
                                 fontSize: '20px',
@@ -1489,6 +1494,13 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           </td>
                         </tr>
                       ))}
+                      <tr colSpan={3}>
+                        <td>
+                          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        </td>
+                      </tr>
                     {/* <tr>
                     <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                       <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
@@ -1519,7 +1531,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                         </h3>
                       </th>
                     </tr>
-
+                          
                     <tr></tr>
                     {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
                       <>
