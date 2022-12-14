@@ -210,7 +210,7 @@ function Index() {
                           <span className={`${styles.status} ${styles.review}`}></span>
                           Pending
                         </td>
-                        {console.log(defineAction(lc, index), 'fiRstTimeUpdate6')}
+                        
                         {lc.route === 'amend' || lc.route === 'PostUpdated'  ? (
                           <>
                             <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>

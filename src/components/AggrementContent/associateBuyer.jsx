@@ -227,7 +227,7 @@ function Index(props) {
     }
   }, [getPincodesMasterData]);
     const handleData = (name, value) => {
-    console.log("thsss")
+    
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';
@@ -415,7 +415,7 @@ function Index(props) {
       actions: 'false',
       addnew: 'false',
     };
-console.log("ASda",value)
+
     if (value == 'addnew') {
       if (docList.length == 0) {
         arrayToSave = {
@@ -462,7 +462,7 @@ console.log("ASda",value)
       return newState;
     });
   };
-  console.log(list,"asdasd")
+  
   const onAddressRemove = (index) => {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
@@ -1075,7 +1075,7 @@ const cancelEditAddress = () => {
                                     }}
                                   />
                                 </td>
-                                {console.log(val.phoneNo,"val.phoneNo")}
+                               
                                 <td>
                                   <input
                                     value={val.phoneNo}
@@ -1193,7 +1193,7 @@ const cancelEditAddress = () => {
 
                   {docList.length > 0 &&
                     docList.map((val, index) => {
-                      console.log(val,"ASdasd")
+                      
                       return (
                         <>
                           <tr key={index} className="table_row">
