@@ -23,7 +23,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom: '25px'
                     }}
                   >
@@ -38,7 +38,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'16px'
                     }}
                   >
@@ -53,7 +53,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'20px'
                     }}
                   >
@@ -68,7 +68,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'20px'
                     }}
                   >
@@ -83,7 +83,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'20px'
                     }}
                   >
@@ -98,7 +98,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'20px'
                     }}
                   >
@@ -113,7 +113,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'20px'
                     }}
                   >
@@ -128,7 +128,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'20px'
                     }}
                   >
@@ -143,7 +143,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'16px'
                     }}
                   >
@@ -158,7 +158,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'16px'
                     }}
                   >
@@ -173,7 +173,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'16px'
                     }}
                   >
@@ -189,7 +189,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'16px'
                     }}
                   >
@@ -204,7 +204,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
-                      display:'block',
+                      display:'inline-block',
                       paddingBottom:'16px'
                     }}
                   >
@@ -229,7 +229,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -254,7 +254,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -407,7 +407,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -421,7 +421,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -435,7 +435,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -449,7 +449,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -462,7 +462,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -476,11 +476,11 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>7. &nbsp; </span>CHA/Stevedore will apply for EDRM permission and place indent online. The Associate Buyer will pay the railway freight and related charges directly.
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>7. &nbsp; </span>CHA/Stevedore will apply for EDRM permission and place an indent online. The Associate Buyer will pay the railway freight and related charges directly.
                       </span>
                     </li>
                     <li>
@@ -489,7 +489,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -502,13 +502,13 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
                         <span style={{display:'inline-block', marginLeft:'-18px'}}>9. &nbsp; </span>The Associate Buyer will arrange comprehensive storage insurance against all risks for <strong>110%</strong> of the value of goods. The insurance policy will indicate&nbsp;
                         {data.shortbuyer} or its nominated Bank (as per&nbsp;{data.shortbuyer}'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore the details of the goods for which {data.shortbuyer}/IGI's nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall
-                        be claimed and pursued till realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and{data?.shortbuyer} against all risks.
+                        be claimed and pursued till realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and {data?.shortbuyer} against all risks.
                       </span>
                     </li>
                     <li>
@@ -517,7 +517,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -531,7 +531,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -545,7 +545,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -560,7 +560,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -573,7 +573,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -586,15 +586,13 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
                         <span style={{display:'inline-block', marginLeft:'-20px'}}>15. &nbsp; </span>In the event the Associate Buyer does not lift the goods/material within the scheduled period
                         {data.shortbuyer} has the right to sell/dispose of the Goods at the sole risk, cost of
-                        the Associate Buyer. The Associate Buyer shall liable to pay to&nbsp;
-                        {data.shortbuyer} the loss (if any) incurred by&nbsp;
-                        {data.shortbuyer}.
+                        the Associate Buyer. The Associate Buyer shall be liable to pay to {data.shortbuyer} the loss (if any) incurred by {data.shortbuyer}.
                       </span>
                     </li>
                     <li>
@@ -603,7 +601,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'block',
+                          display:'inline-block',
                           paddingBottom:'16px'
                         }}
                       >
@@ -1492,7 +1490,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             padding: '30px 0 20px',
                           }}
                         >
@@ -1507,7 +1505,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'10px'
                           }}
                         >
@@ -1520,7 +1518,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'10px'
                           }}
                         >
@@ -1535,7 +1533,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1553,7 +1551,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                     fontSize: '12px',
                                     lineHeight: '18px',
                                     color: '#000000',
-                                    display:'block',
+                                    display:'inline-block',
                                     paddingBottom:'16px',
                                     textTransform: 'capitalize'
                                   }}
@@ -1562,7 +1560,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                       fontSize: '12px',
                                       lineHeight: '18px',
                                       color: '#000000',
-                                      display:'block',
+                                      display:'inline-block',
                                       marginBottom:'10px'
                                     }}>
                                       Name: {val.name}
@@ -1578,7 +1576,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1594,7 +1592,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1612,7 +1610,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                     fontSize: '12px',
                                     lineHeight: '18px',
                                     color: '#000000',
-                                    display:'block',
+                                    display:'inline-block',
                                     paddingBottom:'16px',
                                     textTransform: 'capitalize'
                                   }}
@@ -1621,7 +1619,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                       fontSize: '12px',
                                       lineHeight: '18px',
                                       color: '#000000',
-                                      display:'block',
+                                      display:'inline-block',
                                       marginBottom:'10px'
                                     }}>
                                       Name: {val.name}
@@ -1637,7 +1635,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1653,7 +1651,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1671,7 +1669,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                     fontSize: '12px',
                                     lineHeight: '18px',
                                     color: '#000000',
-                                    display:'block',
+                                    display:'inline-block',
                                     paddingBottom:'16px',
                                     textTransform: 'capitalize'
                                   }}
@@ -1680,7 +1678,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                       fontSize: '12px',
                                       lineHeight: '18px',
                                       color: '#000000',
-                                      display:'block',
+                                      display:'inline-block',
                                       marginBottom:'10px'
                                     }}>
                                       Name: {val.name}
@@ -1696,7 +1694,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1712,7 +1710,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
@@ -1730,7 +1728,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                     fontSize: '12px',
                                     lineHeight: '18px',
                                     color: '#000000',
-                                    display:'block',
+                                    display:'inline-block',
                                     paddingBottom:'16px',
                                     textTransform: 'capitalize'
                                   }}
@@ -1739,7 +1737,7 @@ export default function QuadripartiteAgreementPreview(data) {
                                       fontSize: '12px',
                                       lineHeight: '18px',
                                       color: '#000000',
-                                      display:'block',
+                                      display:'inline-block',
                                       marginBottom:'10px'
                                     }}>
                                       Name: {val.name}
@@ -1755,7 +1753,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block',
+                            display:'inline-block',
                             paddingBottom:'16px',
                             textTransform: 'capitalize'
                           }}
