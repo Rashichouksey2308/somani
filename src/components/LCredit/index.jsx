@@ -381,7 +381,7 @@ function Index() {
   };
   const getValue = (value, toCheck) => {
     if (toCheck == '(31D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
-      return moment(value).format('DD-MM-YYYY');
+      return value ? moment(value).format('DD-MM-YYYY'): '';
     } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
       if (value == 'Yes') {
         return 'Allowed';
@@ -608,7 +608,7 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             disabled
                             type="text"
-                            value={fieldType == 'date' ? moment(existingValue).format('DD-MM-YYYY') : existingValue}
+                            value={fieldType == 'date' ? existingValue ? moment(existingValue).format('DD-MM-YYYY') : '' : existingValue}
                           />
                         </form>
                         <label className={`${styles.label_heading} label_heading`}>Existing Value</label>
