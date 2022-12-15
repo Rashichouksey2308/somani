@@ -4,6 +4,7 @@ import API from '../../utils/endpoints';
 import * as types from './actionType';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { handleSuccessToast } from '@/utils/helpers/global';
 
 const errorMessage = {
   status: 400,
@@ -406,10 +407,9 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     });
     if (response.data.code === 200) {
       dispatch(deleteDocumentsSuccess(response.data.data));
-      const toastMessage = 'Document Successfully DELETED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleSuccessToast('Document Successfully DELETED');
+   let orderid = sessionStorage.getItem('DocRefetchId');
+   orderid && dispatch(GetDocuments(`?order=${orderid}`));
       dispatch(setNotLoading());
     } else {
       dispatch(deleteDocumentsFailed(response.data.data));
@@ -441,12 +441,9 @@ export const changeModuleDocument = (payload) => async (dispatch, getState, api)
     });
     if (response.data.code === 200) {
       dispatch(changeModuleDocumentsSuccess(response.data.data));
-      const toastMessage = 'Document Successfully MOVED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), {
-          toastId: toastMessage,
-        });
-      }
+      handleSuccessToast('Document Successfully MOVED');
+      let orderid = sessionStorage.getItem('DocRefetchId');
+      orderid && dispatch(GetDocuments(`?order=${orderid}`));
 
       dispatch(setNotLoading());
     } else {
