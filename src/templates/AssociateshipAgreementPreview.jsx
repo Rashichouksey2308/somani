@@ -1450,7 +1450,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
-                          {data.dischargePort}
+                          {data.dischargePort}, India
                         </span>
                       </td>
                     </tr>
