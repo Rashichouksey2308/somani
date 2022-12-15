@@ -149,4 +149,14 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+
+
+  //Checker
+  getCommodityDetails: '/commodity/commodity/',
+  updateCommodityRemark: '/commodity/checker-commodity/',
+  getUserDetails: '/user-master/user',
+  getInspectionDetails: '/inspection/inspectionDetails',
+  updateInspectionRemark: '/inspection/checker-inspections-status-update',
+  getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
 };
+  

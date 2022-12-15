@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './index.module.scss';
+import Tooltip from '../../../../Tooltip';
 
-function Index({ thirdPartyAppointment }) {
+function Index({ thirdPartyAppointment, thirdPartyAppointmentHistory }) {
     return (
         <div className={`${styles.main} mt-4 card border_color`}>
             <div
@@ -20,10 +21,11 @@ function Index({ thirdPartyAppointment }) {
                         <div className="card px-4 py-2 mx-2">
                             <div className="d-flex justify-content-between my-auto">
                                 <div>
-                                    <label className="font-weight-bold">{thirdPartyAppointment?.name}</label>
+                                    <label className="font-weight-bold">{thirdPartyAppointment?.name}{thirdPartyAppointmentHistory?.name && <Tooltip data={thirdPartyAppointmentHistory?.name} />}</label>
                                     <div>
                                         <p>
                                             {thirdPartyAppointment?.address?.fullAddress} - {thirdPartyAppointment?.address?.pinCode}
+                                            {thirdPartyAppointmentHistory?.address?.fullAddress && <Tooltip data={thirdPartyAppointmentHistory?.address?.fullAddress} />}
                                         </p>
                                     </div>
                                 </div>

@@ -3,13 +3,16 @@ import styles from './index.module.scss';
 import Table from '../../../../../Table';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ViewDocument } from 'redux/ViewDoc/action';
+import { useDispatch } from 'react-redux';
 
-function Index({ plotInspectionReport }) {
+function Index({ plotInspectionReport, orderId }) {
+    const dispatch = useDispatch();
     const tableColumns = useMemo(() => [
         {
             Header: "Document Name",
             accessor: "originalName",
-            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-uppercase">{value}</span>
+            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-capitalize">{value?.replace(/([a-z0-9])([A-Z])/g, '$1 $2')}</span>
         },
         {
             Header: "Format",
@@ -19,7 +22,7 @@ function Index({ plotInspectionReport }) {
         {
             Header: "Document Date",
             accessor: "date",
-            Cell: ({ value }) => value.slice(0, 10)
+            Cell: ({ value }) => value?.slice(0, 10)
         },
         {
             Header: "Uploaded By",
@@ -34,7 +37,16 @@ function Index({ plotInspectionReport }) {
                 Header: "Action",
                 Cell: ({ row }) => {
                     return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-                        <a href={row?.originall?.path} download={row?.original?.name}>
+                        <a className="cursor-pointer"
+                            onClick={() =>
+                                dispatch(
+                                    ViewDocument({
+                                        path: row?.original?.path,
+                                        order: orderId,
+                                    }),
+                                )
+                            }
+                        >
                             <Image
                                 height="30px"
                                 width="30px"
@@ -53,14 +65,14 @@ function Index({ plotInspectionReport }) {
             <div
                 className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
                 data-toggle="collapse"
-                data-target="#upload"
+                data-target="#plotInspectionDocument"
                 aria-expanded="true"
-                aria-controls="upload"
+                aria-controls="plotInspectionDocument"
             >
                 <h3 className={styles.heading}>Documents</h3>
                 <span>+</span>
             </div>
-            <div id="upload" className="collapse mb-n4" aria-labelledby="upload" data-parent="#upload">
+            <div id="plotInspectionDocument" className="collapse mb-n4" aria-labelledby="plotInspectionDocument" data-parent="#plotInspectionDocument">
                 <Table
                     columns={tableColumns}
                     data={plotInspectionReport}

@@ -4,6 +4,7 @@ import styles from './index.module.scss';
 import Table from '../../../../Table';
 import Link from 'next/link';
 import Image from 'next/image';
+import Toggle from '../../../../Toggle/index';
 
 function index() {
   const tableColumns = useMemo(() => [
@@ -48,22 +49,29 @@ function index() {
       brunch_name: 'A-44, Sagar Apartments, Tilak Marg, Agra',
     },
   ];
+  const onToggle = (state) => {};
 
   return (
     <div className={`${styles.main} mt-4 border_color card`}>
-      <div
-        className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-        data-toggle="collapse"
-        data-target="#bankDetails"
-        aria-expanded="true"
-        aria-controls="bankDetails"
-      >
-        <h3 className={styles.heading}>Bank Deatils</h3>
-        <span>+</span>
-      </div>
-      <div id="bankDetails" className="collapse mb-n4" aria-labelledby="bankDetails" data-parent="#bankDetails">
-        <Table columns={tableColumns} data={dummyData} />
-      </div>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
+            <div
+              className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+              data-toggle="collapse"
+              data-target="#bankDetails"
+              aria-expanded="true"
+              aria-controls="bankDetails"
+            >
+              <h3 className={styles.heading}>Bank Deatils</h3>
+              <span>{on ? '+' : '-'}</span>
+            </div>
+            <div id="bankDetails" className="collapse mb-n4" aria-labelledby="bankDetails" data-parent="#bankDetails">
+              <Table columns={tableColumns} data={dummyData} />
+            </div>
+          </div>
+        )}
+      </Toggle>
     </div>
   );
 }

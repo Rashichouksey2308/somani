@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
@@ -25,6 +25,9 @@ import _get from 'lodash/get';
 
 import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import { isArray } from 'lodash';
+
+import Toggle from '../Toggle/index';
+
 
 Chart.register(
   ArcElement,
@@ -69,7 +72,7 @@ function Index({
     OrderValue: false,
   });
 
-  //const [darkMode, setDarkMode] = useState(false)
+  // const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
 
@@ -276,7 +279,6 @@ function Index({
       },
     },
   };
-
   function createGradient(ctx, area, color, color2) {
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
@@ -310,6 +312,7 @@ function Index({
     labels: [],
     datasets: [],
   });
+
   const [totalCustomer, setTotalCustomer] = useState(0);
   const [totalSupplier, setTotalSupplier] = useState(0);
   const [top5Suppliers, setTop5Suppliers] = useState({
@@ -621,14 +624,18 @@ function Index({
     </>
   );
 }
+const onToggle = (state) => {};
+
 
 export default Index;
 
 export const basicInfo = (camData, orderDetails, camConversionunit) => {
-  // console
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -637,7 +644,7 @@ export const basicInfo = (camData, orderDetails, camConversionunit) => {
           aria-controls="basicInfo"
         >
           <h2 className="mb-0">Basic Info</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div
           id="basicInfo"
@@ -817,6 +824,9 @@ export const basicInfo = (camData, orderDetails, camConversionunit) => {
             </div>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -825,6 +835,9 @@ export const supplierInfo = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -833,7 +846,7 @@ export const supplierInfo = (camData) => {
           aria-controls="supplierInfo"
         >
           <h2 className="mb-0">Supplier Info</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="supplierInfo" className="collapse" aria-labelledby="supplierInfo" data-parent="#supplierInfo">
           <div className={`${styles.info_wrapper}  card-body border_color`}>
@@ -912,6 +925,9 @@ export const supplierInfo = (camData) => {
             </div>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -920,6 +936,9 @@ export const groupExposure = (camData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -928,7 +947,7 @@ export const groupExposure = (camData, camConversionunit) => {
           aria-controls="groupExposure"
         >
           <h2 className="mb-0">Group Exposure Details</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="groupExposure" className="collapse" aria-labelledby="groupExposure" data-parent="#groupExposure">
           <div className={`${styles.info_wrapper} card-body border_color`}>
@@ -1007,6 +1026,9 @@ export const groupExposure = (camData, camConversionunit) => {
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -1018,6 +1040,9 @@ export const orderSummary = (camData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1026,7 +1051,7 @@ export const orderSummary = (camData, camConversionunit) => {
           aria-controls="orderSummary"
         >
           <h2 className="mb-0">Order Summary - Last 6 Orders</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#orderSummary">
           <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
@@ -1074,6 +1099,9 @@ export const orderSummary = (camData, camConversionunit) => {
             </table>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -1090,6 +1118,9 @@ export const creditProfile = (
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1098,7 +1129,7 @@ export const creditProfile = (
           aria-controls="creditProfile"
         >
           <h2 className="mb-0">Credit Profile</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="creditProfile" className="collapse" aria-labelledby="creditProfile" data-parent="#creditProfile">
           <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
@@ -1142,6 +1173,9 @@ export const creditProfile = (
             </div>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -1150,6 +1184,9 @@ export const directorDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1158,7 +1195,7 @@ export const directorDetails = (camData) => {
           aria-controls="directorDetails"
         >
           <h2 className="mb-0">Director Details</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="directorDetails" className="collapse" aria-labelledby="directorDetails" data-parent="#directorDetails">
           <div className={`${styles.order_wrapper} px-0 card-body`}>
@@ -1200,15 +1237,20 @@ export const directorDetails = (camData) => {
             </table>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
 };
 export const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
-  const { datasets = [] } = top3Share;
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1217,7 +1259,7 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
           aria-controls="shareHolding"
         >
           <h2 className="mb-0">Shareholding Details</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div
           id="shareHolding"
@@ -1236,17 +1278,14 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {datasets !== [] &&
-                    datasets[0]?.data?.map((val, index) => {
+                  {top3Share.datasets &&
+                    top3Share?.datasets[0]?.data.map((val, index) => {
                       return (
                         <div
                           key={index}
                           className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
                         >
-                          <div
-                            className={styles.round}
-                            style={{ backgroundColor: chargeDetailsbackgroundColor[index] }}
-                          ></div>
+                          <div className={styles.round} style={{ backgroundColor: backgroundColor[index] }}></div>
                           <span className={` heading ml-2`}>
                             {top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}
                           </span>
@@ -1357,6 +1396,9 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -1365,6 +1407,9 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1373,7 +1418,7 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
           aria-controls="chargeDetails"
         >
           <h2 className="mb-0">Open Bank Charge Details</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div
           id="chargeDetails"
@@ -1519,14 +1564,28 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
 };
-export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor) => {
+export const debtProfile = (
+  data,
+  options,
+  tempArr,
+  camData,
+  totalLimitDebt = () => '',
+  camConversionunit,
+  debtProfileColor = () => {},
+) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1535,7 +1594,7 @@ export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, cam
           aria-controls="debtProfile"
         >
           <h2 className="mb-0">Debt Profile</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#debtProfile">
           <div className={`${styles.order_wrapper} card-body`}>
@@ -1694,6 +1753,9 @@ export const debtProfile = (data, options, tempArr, camData, totalLimitDebt, cam
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -1702,6 +1764,9 @@ export const operationalDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1710,7 +1775,7 @@ export const operationalDetails = (camData) => {
           aria-controls="operationalDetails"
         >
           <h2 className="mb-0">Operational Details</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div
           id="operationalDetails"
@@ -1824,6 +1889,9 @@ export const operationalDetails = (camData) => {
             </div>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -1841,6 +1909,9 @@ export const revenuDetails = (gstData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1849,7 +1920,7 @@ export const revenuDetails = (gstData, camConversionunit) => {
           aria-controls="revenuDetails"
         >
           <h2 className="mb-0">Revenue Details</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="revenuDetails" className="collapse" aria-labelledby="revenuDetails" data-parent="#revenuDetails">
           <div className={`${styles.order_wrapper} p-0 card-body`}>
@@ -2260,6 +2331,9 @@ export const revenuDetails = (gstData, camConversionunit) => {
             </table>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -2278,6 +2352,9 @@ export const financeDetails = (
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -2286,7 +2363,7 @@ export const financeDetails = (
           aria-controls="financeDetails"
         >
           <h2 className="mb-0">Financial Summary</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="financeDetails" className="collapse" aria-labelledby="financeDetails" data-parent="#financeDetails">
           <div className={`${styles.order_wrapper2} card-body`}>
@@ -2621,6 +2698,9 @@ export const financeDetails = (
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -2629,6 +2709,9 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -2637,7 +2720,7 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
           aria-controls="compilanceStatus"
         >
           <h2 className="mb-0">Compliance Status</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div
           id="compilanceStatus"
@@ -2711,6 +2794,9 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
             </div>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -2719,6 +2805,9 @@ export const strengthAndWeakness = (camData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -2727,7 +2816,7 @@ export const strengthAndWeakness = (camData) => {
           aria-controls="strengthAndWeakness"
         >
           <h2 className="mb-0">Strength &amp; Weakness</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div
           id="strengthAndWeakness"
@@ -2814,6 +2903,9 @@ export const strengthAndWeakness = (camData) => {
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -2838,6 +2930,9 @@ export const sectionTerms = (
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -2861,8 +2956,8 @@ export const sectionTerms = (
               {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
             </span>
           </div>
-          <span data-toggle="collapse" data-target="#sectionTerms" aria-expanded="true" aria-controls="sectionTerms">
-            +
+          <span onClick={onToggle} data-toggle="collapse" data-target="#sectionTerms" aria-expanded="true" aria-controls="sectionTerms">
+          {on ? '+' : '-'}
           </span>
         </div>
         <div id="sectionTerms" className="collapse" aria-labelledby="sectionTerms" data-parent="#sectionTerms">
@@ -2939,7 +3034,7 @@ export const sectionTerms = (
                             (e.target.type = 'text');
                         }}
                         value={
-                          isFieldInFocus.LimitValue
+                          isFieldInFocus?.LimitValue
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
@@ -2995,7 +3090,7 @@ export const sectionTerms = (
                             (e.target.type = 'text');
                         }}
                         value={
-                          isFieldInFocus.OrderValue
+                          isFieldInFocus?.OrderValue
                             ? approvedCredit?.approvedOrderValue
                             : checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')
                         }
@@ -3038,17 +3133,20 @@ export const sectionTerms = (
                   Add
                 </button>
                 <ul className="mt-3 mb-3">
-                  {approveComment &&
+                  {/* {approveComment &&
                     approveComment?.map((approve, index) => (
                       // <div key={index} className={`${styles.remarks}`}>
                       <li key={index}>{approve}</li>
                       // </div>
-                    ))}
+                    ))} */}
                 </ul>
               </div>
             </div>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -3058,6 +3156,9 @@ export const Documents = (documentsFetched) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -3066,7 +3167,7 @@ export const Documents = (documentsFetched) => {
           aria-controls="Documents"
         >
           <h2 className="mb-0">Documents Available</h2>
-          <span>+</span>
+          <span>{on ? '+' : '-'}</span>
         </div>
         <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#Documents">
           <div className={`${styles.terms_wrapper} card-body border_color`}>
@@ -3177,6 +3278,9 @@ export const Documents = (documentsFetched) => {
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -3185,6 +3289,9 @@ export const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, g
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div >
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3204,8 +3311,8 @@ export const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, g
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
-            <span data-toggle="collapse" data-target="#trends" aria-expanded="true" aria-controls="trends">
-              +
+            <span onClick={onToggle}  data-toggle="collapse" data-target="#trends" aria-expanded="true" aria-controls="trends">
+            {on ? '+' : '-'}
             </span>
           </div>
         </div>
@@ -3300,6 +3407,9 @@ export const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, g
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -3318,6 +3428,9 @@ export const skewness = (
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3337,8 +3450,8 @@ export const skewness = (
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
-            <span data-toggle="collapse" data-target="#skewness" aria-expanded="true" aria-controls="skewness">
-              +
+            <span onClick={onToggle} data-toggle="collapse" data-target="#skewness" aria-expanded="true" aria-controls="skewness">
+            {on ? '+' : '-'}
             </span>
           </div>
         </div>
@@ -3377,6 +3490,7 @@ export const skewness = (
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
                       <Doughnut id="skewnessChartRevenue" data={top5Customers} options={options} />
+
                       {/* <div className={styles.total_value}>
                         <span>{top5Customers?.labels[0]}</span>
                         <span className={styles.highlight}> {
@@ -3440,7 +3554,9 @@ export const skewness = (
                 <Row className={`d-flex  d-flex align-items-center justify-content-evenly`}>
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut id="skewnessChartPurchases" data={top5Suppliers} options={options} />
+                      <Doughnut id="skewnessChartRevenue" data={top5Customers} options={options} />
+                      {/* 
+                      
                       {/* <div className={styles.total_value}>
                         <span>{top5Suppliers?.labels[0]}</span>
                         <span className={styles.highlight}> {
@@ -3478,6 +3594,9 @@ export const skewness = (
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
@@ -3486,6 +3605,9 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
+      <Toggle onToggle={onToggle}>
+        {({ on, onToggle }) => (
+          <div onClick={onToggle}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -3495,7 +3617,8 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
         >
           <h2 className="mb-0">Customer Rating</h2>
           <span className=" d-flex align-items-center justify-content-between">
-            <span className={` d-flex align-items-center justify-content-between`}></span>+
+            <span className={` d-flex align-items-center justify-content-between`}></span>
+            {on ? '+' : '-'}
           </span>
         </div>
         <div id="rating" className="collapse" aria-labelledby="rating" data-parent="#rating">
@@ -3783,6 +3906,9 @@ export const customerRating = (data, filteredCreditRating, rating, darkMode) => 
             </Row>
           </div>
         </div>
+        </div>
+        )}
+      </Toggle>
       </div>
     </>
   );
