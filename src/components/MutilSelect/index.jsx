@@ -13,6 +13,8 @@ function Index(props) {
   useEffect(() => {
     if (props?.emails?.length > 0) {
       setState({ ...state, emails: props.emails });
+    } else{
+      setState({ ...state, emails: [] });
     }
   }, [props.emails]);
 

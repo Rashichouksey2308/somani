@@ -445,6 +445,8 @@ console.log(keyPersonData,"keyPersonData")
   useEffect(() => {
     if (creditDetail?.existingCHA.length > 0) {
       setemails(creditDetail?.existingCHA);
+    }else {
+      setemails([])
     }
   }, [creditDetail?.existingCHA]);
 
@@ -453,6 +455,8 @@ console.log(keyPersonData,"keyPersonData")
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
+    } else {
+      setexSupplier([])
     }
   }, [creditDetail?.existingSuppliers]);
 
