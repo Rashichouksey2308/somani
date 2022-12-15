@@ -2198,7 +2198,7 @@ const Discharge = (
                 required
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
-                value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
+                value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort?.includes('India') ? inspectionDetails?.dischargePortInspectionDetails?.inspectionPort : `${inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}, India`}
                 onChange={(e) => {
                   filterPort(e.target.value, 'dischatge');
                   saveInspectionDetails(e.target.name, e.target.value);
