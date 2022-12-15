@@ -1500,7 +1500,7 @@ export default function SalesContractPreview(data) {
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
                   {data.curr}{' '}
-                  {data.totalOrderValue?.toLocaleString('en-In', {
+                  {data.totalOrderValue?.toLocaleString( data.curr=="INR"?'en-In':"en-EN", {
                     maximumFractionDigits: 2,
                   })}
                 </p>

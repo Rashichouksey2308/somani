@@ -146,7 +146,7 @@ useEffect(() => {
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
               style={{ cursor: 'pointer' }}
-              onClick={() => Router.push('/letter-credit/lc-create')} 
+              onClick={() => Router.push('/lc-module')} 
             />
             <h1 className={`${styles.lcHeading}`}>
             {lcModuleData.firstTimeUpdate == false ? 'Application for LC' : 'LC DRAFT'}
