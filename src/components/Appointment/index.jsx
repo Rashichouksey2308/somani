@@ -282,16 +282,19 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
                   <label className={`${styles.comment_heading} `}>Address</label>
 
                   <div
-                    className={`${styles.comment_field} border_color bg-transparent input w-100 d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} border_color bg-transparent  w-100 d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
-                      <div className={`${styles.address_type}`}>{appointmentData?.address?.addressType}</div>
+                      <div className={`${styles.address_type}`}
+                     
+                      >{appointmentData?.address?.addressType} Office</div>
                       <div className={`${styles.address_detail} mt-3`}>
                         {appointmentData?.address?.fullAddress} 
-                        {appointmentData?.address?.city} ,
-                        {appointmentData?.address?.state},    
+                        {appointmentData?.address?.city},{" "}
+                        {appointmentData?.address?.state},{" "}    
                         {appointmentData?.address?.pinCode},{' '}
-                        {appointmentData?.address?.country},
+                        {appointmentData?.address?.country}.
+                        <br></br>
                         GSTIN NO- {appointmentData?.address?.gstin}
                       </div>
                     </div>

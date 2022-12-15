@@ -346,7 +346,7 @@ export const generateToken = () => async (dispatch, getState, api) => {
     const cookie = await Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    const [userId, refreshToken] = decodedString.split('#')
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
 
     const response = await Axios.post(`${API.authbaseUrl}${API.generateToken}`, {
       refreshToken: refreshToken,

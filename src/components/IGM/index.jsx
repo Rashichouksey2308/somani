@@ -268,7 +268,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         setIgmList({ ...tempArray });
       }
     }
-
+console.log(TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice,"TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice")
     if (_get(TransitDetails, `data[0].IGM`, false)) {
       setConsigneeInfo({
         name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '',
