@@ -243,7 +243,7 @@ function Index() {
                     <span className={styles.head}>1) Material :</span>{' '}
                     <span className={`${styles.bold} `}>
                       {_get(ReleaseOrderData, 'data[0].order.commodity', '')}  (
-                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')}){ ' '}
+                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress',
@@ -258,7 +258,7 @@ function Index() {
                             ReleaseOrderData,
                             'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                             ' ',
-                          )}`
+                          )}, India`
                         : ''}
                     </span>
                   </div>
