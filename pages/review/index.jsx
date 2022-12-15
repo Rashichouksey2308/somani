@@ -2291,7 +2291,7 @@ function Index() {
                         <span
                           style={{
                             fontSize: '30px',
-                            color: '#008015',
+                            //color: '#008015',
                             lineHeight: '37px',
                             fontWeight: 'bold',
                             position: 'absolute',
@@ -2300,6 +2300,48 @@ function Index() {
                             width: '40px',
                             height: '40px',
                             transform: 'translate(-50%, -50%)',
+                            color: `${
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) <= 3
+                                ? '#FF4230'
+                                : checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 4 ||
+                                  checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) <= 6
+                                ? '#ffb700'
+                                : checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 7 ||
+                                  checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 8
+                                ? '#8ac41c'
+                                : checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 9 ||
+                                  checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 10
+                                ? '#008015'
+                                : 'black'
+                            }`,
                           }}
                         >
                           {checkNan(
