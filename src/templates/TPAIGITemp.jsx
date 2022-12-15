@@ -473,7 +473,7 @@ export default function TPAIGITemp(data) {
               Designated Storage Area
             </Col>
             <Col md={7} className={styles.right}>
-              {data.designatedStorageArea}
+              {data.designatedStorageArea}, India
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

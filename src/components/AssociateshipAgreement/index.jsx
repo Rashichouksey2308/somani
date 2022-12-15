@@ -198,7 +198,7 @@ function Index(props) {
           orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
           paymentTerm: data.deliveryTerms.paymentTerms,
           cheque: data.deliveryTerms?.cheque || [],
-          cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+          cin:data?.company?.detailedCompanyInfo?.profile?.companyDetail?.CIN,
           orderId:data?.order?.orderId?.slice(-3) || ""
         });
       }
