@@ -44,6 +44,7 @@ import {
   emailValidation,
 } from '../../utils/helper';
 import _get from 'lodash/get';
+import { returnReadableNumber } from '@/utils/helpers/global';
 // Chart.register(linear);
 
 
@@ -1244,22 +1245,25 @@ console.log(filteredData,'filteredData1')
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>Intra Organisation Sales %</div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {checkNan(
-                        gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent * 100,
-                      )}
-                      %
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent || gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent=== 0 ? returnReadableNumber(
+                        (gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent * 100),'en-In',2,2
+                      ) + ' %' : ''}
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>Related Party Sales %</div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {checkNan(gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales * 100)}%
+                    {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales || gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales=== 0 ? returnReadableNumber(
+                        (gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales * 100),'en-In',2,2
+                      ) + ' %' : ''}
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>Export Sales %</div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {checkNan(gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent * 100)}%
+                    {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent || gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent=== 0 ? returnReadableNumber(
+                        (gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent * 100),'en-In',2,2
+                      ) + ' %' : ''}
                     </div>
                   </Col>
                   <Col md={3}>
