@@ -2940,7 +2940,7 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}
+                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}{" "}
                                   {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
@@ -2959,7 +2959,7 @@ function Index() {
                                     <span
                                       style={{
                                         background: '#3687E8',
-                                        width: '90%',
+                                        width: '100%',
                                         height: '12px',
                                         borderRadius: '2px',
                                         display: 'inline-block',
@@ -3003,7 +3003,7 @@ function Index() {
                                     'en-In',
                                     2,
                                     2,
-                                  )}
+                                  )}{" "}
                                   {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
@@ -3022,7 +3022,9 @@ function Index() {
                                     <span
                                       style={{
                                         background: '#3687E8',
-                                        width: '90%',
+                                      width:`${Number(
+                                      ( (exp.outstandingLimit/exp.limit)*100)
+                                      )}%`,
                                         height: '12px',
                                         borderRadius: '2px',
                                         display: 'inline-block',
@@ -3534,7 +3536,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor}
+                  {camData?.company?.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor}
                 </td>
                 <td
                   style={{
@@ -7504,7 +7506,7 @@ function Index() {
                     {' '}
                     {convertValue(camData?.company?.creditLimit?.totalLimit, camConversionunit)?.toLocaleString(
                       'en-In',
-                    )}
+                    )}{" "}
                     {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                   </span>
                 </td>
@@ -7660,7 +7662,7 @@ function Index() {
                       >
                         {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                       </td>
-                      <td
+                       <td
                         align="center"
                         style={{
                           fontSize: '19px',
@@ -7669,13 +7671,52 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {filteredCreditRating && filteredCreditRating?.length > 0
-                          ? filteredCreditRating?.length > 0 &&
-                            filteredCreditRating?.map((val, index) => {
-                              checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
-                            })
-                          : '-'}
+                       -
                       </td>
+                       {filteredCreditRating ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating &&
+                          filteredCreditRating?.length > 0 &&
+                          filteredCreditRating.map((val, index) => (
+                            <td
+                      align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) }  </td>
+                          ))}
+                      </>
+                    ) : (
+                      <td>-</td>
+                    )}
+                          {filteredCreditRating ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating &&
+                          filteredCreditRating?.length > 0 &&
+                          filteredCreditRating.map((val, index) => (
+                            <td
+                      align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                            key={index}>
+                           {checkNan(convertValue(val?.suggested?.value,camConversionunit)?.toLocaleString('en-In')) } 
+                           {' '} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                            </td>
+                          ))}
+                      </>
+                    ) : (
+                      <td>-</td>
+                    )}
+                      
                       <td
                         align="center"
                         style={{
@@ -7685,14 +7726,12 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {camData?.company?.creditLimit?.creditRating
-                          ?.filter((rating) => {
-                            return camData?._id === rating.order;
-                          })
-                          .map((val, index) => {
-                            <td key={index}>{val?.derived?.value?.toLocaleString('en-In')}</td>;
-                          })}
-                      </td>
+                      <input
+                        type="checkbox"
+                        checked={approvedCredit.approvedCreditValue?true:false}
+                        // onChange={() => setLimitValueChecked(!limitValueChecked)}
+                      ></input>
+                    </td>
                       <td
                         align="center"
                         style={{
@@ -7702,35 +7741,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        -
-                      </td>
-                      <td
-                        align="center"
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          padding: '36px 10px 24px',
-                        }}
-                      >
-                        {camData?.company?.creditLimit?.creditRating
-                          ?.filter((rating) => {
-                            return camData?._id === rating.order;
-                          })
-                          .map((val, index) => {
-                            <td key={index}>{convertValue(val?.suggested?.value)?.toLocaleString('en-In')} Cr</td>;
-                          })}
-                      </td>
-                      <td
-                        align="center"
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          padding: '36px 10px 24px',
-                        }}
-                      >
-                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In')}
+                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In')}{" "}
                         {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
@@ -7767,7 +7778,7 @@ function Index() {
                       >
                         {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
-                        })}
+                        })}{" "}
                         {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                       </td>
                       <td
@@ -7790,8 +7801,8 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.suggestedOrderValue, camConversionunit)?.toLocaleString('en-In')}
-                        {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                      {checkNan(convertValue(camData?.suggestedOrderValue,camConversionunit))?.toLocaleString('en-In')}{" "}
+                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                         {/* {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
@@ -7805,7 +7816,14 @@ function Index() {
                           lineHeight: '23px',
                           padding: '24px 10px 54px',
                         }}
-                      ></td>
+                      >
+
+                        <input
+                        type="checkbox"
+                        checked={approvedCredit.approvedOrderValue?true:false}
+                        // onChange={() => setOrderValueChecked(!orderValueChecked)}
+                      ></input>
+                      </td>
                       <td
                         align="center"
                         style={{
@@ -7817,7 +7835,7 @@ function Index() {
                       >
                         {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
                         {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString('en-In')}
-                        {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                       {" "} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
