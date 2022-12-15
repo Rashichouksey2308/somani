@@ -3359,7 +3359,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        <span
+                        {/* <span
                           style={{
                             padding: '5.5px',
                             display: 'inline-block',
@@ -3368,7 +3368,7 @@ function Index() {
                             marginRight: '10px',
                             textAlign: 'right',
                           }}
-                        ></span>
+                        ></span> */}
                         In Process
                       </td>
                       <td
