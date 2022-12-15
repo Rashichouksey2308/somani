@@ -305,7 +305,7 @@ function Index() {
       return 'Conditional';
     }
     if (type == '(44C) Latest Date Of Shipment' || type == '(31D) Date Of Expiry') {
-      return moment(value).format('DD-MM-YYYY');
+      return value ? moment(value).format('DD-MM-YYYY') : '' ;
     } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
     } else if (type == '(32B) Currency Code & Amount') {
@@ -323,7 +323,7 @@ function Index() {
 
   const getDataFormDropDown = (value) => {
     if (fieldType == 'date') {
-      return moment(value).format('DD-MM-YYYY');
+      return value ? moment(value).format('DD-MM-YYYY'): '';
     } else if (fieldType == 'number') {
       return Number(value).toLocaleString('en-In', {
         minimumFractionDigits: 2,
@@ -362,7 +362,7 @@ function Index() {
         maximumFractionDigits: 2,
       })}`;
     } else if (value === '(43T) Transhipments') {
-      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments;
+      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments == 'Yes' ? 'Allowed' : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getData(existing, value)}  %`;
     } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
