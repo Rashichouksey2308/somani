@@ -327,7 +327,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                         {returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,undefined,2,2) + '%'}
                       </p>
                     </td>
                   </tr>
@@ -413,8 +413,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                         {marginData?.marginData?.order?.tolerance ? marginData.marginData?.order?.tolerance + ' %' : 0}
-                       
+                          {marginData.marginData?.order?.tolerance ? returnReadableNumber(marginData.marginData?.order?.tolerance,undefined,2,2) : 0} %
                       </p>
                     </td>
                   </tr>
@@ -455,11 +454,13 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData.marginData?.order?.termsheet
-                                    ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString(
-                                        'en-In',
-                                      ) + ' %'
-                                    : ''}
+                        {
+                        (marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                          ? returnReadableNumber(marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney ,undefined,2,2)
+                          : 0)
+                          +
+                        '%'
+                      }
                       </p>
                     </td>
                   </tr>

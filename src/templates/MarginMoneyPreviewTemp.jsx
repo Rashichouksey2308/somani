@@ -1,5 +1,7 @@
 import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
+
 
 export default function MarginMoneyPreviewTemp(marginData) {
 
@@ -331,7 +333,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                       {returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,undefined,2,2) + '%'}
                       </p>
                     </td>
                   </tr>
@@ -413,16 +415,7 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
-                          marginData.marginData?.order?.tolerance
-                            ? marginData.marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
-                            : 0,
-                          '%',
-                          '',
-                        )}
+                      {marginData.marginData?.order?.tolerance ? returnReadableNumber(marginData.marginData?.order?.tolerance,undefined,2,2) : 0} %
                       </p>
                     </td>
                   </tr>
@@ -463,13 +456,13 @@ export default function MarginMoneyPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
-                          marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                            : 0,
-                          '%',
-                          '',
-                        )}
+                       {
+                        (marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                          ? returnReadableNumber(marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney ,undefined,2,2)
+                          : 0)
+                          +
+                        '%'
+                      }
                       </p>
                     </td>
                   </tr>
