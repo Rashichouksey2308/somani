@@ -824,7 +824,7 @@ export default function SalesContract(changeHandler, data, preview) {
             <Col md={7} className={styles.right}>
               {' '}
               {data.curr}{' '}
-              {data.totalOrderValue?.toLocaleString('en-In', {
+              {data.totalOrderValue?.toLocaleString(data.curr=="INR"?'en-In':"en-EN", {
                 maximumFractionDigits: 2,
               })}{' '}
             </Col>

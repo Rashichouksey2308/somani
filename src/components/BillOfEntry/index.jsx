@@ -996,7 +996,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.invoiceValue
                                 : val?.boeDetails?.invoiceValue == 0
                                 ? ''
-                                : `USD` + ' ' + Number(val?.boeDetails?.invoiceValue)?.toLocaleString('en-IN')
+                                : val?.boeDetails?.currency + ' ' + Number(val?.boeDetails?.invoiceValue)?.toLocaleString('en-IN')
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             // value={addPrefixOrSuffix(
@@ -1036,7 +1036,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.conversionRate
                                 : val?.boeDetails?.conversionRate == 0
                                 ? ''
-                                : `INR` + ' ' + Number(val?.boeDetails?.conversionRate)?.toLocaleString('en-IN')
+                                :    Number(val?.boeDetails?.conversionRate)?.toLocaleString('en-IN')
                             }
                             // value={
 

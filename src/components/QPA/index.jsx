@@ -169,7 +169,7 @@ function Index(props) {
           vessel: data?.shippingLine?.vesselName,
           storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
-           cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+           cin:data?.company?.detailedCompanyInfo?.profile?.companyDetail?.CIN,
            buyerAddress: _get(data, 'buyer.addresses[0]', {}),
            cha: data?.CHA?.name,
           chaAddress: _get(data, 'CHA.addresses[0]', {}),

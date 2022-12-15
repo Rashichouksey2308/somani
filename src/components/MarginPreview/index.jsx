@@ -13,6 +13,7 @@ import { addPrefixOrSuffix } from 'utils/helper';
 import MarginBar from '../MarginBar';
 import styles from './index.module.scss';
 import TermsheetPopUp from '../TermsheetPopUp'
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index() {
   const toPrint = useRef();
@@ -137,7 +138,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                      {returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,undefined,2,2) + '%'}
                     </td>
                   </tr>
                   <tr>
@@ -155,7 +156,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
+                      {marginData?.order?.tolerance ? returnReadableNumber(marginData?.order?.tolerance,undefined,2,2) : 0} %
                     </td>
                   </tr>
                   <tr>
@@ -164,13 +165,13 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Margin Money (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          : 0,
-                        '%',
-                        '',
-                      )}
+                      {
+                        (marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                          ? returnReadableNumber(marginData?.order?.termsheet?.transactionDetails?.marginMoney ,undefined,2,2)
+                          : 0)
+                          +
+                        '%'
+                      }
                     </td>
                   </tr>
                   <tr>
